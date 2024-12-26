@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "leftSide": {
+      "goBack": "Back to website",
+      "spaceTogether": "Together in Learning, Together in success",
+      "register": {
+        "onboarding" : "Make Your account which your friends can visit"
+      }
+    },
+    "register": {
+      "form": {
+        "title": "Create an account"
+      }
+    }
+  }
+}

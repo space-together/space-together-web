@@ -1,20 +1,26 @@
-import { AuthChangeLanguages } from "@/components/auth/authChangeLanguages";
 import AuthLayoutImage from "@/components/auth/authLayoutImage";
-import AuthChangeTheme from "@/components/auth/nav/auth-theme";
+import AuthSetting from "@/components/auth/nav/authSetting";
 import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
 
 interface Props {
   children: React.ReactNode;
-  param : {lang : Locale}
+  params: Promise<{ lang: Locale }>;
 }
 
-const AuthLayout = ({ children, param : {lang} }: Props) => {
+const AuthLayout = async (props: Props) => {
+  const params = await props.params;
+
+  const { lang } = params;
+  const { children } = props;
+
+  const leftImagesDiction = (await getDictionary(lang)).auth.leftSide;
+
   return (
     <section className=" bg-base-300">
-      <AuthChangeTheme />
-      <AuthChangeLanguages lang={lang}/>
+      <AuthSetting lang={lang}/>
       <div className=" items-center justify-between flex min-h-screen w-full ">
-      <AuthLayoutImage />
+        <AuthLayoutImage diction={leftImagesDiction} lang={lang}/>
         {children}
       </div>
     </section>

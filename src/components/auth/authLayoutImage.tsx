@@ -6,10 +6,17 @@ import MyImage from "../my-components/myImage";
 import AuthLogo from "./auth-logo";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Locale } from "@/i18n";
+import { leftSideDictionType } from "@/locale/types/authDictionTypes";
 
-const AuthLayoutImage = () => {
+interface props {
+  lang: Locale;
+  diction: leftSideDictionType;
+}
+
+const AuthLayoutImage = ({ lang , diction}: props) => {
   const theme = UseTheme();
-    const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <div className=" w-1/2 h-screen relative">
@@ -19,22 +26,23 @@ const AuthLayoutImage = () => {
           theme && "text-white"
         )}
       >
-        <div className={cn("btn rounded-full btn-ghost backdrop-blur-lg")}>
+        <div className={cn(" p-2")}>
           <AuthLogo />
         </div>
         <Link
           className={cn(
-            "btn rounded-full mr-4 btn-ghost backdrop-blur-lg",
+            "btn btn-sm group mr-4 btn-ghost backdrop-blur-lg bg-white/10",
             theme === "dark" && "hover:bg-black/30"
           )}
           href={`/`}
         >
-          Back to website <GrLinkNext />
+          {diction.goBack}
+          <GrLinkNext className="group/toHome duration-300 group-hover:scale-x-125" />
         </Link>
       </div>
       <div className=" w-full h-full relative">
         <MyImage
-          src="/images/9.jpg"
+          src="/images/8.jpg"
           alt="Picture of the author"
           className="  h-full w-full"
         />
@@ -43,9 +51,11 @@ const AuthLayoutImage = () => {
         )}
         <div className=" absolute w-full bottom-0 bg-gradient-to-t from-black to-transparent h-1/3 z-10">
           <div className=" h-full w-full relative">
-            {pathname === "/auth/register" && (
+            {pathname === `/${lang}/auth/register` && (
               <div>
-                <h4 className=" happy-title-base text-2xl">Together in Learning, Together in success</h4>
+                <h4 className=" happy-title-base text-2xl">
+                  {diction.spaceTogether}
+                </h4>
               </div>
             )}
           </div>
