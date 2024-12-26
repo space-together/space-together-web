@@ -6,7 +6,7 @@ import MyImage from "@/components/my-components/myImage";
 const Page = () => {
   return (
     <div className="w-full justify-center flex">
-      <div className="card bg-base-300 p-4 gap-4 shadow-xl">
+      <div className=" p-4 gap-4">
         <AuthLogo />
         <LoginForm />
         <span className="justify-center flex items-center text-sm font-semibold text-wrap">

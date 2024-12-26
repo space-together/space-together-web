@@ -5,7 +5,7 @@ const AuthLogo = () => {
   return (
     <div className=' flex justify-center  gap-2 items-center'>
       <MyImage src='/logo/1.png' className=' size-8'/>
-      <h3 className=' font-bold font-allura text-xl'>space-together</h3>
+      <h3 className=' font-semibold font-allura text-lg'>space-together</h3>
     </div>
   )
 }

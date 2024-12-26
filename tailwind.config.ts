@@ -132,13 +132,19 @@ const config: Config = {
     plugin(function ({ addComponents }) {
       addComponents({
         ".happy-card": {
-          "@apply bg-base-300 card p-4 shadow-xl": {},
+          "@apply bg-base-300 card p-4 shadow-xl border-2 border-base-200": {},
         },
         ".happy-line": {
           "@apply flex flex-col gap-4": {},
         },
         ".happy-title-base": {
           "@apply font-semibold text-lg": {},
+        },
+        ".happy-title-head": {
+          "@apply font-bold text-2xl": {},
+        },
+        ".happy-page": {
+          "@apply min-h-screen p-2 flex flex-col space-y-2 happy-line": {},
         },
       });
     }),
