@@ -133,7 +133,7 @@ const AuthSetting = ({ lang, diction }: props) => {
                   size="sm"
                   variant="ghost"
                 >
-                  <span className={cn(theme === t && "text-info")}>{t}</span>
+                  <span className={cn(" capitalize" , theme === t && "text-info")}>{t}</span>
                   <MyImage
                     src={`/icons/${
                       t === "dark" ? "moon" : "sun"

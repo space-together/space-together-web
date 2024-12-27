@@ -27,7 +27,11 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
       </React.Fragment>
     ));
 
-    return <p className="happy-title-base text-3xl font-smallAndBig text-white text-center">{splitSentence}</p>;
+    return (
+      <p className="happy-title-base text-3xl font-smallAndBig text-white text-center">
+        {splitSentence}
+      </p>
+    );
   };
   return (
     <div className=" w-1/2 h-screen relative">
@@ -60,15 +64,15 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         {theme === "dark" && (
           <div className=" absolute w-full top-0 bg-black/20 z-10 h-screen" />
         )}
-        <div className=" absolute w-full bottom-0 bg-gradient-to-t from-black to-transparent h-1/3 z-10 card">
+        <div className=" absolute w-full bottom-0 bg-gradient-to-t from-black to-transparent h-1/4 z-10">
           <div className=" h-full w-full relative mt-4">
             {pathname === `/${lang}/auth/register` && (
               <div className=" ">
-                  {SentenceBreaker(diction.spaceTogether)}
+                {SentenceBreaker(diction.spaceTogether)}
                 <div className="  flex justify-center mt-8 gap-2">
-                  <div className=" h-1 w-[12%] bg-white backdrop-blur-lg rounded-full"/>
-                  <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full"/>
-                  <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full"/>
+                  <div className=" h-1 w-[12%] bg-white backdrop-blur-lg rounded-full" />
+                  <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full" />
+                  <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full" />
                 </div>
               </div>
             )}
