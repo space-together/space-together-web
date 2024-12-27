@@ -23,7 +23,11 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
     const splitSentence = sentence.split(",").map((part, index) => (
       <React.Fragment key={index}>
         {part.trim()}
-        {index < sentence.split(",").length - 1 && <br />}
+        {index < sentence.split(",").length - 1 && (
+          <>
+            ,<br />
+          </>
+        )}
       </React.Fragment>
     ));
 

@@ -14,14 +14,16 @@ const AuthLayout = async (props: Props) => {
   const { lang } = params;
   const { children } = props;
 
-  const auth = await getDictionary(lang);
+  const diction = await getDictionary(lang);
 
   return (
     <section className=" bg-base-300">
-      <AuthSetting lang={lang} diction={auth.auth.setting}/>
-      <div className=" items-center justify-between flex min-h-screen w-full ">
-        <AuthLayoutImage diction={auth.auth.leftSide} lang={lang}/>
+      <AuthSetting lang={lang} diction={diction.auth.setting}/>
+      <div className=" items-center justify-between flex min-h-screen w-full">
+        <AuthLayoutImage diction={diction.auth.leftSide} lang={lang}/>
+       <div className=" w-1/2">
         {children}
+       </div>
       </div>
     </section>
   );

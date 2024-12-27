@@ -2,7 +2,7 @@
   "auth": {
     "setting": {
       "dialog": {
-        "title": "Hindura imiterere",
+        "title": "Hindura imiteguro y'okwemererwa",
         "description": "Hindura imimerere yurubuga",
         "button": {
           "save": "Hindura",
@@ -14,7 +14,7 @@
           "en": "English"
         },
         "theme": {
-          "title": "Ururimi",
+          "title": "Amabara",
           "dark": "dark",
           "light": "light"
         }
@@ -28,8 +28,17 @@
       }
     },
     "register": {
+      "page": {
+        "title": "Fungura konti",
+        "paragraph": "Ufite konti isanzwe?",
+        "login": "Injira"
+      },
       "form": {
-        "title": "Kora koti yawe"
+        "name": "Amazina yose",
+        "email": "Imeyili",
+        "role": "Umwanya",
+        "gender": "Igitsina",
+        "password": "Ijambo ry'ibanga"
       }
     }
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { BsGearWide } from "react-icons/bs";
+import { BsGearWide, BsPalette } from "react-icons/bs";
 import { IoLanguageSharp } from "react-icons/io5";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -119,7 +119,7 @@ const AuthSetting = ({ lang, diction }: props) => {
           {/* theme */}
           <div className="">
             <div className=" flex gap-2 items-center">
-              <IoLanguageSharp />
+              <BsPalette />
               <h4 className=" happy-title-base text-base">
                 {diction.dialog.theme.title}
               </h4>

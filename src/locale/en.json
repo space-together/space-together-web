@@ -14,7 +14,7 @@
           "en": "English"
         },
         "theme": {
-          "title": "Title",
+          "title": "Theme",
           "dark": "dark",
           "light": "light"
         }
@@ -28,8 +28,17 @@
       }
     },
     "register": {
+      "page": {
+        "title": "Create an account",
+        "paragraph": "Already have an account?",
+        "login" : "Login"
+      },
       "form": {
-        "title": "Create an account"
+        "name": "Full name",
+        "email": "Email",
+        "role" : "Role",
+        "gender" : "Gender",
+        "password" : "Password"
       }
     }
   }

@@ -142,7 +142,7 @@ const config: Config = {
           "@apply font-semibold text-lg": {},
         },
         ".happy-title-head": {
-          "@apply font-bold text-2xl": {},
+          "@apply font-bold text-3xl": {},
         },
         ".happy-page": {
           "@apply min-h-screen p-2 flex flex-col space-y-2 happy-line": {},
