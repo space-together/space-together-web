@@ -28,3 +28,11 @@ export interface AuthSettingDictionType {
     };
   };
 }
+
+export type authRegisterFormDiction = {
+  name: string;
+  email: string;
+  role: string;
+  gender: string;
+  password: string;
+}
