@@ -30,6 +30,7 @@ const config: Config = {
         amagro: ["Amagro", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
         corinthia: ["Corinthia", "sans-serif"],
+        smallAndBig: ['"Roboto"', "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
