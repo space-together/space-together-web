@@ -14,7 +14,7 @@ interface props {
   diction: leftSideDictionType;
 }
 
-const AuthLayoutImage = ({ lang , diction}: props) => {
+const AuthLayoutImage = ({ lang, diction }: props) => {
   const theme = UseTheme();
   const pathname = usePathname();
 

@@ -1,10 +1,30 @@
 {
   "auth": {
+    "setting": {
+      "dialog": {
+        "title": "Auth setting",
+        "description": "Change how website look",
+        "button": {
+          "save": "Save",
+          "cancel": "cancel"
+        },
+        "language": {
+          "title": "language",
+          "kiny": "Kinyarwanda",
+          "en": "English"
+        },
+        "theme": {
+          "title": "Title",
+          "dark": "dark",
+          "light": "light"
+        }
+      }
+    },
     "leftSide": {
       "goBack": "Back to website",
       "spaceTogether": "Together in Learning, Together in success",
       "register": {
-        "onboarding" : "Make Your account which your friends can visit"
+        "onboarding": "Make Your account which your friends can visit"
       }
     },
     "register": {

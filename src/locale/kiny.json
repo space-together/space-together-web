@@ -1,5 +1,25 @@
 {
   "auth": {
+    "setting": {
+      "dialog": {
+        "title": "Hindura imiterere",
+        "description": "Hindura imimerere yurubuga",
+        "button": {
+          "save": "Hindura",
+          "cancel": "bireke"
+        },
+        "language": {
+          "title": "Ururimi",
+          "kiny": "Kinyarwanda",
+          "en": "English"
+        },
+        "theme": {
+          "title": "Ururimi",
+          "dark": "dark",
+          "light": "light"
+        }
+      }
+    },
     "leftSide": {
       "goBack": "Subira ahabanza",
       "spaceTogether": "Together in Learning, Together in success",
