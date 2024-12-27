@@ -41,7 +41,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
     <div className=" w-1/2 h-screen relative">
       <div
         className={cn(
-          "absolute top-0 items-center z-10 m-2 flex justify-between w-full",
+          "absolute z-50 top-0 items-center m-2 flex justify-between w-full",
           theme && "text-white"
         )}
       >
@@ -50,10 +50,10 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         </div>
         <Link
           className={cn(
-            "btn btn-sm group mr-4 btn-ghost backdrop-blur-lg bg-white/10",
+            "btn btn-sm group mr-4 z- btn-ghost backdrop-blur-lg bg-white/10",
             theme === "dark" && "hover:bg-black/30"
           )}
-          href={`/`}
+          href={`/${lang}/`}
         >
           {diction.goBack}
           <GrLinkNext className="group/toHome duration-300 group-hover:scale-x-125" />
@@ -69,7 +69,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
           <div className=" absolute w-full top-0 bg-black/20 z-10 h-screen" />
         )}
         <div className=" absolute w-full bottom-0 bg-gradient-to-t from-black to-transparent h-1/4 z-10">
-          <div className=" h-full w-full relative mt-4">
+          <div className=" w-full relative mt-4">
             {pathname === `/${lang}/auth/register` && (
               <div className=" ">
                 {SentenceBreaker(diction.spaceTogether)}

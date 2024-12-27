@@ -35,4 +35,5 @@ export type authRegisterFormDiction = {
   role: string;
   gender: string;
   password: string;
+  button : string,
 }

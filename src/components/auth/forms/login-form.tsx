@@ -2,13 +2,13 @@
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginModel, loginModelTypes } from "@/models/auth/login-model";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AtSign } from "lucide-react";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { LoginModel, loginModelTypes } from "@/utils/schema/userSchema";
 
 export const LoginForm = () => {
   const [seePass, setSeePass] = useState(false);

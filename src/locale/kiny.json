@@ -38,7 +38,8 @@
         "email": "Imeyili",
         "role": "Umwanya",
         "gender": "Igitsina",
-        "password": "Ijambo ry'ibanga"
+        "password": "Ijambo ry'ibanga",
+        "button" : "Kora konti cyashya"
       }
     }
   }

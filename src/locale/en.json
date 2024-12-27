@@ -38,7 +38,8 @@
         "email": "Email",
         "role" : "Role",
         "gender" : "Gender",
-        "password" : "Password"
+        "password" : "Password",
+        "button" : "Create new account"
       }
     }
   }
