@@ -33,7 +33,12 @@ export type authRegisterFormDiction = {
   name: string;
   email: string;
   role: string;
-  gender: string;
+  gender: {
+    label : string,
+    male : string,
+    female : string,
+    other : string,
+  };
   password: string;
   button : string,
 }

@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
@@ -57,8 +58,13 @@ const RegisterForm = ({ diction, userRoles }: props) => {
     setError("");
     setSuccess("");
 
+    const validation = registerSchema.safeParse(values);
+    if (!validation.success) {
+      return setError("Invalid Register Validation");
+    }
+
     startTransition(async () => {
-      const result = await createUserAPI(values);
+      const result = await createUserAPI(validation.data);
 
       if ("message" in result) {
         setError(result.message);
@@ -125,20 +131,21 @@ const RegisterForm = ({ diction, userRoles }: props) => {
               </FormItem>
             )}
           />
-          <FormField
+         <div className=" flex gap-2 w-full">
+         <FormField
             control={form.control}
             name="rl"
             disabled={isPending}
             render={({ field }) => (
-              <FormItem>
+              <FormItem className=" w-1/2">
                 <FormLabel>{diction.role}</FormLabel>
                 <Select
                   disabled={"message" in userRoles || isPending}
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <FormControl>
-                    <SelectTrigger>
+                  <FormControl className=" w-full">
+                    <SelectTrigger  className="">
                       <SelectValue placeholder="Select role" />
                     </SelectTrigger>
                   </FormControl>
@@ -160,6 +167,43 @@ const RegisterForm = ({ diction, userRoles }: props) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="gd"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>{diction.gender.label}</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex  space-x-2"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="M" />
+                      </FormControl>
+                      <FormLabel className="font-normal">{diction.gender.male}</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="F" />
+                      </FormControl>
+                      <FormLabel className="font-normal">{diction.gender.female}</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="O"/>
+                      </FormControl>
+                      <FormLabel className="font-normal">{diction.gender.other}</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+         </div>
           <FormField
             name="pw"
             control={form.control}
@@ -198,7 +242,9 @@ const RegisterForm = ({ diction, userRoles }: props) => {
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
         </div>
-        <Button type="submit" variant="info" className=" w-full">{diction.button}</Button>
+        <Button type="submit" variant="info" className=" w-full">
+          {diction.button}
+        </Button>
       </form>
     </Form>
   );

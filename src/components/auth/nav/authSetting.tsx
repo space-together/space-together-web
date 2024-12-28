@@ -61,7 +61,7 @@ const AuthSetting = ({ lang, diction }: props) => {
           variant="ghost"
           size="sm"
           shape="circle"
-          className=" absolute right-2 top-2 btn-square btn-circle"
+          className=" absolute right-2 top-2 btn-square btn-circle z-50"
         >
           <BsGearWide size={24} />
           <span className=" sr-only">auth setting</span>

@@ -27,7 +27,7 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        " radio-xs radio radio-info",
+        " radio-sm  size-4 radio radio-info",
         className
       )}
       {...props}

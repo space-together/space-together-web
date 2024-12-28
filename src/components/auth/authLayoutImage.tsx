@@ -38,7 +38,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
     );
   };
   return (
-    <div className=" w-1/2 h-screen relative">
+    <div className=" w-1/2 h-screen fixed">
       <div
         className={cn(
           "absolute z-50 top-0 items-center m-2 flex justify-between w-full",

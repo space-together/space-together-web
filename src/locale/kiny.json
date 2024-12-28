@@ -37,7 +37,12 @@
         "name": "Amazina yose",
         "email": "Imeyili",
         "role": "Umwanya",
-        "gender": "Igitsina",
+        "gender" : {
+          "label" : "Gabo",
+          "male" : "Gore",
+          "female" : "Female",
+          "other" : "Abandi"
+        },
         "password": "Ijambo ry'ibanga",
         "button" : "Kora konti cyashya"
       }

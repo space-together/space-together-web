@@ -37,7 +37,12 @@
         "name": "Full name",
         "email": "Email",
         "role" : "Role",
-        "gender" : "Gender",
+        "gender" : {
+          "label" : "Gender",
+          "male" : "Male",
+          "female" : "Female",
+          "other" : "Other"
+        },
         "password" : "Password",
         "button" : "Create new account"
       }
