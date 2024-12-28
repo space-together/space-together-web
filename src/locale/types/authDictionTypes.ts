@@ -34,11 +34,17 @@ export type authRegisterFormDiction = {
   email: string;
   role: string;
   gender: {
-    label : string,
-    male : string,
-    female : string,
-    other : string,
+    label: string;
+    male: string;
+    female: string;
+    other: string;
   };
   password: string;
-  button : string,
-}
+  button: string;
+};
+
+export type authLoginFormDiction = {
+  email: string;
+  password: string;
+  button: string;
+};

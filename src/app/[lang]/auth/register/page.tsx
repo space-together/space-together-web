@@ -6,21 +6,31 @@ import { fetchAllUserRoles } from "@/utils/service/functions/fetchDataFn";
 import Link from "next/link";
 
 interface Props {
-  params : Promise<{lang : Locale}>
+  params: Promise<{ lang: Locale }>;
 }
-const RegisterPage =async (props : Props) => {
+const RegisterPage = async (props: Props) => {
   const params = await props.params;
-  const {lang} = params;
+  const { lang } = params;
   const diction = await getDictionary(lang);
   const userRoles = await fetchAllUserRoles();
   return (
     <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
-        <h1 className=" happy-title-head">{diction.auth.register.page.title}</h1>
-        <p>{diction.auth.register.page.paragraph} <Link href={`/${lang}/auth/login`} className=" link link-info">{diction.auth.register.page.login}</Link></p>
+        <h1 className=" happy-title-head">
+          {diction.auth.register.page.title}
+        </h1>
+        <p>
+          {diction.auth.register.page.paragraph}{" "}
+          <Link href={`/${lang}/auth/login`} className=" link link-info">
+            {diction.auth.register.page.login}
+          </Link>
+        </p>
       </div>
       <div className=" mt-4 w-full space-y-3">
-        <RegisterForm userRoles={userRoles} diction={diction.auth.register.form}/>
+        <RegisterForm
+          userRoles={userRoles}
+          diction={diction.auth.register.form}
+        />
         <AuthProviders />
       </div>
     </div>

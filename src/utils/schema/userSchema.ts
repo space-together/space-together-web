@@ -41,8 +41,8 @@ export const registerSchema = z.object({
 export type registerSchemaType = z.infer<typeof registerSchema>;
 
 export const LoginModel = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, {
+  em: z.string().email(),
+  pw: z.string().min(1, {
     message: "Password is required, please enter your password",
   }),
 });

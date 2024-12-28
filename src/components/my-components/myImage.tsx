@@ -1,18 +1,33 @@
-import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
-interface props {
-    src : string,
-    alt ?: string,
-    className ?: string,
-    classname ?: string, 
+interface Props {
+  src: string;
+  alt?: string;
+  className?: string;
+  classname?: string; // consider removing this if it's redundant
 }
-const MyImage = ({src , alt , className , classname} : props) => {
+
+const MyImage = ({
+  src,
+  alt = "Default alt text",
+  className,
+  classname,
+}: Props) => {
   return (
-    <div className={cn("size-32 relative", className)}>
-      <Image src={src} alt={cn("alt for :" , alt)} className={cn("object-cover", classname)} fill/>
+    <div className={cn("size-32 relative w-64 h-64", className)}>
+      <Image
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
+        src={src}
+        alt={alt}
+        className={cn("object-cover", classname)}
+        fill
+        blurDataURL={`${src}?w=10&q=10`} // Low-quality blur preview
+        quality={90} // Adjust quality
+        priority // Ensure critical images load first
+      />
     </div>
-  )
-}
+  );
+};
 
-export default MyImage
+export default MyImage;

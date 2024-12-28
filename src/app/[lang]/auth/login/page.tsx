@@ -1,26 +1,34 @@
-"use client"
-import AuthLogo from "@/components/auth/auth-logo";
+import AuthProviders from "@/components/auth/authProviders";
 import { LoginForm } from "@/components/auth/forms/login-form";
-import MyImage from "@/components/my-components/myImage";
+import { Locale } from "@/i18n";
+import { getDictionary } from "@/lib/dictionary";
+import Link from "next/link";
 
-const Page = () => {
+interface Props {
+  params : Promise<{lang : Locale}>
+}
+
+const Page = async (props : Props) => {
+    const params = await props.params;
+    const { lang } = params;
+    const diction = await getDictionary(lang);
+
   return (
-    <div className="w-full justify-center flex">
-      <div className=" p-4 gap-4">
-        <AuthLogo />
-        <LoginForm />
-        <span className="justify-center flex items-center text-sm font-semibold text-wrap">
-          Providers
-        </span>
-        <div>
-          <button className="btn w-full btn-neutral">
-            <MyImage
-              src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
-              className="size-6"
-            />
-            Continue with Google
-          </button>
-        </div>
+    <div  className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
+       <div className=" space-y-2">
+        <h1 className=" happy-title-head">
+          {diction.auth.login.page.title}
+        </h1>
+        <p>
+          {diction.auth.register.page.paragraph}{" "}
+          <Link href={`/${lang}/auth/register`} className=" link link-info">
+            {diction.auth.login.page.login}
+          </Link>
+        </p>
+      </div>
+      <div className=" mt-4 w-full space-y-3">
+        <LoginForm diction={diction.auth.login.form}/>
+        <AuthProviders />
       </div>
     </div>
   );

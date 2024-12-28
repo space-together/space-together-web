@@ -24,7 +24,7 @@
       "goBack": "Subira ahabanza",
       "spaceTogether": "Together in Learning, Together in success",
       "register": {
-        "onboarding" : "Make Your account which your friends can visit"
+        "onboarding": "Make Your account which your friends can visit"
       }
     },
     "register": {
@@ -37,14 +37,26 @@
         "name": "Amazina yose",
         "email": "Imeyili",
         "role": "Umwanya",
-        "gender" : {
-          "label" : "Gabo",
-          "male" : "Gore",
-          "female" : "Female",
-          "other" : "Abandi"
+        "gender": {
+          "label": "Gabo",
+          "male": "Gore",
+          "female": "Female",
+          "other": "Abandi"
         },
         "password": "Ijambo ry'ibanga",
-        "button" : "Kora konti cyashya"
+        "button": "Kora konti cyashya"
+      }
+    },
+    "login": {
+      "page": {
+        "title": "Injira",
+        "paragraph": "Wifuza konti nshya?",
+        "login": "Iyandikishe"
+      },
+      "form": {
+        "email": "Imeyili",
+        "password": "Ijambo ry'ibanga",
+        "button": "Injira"
       }
     }
   }

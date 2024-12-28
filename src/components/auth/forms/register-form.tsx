@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { registerSchema, registerSchemaType } from "@/utils/schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "@/hooks/use-toast";
 import { UserRoleModel } from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
 import {
@@ -68,18 +67,9 @@ const RegisterForm = ({ diction, userRoles }: props) => {
 
       if ("message" in result) {
         setError(result.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: result.message,
-          variant: "destructive",
-        });
       } else {
         // It's a success
         setSuccess("User created successfully!");
-        toast({
-          title: "User created successfully 😁",
-          description: <div>user: {result.nm}</div>,
-        });
         form.reset();
       }
     });

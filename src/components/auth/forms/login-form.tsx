@@ -1,97 +1,126 @@
 "use client";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { AtSign } from "lucide-react";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { LoginModel, loginModelTypes } from "@/utils/schema/userSchema";
+import { FormMessageError, FormMessageSuccess } from "./form-message";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { Button } from "@/components/ui/button";
+import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
 
-export const LoginForm = () => {
-  const [seePass, setSeePass] = useState(false);
+interface props {
+  diction: authLoginFormDiction;
+}
+
+export const LoginForm = ({ diction }: props) => {
+  const [error, setError] = useState<undefined | string>("");
+  const [success, setSuccess] = useState<undefined | string>("");
+  const [seePassword, setSeePassword] = useState(true);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<loginModelTypes>({
     resolver: zodResolver(LoginModel),
     defaultValues: {
-      email: "",
-      password: ""
+      em: "",
+      pw: "",
     },
   });
 
+  const handleSeePassword = () => {
+    setSeePassword((prev) => !prev);
+  };
+
   const onSubmit = (data: loginModelTypes) => {
-    console.log(data);
+    setError("");
+        setSuccess("");
+    
+        const validation = LoginModel.safeParse(data);
+        if (!validation.success) {
+          return setError("Invalid Login Validation");
+        }
+    
+        startTransition(async () => {
+          console.log(data);
+        });
+    
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <h2 className="font-semibold text-2xl text-center mb-4">
-          Administration Login
-        </h2>
-
-        {/* Email Field */}
-        <FormField
-          name="email"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="relative">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className=" w-full space-y-2"
+      >
+        <div className=" space-y-1">
+          <FormField
+            control={form.control}
+            name="em"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{diction.email}</FormLabel>
+                <FormControl>
                   <Input
-                    id="email"
-                    {...field}
-                    className="ps-9 w-96"
-                    placeholder="Email"
                     type="email"
-                  />
-                  <FormLabel className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <AtSign size={16} aria-hidden="true" />
-                  </FormLabel>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Password Field */}
-        <FormField
-          name="password"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    id="password"
+                    disabled={isPending}
+                    placeholder="your email"
                     {...field}
-                    className="ps-9 w-96"
-                    placeholder="Password"
-                    type={seePass ? "text" : "password"}
                   />
-                  <FormLabel className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <RiLockPasswordLine size={16} aria-hidden="true" />
-                  </FormLabel>
-                  <button
-                    type="button"
-                    onClick={() => setSeePass(!seePass)}
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground/80"
-                  >
-                    {seePass ? <FiEye size={16} /> : <FiEyeOff size={16} />}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <button type="submit" className="btn btn-info mt-4 w-full">
-          Login
-        </button>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="pw"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className=" ">{diction.password}</FormLabel>
+                <FormControl>
+                  <div className=" relative w-full">
+                    <Input
+                      id="password"
+                      {...field}
+                      className="w-full"
+                      placeholder="********"
+                      type={seePassword ? "text" : "password"}
+                      disabled={isPending}
+                    />
+                    <button
+                      className=" absolute right-4 top-2"
+                      type="button"
+                      onClick={() => handleSeePassword()}
+                    >
+                      {seePassword ? (
+                        <IoEyeOutline size={24} />
+                      ) : (
+                        <IoEyeOffOutline size={24} />
+                      )}
+                    </button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className=" mt-2">
+          <FormMessageError message={error} />
+          <FormMessageSuccess message={success} />
+        </div>
+        <Button type="submit" variant="info" className=" w-full">
+          {diction.button}
+        </Button>
       </form>
     </Form>
   );

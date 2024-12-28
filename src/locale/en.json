@@ -46,6 +46,18 @@
         "password" : "Password",
         "button" : "Create new account"
       }
+    },
+    "login": {
+      "page": {
+        "title": "Login",
+        "paragraph": "Create an account?",
+        "login" : "Register"
+      },
+      "form": {
+        "email": "Email",
+        "password" : "Password",
+        "button" : "Login"
+      }
     }
   }
 }
