@@ -183,7 +183,7 @@ const RegisterForm = ({ diction, userRoles }: props) => {
                       <FormControl>
                         <RadioGroupItem value="M" />
                       </FormControl>
-                      <FormLabel className="font-normal">{diction.gender.male}</FormLabel>
+                      <FormLabel className="font-normal">{diction.gender.label}</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
