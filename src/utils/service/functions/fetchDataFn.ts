@@ -1,6 +1,6 @@
-import { UserModel, UserRoleModel } from "@/utils/models/userModel";
+import { UserRoleModel } from "@/utils/models/userModel";
 import { ApiClient } from "../fetchingAPIClient";
-import { FetchError } from "@/utils/types/fetchTypes";
+import { FetchError, tokenModel } from "@/utils/types/fetchTypes";
 import { registerSchemaType } from "@/utils/schema/userSchema";
 
 const apiClient = new ApiClient();
@@ -14,7 +14,7 @@ export async function fetchAllUserRoles(): Promise<
 
 export async function createUserAPI(
   user: registerSchemaType
-): Promise<UserModel | FetchError> {
-  const endpoint = "users";
+): Promise<tokenModel | FetchError> {
+  const endpoint = "auth/user/register";
   return apiClient.postData(endpoint, user, "users");
 }

@@ -30,13 +30,18 @@ import { useState, useTransition } from "react";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { createUserAPI } from "@/utils/service/functions/fetchDataFn";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { useRouter } from "next/navigation";
+import { Locale } from "@/i18n";
 
 interface props {
   diction: authRegisterFormDiction;
   userRoles: UserRoleModel[] | FetchError;
+  lang : Locale
 }
 
-const RegisterForm = ({ diction, userRoles }: props) => {
+const RegisterForm = ({ diction, userRoles,lang }: props) => {
+  const router = useRouter();
+
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(true);
@@ -68,7 +73,7 @@ const RegisterForm = ({ diction, userRoles }: props) => {
       if ("message" in result) {
         setError(result.message);
       } else {
-        // It's a success
+        router.push(`/${lang}/auth/onboarding`)
         setSuccess("User created successfully!");
         form.reset();
       }
@@ -121,79 +126,85 @@ const RegisterForm = ({ diction, userRoles }: props) => {
               </FormItem>
             )}
           />
-         <div className=" flex gap-2 w-full">
-         <FormField
-            control={form.control}
-            name="rl"
-            disabled={isPending}
-            render={({ field }) => (
-              <FormItem className=" w-1/2">
-                <FormLabel>{diction.role}</FormLabel>
-                <Select
-                  disabled={"message" in userRoles || isPending}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl className=" w-full">
-                    <SelectTrigger  className="">
-                      <SelectValue placeholder="Select role" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent data-theme={UseTheme()}>
-                    {Array.isArray(userRoles) &&
-                      userRoles.map((role) => (
-                        <SelectItem key={role.rl} value={role.id}>
-                          {role.rl}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-                <div className=" ">
-                  {"message" in userRoles && (
-                    <FormMessageError message={userRoles.message} />
-                  )}
-                </div>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="gd"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>{diction.gender.label}</FormLabel>
-                <FormControl>
-                  <RadioGroup
+          <div className=" flex gap-2 w-full">
+            <FormField
+              control={form.control}
+              name="rl"
+              disabled={isPending}
+              render={({ field }) => (
+                <FormItem className=" w-1/2">
+                  <FormLabel>{diction.role}</FormLabel>
+                  <Select
+                    disabled={"message" in userRoles || isPending}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex  space-x-2"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="M" />
-                      </FormControl>
-                      <FormLabel className="font-normal">{diction.gender.label}</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="F" />
-                      </FormControl>
-                      <FormLabel className="font-normal">{diction.gender.female}</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="O"/>
-                      </FormControl>
-                      <FormLabel className="font-normal">{diction.gender.other}</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-         </div>
+                    <FormControl className=" w-full">
+                      <SelectTrigger className="">
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent data-theme={UseTheme()}>
+                      {Array.isArray(userRoles) &&
+                        userRoles.map((role) => (
+                          <SelectItem key={role.rl} value={role.id}>
+                            {role.rl}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                  <div className=" ">
+                    {"message" in userRoles && (
+                      <FormMessageError message={userRoles.message} />
+                    )}
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="gd"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>{diction.gender.label}</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex  space-x-2"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="M" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {diction.gender.male}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="F" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {diction.gender.female}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="O" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {diction.gender.other}
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             name="pw"
             control={form.control}

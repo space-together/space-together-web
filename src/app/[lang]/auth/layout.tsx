@@ -17,7 +17,7 @@ const AuthLayout = async (props: Props) => {
   const diction = await getDictionary(lang);
 
   return (
-    <section className=" bg-base-300  from-base-300 bg-fixed">
+    <section className="bg-base-300">
       <AuthSetting lang={lang} diction={diction.auth.setting}/>
       <div className=" items-center justify-between flex min-h-screen w-full">
         <AuthLayoutImage diction={diction.auth.leftSide} lang={lang}/>

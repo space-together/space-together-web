@@ -28,6 +28,7 @@ const RegisterPage = async (props: Props) => {
       </div>
       <div className=" mt-4 w-full space-y-3">
         <RegisterForm
+        lang={lang}
           userRoles={userRoles}
           diction={diction.auth.register.form}
         />
