@@ -1,5 +1,7 @@
 // types/userModel.ts
 
+import { ProfileImageModelGet } from "./imageModel";
+
 export interface Gender {
   Male: "M"; // Male gender representation
   Female: "F"; // Female gender representation
@@ -19,7 +21,7 @@ export interface UserModelNew {
 
 export interface UserModel {
   id: string; // id
-  rl: string; // role id
+  rl?: string; // role id
   nm: string; // name
   un?: string; // username
   em: string; // email
@@ -29,7 +31,7 @@ export interface UserModel {
   gd?: keyof Gender; // gender
   co: string; // create date
   uo?: string; // update date
-  im?: string; // Image
+  im?: ProfileImageModelGet[]; // Images
 }
 
 export interface UserModelPut {

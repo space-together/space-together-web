@@ -61,20 +61,6 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-//   const cookies = request.cookies.get("authjs.csrf-token");
-
-    // get if use is login;
-    // const session = await auth();
-    // const is_auth_route = AuthRouter.includes(request.url);
-
-    // if (is_auth_route && session) {
-    //   return NextResponse.next(); // Continue if logged in
-    // }
-
-    // if (!session) {
-    //   return 
-    // }
-
   return NextResponse.next(); // Continue if logged in or on public route
 }
 
