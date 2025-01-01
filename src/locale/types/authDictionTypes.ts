@@ -49,3 +49,18 @@ export type authLoginFormDiction = {
   password: string;
   button: string;
 };
+
+export type authOnboardingFormDiction = {
+  image: string;
+  phone: string;
+  age: string;
+  username: string;
+  role: string;
+  gender: {
+    label: string;
+    male: string;
+    female: string;
+    other: string;
+  };
+  button: string;
+};

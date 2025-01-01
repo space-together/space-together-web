@@ -62,11 +62,24 @@
         "button": "Injira"
       }
     },
-    "onboarding" : {
+    "onboarding": {
       "page": {
         "title": "Zuza Umwirondoro Wawe",
-        "paragraph": "Fasha abandi kukumenya neza ushaka umwirondoro wawe.",
-        "button" : "Tangira"
+        "paragraph": "Fasha abandi kukumenya neza ushaka umwirondoro wawe."
+      },
+      "form": {
+        "image": "Ifoto y'umwirondoro",
+        "phone": "Numero ya telefone",
+        "age": "Imyaka",
+        "username": "Izina ry' umukoresha",
+        "role": "Uruhare",
+        "gender": {
+          "label": "Igitsina",
+          "male": "Gabo",
+          "female": "Gore",
+          "other": "Ikindi"
+        },
+        "button": "Tangira"
       }
     }
   }

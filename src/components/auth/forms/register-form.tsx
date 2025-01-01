@@ -15,17 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { registerSchema, registerSchemaType } from "@/utils/schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserRoleModel } from "@/utils/models/userModel";
-import { FetchError } from "@/utils/types/fetchTypes";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import UseTheme from "@/context/theme/use-theme";
+
 import { useState, useTransition } from "react";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { createUserAPI } from "@/utils/service/functions/fetchDataFn";
@@ -35,11 +25,10 @@ import { Locale } from "@/i18n";
 
 interface props {
   diction: authRegisterFormDiction;
-  userRoles: UserRoleModel[] | FetchError;
-  lang : Locale
+  lang: Locale;
 }
 
-const RegisterForm = ({ diction, userRoles,lang }: props) => {
+const RegisterForm = ({ diction, lang }: props) => {
   const router = useRouter();
 
   const [error, setError] = useState<undefined | string>("");
@@ -53,8 +42,6 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
       email: "",
       name: "",
       password: "",
-      gender: undefined,
-      role: "",
     },
   });
 
@@ -73,7 +60,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
       if ("message" in result) {
         setError(result.message);
       } else {
-        router.push(`/${lang}/auth/onboarding`)
+        router.push(`/${lang}/auth/onboarding`);
         setSuccess("User created successfully!");
         form.reset();
       }
@@ -126,85 +113,6 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
               </FormItem>
             )}
           />
-          <div className=" flex gap-2 w-full">
-            <FormField
-              control={form.control}
-              name="role"
-              disabled={isPending}
-              render={({ field }) => (
-                <FormItem className=" w-1/2">
-                  <FormLabel>{diction.role}</FormLabel>
-                  <Select
-                    disabled={"message" in userRoles || isPending}
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl className=" w-full">
-                      <SelectTrigger className="">
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={UseTheme()}>
-                      {Array.isArray(userRoles) &&
-                        userRoles.map((role) => (
-                          <SelectItem key={role.role} value={role.id}>
-                            {role.role}
-                          </SelectItem>
-                        ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                  <div className=" ">
-                    {"message" in userRoles && (
-                      <FormMessageError message={userRoles.message} />
-                    )}
-                  </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="gender"
-              render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>{diction.gender.label}</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex  space-x-2"
-                    >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="M" />
-                        </FormControl>
-                        <FormLabel className="font-normal">
-                          {diction.gender.male}
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="F" />
-                        </FormControl>
-                        <FormLabel className="font-normal">
-                          {diction.gender.female}
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="O" />
-                        </FormControl>
-                        <FormLabel className="font-normal">
-                          {diction.gender.other}
-                        </FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <FormField
             name="password"
             control={form.control}

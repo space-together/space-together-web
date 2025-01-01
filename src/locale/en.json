@@ -34,39 +34,52 @@
       "page": {
         "title": "Create an account",
         "paragraph": "Already have an account?",
-        "login" : "Login"
+        "login": "Login"
       },
       "form": {
         "name": "Full name",
         "email": "Email",
-        "role" : "Role",
-        "gender" : {
-          "label" : "Gender",
-          "male" : "Male",
-          "female" : "Female",
-          "other" : "Other"
+        "role": "Role",
+        "gender": {
+          "label": "Gender",
+          "male": "Male",
+          "female": "Female",
+          "other": "Other"
         },
-        "password" : "Password",
-        "button" : "Create new account"
+        "password": "Password",
+        "button": "Create new account"
       }
     },
     "login": {
       "page": {
         "title": "Login",
         "paragraph": "Create an account?",
-        "login" : "Register"
+        "login": "Register"
       },
       "form": {
         "email": "Email",
-        "password" : "Password",
-        "button" : "Login"
+        "password": "Password",
+        "button": "Login"
       }
     },
-    "onboarding" : {
+    "onboarding": {
       "page": {
         "title": "Complete Your Profile Setup",
-        "paragraph": "Help others understand you better by choosing your profile.",
-        "button" : "Get started"
+        "paragraph": "Help others understand you better by choosing your profile."
+      },
+      "form": {
+        "image": "Profile image",
+        "phone": "Phone number",
+        "age": "Age",
+        "username": "Username",
+        "role": "Role",
+        "gender": {
+          "label": "Gender",
+          "male": "Male",
+          "female": "Female",
+          "other": "Other"
+        },
+        "button": "Get start"
       }
     }
   }

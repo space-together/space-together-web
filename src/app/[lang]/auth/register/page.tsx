@@ -2,7 +2,6 @@ import AuthProviders from "@/components/auth/authProviders";
 import RegisterForm from "@/components/auth/forms/register-form";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
-import { fetchAllUserRoles } from "@/utils/service/functions/fetchDataFn";
 import Link from "next/link";
 
 interface Props {
@@ -12,7 +11,6 @@ const RegisterPage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
   const diction = await getDictionary(lang);
-  const userRoles = await fetchAllUserRoles();
   return (
     <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
@@ -29,7 +27,6 @@ const RegisterPage = async (props: Props) => {
       <div className=" mt-4 w-full space-y-3">
         <RegisterForm
         lang={lang}
-          userRoles={userRoles}
           diction={diction.auth.register.form}
         />
         <AuthProviders />

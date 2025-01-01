@@ -15,12 +15,6 @@ export const registerSchema = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
-  role: z.string().min(1, {
-    message: "Role is required",
-  }),
-  gender: z.enum(["M", "F", "O"], {
-    message: "Gender must be one of 'Male', 'Female', or 'Other'",
-  }),
   password: z
     .string()
     .min(6, {
@@ -50,10 +44,15 @@ export const LoginModel = z.object({
 export type loginModelTypes = z.infer<typeof LoginModel>;
 
 export const onboardingSchema = z.object({
-  image : z.string(),
-  username : z.string(),
-  age : z.string(),
-  phoneNumber : z.string(),
-  gender : z.string(),
-  role : z.string(),
+  image: z.string(),
+  username: z.string(),
+  age: z.string(),
+  phone: z.string(),
+  role: z.string().min(1, {
+    message: "Role is required",
+  }),
+  gender: z.enum(["M", "F", "O"], {
+    message: "Gender must be one of 'Male', 'Female', or 'Other'",
+  }),
 });
+export type onboardingSchemaTypes = z.infer<typeof onboardingSchema>;

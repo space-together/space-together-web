@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/theme/themeProviders";
 import { ClientThemeWrapper } from "@/context/theme/clientTheme";
 import { Toaster } from "@/components/ui/toaster";
+import { Toaster as SonnerToaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "space-together-site",
@@ -21,12 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+  <html lang="en">
       <body className={``}>
         <ThemeProvider>
           <ClientThemeWrapper>
+            <SonnerToaster position="top-right" />
             {children}
-            <Toaster />
+            <Toaster/>
           </ClientThemeWrapper>
         </ThemeProvider>
       </body>
