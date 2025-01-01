@@ -47,7 +47,7 @@ export const onboardingSchema = z.object({
   image: z.string(),
   username: z.string(),
   age: z.string(),
-  phone: z.string(),
+  phone: z.string().min(1, "Phone number is required").regex(/^\+250[0-9]{9}$/, "Invalid phone number"),
   role: z.string().min(1, {
     message: "Role is required",
   }),

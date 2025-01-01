@@ -1,182 +1,121 @@
-// Dependencies: pnpm install lucide-react
-
-// This is a standalone toast implementation using Radix UI Primitives directly
-// For a more opinionated solution, see notification-21.tsx which uses the Toaster component
-
 "use client";
 
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 import { Button } from "@/components/ui/button";
-import {
-  Toast,
-  ToastAction,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-} from "@/components/ui/toast";
-import { CircleCheck, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { ChevronDown, Phone } from "lucide-react";
+import React, { forwardRef } from "react";
+import * as RPNInput from "react-phone-number-input";
+import flags from "react-phone-number-input/flags";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 
-interface UseProgressTimerProps {
-  duration: number;
-  interval?: number;
-  onComplete?: () => void;
-}
+// Schema validation with zod
+const FormSchema = z.object({
+  phoneNumber: z.string().min(1, "Phone number is required").regex(/^\+250[0-9]{9}$/, "Invalid phone number"),
+});
 
-function useProgressTimer({ duration, interval = 100, onComplete }: UseProgressTimerProps) {
-  const [progress, setProgress] = useState(duration);
-  const timerRef = useRef(0);
-  const timerState = useRef({
-    startTime: 0,
-    remaining: duration,
-    isPaused: false,
-  });
-
-  const cleanup = useCallback(() => {
-    window.clearInterval(timerRef.current);
-  }, []);
-
-  const reset = useCallback(() => {
-    cleanup();
-    setProgress(duration);
-    timerState.current = {
-      startTime: 0,
-      remaining: duration,
-      isPaused: false,
-    };
-  }, [duration, cleanup]);
-
-  const start = useCallback(() => {
-    const state = timerState.current;
-    state.startTime = Date.now();
-    state.isPaused = false;
-
-    timerRef.current = window.setInterval(() => {
-      const elapsedTime = Date.now() - state.startTime;
-      const remaining = Math.max(0, state.remaining - elapsedTime);
-
-      setProgress(remaining);
-
-      if (remaining <= 0) {
-        cleanup();
-        onComplete?.();
-      }
-    }, interval);
-  }, [interval, cleanup, onComplete]);
-
-  const pause = useCallback(() => {
-    const state = timerState.current;
-    if (!state.isPaused) {
-      cleanup();
-      state.remaining = Math.max(0, state.remaining - (Date.now() - state.startTime));
-      state.isPaused = true;
-    }
-  }, [cleanup]);
-
-  const resume = useCallback(() => {
-    const state = timerState.current;
-    if (state.isPaused && state.remaining > 0) {
-      start();
-    }
-  }, [start]);
-
-  useEffect(() => {
-    return cleanup;
-  }, [cleanup]);
-
-  return {
-    progress,
-    start,
-    pause,
-    resume,
-    reset,
-  };
-}
-
-export default function NotificationDemo() {
-  const [open, setOpen] = useState(false);
-  const toastDuration = 5000;
-  const { progress, start, pause, resume, reset } = useProgressTimer({
-    duration: toastDuration,
-    onComplete: () => setOpen(false),
-  });
-
-  const handleOpenChange = useCallback(
-    (isOpen: boolean) => {
-      setOpen(isOpen);
-      if (isOpen) {
-        reset();
-        start();
-      }
+export default function PhoneNumberForm() {
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      phoneNumber: "",
     },
-    [reset, start],
-  );
+  });
 
-  const handleButtonClick = useCallback(() => {
-    if (open) {
-      setOpen(false);
-      // Wait for the close animation to finish
-      window.setTimeout(() => {
-        handleOpenChange(true);
-      }, 150);
-    } else {
-      handleOpenChange(true);
-    }
-  }, [open, handleOpenChange]);
+  const onSubmit = (values: z.infer<typeof FormSchema>) => {
+    console.log("Form submitted:", values);
+  };
 
   return (
-    <ToastProvider swipeDirection="left">
-      <Button variant="outline" onClick={handleButtonClick}>
-        Custom toast
-      </Button>
-      <Toast open={open} onOpenChange={handleOpenChange} onPause={pause} onResume={resume}>
-        <div className="flex w-full justify-between gap-3">
-          <CircleCheck
-            className="mt-0.5 shrink-0 text-emerald-500"
-            size={16}
-            strokeWidth={2}
-            aria-hidden="true"
-          />
-          <div className="flex grow flex-col gap-3">
-            <div className="space-y-1">
-              <ToastTitle>Your request was completed!</ToastTitle>
-              <ToastDescription>
-                It demonstrates that the task or request has been processed.
-              </ToastDescription>
-            </div>
-            <div>
-              <ToastAction altText="Undo changes" asChild>
-                <Button size="sm">Undo changes</Button>
-              </ToastAction>
-            </div>
-          </div>
-          <ToastClose asChild>
-            <Button
-              variant="ghost"
-              className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
-              aria-label="Close notification"
-            >
-              <X
-                size={16}
-                strokeWidth={2}
-                className="opacity-60 transition-opacity group-hover:opacity-100"
-                aria-hidden="true"
-              />
-            </Button>
-          </ToastClose>
-        </div>
-        <div className="contents" aria-hidden="true">
-          <div
-            className="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-emerald-500"
-            style={{
-              width: `${(progress / toastDuration) * 100}%`,
-              transition: "width 100ms linear",
-            }}
-          />
-        </div>
-      </Toast>
-      <ToastViewport className="sm:left-0 sm:right-auto" />
-    </ToastProvider>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          name="phoneNumber"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone Number</FormLabel>
+              <FormControl>
+                <Controller
+                  name={field.name}
+                  control={form.control}
+                  render={({ field }) => (
+                    <RPNInput.default
+                      {...field}
+                      className="flex rounded-lg shadow-sm shadow-black/5"
+                      international
+                      flagComponent={FlagComponent}
+                      countrySelectComponent={CountrySelect}
+                      inputComponent={PhoneInput}
+                      defaultCountry="RW"
+                      placeholder="Enter phone number"
+                      onChange={(value) => field.onChange(value ?? "")}
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 }
+
+const PhoneInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <Input
+        className={cn("-ms-px rounded-s-none shadow-none focus-visible:z-10", className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+
+PhoneInput.displayName = "PhoneInput";
+
+type CountrySelectProps = {
+  disabled?: boolean;
+  value: RPNInput.Country;
+  onChange: (value: RPNInput.Country) => void;
+  options: { label: string; value: RPNInput.Country | undefined }[];
+};
+
+const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
+  return (
+    <Select value={value} onValueChange={(v) => onChange(v as RPNInput.Country)}>
+      <SelectTrigger className="flex items-center">
+        <FlagComponent country={value} countryName={value} />
+        <span>{value ? options.find((o) => o.value === value)?.label : "Select a country"}</span>
+        <ChevronDown className="ml-2" />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value || "default"}>
+            {option.label} {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+};
+
+const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
+  const Flag = flags[country];
+
+  return (
+    <span className="w-5 overflow-hidden rounded-sm">
+      {Flag ? <Flag title={countryName} /> : <Phone size={16} aria-hidden="true" />}
+    </span>
+  );
+};

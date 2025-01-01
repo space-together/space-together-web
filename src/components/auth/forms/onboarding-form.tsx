@@ -5,7 +5,7 @@ import {
   onboardingSchemaTypes,
 } from "@/utils/schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -26,14 +26,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
 import { UserRoleModel } from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
-import { ChangeEvent, useState, useTransition } from "react";
+import { ChangeEvent, useState, useTransition,forwardRef } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
 import MyImage from "@/components/my-components/myImage";
 import { cn } from "@/lib/utils";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { CalendarIcon, ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import {
   Button as ButtonDate,
   Calendar,
@@ -50,6 +50,9 @@ import {
   Heading,
   Popover,
 } from "react-aria-components";
+import flags from "react-phone-number-input/flags";
+import * as RPNInput from "react-phone-number-input";
+
 interface Props {
   dictionary: authOnboardingFormDiction;
   userRoles: UserRoleModel[] | FetchError;
@@ -168,6 +171,36 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
               </FormItem>
             )}
           />
+          {/* phone number */}
+          <FormField
+          name="phone"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{dictionary.phone}</FormLabel>
+              <FormControl>
+                <Controller
+                  name={field.name}
+                  control={form.control}
+                  render={({ field }) => (
+                    <RPNInput.default
+                      {...field}
+                      className="flex rounded-lg shadow-sm shadow-black/5"
+                      international
+                      flagComponent={FlagComponent}
+                      countrySelectComponent={CountrySelect}
+                      inputComponent={PhoneInput}
+                      defaultCountry="RW"
+                      placeholder="Enter phone number"
+                      onChange={(value) => field.onChange(value ?? "")}
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
           {/* age */}
           <FormField
             control={form.control}
@@ -231,7 +264,7 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
                                   className={cn(
                                     "relative flex size-9 items-center justify-center whitespace-nowrap rounded-lg border border-transparent p-0 text-sm font-normal outline-offset-2 transition-colors data-[disabled]:pointer-events-none data-[unavailable]:pointer-events-none data-[focus-visible]:z-10 data-[hovered]:bg-accent data-[selected]:bg-info data-[hovered]:text-foreground data-[selected]:text-primary-foreground data-[unavailable]:line-through data-[disabled]:opacity-30 data-[unavailable]:opacity-30 data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70 data-[invalid]:data-[selected]:[&:not([data-hover])]:bg-destructive data-[invalid]:data-[selected]:[&:not([data-hover])]:text-destructive-foreground",
                                     date.compare(now) === 0 &&
-                                      "after:pointer-events-none after:absolute after:bottom-1 after:start-1/2 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full after:bg-primary data-[selected]:after:bg-info"
+                                      "after:pointer-events-none after:absolute after:bottom-1 after:start-1/2 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full after:bg-info data-[selected]:after:bg-info"
                                   )}
                                 />
                               )}
@@ -340,4 +373,52 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
 
 export default OnboardingForm;
 
-// Dependencies: pnpm install lucide-react react-aria-components
+
+const PhoneInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <Input
+        className={cn("-ms-px rounded-s-none shadow-none focus-visible:z-10", className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+
+PhoneInput.displayName = "PhoneInput";
+
+type CountrySelectProps = {
+  disabled?: boolean;
+  value: RPNInput.Country;
+  onChange: (value: RPNInput.Country) => void;
+  options: { label: string; value: RPNInput.Country | undefined }[];
+};
+
+const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
+  return (
+    <Select value={value} onValueChange={(v) => onChange(v as RPNInput.Country)}>
+      <SelectTrigger className="flex items-center gap-2 w-20 ring-0 focus:ring-0">
+        <FlagComponent country={value} countryName={value} />
+        <span className=" sr-only">{value ? options.find((o) => o.value === value)?.label : "Select a country"}</span>
+      </SelectTrigger>
+      <SelectContent data-theme={UseTheme()}>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value || "default"}>
+            {option.label} {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+};
+
+const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
+  const Flag = flags[country];
+
+  return (
+    <span className="w-5 overflow-hidden rounded-sm">
+      {Flag ? <Flag title={countryName} /> : <Phone size={16} aria-hidden="true" />}
+    </span>
+  );
+};
