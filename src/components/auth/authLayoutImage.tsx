@@ -61,7 +61,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
       </div>
       <div className=" w-full h-full relative">
         <MyImage
-          src="/images/8.jpg"
+          src={cn(`/images/${pathname === `/${lang}/auth/onboarding` ? 15 : 11}.jpg`)}
           alt="Picture of the author"
           className="  h-full w-full"
         />

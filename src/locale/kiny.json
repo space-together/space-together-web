@@ -61,6 +61,13 @@
         "password": "Ijambo ry'ibanga",
         "button": "Injira"
       }
+    },
+    "onboarding" : {
+      "page": {
+        "title": "Zuza Umwirondoro Wawe",
+        "paragraph": "Fasha abandi kukumenya neza ushaka umwirondoro wawe.",
+        "button" : "Tangira"
+      }
     }
   }
 }

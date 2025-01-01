@@ -64,8 +64,8 @@
     },
     "onboarding" : {
       "page": {
-        "title": "Welcome to the platform",
-        "paragraph": "We are happy to have you here",
+        "title": "Complete Your Profile Setup",
+        "paragraph": "Help others understand you better by choosing your profile.",
         "button" : "Get started"
       }
     }
