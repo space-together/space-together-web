@@ -1,3 +1,4 @@
+import OnboardingForm from "@/components/auth/forms/onboarding-form";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
 
@@ -14,11 +15,11 @@ const OnboardingPage = async (props: Props) => {
         <h1 className=" happy-title-head">
           {diction.auth.onboarding.page.title}
         </h1>
-        <p>
-          {diction.auth.onboarding.page.paragraph}{" "}
-        </p>
+        <p>{diction.auth.onboarding.page.paragraph} </p>
       </div>
-      OnboardingPage
+      <div className="w-full">
+        <OnboardingForm />
+      </div>
     </div>
   );
 };

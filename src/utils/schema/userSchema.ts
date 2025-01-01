@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const registerSchema = z.object({
-  nm: z
+  name: z
     .string()
     .min(1, {
       message: "Full name is required, please enter your full name",
@@ -12,16 +12,16 @@ export const registerSchema = z.object({
     .refine((name) => name.trim().split(/\s+/).length > 1, {
       message: "Please enter your full name (e.g., First Last or more)",
     }),
-  em: z.string().email({
+  email: z.string().email({
     message: "Email is required",
   }),
-  rl: z.string().min(1, {
+  role: z.string().min(1, {
     message: "Role is required",
   }),
-  gd: z.enum(["M", "F", "O"], {
-    message: "Gender must be one of 'M', 'F', or 'O'",
+  gender: z.enum(["M", "F", "O"], {
+    message: "Gender must be one of 'Male', 'Female', or 'Other'",
   }),
-  pw: z
+  password: z
     .string()
     .min(6, {
       message: "Password min characters are 6",
@@ -41,10 +41,19 @@ export const registerSchema = z.object({
 export type registerSchemaType = z.infer<typeof registerSchema>;
 
 export const LoginModel = z.object({
-  em: z.string().email(),
-  pw: z.string().min(1, {
+  email: z.string().email(),
+  password: z.string().min(1, {
     message: "Password is required, please enter your password",
   }),
 });
 
 export type loginModelTypes = z.infer<typeof LoginModel>;
+
+export const onboardingSchema = z.object({
+  image : z.string(),
+  username : z.string(),
+  age : z.string(),
+  phoneNumber : z.string(),
+  gender : z.string(),
+  role : z.string(),
+});

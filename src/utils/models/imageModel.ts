@@ -1,6 +1,6 @@
 export interface ProfileImageModelGet {
     id : string,
-    ui : string, // user id
+    user_id : string, // user id
     src : string,
-    co : string, // create on
+    create_on : string, // create on
 }

@@ -50,11 +50,11 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      em: "",
-      nm: "",
-      pw: "",
-      gd: undefined,
-      rl: "",
+      email: "",
+      name: "",
+      password: "",
+      gender: undefined,
+      role: "",
     },
   });
 
@@ -92,7 +92,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
         <div className=" space-y-1">
           <FormField
             control={form.control}
-            name="nm"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{diction.name}</FormLabel>
@@ -110,7 +110,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
           />
           <FormField
             control={form.control}
-            name="em"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{diction.email}</FormLabel>
@@ -129,7 +129,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
           <div className=" flex gap-2 w-full">
             <FormField
               control={form.control}
-              name="rl"
+              name="role"
               disabled={isPending}
               render={({ field }) => (
                 <FormItem className=" w-1/2">
@@ -147,8 +147,8 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
                     <SelectContent data-theme={UseTheme()}>
                       {Array.isArray(userRoles) &&
                         userRoles.map((role) => (
-                          <SelectItem key={role.rl} value={role.id}>
-                            {role.rl}
+                          <SelectItem key={role.role} value={role.id}>
+                            {role.role}
                           </SelectItem>
                         ))}
                     </SelectContent>
@@ -164,7 +164,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
             />
             <FormField
               control={form.control}
-              name="gd"
+              name="gender"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>{diction.gender.label}</FormLabel>
@@ -206,7 +206,7 @@ const RegisterForm = ({ diction, userRoles,lang }: props) => {
             />
           </div>
           <FormField
-            name="pw"
+            name="password"
             control={form.control}
             render={({ field }) => (
               <FormItem>
