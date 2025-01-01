@@ -45,9 +45,10 @@ export type loginModelTypes = z.infer<typeof LoginModel>;
 
 export const onboardingSchema = z.object({
   image: z.string(),
-  username: z.string(),
-  age: z.string(),
-  phone: z.string().min(1, "Phone number is required").regex(/^\+250[0-9]{9}$/, "Invalid phone number"),
+  age: z.string().min(1, {
+    message: "Age is required",
+  }),
+  phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda"),
   role: z.string().min(1, {
     message: "Role is required",
   }),

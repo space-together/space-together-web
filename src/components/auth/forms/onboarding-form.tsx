@@ -26,7 +26,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
 import { UserRoleModel } from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
-import { ChangeEvent, useState, useTransition,forwardRef } from "react";
+import { ChangeEvent, useState, useTransition, forwardRef } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,6 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
     resolver: zodResolver(onboardingSchema),
     defaultValues: {
       image: "",
-      username: "",
       age: "",
       phone: "",
       gender: undefined,
@@ -131,24 +130,13 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
                   htmlFor="image"
                   className={cn("flex gap-3 items-center")}
                 >
-                  {field.value ? (
-                    <MyImage
-                      src={field.value}
-                      className={cn("size-32 min-h-32 min-w-32 rounded-full")}
-                      classname=" rounded-full"
-                      alt="Profile"
-                    />
-                  ) : (
-                    <MyImage
-                      src="/1.jpg"
-                      classname=" rounded-full"
-                      className={cn(
-                        "size-32 min-h-32 min-w-32 rounded-full cursor-pointer"
-                      )}
-                      alt="Profile"
-                    />
-                  )}
-                  <span className={cn("text-info cursor-pointer")}>
+                  <MyImage
+                    src={field.value ? field.value : "/1.jpg"}
+                    className={cn("size-32 min-h-32 min-w-32 rounded-full")}
+                    classname=" rounded-full"
+                    alt="Profile"
+                  />
+                  <span className={cn( !field.value && "text-info cursor-pointer")}>
                     {dictionary.image}
                   </span>
                 </FormLabel>
@@ -173,34 +161,34 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
           />
           {/* phone number */}
           <FormField
-          name="phone"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{dictionary.phone}</FormLabel>
-              <FormControl>
-                <Controller
-                  name={field.name}
-                  control={form.control}
-                  render={({ field }) => (
-                    <RPNInput.default
-                      {...field}
-                      className="flex rounded-lg shadow-sm shadow-black/5"
-                      international
-                      flagComponent={FlagComponent}
-                      countrySelectComponent={CountrySelect}
-                      inputComponent={PhoneInput}
-                      defaultCountry="RW"
-                      placeholder="Enter phone number"
-                      onChange={(value) => field.onChange(value ?? "")}
-                    />
-                  )}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            name="phone"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{dictionary.phone}</FormLabel>
+                <FormControl>
+                  <Controller
+                    name={field.name}
+                    control={form.control}
+                    render={({ field }) => (
+                      <RPNInput.default
+                        {...field}
+                        className="flex rounded-lg shadow-sm shadow-black/5"
+                        international
+                        flagComponent={FlagComponent}
+                        countrySelectComponent={CountrySelect}
+                        inputComponent={PhoneInput}
+                        defaultCountry="RW"
+                        placeholder="Enter phone number"
+                        onChange={(value) => field.onChange(value ?? "")}
+                      />
+                    )}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {/* age */}
           <FormField
             control={form.control}
@@ -209,9 +197,7 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
               <FormItem className=" w-full">
                 <FormControl>
                   <DatePicker className="space-y-2">
-                    <FormLabel>
-                      {dictionary.age}
-                    </FormLabel>
+                    <FormLabel>{dictionary.age}</FormLabel>
                     <div className="flex">
                       <Group className="inline-flex h-10 w-full rounded-md bg-base-100 px-3 py-2 text-base ring-offset-background   items-center overflow-hidden whitespace-nowrap  pe-9 shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[disabled]:opacity-50 data-[focus-within]:outline-none ">
                         <DateInput {...field}>
@@ -223,7 +209,7 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
                           )}
                         </DateInput>
                       </Group>
-                      <ButtonDate className="z-10 -me-px -ms-9 flex w-9 items-center justify-center rounded-e-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:text-foreground focus-visible:outline-none data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70">
+                      <ButtonDate className="z-10 -me-px -ms-9 flex w-9 items-center justify-center rounded-e-lg outline-offset-2 transition-colors hover:text-info focus-visible:outline-none data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70">
                         <CalendarIcon size={16} strokeWidth={2} />
                       </ButtonDate>
                     </div>
@@ -257,7 +243,7 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
                                 </CalendarHeaderCell>
                               )}
                             </CalendarGridHeader>
-                            <CalendarGridBody className="[&_td]:px-0">
+                            <CalendarGridBody className="[&_td]:px-0 border-0">
                               {(date) => (
                                 <CalendarCell
                                   date={date}
@@ -373,17 +359,19 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
 
 export default OnboardingForm;
 
-
 const PhoneInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, ...props }, ref) => {
     return (
       <Input
-        className={cn("-ms-px rounded-s-none shadow-none focus-visible:z-10", className)}
+        className={cn(
+          "-ms-px rounded-s-none shadow-none focus-visible:z-10",
+          className
+        )}
         ref={ref}
         {...props}
       />
     );
-  },
+  }
 );
 
 PhoneInput.displayName = "PhoneInput";
@@ -397,15 +385,30 @@ type CountrySelectProps = {
 
 const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
   return (
-    <Select value={value} onValueChange={(v) => onChange(v as RPNInput.Country)}>
-      <SelectTrigger className="flex items-center gap-2 w-20 ring-0 focus:ring-0">
+    <Select
+      value={value}
+      onValueChange={(v) => onChange(v as RPNInput.Country)}
+    >
+      <SelectTrigger
+        data-tip={
+          value
+            ? options.find((o) => o.value === value)?.label
+            : "Select a country"
+        }
+        className="flex items-center gap-2 w-20 ring-0 focus:ring-0 tooltip border-0"
+      >
         <FlagComponent country={value} countryName={value} />
-        <span className=" sr-only">{value ? options.find((o) => o.value === value)?.label : "Select a country"}</span>
+        <span className=" sr-only">
+          {value
+            ? options.find((o) => o.value === value)?.label
+            : "Select a country"}
+        </span>
       </SelectTrigger>
       <SelectContent data-theme={UseTheme()}>
-        {options.map((option) => (
-          <SelectItem key={option.value} value={option.value || "default"}>
-            {option.label} {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
+        {options.map((option, index) => (
+          <SelectItem key={index} value={option.value || "default"}>
+            {option.label}{" "}
+            {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
           </SelectItem>
         ))}
       </SelectContent>
@@ -418,7 +421,11 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
 
   return (
     <span className="w-5 overflow-hidden rounded-sm">
-      {Flag ? <Flag title={countryName} /> : <Phone size={16} aria-hidden="true" />}
+      {Flag ? (
+        <Flag title={countryName} />
+      ) : (
+        <Phone size={16} aria-hidden="true" />
+      )}
     </span>
   );
 };

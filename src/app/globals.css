@@ -83,7 +83,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground text-info-content;
+    @apply bg-base-300 text-info-content;
   }
 }
 
