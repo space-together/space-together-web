@@ -24,7 +24,10 @@
       "goBack": "Back to website",
       "spaceTogether": "Together in Learning, Together in success",
       "register": {
-        "onboarding": "Make Your account which your friends can visit"
+        "description": "Make Your account which, your friends can visit"
+      },
+      "onboarding": {
+        "description": "Help others recognize you by, personalizing your profile."
       }
     },
     "register": {
@@ -57,6 +60,13 @@
         "email": "Email",
         "password" : "Password",
         "button" : "Login"
+      }
+    },
+    "onboarding" : {
+      "page": {
+        "title": "Welcome to the platform",
+        "paragraph": "We are happy to have you here",
+        "button" : "Get started"
       }
     }
   }

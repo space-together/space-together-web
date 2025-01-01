@@ -1,11 +1,12 @@
 type LeftRegisterType = {
-  onboarding: string;
+  description: string;
 };
 
 export interface leftSideDictionType {
   goBack: string;
   spaceTogether: string;
   register: LeftRegisterType;
+  onboarding: LeftRegisterType;
 }
 
 export interface AuthSettingDictionType {

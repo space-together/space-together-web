@@ -22,9 +22,12 @@
     },
     "leftSide": {
       "goBack": "Subira ahabanza",
-      "spaceTogether": "Together in Learning, Together in success",
+      "spaceTogether": "Hamwe mu myigire, hamwe mu ntsinzi.",
       "register": {
-        "onboarding": "Make Your account which your friends can visit"
+        "description": "Hindura konti yawe ku buryo inshuti zawe zishobora kuyisura."
+      },
+      "onboarding": {
+        "description": "Fasha abandi kukumenya neza, uhindura konti yawe ku buryo bwihariye."
       }
     },
     "register": {

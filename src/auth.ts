@@ -21,6 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
   },
     session : {strategy : "jwt"},
+    adapter : undefined, /// GPT which  adapter i can use
     ...authConfig,
     secret : process.env.AUTH_SECRET
 })

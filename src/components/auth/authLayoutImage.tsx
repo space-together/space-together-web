@@ -25,7 +25,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         {part.trim()}
         {index < sentence.split(",").length - 1 && (
           <>
-            ,<br />
+            <br />
           </>
         )}
       </React.Fragment>
@@ -76,6 +76,16 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
                 <div className="  flex justify-center mt-8 gap-2">
                   <div className=" h-1 w-[12%] bg-white backdrop-blur-lg rounded-full" />
                   <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full" />
+                  <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full" />
+                </div>
+              </div>
+            )}
+            {pathname === `/${lang}/auth/onboarding` && (
+              <div className=" ">
+                {SentenceBreaker(diction.onboarding.description)}
+                <div className="  flex justify-center mt-8 gap-2">
+                  <div className=" h-1 w-1/12 bg-white backdrop-blur-lg rounded-full" />
+                  <div className=" h-1 w-[12%] bg-white backdrop-blur-lg rounded-full" />
                   <div className=" h-1 w-1/12 bg-white/40 backdrop-blur-lg rounded-full" />
                 </div>
               </div>
