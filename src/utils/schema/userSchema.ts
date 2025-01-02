@@ -45,9 +45,28 @@ export type loginModelTypes = z.infer<typeof LoginModel>;
 
 export const onboardingSchema = z.object({
   image: z.string(),
-  age: z.date({
-    required_error: "Please select a date.",
-  }),
+  age: z
+    .date({
+      required_error: "Please select a date.",
+    })
+    .refine(
+      (date) => {
+        const today = new Date();
+        let age = today.getFullYear() - date.getFullYear();
+        const monthDifference = today.getMonth() - date.getMonth();
+        const dayDifference = today.getDate() - date.getDate();
+        if (
+          monthDifference < 0 ||
+          (monthDifference === 0 && dayDifference < 0)
+        ) {
+          age--;
+        }
+        return age >= 3;
+      },
+      {
+        message: "Age must be at least 3 years old.",
+      }
+    ),
   phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda"),
   role: z.string().min(1, {
     message: "Role is required",
