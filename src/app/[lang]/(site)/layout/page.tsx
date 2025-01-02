@@ -1,121 +1,155 @@
 "use client";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, Control } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Phone } from "lucide-react";
-import React, { forwardRef } from "react";
-import * as RPNInput from "react-phone-number-input";
-import flags from "react-phone-number-input/flags";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
-import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
+import { getLocalTimeZone, today, toZoned } from "@internationalized/date";
+import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Button,
+  Calendar,
+  CalendarCell,
+  CalendarGrid,
+  CalendarGridBody,
+  CalendarGridHeader,
+  CalendarHeaderCell,
+  DateInput,
+  DatePicker,
+  DateSegment,
+  Dialog,
+  Group,
+  Heading,
+  Label,
+  Popover,
+} from "react-aria-components";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 
-// Schema validation with zod
-const FormSchema = z.object({
-  phoneNumber: z.string().min(1, "Phone number is required").regex(/^\+250[0-9]{9}$/, "Invalid phone number"),
+// Validation schema
+const formSchema = z.object({
+  date: z.date({
+    required_error: "Please select a date.",
+  }),
 });
 
-export default function PhoneNumberForm() {
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
+export default function ShadcnDatePickerForm() {
+  const now = today(getLocalTimeZone());
+  const form = useForm<{ date: Date | null }>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      phoneNumber: "",
+      date: null as Date | null,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log("Form submitted:", values);
+  const onSubmit = (data: { date: Date | null }) => {
+    console.log("Submitted Data:", data);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
-          name="phoneNumber"
-          control={form.control}
+          name="date"
+          control={form.control as Control<{ date: Date | null }>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
+              <FormLabel>Date Picker</FormLabel>
+                <FormControl>
                 <Controller
-                  name={field.name}
+                  name="date"
                   control={form.control}
-                  render={({ field }) => (
-                    <RPNInput.default
-                      {...field}
-                      className="flex rounded-lg shadow-sm shadow-black/5"
-                      international
-                      flagComponent={FlagComponent}
-                      countrySelectComponent={CountrySelect}
-                      inputComponent={PhoneInput}
-                      defaultCountry="RW"
-                      placeholder="Enter phone number"
-                      onChange={(value) => field.onChange(value ?? "")}
-                    />
+                  render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    className="space-y-2"
+                    onChange={(selectedDate) => onChange(selectedDate ? selectedDate.toDate() : null)}
+                    value={value ? toZoned(today(getLocalTimeZone()).add({ days: new Date(value).getDate() - today(getLocalTimeZone()).toDate().getDate() }), getLocalTimeZone()) : null}
+                  >
+                    <Label className="text-sm font-medium text-foreground">
+                    Date picker 
+                    </Label>
+                    <div className="flex">
+                    <Group className="inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-lg border border-input bg-background px-3 py-2 pe-9 text-sm shadow-sm shadow-black/5 transition-shadow data-[focus-within]:border-ring data-[disabled]:opacity-50 data-[focus-within]:outline-none data-[focus-within]:ring-[3px] data-[focus-within]:ring-ring/20">
+                      <DateInput {...field}>
+                      {(segment) => (
+                        <DateSegment
+                        {...field}
+                        segment={segment}
+                        className="inline rounded p-0.5 text-foreground caret-transparent outline outline-0 data-[disabled]:cursor-not-allowed data-[focused]:bg-accent data-[invalid]:data-[focused]:bg-destructive data-[type=literal]:px-0 data-[focused]:data-[placeholder]:text-foreground data-[focused]:text-foreground data-[invalid]:data-[focused]:data-[placeholder]:text-destructive-foreground data-[invalid]:data-[focused]:text-destructive-foreground data-[invalid]:data-[placeholder]:text-destructive data-[invalid]:text-destructive data-[placeholder]:text-muted-foreground/70 data-[type=literal]:text-muted-foreground/70 data-[disabled]:opacity-50"
+                        />
+                      )}
+                      </DateInput>
+                    </Group>
+                    <Button className="z-10 -me-px -ms-9 flex w-9 items-center justify-center rounded-e-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:text-foreground focus-visible:outline-none data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70">
+                      <CalendarIcon size={16} strokeWidth={2} />
+                    </Button>
+                    </div>
+                    <Popover
+                    className="z-50 rounded-lg border border-border bg-background text-popover-foreground shadow-lg shadow-black/5 outline-none data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0 data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95 data-[placement=bottom]:slide-in-from-top-2 data-[placement=left]:slide-in-from-right-2 data-[placement=right]:slide-in-from-left-2 data-[placement=top]:slide-in-from-bottom-2"
+                    offset={4}
+                    >
+                    <Dialog className="max-h-[inherit] overflow-auto p-2">
+                      <Calendar className="w-fit">
+                      <header className="flex w-full items-center gap-1 pb-1">
+                        <Button
+                        slot="previous"
+                        className="flex size-9 items-center justify-center rounded-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:bg-accent hover:text-foreground data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70"
+                        >
+                        <ChevronLeft size={16} strokeWidth={2} />
+                        </Button>
+                        <Heading className="grow text-center text-sm font-medium" />
+                        <Button
+                        slot="next"
+                        className="flex size-9 items-center justify-center rounded-lg text-muted-foreground/80 outline-offset-2 transition-colors hover:bg-accent hover:text-foreground data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70"
+                        >
+                        <ChevronRight size={16} strokeWidth={2} />
+                        </Button>
+                      </header>
+                      <CalendarGrid>
+                        <CalendarGridHeader>
+                        {(day) => (
+                          <CalendarHeaderCell className="size-9 rounded-lg p-0 text-xs font-medium text-muted-foreground/80">
+                          {day}
+                          </CalendarHeaderCell>
+                        )}
+                        </CalendarGridHeader>
+                        <CalendarGridBody className="[&_td]:px-0">
+                        {(date) => (
+                          <CalendarCell
+                          date={date}
+                          className={cn(
+                            "relative flex size-9 items-center justify-center whitespace-nowrap rounded-lg border border-transparent p-0 text-sm font-normal text-foreground outline-offset-2 transition-colors data-[disabled]:pointer-events-none data-[unavailable]:pointer-events-none data-[focus-visible]:z-10 data-[hovered]:bg-accent data-[selected]:bg-primary data-[hovered]:text-foreground data-[selected]:text-primary-foreground data-[unavailable]:line-through data-[disabled]:opacity-30 data-[unavailable]:opacity-30 data-[focus-visible]:outline data-[focus-visible]:outline-2 data-[focus-visible]:outline-ring/70 data-[invalid]:data-[selected]:[&:not([data-hover])]:bg-destructive data-[invalid]:data-[selected]:[&:not([data-hover])]:text-destructive-foreground",
+                            date.compare(now) === 0 &&
+                            "after:pointer-events-none after:absolute after:bottom-1 after:start-1/2 after:z-10 after:size-[3px] after:-translate-x-1/2 after:rounded-full after:bg-primary data-[selected]:after:bg-background"
+                          )}
+                          />
+                        )}
+                        </CalendarGridBody>
+                      </CalendarGrid>
+                      </Calendar>
+                    </Dialog>
+                    </Popover>
+                  </DatePicker>
                   )}
                 />
-              </FormControl>
+                </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="bg-primary text-white rounded px-4 py-2 hover:bg-primary-dark"
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );
 }
-
-const PhoneInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, ...props }, ref) => {
-    return (
-      <Input
-        className={cn("-ms-px rounded-s-none shadow-none focus-visible:z-10", className)}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
-
-PhoneInput.displayName = "PhoneInput";
-
-type CountrySelectProps = {
-  disabled?: boolean;
-  value: RPNInput.Country;
-  onChange: (value: RPNInput.Country) => void;
-  options: { label: string; value: RPNInput.Country | undefined }[];
-};
-
-const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
-  return (
-    <Select value={value} onValueChange={(v) => onChange(v as RPNInput.Country)}>
-      <SelectTrigger className="flex items-center">
-        <FlagComponent country={value} countryName={value} />
-        <span>{value ? options.find((o) => o.value === value)?.label : "Select a country"}</span>
-        <ChevronDown className="ml-2" />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((option) => (
-          <SelectItem key={option.value} value={option.value || "default"}>
-            {option.label} {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-};
-
-const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
-  const Flag = flags[country];
-
-  return (
-    <span className="w-5 overflow-hidden rounded-sm">
-      {Flag ? <Flag title={countryName} /> : <Phone size={16} aria-hidden="true" />}
-    </span>
-  );
-};
