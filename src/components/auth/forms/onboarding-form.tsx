@@ -111,7 +111,11 @@ const OnboardingForm = ({ dictionary, userRoles }: Props) => {
   const now = today(getLocalTimeZone());
 
   const onSubmit = (value: onboardingSchemaTypes) => {
-    console.log(value);
+    setSuccess("");
+    setError("");
+    startTransition(() => {
+      console.log(value);
+    });
   };
 
   return (

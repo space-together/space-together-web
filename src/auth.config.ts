@@ -17,10 +17,15 @@ export default { providers: [
             const validation = LoginModel.safeParse(credentials);
 
             if (validation.success) {
-                const {em} = validation.data;
-                const user = await getUserByEmailAPI(em);
+                const {email} = validation.data;
+                const user = await getUserByEmailAPI(email);
                 if("message" in user) return null;
-                return user
+                return {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    image: user.image ? user.image[0]?.src : null,
+                }
             }
 
             return null;
