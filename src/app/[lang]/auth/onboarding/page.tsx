@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import OnboardingForm from "@/components/auth/forms/onboarding-form";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
@@ -11,6 +12,11 @@ const OnboardingPage = async (props: Props) => {
   const { lang } = params;
   const diction = await getDictionary(lang);
   const userRoles = await fetchAllUserRoles();
+
+  const authResult = await auth();
+  const user = authResult && authResult.user && typeof authResult.user.id === 'string' 
+    ? { ...authResult.user, email: authResult.user.email || '' } 
+    : undefined;
   return (
     <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
@@ -20,7 +26,11 @@ const OnboardingPage = async (props: Props) => {
         <p>{diction.auth.onboarding.page.paragraph} </p>
       </div>
       <div className="w-full">
-        <OnboardingForm userRoles={userRoles} dictionary={diction.auth.onboarding.form}/>
+        <OnboardingForm
+          user={user}
+          userRoles={userRoles}
+          dictionary={diction.auth.onboarding.form}
+        />
       </div>
     </div>
   );
