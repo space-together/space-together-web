@@ -14,8 +14,8 @@ export default { providers: [
     Google,
     Credentials({
         credentials : {
-            email : {label : "Email", type : "email", placeholder : "Your Email"},
-            password : {label : "Password", type : "password" , placeholder : "Your Password"}
+            email : {label : "email", type : "email", placeholder : "Your Email"},
+            password : {label : "password", type : "password" , placeholder : "Your Password"}
         },
         async authorize(credentials) {
             const validation = LoginModel.safeParse(credentials);
@@ -28,7 +28,7 @@ export default { providers: [
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    image: user.image ? user.image[0]?.src : null,
+                    // image: user.image ? user.image[0].src ? user.image[0].src : null : null,
                 }
             }
 

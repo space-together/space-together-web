@@ -1,12 +1,12 @@
-"use client"
-
+import { auth } from "@/auth"
 import Image from "next/image"
 import Link from "next/link"
 
-const page = () => {
+const page = async () => {
+  const session = await auth();
   return (
     <div>
-      other page 
+      other page {JSON.stringify(session)}
       <div className=" flex gap-4">
         <Link href={`/auth/register`} className=" btn btn-info">Register</Link>
         <Link href={`/auth/login`} className=" btn btn-info">Login</Link>
