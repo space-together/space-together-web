@@ -13,6 +13,10 @@ export default { providers: [
     }),
     Google,
     Credentials({
+        credentials : {
+            email : {label : "Email", type : "email", placeholder : "Your Email"},
+            password : {label : "Password", type : "password" , placeholder : "Your Password"}
+        },
         async authorize(credentials) {
             const validation = LoginModel.safeParse(credentials);
 

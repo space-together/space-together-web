@@ -10,18 +10,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   
         if("message" in user) return token;
   
-        token.name = user.nm;
-        token.email = user.em;
-        if (user.im) {
-            token.picture = user.im[1].src;
+        token.name = user.name;
+        token.email = user.email;
+        if (user.image) {
+            token.picture = user.image[1].src;
         }
         token.sub = user.id;
-        token.role = user.rl;
+        token.role = user.role;
         return token
       }
   },
     session : {strategy : "jwt"},
-    adapter : undefined, /// GPT which  adapter i can use
+    // adapter : undefined, /// GPT which  adapter i can use
     ...authConfig,
     secret : process.env.AUTH_SECRET
 })
