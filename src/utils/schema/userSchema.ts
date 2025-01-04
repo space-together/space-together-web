@@ -61,10 +61,10 @@ export const onboardingSchema = z.object({
         ) {
           age--;
         }
-        return age >= 3;
+        return age >= 3 && age <= 95;
       },
       {
-        message: "Age must be at least 3 years old.",
+        message: "Age must be between 3 and 95 years old.",
       }
     ),
   phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda"),
