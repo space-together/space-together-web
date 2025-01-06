@@ -31,8 +31,8 @@ export const LoginForm = ({ diction }: props) => {
   const form = useForm<loginModelTypes>({
     resolver: zodResolver(LoginModel),
     defaultValues: {
-      em: "",
-      pw: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -64,7 +64,7 @@ export const LoginForm = ({ diction }: props) => {
         <div className=" space-y-1">
           <FormField
             control={form.control}
-            name="em"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{diction.email}</FormLabel>
@@ -81,7 +81,7 @@ export const LoginForm = ({ diction }: props) => {
             )}
           />
           <FormField
-            name="pw"
+            name="password"
             control={form.control}
             render={({ field }) => (
               <FormItem>
