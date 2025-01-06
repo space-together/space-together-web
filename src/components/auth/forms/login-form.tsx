@@ -42,17 +42,16 @@ export const LoginForm = ({ diction }: props) => {
 
   const onSubmit = (data: loginModelTypes) => {
     setError("");
-        setSuccess("");
-    
-        const validation = LoginModel.safeParse(data);
-        if (!validation.success) {
-          return setError("Invalid Login Validation");
-        }
-    
-        startTransition(async () => {
-          console.log(data);
-        });
-    
+    setSuccess("");
+
+    const validation = LoginModel.safeParse(data);
+    if (!validation.success) {
+      return setError("Invalid Login Validation");
+    }
+
+    startTransition(async () => {
+      console.log(data);
+    });
   };
 
   return (
