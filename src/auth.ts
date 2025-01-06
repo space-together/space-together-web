@@ -4,6 +4,27 @@ import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
+    async session({ token, session }) {
+      if (!token) return token;
+
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
+      }
+
+      if (token.name && session.user) {
+        session.user.name = token.name;
+      }
+
+      if (token.picture && session.user) {
+        session.user.image = token.picture;
+      }
+
+      if (token.role && session.user) {
+        session.user.role = token.role as string;
+      }
+
+      return session;
+    },
     async jwt({ token }) {
       if (!token.email) return token;
       const user = await getUserByEmailAPI(token.email);
