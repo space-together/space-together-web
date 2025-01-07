@@ -22,6 +22,7 @@ import { createUserAPI } from "@/utils/service/functions/fetchDataFn";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { Locale } from "@/i18n";
+import { BeatLoader } from "react-spinners";
 
 interface props {
   diction: authRegisterFormDiction;
@@ -152,7 +153,7 @@ const RegisterForm = ({ diction, lang }: props) => {
           <FormMessageSuccess message={success} />
         </div>
         <Button type="submit" variant="info" className=" w-full">
-          {diction.button}
+          {isPending ? <BeatLoader /> : <span>{diction.button}</span>}
         </Button>
       </form>
     </Form>

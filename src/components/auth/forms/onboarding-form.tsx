@@ -52,6 +52,7 @@ import {
 } from "react-aria-components";
 import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
+import { BeatLoader } from "react-spinners";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -400,7 +401,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
           <FormMessageSuccess message={success} />
         </div>
         <Button type="submit" variant="info" className=" w-full">
-          {dictionary.button}
+          {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
       </form>
     </Form>

@@ -17,6 +17,7 @@ import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
+import { BeatLoader } from 'react-spinners';
 
 interface props {
   diction: authLoginFormDiction;
@@ -118,7 +119,7 @@ export const LoginForm = ({ diction }: props) => {
           <FormMessageSuccess message={success} />
         </div>
         <Button type="submit" variant="info" className=" w-full">
-          {diction.button}
+          {isPending ? <BeatLoader/> : <span>{diction.button}</span>}
         </Button>
       </form>
     </Form>
