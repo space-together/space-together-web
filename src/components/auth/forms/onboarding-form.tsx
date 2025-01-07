@@ -400,7 +400,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
         </div>
-        <Button type="submit" variant="info" className=" w-full">
+        <Button disabled={isPending} type="submit" variant="info" className=" w-full">
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
       </form>

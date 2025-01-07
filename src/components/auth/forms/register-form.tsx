@@ -152,7 +152,7 @@ const RegisterForm = ({ diction, lang }: props) => {
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
         </div>
-        <Button type="submit" variant="info" className=" w-full">
+        <Button type="submit" disabled={isPending} variant="info" className=" w-full">
           {isPending ? <BeatLoader /> : <span>{diction.button}</span>}
         </Button>
       </form>
