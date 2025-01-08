@@ -19,8 +19,6 @@ import { Button } from "@/components/ui/button";
 import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
 import { BeatLoader } from "react-spinners";
 import { loginService } from "@/utils/service/auth/loginService";
-import { useRouter } from "next/navigation";
-import { auth } from "@/auth";
 import { Locale } from "@/i18n";
 
 interface props {
@@ -33,8 +31,6 @@ export const LoginForm = ({ diction, lang }: props) => {
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(true);
   const [isPending, startTransition] = useTransition();
-
-  const router = useRouter();
 
   const form = useForm<loginModelTypes>({
     resolver: zodResolver(LoginModel),
@@ -53,14 +49,10 @@ export const LoginForm = ({ diction, lang }: props) => {
     setSuccess("");
 
     startTransition(() => {
-      loginService(values).then(async (data) => {
-        if (!!data.error) {
+      loginService(values, lang).then(async (data) => {
+        if (data?.error) {
           return setError(data.error);
         }
-        
-        const session = await auth();
-        if (!session) return setError("Can not login");
-        return router.push(`/${lang}/user`);
       });
     });
   };
