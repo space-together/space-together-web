@@ -121,6 +121,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
   const onSubmit = (value: onboardingSchemaTypes) => {
     setSuccess("");
     setError("");
+
     const validation = onboardingSchema.safeParse(value);
     if (!validation.success) {
       return setError("Invalid Register Validation");
@@ -128,7 +129,9 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
 
     const updateModel: UserModelPut = {
       image: validation.data.image,
-      age: validation.data.age,
+      age: validation.data.age
+        ? new Date(validation.data.age).toISOString()
+        : "",
       phone: validation.data.phone,
       gender: validation.data.gender as unknown as Gender,
       role: validation.data.role,
@@ -138,9 +141,10 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
       if (user?.id) {
         const update = await updateUserById(updateModel, user.id);
         if ("message" in update) {
-          return setError(update.message);
+          return setError(update.details);
         } else {
-          setSuccess(cn("Account update successful ✅", update.name))
+          setSuccess(cn("Account update successful"));
+          form.reset();
         }
       } else {
         return setError("You must be login to update account!");

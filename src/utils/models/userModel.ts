@@ -43,7 +43,7 @@ export interface UserModelPut {
   gender?: Gender; // Gender
   disable?: boolean; // Disabled status
   image?: string; // Image
-  age ?: Date; // age
+  age ?: string; // age
 }
 
 export type authUser = {
