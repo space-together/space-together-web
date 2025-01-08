@@ -24,7 +24,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
-import { authUser, UserRoleModel } from "@/utils/models/userModel";
+import {
+  authUser,
+  Gender,
+  UserModelPut,
+  UserRoleModel,
+} from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
 import { ChangeEvent, useState, useTransition, forwardRef } from "react";
 import UseTheme from "@/context/theme/use-theme";
@@ -53,6 +58,7 @@ import {
 import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
+import { updateUserById } from "@/utils/service/functions/fetchDataFn";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -115,8 +121,30 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
   const onSubmit = (value: onboardingSchemaTypes) => {
     setSuccess("");
     setError("");
-    startTransition(() => {
-      console.log(value);
+    const validation = onboardingSchema.safeParse(value);
+    if (!validation.success) {
+      return setError("Invalid Register Validation");
+    }
+
+    const updateModel: UserModelPut = {
+      image: validation.data.image,
+      age: validation.data.age,
+      phone: validation.data.phone,
+      gender: validation.data.gender as unknown as Gender,
+      role: validation.data.role,
+    };
+
+    startTransition(async () => {
+      if (user?.id) {
+        const update = await updateUserById(updateModel, user.id);
+        if ("message" in update) {
+          return setError(update.message);
+        } else {
+          setSuccess(cn("Account update successful ✅", update.name))
+        }
+      } else {
+        return setError("You must be login to update account!");
+      }
     });
   };
 
@@ -143,7 +171,10 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
                     alt="Profile"
                   />
                   <span
-                    className={cn(!field.value && "text-info cursor-pointer")}
+                    className={cn(
+                      "cursor-pointer",
+                      !field.value && "text-info"
+                    )}
                   >
                     {dictionary.image}
                   </span>
@@ -400,7 +431,12 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
         </div>
-        <Button disabled={isPending} type="submit" variant="info" className=" w-full">
+        <Button
+          disabled={isPending}
+          type="submit"
+          variant="info"
+          className=" w-full"
+        >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
       </form>

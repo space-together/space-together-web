@@ -13,7 +13,7 @@ export interface UserModelNew {
   email: string; // Email address of the user
   phone?: string; // Phone number (optional)
   image?: string; // Image
-  password: string; // Password for the user accreate_onunt
+  password: string; // Password for the user create account
   gender: keyof Gender; // Gender of the user, refers to the Gender interface
 }
 
@@ -27,6 +27,7 @@ export interface UserModel {
   password?: string; // password
   disable?: boolean; // disabled status
   gender?: keyof Gender; // gender
+  age ?: string // age
   create_on: string; // create date
   update_on?: string; // update date
   image?: ProfileImageModelGet[]; // Images
@@ -42,6 +43,7 @@ export interface UserModelPut {
   gender?: Gender; // Gender
   disable?: boolean; // Disabled status
   image?: string; // Image
+  age ?: Date; // age
 }
 
 export type authUser = {

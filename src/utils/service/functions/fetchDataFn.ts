@@ -1,4 +1,4 @@
-import { UserModel, UserRoleModel } from "@/utils/models/userModel";
+import { UserModel, UserModelPut, UserRoleModel } from "@/utils/models/userModel";
 import { ApiClient } from "../fetchingAPIClient";
 import { FetchError, tokenModel } from "@/utils/types/fetchTypes";
 import { registerSchemaType } from "@/utils/schema/userSchema";
@@ -24,4 +24,9 @@ export async function getUserByEmailAPI(
 ): Promise<UserModel | FetchError> {
   const endpoint = `users/email/${email}`;
   return apiClient.allData(endpoint, "users");
+}
+
+export async function updateUserById(user:UserModelPut , id : string): Promise<UserModel | FetchError> {
+  const endpoint = `users/${id}`;
+  return apiClient.updateData(endpoint,user, "users")
 }
