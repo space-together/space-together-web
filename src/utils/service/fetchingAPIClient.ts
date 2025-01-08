@@ -15,7 +15,7 @@ export class ApiClient {
       return {
         message: errorData.message,
         status,
-        details: JSON.stringify(data),
+        details: JSON.stringify(data).toString(),
       };
     }
 
@@ -35,7 +35,7 @@ export class ApiClient {
       return {
         message,
         status,
-        details: JSON.stringify(data),
+        details: JSON.stringify(data).toString(),
       };
     } else if (error.request) {
       return {
@@ -45,7 +45,7 @@ export class ApiClient {
     } else {
       return {
         message: `Request setup error: ${error.message}`,
-        details: error.stack,
+        details: error.stack?.toString(),
       };
     }
   }
