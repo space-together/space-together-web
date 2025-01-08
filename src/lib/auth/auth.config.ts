@@ -3,8 +3,8 @@ import type { NextAuthConfig } from "next-auth"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials";
 
-import { LoginModel } from "./utils/schema/userSchema";
-import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
+import { LoginModel } from "../../utils/schema/userSchema";
+import { getUserByEmailAPI } from "../../utils/service/functions/fetchDataFn";
  
 export default { providers: [
     GitHub({

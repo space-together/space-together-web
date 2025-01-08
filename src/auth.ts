@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import authConfig from "./auth.config";
+import authConfig from "./lib/auth/auth.config";
 import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
