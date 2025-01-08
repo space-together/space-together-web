@@ -17,17 +17,24 @@ import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
-import { BeatLoader } from 'react-spinners';
+import { BeatLoader } from "react-spinners";
+import { loginService } from "@/utils/service/auth/loginService";
+import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
+import { Locale } from "@/i18n";
 
 interface props {
   diction: authLoginFormDiction;
+  lang: Locale;
 }
 
-export const LoginForm = ({ diction }: props) => {
+export const LoginForm = ({ diction, lang }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(true);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const form = useForm<loginModelTypes>({
     resolver: zodResolver(LoginModel),
@@ -41,17 +48,20 @@ export const LoginForm = ({ diction }: props) => {
     setSeePassword((prev) => !prev);
   };
 
-  const onSubmit = (data: loginModelTypes) => {
+  const onSubmit = (values: loginModelTypes) => {
     setError("");
     setSuccess("");
 
-    const validation = LoginModel.safeParse(data);
-    if (!validation.success) {
-      return setError("Invalid Login Validation");
-    }
-
-    startTransition(async () => {
-      console.log(data);
+    startTransition(() => {
+      loginService(values).then(async (data) => {
+        if (!!data.error) {
+          return setError(data.error);
+        }
+        
+        const session = await auth();
+        if (!session) return setError("Can not login");
+        return router.push(`/${lang}/user`);
+      });
     });
   };
 
@@ -118,8 +128,13 @@ export const LoginForm = ({ diction }: props) => {
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
         </div>
-        <Button type="submit" variant="info" disabled={isPending} className=" w-full">
-          {isPending ? <BeatLoader/> : <span>{diction.button}</span>}
+        <Button
+          type="submit"
+          variant="info"
+          disabled={isPending}
+          className=" w-full"
+        >
+          {isPending ? <BeatLoader /> : <span>{diction.button}</span>}
         </Button>
       </form>
     </Form>
