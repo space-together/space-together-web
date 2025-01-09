@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
 import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
+import { MyCustomAdapter } from "./lib/auth/myAdapter";
+import apiClient from "./lib/auth/apiClient";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
@@ -40,6 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   session: { strategy: "jwt" },
+  adapter : MyCustomAdapter(apiClient),
   ...authConfig,
   secret: process.env.AUTH_SECRET,
 });

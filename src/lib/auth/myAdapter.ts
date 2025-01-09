@@ -66,7 +66,7 @@ export const MyCustomAdapter = (apiClient: AxiosInstance): Adapter => {
       const user = await this.getUser(session.userId);
       if (!user) return null;
 
-      return { session, user }; // Both `session` and `user` are non-null
+      return { session, user };
     },
 
     async updateSession(session) {
