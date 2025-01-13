@@ -88,25 +88,21 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    switch (params.get("user_role")) {
-      case "Student":
-        setUserRole("Student");
-        break;
-      case "Teacher":
-        setUserRole("Teacher");
-      default:
-        break;
+    if (params.get("user_role") === "Student") {
+      setUserRole("Student");
+    } else if (params.get("user_role") === "Teacher") {
+      setUserRole("Teacher");
     }
   }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     switch (userRole) {
+      case "Teacher":
+        params.set("user_role", "Teacher");
       case "Student":
         params.set("user_role", "Student");
         break;
-      case "Teacher":
-        params.set("user_role", "Teacher");
       default:
         params.delete("user_role");
         break;
@@ -198,9 +194,9 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
           if ("message" in getRole) return setError(getRole.message);
           else {
             if (getRole.role === "Student") {
-              setUserRole(getRole.role);
+              return setUserRole("Student");
             } else if (getRole.role === "Teacher") {
-              setUserRole(getRole.role);
+              return setUserRole("Teacher");
             }
           }
         }
