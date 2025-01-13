@@ -31,7 +31,13 @@ import {
   UserRoleModel,
 } from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
-import { ChangeEvent, useState, useTransition, forwardRef, useEffect } from "react";
+import {
+  ChangeEvent,
+  useState,
+  useTransition,
+  forwardRef,
+  useEffect,
+} from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
@@ -58,7 +64,10 @@ import {
 import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
-import { updateUserById } from "@/utils/service/functions/fetchDataFn";
+import {
+  fetchUserRolesById,
+  updateUserById,
+} from "@/utils/service/functions/fetchDataFn";
 import { userRoleType } from "@/utils/types/userTypes";
 import IsStudentDialog from "../dialog/isStudentDialog";
 
@@ -68,29 +77,31 @@ interface Props {
   user: authUser | undefined;
 }
 
-
-
 const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
-  const [userRole , setUserRole] = useState<userRoleType>(null)
+  const [userRole, setUserRole] = useState<userRoleType>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("user_role") === "Student") {
-      setUserRole("Student")
+      setUserRole("Student");
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (userRole === "Student") {
-      params.set("user_role" , "Student");
+      params.set("user_role", "Student");
     } else {
       params.delete("user_role");
     }
-    window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}?${params}`
+    );
   }, [userRole]);
 
   const form = useForm<onboardingSchemaTypes>({
@@ -103,7 +114,6 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
       role: "",
     },
   });
-  
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -150,14 +160,14 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
       return setError("Invalid Register Validation");
     }
 
+    const { image, age, role, gender, phone } = validation.data;
+
     const updateModel: UserModelPut = {
-      image: validation.data.image,
-      age: validation.data.age
-        ? new Date(validation.data.age).toISOString()
-        : "",
-      phone: validation.data.phone,
-      gender: validation.data.gender as unknown as Gender,
-      role: validation.data.role,
+      image: image,
+      age: age ? new Date(age).toISOString() : "",
+      phone: phone,
+      gender: gender as unknown as Gender,
+      role: role,
     };
 
     startTransition(async () => {
@@ -168,17 +178,21 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
         } else {
           setSuccess(cn("Account update successful"));
           form.reset();
-          
+
+          const getRole = await fetchUserRolesById(role);
+
+          if ("message" in getRole) return setError(getRole.message);
+          else {
+            if (getRole.role === "Student") {
+              setUserRole(getRole.role);
+            }
+          }
         }
       } else {
         return setError("You must be login to update account!");
       }
     });
   };
-
-  if(userRole === "Student" && user?.id) {
-    <IsStudentDialog isOpen userId={user.id}/>
-  }
 
   return (
     <Form {...form}>
@@ -471,6 +485,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
         >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
+        <IsStudentDialog isOpen={userRole === "Student" && user?.id ? true : false} userId={user?.id ? user.id : ""} />
       </form>
     </Form>
   );

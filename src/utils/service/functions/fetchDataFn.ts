@@ -12,6 +12,13 @@ export async function fetchAllUserRoles(): Promise<
   return apiClient.allData<UserRoleModel[]>(endpoint, "user roles");
 }
 
+export async function fetchUserRolesById(id : string): Promise<
+  UserRoleModel | FetchError
+> {
+  const endpoint = `users/role/${id}`;
+  return apiClient.allData(endpoint, "user roles");
+}
+
 export async function createUserAPI(
   user: registerSchemaType
 ): Promise<tokenModel | FetchError> {
