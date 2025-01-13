@@ -76,10 +76,10 @@ interface Props {
   dictionary: authOnboardingFormDiction;
   userRoles: UserRoleModel[] | FetchError;
   user: authUser | undefined;
-  lang : Locale
+  lang: Locale;
 }
 
-const OnboardingForm = ({ dictionary, userRoles, user , lang}: Props) => {
+const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
@@ -96,6 +96,8 @@ const OnboardingForm = ({ dictionary, userRoles, user , lang}: Props) => {
     const params = new URLSearchParams(window.location.search);
     if (userRole === "Student") {
       params.set("user_role", "Student");
+    } else if (userRole === "Teacher") {
+      params.set("user_role", "Teacher");
     } else {
       params.delete("user_role");
     }
@@ -186,6 +188,8 @@ const OnboardingForm = ({ dictionary, userRoles, user , lang}: Props) => {
           if ("message" in getRole) return setError(getRole.message);
           else {
             if (getRole.role === "Student") {
+              setUserRole(getRole.role);
+            } else if (getRole.role === "Teacher") {
               setUserRole(getRole.role);
             }
           }
@@ -487,7 +491,11 @@ const OnboardingForm = ({ dictionary, userRoles, user , lang}: Props) => {
         >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
-        <IsStudentDialog lang={lang} isOpen={userRole === "Student" && user?.id ? true : false} userId={user?.id ? user.id : ""} />
+        <IsStudentDialog
+          lang={lang}
+          isOpen={userRole === "Student" && user?.id ? true : false}
+          userId={user?.id ? user.id : ""}
+        />
       </form>
     </Form>
   );
