@@ -15,24 +15,24 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { OTPInput, SlotProps } from "input-otp";
 import { Minus } from "lucide-react";
-import { useId as user_id, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useId as user_id, useTransition } from "react";
 import Link from "next/link";
 import { Locale } from "@/i18n";
+import { useRouter } from "next/navigation";
 
 interface props {
   isOpen: boolean;
   userId: string;
-  lang : Locale
+  lang: Locale;
 }
-type codeType = "school" | "class";
-const IsTeacherDialog = ({ isOpen , lang ,}: props) => {
-  const [codeRole , setCodeRole] = useState<codeType>("school");
-
-  const handleChangeCode = () => {
-    setCodeRole(codeRole === "school" ? "class" : "school") 
-  }
-
+const IsTeacherDialog = ({ isOpen, lang }: props) => {
+    const [isPending , startTransition] = useTransition()
+    const router = useRouter();
+    const handleCreateClass = () => {
+        startTransition(() => {
+          router.push(`/${lang}/class/add`)
+        })
+      }    
   const id = user_id();
   return (
     <AlertDialog open={isOpen}>
@@ -40,16 +40,17 @@ const IsTeacherDialog = ({ isOpen , lang ,}: props) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Do you have school or class code?</AlertDialogTitle>
           <AlertDialogDescription>
-            Code you given by school or class which by schools if you don&apos;t have code you can join <Link href={`/${lang}/school`} className=" link hover:text-info duration-200">public schools or classes</Link>
+            Code you given by school or class which by schools if you you are private tutors you can <Link href={`/${lang}/class/add`} className=" link">create new class</Link>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className=" space-y-2">
           <div className="space-y-2">
-            <Label htmlFor={id}>{codeRole} Code</Label>
+            <Label htmlFor={id}>School Code</Label>
             <OTPInput
               id={id}
               containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
               maxLength={6}
+              disabled={isPending}
               render={({ slots }) => (
                 <>
                   <div className="flex">
@@ -70,11 +71,10 @@ const IsTeacherDialog = ({ isOpen , lang ,}: props) => {
               )}
             />
           </div>
-          <Button variant="ghost" size="xs" className=" underline" onClick={() => handleChangeCode()}>Use {codeRole} code</Button>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel>Get Code</AlertDialogCancel>
-          <AlertDialogAction>Use Code</AlertDialogAction>
+          <AlertDialogCancel disabled={isPending} onClick={() => handleCreateClass()}>Create class</AlertDialogCancel>
+          <AlertDialogAction disabled={isPending}>Use Code</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

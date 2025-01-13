@@ -88,19 +88,28 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get("user_role") === "Student") {
-      setUserRole("Student");
+    switch (params.get("user_role")) {
+      case "Student":
+        setUserRole("Student");
+        break;
+      case "Teacher":
+        setUserRole("Teacher");
+      default:
+        break;
     }
   }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (userRole === "Student") {
-      params.set("user_role", "Student");
-    } else if (userRole === "Teacher") {
-      params.set("user_role", "Teacher");
-    } else {
-      params.delete("user_role");
+    switch (userRole) {
+      case "Student":
+        params.set("user_role", "Student");
+        break;
+      case "Teacher":
+        params.set("user_role", "Teacher");
+      default:
+        params.delete("user_role");
+        break;
     }
     window.history.replaceState(
       {},
