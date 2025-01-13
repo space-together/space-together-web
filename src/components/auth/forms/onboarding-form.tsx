@@ -70,14 +70,16 @@ import {
 } from "@/utils/service/functions/fetchDataFn";
 import { userRoleType } from "@/utils/types/userTypes";
 import IsStudentDialog from "../dialog/isStudentDialog";
+import { Locale } from "@/i18n";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
   userRoles: UserRoleModel[] | FetchError;
   user: authUser | undefined;
+  lang : Locale
 }
 
-const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
+const OnboardingForm = ({ dictionary, userRoles, user , lang}: Props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
@@ -485,7 +487,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
         >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
-        <IsStudentDialog isOpen={userRole === "Student" && user?.id ? true : false} userId={user?.id ? user.id : ""} />
+        <IsStudentDialog lang={lang} isOpen={userRole === "Student" && user?.id ? true : false} userId={user?.id ? user.id : ""} />
       </form>
     </Form>
   );

@@ -14,7 +14,7 @@ const OnboardingPage = async (props: Props) => {
   const userRoles = await fetchAllUserRoles();
 
   if ("message" in userRoles) {
-    return " hello"
+    return " hello";
   }
 
   const authResult = await auth();
@@ -22,7 +22,7 @@ const OnboardingPage = async (props: Props) => {
     authResult && authResult.user && typeof authResult.user.id === "string"
       ? { ...authResult.user, email: authResult.user.email || "" }
       : undefined;
-      
+
   return (
     <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
@@ -33,6 +33,7 @@ const OnboardingPage = async (props: Props) => {
       </div>
       <div className="w-full">
         <OnboardingForm
+          lang={lang}
           user={user}
           userRoles={userRoles}
           dictionary={diction.auth.onboarding.form}
