@@ -15,10 +15,9 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { OTPInput, SlotProps } from "input-otp";
 import { Minus } from "lucide-react";
-import { useId as user_id, useTransition } from "react";
+import { useId as user_id, } from "react";
 import Link from "next/link";
 import { Locale } from "@/i18n";
-import { useRouter } from "next/navigation";
 
 interface props {
   isOpen: boolean;
@@ -26,13 +25,6 @@ interface props {
   lang: Locale;
 }
 const IsTeacherDialog = ({ isOpen, lang }: props) => {
-    const [isPending , startTransition] = useTransition()
-    const router = useRouter();
-    const handleCreateClass = () => {
-        startTransition(() => {
-          router.push(`/${lang}/class/add`)
-        })
-      }    
   const id = user_id();
   return (
     <AlertDialog open={isOpen}>
@@ -40,7 +32,11 @@ const IsTeacherDialog = ({ isOpen, lang }: props) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Do you have school or class code?</AlertDialogTitle>
           <AlertDialogDescription>
-            Code you given by school or class which by schools if you you are private tutors you can <Link href={`/${lang}/class/add`} className=" link">create new class</Link>
+            Code you given by school or class which by schools if you you are
+            private tutors you can{" "}
+            <Link href={`/${lang}/class/add`} className=" link">
+              create new class
+            </Link>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className=" space-y-2">
@@ -50,7 +46,6 @@ const IsTeacherDialog = ({ isOpen, lang }: props) => {
               id={id}
               containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
               maxLength={6}
-              disabled={isPending}
               render={({ slots }) => (
                 <>
                   <div className="flex">
@@ -73,8 +68,10 @@ const IsTeacherDialog = ({ isOpen, lang }: props) => {
           </div>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending} onClick={() => handleCreateClass()}>Create class</AlertDialogCancel>
-          <AlertDialogAction disabled={isPending}>Use Code</AlertDialogAction>
+          <AlertDialogCancel>
+            Create class
+          </AlertDialogCancel>
+          <AlertDialogAction >Use Code</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
