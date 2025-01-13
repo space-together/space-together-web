@@ -13,9 +13,6 @@ const OnboardingPage = async (props: Props) => {
   const diction = await getDictionary(lang);
   const userRoles = await fetchAllUserRoles();
 
-  if ("message" in userRoles) {
-    return " hello";
-  }
 
   const authResult = await auth();
   const user =
