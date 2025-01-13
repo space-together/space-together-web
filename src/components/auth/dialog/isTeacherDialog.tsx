@@ -15,66 +15,75 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { OTPInput, SlotProps } from "input-otp";
 import { Minus } from "lucide-react";
-import { useId as user_id, } from "react";
-import Link from "next/link";
+import { useId as user_id, useState, } from "react";
 import { Locale } from "@/i18n";
+import CreateClassDialog from "@/components/app/class/createClassDialog";
 
 interface props {
   isOpen: boolean;
   userId: string;
   lang: Locale;
 }
-const IsTeacherDialog = ({ isOpen, lang }: props) => {
+const IsTeacherDialog = ({ isOpen }: props) => {
+  const [createClass, setCreateClass] = useState(false);
+
+  const handleCreateClass = () => {
+    setCreateClass(state => !state)
+  };
+
   const id = user_id();
   return (
-    <AlertDialog open={isOpen}>
-      <AlertDialogContent data-theme={UseTheme()} className="">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Do you have school or class code?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Code you given by school or class which by schools if you you are
-            private tutors you can{" "}
-            <Link href={`/${lang}/class/add`} className=" link">
-              create new class
-            </Link>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <div className=" space-y-2">
-          <div className="space-y-2">
-            <Label htmlFor={id}>School Code</Label>
-            <OTPInput
-              id={id}
-              containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
-              maxLength={6}
-              render={({ slots }) => (
-                <>
-                  <div className="flex">
-                    {slots.slice(0, 3).map((slot, idx) => (
-                      <Slot key={idx} {...slot} />
-                    ))}
-                  </div>
+    <>
+      <AlertDialog open={isOpen}>
+        <AlertDialogContent data-theme={UseTheme()} className="">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Do you have school or class code?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Code you given by school or class which by schools if you you are
+              private tutors you can{" "}
+              <button type="button" onClick={() => handleCreateClass() } className=" link">
+                create new class
+              </button>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className=" space-y-2">
+            <div className="space-y-2">
+              <Label htmlFor={id}>School Code</Label>
+              <OTPInput
+                id={id}
+                containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
+                maxLength={6}
+                render={({ slots }) => (
+                  <>
+                    <div className="flex">
+                      {slots.slice(0, 3).map((slot, idx) => (
+                        <Slot key={idx} {...slot} />
+                      ))}
+                    </div>
 
-                  <div className="text-muted-foreground/80">
-                    <Minus size={16} strokeWidth={2} aria-hidden="true" />
-                  </div>
-                  <div className="flex">
-                    {slots.slice(3).map((slot, idx) => (
-                      <Slot key={idx} {...slot} />
-                    ))}
-                  </div>
-                </>
-              )}
-            />
+                    <div className="text-muted-foreground/80">
+                      <Minus size={16} strokeWidth={2} aria-hidden="true" />
+                    </div>
+                    <div className="flex">
+                      {slots.slice(3).map((slot, idx) => (
+                        <Slot key={idx} {...slot} />
+                      ))}
+                    </div>
+                  </>
+                )}
+              />
+            </div>
           </div>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel>
-            Create class
-          </AlertDialogCancel>
-          <AlertDialogAction >Use Code</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => handleCreateClass()}>
+              Create class
+            </AlertDialogCancel>
+            <AlertDialogAction >Use Code</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <CreateClassDialog isOpen={createClass}/>
+    </>
   );
 };
 

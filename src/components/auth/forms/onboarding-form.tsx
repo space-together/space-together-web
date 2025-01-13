@@ -433,11 +433,6 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                     </SelectContent>
                   </Select>
                   <FormMessage />
-                  <div className=" ">
-                    {"message" in userRoles && (
-                      <FormMessageError message={userRoles.message} />
-                    )}
-                  </div>
                 </FormItem>
               )}
             />
@@ -504,7 +499,8 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         />
         <IsTeacherDialog
           lang={lang}
-          isOpen={userRole === "Teacher" && user?.id ? true : false}
+          // isOpen={userRole === "Teacher" && user?.id ? true : false}
+          isOpen
           userId={user?.id ? user.id : ""}
         />
       </form>
