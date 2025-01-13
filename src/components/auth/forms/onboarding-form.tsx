@@ -71,6 +71,7 @@ import {
 import { userRoleType } from "@/utils/types/userTypes";
 import IsStudentDialog from "../dialog/isStudentDialog";
 import { Locale } from "@/i18n";
+import IsTeacherDialog from "../dialog/isTeacherDialog";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -494,6 +495,11 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         <IsStudentDialog
           lang={lang}
           isOpen={userRole === "Student" && user?.id ? true : false}
+          userId={user?.id ? user.id : ""}
+        />
+        <IsTeacherDialog
+          lang={lang}
+          isOpen={userRole === "Teacher" && user?.id ? true : false}
           userId={user?.id ? user.id : ""}
         />
       </form>
