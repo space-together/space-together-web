@@ -29,7 +29,7 @@ const RegisterPage = async (props: Props) => {
         lang={lang}
           diction={diction.auth.register.form}
         />
-        <AuthProviders />
+        <AuthProviders lang={lang}/>
       </div>
     </div>
   );

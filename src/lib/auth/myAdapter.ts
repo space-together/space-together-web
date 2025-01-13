@@ -14,8 +14,8 @@ export const MyCustomAdapter = (apiClient: AxiosInstance): Adapter => {
     },
 
     async getUserByEmail(email) {
-      const response = await apiClient.get(`/users?email=${email}`);
-      return (response.data[0] || null) as AdapterUser | null;
+      const response = await apiClient.get(`/users/email/${email}`);
+      return (response.data || null) as AdapterUser | null;
     },
 
     async getUserByAccount({ provider, providerAccountId }) {
@@ -24,7 +24,7 @@ export const MyCustomAdapter = (apiClient: AxiosInstance): Adapter => {
       }
 
       const response = await apiClient.get(
-        `/accounts?provider=${provider}&providerAccountId=${providerAccountId}`
+        `/adapter/accounts?provider=${provider}&providerAccountId=${providerAccountId}`
       );
       const account = response.data[0] as AdapterAccount | undefined;
       if (!account) return null;
@@ -38,23 +38,23 @@ export const MyCustomAdapter = (apiClient: AxiosInstance): Adapter => {
     },
 
     async linkAccount(account) {
-      await apiClient.post("/accounts", account);
+      await apiClient.post("/adapter/accounts", account);
       return account as AdapterAccount;
     },
 
     async unlinkAccount({ provider, providerAccountId }) {
       await apiClient.delete(
-        `/accounts?provider=${provider}&providerAccountId=${providerAccountId}`
+        `/adapter/accounts?provider=${provider}&providerAccountId=${providerAccountId}`
       );
     },
 
     async createSession(session) {
-      const response = await apiClient.post("/sessions", session);
+      const response = await apiClient.post("/adapter/sessions", session);
       return response.data as AdapterSession;
     },
 
     async getSessionAndUser(sessionToken) {
-      const response = await apiClient.get(`/sessions?token=${sessionToken}`);
+      const response = await apiClient.get(`/adapter/sessions?token=${sessionToken}`);
       const session = response.data[0] as AdapterSession | undefined;
 
       if (!session) return null;
@@ -70,12 +70,12 @@ export const MyCustomAdapter = (apiClient: AxiosInstance): Adapter => {
     },
 
     async updateSession(session) {
-      const response = await apiClient.put(`/sessions/${session.userId}`, session);
+      const response = await apiClient.put(`/adapter/sessions/${session.userId}`, session);
       return response.data as AdapterSession;
     },
 
     async deleteSession(sessionToken) {
-      await apiClient.delete(`/sessions?token=${sessionToken}`);
+      await apiClient.delete(`/adapter/sessions/${sessionToken}`);
     },
   };
 };
