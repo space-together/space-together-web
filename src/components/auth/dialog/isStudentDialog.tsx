@@ -1,26 +1,21 @@
 "use client";
 import {
   AlertDialog,
-  //   AlertDialogPortal,
-  //   AlertDialogOverlay,
-  //   AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
-  //   AlertDialogFooter,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-// import { Input } from "@/components/ui/input";
 import UseTheme from "@/context/theme/use-theme";
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { OTPInput, SlotProps } from "input-otp";
 import { Minus } from "lucide-react";
-import { useId as user_id } from "react";
+import { useId as user_id, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Locale } from "@/i18n";
@@ -30,7 +25,14 @@ interface props {
   userId: string;
   lang : Locale
 }
+type codeType = "school" | "class";
 const IsStudentDialog = ({ isOpen , lang ,}: props) => {
+  const [codeRole , setCodeRole] = useState<codeType>("school");
+
+  const handleChangeCode = () => {
+    setCodeRole(codeRole === "school" ? "class" : "school") 
+  }
+
   const id = user_id();
   return (
     <AlertDialog open={isOpen}>
@@ -38,12 +40,12 @@ const IsStudentDialog = ({ isOpen , lang ,}: props) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Do you have school or class code?</AlertDialogTitle>
           <AlertDialogDescription>
-            Code you given by school or class which by schools if you don&apos;t have code you can join <Link href={`/${lang}/school`} className=" btn btn-sm btn-link text-info">public schools or class</Link>
+            Code you given by school or class which by schools if you don&apos;t have code you can join <Link href={`/${lang}/school`} className=" link hover:text-info duration-200">public schools or classes</Link>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div>
+        <div className=" space-y-2">
           <div className="space-y-2">
-            <Label htmlFor={id}>School Code</Label>
+            <Label htmlFor={id}>{codeRole} Code</Label>
             <OTPInput
               id={id}
               containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
@@ -59,7 +61,6 @@ const IsStudentDialog = ({ isOpen , lang ,}: props) => {
                   <div className="text-muted-foreground/80">
                     <Minus size={16} strokeWidth={2} aria-hidden="true" />
                   </div>
-
                   <div className="flex">
                     {slots.slice(3).map((slot, idx) => (
                       <Slot key={idx} {...slot} />
@@ -69,11 +70,11 @@ const IsStudentDialog = ({ isOpen , lang ,}: props) => {
               )}
             />
           </div>
-          <Button variant="link" className=" text-info">Class code</Button>
+          <Button variant="ghost" size="xs" className=" underline" onClick={() => handleChangeCode()}>Use {codeRole} code</Button>
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Get Code</AlertDialogCancel>
-          <AlertDialogAction>Send</AlertDialogAction>
+          <AlertDialogAction>Use Code</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
