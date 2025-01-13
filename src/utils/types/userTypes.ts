@@ -1,0 +1,1 @@
+export type userRoleType = "Student" | "Teacher" | null

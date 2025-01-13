@@ -31,7 +31,7 @@ import {
   UserRoleModel,
 } from "@/utils/models/userModel";
 import { FetchError } from "@/utils/types/fetchTypes";
-import { ChangeEvent, useState, useTransition, forwardRef } from "react";
+import { ChangeEvent, useState, useTransition, forwardRef, useEffect } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
@@ -59,6 +59,8 @@ import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
 import { updateUserById } from "@/utils/service/functions/fetchDataFn";
+import { userRoleType } from "@/utils/types/userTypes";
+import IsStudentDialog from "../dialog/isStudentDialog";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -66,10 +68,30 @@ interface Props {
   user: authUser | undefined;
 }
 
+
+
 const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
+  const [userRole , setUserRole] = useState<userRoleType>(null)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("user_role") === "Student") {
+      setUserRole("Student")
+    }
+  },[])
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (userRole === "Student") {
+      params.set("user_role" , "Student");
+    } else {
+      params.delete("user_role");
+    }
+    window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+  }, [userRole]);
 
   const form = useForm<onboardingSchemaTypes>({
     resolver: zodResolver(onboardingSchema),
@@ -81,6 +103,7 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
       role: "",
     },
   });
+  
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -145,12 +168,17 @@ const OnboardingForm = ({ dictionary, userRoles, user }: Props) => {
         } else {
           setSuccess(cn("Account update successful"));
           form.reset();
+          
         }
       } else {
         return setError("You must be login to update account!");
       }
     });
   };
+
+  if(userRole === "Student" && user?.id) {
+    <IsStudentDialog isOpen userId={user.id}/>
+  }
 
   return (
     <Form {...form}>
