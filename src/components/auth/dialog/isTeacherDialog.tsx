@@ -18,14 +18,22 @@ import { Minus } from "lucide-react";
 import { useId as user_id, useState, } from "react";
 import { Locale } from "@/i18n";
 import CreateClassDialog from "@/components/app/class/createClassDialog";
+import { Button } from "@/components/ui/button";
 
 interface props {
   isOpen: boolean;
   userId: string;
   lang: Locale;
 }
+type codeType = "school" | "class";
+
 const IsTeacherDialog = ({ isOpen }: props) => {
+   const [codeRole , setCodeRole] = useState<codeType>("school");
   const [createClass, setCreateClass] = useState(false);
+
+  const handleChangeCode = () => {
+    setCodeRole(codeRole === "school" ? "class" : "school") 
+  }
 
   const handleCreateClass = () => {
     setCreateClass(state => !state)
@@ -48,7 +56,7 @@ const IsTeacherDialog = ({ isOpen }: props) => {
           </AlertDialogHeader>
           <div className=" space-y-2">
             <div className="space-y-2">
-              <Label htmlFor={id}>School Code</Label>
+              <Label htmlFor={id} className=" capitalize">{codeRole} Code</Label>
               <OTPInput
                 id={id}
                 containerClassName="flex items-center gap-3 has-[:disabled]:opacity-50"
@@ -73,6 +81,7 @@ const IsTeacherDialog = ({ isOpen }: props) => {
                 )}
               />
             </div>
+            <Button variant="ghost" size="xs" className=" underline" onClick={() => handleChangeCode()}>Use {codeRole} code</Button>
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => handleCreateClass()}>

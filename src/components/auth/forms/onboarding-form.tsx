@@ -100,6 +100,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
     switch (userRole) {
       case "Teacher":
         params.set("user_role", "Teacher");
+        break;
       case "Student":
         params.set("user_role", "Student");
         break;
@@ -499,8 +500,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         />
         <IsTeacherDialog
           lang={lang}
-          // isOpen={userRole === "Teacher" && user?.id ? true : false}
-          isOpen
+          isOpen={userRole === "Teacher" && user?.id ? true : false}
           userId={user?.id ? user.id : ""}
         />
       </form>
