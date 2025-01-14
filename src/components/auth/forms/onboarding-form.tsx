@@ -72,6 +72,7 @@ import { userRoleType } from "@/utils/types/userTypes";
 import IsStudentDialog from "../dialog/isStudentDialog";
 import { Locale } from "@/i18n";
 import IsTeacherDialog from "../dialog/isTeacherDialog";
+import IsSchoolStaffDialog from "../dialog/isSchoolStaffDialog";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -92,8 +93,8 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
       setUserRole("Student");
     } else if (params.get("user_role") === "Teacher") {
       setUserRole("Teacher");
-    } else if (params.get("user_role") ===  "School_Staff") {
-      setUserRole( "School Staff")
+    } else if (params.get("user_role") === "School_Staff") {
+      setUserRole("School Staff");
     }
   }, []);
 
@@ -204,7 +205,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
             } else if (getRole.role === "Teacher") {
               return setUserRole("Teacher");
             } else if (getRole.role === "School Staff") {
-              return setUserRole("School Staff")
+              return setUserRole("School Staff");
             }
           }
         }
@@ -508,6 +509,11 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         <IsTeacherDialog
           lang={lang}
           isOpen={userRole === "Teacher" && user?.id ? true : false}
+          userId={user?.id ? user.id : ""}
+        />
+        <IsSchoolStaffDialog
+          lang={lang}
+          isOpen={userRole === "School Staff" && user?.id ? true : false}
           userId={user?.id ? user.id : ""}
         />
       </form>
