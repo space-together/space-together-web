@@ -8,9 +8,8 @@ export const classSchema = z.object({
     section : z.string().min(1, {
         message : "Session is requid"
     }),
-    subject : z.string().min(1, {
-        message : "Subject is requid"
-    })
+    subjects : z.array(z.string()),
+    room : z.string()
 })
 
 export type classSchemaType = z.infer<typeof classSchema>

@@ -11,7 +11,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,6 +32,9 @@ const CreateClassDialog = ({ isOpen }: props) => {
     resolver: zodResolver(classSchema),
     defaultValues: {
       name: "",
+      section : "",
+      room : "",
+      subjects : undefined,
     }
   })
 
@@ -46,28 +48,64 @@ const CreateClassDialog = ({ isOpen }: props) => {
           <AlertDialogTitle>Create new Class</AlertDialogTitle>
         </AlertDialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>name</FormLabel>
+                  <FormLabel>Class Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Class Name" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
+                  <FormMessage />
+                </FormItem> 
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="section"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Section (option)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Section" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem> 
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subjects"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Subjects (option)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Subjects" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem> 
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="room"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Room (option)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Subjects" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem> 
               )}
             />
             <AlertDialogFooter>
               <AlertDialogCancel>
-                Create class
+                Cancel
               </AlertDialogCancel>
-              <AlertDialogAction >Use Code</AlertDialogAction>
+              <AlertDialogAction >Create class</AlertDialogAction>
             </AlertDialogFooter>
           </form>
         </Form>
