@@ -92,6 +92,8 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
       setUserRole("Student");
     } else if (params.get("user_role") === "Teacher") {
       setUserRole("Teacher");
+    } else if (params.get("user_role") ===  "School_Staff") {
+      setUserRole( "School Staff")
     }
   }, []);
 
@@ -103,6 +105,9 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         break;
       case "Student":
         params.set("user_role", "Student");
+        break;
+      case "School Staff":
+        params.set("user_role", "School_Staff");
         break;
       default:
         params.delete("user_role");
@@ -198,6 +203,8 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
               return setUserRole("Student");
             } else if (getRole.role === "Teacher") {
               return setUserRole("Teacher");
+            } else if (getRole.role === "School Staff") {
+              return setUserRole("School Staff")
             }
           }
         }
