@@ -43,7 +43,7 @@ const CreateClassDialog = ({ isOpen }: props) => {
   }
   return (
     <AlertDialog open={isOpen}>
-      <AlertDialogContent data-theme={UseTheme()} className="">
+      <AlertDialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
         <AlertDialogHeader>
           <AlertDialogTitle>Create new Class</AlertDialogTitle>
         </AlertDialogHeader>
