@@ -94,6 +94,22 @@ export default auth(async (request) => {
     return NextResponse.redirect(new URL(localePrefixPath, nextUrl.origin));
   }
 
+  const user = request.auth?.user;
+
+  if (user?.role === "STUDENT" && pathname.startsWith(`/${detectedLocale}/teacher`)) {
+    return NextResponse.redirect(new URL("/", nextUrl.origin));
+  }
+  
+  // Redirect if the user is logged in but not a teacher and tries to access the teacher page
+  // if (
+  //   isLoggedIn &&
+  //   user?.role !== "ADMIN" &&
+  //   pathname.startsWith(`/${detectedLocale}/admin`)
+  // ) {
+  //   return NextResponse.redirect(new URL(`/${detectedLocale}/${user?.role}`, nextUrl.origin));
+  // }
+  
+
   // Step 5: Allow authenticated users to access protected routes
   return NextResponse.next();
 });

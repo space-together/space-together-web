@@ -1,17 +1,20 @@
+import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaBell } from "react-icons/fa6";
-const HeroDashboard = () => {
+const HeroDashboard = async () => {
+ const session = await auth();
+ const user = session?.user;
 
   return (
     <div className=" w-full justify-between  flex items-center">
       <div className=" w-full flex items-center space-x-4">
         <Avatar className=" size-20 shadow-md border-base-200">
-          <AvatarImage src="/images/2.jpg" />
+          <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
           <AvatarFallback>CEO</AvatarFallback>
         </Avatar>
         <div>
-          <h3 className=" font-semibold text-xl">Good evening, Bruno Rwanda</h3>
-            <span className=" font-bold text-myGray">CEO</span>
+          <h3 className=" font-semibold text-xl">Good evening, {user?.name}</h3>
+            <span className=" font-bold text-myGray">{user?.role}</span>
           <div>
             <p className=" text-myGray text-sm">CRUD in all collections and new features in system! 🌼🌼</p>
           </div>
