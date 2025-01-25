@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
 import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "@/prisma";
+import { db } from "@/lib/db";
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
@@ -42,7 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   session: { strategy: "jwt" },
-  adapter :  PrismaAdapter(prisma),
+  adapter :  PrismaAdapter(db),
   ...authConfig,
   secret: process.env.AUTH_SECRET,
 });
