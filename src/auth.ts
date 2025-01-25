@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
 import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
-import { MyCustomAdapter } from "./lib/auth/myAdapter";
-import apiClient from "./lib/auth/apiClient";
-
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/prisma";
+ 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async session({ token, session }) {
@@ -42,7 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   session: { strategy: "jwt" },
-  adapter : MyCustomAdapter(apiClient),
+  adapter :  PrismaAdapter(prisma),
   ...authConfig,
   secret: process.env.AUTH_SECRET,
 });
