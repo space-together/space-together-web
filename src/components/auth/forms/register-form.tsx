@@ -18,20 +18,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState, useTransition } from "react";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
-import { createUserAPI } from "@/utils/service/functions/fetchDataFn";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
 import { Locale } from "@/i18n";
 import { BeatLoader } from "react-spinners";
+import { registerAction } from "@/services/actions/auth/register-actions";
 
 interface props {
   diction: authRegisterFormDiction;
   lang: Locale;
 }
 
-const RegisterForm = ({ diction, lang }: props) => {
-  const router = useRouter();
-
+const RegisterForm = ({ diction }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(true);
@@ -50,19 +47,15 @@ const RegisterForm = ({ diction, lang }: props) => {
     setError("");
     setSuccess("");
 
-    const validation = registerSchema.safeParse(values);
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
     startTransition(async () => {
-      const result = await createUserAPI(validation.data);
+      const register = await registerAction(values);
 
-      if ("message" in result) {
-        setError(result.message);
-      } else {
-        // router.push(`/${lang}/auth/onboarding`);
-        setSuccess("User created successfully!");
+      if (register.error) {
+        setError(register.error);
+      }
+
+      if (register.success) {
+        setSuccess(register.success);
         form.reset();
       }
     });
