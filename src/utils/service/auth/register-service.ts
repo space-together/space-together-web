@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "../data/user";
 
-export const registerAction = async (values: registerSchemaType) => {
+export const registerService = async (values: registerSchemaType) => {
   const validation = registerSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid Register Validation" };

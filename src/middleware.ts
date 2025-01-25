@@ -3,15 +3,21 @@ import type { NextRequest } from 'next/server';
 import { i18n, Locale } from '@/i18n';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-import { AuthDefault } from './router';
+import {
+  apiAuthPrefix,
+  AuthDefault,
+  authRoutes,
+  DEFAULT_LOGIN_REDIRECT,
+  publicRoutes,
+} from './router';
+import NextAuth from 'next-auth';
+import authConfig from './lib/auth/auth.config';
 
-
-// Locale detection function
 function getLocale(request: NextRequest): Locale {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  const locales: Locale[] = [...i18n.locales]; // Create a mutable copy
+  const locales: Locale[] = [...i18n.locales];
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
   try {
@@ -25,46 +31,52 @@ function getLocale(request: NextRequest): Locale {
   }
 }
 
-// Extract locale from the pathname
-function extractLocale(pathname: string): Locale | null {
-  const parts = pathname.split('/');
-  if (parts.length > 1 && i18n.locales.includes(parts[1] as Locale)) {
-    return parts[1] as Locale;
+function extractLocaleFromPath(pathname: string): Locale | null {
+  const segments = pathname.split('/');
+  if (segments.length > 1 && i18n.locales.includes(segments[1] as Locale)) {
+    return segments[1] as Locale;
   }
   return null;
 }
 
-// Combined middleware function to handle locale and auth redirection
-export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  // get locale
-  const extractedLocale = extractLocale(pathname);
-  const locale = extractedLocale || getLocale(request);
+const { auth } = NextAuth(authConfig);
 
-  // default auth route
-  const defaultRouter = pathname.startsWith(AuthDefault);
+export default auth(async (request) => {
+  const { nextUrl } = request;
+  const pathname = nextUrl.pathname;
+  const isLoggedIn = !!request.auth; // Check if the user is authenticated
+  const detectedLocale = extractLocaleFromPath(pathname) || getLocale(request);
 
-  if (defaultRouter) {
+  // Step 1: Handle API auth routes (always allowed)
+  if (pathname.startsWith(apiAuthPrefix)) {
     return NextResponse.next();
   }
 
-  const pathnameIsMissingLocale = i18n.locales.every(
-    loc => !pathname.startsWith(`/${loc}/`) && pathname !== `/${loc}`
-  );
-
-  if (pathnameIsMissingLocale) {
-    return NextResponse.redirect(
-      new URL(
-        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-        request.url
-      )
-    );
+  // Step 2: Avoid redirect if already on a public or auth route
+  if (publicRoutes.includes(pathname) || authRoutes.includes(pathname)) {
+    return NextResponse.next();
   }
 
-  return NextResponse.next(); // Continue if logged in or on public route
-}
+  // Step 3: Redirect unauthorized users to login (skip redirect loops)
+  if (!isLoggedIn) {
+    if (!pathname.startsWith(`/${detectedLocale}/auth/login`)) {
+      return NextResponse.redirect(
+        new URL(`/${detectedLocale}/auth/login`, nextUrl.origin)
+      );
+    }
+    return NextResponse.next(); // Prevent redirect loop for login page
+  }
 
-// Configuration for middleware matcher
+  // Step 4: Add locale to the path if missing
+  if (!pathname.startsWith(`/${detectedLocale}`)) {
+    const localePrefixPath = `/${detectedLocale}${pathname}`;
+    return NextResponse.redirect(new URL(localePrefixPath, nextUrl.origin));
+  }
+
+  // Step 5: Allow authenticated users to access protected routes
+  return NextResponse.next();
+});
+
 export const config = {
-  matcher: ['/((?!.*\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.*\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'], // Protect all routes except for assets
 };
