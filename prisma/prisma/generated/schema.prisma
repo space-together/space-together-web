@@ -15,6 +15,12 @@ enum UserRole {
   ADMIN
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -23,6 +29,12 @@ model User {
   image         String?
   role          UserRole        @default(STUDENT)
   password      String?
+  username      String?         @unique
+  bio           String?
+  age           DateTime?
+  disabled      Boolean         @default(false)
+  gender        Gender?
+  phone         String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support

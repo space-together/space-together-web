@@ -4,6 +4,7 @@ import { registerSchema, registerSchemaType } from "@/utils/schema/userSchema";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/services/data/user";
+import { generateUsername } from "@/utils/functions/characters";
 
 export const registerAction = async (values: registerSchemaType) => {
   const validation = registerSchema.safeParse(values);
@@ -26,6 +27,7 @@ export const registerAction = async (values: registerSchemaType) => {
     data: {
       name,
       email,
+      username : generateUsername(name),
       password: hashedPassword,
     },
   });

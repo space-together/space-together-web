@@ -94,11 +94,11 @@ export default auth(async (request) => {
     return NextResponse.redirect(new URL(localePrefixPath, nextUrl.origin));
   }
 
-  const user = request.auth?.user;
+  // const user = request.auth?.user;
 
-  if (user?.role === "STUDENT" && pathname.startsWith(`/${detectedLocale}/teacher`)) {
-    return NextResponse.redirect(new URL("/", nextUrl.origin));
-  }
+  // if (user?.role === "STUDENT" && pathname.startsWith(`/${detectedLocale}/teacher`)) {
+  //   return NextResponse.redirect(new URL("/", nextUrl.origin));
+  // }
   
   // Redirect if the user is logged in but not a teacher and tries to access the teacher page
   // if (

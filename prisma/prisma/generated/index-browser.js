@@ -118,6 +118,12 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   role: 'role',
   password: 'password',
+  username: 'username',
+  bio: 'bio',
+  age: 'age',
+  disabled: 'disabled',
+  gender: 'gender',
+  phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -180,6 +186,12 @@ exports.UserRole = exports.$Enums.UserRole = {
   TEACHER: 'TEACHER',
   SCHOOLSTAFF: 'SCHOOLSTAFF',
   ADMIN: 'ADMIN'
+};
+
+exports.Gender = exports.$Enums.Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER'
 };
 
 exports.Prisma.ModelName = {

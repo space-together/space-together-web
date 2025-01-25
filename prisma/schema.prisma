@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-   output   = "./prisma/generated" // Example custom output directory
+  output   = "./prisma/generated" // Example custom output directory
 }
 
 enum UserRole {
@@ -13,6 +13,12 @@ enum UserRole {
   TEACHER
   SCHOOLSTAFF
   ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }
 
 model User {
@@ -23,6 +29,12 @@ model User {
   image         String?
   role          UserRole        @default(STUDENT)
   password      String?
+  username      String?         @unique
+  bio           String?
+  age           DateTime?
+  disabled      Boolean         @default(false)
+  gender        Gender?
+  phone         String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
