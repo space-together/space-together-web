@@ -1,17 +1,11 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { i18n, Locale } from '@/i18n';
-import { match as matchLocale } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
-import {
-  apiAuthPrefix,
-  AuthDefault,
-  authRoutes,
-  DEFAULT_LOGIN_REDIRECT,
-  publicRoutes,
-} from './router';
-import NextAuth from 'next-auth';
-import authConfig from './lib/auth/auth.config';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { i18n, Locale } from "@/i18n";
+import { match as matchLocale } from "@formatjs/intl-localematcher";
+import Negotiator from "negotiator";
+import { apiAuthPrefix, authRoutes, publicRoutes } from "./router";
+import NextAuth from "next-auth";
+import authConfig from "./lib/auth/auth.config";
 
 function getLocale(request: NextRequest): Locale {
   const negotiatorHeaders: Record<string, string> = {};
@@ -21,7 +15,11 @@ function getLocale(request: NextRequest): Locale {
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
   try {
-    const locale = matchLocale(languages, locales, i18n.defaultLocale as Locale);
+    const locale = matchLocale(
+      languages,
+      locales,
+      i18n.defaultLocale as Locale
+    );
     if (!locale || !locales.includes(locale as Locale)) {
       throw new RangeError(`Locale ${locale} is not supported`);
     }
@@ -32,7 +30,7 @@ function getLocale(request: NextRequest): Locale {
 }
 
 function extractLocaleFromPath(pathname: string): Locale | null {
-  const segments = pathname.split('/');
+  const segments = pathname.split("/");
   if (segments.length > 1 && i18n.locales.includes(segments[1] as Locale)) {
     return segments[1] as Locale;
   }
@@ -53,7 +51,30 @@ export default auth(async (request) => {
   }
 
   // Step 2: Avoid redirect if already on a public or auth route
-  if (publicRoutes.includes(pathname) || authRoutes.includes(pathname)) {
+  if (
+    publicRoutes.some(
+      (route) =>
+        pathname === route ||
+        pathname === `/${detectedLocale}${route}` ||
+        pathname === `/${detectedLocale}`
+    ) ||
+    authRoutes.some(
+      (route) =>
+        pathname === route ||
+        pathname === `/${detectedLocale}${route}` ||
+        pathname === `/${detectedLocale}`
+    )
+  ) {
+    // Redirect public route without a locale to a locale-prefixed route
+    if (!pathname.startsWith(`/${detectedLocale}`)) {
+      const localePath =
+        pathname === "/"
+          ? `/${detectedLocale}`
+          : `/${detectedLocale}${
+              pathname.startsWith("/") ? pathname : `/${pathname}`
+            }`;
+      return NextResponse.redirect(new URL(localePath, nextUrl.origin));
+    }
     return NextResponse.next();
   }
 
@@ -78,5 +99,5 @@ export default auth(async (request) => {
 });
 
 export const config = {
-  matcher: ['/((?!.*\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'], // Protect all routes except for assets
+  matcher: ["/((?!.*\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"], // Protect all routes except for assets
 };

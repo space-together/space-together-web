@@ -1,8 +1,3 @@
-/**
- * the default auth router
- * @type {string}
- */
-export const AuthDefault = "/api/auth";
 
 /**
  * An Array of routes that are accessible  to the public
@@ -11,7 +6,6 @@ export const AuthDefault = "/api/auth";
 
 export const publicRoutes = [
     "/",
-    "/new-verification",
 ];
 
 /**
