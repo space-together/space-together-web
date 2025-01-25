@@ -8,6 +8,7 @@ import CollectionUserRole from "./collectionUserRole";
 import UserCollectionDetails from "./userCollectionDetials";
 import UsersTableCollection from "./usersTableCollection";
 import { fetchUserRole } from "@/services/data/fetchDataFn";
+ 
 
 const apiClient = new ApiClient();
 
@@ -20,6 +21,7 @@ const UserPageCollection = async ({ collectionName }: props) => {
     "users",
     "users"
   );
+
 
   const userRoles: UserRoleModel[] | FetchError = await fetchUserRole();
 
