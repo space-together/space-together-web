@@ -1,8 +1,8 @@
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { db } from '@/lib/db';
 import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
-import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";
+import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";import { PrismaAdapter } from '@auth/prisma-adapter';
+import { db } from '@/lib/db';
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async session({ token, session }) {
