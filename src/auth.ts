@@ -1,7 +1,8 @@
 import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
-import { getUserByEmailAPI } from "./utils/service/functions/fetchDataFn";import { PrismaAdapter } from '@auth/prisma-adapter';
-import { db } from '@/lib/db';
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { db } from "@/lib/db";
+import { getUserByEmail } from "./services/data/user";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
@@ -28,20 +29,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token }) {
       if (!token.email) return token;
-      const user = await getUserByEmailAPI(token.email);
+      const user = await getUserByEmail(token.email);
 
-      if ("message" in user) return token;
-
+      if (!user) return token;
       token.name = user.name;
       token.email = user.email;
       token.sub = user.id;
-      token.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
+      // token.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
       token.role = user.role;
       return token;
     },
   },
   session: { strategy: "jwt" },
-  adapter :  PrismaAdapter(db),
+  adapter: PrismaAdapter(db),
   ...authConfig,
   secret: process.env.AUTH_SECRET,
 });

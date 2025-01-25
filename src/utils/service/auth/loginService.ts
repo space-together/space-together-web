@@ -1,7 +1,6 @@
 "use server";
 
 import { LoginModel, loginModelTypes } from "@/utils/schema/userSchema";
-import { getUserByEmailAPI } from "../functions/fetchDataFn";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { Locale } from "@/i18n";
@@ -24,11 +23,6 @@ export const loginService = async (value: loginModelTypes, lang: Locale) => {
   const { email, password } = validation.data;
 
   try {
-    const exitUser = await getUserByEmailAPI(email);
-    if ("message" in exitUser) {
-      return { error: exitUser.message };
-    }
-
     await signIn("credentials", {
       email,
       password,

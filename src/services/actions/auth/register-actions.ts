@@ -1,7 +1,7 @@
 "use server";
 import { registerSchema, registerSchemaType } from "@/utils/schema/userSchema";
 
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/services/data/user";
 
