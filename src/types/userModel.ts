@@ -75,4 +75,3 @@ export type authUser = {
   image?: string;
   role: string;
 };
-

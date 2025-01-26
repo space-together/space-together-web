@@ -24,20 +24,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
-import {
-  authUser,
-  Gender,
-  UserModelPut,
-  UserRoleModel,
-} from "@/utils/models/userModel";
-import { FetchError } from "@/utils/types/fetchTypes";
-import {
-  ChangeEvent,
-  useState,
-  useTransition,
-  forwardRef,
-  useEffect,
-} from "react";
+import { authUser } from "@/utils/models/userModel";
+import { ChangeEvent, useState, useTransition, forwardRef } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
@@ -64,62 +52,26 @@ import {
 import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
-import {
-  fetchUserRolesById,
-  updateUserById,
-} from "@/utils/service/functions/fetchDataFn";
-import { userRoleType } from "@/utils/types/userTypes";
-import IsStudentDialog from "../dialog/isStudentDialog";
+// import IsStudentDialog from "../dialog/isStudentDialog";
 import { Locale } from "@/i18n";
-import IsTeacherDialog from "../dialog/isTeacherDialog";
-import IsSchoolStaffDialog from "../dialog/isSchoolStaffDialog";
+// import IsTeacherDialog from "../dialog/isTeacherDialog";
+// import IsSchoolStaffDialog from "../dialog/isSchoolStaffDialog";
+import { onboardingAction } from "@/services/actions/auth/onboarding-action";
+import { useRouter } from "next/navigation";
+import { toLowerCase } from "@/utils/functions/characters";
+import { userRoleContext } from "@/utils/context/user-context";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
-  userRoles: UserRoleModel[] | FetchError;
   user: authUser | undefined;
   lang: Locale;
 }
 
-const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
+const OnboardingForm = ({ dictionary, user, lang }: Props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
-  const [userRole, setUserRole] = useState<userRoleType>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("user_role") === "Student") {
-      setUserRole("Student");
-    } else if (params.get("user_role") === "Teacher") {
-      setUserRole("Teacher");
-    } else if (params.get("user_role") === "School_Staff") {
-      setUserRole("School Staff");
-    }
-  }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    switch (userRole) {
-      case "Teacher":
-        params.set("user_role", "Teacher");
-        break;
-      case "Student":
-        params.set("user_role", "Student");
-        break;
-      case "School Staff":
-        params.set("user_role", "School_Staff");
-        break;
-      default:
-        params.delete("user_role");
-        break;
-    }
-    window.history.replaceState(
-      {},
-      "",
-      `${window.location.pathname}?${params}`
-    );
-  }, [userRole]);
+  const router = useRouter();
 
   const form = useForm<onboardingSchemaTypes>({
     resolver: zodResolver(onboardingSchema),
@@ -172,42 +124,18 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
     setSuccess("");
     setError("");
 
-    const validation = onboardingSchema.safeParse(value);
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const { image, age, role, gender, phone } = validation.data;
-
-    const updateModel: UserModelPut = {
-      image: image,
-      age: age ? new Date(age).toISOString() : "",
-      phone: phone,
-      gender: gender as unknown as Gender,
-      role: role,
-    };
-
     startTransition(async () => {
       if (user?.id) {
-        const update = await updateUserById(updateModel, user.id);
-        if ("message" in update) {
-          return setError(update.details);
-        } else {
-          setSuccess(cn("Account update successful"));
+        const update = await onboardingAction(value, user.id);
+        if (update.error) {
+          setError(update.error);
+        }
+
+        if (update.success) {
+          setSuccess(update.success);
           form.reset();
-
-          const getRole = await fetchUserRolesById(role);
-
-          if ("message" in getRole) return setError(getRole.message);
-          else {
-            if (getRole.role === "Student") {
-              return setUserRole("Student");
-            } else if (getRole.role === "Teacher") {
-              return setUserRole("Teacher");
-            } else if (getRole.role === "School Staff") {
-              return setUserRole("School Staff");
-            }
-          }
+          const role = toLowerCase(update.data.role);
+          return router.push(`/${lang}/${role}`);
         }
       } else {
         return setError("You must be login to update account!");
@@ -423,7 +351,6 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                 <FormItem className=" w-1/2">
                   <FormLabel>{dictionary.role}</FormLabel>
                   <Select
-                    disabled={"message" in userRoles || isPending}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
@@ -433,12 +360,14 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent data-theme={UseTheme()}>
-                      {Array.isArray(userRoles) &&
-                        userRoles.map((role) => (
-                          <SelectItem key={role.role} value={role.id}>
-                            {role.role}
+                      {userRoleContext.map((item) => {
+                        const role = toLowerCase(item)
+                        return (
+                          <SelectItem className=" capitalize" key={role} value={item}>
+                            {role}
                           </SelectItem>
-                        ))}
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -459,7 +388,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="M" />
+                          <RadioGroupItem value="MALE" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.male}
@@ -467,7 +396,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="F" />
+                          <RadioGroupItem value="FEMALE" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.female}
@@ -475,7 +404,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="O" />
+                          <RadioGroupItem value="OTHER" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.other}
@@ -501,7 +430,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
         >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
-        <IsStudentDialog
+        {/* <IsStudentDialog
           lang={lang}
           isOpen={userRole === "Student" && user?.id ? true : false}
           userId={user?.id ? user.id : ""}
@@ -515,7 +444,7 @@ const OnboardingForm = ({ dictionary, userRoles, user, lang }: Props) => {
           lang={lang}
           isOpen={userRole === "School Staff" && user?.id ? true : false}
           userId={user?.id ? user.id : ""}
-        />
+        /> */}
       </form>
     </Form>
   );

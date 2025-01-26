@@ -1,0 +1,1 @@
+export const userRoleContext = ["STUDENT", "TEACHER", "SCHOOLSTAFF"];
