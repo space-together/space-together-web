@@ -47,7 +47,8 @@ export namespace $Enums {
   STUDENT: 'STUDENT',
   TEACHER: 'TEACHER',
   SCHOOLSTAFF: 'SCHOOLSTAFF',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  PARENT: 'PARENT'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]

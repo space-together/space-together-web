@@ -13,6 +13,7 @@ enum UserRole {
   TEACHER
   SCHOOLSTAFF
   ADMIN
+  PARENT
 }
 
 enum Gender {

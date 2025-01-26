@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import MyImage from "../my-components/myImage";
 import { Locale } from "@/i18n";
 import { FaGithub } from "react-icons/fa"
-import { loginWithProvidesService } from "@/utils/service/auth/loginService";
+import { loginWithProvidesService } from "@/services/actions/auth/login-actions";
 
 interface props {
   lang : Locale

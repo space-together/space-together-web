@@ -185,7 +185,8 @@ exports.UserRole = exports.$Enums.UserRole = {
   STUDENT: 'STUDENT',
   TEACHER: 'TEACHER',
   SCHOOLSTAFF: 'SCHOOLSTAFF',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  PARENT: 'PARENT'
 };
 
 exports.Gender = exports.$Enums.Gender = {

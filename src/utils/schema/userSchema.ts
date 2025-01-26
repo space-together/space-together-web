@@ -71,7 +71,7 @@ export const onboardingSchema = z.object({
   role: z.string().min(1, {
     message: "Role is required",
   }),
-  gender: z.enum(["M", "F", "O"], {
+  gender: z.enum(["FEMALE", "MALE", "OTHER"], {
     message: "Gender must be one of 'Male', 'Female', or 'Other'",
   }),
 });
