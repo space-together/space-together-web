@@ -40,19 +40,6 @@ const NoteCard = () => {
             delectus nihil accusamus...
           </p>
         </div>
-        {/* <Separator />
-        <div className=" flex justify-between px-4 py-2 ">
-          <div className=" flex gap-2 items-center">
-            <div className=" -space-x-1 flex items-center ">
-              <MyImage src="/icons/like.png" className=" size-8" />
-              <MyImage src="/icons/sad.png" className=" size-6" />
-            </div>
-            <span>15</span>
-          </div>
-          <div className=" flex items-center gap-2">
-            <span>32</span> <FaComment size={28} />
-          </div>
-        </div> */}
         <Separator />
         <div className=" flex justify-between px-4 py-2 ">
           <div className=" flex gap-2 items-center">
