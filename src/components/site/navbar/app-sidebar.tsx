@@ -42,7 +42,7 @@ const SidebarGroupComponent = ({
   lang,
 }: sidebarGroupsProps) => {
   const path = usePathname();
-  const theme = UseTheme()
+  const theme = UseTheme();
   return (
     <SidebarGroup className=" p-0">
       <div>
@@ -50,7 +50,11 @@ const SidebarGroupComponent = ({
           <span className=" font-medium text-xs text-myGray ml-2">{label}</span>
         ) : (
           <div>
-            {index == 0 ? <div className=" mt-2"></div> : <Separator className="mb-2"/>}
+            {index == 0 ? (
+              <div className=" mt-2"></div>
+            ) : (
+              <Separator className="mb-2" />
+            )}
           </div>
         )}
       </div>
@@ -85,7 +89,9 @@ const SidebarGroupComponent = ({
                                 }
                                 className={cn(
                                   "ml-8 flex items-center gap-2 btn-xs btn-ghost  rounded-md",
-                                  path === subItem.url || path ===  `/${lang}${subItem.url}` && "btn-info"
+                                  path === subItem.url ||
+                                    (path === `/${lang}${subItem.url}` &&
+                                      "btn-info")
                                 )}
                               >
                                 {subItem.icon && (
@@ -116,7 +122,9 @@ const SidebarGroupComponent = ({
                       href={cn(lang ? `/${lang}${item.url}` : item.url)}
                       className={cn(
                         "flex items-center gap-2 font-normal rounded-l-none border-r-2",
-                        path === item.url || path === `/${lang}${item.url}` && `bg-base-300 ${theme === "dark" && "bg-white/10"}`
+                        path === item.url ||
+                          (path === `/${lang}${item.url}` &&
+                            `bg-base-300 ${theme === "dark" && "bg-white/10"}`)
                       )}
                     >
                       {item.icon && <item.icon className="size-6" />}
@@ -148,19 +156,19 @@ interface props {
   items: sidebarGroupsProps[];
   name?: string;
   lang?: Locale;
-  user ?: authUser;
+  user?: authUser;
 }
 
 export function AppSidebar({ items, name, lang, user }: props) {
   return (
-    <Sidebar>
+    <Sidebar className=" pt-14">
       <SidebarContent className=" border-r shrink-0 border-border">
-        <SidebarHeader className="flex  w-[16rem] justify-between gap-2 flex-row items-center fixed top-0  h-16 pb-4 from-base-300 via-base-300  to-transparent z-50">
+        {/* <SidebarHeader className="flex  w-[16rem] justify-between gap-2 flex-row items-center top-0 pb-4 from-base-300 via-base-300  to-transparent z-50">
           <SiteLogo name={name} />
           <AuthChangeTheme />
-        </SidebarHeader>
+        </SidebarHeader> */}
         {/* Render Sidebar Groups */}
-        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem)] mt-14 space-y-1">
+        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem) space-y-1">
           {items.map((group, index) => (
             <SidebarGroupComponent
               key={index}
