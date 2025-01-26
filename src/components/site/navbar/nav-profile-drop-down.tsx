@@ -13,7 +13,8 @@ import {
 import UseTheme from "@/context/theme/use-theme";
 import { Locale } from "@/i18n";
 import { authUser } from "@/types/userModel";
-import { User } from "lucide-react";
+import { logout } from "@/utils/service/logout";
+import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 
 interface props {
@@ -46,6 +47,13 @@ const NavProfileDropDown = ({ user, lang }: props) => {
             <User />
             <span>Your Profile</span>
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Button onClick={() => logout()} variant="ghost" size="sm" className=" text-error">
+            <LogOut />
+            <span>Logout</span>
+          </Button>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
       </DropdownMenuContent>

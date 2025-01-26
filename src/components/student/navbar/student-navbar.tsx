@@ -7,7 +7,7 @@ interface props {
 
 const StudentNavbar = ({}: props) => {
   return (
-    <ul className=" h-12 border-b border-border">
+    <ul className=" h-10 border-b border-border w-full bg-base-100">
       <li>student navbar</li>
     </ul>
   );
