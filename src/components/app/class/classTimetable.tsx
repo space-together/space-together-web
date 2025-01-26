@@ -2,7 +2,7 @@ import React from 'react'
 
 const ClassTimetable = () => {
   return (
-    <div>
+    <div className=' happy-card  h-80'>
       class time table
     </div>
   )
