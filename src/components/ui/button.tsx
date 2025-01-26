@@ -7,10 +7,11 @@ export interface ButtonProps
   asChild?: boolean;
   variant?: "primary" | "secondary" | "accent" | "ghost" | "success"|"link" | "outline" | "error" | "info" | "warning";
   size?: "xs" |"sm" | "md" | "lg";
+  shape ?: "circle" | "square"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "", size = "md", asChild = false, ...props }, ref) => {
+  ({ className, variant = "", size = "md", asChild = false, shape ="", ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
     // Map variant and size props to DaisyUI classes
@@ -35,9 +36,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "btn-lg",
     }[size];
 
+    const shapeClass = {
+      circle : "btn-circle",
+      square : "btn-square"
+    }[shape]
+
     return (
       <Comp
-        className={cn(baseClass, variantClass, sizeClass, className)}
+        className={cn(baseClass, variantClass, sizeClass, shapeClass, className)}
         ref={ref}
         {...props}
       />

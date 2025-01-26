@@ -1,7 +1,8 @@
-import { auth } from '@/auth';
-import { Locale } from '@/i18n';
-import { redirect } from 'next/navigation';
-import React from 'react'
+import { auth } from "@/auth";
+import AppNavbar from "@/components/site/navbar/app-navbar";
+import { Locale } from "@/i18n";
+import { redirect } from "next/navigation";
+import React from "react";
 interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
@@ -17,8 +18,16 @@ export default async function ApplicationLayout(props: props) {
   }
   return (
     <div>
-        <div className=' mt-14'></div>
-      {children}
+      <AppNavbar
+        user={{
+          ...user,
+          name: user.name ?? "",
+          email: user.email ?? undefined,
+          image: user.image ?? undefined,
+        }}
+        lang={lang}
+      />
+      <div className=" pt-14">{children}</div>
     </div>
-  )
+  );
 }
