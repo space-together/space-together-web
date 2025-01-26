@@ -27,7 +27,7 @@ export default async function ApplicationLayout(props: props) {
         }}
         lang={lang}
       />
-      <div className=" pt-14">{children}</div>
+      <div className=" pt-14 bg-base-200">{children}</div>
     </div>
   );
 }

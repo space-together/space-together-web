@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
+import StudentNavbar from "@/components/student/navbar/student-navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
 import { studentSidebarGroups } from "@/utils/context/app-side-content";
@@ -18,9 +19,9 @@ export default async function StudentLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-  
+
   return (
-    <SidebarProvider className=" gap-2 w-full">
+    <SidebarProvider className=" w-full">
       <AppSidebar
         user={{
           ...user,
@@ -32,7 +33,17 @@ export default async function StudentLayout(props: props) {
         lang={lang}
         items={studentSidebarGroups}
       />
-      <main className="w-full">{children}</main>
+      <main className="w-full">
+        <StudentNavbar
+          user={{
+            ...user,
+            name: user.name ?? "",
+            email: user.email ?? undefined,
+            image: user.image ?? undefined,
+          }}
+        />
+        {children}
+      </main>
     </SidebarProvider>
   );
 }

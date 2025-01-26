@@ -6,8 +6,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  // SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -20,8 +18,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import SiteLogo from "./site-logo";
-import AuthChangeTheme from "@/components/auth/nav/auth-theme";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileButton from "./profile-button";
 import Link from "next/link";
@@ -159,15 +155,10 @@ interface props {
   user?: authUser;
 }
 
-export function AppSidebar({ items, name, lang, user }: props) {
+export function AppSidebar({ items, lang, user }: props) {
   return (
     <Sidebar className=" pt-14">
       <SidebarContent className=" border-r shrink-0 border-border">
-        {/* <SidebarHeader className="flex  w-[16rem] justify-between gap-2 flex-row items-center top-0 pb-4 from-base-300 via-base-300  to-transparent z-50">
-          <SiteLogo name={name} />
-          <AuthChangeTheme />
-        </SidebarHeader> */}
-        {/* Render Sidebar Groups */}
         <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem) space-y-1">
           {items.map((group, index) => (
             <SidebarGroupComponent

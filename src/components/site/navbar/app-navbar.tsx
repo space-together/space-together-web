@@ -13,7 +13,7 @@ interface props {
 
 const AppNavbar = ({ lang, user }: props) => {
   return (
-    <nav className=" w-full h-14 max-h-14 fixed border-b border-border p-2 flex justify-between">
+    <nav className=" w-full h-14 max-h-14 fixed border-b border-border p-2 flex justify-between z-50 bg-base-100">
       <div className=" flex">
         <SiteLogo />
       </div>
