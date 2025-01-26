@@ -14,6 +14,7 @@ const StudentPage = () => {
           <ClassActivities />
         </div>
       </div>
+      <div className=" h-screen"></div>
     </div>
   );
 };
