@@ -18,8 +18,8 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
 import { BeatLoader } from "react-spinners";
-import { loginService } from "@/utils/service/auth/loginService";
 import { Locale } from "@/i18n";
+import { loginService } from "@/services/actions/auth/login-actions";
 
 interface props {
   diction: authLoginFormDiction;
