@@ -24,7 +24,7 @@ const AppNavbar = ({ lang, user }: props) => {
         <div role="button" className=" btn btn-circle btn-ghost">
           <MyImage className=" size-8" src="/icons/bell.png" />
         </div>
-        <NavProfileDropDown user={user} />
+        <NavProfileDropDown lang={lang} user={user} />
       </div>
     </nav>
   );
