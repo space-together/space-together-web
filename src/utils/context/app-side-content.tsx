@@ -6,17 +6,23 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { LiaUsersSolid } from "react-icons/lia";
 import { MdClass } from "react-icons/md";
 import { CiGrid31 } from "react-icons/ci";
+import { Locale } from "@/i18n";
 
 // Define type for sidebar items
 export type SidebarItem = {
   title: string;
   icon?: React.ComponentType<{ className?: string }>;
-  image ?: string;
+  image?: string;
   url?: string;
   children?: SidebarItem[];
 };
 
-export type sidebarGroupsProps = { label?: string; items: SidebarItem[] , index ?: number};
+export type sidebarGroupsProps = {
+  label?: string;
+  items: SidebarItem[];
+  index?: number;
+  lang ?: Locale;
+};
 
 // Sidebar configurations
 export const adminSidebarGroups: sidebarGroupsProps[] = [
@@ -76,36 +82,35 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
   },
 ];
 
-export const studentSidebarGroups: sidebarGroupsProps[] =
-  [
-    {
-      //   label: "Dashboard",
-      items: [
-        {
-          title: "Class Room",
-          image : "/icons/blackboard.png",
-          url: "/student/",
-        },
-        {
-          title: "Database",
-          icon: AiFillDatabase,
-          url: "/student/database",
-        },
-        {
-          title: "Collections",
-          icon: TfiLayoutGrid3,
-          url: "/student/collections",
-        },
-      ],
-    },
-    {
+export const studentSidebarGroups: sidebarGroupsProps[] = [
+  {
+    //   label: "Dashboard",
+    items: [
+      {
+        title: "School",
+        image: "/icons/school.png",
+        url: "/school",
+      },
+      {
+        title: "Class Room",
+        image: "/icons/blackboard.png",
+        url: "/student",
+      },
+      {
+        title: "Collections",
+        icon: TfiLayoutGrid3,
+        url: "/student/collections",
+      },
+    ],
+  },
+  {
     //   label: "Settings",
-      items: [
-        {
-          title: "Settings",
-          icon: AiOutlineSetting,
-          url: "/admin/setting",
-        },
-      ],
-    },
-  ];
+    items: [
+      {
+        title: "Settings",
+        icon: AiOutlineSetting,
+        url: "/admin/setting",
+      },
+    ],
+  },
+];

@@ -30,23 +30,32 @@ import { cn } from "@/lib/utils";
 import { sidebarGroupsProps } from "@/utils/context/app-side-content";
 import { Separator } from "@/components/ui/separator";
 import MyImage from "@/components/my-components/myImage";
+import { Locale } from "@/i18n";
+import { authUser } from "@/types/userModel";
+import UseTheme from "@/context/theme/use-theme";
 
 // Reusable component for rendering sidebar groups
-const SidebarGroupComponent = ({ label, items, index }: sidebarGroupsProps) => {
+const SidebarGroupComponent = ({
+  label,
+  items,
+  index,
+  lang,
+}: sidebarGroupsProps) => {
   const path = usePathname();
+  const theme = UseTheme()
   return (
     <SidebarGroup className=" p-0">
       <div>
         {label ? (
-          <>{label}</>
+          <span className=" font-medium text-xs text-myGray ml-2">{label}</span>
         ) : (
           <div>
-            {index == 0 ? <div className=" mt-2"></div> : <Separator />}
+            {index == 0 ? <div className=" mt-2"></div> : <Separator className="mb-2"/>}
           </div>
         )}
       </div>
       <SidebarGroupContent>
-        <SidebarMenu className=" space-y-2 pr-2">
+        <SidebarMenu className=" space-y-1 pr-2">
           {items.map((item, index) =>
             item.children ? (
               <Accordion
@@ -69,10 +78,14 @@ const SidebarGroupComponent = ({ label, items, index }: sidebarGroupsProps) => {
                           <SidebarMenuSubItem key={subIndex}>
                             {subItem.url ? (
                               <Link
-                                href={subItem.url}
+                                href={
+                                  lang
+                                    ? `/${lang}${subItem.url}`
+                                    : `${subItem.url}`
+                                }
                                 className={cn(
                                   "ml-8 flex items-center gap-2 btn-xs btn-ghost  rounded-md",
-                                  path === subItem.url && "btn-info"
+                                  path === subItem.url || path ===  `/${lang}${subItem.url}` && "btn-info"
                                 )}
                               >
                                 {subItem.icon && (
@@ -100,19 +113,24 @@ const SidebarGroupComponent = ({ label, items, index }: sidebarGroupsProps) => {
                 <SidebarMenuButton asChild>
                   {item.url ? (
                     <Link
-                      href={item.url}
+                      href={cn(lang ? `/${lang}${item.url}` : item.url)}
                       className={cn(
-                        "flex items-center gap-2 font-normal",
-                        path === item.url && "text-info"
+                        "flex items-center gap-2 font-normal rounded-l-none border-r-2",
+                        path === item.url || path === `/${lang}${item.url}` && `bg-base-300 ${theme === "dark" && "bg-white/10"}`
                       )}
                     >
                       {item.icon && <item.icon className="size-6" />}
-                      {item.image && <MyImage className=" size-6" src={item.image}/>}
+                      {item.image && (
+                        <MyImage className=" size-6" src={item.image} />
+                      )}
                       {item.title}
                     </Link>
                   ) : (
                     <div className="flex items-center gap-2 font-normal">
                       {item.icon && <item.icon className="size-6" />}
+                      {item.image && (
+                        <MyImage className=" size-6" src={item.image} />
+                      )}
                       {item.title}
                     </div>
                   )}
@@ -129,9 +147,11 @@ const SidebarGroupComponent = ({ label, items, index }: sidebarGroupsProps) => {
 interface props {
   items: sidebarGroupsProps[];
   name?: string;
+  lang?: Locale;
+  user ?: authUser;
 }
 
-export function AppSidebar({ items, name }: props) {
+export function AppSidebar({ items, name, lang, user }: props) {
   return (
     <Sidebar>
       <SidebarContent className=" border-r shrink-0 border-border">
@@ -140,13 +160,14 @@ export function AppSidebar({ items, name }: props) {
           <AuthChangeTheme />
         </SidebarHeader>
         {/* Render Sidebar Groups */}
-        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem)] mt-14 space-y-2">
+        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem)] mt-14 space-y-1">
           {items.map((group, index) => (
             <SidebarGroupComponent
               key={index}
               label={group.label}
               items={group.items}
               index={index}
+              lang={lang}
             />
           ))}
           <div className="h-[1.5rem]]" />
@@ -155,17 +176,16 @@ export function AppSidebar({ items, name }: props) {
           <div className=" flex justify-between items-center ">
             <div className="flex  items-center space-x-1 pt-6">
               <Avatar>
-                <AvatarImage src="/images/2.jpg" />
+                <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
                 <AvatarFallback>CEO</AvatarFallback>
               </Avatar>
               <div className=" flex flex-col">
-                <h6 className="text-sm font-medium">Bruno Rwanda</h6>
-                <span className=" my-sm-text">CEO</span>
+                <h6 className="text-sm font-medium">{user?.name}</h6>
+                <span className=" my-sm-text">{user?.role}</span>
               </div>
             </div>
             <ProfileButton />
           </div>
-          
         </SidebarFooter>
       </SidebarContent>
     </Sidebar>

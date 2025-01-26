@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link"
 
-const page = async () => {
+const HomePage = async () => {
   const session = await auth();
   return (
     <div>
-      other page {JSON.stringify(session)}
+      other HomePage {JSON.stringify(session)}
       <div className=" flex gap-4">
         <Link href={`/auth/register`} className=" btn btn-info">Register</Link>
         <Link href={`/auth/login`} className=" btn btn-accent">Login</Link>
@@ -31,4 +31,4 @@ const page = async () => {
   )
 }
 
-export default page
+export default HomePage
