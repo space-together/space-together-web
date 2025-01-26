@@ -1,0 +1,111 @@
+"use client";
+import { AiFillDatabase } from "react-icons/ai";
+import { TfiLayoutGrid3 } from "react-icons/tfi";
+
+import { AiOutlineSetting } from "react-icons/ai";
+import { LiaUsersSolid } from "react-icons/lia";
+import { MdClass } from "react-icons/md";
+import { CiGrid31 } from "react-icons/ci";
+
+// Define type for sidebar items
+export type SidebarItem = {
+  title: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  image ?: string;
+  url?: string;
+  children?: SidebarItem[];
+};
+
+export type sidebarGroupsProps = { label?: string; items: SidebarItem[] , index ?: number};
+
+// Sidebar configurations
+export const adminSidebarGroups: sidebarGroupsProps[] = [
+  {
+    label: "Dashboard",
+    items: [
+      {
+        title: "Dashboard",
+        icon: CiGrid31,
+        url: "/admin/",
+      },
+      {
+        title: "Database",
+        icon: AiFillDatabase,
+        url: "/admin/database",
+      },
+      {
+        title: "Collections",
+        icon: TfiLayoutGrid3,
+        url: "/admin/collections",
+      },
+    ],
+  },
+  {
+    label: "Main collections",
+    items: [
+      {
+        title: "Users",
+        icon: LiaUsersSolid,
+        url: "/collection/users",
+        children: [
+          { title: "Students", url: "/admin/users/students" },
+          { title: "Teachers", url: "/admin/users/teachers" },
+          { title: "Manage Users", url: "/admin/users/crud" },
+        ],
+      },
+      {
+        title: "Classes",
+        icon: MdClass,
+        children: [
+          { title: "All Classes", url: "/admin/classes/all" },
+          { title: "Create Class", url: "/admin/classes/create" },
+          { title: "Manage Classes", url: "/admin/classes/manage" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Settings",
+    items: [
+      {
+        title: "Settings",
+        icon: AiOutlineSetting,
+        url: "/admin/setting",
+      },
+    ],
+  },
+];
+
+export const studentSidebarGroups: sidebarGroupsProps[] =
+  [
+    {
+      //   label: "Dashboard",
+      items: [
+        {
+          title: "Class Room",
+          image : "/icons/blackboard.png",
+          url: "/student/",
+        },
+        {
+          title: "Database",
+          icon: AiFillDatabase,
+          url: "/student/database",
+        },
+        {
+          title: "Collections",
+          icon: TfiLayoutGrid3,
+          url: "/student/collections",
+        },
+      ],
+    },
+    {
+    //   label: "Settings",
+      items: [
+        {
+          title: "Settings",
+          icon: AiOutlineSetting,
+          url: "/admin/setting",
+        },
+      ],
+    },
+  ];

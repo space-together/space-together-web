@@ -23,7 +23,7 @@ export const registerAction = async (values: registerSchemaType) => {
   };
   }
 
-  await db.user.create({
+ const create = await db.user.create({
     data: {
       name,
       email,
@@ -31,5 +31,11 @@ export const registerAction = async (values: registerSchemaType) => {
       password: hashedPassword,
     },
   });
+  
+  
+  if (!create) {
+    return { error: "Failed to create account" };
+  }
+
   return { success: "Account created" };
 };

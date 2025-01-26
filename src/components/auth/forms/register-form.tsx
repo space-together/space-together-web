@@ -22,18 +22,19 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Locale } from "@/i18n";
 import { BeatLoader } from "react-spinners";
 import { registerAction } from "@/services/actions/auth/register-actions";
+import { useRouter } from "next/navigation";
 
 interface props {
   diction: authRegisterFormDiction;
   lang: Locale;
 }
 
-const RegisterForm = ({ diction }: props) => {
+const RegisterForm = ({ diction, lang }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(true);
   const [isPending, startTransition] = useTransition();
-
+const router = useRouter();
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -57,6 +58,7 @@ const RegisterForm = ({ diction }: props) => {
       if (register.success) {
         setSuccess(register.success);
         form.reset();
+        return router.push(`${lang}/auth/login`);
       }
     });
   };

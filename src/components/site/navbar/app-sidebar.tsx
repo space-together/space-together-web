@@ -1,17 +1,12 @@
 "use client";
 
-import { AiOutlineSetting } from "react-icons/ai";
-import { LiaUsersSolid } from "react-icons/lia";
-import { MdClass } from "react-icons/md";
-import { CiGrid31 } from "react-icons/ci";
-
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  // SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -32,89 +27,26 @@ import ProfileButton from "./profile-button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { AiFillDatabase } from "react-icons/ai";
-import { TfiLayoutGrid3 } from "react-icons/tfi";
-
-// Define type for sidebar items
-type SidebarItem = {
-  title: string;
-  icon?: React.ComponentType<{ className?: string }>;
-  url?: string;
-  children?: SidebarItem[];
-};
-
-// Sidebar configurations
-const sidebarGroups: { label: string; items: SidebarItem[] }[] = [
-  {
-    label: "Dashboard",
-    items: [
-      {
-        title: "Dashboard",
-        icon: CiGrid31,
-        url: "/admin/",
-      },
-      {
-        title: "Database",
-        icon: AiFillDatabase,
-        url: "/admin/database",
-      },
-      {
-        title: "Collections",
-        icon: TfiLayoutGrid3,
-        url: "/admin/collections",
-      },
-    ],
-  },
-  {
-    label: "Main collections",
-    items: [
-      {
-        title: "Users",
-        icon: LiaUsersSolid,
-        url: "/collection/users",
-        children: [
-          { title: "Students", url: "/admin/users/students" },
-          { title: "Teachers", url: "/admin/users/teachers" },
-          { title: "Manage Users", url: "/admin/users/crud" },
-        ],
-      },
-      {
-        title: "Classes",
-        icon: MdClass,
-        children: [
-          { title: "All Classes", url: "/admin/classes/all" },
-          { title: "Create Class", url: "/admin/classes/create" },
-          { title: "Manage Classes", url: "/admin/classes/manage" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Settings",
-    items: [
-      {
-        title: "Settings",
-        icon: AiOutlineSetting,
-        url: "/admin/setting",
-      },
-    ],
-  },
-];
+import { sidebarGroupsProps } from "@/utils/context/app-side-content";
+import { Separator } from "@/components/ui/separator";
+import MyImage from "@/components/my-components/myImage";
 
 // Reusable component for rendering sidebar groups
-const SidebarGroupComponent = ({
-  label,
-  items,
-}: {
-  label: string;
-  items: SidebarItem[];
-}) => {
+const SidebarGroupComponent = ({ label, items, index }: sidebarGroupsProps) => {
   const path = usePathname();
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>{label}</SidebarGroupLabel>
+    <SidebarGroup className=" p-0">
+      <div>
+        {label ? (
+          <>{label}</>
+        ) : (
+          <div>
+            {index == 0 ? <div className=" mt-2"></div> : <Separator />}
+          </div>
+        )}
+      </div>
       <SidebarGroupContent>
-        <SidebarMenu>
+        <SidebarMenu className=" space-y-2 pr-2">
           {items.map((item, index) =>
             item.children ? (
               <Accordion
@@ -127,7 +59,7 @@ const SidebarGroupComponent = ({
                   <SidebarMenuItem>
                     <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0">
                       <span className="flex items-center gap-2">
-                        {item.icon && <item.icon className="w-5 h-5" />}
+                        {item.icon && <item.icon className=" size-6" />}
                         {item.title}
                       </span>
                     </AccordionTrigger>
@@ -144,14 +76,14 @@ const SidebarGroupComponent = ({
                                 )}
                               >
                                 {subItem.icon && (
-                                  <subItem.icon className="w-4 h-4" />
+                                  <subItem.icon className=" size-5" />
                                 )}
                                 {subItem.title}
                               </Link>
                             ) : (
                               <button className="ml-8 flex items-center gap-2 btn-xs btn-ghost  rounded-md">
                                 {subItem.icon && (
-                                  <subItem.icon className="w-4 h-4" />
+                                  <subItem.icon className=" size-5" />
                                 )}
                                 {subItem.title}
                               </button>
@@ -174,12 +106,13 @@ const SidebarGroupComponent = ({
                         path === item.url && "text-info"
                       )}
                     >
-                      {item.icon && <item.icon className="w-5 h-5" />}
+                      {item.icon && <item.icon className="size-6" />}
+                      {item.image && <MyImage className=" size-6" src={item.image}/>}
                       {item.title}
                     </Link>
                   ) : (
                     <div className="flex items-center gap-2 font-normal">
-                      {item.icon && <item.icon className="w-5 h-5" />}
+                      {item.icon && <item.icon className="size-6" />}
                       {item.title}
                     </div>
                   )}
@@ -193,28 +126,32 @@ const SidebarGroupComponent = ({
   );
 };
 
-export function AppSidebar() {
-  return (
-    <Sidebar className=" bg-base-300">
-      <SidebarContent className=" bg-base-300">
-        {/* Sidebar Header */}
-        <SidebarHeader className="flex  w-[16rem] justify-between gap-2 flex-row items-center fixed top-0 bg-gradient-to-b h-16 pb-4 from-base-300 via-base-300  to-transparent z-50">
-          <SiteLogo />
-          {/* <AdminButton /> */} <AuthChangeTheme />
-        </SidebarHeader>
+interface props {
+  items: sidebarGroupsProps[];
+  name?: string;
+}
 
+export function AppSidebar({ items, name }: props) {
+  return (
+    <Sidebar>
+      <SidebarContent className=" border-r shrink-0 border-border">
+        <SidebarHeader className="flex  w-[16rem] justify-between gap-2 flex-row items-center fixed top-0  h-16 pb-4 from-base-300 via-base-300  to-transparent z-50">
+          <SiteLogo name={name} />
+          <AuthChangeTheme />
+        </SidebarHeader>
         {/* Render Sidebar Groups */}
-        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem)] mt-12">
-          {sidebarGroups.map((group, index) => (
+        <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem)] mt-14 space-y-2">
+          {items.map((group, index) => (
             <SidebarGroupComponent
               key={index}
               label={group.label}
               items={group.items}
+              index={index}
             />
           ))}
           <div className="h-[1.5rem]]" />
         </div>
-        <SidebarFooter className=" fixed bottom-0 bg-gradient-to-t from-base-300 via-base-300  to-transparent h-20 w-[16rem] ">
+        <SidebarFooter className=" fixed bottom-0 from-base-300 via-base-300  to-transparent h-20 w-[16rem] ">
           <div className=" flex justify-between items-center ">
             <div className="flex  items-center space-x-1 pt-6">
               <Avatar>
@@ -228,6 +165,7 @@ export function AppSidebar() {
             </div>
             <ProfileButton />
           </div>
+          
         </SidebarFooter>
       </SidebarContent>
     </Sidebar>
