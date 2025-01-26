@@ -35,6 +35,7 @@ export default async function StudentLayout(props: props) {
       />
       <main className="w-full">
         <StudentNavbar
+          lang={lang}
           user={{
             ...user,
             name: user.name ?? "",
