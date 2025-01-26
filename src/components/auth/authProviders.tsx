@@ -14,7 +14,7 @@ const AuthProviders = ({lang} : props) => {
   return (
     <div className=" w-full mt-2 space-y-6">
       <div className=" flex flex-col w-full items-center relative  pt-4">
-        <p className=" bg-base-300 absolute top-1 px-2">Or continuer with</p>
+        <p className=" bg-base-100 absolute top-1 px-2">Or continuer with</p>
         <Separator />
       </div>
       <div className=" mt-3 space-y-2">
