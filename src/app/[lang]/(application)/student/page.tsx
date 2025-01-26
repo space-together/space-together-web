@@ -9,7 +9,7 @@ const StudentPage = () => {
       <ClassHead />
       <div className=" mt-28">
         <Separator />
-        <div className="flex  justify-between space-x-2 mt-2">
+        <div className="flex  justify-between space-x-4 mt-4">
           <ClassBody />
           <ClassActivities />
         </div>

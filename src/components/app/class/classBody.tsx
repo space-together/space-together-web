@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaComment, FaReadme, FaRegBookmark, FaShare } from "react-icons/fa6";
 
 const ClassBody = () => {
   return (
@@ -43,10 +44,40 @@ const ClassBody = () => {
             delectus nihil accusamus...
           </p>
         </div>
+        {/* <Separator />
+        <div className=" flex justify-between px-4 py-2 ">
+          <div className=" flex gap-2 items-center">
+            <div className=" -space-x-1 flex items-center ">
+              <MyImage src="/icons/like.png" className=" size-8" />
+              <MyImage src="/icons/sad.png" className=" size-6" />
+            </div>
+            <span>15</span>
+          </div>
+          <div className=" flex items-center gap-2">
+            <span>32</span> <FaComment size={28} />
+          </div>
+        </div> */}
         <Separator />
-        <div className=" space-y-2 px-4 py-2 ">
-          <MyImage src="/icons/like.png" className=" size-8" />
-        </div>       
+        <div className=" flex justify-between px-4 py-2 ">
+          <div className=" flex gap-2 items-center">
+            <Button variant="ghost" size="md">
+              <FaReadme size={28} />
+              <span>43</span>
+            </Button>
+            <Button variant="ghost" size="md">
+              <FaComment size={28} />
+              <span>32</span>
+            </Button>
+          </div>
+          <div className=" flex gap-2 items-center">
+            <Button variant="ghost" size="md" >
+              <FaShare size={28} />
+            </Button>
+            <Button variant="ghost" size="md" >
+              <FaRegBookmark size={28} />
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
