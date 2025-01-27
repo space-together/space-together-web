@@ -35,3 +35,34 @@ export const createEducationAction = async (values: educationSchemaType) => {
 
   return { success: "Education created", data: create };
 };
+
+export const updateEducationAction = async (id: string, values: educationSchemaType) => {
+  const validation = educationSchema.safeParse(values);
+
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+  const { name, username, description } = validation.data;
+
+  const getUsername = await getEducationByUsername(username);
+  if (getUsername && getUsername.id !== id) {
+    return {
+      error: `Education username is already in use by another record [${getUsername.username}], try another username`,
+    };
+  }
+
+  const update = await db.education.update({
+    where: { id },
+    data: {
+      name,
+      username,
+      description,
+    },
+  });
+
+  if (!update) {
+    return { error: "Failed to update Education" };
+  }
+
+  return { success: "Education updated", data: update };
+};

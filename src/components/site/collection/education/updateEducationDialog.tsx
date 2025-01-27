@@ -25,9 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-import { updateEducationAPI } from "@/services/data/fetchDataFn";
-import { EducationModelPut } from "@/types/educationModel";
 import {
   educationSchema,
   educationSchemaType,
@@ -41,6 +38,7 @@ import {
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 import { Education } from "../../../../../prisma/prisma/generated";
+import { updateEducationAction } from "@/services/actions/education-action";
 
 interface props {
   education: Education;
@@ -95,43 +93,20 @@ const UpdateEducationDialog = ({ education }: props) => {
   };
 
   const handleSubmit = (values: educationSchemaType) => {
-    setError("");
-    setSuccess("");
 
-    const validation = educationSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const {name , description , logo} = validation.data;
-
-    const data: EducationModelPut = {
-      name, description , symbol : logo
-    }
 
     startTransition(async () => {
-      try {
-        const result = await updateEducationAPI(data, education.id);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Education entry Update successfully!");
-          toast({
-            title: "Success",
-            description: `Update: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
-    });
+          const action = await updateEducationAction(education.id,values);
+    
+          if (action.error) {
+            setError(action.error);
+          }
+    
+          if (action.success) {
+            setSuccess(action.success);
+            form.reset();
+          }
+        });
   };
 
   return (
