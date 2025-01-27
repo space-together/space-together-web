@@ -83,10 +83,10 @@ const AllSectorTable = ({ sectors, educations }: props) => {
       cell: ({ row }) => <span>{row.getValue("username")}</span>,
     },
     {
-      accessorKey: "education",
+      accessorKey: "educationId",
       header: "Education",
       cell: ({ row }) => (
-        <span className="text-lowercase">{row.getValue("education")}</span>
+        <span className="text-lowercase">{row.getValue("educationId")}</span>
       ),
     },
     {

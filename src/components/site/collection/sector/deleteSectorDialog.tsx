@@ -47,7 +47,7 @@ const DeleteSectorDialog = ({ sector }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="xs">
+        <Button disabled={isPending} size="xs">
           Delete
           {isPending && (
             <LoaderCircle
