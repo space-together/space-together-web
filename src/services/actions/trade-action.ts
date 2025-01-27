@@ -8,17 +8,15 @@ export const createTradeAction = async (values: tradeSchemaType) => {
   if (!validation.success) {
     return { error: "Invalid valuers" };
   }
-  const { name, username, description , sector, class_rooms } = validation.data;
+  const { name, username, description, sector, class_rooms } = validation.data;
   try {
-
-
     const create = await db.trade.create({
       data: {
         name,
         username,
         description,
         sectorId: sector,
-        limitClasses: class_rooms
+        limitClasses: class_rooms,
       },
     });
 
@@ -34,7 +32,10 @@ export const createTradeAction = async (values: tradeSchemaType) => {
   }
 };
 
-export const updateTradeAction = async (id: string, values: tradeSchemaType) => {
+export const updateTradeAction = async (
+  id: string,
+  values: tradeSchemaType
+) => {
   const validation = tradeSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid values" };
