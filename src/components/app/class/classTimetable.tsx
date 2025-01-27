@@ -70,7 +70,7 @@ const ClassTimetable: React.FC = () => {
       <div className="p-4">
         {/* Render Timetable */}
         <div className="flex justify-between border border-border">
-          {slots.map((slot, index) => (
+          {/* {slots.map((slot, index) => (
             <div
               key={index}
               className="p-2 border-l flex justify-center items-center w-full flex-col"
@@ -85,7 +85,8 @@ const ClassTimetable: React.FC = () => {
                 <span>{slot.end.toLocaleTimeString()}</span>
               </div>
             </div>
-          ))}
+          ))} */}
+          
         </div>
       </div>
     </div>

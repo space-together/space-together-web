@@ -7,7 +7,7 @@ import Link from "next/link"
 const HomePage = async () => {
   const session = await auth();
   return (
-    <div>
+    <div className=" min-h-screen">
       other HomePage {JSON.stringify(session)}
       <div className=" flex gap-4">
         <Link href={`/auth/register`} className=" btn btn-info">Register</Link>
