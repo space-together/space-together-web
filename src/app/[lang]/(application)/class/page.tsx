@@ -1,7 +1,9 @@
+import ClassTimetable from "@/components/app/class/classTimetable";
+
 const ClassIdPage = () => {
   return (
-    <div className=" px-4 min-h-screen h-full">
-      class page
+    <div className=" p-4 min-h-screen h-full ">
+      <ClassTimetable />
     </div>
   );
 };

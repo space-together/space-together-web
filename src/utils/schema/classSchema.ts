@@ -1,15 +1,40 @@
 import z from "zod";
 
 export const classSchema = z.object({
-    name : z.string().min(1, {
-        message : "Class name is required",
+  name: z
+    .string()
+    .min(1, {
+      message: "Name is required",
+    })
+    .max(50, {
+      message: "Maximum character is 50",
     }),
-    description : z.string(),
-    section : z.string().min(1, {
-        message : "Session is required"
+  trade: z.string(),
+  education: z.string(),
+  sector: z.string(),
+  class_teacher: z.string().email(),
+  class_type: z.string().min(1 , {
+    message : "Class type is required"
+  }),
+  class_room: z.string(),
+  is_public : z.string(),
+  image : z.string(),
+  username: z
+    .string()
+    .min(1, {
+      message: "Username is required",
+    })
+    .max(50, {
+      message: "Maximum character is 50",
     }),
-    subjects : z.array(z.string()),
-    room : z.string()
-})
+  description: z
+    .string()
+    .min(1, {
+      message: "Description  is required",
+    })
+    .max(200, {
+      message: "Maximum character is 200",
+    }),
+});
 
-export type classSchemaType = z.infer<typeof classSchema>
+export type classSchemaType = z.infer<typeof classSchema>;

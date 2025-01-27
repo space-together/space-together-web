@@ -31,7 +31,6 @@ import {
   fetchAllSectorByEducation,
   getAllTradeABySectorPI,
 } from "@/services/data/fetchDataFn";
-import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
@@ -45,6 +44,7 @@ import UseTheme from "@/context/theme/use-theme";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ClassTypeModelGet } from "@/types/classTypeModel";
 import MyImage from "@/components/my-components/myImage";
+import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
 
 interface props {
   educations: EducationModelGet[];
