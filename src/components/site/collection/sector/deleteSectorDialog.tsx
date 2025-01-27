@@ -17,11 +17,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
-import { deleteSectorAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sector } from "../../../../../prisma/prisma/generated";
+import { deleteSectorAction } from "@/services/actions/sector-action";
 
 interface Props {
   sector: Sector;
@@ -32,31 +31,18 @@ const DeleteSectorDialog = ({ sector }: Props) => {
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
   const handleDelete = (id: string) => {
-    setError("");
-    setSuccess("");
-    startTransition(async () => {
-      const deleteEducation = await deleteSectorAPI(id);
-
-      if ("message" in deleteEducation) {
-        setError(deleteEducation.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: deleteEducation.message,
-          variant: "destructive",
-        });
-      } else {
-        setSuccess("User role deleted successfully!");
-        toast({
-          title: "User role created successfully",
-          description: (
-            <p>
-              You delete <strong>{deleteEducation.name}</strong> account which
-              created on {deleteEducation.create_on} 😔
-            </p>
-          ),
-        });
-      }
-    });
+   setError("")
+       setSuccess("")
+       startTransition(async () => {
+         const action = await deleteSectorAction(id);
+         if (action.error) {
+           setError(action.error);
+         }
+   
+         if (action.success) {
+           setSuccess(action.success);
+         }
+       });
   };
   return (
     <AlertDialog>

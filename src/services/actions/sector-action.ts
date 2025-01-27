@@ -33,3 +33,46 @@ if (!!getUsername) {
 
   return { success: "Education created", data: create };
 };
+
+export const updateSectorAction = async (id: string, values: sectorSchemaType) => {
+  const validation = sectorSchema.safeParse(values);
+
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+  const { name, username, description, education } = validation.data;
+  const getUsername = await getSectorByUsername(username);
+
+  if (getUsername && getUsername.id !== id) {
+    return {
+      error: `Sector username is already taken by another sector [${getUsername.username}], try another username`,
+    };
+  }
+  const update = await db.sector.update({
+    where: { id },
+    data: {
+      name,
+      username,
+      description,
+      educationId: education,
+    },
+  });
+
+  if (!update) {
+    return { error: "Failed to update Sector" };
+  }
+
+  return { success: "Sector updated", data: update };
+};
+
+export const deleteSectorAction = async (id: string) => {
+  try {
+    const deleteSector = await db.sector.delete({
+      where: { id },
+    });
+
+    return { success: "Sector deleted", data: deleteSector };
+  } catch {
+    return { error: "Failed to delete Sector" };
+  }
+};

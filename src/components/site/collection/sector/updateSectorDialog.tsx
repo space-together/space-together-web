@@ -27,15 +27,13 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-import { updateSectorAPI } from "@/services/data/fetchDataFn";
-import { SectorModelPut } from "@/types/sectorModel";
 import { sectorSchema, sectorSchemaType } from "@/utils/schema/sectorSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Education, Sector } from "../../../../../prisma/prisma/generated";
+import { updateSectorAction } from "@/services/actions/sector-action";
 
 interface props {
   education: Education[] | null;
@@ -82,7 +80,7 @@ const UpdateSectorDialog = ({ education, sector }: props) => {
       username: sector.username ? sector.username : "",
       education: sector.educationId ? sector.educationId : undefined,
       description: sector.description ? sector.description : undefined,
-      logo: sector.symbol ? sector.symbol :  "",
+      logo: sector.symbol ? sector.symbol : "",
     },
     shouldFocusError: true,
     shouldUnregister: true,
@@ -94,42 +92,15 @@ const UpdateSectorDialog = ({ education, sector }: props) => {
   const handleSubmit = (values: sectorSchemaType) => {
     setError("");
     setSuccess("");
-
-    const validation = sectorSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-        const { name, username, description, education, logo } = validation.data;
-        const data: SectorModelPut = {
-          name,
-          username,
-          description,
-          education,
-          symbol: logo,
-        };
-
     startTransition(async () => {
-      try {
-        const result = await updateSectorAPI(data, sector.id);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Education entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
+      const action = await updateSectorAction(sector.id, values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
       }
     });
   };
@@ -233,21 +204,22 @@ const UpdateSectorDialog = ({ education, sector }: props) => {
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
                     >
-                      {education && education.map((item) => {
-                        return (
-                          <FormItem
-                            key={item.id}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={item.id} />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.username ? item.username : item.name}
-                            </FormLabel>
-                          </FormItem>
-                        );
-                      })}
+                      {education &&
+                        education.map((item) => {
+                          return (
+                            <FormItem
+                              key={item.id}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={item.id} />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {item.username ? item.username : item.name}
+                              </FormLabel>
+                            </FormItem>
+                          );
+                        })}
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />

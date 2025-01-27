@@ -93,19 +93,19 @@ const UpdateEducationDialog = ({ education }: props) => {
   };
 
   const handleSubmit = (values: educationSchemaType) => {
-
-
+    setError("")
+    setSuccess("")
     startTransition(async () => {
-          const action = await updateEducationAction(education.id,values);
-          if (action.error) {
-            setError(action.error);
-          }
-    
-          if (action.success) {
-            setSuccess(action.success);
-            form.reset();
-          }
-        });
+      const action = await updateEducationAction(education.id, values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
+      }
+    });
   };
 
   return (
