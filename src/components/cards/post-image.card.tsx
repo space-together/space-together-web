@@ -33,7 +33,7 @@ const PostImageCard = () => {
             />
           </Button>
         </div>
-        <div className=" absolute bottom-0 z-30  right-1/2">
+        <div className=" absolute bottom-0 z-30  right-1/2 ml-4">
           <div className=" -space-x-8 flex">
             <Dot size={48} />
             <Dot size={48} className="text-white"/>

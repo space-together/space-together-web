@@ -27,28 +27,28 @@ const StudentNavbar = ({ user, lang }: props) => {
         Class room
       </Link>
       <Link
-        href={`/${lang}/class/${role}`}
+        href={`/${lang}/class/${role}/notes`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${role}/notes` && "border-b-2 border-b-info"
         )}
       >
         Notes
       </Link>
       <Link
-        href={`/${lang}/class/${role}`}
+        href={`/${lang}/class/${role}/classmate`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${role}/classmate` && "border-b-2 border-b-info"
         )}
       >
         Classmate
       </Link>
       <Link
-        href={`/${lang}/class/${role}`}
+        href={`/${lang}/class/${role}/teachers`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${role}/teachers` && "border-b-2 border-b-info"
         )}
       >
         Teachers
