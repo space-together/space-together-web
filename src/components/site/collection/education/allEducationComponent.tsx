@@ -2,22 +2,16 @@ import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
 import UpdateEducationDialog from "./updateEducationDialog";
 import {
-  fetchAllEducation,
   fetchAllSectorByEducation,
 } from "@/services/data/fetchDataFn";
 import { CollectionPageErrorStatic } from "@/utils/static/page/collectionPageStatic";
 import { BsDot } from "react-icons/bs";
-import Link from "next/link";
 import DeleteEducationDialog from "./deleteEducationDialog";
+import { getAllEducation } from "@/services/data/education-data";
 
 const AllEducationComponent = async () => {
-  const getEducations = await fetchAllEducation();
+  const getEducations = await getAllEducation();
 
-  if ("message" in getEducations) {
-    return (
-      <CollectionPageErrorStatic collection="education" error={getEducations} />
-    );
-  }
   return (
     <div className="">
       <div className=" space-y-2">
@@ -48,16 +42,16 @@ const AllEducationComponent = async () => {
                           <span className=" link-hover">
                             @ {item.username}{" "}
                           </span>
-                          {item.updated_on ? (
+                          {item.updatedAt ? (
                             <span className=" text-myGray text-sm">
-                              {item.updated_on &&
+                              {item.updatedAt &&
                                 `Update: ${new Date(
-                                  item.updated_on
+                                  item.updatedAt
                                 ).toDateString()}`}
                             </span>
                           ) : (
                             <span className=" text-myGray text-sm">
-                              {new Date(item.created_on).toDateString()}
+                              {new Date(item.createdAt).toDateString()}
                             </span>
                           )}
                         </div>
@@ -89,16 +83,16 @@ const AllEducationComponent = async () => {
                               <span className=" text-sm link-hover">
                                 @ {sector.username}
                               </span>
-                                {item.updated_on ? (
+                                {item.updatedAt ? (
                                   <span className=" text-myGray text-sm">
-                                    {item.updated_on &&
+                                    {item.updatedAt &&
                                       `Update: ${new Date(
-                                        item.updated_on
+                                        item.updatedAt
                                       ).toDateString()}`}
                                   </span>
                                 ) : (
                                   <span className=" text-myGray text-sm">
-                                    {new Date(item.created_on).toDateString()}
+                                    {new Date(item.createdAt).toDateString()}
                                   </span>
                                 )}
                             </div>

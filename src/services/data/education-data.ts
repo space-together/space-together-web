@@ -17,3 +17,12 @@ export const getEducationByUsername = async (username: string) => {
     return null;
   }
 };
+
+export const getAllEducation = async () => {
+  try {
+    const educationList = await db.education.findMany();
+    return educationList;
+  } catch {
+    return [];
+  }
+};

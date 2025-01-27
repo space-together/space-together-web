@@ -34,8 +34,11 @@ import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
-import { AlertDialogAction, AlertDialogCancel } from "@/components/ui/alert-dialog";
-import { createEducationAction } from "@/services/actions/education/create-education-action";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "@/components/ui/alert-dialog";
+import { createEducationAction } from "@/services/actions/education-action";
 
 const CreateEducationDialog = () => {
   const [error, setError] = useState<string>("");
@@ -90,23 +93,23 @@ const CreateEducationDialog = () => {
     setSuccess("");
 
     startTransition(async () => {
-       const action = await createEducationAction(values);
-      
-            if (action.error) {
-              setError(action.error);
-            }
-      
-            if (action.success) {
-              setSuccess(action.success);
-              form.reset();
-            }
+      const action = await createEducationAction(values);
+
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
+      }
     });
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="info" size="sm">
+        <Button disabled={isPending} variant="info" size="sm">
           <BsPlus /> Add new education
           {isPending && (
             <LoaderCircle

@@ -27,7 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
 import { toast } from "@/hooks/use-toast";
 import { updateEducationAPI } from "@/services/data/fetchDataFn";
-import { EducationModelGet, EducationModelPut } from "@/types/educationModel";
+import { EducationModelPut } from "@/types/educationModel";
 import {
   educationSchema,
   educationSchemaType,
@@ -40,9 +40,10 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
+import { Education } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  education: EducationModelGet;
+  education: Education;
 }
 
 const UpdateEducationDialog = ({ education }: props) => {

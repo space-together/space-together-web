@@ -21,10 +21,10 @@ import { toast } from "@/hooks/use-toast";
 import { deleteEducationAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { EducationModelGet } from "@/types/educationModel";
+import { Education } from "../../../../../prisma/prisma/generated";
 
 interface Props {
-  education: EducationModelGet;
+  education: Education;
 }
 
 const DeleteEducationDialog = ({ education }: Props) => {
