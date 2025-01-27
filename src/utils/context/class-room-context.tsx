@@ -1,0 +1,1 @@
+export const classRoomTypeContext = ["DEFAULT", "OTHER"]

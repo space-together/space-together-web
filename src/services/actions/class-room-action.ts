@@ -36,13 +36,70 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
     });
 
     if (!create) {
-      return { error: "Failed to create Education" };
+      return { error: "Failed to create Class room" };
     }
 
-    return { success: "Trade created", data: create };
+    return { success: "class room created", data: create };
   } catch (error) {
     return {
-      error: `Some this went wong to create Trade error is  [${error}]`,
+      error: `Some this went wong to create class room error is  [${error}]`,
+    };
+  }
+};
+
+export const updateClassRoomAction = async (id: string, values: classRoomSchemaType) => {
+  const validation = classRoomSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+  const { name, username, description, sector, trade, class_room_type } =
+    validation.data as {
+      name: string;
+      username: string;
+      description: string;
+      sector: string;
+      trade: string;
+      class_room_type: ClassRoomType;
+    };
+  try {
+    const update = await db.classRoom.update({
+      where: { id },
+      data: {
+        name,
+        username,
+        description,
+        sectorId: sector,
+        ClassRoomType: class_room_type,
+        tradeId: trade,
+      },
+    });
+
+    if (!update) {
+      return { error: "Failed to update Class room" };
+    }
+
+    return { success: "Class room updated", data: update };
+  } catch (error) {
+    return {
+      error: `Something went wrong while updating class room. Error: [${error}]`,
+    };
+  }
+};
+
+export const deleteClassRoomAction = async (id: string) => {
+  try {
+    const deleteClassRoom = await db.classRoom.delete({
+      where: { id },
+    });
+
+    if (!deleteClassRoom) {
+      return { error: "Failed to delete Class room" };
+    }
+
+    return { success: "Class room deleted", data: deleteClassRoom };
+  } catch (error) {
+    return {
+      error: `Something went wrong while deleting class room. Error: [${error}]`,
     };
   }
 };

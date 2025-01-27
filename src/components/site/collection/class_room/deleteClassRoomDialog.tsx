@@ -17,14 +17,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
-import { deleteClassRoomAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ClassRoomModelGet } from "@/types/classRoomModel";
+import { ClassRoom } from "../../../../../prisma/prisma/generated";
+import { deleteClassRoomAction } from "@/services/actions/class-room-action";
 
 interface Props {
-  classRoom: ClassRoomModelGet;
+  classRoom: ClassRoom;
 }
 
 const DeleteClassRoomDialog = ({ classRoom }: Props) => {
@@ -33,30 +32,17 @@ const DeleteClassRoomDialog = ({ classRoom }: Props) => {
   const [isPending, startTransition] = useTransition();
   const handleDelete = (id: string) => {
     setError("");
-    setSuccess("");
-    startTransition(async () => {
-      const deleteEducation = await deleteClassRoomAPI(id);
-
-      if ("message" in deleteEducation) {
-        setError(deleteEducation.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: deleteEducation.message,
-          variant: "destructive",
+        setSuccess("");
+        startTransition(async () => {
+          const action = await deleteClassRoomAction(id);
+          if (action.error) {
+            setError(action.error);
+          }
+    
+          if (action.success) {
+            setSuccess(action.success);
+          }
         });
-      } else {
-        setSuccess("User role deleted successfully!");
-        toast({
-          title: "User role created successfully",
-          description: (
-            <p>
-              You delete <strong>{deleteEducation.name}</strong> account which
-              created on {deleteEducation.created_on} 😔
-            </p>
-          ),
-        });
-      }
-    });
   };
   return (
     <AlertDialog>

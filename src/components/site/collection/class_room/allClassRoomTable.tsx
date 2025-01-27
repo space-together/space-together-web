@@ -8,32 +8,27 @@ import { Separator } from "@/components/ui/separator";
 import { FaCloudArrowDown } from "react-icons/fa6";
 import { useState } from "react";
 import MyImage from "@/components/my-components/myImage";
-import { ClassRoomModelGet } from "@/types/classRoomModel";
 import CreateClassRoomDialog from "./createClassRoomDialog";
-import { ClassRoomTypeModelGet } from "@/types/classRoomTypeModel";
-import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelGet } from "@/types/tradeModel";
 import UpdateClassRoomDialog from "./updateClassRoomDialog";
 import DeleteClassRoomDialog from "./deleteClassRoomDialog";
+import { ClassRoom, Sector, Trade } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  classRoom: ClassRoomModelGet[];
-  classRoomTypes: ClassRoomTypeModelGet[];
-  sectors: SectorModelGet[];
-  trades: TradeModelGet[];
+  classRoom: ClassRoom[];
+  sectors: Sector[] | null
+  trades: Trade[] | null;
   collectionName: string;
 }
 
 const AllClassRoomTable = ({
   classRoom,
-  classRoomTypes,
   sectors,
   trades,
 }: props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [SelectedSector, setSelectedSector] = useState<ClassRoomModelGet[]>([]);
+  const [SelectedSector, setSelectedSector] = useState<ClassRoom[]>([]);
 
-  const columns: ColumnDef<ClassRoomModelGet>[] = [
+  const columns: ColumnDef<ClassRoom>[] = [
     {
       id: "select",
       header: ({ table }) => {
@@ -162,7 +157,7 @@ const AllClassRoomTable = ({
           const classRoom = row.original;
           return (
             <div className=" flex gap-2">
-              <UpdateClassRoomDialog classRoom={classRoom} trades={trades} sectors={sectors} classRoomTypes={classRoomTypes}/>
+              <UpdateClassRoomDialog classRoom={classRoom} trades={trades} sectors={sectors} />
               <DeleteClassRoomDialog classRoom={classRoom} />
             </div>
           );
@@ -180,7 +175,6 @@ const AllClassRoomTable = ({
           <CreateClassRoomDialog
             trades={trades}
             sectors={sectors}
-            classRoomTypes={classRoomTypes}
           />
           <Button variant="success" size="sm">
             <FaCloudArrowDown /> Export
@@ -195,9 +189,9 @@ const AllClassRoomTable = ({
           searchKeys={[
             "username",
             "name",
-            "trade",
-            "sector",
-            "class_room_type",
+            "tradeId",
+            "sectorId",
+            "ClassRoomType",
             "description",
           ]}
           searchPlaceholder="Search: username , name , etc ..."

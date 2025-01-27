@@ -38,21 +38,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { ClassRoomTypeModelGet } from "@/types/classRoomTypeModel";
-import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelGet } from "@/types/tradeModel";
-import { ClassRoomModelGet, ClassRoomModelPut } from "@/types/classRoomModel";
+import {  ClassRoomModelPut } from "@/types/classRoomModel";
 import MyImage from "@/components/my-components/myImage";
+import { ClassRoom, Sector, Trade } from "../../../../../prisma/prisma/generated";
+import { classRoomTypeContext } from "@/utils/context/class-room-context";
+import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
-  classRoomTypes: ClassRoomTypeModelGet[];
-  sectors: SectorModelGet[];
-  trades: TradeModelGet[];
-  classRoom: ClassRoomModelGet;
+  sectors: Sector[] | null;
+  trades: Trade[] | null;
+  classRoom: ClassRoom;
 }
 
 const UpdateClassRoomDialog = ({
-  classRoomTypes,
   sectors,
   trades,
   classRoom,
@@ -95,10 +93,10 @@ const UpdateClassRoomDialog = ({
       name: classRoom.name ? classRoom.name : "",
       username: classRoom.username ? classRoom.username : "",
       description: classRoom.description ? classRoom.description : "",
-      trade: classRoom.trade ? classRoom.trade : "",
-      sector: classRoom.sector ? classRoom.sector : "",
-      class_room_type: classRoom.class_room_type
-        ? classRoom.class_room_type
+      trade: classRoom.tradeId ? classRoom.tradeId : "",
+      sector: classRoom.sectorId ? classRoom.sectorId : "",
+      class_room_type: classRoom.ClassRoomType
+        ? classRoom.ClassRoomType
         : "",
       symbol: classRoom.symbol ? classRoom.symbol : "",
     },
@@ -270,16 +268,16 @@ const UpdateClassRoomDialog = ({
                         defaultValue={field.value}
                         className="flex flex-row space-y-1"
                       >
-                        {classRoomTypes.map((item) => (
+                        {classRoomTypeContext.map((item, index) => (
                           <FormItem
-                            key={item.id}
+                            key={index}
                             className="flex items-center space-x-3 space-y-0"
                           >
                             <FormControl>
-                              <RadioGroupItem value={item.id} />
+                              <RadioGroupItem value={item} />
                             </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.username ? item.username : item.name}
+                            <FormLabel className="font-normal capitalize">
+                              {toLowerCase(item)}
                             </FormLabel>
                           </FormItem>
                         ))}
@@ -304,7 +302,8 @@ const UpdateClassRoomDialog = ({
                         defaultValue={field.value}
                         className="flex flex-col items-center space-x-3 space-y-0"
                       >
-                        {sectors.map((item) => (
+                        { sectors &&
+                        sectors.map((item) => (
                           <FormItem
                             key={item.id}
                             className="flex items-center space-x-3"
@@ -335,7 +334,8 @@ const UpdateClassRoomDialog = ({
                         defaultValue={field.value}
                         className="flex flex-col space-y-3"
                       >
-                        {trades.map((item) => (
+                        {trades &&
+                        trades.map((item) => (
                           <FormItem
                             key={item.id}
                             className="flex items-center space-x-3 space-y-0"

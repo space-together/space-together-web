@@ -3,10 +3,9 @@ import { LiaUsersSolid } from "react-icons/lia";
 
 interface props {
   totalRoomClass: number;
-  totalRoomClassRole ?: number | boolean
 }
 
-const ClassRoomCollectionDetails = ({ totalRoomClass, totalRoomClassRole }: props) => {
+const ClassRoomCollectionDetails = ({ totalRoomClass }: props) => {
   return (
     <div className=" happy-card w-1/2">
       <div className="">
@@ -20,7 +19,7 @@ const ClassRoomCollectionDetails = ({ totalRoomClass, totalRoomClassRole }: prop
         </div>
         <div className=" happy-line gap-1 items-center">
           <BsCardChecklist size={50} className=" text-info" />
-          <h3 className=" font-semibold text-4xl">{totalRoomClassRole}</h3>
+          <h3 className=" font-semibold text-4xl">2</h3>
           <span className="text-xs font-semibold">classes role</span>
         </div>
       </div>

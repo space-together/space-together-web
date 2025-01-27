@@ -25,8 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-import { createClassRoomAPI } from "@/services/data/fetchDataFn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import {
@@ -39,19 +37,18 @@ import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
-import { ClassRoomTypeModelGet } from "@/types/classRoomTypeModel";
-import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelGet } from "@/types/tradeModel";
 import MyImage from "@/components/my-components/myImage";
-import { ClassRoomModelNew } from "@/types/classRoomModel";
+import { createClassRoomAction } from "@/services/actions/class-room-action";
+import { Sector, Trade } from "../../../../../prisma/prisma/generated";
+import { classRoomTypeContext } from "@/utils/context/class-room-context";
+import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
-  classRoomTypes: ClassRoomTypeModelGet[];
-  sectors: SectorModelGet[];
-  trades: TradeModelGet[];
+  sectors: Sector[] | null;
+  trades: Trade[] | null;
 }
 
-const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
+const CreateClassRoomDialog = ({ sectors, trades }: props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -105,53 +102,15 @@ const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
   const handleSubmit = (values: classRoomSchemaType) => {
     setError("");
     setSuccess("");
-
-    const validation = classRoomSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid values Validation");
-    }
-
-    const {
-      name,
-      username,
-      trade,
-      sector,
-      class_room_type,
-      description,
-      symbol,
-    } = validation.data;
-
-    const data: ClassRoomModelNew = {
-      name,
-      username,
-      trade,
-      sector,
-      class_room_type,
-      description,
-      symbol,
-    };
-
     startTransition(async () => {
-      try {
-        const result = await createClassRoomAPI(data);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Class Room  entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
+      const action = await createClassRoomAction(values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
       }
     });
   };
@@ -159,7 +118,7 @@ const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="info" size="sm">
+        <Button disabled={isPending} variant="info" size="sm">
           <BsPlus /> Add class room
           {isPending && (
             <LoaderCircle
@@ -264,16 +223,16 @@ const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
                         defaultValue={field.value}
                         className="flex flex-row space-y-1"
                       >
-                        {classRoomTypes.map((item) => (
+                        {classRoomTypeContext.map((item, index) => (
                           <FormItem
-                            key={item.id}
+                            key={index}
                             className="flex items-center space-x-3 space-y-0"
                           >
                             <FormControl>
-                              <RadioGroupItem value={item.id} />
+                              <RadioGroupItem value={item} />
                             </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.username ? item.username : item.name}
+                            <FormLabel className="font-normal capitalize">
+                              {toLowerCase(item)}
                             </FormLabel>
                           </FormItem>
                         ))}
@@ -298,7 +257,7 @@ const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
                         defaultValue={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        {sectors.map((item) => (
+                        {sectors && sectors.map((item) => (
                           <FormItem
                             key={item.id}
                             className="flex items-center space-x-3 space-y-"
@@ -329,7 +288,7 @@ const CreateClassRoomDialog = ({ classRoomTypes, sectors, trades }: props) => {
                         defaultValue={field.value}
                         className="flex flex-col space-y-3"
                       >
-                        {trades.map((item) => (
+                        {trades && trades.map((item) => (
                           <FormItem
                             key={item.id}
                             className="flex items-center space-x-3 space-y-0"
