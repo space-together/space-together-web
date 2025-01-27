@@ -18,10 +18,10 @@ const ClassNavbar = ({ user, lang }: props) => {
   return (
     <div className=" h-10 border-b border-border w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
       <Link
-        href={`/${lang}/${role}`}
+        href={`/${lang}/class/${role}`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/${role}` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${role}` && "border-b-2 border-b-info"
         )}
       >
         Class room
@@ -34,6 +34,15 @@ const ClassNavbar = ({ user, lang }: props) => {
         )}
       >
         Notes
+      </Link>
+      <Link
+        href={`/${lang}/class/${role}/class-work`}
+        className={cn(
+          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+          pathname === `/${lang}/class/${role}/class-work` && "border-b-2 border-b-info"
+        )}
+      >
+        class work
       </Link>
       <Link
         href={`/${lang}/class/${role}/classmate`}
