@@ -1,11 +1,19 @@
-import React from "react";
+"use client"
 import MyImage from "@/components/my-components/myImage";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { GoPersonFill } from "react-icons/go";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import UseTheme from "@/context/theme/use-theme";
 
 const UserCard = () => {
+    const theme = UseTheme();
   return (
     <div className=" p-0 happy-card w-80">
       <MyImage
@@ -22,9 +30,18 @@ const UserCard = () => {
         <Button className=" w-2/3 text-white" variant="info">
           <TbMessageCircleFilled size={28} /> Message
         </Button>
-        <Button className=" w-1/3">
-          <GoPersonFill size={28} />
-        </Button>
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button className=" w-1/3">
+                <GoPersonFill size={28} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent data-theme={theme} className="dark px-2 py-1 text-xs">
+              See profile
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   );
