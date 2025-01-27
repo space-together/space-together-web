@@ -94,7 +94,7 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Class Room",
         image: "/icons/blackboard.png",
-        url: "/student",
+        url: "/class",
       },
       {
         title: "Collections",

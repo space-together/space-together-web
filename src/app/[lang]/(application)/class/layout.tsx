@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import ClassNavbar from "@/components/class/navbar/class-navbar";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
@@ -34,15 +33,6 @@ export default async function ClassLayout(props: props) {
         items={studentSidebarGroups}
       />
       <main className="w-full">
-        <ClassNavbar
-          lang={lang}
-          user={{
-            ...user,
-            name: user.name ?? "",
-            email: user.email ?? undefined,
-            image: user.image ?? undefined,
-          }}
-        />
         {children}
       </main>
     </SidebarProvider>

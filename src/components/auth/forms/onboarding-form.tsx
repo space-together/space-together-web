@@ -135,6 +135,9 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
           setSuccess(update.success);
           form.reset();
           const role = toLowerCase(update.data.role);
+          if (role === "student") {
+            return router.push(`/${lang}/class`);
+          }
           return router.push(`/${lang}/${role}`);
         }
       } else {
