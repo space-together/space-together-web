@@ -29,17 +29,17 @@ import UseTheme from "@/context/theme/use-theme";
 import { toast } from "@/hooks/use-toast";
 // import { cn } from "@/lib/utils";
 import { updateTradeAPI } from "@/services/data/fetchDataFn";
-import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelGet, TradeModelPut } from "@/types/tradeModel";
+import {  TradeModelPut } from "@/types/tradeModel";
 import { tradeSchema, tradeSchemaType } from "@/utils/schema/tradeSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { Sector, Trade } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  sectors: SectorModelGet[];
-  trade: TradeModelGet;
+  sectors: Sector[];
+  trade: Trade;
 }
 
 const UpdateTradeDialog = ({ sectors, trade }: props) => {
@@ -80,10 +80,10 @@ const UpdateTradeDialog = ({ sectors, trade }: props) => {
     defaultValues: {
       name: trade.name ? trade.name : "",
       username: trade.username ? trade.username : "",
-      sector: trade.sector ? trade.sector : "",
+      sector: trade.sectorId ? trade.sectorId : "",
       description: trade.description ? trade.description : "",
       logo: "",
-      class_rooms: trade.class_rooms ? trade.class_rooms.toString() : undefined,
+      class_rooms: trade.limitClasses ? trade.limitClasses : undefined,
     },
     shouldFocusError: true,
     shouldUnregister: true,

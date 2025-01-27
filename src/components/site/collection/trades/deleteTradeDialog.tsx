@@ -21,10 +21,10 @@ import { toast } from "@/hooks/use-toast";
 import { deleteTradeAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TradeModelGet } from "@/types/tradeModel";
+import { Trade } from "../../../../../prisma/prisma/generated";
 
 interface Props {
-  trade: TradeModelGet;
+  trade: Trade;
 }
 
 const DeleteTradeDialog = ({ trade }: Props) => {

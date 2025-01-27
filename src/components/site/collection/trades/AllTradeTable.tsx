@@ -7,23 +7,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { FaCloudArrowDown } from "react-icons/fa6";
 import { useState } from "react";
-import { SectorModelGet } from "@/types/sectorModel";
 import MyImage from "@/components/my-components/myImage";
-import { TradeModelGet } from "@/types/tradeModel";
 import UpdateTradeDialog from "./updateTradeDialog";
 import DeleteTradeDialog from "./deleteTradeDialog";
+import { Sector, Trade } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  sectors: SectorModelGet[];
-  trades: TradeModelGet[];
+  sectors: Sector[];
+  trades: Trade[];
   collectionName: string;
 }
 
 const AllTradeTable = ({ sectors, trades }: props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [SelectedSector, setSelectedSector] = useState<TradeModelGet[]>([]);
+  const [SelectedSector, setSelectedSector] = useState<Trade[]>([]);
 
-  const columns: ColumnDef<TradeModelGet>[] = [
+  const columns: ColumnDef<Trade>[] = [
     {
       id: "select",
       header: ({ table }) => {
@@ -138,7 +137,7 @@ const AllTradeTable = ({ sectors, trades }: props) => {
         <DataTable
           columns={columns}
           data={trades}
-          searchKeys={["username", "name", "sector", "class_rooms"]}
+          searchKeys={["username", "name", "sectorId", "limitClasses"]}
         />
       </div>
     </div>

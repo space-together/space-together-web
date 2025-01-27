@@ -27,11 +27,9 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
+import { createTradeAction } from "@/services/actions/trade-action";
 // import { cn } from "@/lib/utils";
-import { createTradeAPI } from "@/services/data/fetchDataFn";
 import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelNew } from "@/types/tradeModel";
 import { tradeSchema, tradeSchemaType } from "@/utils/schema/tradeSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, Minus, Plus } from "lucide-react";
@@ -92,50 +90,21 @@ const CreateTradeDialog = ({ sectors }: props) => {
     mode: "onChange",
   });
 
-  const handleSubmit = (values: tradeSchemaType) => {
-    setError("");
-    setSuccess("");
-
-    const validation = tradeSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const { name, username, description, class_rooms, sector } =
-      validation.data;
-
-    const data: TradeModelNew = {
-      name,
-      username,
-      class_rooms: Number(class_rooms),
-      sector,
-      description,
-    };
-
-    startTransition(async () => {
-      try {
-        const result = await createTradeAPI(data);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Trade entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
+   const handleSubmit = (values: tradeSchemaType) => {
+      setError("");
+      setSuccess("");
+      startTransition(async () => {
+        const action = await createTradeAction(values);
+        if (action.error) {
+          setError(action.error);
+        }
+  
+        if (action.success) {
+          setSuccess(action.success);
           form.reset();
         }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
-    });
-  };
+      });
+    };
 
   const increment = () => {
     const currentValue = form.getValues("class_rooms");
