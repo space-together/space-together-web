@@ -52,7 +52,7 @@ const ClassNavbar = ({ user, lang }: props) => {
         )}
       >
         People
-      </Link>=
+      </Link>
     </div>
   );
 };

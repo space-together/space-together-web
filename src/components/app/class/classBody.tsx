@@ -10,6 +10,11 @@ const ClassBody = () => {
       {/* simple of notes */}
       <NoteCard />
       <PostImageCard />
+      <NoteCard />
+      <PostImageCard />
+      <NoteCard />
+      <PostImageCard />
+      <div className=" h-screen"/>
     </div>
   );
 };
