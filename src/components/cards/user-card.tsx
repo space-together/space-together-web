@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -11,9 +11,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import UseTheme from "@/context/theme/use-theme";
+import { UserRole } from "../../../prisma/prisma/generated";
+import { Dot } from "lucide-react";
 
-const UserCard = () => {
-    const theme = UseTheme();
+interface props {
+  userRole?: UserRole;
+}
+
+const UserCard = ({ userRole }: props) => {
+  const theme = UseTheme();
   return (
     <div className=" p-0 happy-card w-80">
       <MyImage
@@ -21,9 +27,33 @@ const UserCard = () => {
         className=" w-full"
         src="/images/2.jpg"
       />
-      <div className=" flex  space-x-2 items-center p-4">
-        <h4 className=" font-semibold text-lg">John Doe</h4>
-        <p className=" text-sm text-gray-400">@JonhnDoe</p>
+      <Separator />
+      <div className="  p-4">
+        <div className="flex  space-x-2 items-center">
+          <h4 className=" font-semibold text-lg">John Doe</h4>
+          <p className=" text-sm text-gray-400">@JonhnDoe</p>
+        </div>
+        <div>
+          {userRole === UserRole.TEACHER && (
+            <div>
+              <h3 className=" font-medium text-myGray"> Subjects</h3>
+              <div  className=" grid grid-cols-2 gap-2">
+                <div className=" flex link-hover">
+                  <Dot />
+                  <span>Math</span>
+                </div>
+                <div className=" flex link-hover">
+                  <Dot />
+                  <span>Kinyarwanda</span>
+                </div>
+                <div className=" flex link-hover">
+                  <Dot />
+                  <span>English</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <Separator />
       <div className=" flex justify-between items-center gap-2 p-4">
@@ -37,7 +67,10 @@ const UserCard = () => {
                 <GoPersonFill size={28} />
               </Button>
             </TooltipTrigger>
-            <TooltipContent data-theme={theme} className="dark px-2 py-1 text-xs">
+            <TooltipContent
+              data-theme={theme}
+              className="dark px-2 py-1 text-xs"
+            >
               See profile
             </TooltipContent>
           </Tooltip>

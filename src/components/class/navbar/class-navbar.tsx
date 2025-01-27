@@ -45,23 +45,14 @@ const ClassNavbar = ({ user, lang }: props) => {
         class work
       </Link>
       <Link
-        href={`/${lang}/class/${role}/classmate`}
+        href={`/${lang}/class/${role}/people`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}/classmate` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${role}/people` && "border-b-2 border-b-info"
         )}
       >
-        Classmate
-      </Link>
-      <Link
-        href={`/${lang}/class/${role}/teachers`}
-        className={cn(
-          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}/teachers` && "border-b-2 border-b-info"
-        )}
-      >
-        Teachers
-      </Link>
+        People
+      </Link>=
     </div>
   );
 };
