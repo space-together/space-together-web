@@ -8,7 +8,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Dot } from "lucide-react";
 
 interface props {
-  postRole?: "NOTES" | "IMAGE" | "VIDEO";
+  postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY";
 }
 
 const PostCard = ({ postRole }: props) => {
@@ -33,37 +33,59 @@ const PostCard = ({ postRole }: props) => {
       )}
       {postRole === "IMAGE" && (
         <div className=" relative h-72">
-        <MyImage src="/images/2.jpg" className=" w-full h-full" />
-        <div className=" flex justify-between">
-          <Button
-            variant="ghost"
-            shape="circle"
-            className="absolute top-1/2 left-0 transform -translate-x-0 -translate-y-1/2 text-white"
-          >
-            <FaChevronLeft size={32} />
-          </Button>
-          <Button
-            variant="ghost"
-            shape="circle"
-            className=" absolute top-1/2 right-0 transform -translate-x-0 -translate-y-1/2 text-white"
-          >
-            <FaChevronRight
-              size={32}
-              className=""
-            />
-          </Button>
-        </div>
-        <div className=" absolute bottom-0 z-30  right-1/2 ml-4">
-          <div className=" -space-x-8 flex">
-            <Dot size={48} />
-            <Dot size={48} className="text-white"/>
-            <Dot size={48} />
+          <MyImage src="/images/2.jpg" className=" w-full h-full" />
+          <div className=" flex justify-between">
+            <Button
+              variant="ghost"
+              shape="circle"
+              className="absolute top-1/2 left-0 transform -translate-x-0 -translate-y-1/2 text-white"
+            >
+              <FaChevronLeft size={32} />
+            </Button>
+            <Button
+              variant="ghost"
+              shape="circle"
+              className=" absolute top-1/2 right-0 transform -translate-x-0 -translate-y-1/2 text-white"
+            >
+              <FaChevronRight size={32} className="" />
+            </Button>
+          </div>
+          <div className=" absolute bottom-0 z-30  right-1/2 ml-4">
+            <div className=" -space-x-8 flex">
+              <Dot size={48} />
+              <Dot size={48} className="text-white" />
+              <Dot size={48} />
+            </div>
           </div>
         </div>
-      </div>
       )}
+
       <Separator />
-      <PostCardFooter postRole="NOTES" />
+      {postRole === "ACTIVITY" && (
+        <div className=" p-4">
+          <div className=" flex justify-between">
+            <div className=" text-sm text-myGray">
+              <div className=" space-x-2">
+                <span>Kinyarwanda</span>
+                <span className=" ">Activities</span>
+              </div>
+              <div>
+                <span>Submit wed 12/1/2025</span>
+              </div>
+            </div>
+            <div className=" flex flex-col text-sm">
+              <span>100 Point</span>
+            </div>
+          </div>
+          <div className=" mt-3">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum sed
+            voluptates modi magnam possimus quisquam corrupti voluptatibus
+            nesciunt perferendis voluptatem nobis natus facilis nostrum, ratione
+            dolores vero numquam iusto cumque! ...
+          </div>
+        </div>
+      )}
+      {postRole !== "ACTIVITY" && <PostCardFooter postRole="NOTES" />}
     </div>
   );
 };
