@@ -17,11 +17,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
-import { deleteTradeAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Trade } from "../../../../../prisma/prisma/generated";
+import { deleteTradeAction } from "@/services/actions/trade-action";
 
 interface Props {
   trade: Trade;
@@ -32,31 +31,18 @@ const DeleteTradeDialog = ({ trade }: Props) => {
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
   const handleDelete = (id: string) => {
-    setError("");
-    setSuccess("");
-    startTransition(async () => {
-      const deleteEducation = await deleteTradeAPI(id);
-
-      if ("message" in deleteEducation) {
-        setError(deleteEducation.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: deleteEducation.message,
-          variant: "destructive",
+    setError("")
+        setSuccess("")
+        startTransition(async () => {
+          const action = await deleteTradeAction(id);
+          if (action.error) {
+            setError(action.error);
+          }
+    
+          if (action.success) {
+            setSuccess(action.success);
+          }
         });
-      } else {
-        setSuccess("User role deleted successfully!");
-        toast({
-          title: "User role created successfully",
-          description: (
-            <p>
-              You delete <strong>{deleteEducation.name}</strong> account which
-              created on {deleteEducation.create_on} 😔
-            </p>
-          ),
-        });
-      }
-    });
   };
   return (
     <AlertDialog>
