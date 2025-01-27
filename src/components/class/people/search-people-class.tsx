@@ -8,7 +8,7 @@ const SearchPeopleClass = () => {
   return (
     <div className="space-y-2">
       <Label htmlFor={id} className=" font-medium text-lg">Search People </Label>
-      <div className="relative">
+      <div className="relative w-96">
         <Input
           id={id}
           className="peer pe-9 ps-9 w-96"

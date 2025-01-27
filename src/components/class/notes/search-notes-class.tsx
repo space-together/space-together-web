@@ -6,9 +6,9 @@ import { useId } from "react";
 const SearchNotesClass = () => {
   const id = useId();
   return (
-    <div className="space-y-2">
-      <Label htmlFor={id} className=" font-medium text-lg">Search People </Label>
-      <div className="relative">
+    <div className="space-y-2 relative ">
+      <Label htmlFor={id} className=" font-medium text-lg">Search Subject Notes </Label>
+      <div className="relative w-96">
         <Input
           id={id}
           className="peer pe-9 ps-9 w-96"
