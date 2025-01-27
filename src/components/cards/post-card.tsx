@@ -85,7 +85,7 @@ const PostCard = ({ postRole }: props) => {
           </div>
         </div>
       )}
-      {postRole !== "ACTIVITY" && <PostCardFooter postRole="NOTES" />}
+      {postRole !== "ACTIVITY" && <PostCardFooter postRole={postRole} />}
     </div>
   );
 };

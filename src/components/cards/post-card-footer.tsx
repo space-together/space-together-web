@@ -3,16 +3,21 @@ import { Button } from "../ui/button";
 import { FaComment, FaReadme, FaRegBookmark, FaShare } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
 
+// interface props {
+//   postRole?:
+//     | "IMAGE"
+//     | "NOTES"
+//     | "VIDEO"
+//     | "AUDIO"
+//     | "BOOK"
+//     | "LINK"
+//     | "CODE"
+//     | "OTHER";
+// }
+
 interface props {
   postRole?:
-    | "IMAGE"
-    | "NOTES"
-    | "VIDEO"
-    | "AUDIO"
-    | "BOOK"
-    | "LINK"
-    | "CODE"
-    | "OTHER";
+    "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "BOOK";
 }
 
 const PostCardFooter = ({ postRole }: props) => {
