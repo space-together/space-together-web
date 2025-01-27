@@ -17,8 +17,8 @@ interface props {
 
 const PostCardFooter = ({ postRole }: props) => {
   return (
-    <div className=" flex justify-between px-4 py-2 ">
-      <div className=" flex gap-2 items-center">
+    <div className=" flex justify-between px-4 py-2">
+      <div className=" flex items-center">
         <Button variant="ghost" size="md">
           {postRole === "NOTES" || postRole === "BOOK" ? (
             <FaReadme size={28} />
@@ -32,7 +32,7 @@ const PostCardFooter = ({ postRole }: props) => {
           <span>32</span>
         </Button>
       </div>
-      <div className=" flex gap-2 items-center">
+      <div className=" flex items-center">
         <Button variant="ghost" size="md">
           <FaShare size={28} />
         </Button>
