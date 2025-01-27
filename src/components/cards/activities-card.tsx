@@ -2,7 +2,7 @@ import React from 'react'
 
 const ActivitiesCard = () => {
   return (
-    <div>
+    <div className=' happy-card w-96'>
       ActivitiesCard card
     </div>
   )

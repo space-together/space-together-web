@@ -1,7 +1,7 @@
 import ActivitiesCard from "@/components/cards/activities-card";
 import SearchActivities from "@/components/class/class-work/search-activities";
+import SelectClassActivitiesSubject from "@/components/class/class-work/select-class-activities-subject";
 import React from "react";
-import SelectClassActivitiesSubject from "./select-class-activities-subject";
 
 const ClassWorkPage = () => {
   return (
