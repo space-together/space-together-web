@@ -66,3 +66,19 @@ export const updateEducationAction = async (id: string, values: educationSchemaT
 
   return { success: "Education updated", data: update };
 };
+
+export const deleteEducationAction = async (id: string) => {
+  try {
+    const deleteEducation = await db.education.delete({
+      where: { id },
+    });
+
+    if (!deleteEducation) {
+      return { error: "Failed to delete Education" };
+    }
+
+    return { success: "Education deleted", data: deleteEducation };
+  } catch {
+    return { error: "An error occurred while deleting Education" };
+  }
+};

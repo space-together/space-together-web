@@ -97,7 +97,6 @@ const UpdateEducationDialog = ({ education }: props) => {
 
     startTransition(async () => {
           const action = await updateEducationAction(education.id,values);
-    
           if (action.error) {
             setError(action.error);
           }

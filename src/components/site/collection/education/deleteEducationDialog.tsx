@@ -17,11 +17,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
-import { deleteEducationAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Education } from "../../../../../prisma/prisma/generated";
+import { deleteEducationAction } from "@/services/actions/education-action";
 
 interface Props {
   education: Education;
@@ -35,27 +34,13 @@ const DeleteEducationDialog = ({ education }: Props) => {
     setError("");
     setSuccess("");
     startTransition(async () => {
-      const deleteEducation = await deleteEducationAPI(id);
-
-      if ("message" in deleteEducation) {
-        setError(deleteEducation.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: deleteEducation.message,
-          variant: "destructive",
-        });
-      } else {
-        setSuccess("User role deleted successfully!");
-        toast({
-          title: "User role created successfully",
-          description: (
-            <p>
-              You delete <strong>{deleteEducation.name}</strong> account which
-              created on {deleteEducation.created_on} 😔
-            </p>
-          ),
-        });
+      const action = await deleteEducationAction(id);
+      if (action.error) {
+        setError(action.error);
       }
+
+      if (action.success) {
+        setSuccess(action.success);      }
     });
   };
   return (
