@@ -21,10 +21,10 @@ import { toast } from "@/hooks/use-toast";
 import { deleteSectorAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SectorModelGet } from "@/types/sectorModel";
+import { Sector } from "../../../../../prisma/prisma/generated";
 
 interface Props {
-  sector: SectorModelGet;
+  sector: Sector;
 }
 
 const DeleteSectorDialog = ({ sector }: Props) => {

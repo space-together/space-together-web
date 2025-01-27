@@ -27,20 +27,18 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
+import { createSectorAction } from "@/services/actions/sector-action";
 // import { cn } from "@/lib/utils";
-import { createSectorAPI } from "@/services/data/fetchDataFn";
-import { EducationModelGet } from "@/types/educationModel";
-import { SectorModelNew } from "@/types/sectorModel";
 import { sectorSchema, sectorSchemaType } from "@/utils/schema/sectorSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
+import { Education } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  education: EducationModelGet[];
+  education: Education[];
 }
 
 const CreateSectorDialog = ({ education }: props) => {
@@ -94,49 +92,26 @@ const CreateSectorDialog = ({ education }: props) => {
 
   const handleSubmit = (values: sectorSchemaType) => {
     setError("");
-    setSuccess("");
-
-    const validation = sectorSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-    const { name, username, description, education, logo } = validation.data;
-    const data: SectorModelNew = {
-      name,
-      username,
-      description,
-      education,
-      symbol: logo,
-    };
-    startTransition(async () => {
-      try {
-        const result = await createSectorAPI(data);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Sector entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
-    });
+        setSuccess("");
+    
+        startTransition(async () => {
+          const action = await createSectorAction(values);
+    
+          if (action.error) {
+            setError(action.error);
+          }
+    
+          if (action.success) {
+            setSuccess(action.success);
+            form.reset();
+          }
+        });
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="info" size="sm">
+        <Button disabled={isPending} variant="info" size="sm">
           <BsPlus /> Add new sector
           {isPending && (
             <LoaderCircle

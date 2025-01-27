@@ -29,17 +29,17 @@ import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
 import { toast } from "@/hooks/use-toast";
 import { updateSectorAPI } from "@/services/data/fetchDataFn";
-import { EducationModelGet } from "@/types/educationModel";
-import { SectorModelGet, SectorModelPut } from "@/types/sectorModel";
+import { SectorModelPut } from "@/types/sectorModel";
 import { sectorSchema, sectorSchemaType } from "@/utils/schema/sectorSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { Education, Sector } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  education: EducationModelGet[];
-  sector: SectorModelGet;
+  education: Education[] | null;
+  sector: Sector;
 }
 
 const UpdateSectorDialog = ({ education, sector }: props) => {
@@ -80,7 +80,7 @@ const UpdateSectorDialog = ({ education, sector }: props) => {
     defaultValues: {
       name: sector.name ? sector.name : "",
       username: sector.username ? sector.username : "",
-      education: sector.education ? sector.education : undefined,
+      education: sector.educationId ? sector.educationId : undefined,
       description: sector.description ? sector.description : undefined,
       logo: sector.symbol ? sector.symbol :  "",
     },
@@ -233,7 +233,7 @@ const UpdateSectorDialog = ({ education, sector }: props) => {
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
                     >
-                      {education.map((item) => {
+                      {education && education.map((item) => {
                         return (
                           <FormItem
                             key={item.id}

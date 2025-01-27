@@ -7,23 +7,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { FaCloudArrowDown } from "react-icons/fa6";
 import { useState } from "react";
-import { SectorModelGet } from "@/types/sectorModel";
 import MyImage from "@/components/my-components/myImage";
 import UpdateSectorDialog from "./updateSectorDialog";
-import { EducationModelGet } from "@/types/educationModel";
 import DeleteSectorDialog from "./deleteSectorDialog";
+import { Education, Sector } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  sectors: SectorModelGet[];
-  educations: EducationModelGet[];
+  sectors: Sector[];
+  educations: Education[] | null;
   collectionName: string;
 }
 
 const AllSectorTable = ({ sectors, educations }: props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [SelectedSector, setSelectedSector] = useState<SectorModelGet[]>([]);
+  const [SelectedSector, setSelectedSector] = useState<Sector[]>([]);
 
-  const columns: ColumnDef<SectorModelGet>[] = [
+  const columns: ColumnDef<Sector>[] = [
     {
       id: "select",
       header: ({ table }) => {
@@ -52,7 +51,7 @@ const AllSectorTable = ({ sectors, educations }: props) => {
             row.toggleSelected(!!value);
             setSelectedSector((prev) =>
               value
-                ? [...prev, row.original]
+                ? [...prev, { ...row.original, create_on: row.original.createdAt.toISOString() }]
                 : prev.filter((sector) => sector.id !== row.original.id)
             );
           }}
@@ -132,7 +131,7 @@ const AllSectorTable = ({ sectors, educations }: props) => {
         <DataTable
           columns={columns}
           data={sectors}
-          searchKeys={["username", "name", "education"]}
+          searchKeys={["username", "name", "educationId"]}
         />
       </div>
     </div>

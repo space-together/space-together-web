@@ -1,28 +1,16 @@
-import CollectionPageStatic, {
-  CollectionPageErrorStatic,
-} from "@/utils/static/page/collectionPageStatic";
+import CollectionPageStatic from "@/utils/static/page/collectionPageStatic";
 import CreateSectorDialog from "./CreateSectorDialog";
-import { fetchAllEducation, fetchAllSector } from "@/services/data/fetchDataFn";
 import AllSectorTable from "./allSectorTable";
-// import AllEducationComponent from "./allEducationComponent"
+import { getAllEducation } from "@/services/data/education-data";
+import { getAllSectors } from "@/services/data/sector-data";
 
 interface props {
   collection: string;
 }
 const SectorPageDocument = async ({ collection }: props) => {
-  const getSectors = await fetchAllSector();
+  const getSectors = await getAllSectors();
 
-  if ("message" in getSectors) {
-    return <CollectionPageErrorStatic collection="Sector" error={getSectors} />;
-  }
-
-  const getEducation = await fetchAllEducation();
-
-  if ("message" in getEducation) {
-    return (
-      <CollectionPageErrorStatic collection="education" error={getEducation} />
-    );
-  }
+  const getEducation = await getAllEducation();
 
   return (
     <CollectionPageStatic collection={collection}>
