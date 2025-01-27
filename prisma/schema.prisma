@@ -118,8 +118,7 @@ model Education {
   updatedAt DateTime @updatedAt
 
   Sector Sector[]
-
-  Trade Trade[]
+  Trade  Trade[]
 }
 
 model Sector {
@@ -134,11 +133,9 @@ model Sector {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  education Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
-
+  education Education   @relation(fields: [educationId], references: [id], onDelete: Cascade)
   ClassRoom ClassRoom[]
-
-  Class Class[]
+  Class     Class[]
 }
 
 model Trade {
