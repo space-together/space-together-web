@@ -61,7 +61,7 @@ const DeleteEducationDialog = ({ education }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="error">
+        <Button disabled={isPending} size="sm" variant="error">
           Delete
           {isPending && (
             <LoaderCircle

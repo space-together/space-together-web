@@ -112,7 +112,7 @@ const UpdateEducationDialog = ({ education }: props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="warning" size="sm">
+        <Button disabled={isPending} type="button" variant="warning" size="sm">
           Update{" "}
           {isPending && (
             <LoaderCircle
