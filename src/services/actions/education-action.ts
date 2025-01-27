@@ -14,29 +14,38 @@ export const createEducationAction = async (values: educationSchemaType) => {
     return { error: "Invalid valuers" };
   }
   const { name, username, description } = validation.data;
-  const getUsername = await getEducationByUsername(username);
-  if (!!getUsername) {
+  try {
+    const getUsername = await getEducationByUsername(username);
+    if (!!getUsername) {
+      return {
+        error: `Education username name is ready exit [${getUsername.username}], try other username`,
+      };
+    }
+
+    const create = await db.education.create({
+      data: {
+        name,
+        username,
+        description,
+      },
+    });
+
+    if (!create) {
+      return { error: "Failed to create Education" };
+    }
+
+    return { success: "Education created", data: create };
+  } catch (error) {
     return {
-      error: `Education username name is ready exit [${getUsername.username}], try other username`,
+      error: `Some this went wong to create class error is  [${error}]`,
     };
   }
-
-  const create = await db.education.create({
-    data: {
-      name,
-      username,
-      description,
-    },
-  });
-
-  if (!create) {
-    return { error: "Failed to create Education" };
-  }
-
-  return { success: "Education created", data: create };
 };
 
-export const updateEducationAction = async (id: string, values: educationSchemaType) => {
+export const updateEducationAction = async (
+  id: string,
+  values: educationSchemaType
+) => {
   const validation = educationSchema.safeParse(values);
 
   if (!validation.success) {
