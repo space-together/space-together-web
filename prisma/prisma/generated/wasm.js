@@ -172,6 +172,74 @@ exports.Prisma.AuthenticatorScalarFieldEnum = {
   transports: 'transports'
 };
 
+exports.Prisma.EducationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  username: 'username',
+  description: 'description',
+  symbol: 'symbol',
+  disabled: 'disabled',
+  roles: 'roles',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SectorScalarFieldEnum = {
+  id: 'id',
+  educationId: 'educationId',
+  username: 'username',
+  name: 'name',
+  description: 'description',
+  symbol: 'symbol',
+  disabled: 'disabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TradeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  username: 'username',
+  description: 'description',
+  sectorId: 'sectorId',
+  limitClasses: 'limitClasses',
+  symbol: 'symbol',
+  disabled: 'disabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClassRoomScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  username: 'username',
+  description: 'description',
+  symbol: 'symbol',
+  disabled: 'disabled',
+  ClassRoomType: 'ClassRoomType',
+  sectorId: 'sectorId',
+  tradeId: 'tradeId',
+  code: 'code',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClassScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  username: 'username',
+  description: 'description',
+  code: 'code',
+  symbol: 'symbol',
+  disabled: 'disabled',
+  sectorId: 'sectorId',
+  tradeId: 'tradeId',
+  classRoomId: 'classRoomId',
+  classTeacher: 'classTeacher',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -195,12 +263,22 @@ exports.Gender = exports.$Enums.Gender = {
   OTHER: 'OTHER'
 };
 
+exports.ClassRoomType = exports.$Enums.ClassRoomType = {
+  DEFAULT: 'DEFAULT',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
-  Authenticator: 'Authenticator'
+  Authenticator: 'Authenticator',
+  Education: 'Education',
+  Sector: 'Sector',
+  Trade: 'Trade',
+  ClassRoom: 'ClassRoom',
+  Class: 'Class'
 };
 
 /**

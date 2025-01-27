@@ -38,6 +38,31 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  * 
  */
 export type Authenticator = $Result.DefaultSelection<Prisma.$AuthenticatorPayload>
+/**
+ * Model Education
+ * 
+ */
+export type Education = $Result.DefaultSelection<Prisma.$EducationPayload>
+/**
+ * Model Sector
+ * 
+ */
+export type Sector = $Result.DefaultSelection<Prisma.$SectorPayload>
+/**
+ * Model Trade
+ * 
+ */
+export type Trade = $Result.DefaultSelection<Prisma.$TradePayload>
+/**
+ * Model ClassRoom
+ * 
+ */
+export type ClassRoom = $Result.DefaultSelection<Prisma.$ClassRoomPayload>
+/**
+ * Model Class
+ * 
+ */
+export type Class = $Result.DefaultSelection<Prisma.$ClassPayload>
 
 /**
  * Enums
@@ -62,6 +87,23 @@ export const Gender: {
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
+
+export const ClassRoomType: {
+  DEFAULT: 'DEFAULT',
+  OTHER: 'OTHER'
+};
+
+export type ClassRoomType = (typeof ClassRoomType)[keyof typeof ClassRoomType]
+
+
+export const ClassType: {
+  SCHOOLCLASS: 'SCHOOLCLASS',
+  PRIVET: 'PRIVET',
+  PUBLIC: 'PUBLIC'
+};
+
+export type ClassType = (typeof ClassType)[keyof typeof ClassType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -71,6 +113,14 @@ export const UserRole: typeof $Enums.UserRole
 export type Gender = $Enums.Gender
 
 export const Gender: typeof $Enums.Gender
+
+export type ClassRoomType = $Enums.ClassRoomType
+
+export const ClassRoomType: typeof $Enums.ClassRoomType
+
+export type ClassType = $Enums.ClassType
+
+export const ClassType: typeof $Enums.ClassType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +263,56 @@ export class PrismaClient<
     * ```
     */
   get authenticator(): Prisma.AuthenticatorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.education`: Exposes CRUD operations for the **Education** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Educations
+    * const educations = await prisma.education.findMany()
+    * ```
+    */
+  get education(): Prisma.EducationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sector`: Exposes CRUD operations for the **Sector** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sectors
+    * const sectors = await prisma.sector.findMany()
+    * ```
+    */
+  get sector(): Prisma.SectorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.trade`: Exposes CRUD operations for the **Trade** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Trades
+    * const trades = await prisma.trade.findMany()
+    * ```
+    */
+  get trade(): Prisma.TradeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.classRoom`: Exposes CRUD operations for the **ClassRoom** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClassRooms
+    * const classRooms = await prisma.classRoom.findMany()
+    * ```
+    */
+  get classRoom(): Prisma.ClassRoomDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.class`: Exposes CRUD operations for the **Class** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Classes
+    * const classes = await prisma.class.findMany()
+    * ```
+    */
+  get class(): Prisma.ClassDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -657,7 +757,12 @@ export namespace Prisma {
     Account: 'Account',
     Session: 'Session',
     VerificationToken: 'VerificationToken',
-    Authenticator: 'Authenticator'
+    Authenticator: 'Authenticator',
+    Education: 'Education',
+    Sector: 'Sector',
+    Trade: 'Trade',
+    ClassRoom: 'ClassRoom',
+    Class: 'Class'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -673,7 +778,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class"
       txIsolationLevel: never
     }
     model: {
@@ -1047,6 +1152,376 @@ export namespace Prisma {
           }
         }
       }
+      Education: {
+        payload: Prisma.$EducationPayload<ExtArgs>
+        fields: Prisma.EducationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EducationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EducationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          findFirst: {
+            args: Prisma.EducationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EducationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          findMany: {
+            args: Prisma.EducationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>[]
+          }
+          create: {
+            args: Prisma.EducationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          createMany: {
+            args: Prisma.EducationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.EducationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          update: {
+            args: Prisma.EducationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          deleteMany: {
+            args: Prisma.EducationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EducationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EducationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPayload>
+          }
+          aggregate: {
+            args: Prisma.EducationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEducation>
+          }
+          groupBy: {
+            args: Prisma.EducationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EducationGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.EducationFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.EducationAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.EducationCountArgs<ExtArgs>
+            result: $Utils.Optional<EducationCountAggregateOutputType> | number
+          }
+        }
+      }
+      Sector: {
+        payload: Prisma.$SectorPayload<ExtArgs>
+        fields: Prisma.SectorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SectorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SectorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          findFirst: {
+            args: Prisma.SectorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SectorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          findMany: {
+            args: Prisma.SectorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>[]
+          }
+          create: {
+            args: Prisma.SectorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          createMany: {
+            args: Prisma.SectorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SectorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          update: {
+            args: Prisma.SectorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          deleteMany: {
+            args: Prisma.SectorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SectorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SectorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectorPayload>
+          }
+          aggregate: {
+            args: Prisma.SectorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSector>
+          }
+          groupBy: {
+            args: Prisma.SectorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SectorGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SectorFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SectorAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SectorCountArgs<ExtArgs>
+            result: $Utils.Optional<SectorCountAggregateOutputType> | number
+          }
+        }
+      }
+      Trade: {
+        payload: Prisma.$TradePayload<ExtArgs>
+        fields: Prisma.TradeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TradeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TradeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          findFirst: {
+            args: Prisma.TradeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TradeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          findMany: {
+            args: Prisma.TradeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>[]
+          }
+          create: {
+            args: Prisma.TradeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          createMany: {
+            args: Prisma.TradeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TradeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          update: {
+            args: Prisma.TradeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          deleteMany: {
+            args: Prisma.TradeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TradeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TradeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TradePayload>
+          }
+          aggregate: {
+            args: Prisma.TradeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTrade>
+          }
+          groupBy: {
+            args: Prisma.TradeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TradeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.TradeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.TradeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.TradeCountArgs<ExtArgs>
+            result: $Utils.Optional<TradeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ClassRoom: {
+        payload: Prisma.$ClassRoomPayload<ExtArgs>
+        fields: Prisma.ClassRoomFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClassRoomFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClassRoomFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          findFirst: {
+            args: Prisma.ClassRoomFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClassRoomFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          findMany: {
+            args: Prisma.ClassRoomFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>[]
+          }
+          create: {
+            args: Prisma.ClassRoomCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          createMany: {
+            args: Prisma.ClassRoomCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ClassRoomDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          update: {
+            args: Prisma.ClassRoomUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClassRoomDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClassRoomUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ClassRoomUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassRoomPayload>
+          }
+          aggregate: {
+            args: Prisma.ClassRoomAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClassRoom>
+          }
+          groupBy: {
+            args: Prisma.ClassRoomGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClassRoomGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ClassRoomFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ClassRoomAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ClassRoomCountArgs<ExtArgs>
+            result: $Utils.Optional<ClassRoomCountAggregateOutputType> | number
+          }
+        }
+      }
+      Class: {
+        payload: Prisma.$ClassPayload<ExtArgs>
+        fields: Prisma.ClassFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClassFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClassFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          findFirst: {
+            args: Prisma.ClassFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClassFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          findMany: {
+            args: Prisma.ClassFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>[]
+          }
+          create: {
+            args: Prisma.ClassCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          createMany: {
+            args: Prisma.ClassCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ClassDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          update: {
+            args: Prisma.ClassUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClassDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClassUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ClassUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassPayload>
+          }
+          aggregate: {
+            args: Prisma.ClassAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClass>
+          }
+          groupBy: {
+            args: Prisma.ClassGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClassGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ClassFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ClassAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ClassCountArgs<ExtArgs>
+            result: $Utils.Optional<ClassCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1123,6 +1598,11 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     authenticator?: AuthenticatorOmit
+    education?: EducationOmit
+    sector?: SectorOmit
+    trade?: TradeOmit
+    classRoom?: ClassRoomOmit
+    class?: ClassOmit
   }
 
   /* Types for Logging */
@@ -1258,6 +1738,157 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAuthenticatorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuthenticatorWhereInput
+  }
+
+
+  /**
+   * Count Type EducationCountOutputType
+   */
+
+  export type EducationCountOutputType = {
+    Sector: number
+    Trade: number
+  }
+
+  export type EducationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Sector?: boolean | EducationCountOutputTypeCountSectorArgs
+    Trade?: boolean | EducationCountOutputTypeCountTradeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EducationCountOutputType without action
+   */
+  export type EducationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationCountOutputType
+     */
+    select?: EducationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EducationCountOutputType without action
+   */
+  export type EducationCountOutputTypeCountSectorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectorWhereInput
+  }
+
+  /**
+   * EducationCountOutputType without action
+   */
+  export type EducationCountOutputTypeCountTradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradeWhereInput
+  }
+
+
+  /**
+   * Count Type SectorCountOutputType
+   */
+
+  export type SectorCountOutputType = {
+    ClassRoom: number
+    Class: number
+  }
+
+  export type SectorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ClassRoom?: boolean | SectorCountOutputTypeCountClassRoomArgs
+    Class?: boolean | SectorCountOutputTypeCountClassArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SectorCountOutputType without action
+   */
+  export type SectorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectorCountOutputType
+     */
+    select?: SectorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SectorCountOutputType without action
+   */
+  export type SectorCountOutputTypeCountClassRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassRoomWhereInput
+  }
+
+  /**
+   * SectorCountOutputType without action
+   */
+  export type SectorCountOutputTypeCountClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassWhereInput
+  }
+
+
+  /**
+   * Count Type TradeCountOutputType
+   */
+
+  export type TradeCountOutputType = {
+    ClassRoom: number
+    Class: number
+  }
+
+  export type TradeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ClassRoom?: boolean | TradeCountOutputTypeCountClassRoomArgs
+    Class?: boolean | TradeCountOutputTypeCountClassArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TradeCountOutputType without action
+   */
+  export type TradeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TradeCountOutputType
+     */
+    select?: TradeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TradeCountOutputType without action
+   */
+  export type TradeCountOutputTypeCountClassRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassRoomWhereInput
+  }
+
+  /**
+   * TradeCountOutputType without action
+   */
+  export type TradeCountOutputTypeCountClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassWhereInput
+  }
+
+
+  /**
+   * Count Type ClassRoomCountOutputType
+   */
+
+  export type ClassRoomCountOutputType = {
+    Class: number
+  }
+
+  export type ClassRoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Class?: boolean | ClassRoomCountOutputTypeCountClassArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ClassRoomCountOutputType without action
+   */
+  export type ClassRoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoomCountOutputType
+     */
+    select?: ClassRoomCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ClassRoomCountOutputType without action
+   */
+  export type ClassRoomCountOutputTypeCountClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassWhereInput
   }
 
 
@@ -6466,6 +7097,5506 @@ export namespace Prisma {
 
 
   /**
+   * Model Education
+   */
+
+  export type AggregateEducation = {
+    _count: EducationCountAggregateOutputType | null
+    _min: EducationMinAggregateOutputType | null
+    _max: EducationMaxAggregateOutputType | null
+  }
+
+  export type EducationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EducationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EducationCountAggregateOutputType = {
+    id: number
+    name: number
+    username: number
+    description: number
+    symbol: number
+    disabled: number
+    roles: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EducationMinAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EducationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EducationCountAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    roles?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EducationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Education to aggregate.
+     */
+    where?: EducationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Educations to fetch.
+     */
+    orderBy?: EducationOrderByWithRelationInput | EducationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EducationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Educations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Educations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Educations
+    **/
+    _count?: true | EducationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EducationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EducationMaxAggregateInputType
+  }
+
+  export type GetEducationAggregateType<T extends EducationAggregateArgs> = {
+        [P in keyof T & keyof AggregateEducation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEducation[P]>
+      : GetScalarType<T[P], AggregateEducation[P]>
+  }
+
+
+
+
+  export type EducationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducationWhereInput
+    orderBy?: EducationOrderByWithAggregationInput | EducationOrderByWithAggregationInput[]
+    by: EducationScalarFieldEnum[] | EducationScalarFieldEnum
+    having?: EducationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EducationCountAggregateInputType | true
+    _min?: EducationMinAggregateInputType
+    _max?: EducationMaxAggregateInputType
+  }
+
+  export type EducationGroupByOutputType = {
+    id: string
+    name: string
+    username: string
+    description: string | null
+    symbol: string | null
+    disabled: boolean
+    roles: string[]
+    createdAt: Date
+    updatedAt: Date
+    _count: EducationCountAggregateOutputType | null
+    _min: EducationMinAggregateOutputType | null
+    _max: EducationMaxAggregateOutputType | null
+  }
+
+  type GetEducationGroupByPayload<T extends EducationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EducationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EducationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EducationGroupByOutputType[P]>
+            : GetScalarType<T[P], EducationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EducationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    roles?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Sector?: boolean | Education$SectorArgs<ExtArgs>
+    Trade?: boolean | Education$TradeArgs<ExtArgs>
+    _count?: boolean | EducationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["education"]>
+
+
+
+  export type EducationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    roles?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EducationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "symbol" | "disabled" | "roles" | "createdAt" | "updatedAt", ExtArgs["result"]["education"]>
+  export type EducationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Sector?: boolean | Education$SectorArgs<ExtArgs>
+    Trade?: boolean | Education$TradeArgs<ExtArgs>
+    _count?: boolean | EducationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $EducationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Education"
+    objects: {
+      Sector: Prisma.$SectorPayload<ExtArgs>[]
+      Trade: Prisma.$TradePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      username: string
+      description: string | null
+      symbol: string | null
+      disabled: boolean
+      roles: string[]
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["education"]>
+    composites: {}
+  }
+
+  type EducationGetPayload<S extends boolean | null | undefined | EducationDefaultArgs> = $Result.GetResult<Prisma.$EducationPayload, S>
+
+  type EducationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EducationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EducationCountAggregateInputType | true
+    }
+
+  export interface EducationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Education'], meta: { name: 'Education' } }
+    /**
+     * Find zero or one Education that matches the filter.
+     * @param {EducationFindUniqueArgs} args - Arguments to find a Education
+     * @example
+     * // Get one Education
+     * const education = await prisma.education.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EducationFindUniqueArgs>(args: SelectSubset<T, EducationFindUniqueArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Education that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EducationFindUniqueOrThrowArgs} args - Arguments to find a Education
+     * @example
+     * // Get one Education
+     * const education = await prisma.education.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EducationFindUniqueOrThrowArgs>(args: SelectSubset<T, EducationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Education that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationFindFirstArgs} args - Arguments to find a Education
+     * @example
+     * // Get one Education
+     * const education = await prisma.education.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EducationFindFirstArgs>(args?: SelectSubset<T, EducationFindFirstArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Education that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationFindFirstOrThrowArgs} args - Arguments to find a Education
+     * @example
+     * // Get one Education
+     * const education = await prisma.education.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EducationFindFirstOrThrowArgs>(args?: SelectSubset<T, EducationFindFirstOrThrowArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Educations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Educations
+     * const educations = await prisma.education.findMany()
+     * 
+     * // Get first 10 Educations
+     * const educations = await prisma.education.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const educationWithIdOnly = await prisma.education.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EducationFindManyArgs>(args?: SelectSubset<T, EducationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Education.
+     * @param {EducationCreateArgs} args - Arguments to create a Education.
+     * @example
+     * // Create one Education
+     * const Education = await prisma.education.create({
+     *   data: {
+     *     // ... data to create a Education
+     *   }
+     * })
+     * 
+     */
+    create<T extends EducationCreateArgs>(args: SelectSubset<T, EducationCreateArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Educations.
+     * @param {EducationCreateManyArgs} args - Arguments to create many Educations.
+     * @example
+     * // Create many Educations
+     * const education = await prisma.education.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EducationCreateManyArgs>(args?: SelectSubset<T, EducationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Education.
+     * @param {EducationDeleteArgs} args - Arguments to delete one Education.
+     * @example
+     * // Delete one Education
+     * const Education = await prisma.education.delete({
+     *   where: {
+     *     // ... filter to delete one Education
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EducationDeleteArgs>(args: SelectSubset<T, EducationDeleteArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Education.
+     * @param {EducationUpdateArgs} args - Arguments to update one Education.
+     * @example
+     * // Update one Education
+     * const education = await prisma.education.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EducationUpdateArgs>(args: SelectSubset<T, EducationUpdateArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Educations.
+     * @param {EducationDeleteManyArgs} args - Arguments to filter Educations to delete.
+     * @example
+     * // Delete a few Educations
+     * const { count } = await prisma.education.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EducationDeleteManyArgs>(args?: SelectSubset<T, EducationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Educations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Educations
+     * const education = await prisma.education.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EducationUpdateManyArgs>(args: SelectSubset<T, EducationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Education.
+     * @param {EducationUpsertArgs} args - Arguments to update or create a Education.
+     * @example
+     * // Update or create a Education
+     * const education = await prisma.education.upsert({
+     *   create: {
+     *     // ... data to create a Education
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Education we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EducationUpsertArgs>(args: SelectSubset<T, EducationUpsertArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Educations that matches the filter.
+     * @param {EducationFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const education = await prisma.education.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: EducationFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Education.
+     * @param {EducationAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const education = await prisma.education.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: EducationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Educations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationCountArgs} args - Arguments to filter Educations to count.
+     * @example
+     * // Count the number of Educations
+     * const count = await prisma.education.count({
+     *   where: {
+     *     // ... the filter for the Educations we want to count
+     *   }
+     * })
+    **/
+    count<T extends EducationCountArgs>(
+      args?: Subset<T, EducationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EducationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Education.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EducationAggregateArgs>(args: Subset<T, EducationAggregateArgs>): Prisma.PrismaPromise<GetEducationAggregateType<T>>
+
+    /**
+     * Group by Education.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EducationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EducationGroupByArgs['orderBy'] }
+        : { orderBy?: EducationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EducationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEducationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Education model
+   */
+  readonly fields: EducationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Education.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EducationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Sector<T extends Education$SectorArgs<ExtArgs> = {}>(args?: Subset<T, Education$SectorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Trade<T extends Education$TradeArgs<ExtArgs> = {}>(args?: Subset<T, Education$TradeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Education model
+   */ 
+  interface EducationFieldRefs {
+    readonly id: FieldRef<"Education", 'String'>
+    readonly name: FieldRef<"Education", 'String'>
+    readonly username: FieldRef<"Education", 'String'>
+    readonly description: FieldRef<"Education", 'String'>
+    readonly symbol: FieldRef<"Education", 'String'>
+    readonly disabled: FieldRef<"Education", 'Boolean'>
+    readonly roles: FieldRef<"Education", 'String[]'>
+    readonly createdAt: FieldRef<"Education", 'DateTime'>
+    readonly updatedAt: FieldRef<"Education", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Education findUnique
+   */
+  export type EducationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter, which Education to fetch.
+     */
+    where: EducationWhereUniqueInput
+  }
+
+  /**
+   * Education findUniqueOrThrow
+   */
+  export type EducationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter, which Education to fetch.
+     */
+    where: EducationWhereUniqueInput
+  }
+
+  /**
+   * Education findFirst
+   */
+  export type EducationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter, which Education to fetch.
+     */
+    where?: EducationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Educations to fetch.
+     */
+    orderBy?: EducationOrderByWithRelationInput | EducationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Educations.
+     */
+    cursor?: EducationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Educations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Educations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Educations.
+     */
+    distinct?: EducationScalarFieldEnum | EducationScalarFieldEnum[]
+  }
+
+  /**
+   * Education findFirstOrThrow
+   */
+  export type EducationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter, which Education to fetch.
+     */
+    where?: EducationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Educations to fetch.
+     */
+    orderBy?: EducationOrderByWithRelationInput | EducationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Educations.
+     */
+    cursor?: EducationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Educations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Educations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Educations.
+     */
+    distinct?: EducationScalarFieldEnum | EducationScalarFieldEnum[]
+  }
+
+  /**
+   * Education findMany
+   */
+  export type EducationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter, which Educations to fetch.
+     */
+    where?: EducationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Educations to fetch.
+     */
+    orderBy?: EducationOrderByWithRelationInput | EducationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Educations.
+     */
+    cursor?: EducationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Educations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Educations.
+     */
+    skip?: number
+    distinct?: EducationScalarFieldEnum | EducationScalarFieldEnum[]
+  }
+
+  /**
+   * Education create
+   */
+  export type EducationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Education.
+     */
+    data: XOR<EducationCreateInput, EducationUncheckedCreateInput>
+  }
+
+  /**
+   * Education createMany
+   */
+  export type EducationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Educations.
+     */
+    data: EducationCreateManyInput | EducationCreateManyInput[]
+  }
+
+  /**
+   * Education update
+   */
+  export type EducationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Education.
+     */
+    data: XOR<EducationUpdateInput, EducationUncheckedUpdateInput>
+    /**
+     * Choose, which Education to update.
+     */
+    where: EducationWhereUniqueInput
+  }
+
+  /**
+   * Education updateMany
+   */
+  export type EducationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Educations.
+     */
+    data: XOR<EducationUpdateManyMutationInput, EducationUncheckedUpdateManyInput>
+    /**
+     * Filter which Educations to update
+     */
+    where?: EducationWhereInput
+  }
+
+  /**
+   * Education upsert
+   */
+  export type EducationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Education to update in case it exists.
+     */
+    where: EducationWhereUniqueInput
+    /**
+     * In case the Education found by the `where` argument doesn't exist, create a new Education with this data.
+     */
+    create: XOR<EducationCreateInput, EducationUncheckedCreateInput>
+    /**
+     * In case the Education was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EducationUpdateInput, EducationUncheckedUpdateInput>
+  }
+
+  /**
+   * Education delete
+   */
+  export type EducationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+    /**
+     * Filter which Education to delete.
+     */
+    where: EducationWhereUniqueInput
+  }
+
+  /**
+   * Education deleteMany
+   */
+  export type EducationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Educations to delete
+     */
+    where?: EducationWhereInput
+  }
+
+  /**
+   * Education findRaw
+   */
+  export type EducationFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Education aggregateRaw
+   */
+  export type EducationAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Education.Sector
+   */
+  export type Education$SectorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    where?: SectorWhereInput
+    orderBy?: SectorOrderByWithRelationInput | SectorOrderByWithRelationInput[]
+    cursor?: SectorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectorScalarFieldEnum | SectorScalarFieldEnum[]
+  }
+
+  /**
+   * Education.Trade
+   */
+  export type Education$TradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    where?: TradeWhereInput
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    cursor?: TradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
+  }
+
+  /**
+   * Education without action
+   */
+  export type EducationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Education
+     */
+    select?: EducationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Education
+     */
+    omit?: EducationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Sector
+   */
+
+  export type AggregateSector = {
+    _count: SectorCountAggregateOutputType | null
+    _min: SectorMinAggregateOutputType | null
+    _max: SectorMaxAggregateOutputType | null
+  }
+
+  export type SectorMinAggregateOutputType = {
+    id: string | null
+    educationId: string | null
+    username: string | null
+    name: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SectorMaxAggregateOutputType = {
+    id: string | null
+    educationId: string | null
+    username: string | null
+    name: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SectorCountAggregateOutputType = {
+    id: number
+    educationId: number
+    username: number
+    name: number
+    description: number
+    symbol: number
+    disabled: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SectorMinAggregateInputType = {
+    id?: true
+    educationId?: true
+    username?: true
+    name?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SectorMaxAggregateInputType = {
+    id?: true
+    educationId?: true
+    username?: true
+    name?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SectorCountAggregateInputType = {
+    id?: true
+    educationId?: true
+    username?: true
+    name?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SectorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sector to aggregate.
+     */
+    where?: SectorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sectors to fetch.
+     */
+    orderBy?: SectorOrderByWithRelationInput | SectorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SectorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sectors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sectors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Sectors
+    **/
+    _count?: true | SectorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SectorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SectorMaxAggregateInputType
+  }
+
+  export type GetSectorAggregateType<T extends SectorAggregateArgs> = {
+        [P in keyof T & keyof AggregateSector]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSector[P]>
+      : GetScalarType<T[P], AggregateSector[P]>
+  }
+
+
+
+
+  export type SectorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectorWhereInput
+    orderBy?: SectorOrderByWithAggregationInput | SectorOrderByWithAggregationInput[]
+    by: SectorScalarFieldEnum[] | SectorScalarFieldEnum
+    having?: SectorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SectorCountAggregateInputType | true
+    _min?: SectorMinAggregateInputType
+    _max?: SectorMaxAggregateInputType
+  }
+
+  export type SectorGroupByOutputType = {
+    id: string
+    educationId: string
+    username: string
+    name: string
+    description: string | null
+    symbol: string | null
+    disabled: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SectorCountAggregateOutputType | null
+    _min: SectorMinAggregateOutputType | null
+    _max: SectorMaxAggregateOutputType | null
+  }
+
+  type GetSectorGroupByPayload<T extends SectorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SectorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SectorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SectorGroupByOutputType[P]>
+            : GetScalarType<T[P], SectorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SectorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    educationId?: boolean
+    username?: boolean
+    name?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    education?: boolean | EducationDefaultArgs<ExtArgs>
+    ClassRoom?: boolean | Sector$ClassRoomArgs<ExtArgs>
+    Class?: boolean | Sector$ClassArgs<ExtArgs>
+    _count?: boolean | SectorCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sector"]>
+
+
+
+  export type SectorSelectScalar = {
+    id?: boolean
+    educationId?: boolean
+    username?: boolean
+    name?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SectorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "educationId" | "username" | "name" | "description" | "symbol" | "disabled" | "createdAt" | "updatedAt", ExtArgs["result"]["sector"]>
+  export type SectorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    education?: boolean | EducationDefaultArgs<ExtArgs>
+    ClassRoom?: boolean | Sector$ClassRoomArgs<ExtArgs>
+    Class?: boolean | Sector$ClassArgs<ExtArgs>
+    _count?: boolean | SectorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $SectorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Sector"
+    objects: {
+      education: Prisma.$EducationPayload<ExtArgs>
+      ClassRoom: Prisma.$ClassRoomPayload<ExtArgs>[]
+      Class: Prisma.$ClassPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      educationId: string
+      username: string
+      name: string
+      description: string | null
+      symbol: string | null
+      disabled: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["sector"]>
+    composites: {}
+  }
+
+  type SectorGetPayload<S extends boolean | null | undefined | SectorDefaultArgs> = $Result.GetResult<Prisma.$SectorPayload, S>
+
+  type SectorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SectorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SectorCountAggregateInputType | true
+    }
+
+  export interface SectorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Sector'], meta: { name: 'Sector' } }
+    /**
+     * Find zero or one Sector that matches the filter.
+     * @param {SectorFindUniqueArgs} args - Arguments to find a Sector
+     * @example
+     * // Get one Sector
+     * const sector = await prisma.sector.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SectorFindUniqueArgs>(args: SelectSubset<T, SectorFindUniqueArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Sector that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SectorFindUniqueOrThrowArgs} args - Arguments to find a Sector
+     * @example
+     * // Get one Sector
+     * const sector = await prisma.sector.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SectorFindUniqueOrThrowArgs>(args: SelectSubset<T, SectorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Sector that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorFindFirstArgs} args - Arguments to find a Sector
+     * @example
+     * // Get one Sector
+     * const sector = await prisma.sector.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SectorFindFirstArgs>(args?: SelectSubset<T, SectorFindFirstArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Sector that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorFindFirstOrThrowArgs} args - Arguments to find a Sector
+     * @example
+     * // Get one Sector
+     * const sector = await prisma.sector.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SectorFindFirstOrThrowArgs>(args?: SelectSubset<T, SectorFindFirstOrThrowArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Sectors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sectors
+     * const sectors = await prisma.sector.findMany()
+     * 
+     * // Get first 10 Sectors
+     * const sectors = await prisma.sector.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sectorWithIdOnly = await prisma.sector.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SectorFindManyArgs>(args?: SelectSubset<T, SectorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Sector.
+     * @param {SectorCreateArgs} args - Arguments to create a Sector.
+     * @example
+     * // Create one Sector
+     * const Sector = await prisma.sector.create({
+     *   data: {
+     *     // ... data to create a Sector
+     *   }
+     * })
+     * 
+     */
+    create<T extends SectorCreateArgs>(args: SelectSubset<T, SectorCreateArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Sectors.
+     * @param {SectorCreateManyArgs} args - Arguments to create many Sectors.
+     * @example
+     * // Create many Sectors
+     * const sector = await prisma.sector.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SectorCreateManyArgs>(args?: SelectSubset<T, SectorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Sector.
+     * @param {SectorDeleteArgs} args - Arguments to delete one Sector.
+     * @example
+     * // Delete one Sector
+     * const Sector = await prisma.sector.delete({
+     *   where: {
+     *     // ... filter to delete one Sector
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SectorDeleteArgs>(args: SelectSubset<T, SectorDeleteArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Sector.
+     * @param {SectorUpdateArgs} args - Arguments to update one Sector.
+     * @example
+     * // Update one Sector
+     * const sector = await prisma.sector.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SectorUpdateArgs>(args: SelectSubset<T, SectorUpdateArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Sectors.
+     * @param {SectorDeleteManyArgs} args - Arguments to filter Sectors to delete.
+     * @example
+     * // Delete a few Sectors
+     * const { count } = await prisma.sector.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SectorDeleteManyArgs>(args?: SelectSubset<T, SectorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sectors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sectors
+     * const sector = await prisma.sector.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SectorUpdateManyArgs>(args: SelectSubset<T, SectorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Sector.
+     * @param {SectorUpsertArgs} args - Arguments to update or create a Sector.
+     * @example
+     * // Update or create a Sector
+     * const sector = await prisma.sector.upsert({
+     *   create: {
+     *     // ... data to create a Sector
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sector we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SectorUpsertArgs>(args: SelectSubset<T, SectorUpsertArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Sectors that matches the filter.
+     * @param {SectorFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const sector = await prisma.sector.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SectorFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Sector.
+     * @param {SectorAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const sector = await prisma.sector.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SectorAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Sectors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorCountArgs} args - Arguments to filter Sectors to count.
+     * @example
+     * // Count the number of Sectors
+     * const count = await prisma.sector.count({
+     *   where: {
+     *     // ... the filter for the Sectors we want to count
+     *   }
+     * })
+    **/
+    count<T extends SectorCountArgs>(
+      args?: Subset<T, SectorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SectorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sector.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SectorAggregateArgs>(args: Subset<T, SectorAggregateArgs>): Prisma.PrismaPromise<GetSectorAggregateType<T>>
+
+    /**
+     * Group by Sector.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SectorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SectorGroupByArgs['orderBy'] }
+        : { orderBy?: SectorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SectorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSectorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Sector model
+   */
+  readonly fields: SectorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Sector.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SectorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    education<T extends EducationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EducationDefaultArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    ClassRoom<T extends Sector$ClassRoomArgs<ExtArgs> = {}>(args?: Subset<T, Sector$ClassRoomArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Class<T extends Sector$ClassArgs<ExtArgs> = {}>(args?: Subset<T, Sector$ClassArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Sector model
+   */ 
+  interface SectorFieldRefs {
+    readonly id: FieldRef<"Sector", 'String'>
+    readonly educationId: FieldRef<"Sector", 'String'>
+    readonly username: FieldRef<"Sector", 'String'>
+    readonly name: FieldRef<"Sector", 'String'>
+    readonly description: FieldRef<"Sector", 'String'>
+    readonly symbol: FieldRef<"Sector", 'String'>
+    readonly disabled: FieldRef<"Sector", 'Boolean'>
+    readonly createdAt: FieldRef<"Sector", 'DateTime'>
+    readonly updatedAt: FieldRef<"Sector", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Sector findUnique
+   */
+  export type SectorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter, which Sector to fetch.
+     */
+    where: SectorWhereUniqueInput
+  }
+
+  /**
+   * Sector findUniqueOrThrow
+   */
+  export type SectorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter, which Sector to fetch.
+     */
+    where: SectorWhereUniqueInput
+  }
+
+  /**
+   * Sector findFirst
+   */
+  export type SectorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter, which Sector to fetch.
+     */
+    where?: SectorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sectors to fetch.
+     */
+    orderBy?: SectorOrderByWithRelationInput | SectorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sectors.
+     */
+    cursor?: SectorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sectors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sectors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sectors.
+     */
+    distinct?: SectorScalarFieldEnum | SectorScalarFieldEnum[]
+  }
+
+  /**
+   * Sector findFirstOrThrow
+   */
+  export type SectorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter, which Sector to fetch.
+     */
+    where?: SectorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sectors to fetch.
+     */
+    orderBy?: SectorOrderByWithRelationInput | SectorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sectors.
+     */
+    cursor?: SectorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sectors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sectors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sectors.
+     */
+    distinct?: SectorScalarFieldEnum | SectorScalarFieldEnum[]
+  }
+
+  /**
+   * Sector findMany
+   */
+  export type SectorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter, which Sectors to fetch.
+     */
+    where?: SectorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sectors to fetch.
+     */
+    orderBy?: SectorOrderByWithRelationInput | SectorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Sectors.
+     */
+    cursor?: SectorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sectors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sectors.
+     */
+    skip?: number
+    distinct?: SectorScalarFieldEnum | SectorScalarFieldEnum[]
+  }
+
+  /**
+   * Sector create
+   */
+  export type SectorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Sector.
+     */
+    data: XOR<SectorCreateInput, SectorUncheckedCreateInput>
+  }
+
+  /**
+   * Sector createMany
+   */
+  export type SectorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Sectors.
+     */
+    data: SectorCreateManyInput | SectorCreateManyInput[]
+  }
+
+  /**
+   * Sector update
+   */
+  export type SectorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Sector.
+     */
+    data: XOR<SectorUpdateInput, SectorUncheckedUpdateInput>
+    /**
+     * Choose, which Sector to update.
+     */
+    where: SectorWhereUniqueInput
+  }
+
+  /**
+   * Sector updateMany
+   */
+  export type SectorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Sectors.
+     */
+    data: XOR<SectorUpdateManyMutationInput, SectorUncheckedUpdateManyInput>
+    /**
+     * Filter which Sectors to update
+     */
+    where?: SectorWhereInput
+  }
+
+  /**
+   * Sector upsert
+   */
+  export type SectorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Sector to update in case it exists.
+     */
+    where: SectorWhereUniqueInput
+    /**
+     * In case the Sector found by the `where` argument doesn't exist, create a new Sector with this data.
+     */
+    create: XOR<SectorCreateInput, SectorUncheckedCreateInput>
+    /**
+     * In case the Sector was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SectorUpdateInput, SectorUncheckedUpdateInput>
+  }
+
+  /**
+   * Sector delete
+   */
+  export type SectorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    /**
+     * Filter which Sector to delete.
+     */
+    where: SectorWhereUniqueInput
+  }
+
+  /**
+   * Sector deleteMany
+   */
+  export type SectorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sectors to delete
+     */
+    where?: SectorWhereInput
+  }
+
+  /**
+   * Sector findRaw
+   */
+  export type SectorFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Sector aggregateRaw
+   */
+  export type SectorAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Sector.ClassRoom
+   */
+  export type Sector$ClassRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    where?: ClassRoomWhereInput
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    cursor?: ClassRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassRoomScalarFieldEnum | ClassRoomScalarFieldEnum[]
+  }
+
+  /**
+   * Sector.Class
+   */
+  export type Sector$ClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    cursor?: ClassWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * Sector without action
+   */
+  export type SectorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Trade
+   */
+
+  export type AggregateTrade = {
+    _count: TradeCountAggregateOutputType | null
+    _avg: TradeAvgAggregateOutputType | null
+    _sum: TradeSumAggregateOutputType | null
+    _min: TradeMinAggregateOutputType | null
+    _max: TradeMaxAggregateOutputType | null
+  }
+
+  export type TradeAvgAggregateOutputType = {
+    limitClasses: number | null
+  }
+
+  export type TradeSumAggregateOutputType = {
+    limitClasses: number | null
+  }
+
+  export type TradeMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    sectorId: string | null
+    limitClasses: number | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TradeMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    sectorId: string | null
+    limitClasses: number | null
+    symbol: string | null
+    disabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TradeCountAggregateOutputType = {
+    id: number
+    name: number
+    username: number
+    description: number
+    sectorId: number
+    limitClasses: number
+    symbol: number
+    disabled: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TradeAvgAggregateInputType = {
+    limitClasses?: true
+  }
+
+  export type TradeSumAggregateInputType = {
+    limitClasses?: true
+  }
+
+  export type TradeMinAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    sectorId?: true
+    limitClasses?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TradeMaxAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    sectorId?: true
+    limitClasses?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TradeCountAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    sectorId?: true
+    limitClasses?: true
+    symbol?: true
+    disabled?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TradeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Trade to aggregate.
+     */
+    where?: TradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Trades to fetch.
+     */
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Trades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Trades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Trades
+    **/
+    _count?: true | TradeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TradeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TradeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TradeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TradeMaxAggregateInputType
+  }
+
+  export type GetTradeAggregateType<T extends TradeAggregateArgs> = {
+        [P in keyof T & keyof AggregateTrade]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTrade[P]>
+      : GetScalarType<T[P], AggregateTrade[P]>
+  }
+
+
+
+
+  export type TradeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradeWhereInput
+    orderBy?: TradeOrderByWithAggregationInput | TradeOrderByWithAggregationInput[]
+    by: TradeScalarFieldEnum[] | TradeScalarFieldEnum
+    having?: TradeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TradeCountAggregateInputType | true
+    _avg?: TradeAvgAggregateInputType
+    _sum?: TradeSumAggregateInputType
+    _min?: TradeMinAggregateInputType
+    _max?: TradeMaxAggregateInputType
+  }
+
+  export type TradeGroupByOutputType = {
+    id: string
+    name: string
+    username: string
+    description: string | null
+    sectorId: string
+    limitClasses: number
+    symbol: string | null
+    disabled: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: TradeCountAggregateOutputType | null
+    _avg: TradeAvgAggregateOutputType | null
+    _sum: TradeSumAggregateOutputType | null
+    _min: TradeMinAggregateOutputType | null
+    _max: TradeMaxAggregateOutputType | null
+  }
+
+  type GetTradeGroupByPayload<T extends TradeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TradeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TradeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TradeGroupByOutputType[P]>
+            : GetScalarType<T[P], TradeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TradeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    sectorId?: boolean
+    limitClasses?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sector?: boolean | EducationDefaultArgs<ExtArgs>
+    ClassRoom?: boolean | Trade$ClassRoomArgs<ExtArgs>
+    Class?: boolean | Trade$ClassArgs<ExtArgs>
+    _count?: boolean | TradeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trade"]>
+
+
+
+  export type TradeSelectScalar = {
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    sectorId?: boolean
+    limitClasses?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "sectorId" | "limitClasses" | "symbol" | "disabled" | "createdAt" | "updatedAt", ExtArgs["result"]["trade"]>
+  export type TradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sector?: boolean | EducationDefaultArgs<ExtArgs>
+    ClassRoom?: boolean | Trade$ClassRoomArgs<ExtArgs>
+    Class?: boolean | Trade$ClassArgs<ExtArgs>
+    _count?: boolean | TradeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $TradePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Trade"
+    objects: {
+      sector: Prisma.$EducationPayload<ExtArgs>
+      ClassRoom: Prisma.$ClassRoomPayload<ExtArgs>[]
+      Class: Prisma.$ClassPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      username: string
+      description: string | null
+      sectorId: string
+      limitClasses: number
+      symbol: string | null
+      disabled: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["trade"]>
+    composites: {}
+  }
+
+  type TradeGetPayload<S extends boolean | null | undefined | TradeDefaultArgs> = $Result.GetResult<Prisma.$TradePayload, S>
+
+  type TradeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TradeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TradeCountAggregateInputType | true
+    }
+
+  export interface TradeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Trade'], meta: { name: 'Trade' } }
+    /**
+     * Find zero or one Trade that matches the filter.
+     * @param {TradeFindUniqueArgs} args - Arguments to find a Trade
+     * @example
+     * // Get one Trade
+     * const trade = await prisma.trade.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TradeFindUniqueArgs>(args: SelectSubset<T, TradeFindUniqueArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Trade that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TradeFindUniqueOrThrowArgs} args - Arguments to find a Trade
+     * @example
+     * // Get one Trade
+     * const trade = await prisma.trade.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TradeFindUniqueOrThrowArgs>(args: SelectSubset<T, TradeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Trade that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeFindFirstArgs} args - Arguments to find a Trade
+     * @example
+     * // Get one Trade
+     * const trade = await prisma.trade.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TradeFindFirstArgs>(args?: SelectSubset<T, TradeFindFirstArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Trade that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeFindFirstOrThrowArgs} args - Arguments to find a Trade
+     * @example
+     * // Get one Trade
+     * const trade = await prisma.trade.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TradeFindFirstOrThrowArgs>(args?: SelectSubset<T, TradeFindFirstOrThrowArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Trades that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Trades
+     * const trades = await prisma.trade.findMany()
+     * 
+     * // Get first 10 Trades
+     * const trades = await prisma.trade.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tradeWithIdOnly = await prisma.trade.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TradeFindManyArgs>(args?: SelectSubset<T, TradeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Trade.
+     * @param {TradeCreateArgs} args - Arguments to create a Trade.
+     * @example
+     * // Create one Trade
+     * const Trade = await prisma.trade.create({
+     *   data: {
+     *     // ... data to create a Trade
+     *   }
+     * })
+     * 
+     */
+    create<T extends TradeCreateArgs>(args: SelectSubset<T, TradeCreateArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Trades.
+     * @param {TradeCreateManyArgs} args - Arguments to create many Trades.
+     * @example
+     * // Create many Trades
+     * const trade = await prisma.trade.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TradeCreateManyArgs>(args?: SelectSubset<T, TradeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Trade.
+     * @param {TradeDeleteArgs} args - Arguments to delete one Trade.
+     * @example
+     * // Delete one Trade
+     * const Trade = await prisma.trade.delete({
+     *   where: {
+     *     // ... filter to delete one Trade
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TradeDeleteArgs>(args: SelectSubset<T, TradeDeleteArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Trade.
+     * @param {TradeUpdateArgs} args - Arguments to update one Trade.
+     * @example
+     * // Update one Trade
+     * const trade = await prisma.trade.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TradeUpdateArgs>(args: SelectSubset<T, TradeUpdateArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Trades.
+     * @param {TradeDeleteManyArgs} args - Arguments to filter Trades to delete.
+     * @example
+     * // Delete a few Trades
+     * const { count } = await prisma.trade.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TradeDeleteManyArgs>(args?: SelectSubset<T, TradeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Trades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Trades
+     * const trade = await prisma.trade.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TradeUpdateManyArgs>(args: SelectSubset<T, TradeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Trade.
+     * @param {TradeUpsertArgs} args - Arguments to update or create a Trade.
+     * @example
+     * // Update or create a Trade
+     * const trade = await prisma.trade.upsert({
+     *   create: {
+     *     // ... data to create a Trade
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Trade we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TradeUpsertArgs>(args: SelectSubset<T, TradeUpsertArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Trades that matches the filter.
+     * @param {TradeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const trade = await prisma.trade.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: TradeFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Trade.
+     * @param {TradeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const trade = await prisma.trade.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: TradeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Trades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeCountArgs} args - Arguments to filter Trades to count.
+     * @example
+     * // Count the number of Trades
+     * const count = await prisma.trade.count({
+     *   where: {
+     *     // ... the filter for the Trades we want to count
+     *   }
+     * })
+    **/
+    count<T extends TradeCountArgs>(
+      args?: Subset<T, TradeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TradeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Trade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TradeAggregateArgs>(args: Subset<T, TradeAggregateArgs>): Prisma.PrismaPromise<GetTradeAggregateType<T>>
+
+    /**
+     * Group by Trade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TradeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TradeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TradeGroupByArgs['orderBy'] }
+        : { orderBy?: TradeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TradeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTradeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Trade model
+   */
+  readonly fields: TradeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Trade.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TradeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sector<T extends EducationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EducationDefaultArgs<ExtArgs>>): Prisma__EducationClient<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    ClassRoom<T extends Trade$ClassRoomArgs<ExtArgs> = {}>(args?: Subset<T, Trade$ClassRoomArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Class<T extends Trade$ClassArgs<ExtArgs> = {}>(args?: Subset<T, Trade$ClassArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Trade model
+   */ 
+  interface TradeFieldRefs {
+    readonly id: FieldRef<"Trade", 'String'>
+    readonly name: FieldRef<"Trade", 'String'>
+    readonly username: FieldRef<"Trade", 'String'>
+    readonly description: FieldRef<"Trade", 'String'>
+    readonly sectorId: FieldRef<"Trade", 'String'>
+    readonly limitClasses: FieldRef<"Trade", 'Int'>
+    readonly symbol: FieldRef<"Trade", 'String'>
+    readonly disabled: FieldRef<"Trade", 'Boolean'>
+    readonly createdAt: FieldRef<"Trade", 'DateTime'>
+    readonly updatedAt: FieldRef<"Trade", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Trade findUnique
+   */
+  export type TradeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter, which Trade to fetch.
+     */
+    where: TradeWhereUniqueInput
+  }
+
+  /**
+   * Trade findUniqueOrThrow
+   */
+  export type TradeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter, which Trade to fetch.
+     */
+    where: TradeWhereUniqueInput
+  }
+
+  /**
+   * Trade findFirst
+   */
+  export type TradeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter, which Trade to fetch.
+     */
+    where?: TradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Trades to fetch.
+     */
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Trades.
+     */
+    cursor?: TradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Trades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Trades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Trades.
+     */
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
+  }
+
+  /**
+   * Trade findFirstOrThrow
+   */
+  export type TradeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter, which Trade to fetch.
+     */
+    where?: TradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Trades to fetch.
+     */
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Trades.
+     */
+    cursor?: TradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Trades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Trades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Trades.
+     */
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
+  }
+
+  /**
+   * Trade findMany
+   */
+  export type TradeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter, which Trades to fetch.
+     */
+    where?: TradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Trades to fetch.
+     */
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Trades.
+     */
+    cursor?: TradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Trades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Trades.
+     */
+    skip?: number
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
+  }
+
+  /**
+   * Trade create
+   */
+  export type TradeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Trade.
+     */
+    data: XOR<TradeCreateInput, TradeUncheckedCreateInput>
+  }
+
+  /**
+   * Trade createMany
+   */
+  export type TradeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Trades.
+     */
+    data: TradeCreateManyInput | TradeCreateManyInput[]
+  }
+
+  /**
+   * Trade update
+   */
+  export type TradeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Trade.
+     */
+    data: XOR<TradeUpdateInput, TradeUncheckedUpdateInput>
+    /**
+     * Choose, which Trade to update.
+     */
+    where: TradeWhereUniqueInput
+  }
+
+  /**
+   * Trade updateMany
+   */
+  export type TradeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Trades.
+     */
+    data: XOR<TradeUpdateManyMutationInput, TradeUncheckedUpdateManyInput>
+    /**
+     * Filter which Trades to update
+     */
+    where?: TradeWhereInput
+  }
+
+  /**
+   * Trade upsert
+   */
+  export type TradeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Trade to update in case it exists.
+     */
+    where: TradeWhereUniqueInput
+    /**
+     * In case the Trade found by the `where` argument doesn't exist, create a new Trade with this data.
+     */
+    create: XOR<TradeCreateInput, TradeUncheckedCreateInput>
+    /**
+     * In case the Trade was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TradeUpdateInput, TradeUncheckedUpdateInput>
+  }
+
+  /**
+   * Trade delete
+   */
+  export type TradeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    /**
+     * Filter which Trade to delete.
+     */
+    where: TradeWhereUniqueInput
+  }
+
+  /**
+   * Trade deleteMany
+   */
+  export type TradeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Trades to delete
+     */
+    where?: TradeWhereInput
+  }
+
+  /**
+   * Trade findRaw
+   */
+  export type TradeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Trade aggregateRaw
+   */
+  export type TradeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Trade.ClassRoom
+   */
+  export type Trade$ClassRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    where?: ClassRoomWhereInput
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    cursor?: ClassRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassRoomScalarFieldEnum | ClassRoomScalarFieldEnum[]
+  }
+
+  /**
+   * Trade.Class
+   */
+  export type Trade$ClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    cursor?: ClassWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * Trade without action
+   */
+  export type TradeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClassRoom
+   */
+
+  export type AggregateClassRoom = {
+    _count: ClassRoomCountAggregateOutputType | null
+    _min: ClassRoomMinAggregateOutputType | null
+    _max: ClassRoomMaxAggregateOutputType | null
+  }
+
+  export type ClassRoomMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    ClassRoomType: $Enums.ClassRoomType | null
+    sectorId: string | null
+    tradeId: string | null
+    code: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassRoomMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    symbol: string | null
+    disabled: boolean | null
+    ClassRoomType: $Enums.ClassRoomType | null
+    sectorId: string | null
+    tradeId: string | null
+    code: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassRoomCountAggregateOutputType = {
+    id: number
+    name: number
+    username: number
+    description: number
+    symbol: number
+    disabled: number
+    ClassRoomType: number
+    sectorId: number
+    tradeId: number
+    code: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClassRoomMinAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    ClassRoomType?: true
+    sectorId?: true
+    tradeId?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassRoomMaxAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    ClassRoomType?: true
+    sectorId?: true
+    tradeId?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassRoomCountAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    symbol?: true
+    disabled?: true
+    ClassRoomType?: true
+    sectorId?: true
+    tradeId?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClassRoomAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassRoom to aggregate.
+     */
+    where?: ClassRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassRooms to fetch.
+     */
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClassRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClassRooms
+    **/
+    _count?: true | ClassRoomCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClassRoomMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClassRoomMaxAggregateInputType
+  }
+
+  export type GetClassRoomAggregateType<T extends ClassRoomAggregateArgs> = {
+        [P in keyof T & keyof AggregateClassRoom]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClassRoom[P]>
+      : GetScalarType<T[P], AggregateClassRoom[P]>
+  }
+
+
+
+
+  export type ClassRoomGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassRoomWhereInput
+    orderBy?: ClassRoomOrderByWithAggregationInput | ClassRoomOrderByWithAggregationInput[]
+    by: ClassRoomScalarFieldEnum[] | ClassRoomScalarFieldEnum
+    having?: ClassRoomScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClassRoomCountAggregateInputType | true
+    _min?: ClassRoomMinAggregateInputType
+    _max?: ClassRoomMaxAggregateInputType
+  }
+
+  export type ClassRoomGroupByOutputType = {
+    id: string
+    name: string
+    username: string
+    description: string | null
+    symbol: string | null
+    disabled: boolean
+    ClassRoomType: $Enums.ClassRoomType
+    sectorId: string | null
+    tradeId: string | null
+    code: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ClassRoomCountAggregateOutputType | null
+    _min: ClassRoomMinAggregateOutputType | null
+    _max: ClassRoomMaxAggregateOutputType | null
+  }
+
+  type GetClassRoomGroupByPayload<T extends ClassRoomGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClassRoomGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClassRoomGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClassRoomGroupByOutputType[P]>
+            : GetScalarType<T[P], ClassRoomGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClassRoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    ClassRoomType?: boolean
+    sectorId?: boolean
+    tradeId?: boolean
+    code?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trade?: boolean | ClassRoom$tradeArgs<ExtArgs>
+    sector?: boolean | ClassRoom$sectorArgs<ExtArgs>
+    Class?: boolean | ClassRoom$ClassArgs<ExtArgs>
+    _count?: boolean | ClassRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classRoom"]>
+
+
+
+  export type ClassRoomSelectScalar = {
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    ClassRoomType?: boolean
+    sectorId?: boolean
+    tradeId?: boolean
+    code?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ClassRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "symbol" | "disabled" | "ClassRoomType" | "sectorId" | "tradeId" | "code" | "createdAt" | "updatedAt", ExtArgs["result"]["classRoom"]>
+  export type ClassRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trade?: boolean | ClassRoom$tradeArgs<ExtArgs>
+    sector?: boolean | ClassRoom$sectorArgs<ExtArgs>
+    Class?: boolean | ClassRoom$ClassArgs<ExtArgs>
+    _count?: boolean | ClassRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ClassRoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClassRoom"
+    objects: {
+      trade: Prisma.$TradePayload<ExtArgs> | null
+      sector: Prisma.$SectorPayload<ExtArgs> | null
+      Class: Prisma.$ClassPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      username: string
+      description: string | null
+      symbol: string | null
+      disabled: boolean
+      ClassRoomType: $Enums.ClassRoomType
+      sectorId: string | null
+      tradeId: string | null
+      code: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["classRoom"]>
+    composites: {}
+  }
+
+  type ClassRoomGetPayload<S extends boolean | null | undefined | ClassRoomDefaultArgs> = $Result.GetResult<Prisma.$ClassRoomPayload, S>
+
+  type ClassRoomCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClassRoomFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClassRoomCountAggregateInputType | true
+    }
+
+  export interface ClassRoomDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClassRoom'], meta: { name: 'ClassRoom' } }
+    /**
+     * Find zero or one ClassRoom that matches the filter.
+     * @param {ClassRoomFindUniqueArgs} args - Arguments to find a ClassRoom
+     * @example
+     * // Get one ClassRoom
+     * const classRoom = await prisma.classRoom.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClassRoomFindUniqueArgs>(args: SelectSubset<T, ClassRoomFindUniqueArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one ClassRoom that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClassRoomFindUniqueOrThrowArgs} args - Arguments to find a ClassRoom
+     * @example
+     * // Get one ClassRoom
+     * const classRoom = await prisma.classRoom.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClassRoomFindUniqueOrThrowArgs>(args: SelectSubset<T, ClassRoomFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first ClassRoom that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomFindFirstArgs} args - Arguments to find a ClassRoom
+     * @example
+     * // Get one ClassRoom
+     * const classRoom = await prisma.classRoom.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClassRoomFindFirstArgs>(args?: SelectSubset<T, ClassRoomFindFirstArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first ClassRoom that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomFindFirstOrThrowArgs} args - Arguments to find a ClassRoom
+     * @example
+     * // Get one ClassRoom
+     * const classRoom = await prisma.classRoom.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClassRoomFindFirstOrThrowArgs>(args?: SelectSubset<T, ClassRoomFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more ClassRooms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClassRooms
+     * const classRooms = await prisma.classRoom.findMany()
+     * 
+     * // Get first 10 ClassRooms
+     * const classRooms = await prisma.classRoom.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const classRoomWithIdOnly = await prisma.classRoom.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClassRoomFindManyArgs>(args?: SelectSubset<T, ClassRoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a ClassRoom.
+     * @param {ClassRoomCreateArgs} args - Arguments to create a ClassRoom.
+     * @example
+     * // Create one ClassRoom
+     * const ClassRoom = await prisma.classRoom.create({
+     *   data: {
+     *     // ... data to create a ClassRoom
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClassRoomCreateArgs>(args: SelectSubset<T, ClassRoomCreateArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many ClassRooms.
+     * @param {ClassRoomCreateManyArgs} args - Arguments to create many ClassRooms.
+     * @example
+     * // Create many ClassRooms
+     * const classRoom = await prisma.classRoom.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClassRoomCreateManyArgs>(args?: SelectSubset<T, ClassRoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ClassRoom.
+     * @param {ClassRoomDeleteArgs} args - Arguments to delete one ClassRoom.
+     * @example
+     * // Delete one ClassRoom
+     * const ClassRoom = await prisma.classRoom.delete({
+     *   where: {
+     *     // ... filter to delete one ClassRoom
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClassRoomDeleteArgs>(args: SelectSubset<T, ClassRoomDeleteArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one ClassRoom.
+     * @param {ClassRoomUpdateArgs} args - Arguments to update one ClassRoom.
+     * @example
+     * // Update one ClassRoom
+     * const classRoom = await prisma.classRoom.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClassRoomUpdateArgs>(args: SelectSubset<T, ClassRoomUpdateArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more ClassRooms.
+     * @param {ClassRoomDeleteManyArgs} args - Arguments to filter ClassRooms to delete.
+     * @example
+     * // Delete a few ClassRooms
+     * const { count } = await prisma.classRoom.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClassRoomDeleteManyArgs>(args?: SelectSubset<T, ClassRoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClassRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClassRooms
+     * const classRoom = await prisma.classRoom.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClassRoomUpdateManyArgs>(args: SelectSubset<T, ClassRoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ClassRoom.
+     * @param {ClassRoomUpsertArgs} args - Arguments to update or create a ClassRoom.
+     * @example
+     * // Update or create a ClassRoom
+     * const classRoom = await prisma.classRoom.upsert({
+     *   create: {
+     *     // ... data to create a ClassRoom
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClassRoom we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClassRoomUpsertArgs>(args: SelectSubset<T, ClassRoomUpsertArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more ClassRooms that matches the filter.
+     * @param {ClassRoomFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const classRoom = await prisma.classRoom.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ClassRoomFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ClassRoom.
+     * @param {ClassRoomAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const classRoom = await prisma.classRoom.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ClassRoomAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ClassRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomCountArgs} args - Arguments to filter ClassRooms to count.
+     * @example
+     * // Count the number of ClassRooms
+     * const count = await prisma.classRoom.count({
+     *   where: {
+     *     // ... the filter for the ClassRooms we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClassRoomCountArgs>(
+      args?: Subset<T, ClassRoomCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClassRoomCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClassRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClassRoomAggregateArgs>(args: Subset<T, ClassRoomAggregateArgs>): Prisma.PrismaPromise<GetClassRoomAggregateType<T>>
+
+    /**
+     * Group by ClassRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassRoomGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClassRoomGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClassRoomGroupByArgs['orderBy'] }
+        : { orderBy?: ClassRoomGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClassRoomGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClassRoomGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClassRoom model
+   */
+  readonly fields: ClassRoomFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClassRoom.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClassRoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trade<T extends ClassRoom$tradeArgs<ExtArgs> = {}>(args?: Subset<T, ClassRoom$tradeArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    sector<T extends ClassRoom$sectorArgs<ExtArgs> = {}>(args?: Subset<T, ClassRoom$sectorArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    Class<T extends ClassRoom$ClassArgs<ExtArgs> = {}>(args?: Subset<T, ClassRoom$ClassArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClassRoom model
+   */ 
+  interface ClassRoomFieldRefs {
+    readonly id: FieldRef<"ClassRoom", 'String'>
+    readonly name: FieldRef<"ClassRoom", 'String'>
+    readonly username: FieldRef<"ClassRoom", 'String'>
+    readonly description: FieldRef<"ClassRoom", 'String'>
+    readonly symbol: FieldRef<"ClassRoom", 'String'>
+    readonly disabled: FieldRef<"ClassRoom", 'Boolean'>
+    readonly ClassRoomType: FieldRef<"ClassRoom", 'ClassRoomType'>
+    readonly sectorId: FieldRef<"ClassRoom", 'String'>
+    readonly tradeId: FieldRef<"ClassRoom", 'String'>
+    readonly code: FieldRef<"ClassRoom", 'String'>
+    readonly createdAt: FieldRef<"ClassRoom", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClassRoom", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClassRoom findUnique
+   */
+  export type ClassRoomFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassRoom to fetch.
+     */
+    where: ClassRoomWhereUniqueInput
+  }
+
+  /**
+   * ClassRoom findUniqueOrThrow
+   */
+  export type ClassRoomFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassRoom to fetch.
+     */
+    where: ClassRoomWhereUniqueInput
+  }
+
+  /**
+   * ClassRoom findFirst
+   */
+  export type ClassRoomFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassRoom to fetch.
+     */
+    where?: ClassRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassRooms to fetch.
+     */
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassRooms.
+     */
+    cursor?: ClassRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassRooms.
+     */
+    distinct?: ClassRoomScalarFieldEnum | ClassRoomScalarFieldEnum[]
+  }
+
+  /**
+   * ClassRoom findFirstOrThrow
+   */
+  export type ClassRoomFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassRoom to fetch.
+     */
+    where?: ClassRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassRooms to fetch.
+     */
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassRooms.
+     */
+    cursor?: ClassRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassRooms.
+     */
+    distinct?: ClassRoomScalarFieldEnum | ClassRoomScalarFieldEnum[]
+  }
+
+  /**
+   * ClassRoom findMany
+   */
+  export type ClassRoomFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassRooms to fetch.
+     */
+    where?: ClassRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassRooms to fetch.
+     */
+    orderBy?: ClassRoomOrderByWithRelationInput | ClassRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClassRooms.
+     */
+    cursor?: ClassRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassRooms.
+     */
+    skip?: number
+    distinct?: ClassRoomScalarFieldEnum | ClassRoomScalarFieldEnum[]
+  }
+
+  /**
+   * ClassRoom create
+   */
+  export type ClassRoomCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ClassRoom.
+     */
+    data: XOR<ClassRoomCreateInput, ClassRoomUncheckedCreateInput>
+  }
+
+  /**
+   * ClassRoom createMany
+   */
+  export type ClassRoomCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClassRooms.
+     */
+    data: ClassRoomCreateManyInput | ClassRoomCreateManyInput[]
+  }
+
+  /**
+   * ClassRoom update
+   */
+  export type ClassRoomUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ClassRoom.
+     */
+    data: XOR<ClassRoomUpdateInput, ClassRoomUncheckedUpdateInput>
+    /**
+     * Choose, which ClassRoom to update.
+     */
+    where: ClassRoomWhereUniqueInput
+  }
+
+  /**
+   * ClassRoom updateMany
+   */
+  export type ClassRoomUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClassRooms.
+     */
+    data: XOR<ClassRoomUpdateManyMutationInput, ClassRoomUncheckedUpdateManyInput>
+    /**
+     * Filter which ClassRooms to update
+     */
+    where?: ClassRoomWhereInput
+  }
+
+  /**
+   * ClassRoom upsert
+   */
+  export type ClassRoomUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ClassRoom to update in case it exists.
+     */
+    where: ClassRoomWhereUniqueInput
+    /**
+     * In case the ClassRoom found by the `where` argument doesn't exist, create a new ClassRoom with this data.
+     */
+    create: XOR<ClassRoomCreateInput, ClassRoomUncheckedCreateInput>
+    /**
+     * In case the ClassRoom was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClassRoomUpdateInput, ClassRoomUncheckedUpdateInput>
+  }
+
+  /**
+   * ClassRoom delete
+   */
+  export type ClassRoomDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    /**
+     * Filter which ClassRoom to delete.
+     */
+    where: ClassRoomWhereUniqueInput
+  }
+
+  /**
+   * ClassRoom deleteMany
+   */
+  export type ClassRoomDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassRooms to delete
+     */
+    where?: ClassRoomWhereInput
+  }
+
+  /**
+   * ClassRoom findRaw
+   */
+  export type ClassRoomFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ClassRoom aggregateRaw
+   */
+  export type ClassRoomAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ClassRoom.trade
+   */
+  export type ClassRoom$tradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    where?: TradeWhereInput
+  }
+
+  /**
+   * ClassRoom.sector
+   */
+  export type ClassRoom$sectorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    where?: SectorWhereInput
+  }
+
+  /**
+   * ClassRoom.Class
+   */
+  export type ClassRoom$ClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    cursor?: ClassWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * ClassRoom without action
+   */
+  export type ClassRoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Class
+   */
+
+  export type AggregateClass = {
+    _count: ClassCountAggregateOutputType | null
+    _min: ClassMinAggregateOutputType | null
+    _max: ClassMaxAggregateOutputType | null
+  }
+
+  export type ClassMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    code: string | null
+    symbol: string | null
+    disabled: boolean | null
+    sectorId: string | null
+    tradeId: string | null
+    classRoomId: string | null
+    classTeacher: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    description: string | null
+    code: string | null
+    symbol: string | null
+    disabled: boolean | null
+    sectorId: string | null
+    tradeId: string | null
+    classRoomId: string | null
+    classTeacher: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassCountAggregateOutputType = {
+    id: number
+    name: number
+    username: number
+    description: number
+    code: number
+    symbol: number
+    disabled: number
+    sectorId: number
+    tradeId: number
+    classRoomId: number
+    classTeacher: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClassMinAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    code?: true
+    symbol?: true
+    disabled?: true
+    sectorId?: true
+    tradeId?: true
+    classRoomId?: true
+    classTeacher?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassMaxAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    code?: true
+    symbol?: true
+    disabled?: true
+    sectorId?: true
+    tradeId?: true
+    classRoomId?: true
+    classTeacher?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassCountAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    description?: true
+    code?: true
+    symbol?: true
+    disabled?: true
+    sectorId?: true
+    tradeId?: true
+    classRoomId?: true
+    classTeacher?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClassAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Class to aggregate.
+     */
+    where?: ClassWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Classes to fetch.
+     */
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClassWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Classes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Classes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Classes
+    **/
+    _count?: true | ClassCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClassMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClassMaxAggregateInputType
+  }
+
+  export type GetClassAggregateType<T extends ClassAggregateArgs> = {
+        [P in keyof T & keyof AggregateClass]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClass[P]>
+      : GetScalarType<T[P], AggregateClass[P]>
+  }
+
+
+
+
+  export type ClassGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassWhereInput
+    orderBy?: ClassOrderByWithAggregationInput | ClassOrderByWithAggregationInput[]
+    by: ClassScalarFieldEnum[] | ClassScalarFieldEnum
+    having?: ClassScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClassCountAggregateInputType | true
+    _min?: ClassMinAggregateInputType
+    _max?: ClassMaxAggregateInputType
+  }
+
+  export type ClassGroupByOutputType = {
+    id: string
+    name: string
+    username: string
+    description: string | null
+    code: string
+    symbol: string | null
+    disabled: boolean
+    sectorId: string | null
+    tradeId: string | null
+    classRoomId: string | null
+    classTeacher: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ClassCountAggregateOutputType | null
+    _min: ClassMinAggregateOutputType | null
+    _max: ClassMaxAggregateOutputType | null
+  }
+
+  type GetClassGroupByPayload<T extends ClassGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClassGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClassGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClassGroupByOutputType[P]>
+            : GetScalarType<T[P], ClassGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClassSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    code?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    sectorId?: boolean
+    tradeId?: boolean
+    classRoomId?: boolean
+    classTeacher?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trade?: boolean | Class$tradeArgs<ExtArgs>
+    sector?: boolean | Class$sectorArgs<ExtArgs>
+    classRoom?: boolean | Class$classRoomArgs<ExtArgs>
+  }, ExtArgs["result"]["class"]>
+
+
+
+  export type ClassSelectScalar = {
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    description?: boolean
+    code?: boolean
+    symbol?: boolean
+    disabled?: boolean
+    sectorId?: boolean
+    tradeId?: boolean
+    classRoomId?: boolean
+    classTeacher?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "code" | "symbol" | "disabled" | "sectorId" | "tradeId" | "classRoomId" | "classTeacher" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
+  export type ClassInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trade?: boolean | Class$tradeArgs<ExtArgs>
+    sector?: boolean | Class$sectorArgs<ExtArgs>
+    classRoom?: boolean | Class$classRoomArgs<ExtArgs>
+  }
+
+  export type $ClassPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Class"
+    objects: {
+      trade: Prisma.$TradePayload<ExtArgs> | null
+      sector: Prisma.$SectorPayload<ExtArgs> | null
+      classRoom: Prisma.$ClassRoomPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      username: string
+      description: string | null
+      code: string
+      symbol: string | null
+      disabled: boolean
+      sectorId: string | null
+      tradeId: string | null
+      classRoomId: string | null
+      classTeacher: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["class"]>
+    composites: {}
+  }
+
+  type ClassGetPayload<S extends boolean | null | undefined | ClassDefaultArgs> = $Result.GetResult<Prisma.$ClassPayload, S>
+
+  type ClassCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClassFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClassCountAggregateInputType | true
+    }
+
+  export interface ClassDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Class'], meta: { name: 'Class' } }
+    /**
+     * Find zero or one Class that matches the filter.
+     * @param {ClassFindUniqueArgs} args - Arguments to find a Class
+     * @example
+     * // Get one Class
+     * const class = await prisma.class.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClassFindUniqueArgs>(args: SelectSubset<T, ClassFindUniqueArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Class that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClassFindUniqueOrThrowArgs} args - Arguments to find a Class
+     * @example
+     * // Get one Class
+     * const class = await prisma.class.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClassFindUniqueOrThrowArgs>(args: SelectSubset<T, ClassFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Class that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassFindFirstArgs} args - Arguments to find a Class
+     * @example
+     * // Get one Class
+     * const class = await prisma.class.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClassFindFirstArgs>(args?: SelectSubset<T, ClassFindFirstArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Class that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassFindFirstOrThrowArgs} args - Arguments to find a Class
+     * @example
+     * // Get one Class
+     * const class = await prisma.class.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClassFindFirstOrThrowArgs>(args?: SelectSubset<T, ClassFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Classes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Classes
+     * const classes = await prisma.class.findMany()
+     * 
+     * // Get first 10 Classes
+     * const classes = await prisma.class.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const classWithIdOnly = await prisma.class.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClassFindManyArgs>(args?: SelectSubset<T, ClassFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Class.
+     * @param {ClassCreateArgs} args - Arguments to create a Class.
+     * @example
+     * // Create one Class
+     * const Class = await prisma.class.create({
+     *   data: {
+     *     // ... data to create a Class
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClassCreateArgs>(args: SelectSubset<T, ClassCreateArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Classes.
+     * @param {ClassCreateManyArgs} args - Arguments to create many Classes.
+     * @example
+     * // Create many Classes
+     * const class = await prisma.class.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClassCreateManyArgs>(args?: SelectSubset<T, ClassCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Class.
+     * @param {ClassDeleteArgs} args - Arguments to delete one Class.
+     * @example
+     * // Delete one Class
+     * const Class = await prisma.class.delete({
+     *   where: {
+     *     // ... filter to delete one Class
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClassDeleteArgs>(args: SelectSubset<T, ClassDeleteArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Class.
+     * @param {ClassUpdateArgs} args - Arguments to update one Class.
+     * @example
+     * // Update one Class
+     * const class = await prisma.class.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClassUpdateArgs>(args: SelectSubset<T, ClassUpdateArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Classes.
+     * @param {ClassDeleteManyArgs} args - Arguments to filter Classes to delete.
+     * @example
+     * // Delete a few Classes
+     * const { count } = await prisma.class.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClassDeleteManyArgs>(args?: SelectSubset<T, ClassDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Classes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Classes
+     * const class = await prisma.class.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClassUpdateManyArgs>(args: SelectSubset<T, ClassUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Class.
+     * @param {ClassUpsertArgs} args - Arguments to update or create a Class.
+     * @example
+     * // Update or create a Class
+     * const class = await prisma.class.upsert({
+     *   create: {
+     *     // ... data to create a Class
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Class we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClassUpsertArgs>(args: SelectSubset<T, ClassUpsertArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Classes that matches the filter.
+     * @param {ClassFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const class = await prisma.class.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ClassFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Class.
+     * @param {ClassAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const class = await prisma.class.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ClassAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Classes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassCountArgs} args - Arguments to filter Classes to count.
+     * @example
+     * // Count the number of Classes
+     * const count = await prisma.class.count({
+     *   where: {
+     *     // ... the filter for the Classes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClassCountArgs>(
+      args?: Subset<T, ClassCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClassCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Class.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClassAggregateArgs>(args: Subset<T, ClassAggregateArgs>): Prisma.PrismaPromise<GetClassAggregateType<T>>
+
+    /**
+     * Group by Class.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClassGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClassGroupByArgs['orderBy'] }
+        : { orderBy?: ClassGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClassGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClassGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Class model
+   */
+  readonly fields: ClassFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Class.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClassClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trade<T extends Class$tradeArgs<ExtArgs> = {}>(args?: Subset<T, Class$tradeArgs<ExtArgs>>): Prisma__TradeClient<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    sector<T extends Class$sectorArgs<ExtArgs> = {}>(args?: Subset<T, Class$sectorArgs<ExtArgs>>): Prisma__SectorClient<$Result.GetResult<Prisma.$SectorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    classRoom<T extends Class$classRoomArgs<ExtArgs> = {}>(args?: Subset<T, Class$classRoomArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Class model
+   */ 
+  interface ClassFieldRefs {
+    readonly id: FieldRef<"Class", 'String'>
+    readonly name: FieldRef<"Class", 'String'>
+    readonly username: FieldRef<"Class", 'String'>
+    readonly description: FieldRef<"Class", 'String'>
+    readonly code: FieldRef<"Class", 'String'>
+    readonly symbol: FieldRef<"Class", 'String'>
+    readonly disabled: FieldRef<"Class", 'Boolean'>
+    readonly sectorId: FieldRef<"Class", 'String'>
+    readonly tradeId: FieldRef<"Class", 'String'>
+    readonly classRoomId: FieldRef<"Class", 'String'>
+    readonly classTeacher: FieldRef<"Class", 'String'>
+    readonly createdAt: FieldRef<"Class", 'DateTime'>
+    readonly updatedAt: FieldRef<"Class", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Class findUnique
+   */
+  export type ClassFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter, which Class to fetch.
+     */
+    where: ClassWhereUniqueInput
+  }
+
+  /**
+   * Class findUniqueOrThrow
+   */
+  export type ClassFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter, which Class to fetch.
+     */
+    where: ClassWhereUniqueInput
+  }
+
+  /**
+   * Class findFirst
+   */
+  export type ClassFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter, which Class to fetch.
+     */
+    where?: ClassWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Classes to fetch.
+     */
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Classes.
+     */
+    cursor?: ClassWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Classes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Classes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Classes.
+     */
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * Class findFirstOrThrow
+   */
+  export type ClassFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter, which Class to fetch.
+     */
+    where?: ClassWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Classes to fetch.
+     */
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Classes.
+     */
+    cursor?: ClassWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Classes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Classes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Classes.
+     */
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * Class findMany
+   */
+  export type ClassFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter, which Classes to fetch.
+     */
+    where?: ClassWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Classes to fetch.
+     */
+    orderBy?: ClassOrderByWithRelationInput | ClassOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Classes.
+     */
+    cursor?: ClassWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Classes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Classes.
+     */
+    skip?: number
+    distinct?: ClassScalarFieldEnum | ClassScalarFieldEnum[]
+  }
+
+  /**
+   * Class create
+   */
+  export type ClassCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Class.
+     */
+    data: XOR<ClassCreateInput, ClassUncheckedCreateInput>
+  }
+
+  /**
+   * Class createMany
+   */
+  export type ClassCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Classes.
+     */
+    data: ClassCreateManyInput | ClassCreateManyInput[]
+  }
+
+  /**
+   * Class update
+   */
+  export type ClassUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Class.
+     */
+    data: XOR<ClassUpdateInput, ClassUncheckedUpdateInput>
+    /**
+     * Choose, which Class to update.
+     */
+    where: ClassWhereUniqueInput
+  }
+
+  /**
+   * Class updateMany
+   */
+  export type ClassUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Classes.
+     */
+    data: XOR<ClassUpdateManyMutationInput, ClassUncheckedUpdateManyInput>
+    /**
+     * Filter which Classes to update
+     */
+    where?: ClassWhereInput
+  }
+
+  /**
+   * Class upsert
+   */
+  export type ClassUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Class to update in case it exists.
+     */
+    where: ClassWhereUniqueInput
+    /**
+     * In case the Class found by the `where` argument doesn't exist, create a new Class with this data.
+     */
+    create: XOR<ClassCreateInput, ClassUncheckedCreateInput>
+    /**
+     * In case the Class was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClassUpdateInput, ClassUncheckedUpdateInput>
+  }
+
+  /**
+   * Class delete
+   */
+  export type ClassDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    /**
+     * Filter which Class to delete.
+     */
+    where: ClassWhereUniqueInput
+  }
+
+  /**
+   * Class deleteMany
+   */
+  export type ClassDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Classes to delete
+     */
+    where?: ClassWhereInput
+  }
+
+  /**
+   * Class findRaw
+   */
+  export type ClassFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Class aggregateRaw
+   */
+  export type ClassAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Class.trade
+   */
+  export type Class$tradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    where?: TradeWhereInput
+  }
+
+  /**
+   * Class.sector
+   */
+  export type Class$sectorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sector
+     */
+    select?: SectorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sector
+     */
+    omit?: SectorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectorInclude<ExtArgs> | null
+    where?: SectorWhereInput
+  }
+
+  /**
+   * Class.classRoom
+   */
+  export type Class$classRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassRoom
+     */
+    select?: ClassRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassRoom
+     */
+    omit?: ClassRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassRoomInclude<ExtArgs> | null
+    where?: ClassRoomWhereInput
+  }
+
+  /**
+   * Class without action
+   */
+  export type ClassDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6544,6 +12675,89 @@ export namespace Prisma {
   };
 
   export type AuthenticatorScalarFieldEnum = (typeof AuthenticatorScalarFieldEnum)[keyof typeof AuthenticatorScalarFieldEnum]
+
+
+  export const EducationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    username: 'username',
+    description: 'description',
+    symbol: 'symbol',
+    disabled: 'disabled',
+    roles: 'roles',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EducationScalarFieldEnum = (typeof EducationScalarFieldEnum)[keyof typeof EducationScalarFieldEnum]
+
+
+  export const SectorScalarFieldEnum: {
+    id: 'id',
+    educationId: 'educationId',
+    username: 'username',
+    name: 'name',
+    description: 'description',
+    symbol: 'symbol',
+    disabled: 'disabled',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SectorScalarFieldEnum = (typeof SectorScalarFieldEnum)[keyof typeof SectorScalarFieldEnum]
+
+
+  export const TradeScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    username: 'username',
+    description: 'description',
+    sectorId: 'sectorId',
+    limitClasses: 'limitClasses',
+    symbol: 'symbol',
+    disabled: 'disabled',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TradeScalarFieldEnum = (typeof TradeScalarFieldEnum)[keyof typeof TradeScalarFieldEnum]
+
+
+  export const ClassRoomScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    username: 'username',
+    description: 'description',
+    symbol: 'symbol',
+    disabled: 'disabled',
+    ClassRoomType: 'ClassRoomType',
+    sectorId: 'sectorId',
+    tradeId: 'tradeId',
+    code: 'code',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClassRoomScalarFieldEnum = (typeof ClassRoomScalarFieldEnum)[keyof typeof ClassRoomScalarFieldEnum]
+
+
+  export const ClassScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    username: 'username',
+    description: 'description',
+    code: 'code',
+    symbol: 'symbol',
+    disabled: 'disabled',
+    sectorId: 'sectorId',
+    tradeId: 'tradeId',
+    classRoomId: 'classRoomId',
+    classTeacher: 'classTeacher',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof ClassScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6641,6 +12855,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClassRoomType'
+   */
+  export type EnumClassRoomTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassRoomType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClassRoomType[]'
+   */
+  export type ListEnumClassRoomTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassRoomType[]'>
     
 
 
@@ -7054,6 +13282,450 @@ export namespace Prisma {
     credentialDeviceType?: StringWithAggregatesFilter<"Authenticator"> | string
     credentialBackedUp?: BoolWithAggregatesFilter<"Authenticator"> | boolean
     transports?: StringNullableWithAggregatesFilter<"Authenticator"> | string | null
+  }
+
+  export type EducationWhereInput = {
+    AND?: EducationWhereInput | EducationWhereInput[]
+    OR?: EducationWhereInput[]
+    NOT?: EducationWhereInput | EducationWhereInput[]
+    id?: StringFilter<"Education"> | string
+    name?: StringFilter<"Education"> | string
+    username?: StringFilter<"Education"> | string
+    description?: StringNullableFilter<"Education"> | string | null
+    symbol?: StringNullableFilter<"Education"> | string | null
+    disabled?: BoolFilter<"Education"> | boolean
+    roles?: StringNullableListFilter<"Education">
+    createdAt?: DateTimeFilter<"Education"> | Date | string
+    updatedAt?: DateTimeFilter<"Education"> | Date | string
+    Sector?: SectorListRelationFilter
+    Trade?: TradeListRelationFilter
+  }
+
+  export type EducationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    roles?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    Sector?: SectorOrderByRelationAggregateInput
+    Trade?: TradeOrderByRelationAggregateInput
+  }
+
+  export type EducationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    username?: string
+    AND?: EducationWhereInput | EducationWhereInput[]
+    OR?: EducationWhereInput[]
+    NOT?: EducationWhereInput | EducationWhereInput[]
+    name?: StringFilter<"Education"> | string
+    description?: StringNullableFilter<"Education"> | string | null
+    symbol?: StringNullableFilter<"Education"> | string | null
+    disabled?: BoolFilter<"Education"> | boolean
+    roles?: StringNullableListFilter<"Education">
+    createdAt?: DateTimeFilter<"Education"> | Date | string
+    updatedAt?: DateTimeFilter<"Education"> | Date | string
+    Sector?: SectorListRelationFilter
+    Trade?: TradeListRelationFilter
+  }, "id" | "username">
+
+  export type EducationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    roles?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EducationCountOrderByAggregateInput
+    _max?: EducationMaxOrderByAggregateInput
+    _min?: EducationMinOrderByAggregateInput
+  }
+
+  export type EducationScalarWhereWithAggregatesInput = {
+    AND?: EducationScalarWhereWithAggregatesInput | EducationScalarWhereWithAggregatesInput[]
+    OR?: EducationScalarWhereWithAggregatesInput[]
+    NOT?: EducationScalarWhereWithAggregatesInput | EducationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Education"> | string
+    name?: StringWithAggregatesFilter<"Education"> | string
+    username?: StringWithAggregatesFilter<"Education"> | string
+    description?: StringNullableWithAggregatesFilter<"Education"> | string | null
+    symbol?: StringNullableWithAggregatesFilter<"Education"> | string | null
+    disabled?: BoolWithAggregatesFilter<"Education"> | boolean
+    roles?: StringNullableListFilter<"Education">
+    createdAt?: DateTimeWithAggregatesFilter<"Education"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Education"> | Date | string
+  }
+
+  export type SectorWhereInput = {
+    AND?: SectorWhereInput | SectorWhereInput[]
+    OR?: SectorWhereInput[]
+    NOT?: SectorWhereInput | SectorWhereInput[]
+    id?: StringFilter<"Sector"> | string
+    educationId?: StringFilter<"Sector"> | string
+    username?: StringFilter<"Sector"> | string
+    name?: StringFilter<"Sector"> | string
+    description?: StringNullableFilter<"Sector"> | string | null
+    symbol?: StringNullableFilter<"Sector"> | string | null
+    disabled?: BoolFilter<"Sector"> | boolean
+    createdAt?: DateTimeFilter<"Sector"> | Date | string
+    updatedAt?: DateTimeFilter<"Sector"> | Date | string
+    education?: XOR<EducationScalarRelationFilter, EducationWhereInput>
+    ClassRoom?: ClassRoomListRelationFilter
+    Class?: ClassListRelationFilter
+  }
+
+  export type SectorOrderByWithRelationInput = {
+    id?: SortOrder
+    educationId?: SortOrder
+    username?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    education?: EducationOrderByWithRelationInput
+    ClassRoom?: ClassRoomOrderByRelationAggregateInput
+    Class?: ClassOrderByRelationAggregateInput
+  }
+
+  export type SectorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    username?: string
+    AND?: SectorWhereInput | SectorWhereInput[]
+    OR?: SectorWhereInput[]
+    NOT?: SectorWhereInput | SectorWhereInput[]
+    educationId?: StringFilter<"Sector"> | string
+    name?: StringFilter<"Sector"> | string
+    description?: StringNullableFilter<"Sector"> | string | null
+    symbol?: StringNullableFilter<"Sector"> | string | null
+    disabled?: BoolFilter<"Sector"> | boolean
+    createdAt?: DateTimeFilter<"Sector"> | Date | string
+    updatedAt?: DateTimeFilter<"Sector"> | Date | string
+    education?: XOR<EducationScalarRelationFilter, EducationWhereInput>
+    ClassRoom?: ClassRoomListRelationFilter
+    Class?: ClassListRelationFilter
+  }, "id" | "username">
+
+  export type SectorOrderByWithAggregationInput = {
+    id?: SortOrder
+    educationId?: SortOrder
+    username?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SectorCountOrderByAggregateInput
+    _max?: SectorMaxOrderByAggregateInput
+    _min?: SectorMinOrderByAggregateInput
+  }
+
+  export type SectorScalarWhereWithAggregatesInput = {
+    AND?: SectorScalarWhereWithAggregatesInput | SectorScalarWhereWithAggregatesInput[]
+    OR?: SectorScalarWhereWithAggregatesInput[]
+    NOT?: SectorScalarWhereWithAggregatesInput | SectorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Sector"> | string
+    educationId?: StringWithAggregatesFilter<"Sector"> | string
+    username?: StringWithAggregatesFilter<"Sector"> | string
+    name?: StringWithAggregatesFilter<"Sector"> | string
+    description?: StringNullableWithAggregatesFilter<"Sector"> | string | null
+    symbol?: StringNullableWithAggregatesFilter<"Sector"> | string | null
+    disabled?: BoolWithAggregatesFilter<"Sector"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Sector"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Sector"> | Date | string
+  }
+
+  export type TradeWhereInput = {
+    AND?: TradeWhereInput | TradeWhereInput[]
+    OR?: TradeWhereInput[]
+    NOT?: TradeWhereInput | TradeWhereInput[]
+    id?: StringFilter<"Trade"> | string
+    name?: StringFilter<"Trade"> | string
+    username?: StringFilter<"Trade"> | string
+    description?: StringNullableFilter<"Trade"> | string | null
+    sectorId?: StringFilter<"Trade"> | string
+    limitClasses?: IntFilter<"Trade"> | number
+    symbol?: StringNullableFilter<"Trade"> | string | null
+    disabled?: BoolFilter<"Trade"> | boolean
+    createdAt?: DateTimeFilter<"Trade"> | Date | string
+    updatedAt?: DateTimeFilter<"Trade"> | Date | string
+    sector?: XOR<EducationScalarRelationFilter, EducationWhereInput>
+    ClassRoom?: ClassRoomListRelationFilter
+    Class?: ClassListRelationFilter
+  }
+
+  export type TradeOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    sectorId?: SortOrder
+    limitClasses?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sector?: EducationOrderByWithRelationInput
+    ClassRoom?: ClassRoomOrderByRelationAggregateInput
+    Class?: ClassOrderByRelationAggregateInput
+  }
+
+  export type TradeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    username?: string
+    AND?: TradeWhereInput | TradeWhereInput[]
+    OR?: TradeWhereInput[]
+    NOT?: TradeWhereInput | TradeWhereInput[]
+    name?: StringFilter<"Trade"> | string
+    description?: StringNullableFilter<"Trade"> | string | null
+    sectorId?: StringFilter<"Trade"> | string
+    limitClasses?: IntFilter<"Trade"> | number
+    symbol?: StringNullableFilter<"Trade"> | string | null
+    disabled?: BoolFilter<"Trade"> | boolean
+    createdAt?: DateTimeFilter<"Trade"> | Date | string
+    updatedAt?: DateTimeFilter<"Trade"> | Date | string
+    sector?: XOR<EducationScalarRelationFilter, EducationWhereInput>
+    ClassRoom?: ClassRoomListRelationFilter
+    Class?: ClassListRelationFilter
+  }, "id" | "username">
+
+  export type TradeOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    sectorId?: SortOrder
+    limitClasses?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TradeCountOrderByAggregateInput
+    _avg?: TradeAvgOrderByAggregateInput
+    _max?: TradeMaxOrderByAggregateInput
+    _min?: TradeMinOrderByAggregateInput
+    _sum?: TradeSumOrderByAggregateInput
+  }
+
+  export type TradeScalarWhereWithAggregatesInput = {
+    AND?: TradeScalarWhereWithAggregatesInput | TradeScalarWhereWithAggregatesInput[]
+    OR?: TradeScalarWhereWithAggregatesInput[]
+    NOT?: TradeScalarWhereWithAggregatesInput | TradeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Trade"> | string
+    name?: StringWithAggregatesFilter<"Trade"> | string
+    username?: StringWithAggregatesFilter<"Trade"> | string
+    description?: StringNullableWithAggregatesFilter<"Trade"> | string | null
+    sectorId?: StringWithAggregatesFilter<"Trade"> | string
+    limitClasses?: IntWithAggregatesFilter<"Trade"> | number
+    symbol?: StringNullableWithAggregatesFilter<"Trade"> | string | null
+    disabled?: BoolWithAggregatesFilter<"Trade"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Trade"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Trade"> | Date | string
+  }
+
+  export type ClassRoomWhereInput = {
+    AND?: ClassRoomWhereInput | ClassRoomWhereInput[]
+    OR?: ClassRoomWhereInput[]
+    NOT?: ClassRoomWhereInput | ClassRoomWhereInput[]
+    id?: StringFilter<"ClassRoom"> | string
+    name?: StringFilter<"ClassRoom"> | string
+    username?: StringFilter<"ClassRoom"> | string
+    description?: StringNullableFilter<"ClassRoom"> | string | null
+    symbol?: StringNullableFilter<"ClassRoom"> | string | null
+    disabled?: BoolFilter<"ClassRoom"> | boolean
+    ClassRoomType?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
+    sectorId?: StringNullableFilter<"ClassRoom"> | string | null
+    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    code?: StringNullableFilter<"ClassRoom"> | string | null
+    createdAt?: DateTimeFilter<"ClassRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassRoom"> | Date | string
+    trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
+    sector?: XOR<SectorNullableScalarRelationFilter, SectorWhereInput> | null
+    Class?: ClassListRelationFilter
+  }
+
+  export type ClassRoomOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    ClassRoomType?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    trade?: TradeOrderByWithRelationInput
+    sector?: SectorOrderByWithRelationInput
+    Class?: ClassOrderByRelationAggregateInput
+  }
+
+  export type ClassRoomWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    username?: string
+    code?: string
+    AND?: ClassRoomWhereInput | ClassRoomWhereInput[]
+    OR?: ClassRoomWhereInput[]
+    NOT?: ClassRoomWhereInput | ClassRoomWhereInput[]
+    name?: StringFilter<"ClassRoom"> | string
+    description?: StringNullableFilter<"ClassRoom"> | string | null
+    symbol?: StringNullableFilter<"ClassRoom"> | string | null
+    disabled?: BoolFilter<"ClassRoom"> | boolean
+    ClassRoomType?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
+    sectorId?: StringNullableFilter<"ClassRoom"> | string | null
+    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    createdAt?: DateTimeFilter<"ClassRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassRoom"> | Date | string
+    trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
+    sector?: XOR<SectorNullableScalarRelationFilter, SectorWhereInput> | null
+    Class?: ClassListRelationFilter
+  }, "id" | "username" | "code">
+
+  export type ClassRoomOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    ClassRoomType?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClassRoomCountOrderByAggregateInput
+    _max?: ClassRoomMaxOrderByAggregateInput
+    _min?: ClassRoomMinOrderByAggregateInput
+  }
+
+  export type ClassRoomScalarWhereWithAggregatesInput = {
+    AND?: ClassRoomScalarWhereWithAggregatesInput | ClassRoomScalarWhereWithAggregatesInput[]
+    OR?: ClassRoomScalarWhereWithAggregatesInput[]
+    NOT?: ClassRoomScalarWhereWithAggregatesInput | ClassRoomScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClassRoom"> | string
+    name?: StringWithAggregatesFilter<"ClassRoom"> | string
+    username?: StringWithAggregatesFilter<"ClassRoom"> | string
+    description?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    symbol?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    disabled?: BoolWithAggregatesFilter<"ClassRoom"> | boolean
+    ClassRoomType?: EnumClassRoomTypeWithAggregatesFilter<"ClassRoom"> | $Enums.ClassRoomType
+    sectorId?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    tradeId?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    code?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ClassRoom"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClassRoom"> | Date | string
+  }
+
+  export type ClassWhereInput = {
+    AND?: ClassWhereInput | ClassWhereInput[]
+    OR?: ClassWhereInput[]
+    NOT?: ClassWhereInput | ClassWhereInput[]
+    id?: StringFilter<"Class"> | string
+    name?: StringFilter<"Class"> | string
+    username?: StringFilter<"Class"> | string
+    description?: StringNullableFilter<"Class"> | string | null
+    code?: StringFilter<"Class"> | string
+    symbol?: StringNullableFilter<"Class"> | string | null
+    disabled?: BoolFilter<"Class"> | boolean
+    sectorId?: StringNullableFilter<"Class"> | string | null
+    tradeId?: StringNullableFilter<"Class"> | string | null
+    classRoomId?: StringNullableFilter<"Class"> | string | null
+    classTeacher?: StringFilter<"Class"> | string
+    createdAt?: DateTimeFilter<"Class"> | Date | string
+    updatedAt?: DateTimeFilter<"Class"> | Date | string
+    trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
+    sector?: XOR<SectorNullableScalarRelationFilter, SectorWhereInput> | null
+    classRoom?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
+  }
+
+  export type ClassOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    code?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    classRoomId?: SortOrder
+    classTeacher?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    trade?: TradeOrderByWithRelationInput
+    sector?: SectorOrderByWithRelationInput
+    classRoom?: ClassRoomOrderByWithRelationInput
+  }
+
+  export type ClassWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    username?: string
+    code?: string
+    AND?: ClassWhereInput | ClassWhereInput[]
+    OR?: ClassWhereInput[]
+    NOT?: ClassWhereInput | ClassWhereInput[]
+    name?: StringFilter<"Class"> | string
+    description?: StringNullableFilter<"Class"> | string | null
+    symbol?: StringNullableFilter<"Class"> | string | null
+    disabled?: BoolFilter<"Class"> | boolean
+    sectorId?: StringNullableFilter<"Class"> | string | null
+    tradeId?: StringNullableFilter<"Class"> | string | null
+    classRoomId?: StringNullableFilter<"Class"> | string | null
+    classTeacher?: StringFilter<"Class"> | string
+    createdAt?: DateTimeFilter<"Class"> | Date | string
+    updatedAt?: DateTimeFilter<"Class"> | Date | string
+    trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
+    sector?: XOR<SectorNullableScalarRelationFilter, SectorWhereInput> | null
+    classRoom?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
+  }, "id" | "username" | "code">
+
+  export type ClassOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    code?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    classRoomId?: SortOrder
+    classTeacher?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClassCountOrderByAggregateInput
+    _max?: ClassMaxOrderByAggregateInput
+    _min?: ClassMinOrderByAggregateInput
+  }
+
+  export type ClassScalarWhereWithAggregatesInput = {
+    AND?: ClassScalarWhereWithAggregatesInput | ClassScalarWhereWithAggregatesInput[]
+    OR?: ClassScalarWhereWithAggregatesInput[]
+    NOT?: ClassScalarWhereWithAggregatesInput | ClassScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Class"> | string
+    name?: StringWithAggregatesFilter<"Class"> | string
+    username?: StringWithAggregatesFilter<"Class"> | string
+    description?: StringNullableWithAggregatesFilter<"Class"> | string | null
+    code?: StringWithAggregatesFilter<"Class"> | string
+    symbol?: StringNullableWithAggregatesFilter<"Class"> | string | null
+    disabled?: BoolWithAggregatesFilter<"Class"> | boolean
+    sectorId?: StringNullableWithAggregatesFilter<"Class"> | string | null
+    tradeId?: StringNullableWithAggregatesFilter<"Class"> | string | null
+    classRoomId?: StringNullableWithAggregatesFilter<"Class"> | string | null
+    classTeacher?: StringWithAggregatesFilter<"Class"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -7477,6 +14149,483 @@ export namespace Prisma {
     credentialDeviceType?: StringFieldUpdateOperationsInput | string
     credentialBackedUp?: BoolFieldUpdateOperationsInput | boolean
     transports?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EducationCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Sector?: SectorCreateNestedManyWithoutEducationInput
+    Trade?: TradeCreateNestedManyWithoutSectorInput
+  }
+
+  export type EducationUncheckedCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Sector?: SectorUncheckedCreateNestedManyWithoutEducationInput
+    Trade?: TradeUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type EducationUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Sector?: SectorUpdateManyWithoutEducationNestedInput
+    Trade?: TradeUpdateManyWithoutSectorNestedInput
+  }
+
+  export type EducationUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Sector?: SectorUncheckedUpdateManyWithoutEducationNestedInput
+    Trade?: TradeUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type EducationCreateManyInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EducationUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducationUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectorCreateInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    education: EducationCreateNestedOneWithoutSectorInput
+    ClassRoom?: ClassRoomCreateNestedManyWithoutSectorInput
+    Class?: ClassCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorUncheckedCreateInput = {
+    id?: string
+    educationId: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutSectorInput
+    Class?: ClassUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorUpdateInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    education?: EducationUpdateOneRequiredWithoutSectorNestedInput
+    ClassRoom?: ClassRoomUpdateManyWithoutSectorNestedInput
+    Class?: ClassUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorUncheckedUpdateInput = {
+    educationId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutSectorNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorCreateManyInput = {
+    id?: string
+    educationId: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectorUpdateManyMutationInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectorUncheckedUpdateManyInput = {
+    educationId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradeCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sector: EducationCreateNestedOneWithoutTradeInput
+    ClassRoom?: ClassRoomCreateNestedManyWithoutTradeInput
+    Class?: ClassCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeUncheckedCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    sectorId: string
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutTradeInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sector?: EducationUpdateOneRequiredWithoutTradeNestedInput
+    ClassRoom?: ClassRoomUpdateManyWithoutTradeNestedInput
+    Class?: ClassUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sectorId?: StringFieldUpdateOperationsInput | string
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutTradeNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeCreateManyInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    sectorId: string
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradeUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradeUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sectorId?: StringFieldUpdateOperationsInput | string
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassRoomCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassRoomInput
+    sector?: SectorCreateNestedOneWithoutClassRoomInput
+    Class?: ClassCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomUncheckedCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    sectorId?: string | null
+    tradeId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Class?: ClassUncheckedCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassRoomNestedInput
+    sector?: SectorUpdateOneWithoutClassRoomNestedInput
+    Class?: ClassUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Class?: ClassUncheckedUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomCreateManyInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    sectorId?: string | null
+    tradeId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassRoomUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassRoomUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassInput
+    sector?: SectorCreateNestedOneWithoutClassInput
+    classRoom?: ClassRoomCreateNestedOneWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassNestedInput
+    sector?: SectorUpdateOneWithoutClassNestedInput
+    classRoom?: ClassRoomUpdateOneWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassCreateManyInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7956,6 +15105,301 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type SectorListRelationFilter = {
+    every?: SectorWhereInput
+    some?: SectorWhereInput
+    none?: SectorWhereInput
+  }
+
+  export type TradeListRelationFilter = {
+    every?: TradeWhereInput
+    some?: TradeWhereInput
+    none?: TradeWhereInput
+  }
+
+  export type SectorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TradeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EducationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    roles?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EducationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EducationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EducationScalarRelationFilter = {
+    is?: EducationWhereInput
+    isNot?: EducationWhereInput
+  }
+
+  export type ClassRoomListRelationFilter = {
+    every?: ClassRoomWhereInput
+    some?: ClassRoomWhereInput
+    none?: ClassRoomWhereInput
+  }
+
+  export type ClassListRelationFilter = {
+    every?: ClassWhereInput
+    some?: ClassWhereInput
+    none?: ClassWhereInput
+  }
+
+  export type ClassRoomOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClassOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SectorCountOrderByAggregateInput = {
+    id?: SortOrder
+    educationId?: SortOrder
+    username?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SectorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    educationId?: SortOrder
+    username?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SectorMinOrderByAggregateInput = {
+    id?: SortOrder
+    educationId?: SortOrder
+    username?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradeCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    sectorId?: SortOrder
+    limitClasses?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradeAvgOrderByAggregateInput = {
+    limitClasses?: SortOrder
+  }
+
+  export type TradeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    sectorId?: SortOrder
+    limitClasses?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradeMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    sectorId?: SortOrder
+    limitClasses?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TradeSumOrderByAggregateInput = {
+    limitClasses?: SortOrder
+  }
+
+  export type EnumClassRoomTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassRoomType | EnumClassRoomTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClassRoomTypeFilter<$PrismaModel> | $Enums.ClassRoomType
+  }
+
+  export type TradeNullableScalarRelationFilter = {
+    is?: TradeWhereInput | null
+    isNot?: TradeWhereInput | null
+  }
+
+  export type SectorNullableScalarRelationFilter = {
+    is?: SectorWhereInput | null
+    isNot?: SectorWhereInput | null
+  }
+
+  export type ClassRoomCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    ClassRoomType?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassRoomMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    ClassRoomType?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassRoomMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    ClassRoomType?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumClassRoomTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassRoomType | EnumClassRoomTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClassRoomTypeWithAggregatesFilter<$PrismaModel> | $Enums.ClassRoomType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClassRoomTypeFilter<$PrismaModel>
+    _max?: NestedEnumClassRoomTypeFilter<$PrismaModel>
+  }
+
+  export type ClassRoomNullableScalarRelationFilter = {
+    is?: ClassRoomWhereInput | null
+    isNot?: ClassRoomWhereInput | null
+  }
+
+  export type ClassCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    code?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    classRoomId?: SortOrder
+    classTeacher?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    code?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    classRoomId?: SortOrder
+    classTeacher?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    description?: SortOrder
+    code?: SortOrder
+    symbol?: SortOrder
+    disabled?: SortOrder
+    sectorId?: SortOrder
+    tradeId?: SortOrder
+    classRoomId?: SortOrder
+    classTeacher?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -8170,6 +15614,421 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAuthenticatorInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuthenticatorInput, UserUpdateWithoutAuthenticatorInput>, UserUncheckedUpdateWithoutAuthenticatorInput>
+  }
+
+  export type EducationCreaterolesInput = {
+    set: string[]
+  }
+
+  export type SectorCreateNestedManyWithoutEducationInput = {
+    create?: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput> | SectorCreateWithoutEducationInput[] | SectorUncheckedCreateWithoutEducationInput[]
+    connectOrCreate?: SectorCreateOrConnectWithoutEducationInput | SectorCreateOrConnectWithoutEducationInput[]
+    createMany?: SectorCreateManyEducationInputEnvelope
+    connect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+  }
+
+  export type TradeCreateNestedManyWithoutSectorInput = {
+    create?: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput> | TradeCreateWithoutSectorInput[] | TradeUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutSectorInput | TradeCreateOrConnectWithoutSectorInput[]
+    createMany?: TradeCreateManySectorInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+  }
+
+  export type SectorUncheckedCreateNestedManyWithoutEducationInput = {
+    create?: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput> | SectorCreateWithoutEducationInput[] | SectorUncheckedCreateWithoutEducationInput[]
+    connectOrCreate?: SectorCreateOrConnectWithoutEducationInput | SectorCreateOrConnectWithoutEducationInput[]
+    createMany?: SectorCreateManyEducationInputEnvelope
+    connect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+  }
+
+  export type TradeUncheckedCreateNestedManyWithoutSectorInput = {
+    create?: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput> | TradeCreateWithoutSectorInput[] | TradeUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutSectorInput | TradeCreateOrConnectWithoutSectorInput[]
+    createMany?: TradeCreateManySectorInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+  }
+
+  export type EducationUpdaterolesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SectorUpdateManyWithoutEducationNestedInput = {
+    create?: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput> | SectorCreateWithoutEducationInput[] | SectorUncheckedCreateWithoutEducationInput[]
+    connectOrCreate?: SectorCreateOrConnectWithoutEducationInput | SectorCreateOrConnectWithoutEducationInput[]
+    upsert?: SectorUpsertWithWhereUniqueWithoutEducationInput | SectorUpsertWithWhereUniqueWithoutEducationInput[]
+    createMany?: SectorCreateManyEducationInputEnvelope
+    set?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    disconnect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    delete?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    connect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    update?: SectorUpdateWithWhereUniqueWithoutEducationInput | SectorUpdateWithWhereUniqueWithoutEducationInput[]
+    updateMany?: SectorUpdateManyWithWhereWithoutEducationInput | SectorUpdateManyWithWhereWithoutEducationInput[]
+    deleteMany?: SectorScalarWhereInput | SectorScalarWhereInput[]
+  }
+
+  export type TradeUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput> | TradeCreateWithoutSectorInput[] | TradeUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutSectorInput | TradeCreateOrConnectWithoutSectorInput[]
+    upsert?: TradeUpsertWithWhereUniqueWithoutSectorInput | TradeUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: TradeCreateManySectorInputEnvelope
+    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    update?: TradeUpdateWithWhereUniqueWithoutSectorInput | TradeUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: TradeUpdateManyWithWhereWithoutSectorInput | TradeUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
+  }
+
+  export type SectorUncheckedUpdateManyWithoutEducationNestedInput = {
+    create?: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput> | SectorCreateWithoutEducationInput[] | SectorUncheckedCreateWithoutEducationInput[]
+    connectOrCreate?: SectorCreateOrConnectWithoutEducationInput | SectorCreateOrConnectWithoutEducationInput[]
+    upsert?: SectorUpsertWithWhereUniqueWithoutEducationInput | SectorUpsertWithWhereUniqueWithoutEducationInput[]
+    createMany?: SectorCreateManyEducationInputEnvelope
+    set?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    disconnect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    delete?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    connect?: SectorWhereUniqueInput | SectorWhereUniqueInput[]
+    update?: SectorUpdateWithWhereUniqueWithoutEducationInput | SectorUpdateWithWhereUniqueWithoutEducationInput[]
+    updateMany?: SectorUpdateManyWithWhereWithoutEducationInput | SectorUpdateManyWithWhereWithoutEducationInput[]
+    deleteMany?: SectorScalarWhereInput | SectorScalarWhereInput[]
+  }
+
+  export type TradeUncheckedUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput> | TradeCreateWithoutSectorInput[] | TradeUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutSectorInput | TradeCreateOrConnectWithoutSectorInput[]
+    upsert?: TradeUpsertWithWhereUniqueWithoutSectorInput | TradeUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: TradeCreateManySectorInputEnvelope
+    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    update?: TradeUpdateWithWhereUniqueWithoutSectorInput | TradeUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: TradeUpdateManyWithWhereWithoutSectorInput | TradeUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
+  }
+
+  export type EducationCreateNestedOneWithoutSectorInput = {
+    create?: XOR<EducationCreateWithoutSectorInput, EducationUncheckedCreateWithoutSectorInput>
+    connectOrCreate?: EducationCreateOrConnectWithoutSectorInput
+    connect?: EducationWhereUniqueInput
+  }
+
+  export type ClassRoomCreateNestedManyWithoutSectorInput = {
+    create?: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput> | ClassRoomCreateWithoutSectorInput[] | ClassRoomUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutSectorInput | ClassRoomCreateOrConnectWithoutSectorInput[]
+    createMany?: ClassRoomCreateManySectorInputEnvelope
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+  }
+
+  export type ClassCreateNestedManyWithoutSectorInput = {
+    create?: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput> | ClassCreateWithoutSectorInput[] | ClassUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutSectorInput | ClassCreateOrConnectWithoutSectorInput[]
+    createMany?: ClassCreateManySectorInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type ClassRoomUncheckedCreateNestedManyWithoutSectorInput = {
+    create?: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput> | ClassRoomCreateWithoutSectorInput[] | ClassRoomUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutSectorInput | ClassRoomCreateOrConnectWithoutSectorInput[]
+    createMany?: ClassRoomCreateManySectorInputEnvelope
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+  }
+
+  export type ClassUncheckedCreateNestedManyWithoutSectorInput = {
+    create?: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput> | ClassCreateWithoutSectorInput[] | ClassUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutSectorInput | ClassCreateOrConnectWithoutSectorInput[]
+    createMany?: ClassCreateManySectorInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type EducationUpdateOneRequiredWithoutSectorNestedInput = {
+    create?: XOR<EducationCreateWithoutSectorInput, EducationUncheckedCreateWithoutSectorInput>
+    connectOrCreate?: EducationCreateOrConnectWithoutSectorInput
+    upsert?: EducationUpsertWithoutSectorInput
+    connect?: EducationWhereUniqueInput
+    update?: XOR<XOR<EducationUpdateToOneWithWhereWithoutSectorInput, EducationUpdateWithoutSectorInput>, EducationUncheckedUpdateWithoutSectorInput>
+  }
+
+  export type ClassRoomUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput> | ClassRoomCreateWithoutSectorInput[] | ClassRoomUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutSectorInput | ClassRoomCreateOrConnectWithoutSectorInput[]
+    upsert?: ClassRoomUpsertWithWhereUniqueWithoutSectorInput | ClassRoomUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: ClassRoomCreateManySectorInputEnvelope
+    set?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    disconnect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    delete?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    update?: ClassRoomUpdateWithWhereUniqueWithoutSectorInput | ClassRoomUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: ClassRoomUpdateManyWithWhereWithoutSectorInput | ClassRoomUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+  }
+
+  export type ClassUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput> | ClassCreateWithoutSectorInput[] | ClassUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutSectorInput | ClassCreateOrConnectWithoutSectorInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutSectorInput | ClassUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: ClassCreateManySectorInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutSectorInput | ClassUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutSectorInput | ClassUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type ClassRoomUncheckedUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput> | ClassRoomCreateWithoutSectorInput[] | ClassRoomUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutSectorInput | ClassRoomCreateOrConnectWithoutSectorInput[]
+    upsert?: ClassRoomUpsertWithWhereUniqueWithoutSectorInput | ClassRoomUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: ClassRoomCreateManySectorInputEnvelope
+    set?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    disconnect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    delete?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    update?: ClassRoomUpdateWithWhereUniqueWithoutSectorInput | ClassRoomUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: ClassRoomUpdateManyWithWhereWithoutSectorInput | ClassRoomUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+  }
+
+  export type ClassUncheckedUpdateManyWithoutSectorNestedInput = {
+    create?: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput> | ClassCreateWithoutSectorInput[] | ClassUncheckedCreateWithoutSectorInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutSectorInput | ClassCreateOrConnectWithoutSectorInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutSectorInput | ClassUpsertWithWhereUniqueWithoutSectorInput[]
+    createMany?: ClassCreateManySectorInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutSectorInput | ClassUpdateWithWhereUniqueWithoutSectorInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutSectorInput | ClassUpdateManyWithWhereWithoutSectorInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type EducationCreateNestedOneWithoutTradeInput = {
+    create?: XOR<EducationCreateWithoutTradeInput, EducationUncheckedCreateWithoutTradeInput>
+    connectOrCreate?: EducationCreateOrConnectWithoutTradeInput
+    connect?: EducationWhereUniqueInput
+  }
+
+  export type ClassRoomCreateNestedManyWithoutTradeInput = {
+    create?: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput> | ClassRoomCreateWithoutTradeInput[] | ClassRoomUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutTradeInput | ClassRoomCreateOrConnectWithoutTradeInput[]
+    createMany?: ClassRoomCreateManyTradeInputEnvelope
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+  }
+
+  export type ClassCreateNestedManyWithoutTradeInput = {
+    create?: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput> | ClassCreateWithoutTradeInput[] | ClassUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutTradeInput | ClassCreateOrConnectWithoutTradeInput[]
+    createMany?: ClassCreateManyTradeInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type ClassRoomUncheckedCreateNestedManyWithoutTradeInput = {
+    create?: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput> | ClassRoomCreateWithoutTradeInput[] | ClassRoomUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutTradeInput | ClassRoomCreateOrConnectWithoutTradeInput[]
+    createMany?: ClassRoomCreateManyTradeInputEnvelope
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+  }
+
+  export type ClassUncheckedCreateNestedManyWithoutTradeInput = {
+    create?: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput> | ClassCreateWithoutTradeInput[] | ClassUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutTradeInput | ClassCreateOrConnectWithoutTradeInput[]
+    createMany?: ClassCreateManyTradeInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type EducationUpdateOneRequiredWithoutTradeNestedInput = {
+    create?: XOR<EducationCreateWithoutTradeInput, EducationUncheckedCreateWithoutTradeInput>
+    connectOrCreate?: EducationCreateOrConnectWithoutTradeInput
+    upsert?: EducationUpsertWithoutTradeInput
+    connect?: EducationWhereUniqueInput
+    update?: XOR<XOR<EducationUpdateToOneWithWhereWithoutTradeInput, EducationUpdateWithoutTradeInput>, EducationUncheckedUpdateWithoutTradeInput>
+  }
+
+  export type ClassRoomUpdateManyWithoutTradeNestedInput = {
+    create?: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput> | ClassRoomCreateWithoutTradeInput[] | ClassRoomUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutTradeInput | ClassRoomCreateOrConnectWithoutTradeInput[]
+    upsert?: ClassRoomUpsertWithWhereUniqueWithoutTradeInput | ClassRoomUpsertWithWhereUniqueWithoutTradeInput[]
+    createMany?: ClassRoomCreateManyTradeInputEnvelope
+    set?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    disconnect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    delete?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    update?: ClassRoomUpdateWithWhereUniqueWithoutTradeInput | ClassRoomUpdateWithWhereUniqueWithoutTradeInput[]
+    updateMany?: ClassRoomUpdateManyWithWhereWithoutTradeInput | ClassRoomUpdateManyWithWhereWithoutTradeInput[]
+    deleteMany?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+  }
+
+  export type ClassUpdateManyWithoutTradeNestedInput = {
+    create?: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput> | ClassCreateWithoutTradeInput[] | ClassUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutTradeInput | ClassCreateOrConnectWithoutTradeInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutTradeInput | ClassUpsertWithWhereUniqueWithoutTradeInput[]
+    createMany?: ClassCreateManyTradeInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutTradeInput | ClassUpdateWithWhereUniqueWithoutTradeInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutTradeInput | ClassUpdateManyWithWhereWithoutTradeInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type ClassRoomUncheckedUpdateManyWithoutTradeNestedInput = {
+    create?: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput> | ClassRoomCreateWithoutTradeInput[] | ClassRoomUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutTradeInput | ClassRoomCreateOrConnectWithoutTradeInput[]
+    upsert?: ClassRoomUpsertWithWhereUniqueWithoutTradeInput | ClassRoomUpsertWithWhereUniqueWithoutTradeInput[]
+    createMany?: ClassRoomCreateManyTradeInputEnvelope
+    set?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    disconnect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    delete?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    connect?: ClassRoomWhereUniqueInput | ClassRoomWhereUniqueInput[]
+    update?: ClassRoomUpdateWithWhereUniqueWithoutTradeInput | ClassRoomUpdateWithWhereUniqueWithoutTradeInput[]
+    updateMany?: ClassRoomUpdateManyWithWhereWithoutTradeInput | ClassRoomUpdateManyWithWhereWithoutTradeInput[]
+    deleteMany?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+  }
+
+  export type ClassUncheckedUpdateManyWithoutTradeNestedInput = {
+    create?: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput> | ClassCreateWithoutTradeInput[] | ClassUncheckedCreateWithoutTradeInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutTradeInput | ClassCreateOrConnectWithoutTradeInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutTradeInput | ClassUpsertWithWhereUniqueWithoutTradeInput[]
+    createMany?: ClassCreateManyTradeInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutTradeInput | ClassUpdateWithWhereUniqueWithoutTradeInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutTradeInput | ClassUpdateManyWithWhereWithoutTradeInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type TradeCreateNestedOneWithoutClassRoomInput = {
+    create?: XOR<TradeCreateWithoutClassRoomInput, TradeUncheckedCreateWithoutClassRoomInput>
+    connectOrCreate?: TradeCreateOrConnectWithoutClassRoomInput
+    connect?: TradeWhereUniqueInput
+  }
+
+  export type SectorCreateNestedOneWithoutClassRoomInput = {
+    create?: XOR<SectorCreateWithoutClassRoomInput, SectorUncheckedCreateWithoutClassRoomInput>
+    connectOrCreate?: SectorCreateOrConnectWithoutClassRoomInput
+    connect?: SectorWhereUniqueInput
+  }
+
+  export type ClassCreateNestedManyWithoutClassRoomInput = {
+    create?: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput> | ClassCreateWithoutClassRoomInput[] | ClassUncheckedCreateWithoutClassRoomInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutClassRoomInput | ClassCreateOrConnectWithoutClassRoomInput[]
+    createMany?: ClassCreateManyClassRoomInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type ClassUncheckedCreateNestedManyWithoutClassRoomInput = {
+    create?: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput> | ClassCreateWithoutClassRoomInput[] | ClassUncheckedCreateWithoutClassRoomInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutClassRoomInput | ClassCreateOrConnectWithoutClassRoomInput[]
+    createMany?: ClassCreateManyClassRoomInputEnvelope
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+  }
+
+  export type EnumClassRoomTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ClassRoomType
+  }
+
+  export type TradeUpdateOneWithoutClassRoomNestedInput = {
+    create?: XOR<TradeCreateWithoutClassRoomInput, TradeUncheckedCreateWithoutClassRoomInput>
+    connectOrCreate?: TradeCreateOrConnectWithoutClassRoomInput
+    upsert?: TradeUpsertWithoutClassRoomInput
+    disconnect?: boolean
+    delete?: TradeWhereInput | boolean
+    connect?: TradeWhereUniqueInput
+    update?: XOR<XOR<TradeUpdateToOneWithWhereWithoutClassRoomInput, TradeUpdateWithoutClassRoomInput>, TradeUncheckedUpdateWithoutClassRoomInput>
+  }
+
+  export type SectorUpdateOneWithoutClassRoomNestedInput = {
+    create?: XOR<SectorCreateWithoutClassRoomInput, SectorUncheckedCreateWithoutClassRoomInput>
+    connectOrCreate?: SectorCreateOrConnectWithoutClassRoomInput
+    upsert?: SectorUpsertWithoutClassRoomInput
+    disconnect?: boolean
+    delete?: SectorWhereInput | boolean
+    connect?: SectorWhereUniqueInput
+    update?: XOR<XOR<SectorUpdateToOneWithWhereWithoutClassRoomInput, SectorUpdateWithoutClassRoomInput>, SectorUncheckedUpdateWithoutClassRoomInput>
+  }
+
+  export type ClassUpdateManyWithoutClassRoomNestedInput = {
+    create?: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput> | ClassCreateWithoutClassRoomInput[] | ClassUncheckedCreateWithoutClassRoomInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutClassRoomInput | ClassCreateOrConnectWithoutClassRoomInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutClassRoomInput | ClassUpsertWithWhereUniqueWithoutClassRoomInput[]
+    createMany?: ClassCreateManyClassRoomInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutClassRoomInput | ClassUpdateWithWhereUniqueWithoutClassRoomInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutClassRoomInput | ClassUpdateManyWithWhereWithoutClassRoomInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type ClassUncheckedUpdateManyWithoutClassRoomNestedInput = {
+    create?: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput> | ClassCreateWithoutClassRoomInput[] | ClassUncheckedCreateWithoutClassRoomInput[]
+    connectOrCreate?: ClassCreateOrConnectWithoutClassRoomInput | ClassCreateOrConnectWithoutClassRoomInput[]
+    upsert?: ClassUpsertWithWhereUniqueWithoutClassRoomInput | ClassUpsertWithWhereUniqueWithoutClassRoomInput[]
+    createMany?: ClassCreateManyClassRoomInputEnvelope
+    set?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    disconnect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    delete?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    connect?: ClassWhereUniqueInput | ClassWhereUniqueInput[]
+    update?: ClassUpdateWithWhereUniqueWithoutClassRoomInput | ClassUpdateWithWhereUniqueWithoutClassRoomInput[]
+    updateMany?: ClassUpdateManyWithWhereWithoutClassRoomInput | ClassUpdateManyWithWhereWithoutClassRoomInput[]
+    deleteMany?: ClassScalarWhereInput | ClassScalarWhereInput[]
+  }
+
+  export type TradeCreateNestedOneWithoutClassInput = {
+    create?: XOR<TradeCreateWithoutClassInput, TradeUncheckedCreateWithoutClassInput>
+    connectOrCreate?: TradeCreateOrConnectWithoutClassInput
+    connect?: TradeWhereUniqueInput
+  }
+
+  export type SectorCreateNestedOneWithoutClassInput = {
+    create?: XOR<SectorCreateWithoutClassInput, SectorUncheckedCreateWithoutClassInput>
+    connectOrCreate?: SectorCreateOrConnectWithoutClassInput
+    connect?: SectorWhereUniqueInput
+  }
+
+  export type ClassRoomCreateNestedOneWithoutClassInput = {
+    create?: XOR<ClassRoomCreateWithoutClassInput, ClassRoomUncheckedCreateWithoutClassInput>
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutClassInput
+    connect?: ClassRoomWhereUniqueInput
+  }
+
+  export type TradeUpdateOneWithoutClassNestedInput = {
+    create?: XOR<TradeCreateWithoutClassInput, TradeUncheckedCreateWithoutClassInput>
+    connectOrCreate?: TradeCreateOrConnectWithoutClassInput
+    upsert?: TradeUpsertWithoutClassInput
+    disconnect?: boolean
+    delete?: TradeWhereInput | boolean
+    connect?: TradeWhereUniqueInput
+    update?: XOR<XOR<TradeUpdateToOneWithWhereWithoutClassInput, TradeUpdateWithoutClassInput>, TradeUncheckedUpdateWithoutClassInput>
+  }
+
+  export type SectorUpdateOneWithoutClassNestedInput = {
+    create?: XOR<SectorCreateWithoutClassInput, SectorUncheckedCreateWithoutClassInput>
+    connectOrCreate?: SectorCreateOrConnectWithoutClassInput
+    upsert?: SectorUpsertWithoutClassInput
+    disconnect?: boolean
+    delete?: SectorWhereInput | boolean
+    connect?: SectorWhereUniqueInput
+    update?: XOR<XOR<SectorUpdateToOneWithWhereWithoutClassInput, SectorUpdateWithoutClassInput>, SectorUncheckedUpdateWithoutClassInput>
+  }
+
+  export type ClassRoomUpdateOneWithoutClassNestedInput = {
+    create?: XOR<ClassRoomCreateWithoutClassInput, ClassRoomUncheckedCreateWithoutClassInput>
+    connectOrCreate?: ClassRoomCreateOrConnectWithoutClassInput
+    upsert?: ClassRoomUpsertWithoutClassInput
+    disconnect?: boolean
+    delete?: ClassRoomWhereInput | boolean
+    connect?: ClassRoomWhereUniqueInput
+    update?: XOR<XOR<ClassRoomUpdateToOneWithWhereWithoutClassInput, ClassRoomUpdateWithoutClassInput>, ClassRoomUncheckedUpdateWithoutClassInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8414,6 +16273,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumClassRoomTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassRoomType | EnumClassRoomTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClassRoomTypeFilter<$PrismaModel> | $Enums.ClassRoomType
+  }
+
+  export type NestedEnumClassRoomTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassRoomType | EnumClassRoomTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClassRoomType[] | ListEnumClassRoomTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClassRoomTypeWithAggregatesFilter<$PrismaModel> | $Enums.ClassRoomType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClassRoomTypeFilter<$PrismaModel>
+    _max?: NestedEnumClassRoomTypeFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -8887,6 +16763,931 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type SectorCreateWithoutEducationInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomCreateNestedManyWithoutSectorInput
+    Class?: ClassCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorUncheckedCreateWithoutEducationInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutSectorInput
+    Class?: ClassUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorCreateOrConnectWithoutEducationInput = {
+    where: SectorWhereUniqueInput
+    create: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput>
+  }
+
+  export type SectorCreateManyEducationInputEnvelope = {
+    data: SectorCreateManyEducationInput | SectorCreateManyEducationInput[]
+  }
+
+  export type TradeCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomCreateNestedManyWithoutTradeInput
+    Class?: ClassCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeUncheckedCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutTradeInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeCreateOrConnectWithoutSectorInput = {
+    where: TradeWhereUniqueInput
+    create: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput>
+  }
+
+  export type TradeCreateManySectorInputEnvelope = {
+    data: TradeCreateManySectorInput | TradeCreateManySectorInput[]
+  }
+
+  export type SectorUpsertWithWhereUniqueWithoutEducationInput = {
+    where: SectorWhereUniqueInput
+    update: XOR<SectorUpdateWithoutEducationInput, SectorUncheckedUpdateWithoutEducationInput>
+    create: XOR<SectorCreateWithoutEducationInput, SectorUncheckedCreateWithoutEducationInput>
+  }
+
+  export type SectorUpdateWithWhereUniqueWithoutEducationInput = {
+    where: SectorWhereUniqueInput
+    data: XOR<SectorUpdateWithoutEducationInput, SectorUncheckedUpdateWithoutEducationInput>
+  }
+
+  export type SectorUpdateManyWithWhereWithoutEducationInput = {
+    where: SectorScalarWhereInput
+    data: XOR<SectorUpdateManyMutationInput, SectorUncheckedUpdateManyWithoutEducationInput>
+  }
+
+  export type SectorScalarWhereInput = {
+    AND?: SectorScalarWhereInput | SectorScalarWhereInput[]
+    OR?: SectorScalarWhereInput[]
+    NOT?: SectorScalarWhereInput | SectorScalarWhereInput[]
+    id?: StringFilter<"Sector"> | string
+    educationId?: StringFilter<"Sector"> | string
+    username?: StringFilter<"Sector"> | string
+    name?: StringFilter<"Sector"> | string
+    description?: StringNullableFilter<"Sector"> | string | null
+    symbol?: StringNullableFilter<"Sector"> | string | null
+    disabled?: BoolFilter<"Sector"> | boolean
+    createdAt?: DateTimeFilter<"Sector"> | Date | string
+    updatedAt?: DateTimeFilter<"Sector"> | Date | string
+  }
+
+  export type TradeUpsertWithWhereUniqueWithoutSectorInput = {
+    where: TradeWhereUniqueInput
+    update: XOR<TradeUpdateWithoutSectorInput, TradeUncheckedUpdateWithoutSectorInput>
+    create: XOR<TradeCreateWithoutSectorInput, TradeUncheckedCreateWithoutSectorInput>
+  }
+
+  export type TradeUpdateWithWhereUniqueWithoutSectorInput = {
+    where: TradeWhereUniqueInput
+    data: XOR<TradeUpdateWithoutSectorInput, TradeUncheckedUpdateWithoutSectorInput>
+  }
+
+  export type TradeUpdateManyWithWhereWithoutSectorInput = {
+    where: TradeScalarWhereInput
+    data: XOR<TradeUpdateManyMutationInput, TradeUncheckedUpdateManyWithoutSectorInput>
+  }
+
+  export type TradeScalarWhereInput = {
+    AND?: TradeScalarWhereInput | TradeScalarWhereInput[]
+    OR?: TradeScalarWhereInput[]
+    NOT?: TradeScalarWhereInput | TradeScalarWhereInput[]
+    id?: StringFilter<"Trade"> | string
+    name?: StringFilter<"Trade"> | string
+    username?: StringFilter<"Trade"> | string
+    description?: StringNullableFilter<"Trade"> | string | null
+    sectorId?: StringFilter<"Trade"> | string
+    limitClasses?: IntFilter<"Trade"> | number
+    symbol?: StringNullableFilter<"Trade"> | string | null
+    disabled?: BoolFilter<"Trade"> | boolean
+    createdAt?: DateTimeFilter<"Trade"> | Date | string
+    updatedAt?: DateTimeFilter<"Trade"> | Date | string
+  }
+
+  export type EducationCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Trade?: TradeCreateNestedManyWithoutSectorInput
+  }
+
+  export type EducationUncheckedCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Trade?: TradeUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type EducationCreateOrConnectWithoutSectorInput = {
+    where: EducationWhereUniqueInput
+    create: XOR<EducationCreateWithoutSectorInput, EducationUncheckedCreateWithoutSectorInput>
+  }
+
+  export type ClassRoomCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassRoomInput
+    Class?: ClassCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomUncheckedCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    tradeId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Class?: ClassUncheckedCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomCreateOrConnectWithoutSectorInput = {
+    where: ClassRoomWhereUniqueInput
+    create: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput>
+  }
+
+  export type ClassRoomCreateManySectorInputEnvelope = {
+    data: ClassRoomCreateManySectorInput | ClassRoomCreateManySectorInput[]
+  }
+
+  export type ClassCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassInput
+    classRoom?: ClassRoomCreateNestedOneWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutSectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    tradeId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassCreateOrConnectWithoutSectorInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput>
+  }
+
+  export type ClassCreateManySectorInputEnvelope = {
+    data: ClassCreateManySectorInput | ClassCreateManySectorInput[]
+  }
+
+  export type EducationUpsertWithoutSectorInput = {
+    update: XOR<EducationUpdateWithoutSectorInput, EducationUncheckedUpdateWithoutSectorInput>
+    create: XOR<EducationCreateWithoutSectorInput, EducationUncheckedCreateWithoutSectorInput>
+    where?: EducationWhereInput
+  }
+
+  export type EducationUpdateToOneWithWhereWithoutSectorInput = {
+    where?: EducationWhereInput
+    data: XOR<EducationUpdateWithoutSectorInput, EducationUncheckedUpdateWithoutSectorInput>
+  }
+
+  export type EducationUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Trade?: TradeUpdateManyWithoutSectorNestedInput
+  }
+
+  export type EducationUncheckedUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Trade?: TradeUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type ClassRoomUpsertWithWhereUniqueWithoutSectorInput = {
+    where: ClassRoomWhereUniqueInput
+    update: XOR<ClassRoomUpdateWithoutSectorInput, ClassRoomUncheckedUpdateWithoutSectorInput>
+    create: XOR<ClassRoomCreateWithoutSectorInput, ClassRoomUncheckedCreateWithoutSectorInput>
+  }
+
+  export type ClassRoomUpdateWithWhereUniqueWithoutSectorInput = {
+    where: ClassRoomWhereUniqueInput
+    data: XOR<ClassRoomUpdateWithoutSectorInput, ClassRoomUncheckedUpdateWithoutSectorInput>
+  }
+
+  export type ClassRoomUpdateManyWithWhereWithoutSectorInput = {
+    where: ClassRoomScalarWhereInput
+    data: XOR<ClassRoomUpdateManyMutationInput, ClassRoomUncheckedUpdateManyWithoutSectorInput>
+  }
+
+  export type ClassRoomScalarWhereInput = {
+    AND?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+    OR?: ClassRoomScalarWhereInput[]
+    NOT?: ClassRoomScalarWhereInput | ClassRoomScalarWhereInput[]
+    id?: StringFilter<"ClassRoom"> | string
+    name?: StringFilter<"ClassRoom"> | string
+    username?: StringFilter<"ClassRoom"> | string
+    description?: StringNullableFilter<"ClassRoom"> | string | null
+    symbol?: StringNullableFilter<"ClassRoom"> | string | null
+    disabled?: BoolFilter<"ClassRoom"> | boolean
+    ClassRoomType?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
+    sectorId?: StringNullableFilter<"ClassRoom"> | string | null
+    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    code?: StringNullableFilter<"ClassRoom"> | string | null
+    createdAt?: DateTimeFilter<"ClassRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassRoom"> | Date | string
+  }
+
+  export type ClassUpsertWithWhereUniqueWithoutSectorInput = {
+    where: ClassWhereUniqueInput
+    update: XOR<ClassUpdateWithoutSectorInput, ClassUncheckedUpdateWithoutSectorInput>
+    create: XOR<ClassCreateWithoutSectorInput, ClassUncheckedCreateWithoutSectorInput>
+  }
+
+  export type ClassUpdateWithWhereUniqueWithoutSectorInput = {
+    where: ClassWhereUniqueInput
+    data: XOR<ClassUpdateWithoutSectorInput, ClassUncheckedUpdateWithoutSectorInput>
+  }
+
+  export type ClassUpdateManyWithWhereWithoutSectorInput = {
+    where: ClassScalarWhereInput
+    data: XOR<ClassUpdateManyMutationInput, ClassUncheckedUpdateManyWithoutSectorInput>
+  }
+
+  export type ClassScalarWhereInput = {
+    AND?: ClassScalarWhereInput | ClassScalarWhereInput[]
+    OR?: ClassScalarWhereInput[]
+    NOT?: ClassScalarWhereInput | ClassScalarWhereInput[]
+    id?: StringFilter<"Class"> | string
+    name?: StringFilter<"Class"> | string
+    username?: StringFilter<"Class"> | string
+    description?: StringNullableFilter<"Class"> | string | null
+    code?: StringFilter<"Class"> | string
+    symbol?: StringNullableFilter<"Class"> | string | null
+    disabled?: BoolFilter<"Class"> | boolean
+    sectorId?: StringNullableFilter<"Class"> | string | null
+    tradeId?: StringNullableFilter<"Class"> | string | null
+    classRoomId?: StringNullableFilter<"Class"> | string | null
+    classTeacher?: StringFilter<"Class"> | string
+    createdAt?: DateTimeFilter<"Class"> | Date | string
+    updatedAt?: DateTimeFilter<"Class"> | Date | string
+  }
+
+  export type EducationCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Sector?: SectorCreateNestedManyWithoutEducationInput
+  }
+
+  export type EducationUncheckedCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    roles?: EducationCreaterolesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Sector?: SectorUncheckedCreateNestedManyWithoutEducationInput
+  }
+
+  export type EducationCreateOrConnectWithoutTradeInput = {
+    where: EducationWhereUniqueInput
+    create: XOR<EducationCreateWithoutTradeInput, EducationUncheckedCreateWithoutTradeInput>
+  }
+
+  export type ClassRoomCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sector?: SectorCreateNestedOneWithoutClassRoomInput
+    Class?: ClassCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomUncheckedCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    sectorId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Class?: ClassUncheckedCreateNestedManyWithoutClassRoomInput
+  }
+
+  export type ClassRoomCreateOrConnectWithoutTradeInput = {
+    where: ClassRoomWhereUniqueInput
+    create: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput>
+  }
+
+  export type ClassRoomCreateManyTradeInputEnvelope = {
+    data: ClassRoomCreateManyTradeInput | ClassRoomCreateManyTradeInput[]
+  }
+
+  export type ClassCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sector?: SectorCreateNestedOneWithoutClassInput
+    classRoom?: ClassRoomCreateNestedOneWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassCreateOrConnectWithoutTradeInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput>
+  }
+
+  export type ClassCreateManyTradeInputEnvelope = {
+    data: ClassCreateManyTradeInput | ClassCreateManyTradeInput[]
+  }
+
+  export type EducationUpsertWithoutTradeInput = {
+    update: XOR<EducationUpdateWithoutTradeInput, EducationUncheckedUpdateWithoutTradeInput>
+    create: XOR<EducationCreateWithoutTradeInput, EducationUncheckedCreateWithoutTradeInput>
+    where?: EducationWhereInput
+  }
+
+  export type EducationUpdateToOneWithWhereWithoutTradeInput = {
+    where?: EducationWhereInput
+    data: XOR<EducationUpdateWithoutTradeInput, EducationUncheckedUpdateWithoutTradeInput>
+  }
+
+  export type EducationUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Sector?: SectorUpdateManyWithoutEducationNestedInput
+  }
+
+  export type EducationUncheckedUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    roles?: EducationUpdaterolesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Sector?: SectorUncheckedUpdateManyWithoutEducationNestedInput
+  }
+
+  export type ClassRoomUpsertWithWhereUniqueWithoutTradeInput = {
+    where: ClassRoomWhereUniqueInput
+    update: XOR<ClassRoomUpdateWithoutTradeInput, ClassRoomUncheckedUpdateWithoutTradeInput>
+    create: XOR<ClassRoomCreateWithoutTradeInput, ClassRoomUncheckedCreateWithoutTradeInput>
+  }
+
+  export type ClassRoomUpdateWithWhereUniqueWithoutTradeInput = {
+    where: ClassRoomWhereUniqueInput
+    data: XOR<ClassRoomUpdateWithoutTradeInput, ClassRoomUncheckedUpdateWithoutTradeInput>
+  }
+
+  export type ClassRoomUpdateManyWithWhereWithoutTradeInput = {
+    where: ClassRoomScalarWhereInput
+    data: XOR<ClassRoomUpdateManyMutationInput, ClassRoomUncheckedUpdateManyWithoutTradeInput>
+  }
+
+  export type ClassUpsertWithWhereUniqueWithoutTradeInput = {
+    where: ClassWhereUniqueInput
+    update: XOR<ClassUpdateWithoutTradeInput, ClassUncheckedUpdateWithoutTradeInput>
+    create: XOR<ClassCreateWithoutTradeInput, ClassUncheckedCreateWithoutTradeInput>
+  }
+
+  export type ClassUpdateWithWhereUniqueWithoutTradeInput = {
+    where: ClassWhereUniqueInput
+    data: XOR<ClassUpdateWithoutTradeInput, ClassUncheckedUpdateWithoutTradeInput>
+  }
+
+  export type ClassUpdateManyWithWhereWithoutTradeInput = {
+    where: ClassScalarWhereInput
+    data: XOR<ClassUpdateManyMutationInput, ClassUncheckedUpdateManyWithoutTradeInput>
+  }
+
+  export type TradeCreateWithoutClassRoomInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sector: EducationCreateNestedOneWithoutTradeInput
+    Class?: ClassCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeUncheckedCreateWithoutClassRoomInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    sectorId: string
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Class?: ClassUncheckedCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeCreateOrConnectWithoutClassRoomInput = {
+    where: TradeWhereUniqueInput
+    create: XOR<TradeCreateWithoutClassRoomInput, TradeUncheckedCreateWithoutClassRoomInput>
+  }
+
+  export type SectorCreateWithoutClassRoomInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    education: EducationCreateNestedOneWithoutSectorInput
+    Class?: ClassCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorUncheckedCreateWithoutClassRoomInput = {
+    id?: string
+    educationId: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Class?: ClassUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorCreateOrConnectWithoutClassRoomInput = {
+    where: SectorWhereUniqueInput
+    create: XOR<SectorCreateWithoutClassRoomInput, SectorUncheckedCreateWithoutClassRoomInput>
+  }
+
+  export type ClassCreateWithoutClassRoomInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassInput
+    sector?: SectorCreateNestedOneWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutClassRoomInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassCreateOrConnectWithoutClassRoomInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput>
+  }
+
+  export type ClassCreateManyClassRoomInputEnvelope = {
+    data: ClassCreateManyClassRoomInput | ClassCreateManyClassRoomInput[]
+  }
+
+  export type TradeUpsertWithoutClassRoomInput = {
+    update: XOR<TradeUpdateWithoutClassRoomInput, TradeUncheckedUpdateWithoutClassRoomInput>
+    create: XOR<TradeCreateWithoutClassRoomInput, TradeUncheckedCreateWithoutClassRoomInput>
+    where?: TradeWhereInput
+  }
+
+  export type TradeUpdateToOneWithWhereWithoutClassRoomInput = {
+    where?: TradeWhereInput
+    data: XOR<TradeUpdateWithoutClassRoomInput, TradeUncheckedUpdateWithoutClassRoomInput>
+  }
+
+  export type TradeUpdateWithoutClassRoomInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sector?: EducationUpdateOneRequiredWithoutTradeNestedInput
+    Class?: ClassUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeUncheckedUpdateWithoutClassRoomInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sectorId?: StringFieldUpdateOperationsInput | string
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Class?: ClassUncheckedUpdateManyWithoutTradeNestedInput
+  }
+
+  export type SectorUpsertWithoutClassRoomInput = {
+    update: XOR<SectorUpdateWithoutClassRoomInput, SectorUncheckedUpdateWithoutClassRoomInput>
+    create: XOR<SectorCreateWithoutClassRoomInput, SectorUncheckedCreateWithoutClassRoomInput>
+    where?: SectorWhereInput
+  }
+
+  export type SectorUpdateToOneWithWhereWithoutClassRoomInput = {
+    where?: SectorWhereInput
+    data: XOR<SectorUpdateWithoutClassRoomInput, SectorUncheckedUpdateWithoutClassRoomInput>
+  }
+
+  export type SectorUpdateWithoutClassRoomInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    education?: EducationUpdateOneRequiredWithoutSectorNestedInput
+    Class?: ClassUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorUncheckedUpdateWithoutClassRoomInput = {
+    educationId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Class?: ClassUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type ClassUpsertWithWhereUniqueWithoutClassRoomInput = {
+    where: ClassWhereUniqueInput
+    update: XOR<ClassUpdateWithoutClassRoomInput, ClassUncheckedUpdateWithoutClassRoomInput>
+    create: XOR<ClassCreateWithoutClassRoomInput, ClassUncheckedCreateWithoutClassRoomInput>
+  }
+
+  export type ClassUpdateWithWhereUniqueWithoutClassRoomInput = {
+    where: ClassWhereUniqueInput
+    data: XOR<ClassUpdateWithoutClassRoomInput, ClassUncheckedUpdateWithoutClassRoomInput>
+  }
+
+  export type ClassUpdateManyWithWhereWithoutClassRoomInput = {
+    where: ClassScalarWhereInput
+    data: XOR<ClassUpdateManyMutationInput, ClassUncheckedUpdateManyWithoutClassRoomInput>
+  }
+
+  export type TradeCreateWithoutClassInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sector: EducationCreateNestedOneWithoutTradeInput
+    ClassRoom?: ClassRoomCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeUncheckedCreateWithoutClassInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    sectorId: string
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutTradeInput
+  }
+
+  export type TradeCreateOrConnectWithoutClassInput = {
+    where: TradeWhereUniqueInput
+    create: XOR<TradeCreateWithoutClassInput, TradeUncheckedCreateWithoutClassInput>
+  }
+
+  export type SectorCreateWithoutClassInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    education: EducationCreateNestedOneWithoutSectorInput
+    ClassRoom?: ClassRoomCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorUncheckedCreateWithoutClassInput = {
+    id?: string
+    educationId: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ClassRoom?: ClassRoomUncheckedCreateNestedManyWithoutSectorInput
+  }
+
+  export type SectorCreateOrConnectWithoutClassInput = {
+    where: SectorWhereUniqueInput
+    create: XOR<SectorCreateWithoutClassInput, SectorUncheckedCreateWithoutClassInput>
+  }
+
+  export type ClassRoomCreateWithoutClassInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trade?: TradeCreateNestedOneWithoutClassRoomInput
+    sector?: SectorCreateNestedOneWithoutClassRoomInput
+  }
+
+  export type ClassRoomUncheckedCreateWithoutClassInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    sectorId?: string | null
+    tradeId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassRoomCreateOrConnectWithoutClassInput = {
+    where: ClassRoomWhereUniqueInput
+    create: XOR<ClassRoomCreateWithoutClassInput, ClassRoomUncheckedCreateWithoutClassInput>
+  }
+
+  export type TradeUpsertWithoutClassInput = {
+    update: XOR<TradeUpdateWithoutClassInput, TradeUncheckedUpdateWithoutClassInput>
+    create: XOR<TradeCreateWithoutClassInput, TradeUncheckedCreateWithoutClassInput>
+    where?: TradeWhereInput
+  }
+
+  export type TradeUpdateToOneWithWhereWithoutClassInput = {
+    where?: TradeWhereInput
+    data: XOR<TradeUpdateWithoutClassInput, TradeUncheckedUpdateWithoutClassInput>
+  }
+
+  export type TradeUpdateWithoutClassInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sector?: EducationUpdateOneRequiredWithoutTradeNestedInput
+    ClassRoom?: ClassRoomUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeUncheckedUpdateWithoutClassInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sectorId?: StringFieldUpdateOperationsInput | string
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutTradeNestedInput
+  }
+
+  export type SectorUpsertWithoutClassInput = {
+    update: XOR<SectorUpdateWithoutClassInput, SectorUncheckedUpdateWithoutClassInput>
+    create: XOR<SectorCreateWithoutClassInput, SectorUncheckedCreateWithoutClassInput>
+    where?: SectorWhereInput
+  }
+
+  export type SectorUpdateToOneWithWhereWithoutClassInput = {
+    where?: SectorWhereInput
+    data: XOR<SectorUpdateWithoutClassInput, SectorUncheckedUpdateWithoutClassInput>
+  }
+
+  export type SectorUpdateWithoutClassInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    education?: EducationUpdateOneRequiredWithoutSectorNestedInput
+    ClassRoom?: ClassRoomUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorUncheckedUpdateWithoutClassInput = {
+    educationId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type ClassRoomUpsertWithoutClassInput = {
+    update: XOR<ClassRoomUpdateWithoutClassInput, ClassRoomUncheckedUpdateWithoutClassInput>
+    create: XOR<ClassRoomCreateWithoutClassInput, ClassRoomUncheckedCreateWithoutClassInput>
+    where?: ClassRoomWhereInput
+  }
+
+  export type ClassRoomUpdateToOneWithWhereWithoutClassInput = {
+    where?: ClassRoomWhereInput
+    data: XOR<ClassRoomUpdateWithoutClassInput, ClassRoomUncheckedUpdateWithoutClassInput>
+  }
+
+  export type ClassRoomUpdateWithoutClassInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassRoomNestedInput
+    sector?: SectorUpdateOneWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateWithoutClassInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -9012,6 +17813,381 @@ export namespace Prisma {
     credentialDeviceType?: StringFieldUpdateOperationsInput | string
     credentialBackedUp?: BoolFieldUpdateOperationsInput | boolean
     transports?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SectorCreateManyEducationInput = {
+    id?: string
+    username: string
+    name: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TradeCreateManySectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    limitClasses: number
+    symbol?: string | null
+    disabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectorUpdateWithoutEducationInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUpdateManyWithoutSectorNestedInput
+    Class?: ClassUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorUncheckedUpdateWithoutEducationInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutSectorNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutSectorNestedInput
+  }
+
+  export type SectorUncheckedUpdateManyWithoutEducationInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TradeUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUpdateManyWithoutTradeNestedInput
+    Class?: ClassUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeUncheckedUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ClassRoom?: ClassRoomUncheckedUpdateManyWithoutTradeNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTradeNestedInput
+  }
+
+  export type TradeUncheckedUpdateManyWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    limitClasses?: IntFieldUpdateOperationsInput | number
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassRoomCreateManySectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    tradeId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassCreateManySectorInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    tradeId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassRoomUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassRoomNestedInput
+    Class?: ClassUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Class?: ClassUncheckedUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateManyWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassNestedInput
+    classRoom?: ClassRoomUpdateOneWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUncheckedUpdateManyWithoutSectorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassRoomCreateManyTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    symbol?: string | null
+    disabled?: boolean
+    ClassRoomType?: $Enums.ClassRoomType
+    sectorId?: string | null
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassCreateManyTradeInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    classRoomId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassRoomUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sector?: SectorUpdateOneWithoutClassRoomNestedInput
+    Class?: ClassUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Class?: ClassUncheckedUpdateManyWithoutClassRoomNestedInput
+  }
+
+  export type ClassRoomUncheckedUpdateManyWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    ClassRoomType?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sector?: SectorUpdateOneWithoutClassNestedInput
+    classRoom?: ClassRoomUpdateOneWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUncheckedUpdateManyWithoutTradeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassCreateManyClassRoomInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classTeacher: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassUpdateWithoutClassRoomInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trade?: TradeUpdateOneWithoutClassNestedInput
+    sector?: SectorUpdateOneWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutClassRoomInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassUncheckedUpdateManyWithoutClassRoomInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classTeacher?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

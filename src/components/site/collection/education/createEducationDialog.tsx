@@ -25,10 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-// import { cn } from "@/lib/utils";
-import { createEducationAPI } from "@/services/data/fetchDataFn";
-import { EducationModelNew } from "@/types/educationModel";
 import {
   educationSchema,
   educationSchemaType,
@@ -39,6 +35,7 @@ import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 import { AlertDialogAction, AlertDialogCancel } from "@/components/ui/alert-dialog";
+import { createEducationAction } from "@/services/actions/education/create-education-action";
 
 const CreateEducationDialog = () => {
   const [error, setError] = useState<string>("");
@@ -92,42 +89,17 @@ const CreateEducationDialog = () => {
     setError("");
     setSuccess("");
 
-    const validation = educationSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const { name, username, description, logo } = validation.data;
-
-    const data: EducationModelNew = {
-      name,
-      username,
-      description,
-      symbol: logo,
-    };
-
     startTransition(async () => {
-      try {
-        const result = await createEducationAPI(data);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Education entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
+       const action = await createEducationAction(values);
+      
+            if (action.error) {
+              setError(action.error);
+            }
+      
+            if (action.success) {
+              setSuccess(action.success);
+              form.reset();
+            }
     });
   };
 

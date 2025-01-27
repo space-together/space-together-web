@@ -105,14 +105,110 @@ model Authenticator {
 
 // model 
 
-// class room model
-model ClassRoom {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+model Education {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
+  username    String   @unique
   description String?
-  code        String  @unique
-  // Optional for WebAuthn support
+  symbol      String?
+  disabled    Boolean  @default(false)
+  roles       String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Sector Sector[]
+
+  Trade Trade[]
+}
+
+model Sector {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  educationId String  @db.ObjectId
+  username    String  @unique
+  name        String
+  description String?
+  symbol      String?
+  disabled    Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  education Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
+
+  ClassRoom ClassRoom[]
+
+  Class Class[]
+}
+
+model Trade {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  username     String  @unique
+  description  String?
+  sectorId     String  @db.ObjectId
+  limitClasses Int
+  symbol       String?
+  disabled     Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sector Education @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+
+  ClassRoom ClassRoom[]
+  Class     Class[]
+}
+
+enum ClassRoomType {
+  DEFAULT
+  OTHER
+}
+
+model ClassRoom {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  username      String        @unique
+  description   String?
+  symbol        String?
+  disabled      Boolean       @default(false)
+  ClassRoomType ClassRoomType @default(OTHER)
+  sectorId      String?       @db.ObjectId
+  tradeId       String?       @db.ObjectId
+  code          String?       @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  trade  Trade?  @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  sector Sector? @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+
+  Class Class[]
+}
+
+enum ClassType {
+  SCHOOLCLASS
+  PRIVET
+  PUBLIC
+}
+
+model Class {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  username     String  @unique
+  description  String?
+  code         String  @unique
+  symbol       String?
+  disabled     Boolean @default(false)
+  sectorId     String? @db.ObjectId
+  tradeId      String? @db.ObjectId
+  classRoomId  String? @db.ObjectId
+  classTeacher String  @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
 }
