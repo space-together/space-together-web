@@ -26,16 +26,13 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-// import { cn } from "@/lib/utils";
-import { updateTradeAPI } from "@/services/data/fetchDataFn";
-import {  TradeModelPut } from "@/types/tradeModel";
 import { tradeSchema, tradeSchemaType } from "@/utils/schema/tradeSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Sector, Trade } from "../../../../../prisma/prisma/generated";
+import { updateTradeAction } from "@/services/actions/trade-action";
 
 interface props {
   sectors: Sector[];
@@ -95,44 +92,15 @@ const UpdateTradeDialog = ({ sectors, trade }: props) => {
   const handleSubmit = (values: tradeSchemaType) => {
     setError("");
     setSuccess("");
-
-    const validation = tradeSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const { name, username, description, class_rooms, sector } =
-      validation.data;
-
-    const data: TradeModelPut = {
-      name,
-      username,
-      class_rooms: Number(class_rooms),
-      sector,
-      description,
-    };
-
     startTransition(async () => {
-      try {
-        const result = await updateTradeAPI(data, trade.id);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Trade entry update successfully!");
-          toast({
-            title: "Success",
-            description: `update: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
+      const action = await updateTradeAction(trade.id, values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
       }
     });
   };

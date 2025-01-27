@@ -26,3 +26,12 @@ export const getAllTrades = async () => {
         return [];
     }
 };
+
+export const getAllTrade = async () => {
+  try {
+      const trade = await db.trade.findMany();
+      return trade;
+  } catch {
+      return [];
+  }
+};

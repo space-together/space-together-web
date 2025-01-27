@@ -29,15 +29,15 @@ import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
 import { createTradeAction } from "@/services/actions/trade-action";
 // import { cn } from "@/lib/utils";
-import { SectorModelGet } from "@/types/sectorModel";
 import { tradeSchema, tradeSchemaType } from "@/utils/schema/tradeSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, Minus, Plus } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
+import { Sector } from "../../../../../prisma/prisma/generated";
 interface props {
-  sectors: SectorModelGet[];
+  sectors: Sector[];
 }
 
 const CreateTradeDialog = ({ sectors }: props) => {
@@ -119,7 +119,7 @@ const CreateTradeDialog = ({ sectors }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="info" size="sm">
+        <Button disabled={isPending} variant="info" size="sm">
           <BsPlus /> Add new trade
           {isPending && (
             <LoaderCircle

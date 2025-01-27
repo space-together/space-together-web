@@ -1,33 +1,18 @@
 import CollectionPageStatic, {
-  CollectionPageErrorStatic,
 } from "@/utils/static/page/collectionPageStatic";
-import { fetchAllEducation, fetchAllSector, fetchAllTrade } from "@/services/data/fetchDataFn";
 import CreateTradeDialog from "./createTradeDialog";
 import AllTradeTable from "./AllTradeTable";
+import { getAllSectors } from "@/services/data/sector-data";
+import { getAllTrade } from "@/services/data/trade-data";
 // import AllEducationComponent from "./allEducationComponent"
 
 interface props {
   collection: string;
 }
 const TradePageDocument = async ({ collection }: props) => {
-  const getSectors = await fetchAllSector();
-  if ("message" in getSectors) {
-    return <CollectionPageErrorStatic collection="Sector" error={getSectors} />;
-  }
+  const getSectors = await getAllSectors();
 
-  const getEducation = await fetchAllEducation();
-  if ("message" in getEducation) {
-    return (
-      <CollectionPageErrorStatic collection="education" error={getEducation} />
-    );
-  }
-
-  const getTrades = await fetchAllTrade();
-  if ("message" in getTrades) {
-    return (
-      <CollectionPageErrorStatic collection="education" error={getTrades} />
-    );
-  }
+  const getTrades = await getAllTrade();
 
   return (
     <CollectionPageStatic collection={collection}>
