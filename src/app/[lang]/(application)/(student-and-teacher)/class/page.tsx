@@ -6,10 +6,7 @@ const ClassIdPage = async () => {
   return (
     <div className=" p-4 min-h-screen h-full ">
       {/* <ClassTimetable /> */}
-
       {educationClass ? educationClass.map((item) => (<div key={item.id}>{item.name}</div>)) : "No education for sector"}
-
-      
 
     </div>
   );

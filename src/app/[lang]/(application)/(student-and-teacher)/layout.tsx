@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
-import { studentSidebarGroups } from "@/utils/context/app-side-content";
+import { studentSidebarGroups, teacherSidebarGroups } from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -10,7 +10,7 @@ interface props {
   params: Promise<{ lang: Locale }>;
 }
 
-export default async function ClassLayout(props: props) {
+export default async function StudentLayout(props: props) {
   const params = await props.params;
   const { lang } = params;
   const { children } = props;
@@ -18,6 +18,8 @@ export default async function ClassLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+
+  
 
   return (
     <SidebarProvider className=" w-full">
@@ -29,7 +31,7 @@ export default async function ClassLayout(props: props) {
           image: user.image ?? undefined,
         }}
         lang={lang}
-        items={studentSidebarGroups}
+        items={ user.role === "STUDENT" ? studentSidebarGroups : teacherSidebarGroups}
       />
       <main className="w-full">
         {children}

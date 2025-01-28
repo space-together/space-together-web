@@ -28,8 +28,8 @@ const TeacherPage = async (props: props) => {
       </div> : <div className="py-4">
         <div className=" grid grid-cols-3 gap-4">
           <ClassCard lang={lang}/>
-          <ClassCard isClassTeacher lang={lang}/>
-          <ClassCard lang={lang}/>
+          <ClassCard isSchool isClassTeacher lang={lang}/>
+          <ClassCard isSchool lang={lang}/>
           <ClassCard isClassTeacher lang={lang}/>
         </div>
         </div>}

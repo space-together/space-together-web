@@ -1,9 +1,6 @@
 import { auth } from "@/auth";
-import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import StudentNavbar from "@/components/student/navbar/student-navbar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
-import { studentSidebarGroups } from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -19,21 +16,8 @@ export default async function StudentLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-
   return (
-    <SidebarProvider className=" w-full">
-      <AppSidebar
-        user={{
-          ...user,
-          name: user.name ?? "",
-          email: user.email ?? undefined,
-          image: user.image ?? undefined,
-        }}
-        name="Student"
-        lang={lang}
-        items={studentSidebarGroups}
-      />
-      <main className="w-full">
+    <div className=" w-full">
         <StudentNavbar
           lang={lang}
           user={{
@@ -43,8 +27,9 @@ export default async function StudentLayout(props: props) {
             image: user.image ?? undefined,
           }}
         />
+      <main className="w-full">
         {children}
       </main>
-    </SidebarProvider>
+    </div>
   );
 }

@@ -11,11 +11,12 @@ import { TextTooltip } from "@/context/tooltip/text-tooltip";
 interface props {
   lang: Locale;
   isClassTeacher?: boolean;
+  isSchool?: boolean;
 }
 
-const ClassCard = ({ lang, isClassTeacher }: props) => {
+const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
   return (
-    <div className=" happy-card p-0 relative">
+    <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
         <MyImage
           src="/images/7.jpg"
@@ -28,47 +29,64 @@ const ClassCard = ({ lang, isClassTeacher }: props) => {
             <AvatarImage src="/images/19.jpg" />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
-          <div className=" mt-6">
+          <div className=" mt-6 flex  space-x-1">
             <h3 className=" font-medium">Level 5 Software development</h3>
-            <span className=" text-sm">@ L5SOD</span>
-          </div>
-        </div>
-      </div>
-      <div className=" p-4 flex gap-2 mt-16">
-        <div className="  items-center -space-x-2 text-myGray flex">
-          <Dot size={32} />
-          <span className=" text-sm">
-            32 <TextTooltip content={"Student"} trigger={"ST"} />
-          </span>
-        </div>
-        <div className=" flex items-center -space-x-2 text-myGray">
-          <Dot size={32} />
-          <span className=" text-sm line">
-            7  <TextTooltip content={"Teacher"} trigger={"TEA"} />
-          </span>
-        </div>
-        <div className=" flex items-center -space-x-2 text-myGray">
-          <Dot size={32} />
-          <div className=" flex items-center space-x-2 text-sm">
-            <Avatar className=" size-4">
-              <AvatarImage src="/images/17.jpg" />
-              <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
-            </Avatar>
-            {/* add link of class teacher */}
-            <Link
-              className={cn(
-                "line-clamp-1 link-hover",
-                isClassTeacher ? "text-myGray" : ""
-              )}
-              href={`/${lang}/profile/1232`}
-            >
-              Mihingo karike
+            <Link className=" text-sm" href={`/${lang}/class/student`}>
+              @ L5SOD
             </Link>
           </div>
         </div>
       </div>
+      <div className="mt-16 p-4">
+        {/* class members */}
+        <div className=" flex gap-2 ">
+          <div className="  items-center -space-x-2 text-myGray flex">
+            <Dot size={32} />
+            <span className=" text-sm">
+              32 <TextTooltip content={"Student"} trigger={"ST"} />
+            </span>
+          </div>
+          <div className=" flex items-center -space-x-2 text-myGray">
+            <Dot size={32} />
+            <span className=" text-sm line">
+              7 <TextTooltip content={"Teacher"} trigger={"TEA"} />
+            </span>
+          </div>
+          <div className=" flex items-center -space-x-2 text-myGray">
+            <Dot size={32} />
+            <div className=" flex items-center space-x-2 text-sm">
+              <Avatar className=" size-4">
+                <AvatarImage src="/images/17.jpg" />
+                <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
+              </Avatar>
+              {/* add link of class teacher */}
+              <Link
+                className={cn(
+                  "line-clamp-1 link-hover",
+                  isClassTeacher ? "text-myGray" : ""
+                )}
+                href={`/${lang}/profile/1232`}
+              >
+                Mihingo karike
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className=" px-4">
-        <h5 className=" capitalize font-medium text-myGray">lessons</h5>
+        <div className=" flex justify-between">
+          <h5 className=" capitalize font-medium text-myGray">your lessons</h5>
+          {isSchool && (
+            <div className=" flex space-x-2 py-2">
+              <Avatar className=" size-4">
+                <AvatarImage src="/images/19.jpg" />
+                <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
+              </Avatar>
+              {/* TODO: add school link */}
+              <Link href={`/${lang}/school/student`} className=" font-medium text-sm line-clamp-1 link-hover">SOSTHS</Link>
+            </div>
+          )}
+        </div>
         <div className=" grid grid-cols-4 w-full">
           <div className=" flex items-center -space-x-2">
             <Dot size={32} />
