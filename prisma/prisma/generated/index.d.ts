@@ -11494,6 +11494,7 @@ export namespace Prisma {
     tradeId: string | null
     classRoomId: string | null
     classTeacher: string | null
+    classType: $Enums.ClassType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11510,6 +11511,7 @@ export namespace Prisma {
     tradeId: string | null
     classRoomId: string | null
     classTeacher: string | null
+    classType: $Enums.ClassType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11526,6 +11528,7 @@ export namespace Prisma {
     tradeId: number
     classRoomId: number
     classTeacher: number
+    classType: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -11544,6 +11547,7 @@ export namespace Prisma {
     tradeId?: true
     classRoomId?: true
     classTeacher?: true
+    classType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11560,6 +11564,7 @@ export namespace Prisma {
     tradeId?: true
     classRoomId?: true
     classTeacher?: true
+    classType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11576,6 +11581,7 @@ export namespace Prisma {
     tradeId?: true
     classRoomId?: true
     classTeacher?: true
+    classType?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -11665,6 +11671,7 @@ export namespace Prisma {
     tradeId: string | null
     classRoomId: string | null
     classTeacher: string
+    classType: $Enums.ClassType | null
     createdAt: Date
     updatedAt: Date
     _count: ClassCountAggregateOutputType | null
@@ -11698,6 +11705,7 @@ export namespace Prisma {
     tradeId?: boolean
     classRoomId?: boolean
     classTeacher?: boolean
+    classType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     trade?: boolean | Class$tradeArgs<ExtArgs>
@@ -11719,11 +11727,12 @@ export namespace Prisma {
     tradeId?: boolean
     classRoomId?: boolean
     classTeacher?: boolean
+    classType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "code" | "symbol" | "disabled" | "sectorId" | "tradeId" | "classRoomId" | "classTeacher" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
+  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "code" | "symbol" | "disabled" | "sectorId" | "tradeId" | "classRoomId" | "classTeacher" | "classType" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
   export type ClassInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trade?: boolean | Class$tradeArgs<ExtArgs>
     sector?: boolean | Class$sectorArgs<ExtArgs>
@@ -11749,6 +11758,7 @@ export namespace Prisma {
       tradeId: string | null
       classRoomId: string | null
       classTeacher: string
+      classType: $Enums.ClassType | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["class"]>
@@ -12157,6 +12167,7 @@ export namespace Prisma {
     readonly tradeId: FieldRef<"Class", 'String'>
     readonly classRoomId: FieldRef<"Class", 'String'>
     readonly classTeacher: FieldRef<"Class", 'String'>
+    readonly classType: FieldRef<"Class", 'ClassType'>
     readonly createdAt: FieldRef<"Class", 'DateTime'>
     readonly updatedAt: FieldRef<"Class", 'DateTime'>
   }
@@ -12753,6 +12764,7 @@ export namespace Prisma {
     tradeId: 'tradeId',
     classRoomId: 'classRoomId',
     classTeacher: 'classTeacher',
+    classType: 'classType',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12869,6 +12881,20 @@ export namespace Prisma {
    * Reference to a field of type 'ClassRoomType[]'
    */
   export type ListEnumClassRoomTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassRoomType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClassType'
+   */
+  export type EnumClassTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClassType[]'
+   */
+  export type ListEnumClassTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassType[]'>
     
 
 
@@ -13642,6 +13668,7 @@ export namespace Prisma {
     tradeId?: StringNullableFilter<"Class"> | string | null
     classRoomId?: StringNullableFilter<"Class"> | string | null
     classTeacher?: StringFilter<"Class"> | string
+    classType?: EnumClassTypeNullableFilter<"Class"> | $Enums.ClassType | null
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
     trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
@@ -13661,6 +13688,7 @@ export namespace Prisma {
     tradeId?: SortOrder
     classRoomId?: SortOrder
     classTeacher?: SortOrder
+    classType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trade?: TradeOrderByWithRelationInput
@@ -13683,6 +13711,7 @@ export namespace Prisma {
     tradeId?: StringNullableFilter<"Class"> | string | null
     classRoomId?: StringNullableFilter<"Class"> | string | null
     classTeacher?: StringFilter<"Class"> | string
+    classType?: EnumClassTypeNullableFilter<"Class"> | $Enums.ClassType | null
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
     trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
@@ -13702,6 +13731,7 @@ export namespace Prisma {
     tradeId?: SortOrder
     classRoomId?: SortOrder
     classTeacher?: SortOrder
+    classType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ClassCountOrderByAggregateInput
@@ -13724,6 +13754,7 @@ export namespace Prisma {
     tradeId?: StringNullableWithAggregatesFilter<"Class"> | string | null
     classRoomId?: StringNullableWithAggregatesFilter<"Class"> | string | null
     classTeacher?: StringWithAggregatesFilter<"Class"> | string
+    classType?: EnumClassTypeNullableWithAggregatesFilter<"Class"> | $Enums.ClassType | null
     createdAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
   }
@@ -14532,6 +14563,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     trade?: TradeCreateNestedOneWithoutClassInput
@@ -14551,6 +14583,7 @@ export namespace Prisma {
     tradeId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14563,6 +14596,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trade?: TradeUpdateOneWithoutClassNestedInput
@@ -14581,6 +14615,7 @@ export namespace Prisma {
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14597,6 +14632,7 @@ export namespace Prisma {
     tradeId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14609,6 +14645,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14624,6 +14661,7 @@ export namespace Prisma {
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15347,6 +15385,14 @@ export namespace Prisma {
     _max?: NestedEnumClassRoomTypeFilter<$PrismaModel>
   }
 
+  export type EnumClassTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassType | EnumClassTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumClassTypeNullableFilter<$PrismaModel> | $Enums.ClassType | null
+    isSet?: boolean
+  }
+
   export type ClassRoomNullableScalarRelationFilter = {
     is?: ClassRoomWhereInput | null
     isNot?: ClassRoomWhereInput | null
@@ -15364,6 +15410,7 @@ export namespace Prisma {
     tradeId?: SortOrder
     classRoomId?: SortOrder
     classTeacher?: SortOrder
+    classType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15380,6 +15427,7 @@ export namespace Prisma {
     tradeId?: SortOrder
     classRoomId?: SortOrder
     classTeacher?: SortOrder
+    classType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15396,8 +15444,20 @@ export namespace Prisma {
     tradeId?: SortOrder
     classRoomId?: SortOrder
     classTeacher?: SortOrder
+    classType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumClassTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassType | EnumClassTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumClassTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ClassType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumClassTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumClassTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -16001,6 +16061,11 @@ export namespace Prisma {
     connect?: ClassRoomWhereUniqueInput
   }
 
+  export type NullableEnumClassTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ClassType | null
+    unset?: boolean
+  }
+
   export type TradeUpdateOneWithoutClassNestedInput = {
     create?: XOR<TradeCreateWithoutClassInput, TradeUncheckedCreateWithoutClassInput>
     connectOrCreate?: TradeCreateOrConnectWithoutClassInput
@@ -16290,6 +16355,25 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumClassRoomTypeFilter<$PrismaModel>
     _max?: NestedEnumClassRoomTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumClassTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassType | EnumClassTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumClassTypeNullableFilter<$PrismaModel> | $Enums.ClassType | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumClassTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClassType | EnumClassTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ClassType[] | ListEnumClassTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumClassTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ClassType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumClassTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumClassTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -16977,6 +17061,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     trade?: TradeCreateNestedOneWithoutClassInput
@@ -16994,6 +17079,7 @@ export namespace Prisma {
     tradeId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17107,6 +17193,7 @@ export namespace Prisma {
     tradeId?: StringNullableFilter<"Class"> | string | null
     classRoomId?: StringNullableFilter<"Class"> | string | null
     classTeacher?: StringFilter<"Class"> | string
+    classType?: EnumClassTypeNullableFilter<"Class"> | $Enums.ClassType | null
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
   }
@@ -17190,6 +17277,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sector?: SectorCreateNestedOneWithoutClassInput
@@ -17207,6 +17295,7 @@ export namespace Prisma {
     sectorId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17360,6 +17449,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     trade?: TradeCreateNestedOneWithoutClassInput
@@ -17377,6 +17467,7 @@ export namespace Prisma {
     sectorId?: string | null
     tradeId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17934,6 +18025,7 @@ export namespace Prisma {
     tradeId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17987,6 +18079,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trade?: TradeUpdateOneWithoutClassNestedInput
@@ -18003,6 +18096,7 @@ export namespace Prisma {
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18017,6 +18111,7 @@ export namespace Prisma {
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18046,6 +18141,7 @@ export namespace Prisma {
     sectorId?: string | null
     classRoomId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18099,6 +18195,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sector?: SectorUpdateOneWithoutClassNestedInput
@@ -18115,6 +18212,7 @@ export namespace Prisma {
     sectorId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18129,6 +18227,7 @@ export namespace Prisma {
     sectorId?: NullableStringFieldUpdateOperationsInput | string | null
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18144,6 +18243,7 @@ export namespace Prisma {
     sectorId?: string | null
     tradeId?: string | null
     classTeacher: string
+    classType?: $Enums.ClassType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18156,6 +18256,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trade?: TradeUpdateOneWithoutClassNestedInput
@@ -18172,6 +18273,7 @@ export namespace Prisma {
     sectorId?: NullableStringFieldUpdateOperationsInput | string | null
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18186,6 +18288,7 @@ export namespace Prisma {
     sectorId?: NullableStringFieldUpdateOperationsInput | string | null
     tradeId?: NullableStringFieldUpdateOperationsInput | string | null
     classTeacher?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

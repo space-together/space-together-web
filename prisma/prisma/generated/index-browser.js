@@ -236,6 +236,7 @@ exports.Prisma.ClassScalarFieldEnum = {
   tradeId: 'tradeId',
   classRoomId: 'classRoomId',
   classTeacher: 'classTeacher',
+  classType: 'classType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -266,6 +267,12 @@ exports.Gender = exports.$Enums.Gender = {
 exports.ClassRoomType = exports.$Enums.ClassRoomType = {
   DEFAULT: 'DEFAULT',
   OTHER: 'OTHER'
+};
+
+exports.ClassType = exports.$Enums.ClassType = {
+  SCHOOLCLASS: 'SCHOOLCLASS',
+  PRIVET: 'PRIVET',
+  PUBLIC: 'PUBLIC'
 };
 
 exports.Prisma.ModelName = {

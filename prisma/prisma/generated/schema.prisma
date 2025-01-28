@@ -118,8 +118,7 @@ model Education {
   updatedAt DateTime @updatedAt
 
   Sector Sector[]
-
-  Trade Trade[]
+  Trade  Trade[]
 }
 
 model Sector {
@@ -134,11 +133,9 @@ model Sector {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  education Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
-
+  education Education   @relation(fields: [educationId], references: [id], onDelete: Cascade)
   ClassRoom ClassRoom[]
-
-  Class Class[]
+  Class     Class[]
 }
 
 model Trade {
@@ -193,17 +190,18 @@ enum ClassType {
 }
 
 model Class {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  username     String  @unique
+  username     String     @unique
   description  String?
-  code         String  @unique
+  code         String     @unique
   symbol       String?
-  disabled     Boolean @default(false)
-  sectorId     String? @db.ObjectId
-  tradeId      String? @db.ObjectId
-  classRoomId  String? @db.ObjectId
-  classTeacher String  @db.ObjectId
+  disabled     Boolean    @default(false)
+  sectorId     String?    @db.ObjectId
+  tradeId      String?    @db.ObjectId
+  classRoomId  String?    @db.ObjectId
+  classTeacher String     @db.ObjectId
+  classType    ClassType? @default(PRIVET)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
