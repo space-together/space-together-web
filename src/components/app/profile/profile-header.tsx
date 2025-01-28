@@ -2,10 +2,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import ProfileHeaderSocialAccount from "./profile-header-social-accounts";
+import { AiOutlineSetting } from "react-icons/ai";
+import Link from "next/link";
+import { Locale } from "@/i18n";
 
-const ProfileHeader = () => {
+interface props {
+    lang : Locale
+}
+
+const ProfileHeader = ({lang} : props) => {
   return (
-    <div className=" happy-card flex flex-row justify-between">
+    <div className=" happy-card flex flex-row justify-between items-center">
       <div className=" flex gap-2">
         <Avatar className=" size-32">
           <AvatarImage src="/images/2.jpg" />
@@ -36,13 +43,14 @@ const ProfileHeader = () => {
         </div>
       </div>
       {/* other user social accounts */}
-      <div>
-        <ProfileHeaderSocialAccount />
-      </div>
+      <ProfileHeaderSocialAccount />
       {/* make action */}
-      <div>
-        <Button variant="info">Message</Button>
-      </div>
+      <Link href={`/${lang}/settings`}>
+        <Button variant="info" className=" ">
+            <AiOutlineSetting size={20}/>
+            Settings
+        </Button>
+      </Link>
     </div>
   );
 };
