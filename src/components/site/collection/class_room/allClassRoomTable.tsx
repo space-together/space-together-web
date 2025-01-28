@@ -100,11 +100,11 @@ const AllClassRoomTable = ({
       ),
     },
     {
-      accessorKey: "class_room_type",
+      accessorKey: "ClassRoomType",
       header: "Type",
       cell: ({ row }) => (
         <div className="text-lowercase">
-          {row.getValue("class_room_type") || (
+          {row.getValue("ClassRoomType") || (
             <span className=" text-myGray">N/A</span>
           )}
         </div>
@@ -140,11 +140,11 @@ const AllClassRoomTable = ({
       ),
     },
     {
-      accessorKey: "created_on",
+      accessorKey: "createdAt",
       header: "Created On",
       cell: ({ row }) => (
         <div>
-          {new Date(row.getValue("created_on")).toLocaleDateString() || (
+          {new Date(row.getValue("createdAt")).toLocaleDateString() || (
             <span className=" text-myGray">N/A</span>
           )}
         </div>
