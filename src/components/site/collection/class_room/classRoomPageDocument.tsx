@@ -4,8 +4,8 @@ import ClassRoomCollectionDetails from "./classRoomCollectionDetails";
 import ClassRoomRoles from "./classRoomRoles";
 import AllClassRoomTable from "./allClassRoomTable";
 import { getAllSectors } from "@/services/data/sector-data";
-import { getAllTrade } from "@/services/data/trade-data";
 import { getAllClassRoom } from "@/services/data/class-room-data";
+import { getAllTrades } from "@/services/data/trade-data";
 
 interface props {
   collection: string;
@@ -15,7 +15,7 @@ const ClassRoomPageDocument = async ({ collection }: props) => {
 
   const getSectors = await getAllSectors()
 
-  const getTrades = await getAllTrade()
+  const getTrades = await getAllTrades()
 
   return (
     <CollectionPageStatic collection={collection}>

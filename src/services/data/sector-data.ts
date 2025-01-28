@@ -26,3 +26,12 @@ export const getAllSectors = async () => {
         return [];
     }
 };
+
+export const getSectorsByEducationId = async (educationId: string) => {
+  try {
+    const sectors = await db.sector.findMany({ where: { educationId } });
+    return sectors;
+  } catch {
+    return [];
+  }
+};

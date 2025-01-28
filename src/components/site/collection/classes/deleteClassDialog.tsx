@@ -17,11 +17,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { useState, useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
-import { deleteClassAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Class } from "../../../../../prisma/prisma/generated";
+import { deleteClassAction } from "@/services/actions/class-action";
 
 interface Props {
   classModel: Class;
@@ -34,27 +33,15 @@ const DeleteClassDialog = ({ classModel }: Props) => {
   const handleDelete = (id: string) => {
     setError("");
     setSuccess("");
-    startTransition(async () => {
-      const deleteEducation = await deleteClassAPI(id);
 
-      if ("message" in deleteEducation) {
-        setError(deleteEducation.message);
-        toast({
-          title: "Uh oh! Something went wrong.",
-          description: deleteEducation.message,
-          variant: "destructive",
-        });
-      } else {
-        setSuccess("User role deleted successfully!");
-        toast({
-          title: "User role created successfully",
-          description: (
-            <p>
-              You delete <strong>{deleteEducation.name}</strong> account which
-              created on {deleteEducation.created_on} 😔
-            </p>
-          ),
-        });
+    startTransition(async () => {
+      const action = await deleteClassAction(id);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
       }
     });
   };

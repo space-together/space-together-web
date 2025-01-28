@@ -3,7 +3,7 @@ import CollectionPageStatic, {
 import CreateTradeDialog from "./createTradeDialog";
 import AllTradeTable from "./AllTradeTable";
 import { getAllSectors } from "@/services/data/sector-data";
-import { getAllTrade } from "@/services/data/trade-data";
+import { getAllTrades } from "@/services/data/trade-data";
 // import AllEducationComponent from "./allEducationComponent"
 
 interface props {
@@ -12,7 +12,7 @@ interface props {
 const TradePageDocument = async ({ collection }: props) => {
   const getSectors = await getAllSectors();
 
-  const getTrades = await getAllTrade();
+  const getTrades = await getAllTrades();
 
   return (
     <CollectionPageStatic collection={collection}>

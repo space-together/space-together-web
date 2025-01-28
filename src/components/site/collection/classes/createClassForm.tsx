@@ -23,27 +23,29 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  fetchAllClassRoomBySectorAPI,
-  fetchAllClassRoomByTradeAPI,
-  fetchAllSectorByEducation,
-  getAllTradeABySectorPI,
-} from "@/services/data/fetchDataFn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { SectorModelGet } from "@/types/sectorModel";
-import { TradeModelGet } from "@/types/tradeModel";
-import { ClassRoomModelGet } from "@/types/classRoomModel";
 import UseTheme from "@/context/theme/use-theme";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MyImage from "@/components/my-components/myImage";
 import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
 import { createClassAction } from "@/services/actions/class-action";
-import { Education } from "../../../../../prisma/prisma/generated";
+import {
+  ClassRoom,
+  Education,
+  Sector,
+  Trade,
+} from "../../../../../prisma/prisma/generated";
 import { classTypeContext } from "@/utils/context/class-context";
 import { toLowerCase } from "@/utils/functions/characters";
+import { getSectorsByEducationId } from "@/services/data/sector-data";
+import {
+  getAllClassRoomBySectorId,
+  getAllClassRoomByTradeId,
+} from "@/services/data/class-room-data";
+import { getTradesBySectorId } from "@/services/data/trade-data";
 
 interface props {
   educations: Education[];
@@ -55,9 +57,9 @@ const CreateClassForm = ({ educations }: props) => {
   const [isPending, startTransition] = useTransition();
 
   const [education, setEducation] = useState<string | null>(null);
-  const [sectors, setSectors] = useState<SectorModelGet[] | null>(null);
-  const [trades, setTrades] = useState<TradeModelGet[] | null>(null);
-  const [classRoom, setClassRoom] = useState<ClassRoomModelGet[] | null>(null);
+  const [sectors, setSectors] = useState<Sector[] | null>(null);
+  const [trades, setTrades] = useState<Trade[] | null>(null);
+  const [classRoom, setClassRoom] = useState<ClassRoom[] | null>(null);
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -113,11 +115,7 @@ const CreateClassForm = ({ educations }: props) => {
     setSectors(null);
     setTrades(null);
     setClassRoom(null);
-    const get = await fetchAllSectorByEducation(id);
-    if ("message" in get) {
-      setSectors(null);
-      return;
-    }
+    const get = await getSectorsByEducationId(id);
     if (get.length == 0) {
       setSectors(null);
     }
@@ -128,11 +126,8 @@ const CreateClassForm = ({ educations }: props) => {
   const handleTrades = async (id: string) => {
     setTrades(null);
     setClassRoom(null);
-    const get = await getAllTradeABySectorPI(id);
-    if ("message" in get) {
-      setTrades(null);
-      return handleClassRoomBySector(id);
-    }
+    const get = await getTradesBySectorId(id);
+    if (!get) return setTrades(null);
     if (get.length == 0) {
       setTrades(null);
       return handleClassRoomBySector(id);
@@ -142,15 +137,14 @@ const CreateClassForm = ({ educations }: props) => {
 
   const handleClassRoomBySector = async (id: string) => {
     setClassRoom(null);
-    const get = await fetchAllClassRoomBySectorAPI(id);
-    if ("message" in get) return setClassRoom(null);
+    const get = await getAllClassRoomBySectorId(id);
     if (get.length == 0) return setClassRoom(null);
     return setClassRoom(get);
   };
 
   const handleClassRoom = async (id: string) => {
     setClassRoom(null);
-    const get = await fetchAllClassRoomByTradeAPI(id);
+    const get = await getAllClassRoomByTradeId(id);
     if ("message" in get) {
       return setClassRoom(null);
     }

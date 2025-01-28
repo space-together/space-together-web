@@ -27,11 +27,11 @@ export const getAllTrades = async () => {
     }
 };
 
-export const getAllTrade = async () => {
+export const getTradesBySectorId = async (sectorId: string) => {
   try {
-      const trade = await db.trade.findMany();
-      return trade;
+    const trades = await db.trade.findMany({ where: { sectorId } });
+    return trades;
   } catch {
-      return [];
+    return [];
   }
 };

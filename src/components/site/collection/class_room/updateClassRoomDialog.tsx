@@ -25,8 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import UseTheme from "@/context/theme/use-theme";
-import { toast } from "@/hooks/use-toast";
-import { updateClassRoomAPI } from "@/services/data/fetchDataFn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import {
@@ -38,11 +36,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import {  ClassRoomModelPut } from "@/types/classRoomModel";
 import MyImage from "@/components/my-components/myImage";
 import { ClassRoom, Sector, Trade } from "../../../../../prisma/prisma/generated";
 import { classRoomTypeContext } from "@/utils/context/class-room-context";
 import { toLowerCase } from "@/utils/functions/characters";
+import { updateClassRoomAction } from "@/services/actions/class-room-action";
 
 interface props {
   sectors: Sector[] | null;
@@ -111,59 +109,23 @@ const UpdateClassRoomDialog = ({
     setError("");
     setSuccess("");
 
-    const validation = classRoomSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid values Validation");
-    }
-
-    const {
-      name,
-      username,
-      trade,
-      description,
-      sector,
-      class_room_type,
-      symbol,
-    } = validation.data;
-    const classRoomPut: ClassRoomModelPut = {
-      name,
-      username,
-      trade,
-      description,
-      sector,
-      class_room_type,
-      symbol,
-    };
-
-    startTransition(async () => {
-      try {
-        const result = await updateClassRoomAPI(classRoomPut, classRoom.id);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Class Room  entry update successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
-    });
+     startTransition(async () => {
+          const action = await updateClassRoomAction(classRoom.id, values);
+          if (action.error) {
+            setError(action.error);
+          }
+    
+          if (action.success) {
+            setSuccess(action.success);
+            form.reset();
+          }
+        });
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="warning" size="xs">
+        <Button disabled={isPending} variant="warning" size="xs">
           update
           {isPending && (
             <LoaderCircle
