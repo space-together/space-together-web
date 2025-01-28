@@ -23,9 +23,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/hooks/use-toast";
 import {
-  createClassAPI,
   fetchAllClassRoomBySectorAPI,
   fetchAllClassRoomByTradeAPI,
   fetchAllSectorByEducation,
@@ -35,23 +33,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { EducationModelGet } from "@/types/educationModel";
 import { SectorModelGet } from "@/types/sectorModel";
 import { TradeModelGet } from "@/types/tradeModel";
 import { ClassRoomModelGet } from "@/types/classRoomModel";
-import { ClassModelNew } from "@/types/classModel";
 import UseTheme from "@/context/theme/use-theme";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ClassTypeModelGet } from "@/types/classTypeModel";
 import MyImage from "@/components/my-components/myImage";
 import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
+import { createClassAction } from "@/services/actions/class-action";
+import { Education } from "../../../../../prisma/prisma/generated";
+import { classTypeContext } from "@/utils/context/class-context";
+import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
-  educations: EducationModelGet[];
-  classTypes: ClassTypeModelGet[];
+  educations: Education[];
 }
 
-const CreateClassForm = ({ educations, classTypes }: props) => {
+const CreateClassForm = ({ educations }: props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -61,34 +59,33 @@ const CreateClassForm = ({ educations, classTypes }: props) => {
   const [trades, setTrades] = useState<TradeModelGet[] | null>(null);
   const [classRoom, setClassRoom] = useState<ClassRoomModelGet[] | null>(null);
 
-  
-     const handleImage = (
-        e: ChangeEvent<HTMLInputElement>,
-        fieldChange: (value: string) => void
-      ) => {
-        setError("");
-        e.preventDefault();
-    
-        if (e.target.files?.[0]) {
-          const file = e.target.files[0];
-    
-          if (!file.type.includes("image")) {
-            return setError("Please select an image file.");
-          }
-    
-          if (file.size > 2 * 1024 * 1024) {
-            return setError("Image size exceeds 2MB.");
-          }
-    
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const imageDataUrl = event.target?.result as string;
-            fieldChange(imageDataUrl);
-          };
-          reader.onerror = () => setError("Failed to read image file.");
-          reader.readAsDataURL(file);
-        }
+  const handleImage = (
+    e: ChangeEvent<HTMLInputElement>,
+    fieldChange: (value: string) => void
+  ) => {
+    setError("");
+    e.preventDefault();
+
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+
+      if (!file.type.includes("image")) {
+        return setError("Please select an image file.");
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        return setError("Image size exceeds 2MB.");
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageDataUrl = event.target?.result as string;
+        fieldChange(imageDataUrl);
       };
+      reader.onerror = () => setError("Failed to read image file.");
+      reader.readAsDataURL(file);
+    }
+  };
 
   const form = useForm<classSchemaType>({
     resolver: zodResolver(classSchema),
@@ -164,59 +161,15 @@ const CreateClassForm = ({ educations, classTypes }: props) => {
   const handleSubmit = (values: classSchemaType) => {
     setError("");
     setSuccess("");
-
-    const validation = classSchema.safeParse(values);
-
-    if (!validation.success) {
-      return setError("Invalid Register Validation");
-    }
-
-    const {
-      name,
-      username,
-      sector,
-      trade,
-      description,
-      is_public,
-      image,
-      class_room,
-      class_teacher,
-      class_type,
-    } = validation.data;
-
-    const data: ClassModelNew = {
-      name,
-      username,
-      sector,
-      trade,
-      description,
-      is_public : is_public ? true : false,
-      image,
-      class_room,
-      class_type,
-      class_teacher,
-    };
-
     startTransition(async () => {
-      try {
-        const result = await createClassAPI(data);
-        if ("message" in result) {
-          setError(result.message);
-          toast({
-            title: "Error",
-            description: result.message,
-            variant: "destructive",
-          });
-        } else {
-          setSuccess("Class type entry created successfully!");
-          toast({
-            title: "Success",
-            description: `Created: ${result.name}`,
-          });
-          form.reset();
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
+      const action = await createClassAction(values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
       }
     });
   };
@@ -228,34 +181,31 @@ const CreateClassForm = ({ educations, classTypes }: props) => {
         className="space-y-3 p-8 happy-card"
       >
         <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem className="flex gap-2 items-center">
-                  <FormLabel
-                    htmlFor="image"
-                    className="flex gap-3 items-center"
-                  >
-                    <MyImage
-                      src={field.value || "/default.jpg"}
-                      className="size-24 min-h-24 min-w-24 rounded-full"
-                      alt="Profile"
-                    />
-                    <span className="cursor-pointer">Sector Symbol</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleImage(e, field.onChange)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="flex gap-2 items-center">
+              <FormLabel htmlFor="image" className="flex gap-3 items-center">
+                <MyImage
+                  src={field.value || "/default.jpg"}
+                  className="size-24 min-h-24 min-w-24 rounded-full"
+                  alt="Profile"
+                />
+                <span className="cursor-pointer">Sector Symbol</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleImage(e, field.onChange)}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className=" flex sm:flex-row space-x-2 ">
           <FormField
             name="name"
@@ -326,19 +276,20 @@ const CreateClassForm = ({ educations, classTypes }: props) => {
                     defaultValue={field.value}
                     className=" flex space-x-2"
                   >
-                    {classTypes.map((item) => (
-                      <FormItem
-                        key={item.id}
-                        className=" space-x-3 items-center"
-                      >
-                        <FormControl>
-                          <RadioGroupItem value={item.id} />
-                        </FormControl>
-                        <FormLabel className="font-normal capitalize">
-                          {item.username ? item.username : item.name}
-                        </FormLabel>
-                      </FormItem>
-                    ))}
+                    {classTypeContext &&
+                      classTypeContext.map((item, index) => (
+                        <FormItem
+                          key={index}
+                          className=" space-x-3 items-center"
+                        >
+                          <FormControl>
+                            <RadioGroupItem value={item} />
+                          </FormControl>
+                          <FormLabel className="font-normal capitalize">
+                            {toLowerCase(item)}
+                          </FormLabel>
+                        </FormItem>
+                      ))}
                   </RadioGroup>
                 </FormControl>
                 <FormDescription>choose class type</FormDescription>
@@ -537,9 +488,7 @@ const CreateClassForm = ({ educations, classTypes }: props) => {
                 <Input {...field} />
               </FormControl>
               <FormLabel>Is public</FormLabel>
-              <FormDescription>
-                 Class is public {" "}
-                </FormDescription>
+              <FormDescription>Class is public </FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -1,1 +1,1 @@
-export const classContext = ["SCHOOLCLASS", "PRIVET", "PUBLIC"];
+export const classTypeContext = ["SCHOOLCLASS", "PRIVET", "PUBLIC"];

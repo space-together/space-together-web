@@ -21,10 +21,10 @@ import { toast } from "@/hooks/use-toast";
 import { deleteClassAPI } from "@/services/data/fetchDataFn";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ClassModelGet } from "@/types/classModel";
+import { Class } from "../../../../../prisma/prisma/generated";
 
 interface Props {
-  classModel: ClassModelGet;
+  classModel: Class;
 }
 
 const DeleteClassDialog = ({ classModel }: Props) => {

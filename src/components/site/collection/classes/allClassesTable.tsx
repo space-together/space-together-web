@@ -8,25 +8,21 @@ import { Separator } from "@/components/ui/separator";
 import { FaCloudArrowDown } from "react-icons/fa6";
 import { useState } from "react";
 import MyImage from "@/components/my-components/myImage";
-import { ClassModelGet } from "@/types/classModel";
 import { BsPlus } from "react-icons/bs";
 import Link from "next/link";
 import DeleteClassDialog from "./deleteClassDialog";
-import { EducationModelGet } from "@/types/educationModel";
-import { ClassTypeModelGet } from "@/types/classTypeModel";
+import { Class } from "../../../../../prisma/prisma/generated";
 
 interface props {
-  classes: ClassModelGet[];
-  educations: EducationModelGet[];
-  classTypes: ClassTypeModelGet[];
+  classes: Class[] | null;
   collectionName: string;
 }
 
 const AllClassesTable = ({ classes, collectionName }: props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [SelectedSector, setSelectedSector] = useState<ClassModelGet[]>([]);
+  const [SelectedSector, setSelectedSector] = useState<Class[]>([]);
 
-  const columns: ColumnDef<ClassModelGet>[] = [
+  const columns: ColumnDef<Class>[] = [
     {
       id: "select",
       header: ({ table }) => {
@@ -176,7 +172,7 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
   return (
     <div className="container overflow-x-auto happy-card p-0">
       <div className="flex justify-between p-4">
-        <h1 className="happy-title-base">Classes Table ({classes.length})</h1>
+        <h1 className="happy-title-base">Classes Table ({classes ?classes.length : 0})</h1>
         <div className="space-x-2">
           <Link
             className=" btn btn-sm btn-info"
@@ -193,12 +189,10 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
       <div className="p-4 pt-0">
         <DataTable
           columns={columns}
-          data={classes}
+          data={classes || []}
           searchKeys={[
             "username",
             "name",
-            "class_room",
-            "class_teacher",
             "code",
           ]}
         />
