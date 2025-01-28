@@ -32,7 +32,6 @@
     "@tanstack/react-table": "^8.20.6",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
-    "bson": "^6.10.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
