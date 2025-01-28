@@ -150,7 +150,6 @@ const SidebarGroupComponent = ({
 
 interface props {
   items: sidebarGroupsProps[];
-  name?: string;
   lang?: Locale;
   user?: authUser;
 }

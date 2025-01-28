@@ -7,6 +7,8 @@ import {
 } from "@/utils/schema/classRoomSchema";
 import { ClassRoomType } from "../../../prisma/prisma/generated";
 import { generateCode } from "@/utils/functions/characters";
+import { getTradeById } from "../data/trade-data";
+import { getSectorById } from "../data/sector-data";
 
 export const createClassRoomAction = async (values: classRoomSchemaType) => {
   const validation = classRoomSchema.safeParse(values);
@@ -23,6 +25,13 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
       class_room_type: ClassRoomType;
     };
   try {
+    const getTrade = await getTradeById(trade);
+    let myTrade: null | string = null;
+    if (!getTrade) myTrade = null;
+    
+    const getSector = await getSectorById(sector);
+    if (!getSector)
+      return { error: "Sector is not exit, Please try other Sector" };
     const create = await db.classRoom.create({
       data: {
         name,
@@ -30,7 +39,7 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
         description,
         sectorId: sector,
         ClassRoomType: class_room_type,
-        tradeId: trade,
+        tradeId: myTrade,
         code: generateCode(),
       },
     });
@@ -47,7 +56,10 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
   }
 };
 
-export const updateClassRoomAction = async (id: string, values: classRoomSchemaType) => {
+export const updateClassRoomAction = async (
+  id: string,
+  values: classRoomSchemaType
+) => {
   const validation = classRoomSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid values" };

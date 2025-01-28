@@ -28,7 +28,6 @@ export default async function TeacherLayout(props: props) {
           email: user.email ?? undefined,
           image: user.image ?? undefined,
         }}
-        name="Student"
         lang={lang}
         items={teacherSidebarGroups}
       />

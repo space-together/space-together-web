@@ -1,6 +1,6 @@
 "use client";
 
-import SiteLogo from "@/components/site/navbar/site-logo";
+import { LoadingLogo } from "@/components/site/navbar/site-logo";
 import { createContext, useState, useEffect, ReactNode } from "react";
 
 export const ThemeContext = createContext<{ theme: string; changeTheme: (theme: string) => void } | null>(null);
@@ -35,7 +35,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         return (
             <div className="h-screen w-full flex items-center justify-center">
                 <div className="line items-center justify-center flex flex-col gap-3">
-                <SiteLogo />
+                <LoadingLogo />
                     <span className="loading loading-spinner loading-lg text-info" />
                 </div>
             </div>

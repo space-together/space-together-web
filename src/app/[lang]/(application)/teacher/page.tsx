@@ -1,7 +1,9 @@
+import React from 'react'
+
 const TeacherPage = () => {
   return (
     <div>
-    teacher page
+      hello teacher
     </div>
   )
 }

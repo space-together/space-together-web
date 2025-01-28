@@ -43,7 +43,7 @@ const ClassHead = () => {
           <div className=" flex items-center space-x-2">
             <Avatar className=" size-8">
               <AvatarImage src="/images/19.jpg" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>LOGO</AvatarFallback>
             </Avatar>
             <span>High Technical School</span>
           </div>
