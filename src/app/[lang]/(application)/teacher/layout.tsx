@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
-import { studentSidebarGroups } from "@/utils/context/app-side-content";
+import { teacherSidebarGroups } from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -30,7 +30,7 @@ export default async function TeacherLayout(props: props) {
         }}
         name="Student"
         lang={lang}
-        items={studentSidebarGroups}
+        items={teacherSidebarGroups}
       />
       <main className="w-full">
         {children}

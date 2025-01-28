@@ -114,3 +114,36 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
     ],
   },
 ];
+
+export const teacherSidebarGroups: sidebarGroupsProps[] = [
+  {
+    //   label: "Dashboard",
+    items: [
+      {
+        title: "School",
+        image: "/icons/school.png",
+        url: "/school",
+      },
+      {
+        title: "Class Room",
+        image: "/icons/blackboard.png",
+        url: "/class",
+      },
+      {
+        title: "Collections",
+        icon: TfiLayoutGrid3,
+        url: "/student/collections",
+      },
+    ],
+  },
+  {
+    //   label: "Settings",
+    items: [
+      {
+        title: "Settings",
+        icon: AiOutlineSetting,
+        url: "/admin/setting",
+      },
+    ],
+  },
+];
