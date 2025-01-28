@@ -49,15 +49,16 @@ import { getTradesBySectorId } from "@/services/data/trade-data";
 
 interface props {
   educations: Education[];
+  sectorsK : Sector[] | null
 }
 
-const CreateClassForm = ({ educations }: props) => {
+const CreateClassForm = ({ educations , sectorsK}: props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
   const [education, setEducation] = useState<string | null>(null);
-  const [sectors, setSectors] = useState<Sector[] | null>(null);
+  const [sectors, setSectors] = useState<Sector[] | null>(sectorsK);
   const [trades, setTrades] = useState<Trade[] | null>(null);
   const [classRoom, setClassRoom] = useState<ClassRoom[] | null>(null);
 
@@ -116,11 +117,9 @@ const CreateClassForm = ({ educations }: props) => {
     setTrades(null);
     setClassRoom(null);
     const get = await getSectorsByEducationId(id);
-    if (get.length == 0) {
-      setSectors(null);
-    }
-    setSectors(get);
-    return;
+    if (get.length == 0) return  setSectors(null);
+    
+    return setSectors(get);
   };
 
   const handleTrades = async (id: string) => {
@@ -145,9 +144,6 @@ const CreateClassForm = ({ educations }: props) => {
   const handleClassRoom = async (id: string) => {
     setClassRoom(null);
     const get = await getAllClassRoomByTradeId(id);
-    if ("message" in get) {
-      return setClassRoom(null);
-    }
     if (get.length == 0) return setClassRoom(null);
     return setClassRoom(get);
   };
@@ -339,12 +335,12 @@ const CreateClassForm = ({ educations }: props) => {
               <FormItem className=" w-full">
                 <FormLabel>
                   Sector <span className=" text-myGray">(Option)</span>
+                  {education}
                 </FormLabel>
                 <Select
-                  disabled={!education}
+                  // disabled={!education}
                   onValueChange={(value) => {
                     field.onChange(value);
-                    setEducation(value);
                     handleTrades(value);
                   }}
                   defaultValue={field.value}
@@ -387,7 +383,6 @@ const CreateClassForm = ({ educations }: props) => {
                   disabled={!trades}
                   onValueChange={(value) => {
                     field.onChange(value);
-                    setEducation(value);
                     handleClassRoom(value);
                   }}
                   defaultValue={field.value}

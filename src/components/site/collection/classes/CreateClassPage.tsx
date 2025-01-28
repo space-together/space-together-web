@@ -1,35 +1,15 @@
 import DocumentPageStatic, {
-  DocumentPageStaticError,
 } from "@/utils/static/page/documentPageStatic";
 import CreateClassForm from "./createClassForm";
-import { fetchAllClassesType, fetchAllEducation } from "@/services/data/fetchDataFn";
+import { getAllEducation } from "@/services/data/education-data";
+import { getSectorsByEducationId } from "@/services/data/sector-data";
 
 const CreateClassPage = async () => {
-  const getEducations = await fetchAllEducation();
-  const getClassTypes = await fetchAllClassesType();
-
-  if ("message" in getEducations) {
-    return (
-      <DocumentPageStaticError
-        error={getEducations}
-        documentName={"Class-add"}
-        collectionName={"classes"}
-      />
-    );
-  }
-  if ("message" in getClassTypes) {
-    return (
-      <DocumentPageStaticError
-        error={getClassTypes}
-        documentName={"Class-add"}
-        collectionName={"classes"}
-      />
-    );
-  }
-
+  const getEducations = await getAllEducation();
+  const educationClass = await getSectorsByEducationId("6797b81f071fbeb2d8b5512c");
   return (
     <DocumentPageStatic collectionName="classes" documentName="Class-add">
-      <CreateClassForm classTypes={getClassTypes} educations={getEducations} />
+      <CreateClassForm sectorsK={educationClass} educations={getEducations} />
     </DocumentPageStatic>
   );
 };
