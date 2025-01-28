@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import ClassNavbar from "@/components/class/navbar/class-navbar";
+import ClassNavbar from "@/components/app/class/navbar/class-navbar";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
 

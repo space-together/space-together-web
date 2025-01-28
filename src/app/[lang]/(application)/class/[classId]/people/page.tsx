@@ -1,5 +1,5 @@
 import UserCard from "@/components/cards/user-card";
-import SearchPeopleClass from "@/components/class/people/search-people-class";
+import SearchPeopleClass from "@/components/app/class/people/search-people-class";
 import React from "react";
 
 const ClassPeoplePage = () => {

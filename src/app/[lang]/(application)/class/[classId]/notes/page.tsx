@@ -1,6 +1,6 @@
 import PostCard from "@/components/cards/post-card";
-import SearchNotesClass from "@/components/class/notes/search-notes-class";
-import SelectNoteSubject from "@/components/class/notes/search-notes-subject";
+import SearchNotesClass from "@/components/app/class/notes/search-notes-class";
+import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject";
 import React from "react";
 
 const ClassNotesPage = () => {

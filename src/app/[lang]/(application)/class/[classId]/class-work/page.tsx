@@ -1,6 +1,6 @@
 import PostCard from "@/components/cards/post-card";
-import SearchActivities from "@/components/class/class-work/search-activities";
-import SelectClassActivitiesSubject from "@/components/class/class-work/select-class-activities-subject";
+import SearchActivities from "@/components/app/class/class-work/search-activities";
+import SelectClassActivitiesSubject from "@/components/app/class/class-work/select-class-activities-subject";
 import React from "react";
 
 const ClassWorkPage = () => {
