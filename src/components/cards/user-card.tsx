@@ -4,22 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { GoPersonFill } from "react-icons/go";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import UseTheme from "@/context/theme/use-theme";
 import { UserRole } from "../../../prisma/prisma/generated";
 import { Dot } from "lucide-react";
+import Link from "next/link";
+import { Locale } from "@/i18n";
+import { TextTooltip } from "@/context/tooltip/text-tooltip";
 
 interface props {
   userRole?: UserRole;
+  lang: Locale;
 }
 
-const UserCard = ({ userRole }: props) => {
-  const theme = UseTheme();
+const UserCard = ({ userRole, lang }: props) => {
   return (
     <div className=" p-0 happy-card w-80">
       <MyImage
@@ -37,7 +33,7 @@ const UserCard = ({ userRole }: props) => {
           {userRole === UserRole.TEACHER && (
             <div>
               <h3 className=" font-medium text-myGray"> Subjects</h3>
-              <div  className=" grid grid-cols-2 gap-2">
+              <div className=" grid grid-cols-2 gap-2">
                 <div className=" flex link-hover">
                   <Dot />
                   <span>Math</span>
@@ -60,21 +56,14 @@ const UserCard = ({ userRole }: props) => {
         <Button className=" w-2/3 text-white" variant="info">
           <TbMessageCircleFilled size={28} /> Message
         </Button>
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button className=" w-1/3">
-                <GoPersonFill size={28} />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent
-              data-theme={theme}
-              className="dark px-2 py-1 text-xs"
-            >
-              See profile
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <TextTooltip
+          trigger={
+            <Link href={`/${lang}/profile/bruno`} className=" w-1/3 btn">
+              <GoPersonFill size={28} />
+            </Link>
+          }
+          content={"See profile"}
+        />
       </div>
     </div>
   );

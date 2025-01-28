@@ -43,13 +43,13 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
           <div className="  items-center -space-x-2 text-myGray flex">
             <Dot size={32} />
             <span className=" text-sm">
-              32 <TextTooltip content={"Student"} trigger={"ST"} />
+              32 <TextTooltip content={"Student"} trigger={<span>ST</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
             <Dot size={32} />
             <span className=" text-sm line">
-              7 <TextTooltip content={"Teacher"} trigger={"TEA"} />
+              7 <TextTooltip content={"Teacher"} trigger={<span>TEA</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
@@ -67,7 +67,7 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
                 )}
                 href={`/${lang}/profile/1232`}
               >
-                Mihingo karike
+                <TextTooltip content={"Class Teacher"} trigger={<span>Mihingo__</span>} />
               </Link>
             </div>
           </div>
@@ -83,7 +83,12 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
                 <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
               </Avatar>
               {/* TODO: add school link */}
-              <Link href={`/${lang}/school/student`} className=" font-medium text-sm line-clamp-1 link-hover">SOSTHS</Link>
+              <Link
+                href={`/${lang}/school/student`}
+                className=" font-medium text-sm line-clamp-1 link-hover"
+              >
+                SOSTHS
+              </Link>
             </div>
           )}
         </div>

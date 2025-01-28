@@ -6,10 +6,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import UseTheme from "../theme/use-theme";
+import React from "react";
 
 interface props {
-    content : string,
-    trigger : string;
+    content : string | React.ReactNode,
+    trigger : string | React.ReactNode;
 }
 
 export const TextTooltip = ({content , trigger} : props) => {
@@ -17,7 +18,7 @@ export const TextTooltip = ({content , trigger} : props) => {
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
-        <TooltipTrigger>{trigger}</TooltipTrigger>
+        <TooltipTrigger asChild>{trigger}</TooltipTrigger>
         <TooltipContent data-theme={theme} className="dark px-2 py-1 text-xs">
           {content}
         </TooltipContent>
