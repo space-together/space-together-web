@@ -1,3 +1,4 @@
+import ProfileBody from "@/components/app/profile/profile-body";
 import ProfileHeader from "@/components/app/profile/profile-header";
 import ProfileNavBar from "@/components/app/profile/profile-navbar";
 import { Locale } from "@/i18n";
@@ -11,9 +12,10 @@ const ProfilePage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
   return (
-    <div className=" p-4 space-y-2">
+    <div className=" p-4 space-y-4 w-full">
       <ProfileHeader lang={lang} />
       <ProfileNavBar />
+      <ProfileBody />
       <div className=" h-screen"/>
     </div>
   );
