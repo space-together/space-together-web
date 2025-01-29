@@ -18,9 +18,7 @@ export default async function StudentLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-
   
-
   return (
     <SidebarProvider className=" w-full">
       <AppSidebar

@@ -10,7 +10,7 @@ interface props {
 
 const SchoolHomePosts = ({lang} : props) => {
   return (
-    <div className=' w-1/2 space-y-2'>
+    <div className='space-y-2 w-full'>
       <CreateNewPostInSchool />
       <div>
       <div className=" space-y-2">
