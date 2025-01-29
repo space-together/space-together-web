@@ -15,7 +15,7 @@ interface props {
   isOther ?: boolean; // others users which are not in class
 }
 
-const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
+const ClassCard = ({ lang, isClassTeacher, isSchool, isOther }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -111,12 +111,12 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
       <Separator />
       <div className=" p-4">
         {/* TODO: add link of class */}
-        <Link
+        {isOther ? <Link href={`/${lang}/class/student/about`} className=" btn w-full">About class</Link> : <Link
           href={`/${lang}/class/student`}
           className={cn("btn w-full", isClassTeacher && "btn-info")}
         >
           Join class
-        </Link>
+        </Link>}
       </div>
     </div>
   );

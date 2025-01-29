@@ -13,11 +13,11 @@ const SchoolClasses = ({ lang }: props) => {
         <h2 className=" font-semibold">Classes</h2>
       </div>
       <div className=" grid grid-cols-1 w-full gap-4">
-        <ClassCard lang={lang} />
-        <ClassCard lang={lang} />
-        <ClassCard lang={lang} />
-        <ClassCard lang={lang} />
-        <ClassCard lang={lang} />
+        <ClassCard isOther lang={lang} />
+        <ClassCard isOther lang={lang} />
+        <ClassCard isOther lang={lang} />
+        <ClassCard isOther lang={lang} />
+        <ClassCard isOther lang={lang} />
       </div>
       <div className=" happy-card justify-center items-center flex-row">
         <span className=" link">See More</span>
