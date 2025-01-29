@@ -17,7 +17,7 @@ import { AiOutlineLike } from "react-icons/ai";
 
 interface props {
   postRole?:
-    "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "BOOK";
+    "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "BOOK" | "TEXT";
 }
 
 const PostCardFooter = ({ postRole }: props) => {

@@ -4,6 +4,7 @@ import React from "react";
 import { FaPeopleGroup, FaSignsPost } from "react-icons/fa6";
 import { FaSchool } from "react-icons/fa6";
 import { PiContactlessPayment } from "react-icons/pi";
+import { MdClass } from "react-icons/md";
 
 const SchoolHomeNav = () => {
   return (
@@ -11,19 +12,23 @@ const SchoolHomeNav = () => {
       <div className=" flex space-x-2">
       <Button className=" text-info">
         <RxActivityLog />
-        Activities
+        All
       </Button>
       <Button>
         <FaSchool />
         About school
       </Button>
       <Button>
+        <FaSignsPost />
+        Posts
+      </Button>
+      <Button>
         <FaPeopleGroup />
         Peoples
       </Button>
       <Button>
-        <FaSignsPost />
-        Posts
+        <MdClass />
+        Classes
       </Button>
       <Button>
         <PiContactlessPayment />

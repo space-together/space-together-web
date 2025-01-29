@@ -9,7 +9,7 @@ import { Dot } from "lucide-react";
 import { Locale } from "@/i18n";
 
 interface props {
-  postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY";
+  postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "TEXT";
   lang: Locale;
 }
 
@@ -87,6 +87,11 @@ const PostCard = ({ postRole, lang }: props) => {
           </div>
         </div>
       )}
+      {postRole === "TEXT" && <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, labore eius nesciunt vel veritatis, quod delectus eligendi accusantium dicta dolorem provident culpa! Sunt exercitationem accusantium nesciunt. Perferendis nam maxime facilis.
+        </p>
+        </div>}
       {postRole !== "ACTIVITY" && <PostCardFooter postRole={postRole} />}
     </div>
   );
