@@ -6,7 +6,7 @@ import { MdOutlineSchool, MdSchool } from "react-icons/md";
 
 const SchoolHomeAbout = () => {
   return (
-    <div className=" w-1/2 happy-card space-y-4">
+    <div className=" w-full happy-card space-y-4">
       <div className=" space-y-1">
         <div className=" flex space-x-2 items-center">
           <FaSchool /> <h3 className=" font-semibold">About School</h3>
@@ -21,7 +21,7 @@ const SchoolHomeAbout = () => {
       <div className=" space-y-4">
         {/* school education */}
         <div className=" space-y-1">
-          <div className=" flex space-x-2 items-center">
+          <div className=" flex space-x-2 items-center text-myGray">
             <MdSchool /> <h4 className=" font-semibold">School Education</h4>
           </div>
           <div className=" space-y-2">
@@ -49,7 +49,7 @@ const SchoolHomeAbout = () => {
         </div>
         {/* schooling */}
         <div className=" space-y-1">
-          <div className=" flex space-x-2 items-center">
+          <div className=" flex space-x-2 items-center text-myGray">
             <MdOutlineSchool /> <h4 className=" font-semibold">Schooling</h4>
           </div>
           <div className=" space-y-2">
