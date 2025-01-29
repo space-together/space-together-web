@@ -1,0 +1,28 @@
+import UserCardSmall from "@/components/cards/user-card-small";
+import { Button } from "@/components/ui/button";
+import { Locale } from "@/i18n";
+import React from "react";
+
+interface props {
+    lang : Locale
+}
+
+const SchoolTeachers = ({lang} : props) => {
+  return (
+    <div className=" happy-card space-y-2">
+      <div className="">
+        <h3 className=" font-semibold capitalize">Teachers </h3>
+      </div>
+      <div className=" space-y-2 ml-2">
+        <UserCardSmall userRole="TEACHER" lang={lang} />
+        <UserCardSmall userRole="TEACHER" lang={lang} />
+        <UserCardSmall userRole="TEACHER" lang={lang} />
+        <UserCardSmall userRole="TEACHER" lang={lang} />
+        <UserCardSmall userRole="TEACHER" lang={lang} />
+      </div>
+      <Button variant="ghost" size="sm">See More</Button>
+    </div>
+  );
+};
+
+export default SchoolTeachers;

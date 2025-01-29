@@ -7,13 +7,13 @@ import Link from "next/link";
 import { Locale } from "@/i18n";
 
 interface props {
-  userRole: "DIRECTER" | "EDUCATION_PREFECT" | "DISCIPLINE_PREFECT";
+  userRole: "DIRECTER" | "EDUCATION_PREFECT" | "DISCIPLINE_PREFECT" | "TEACHER";
   lang: Locale;
 }
 
 const UserCardSmall = ({ userRole, lang }: props) => {
   return (
-    <div className=" flex justify-between items-center">
+    <div className=" flex justify-between items-center  space-y-2">
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/student`}>
           <Avatar className=" size-12">

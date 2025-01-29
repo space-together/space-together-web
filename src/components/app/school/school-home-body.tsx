@@ -4,6 +4,7 @@ import SchoolHomeAbout from "./school-home-about";
 import { Locale } from "@/i18n";
 import SchoolContacts from "./school-contacts";
 import SchoolStaff from "./school-staff";
+import SchoolTeachers from "./school-teachers";
 
 interface props {
   lang: Locale;
@@ -18,6 +19,7 @@ const SchoolHomeBody = ({ lang }: props) => {
           <SchoolHomeAbout />
           <SchoolContacts />
           <SchoolStaff lang={lang} />
+          <SchoolTeachers lang={lang}/>
         </div>
       </div>
     </div>
