@@ -24,7 +24,7 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
           classname=" card rounded-b-none"
         />
         <Separator />
-        <div className=" -bottom-24 p-4 flex items-center gap-2 absolute">
+        <div className=" -bottom-20 p-4 flex items-center gap-2 absolute">
           <Avatar className=" size-20">
             <AvatarImage src="/images/19.jpg" />
             <AvatarFallback>LOGO</AvatarFallback>

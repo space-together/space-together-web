@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import ClassCard from "@/components/cards/class-card";
+import TeacherHomeBody from "@/components/app/teacher/teacher-home-body";
 import { Locale } from "@/i18n";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -21,18 +21,18 @@ const TeacherPage = async (props: props) => {
   const haveClass = true;
   return (
     <div className=" px-4">
-      {!haveClass ? <div className=" w-full grid place-content-center h-[80vh]">
-        <Link className=" btn btn-info capitalize" href={`/${lang}/teacher/add-class`}>
-          <Plus /> add class
-        </Link>
-      </div> : <div className="py-4">
-        <div className=" grid grid-cols-3 gap-4">
-          <ClassCard lang={lang}/>
-          <ClassCard isSchool isClassTeacher lang={lang}/>
-          <ClassCard isSchool lang={lang}/>
-          <ClassCard isClassTeacher lang={lang}/>
+      {!haveClass ? (
+        <div className=" w-full grid place-content-center h-[80vh]">
+          <Link
+            className=" btn btn-info capitalize"
+            href={`/${lang}/teacher/add-class`}
+          >
+            <Plus /> add class
+          </Link>
         </div>
-        </div>}
+      ) : (
+        <TeacherHomeBody lang={lang}/>
+      )}
     </div>
   );
 };
