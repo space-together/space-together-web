@@ -30,8 +30,10 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" mt-6  space-x-1">
-            <h3 className=" font-medium">SOS Technical School</h3>
-            <Link className=" text-sm" href={`/${lang}/class/student`}>
+            <Link href={`/${lang}/school/student`}>
+              <h3 className=" font-medium">SOS Technical School</h3>
+            </Link>
+            <Link className=" text-sm" href={`/${lang}/school/student`}>
               @ SOSTS
             </Link>
           </div>
@@ -94,7 +96,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
                   "line-clamp-1 link-hover",
                   isClassTeacher ? "text-myGray" : ""
                 )}
-                href={`/${lang}/profile/1232`}
+                href={`/${lang}/class/1232`}
               >
                 <TextTooltip
                   content={"Level 5 Software Development"}
@@ -116,7 +118,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
                   "line-clamp-1 link-hover",
                   isClassTeacher ? "text-myGray" : ""
                 )}
-                href={`/${lang}/profile/1232`}
+                href={`/${lang}/class/1232`}
               >
                 <TextTooltip
                   content={"Level 3 Networking"}
@@ -138,7 +140,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
                   "line-clamp-1 link-hover",
                   isClassTeacher ? "text-myGray" : ""
                 )}
-                href={`/${lang}/profile/1232`}
+                href={`/${lang}/class/1232`}
               >
                 <TextTooltip
                   content={"Level 4 Software Development"}
@@ -147,7 +149,9 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
               </Link>
             </div>
           </div>
-          <Button type="button" variant="ghost" size="sm">And others 3</Button>
+          <Button type="button" variant="ghost" size="sm">
+            And others 3
+          </Button>
         </div>
       </div>
       <Separator />
