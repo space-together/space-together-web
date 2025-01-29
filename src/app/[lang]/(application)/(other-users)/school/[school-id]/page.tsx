@@ -18,7 +18,7 @@ const SchoolIdPage = async (props: props) => {
 
   return (
     <div className=" px-4">
-      <SchoolHeader />
+      <SchoolHeader lang={lang}/>
       <div className=" h-screen" />
     </div>
   );
