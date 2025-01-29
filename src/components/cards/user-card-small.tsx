@@ -5,9 +5,16 @@ import { Button } from "../ui/button";
 import { LuMessageCircle } from "react-icons/lu";
 import Link from "next/link";
 import { Locale } from "@/i18n";
+import { Dot } from "lucide-react";
+import { TextTooltip } from "@/context/tooltip/text-tooltip";
 
 interface props {
-  userRole: "DIRECTER" | "EDUCATION_PREFECT" | "DISCIPLINE_PREFECT" | "TEACHER";
+  userRole:
+    | "DIRECTER"
+    | "EDUCATION_PREFECT"
+    | "DISCIPLINE_PREFECT"
+    | "TEACHER"
+    | "STUDENT";
   lang: Locale;
 }
 
@@ -25,9 +32,17 @@ const UserCardSmall = ({ userRole, lang }: props) => {
           <Link href={`/${lang}/profile/student`}>
             <h4 className=" font-medium">Murekezi Hindiro</h4>
           </Link>
-          <span className=" font-medium text-myGray capitalize">
-            {toLowerCase(userRole)}
-          </span>
+          <div className=" flex items-center">
+            <span className=" font-medium text-myGray capitalize">
+              {toLowerCase(userRole)}
+            </span>
+            {userRole === "STUDENT" && (
+              <div className=" flex -space-x-2 items-center">
+                <Dot size={32} />
+                <TextTooltip content={<span>Level 5 Software development</span>} trigger={<span>L5 SOD</span>}/>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <Link href={`/${lang}/message/12334`}>
