@@ -1,14 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { FaRegBookmark } from "react-icons/fa6";
+import { BsFileEarmarkPost } from "react-icons/bs";
+import { FaSignsPost } from "react-icons/fa6";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { MdClearAll } from "react-icons/md";
 
 const ProfileNavBar = () => {
   return (
     <nav className=" happy-card">
       <div className=" space-x-2">
-        <Button className=" text-info">All</Button>
-        <Button>Posts</Button>
-        <Button>Notes</Button>
-        <Button>Reports</Button>
+        <Button className=" text-info">
+          <MdClearAll /> All
+        </Button>
+        <Button>
+          <FaSignsPost /> Posts
+        </Button>
+        <Button>
+          <BsFileEarmarkPost /> Notes
+        </Button>
+        <Button>
+          <HiOutlineDocumentReport /> Reports
+        </Button>
         <Button>
           <FaRegBookmark /> Saved
         </Button>

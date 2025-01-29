@@ -15,7 +15,7 @@ const ProfilePage = async (props: Props) => {
     <div className=" p-4 space-y-4 w-full">
       <ProfileHeader lang={lang} />
       <ProfileNavBar />
-      <ProfileBody />
+      <ProfileBody lang={lang} />
       <div className=" h-screen"/>
     </div>
   );

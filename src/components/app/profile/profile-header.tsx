@@ -32,14 +32,14 @@ const ProfileHeader = ({lang} : props) => {
               SOS Technical school School{" "}
             </h5>
           </div>
-          <div className=" flex gap-2 items-center">
+          <Link href={`/${lang}/class/student`} className=" flex gap-2 items-center">
             <Avatar className=" size-6">
               <AvatarImage src="/images/17.jpg" />
               <AvatarFallback>PROFILE</AvatarFallback>
             </Avatar>
             {/* TODO: add school link */}
             <h5 className=" text-sm link-hover">L5 SOD</h5>
-          </div>
+          </Link>
         </div>
       </div>
       {/* other user social accounts */}

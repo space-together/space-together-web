@@ -19,10 +19,10 @@ const PostCardHeader = ({ lang }: props) => {
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>
-        <div>
+        <Link href={`/${lang}/profile/user`}>
           <h4 className=" font-medium">Iradukunda Mike</h4>
           <span className=" text-sm text-myGray">Teacher</span>
-        </div>
+        </Link>
       </div>
       <div className=" flex gap-2 items-center">
         <span className=" font-medium text-myGray">2h ago</span>
