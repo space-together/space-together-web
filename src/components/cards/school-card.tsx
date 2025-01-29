@@ -7,19 +7,19 @@ import Link from "next/link";
 import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
+import { Button } from "../ui/button";
 
 interface props {
   lang: Locale;
   isClassTeacher?: boolean;
-  isSchool?: boolean;
 }
 
-const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
+const SchoolCard = ({ lang, isClassTeacher }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
         <MyImage
-          src="/images/7.jpg"
+          src="/images/12.jpg"
           className=" w-full h-28"
           classname=" card rounded-b-none"
         />
@@ -30,9 +30,9 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" mt-6  space-x-1">
-            <h3 className=" font-medium leading-5 line-clamp-3">Level 5 Software development</h3>
+            <h3 className=" font-medium">SOS Technical School</h3>
             <Link className=" text-sm" href={`/${lang}/class/student`}>
-              @ L5SOD
+              @ SOSTS
             </Link>
           </div>
         </div>
@@ -43,20 +43,20 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
           <div className="  items-center -space-x-2 text-myGray flex">
             <Dot size={32} />
             <span className=" text-sm">
-              32 <TextTooltip content={"Student"} trigger={<span>ST</span>} />
+              1k32 <TextTooltip content={"Student"} trigger={<span>ST</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
             <Dot size={32} />
             <span className=" text-sm line">
-              7 <TextTooltip content={"Teacher"} trigger={<span>TEA</span>} />
+              67 <TextTooltip content={"Teacher"} trigger={<span>TEA</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
             <Dot size={32} />
             <div className=" flex items-center space-x-2 text-sm">
               <Avatar className=" size-4">
-                <AvatarImage src="/images/17.jpg" />
+                <AvatarImage src="/images/16.jpg" />
                 <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
               </Avatar>
               {/* add link of class teacher */}
@@ -67,7 +67,10 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
                 )}
                 href={`/${lang}/profile/1232`}
               >
-                <TextTooltip content={"Class Teacher"} trigger={<span>Mihingo__</span>} />
+                <TextTooltip
+                  content={"Head master"}
+                  trigger={<span>_Happy</span>}
+                />
               </Link>
             </div>
           </div>
@@ -75,36 +78,76 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
       </div>
       <div className=" px-4">
         <div className=" flex justify-between">
-          <h5 className=" capitalize font-medium text-myGray">your lessons</h5>
-          {isSchool && (
-            <div className=" flex space-x-2 py-2">
+          <h5 className=" capitalize font-medium text-myGray">your classes</h5>
+        </div>
+        <div className=" grid grid-cols-2 w-full">
+          <div className="flex -space-x-2">
+            <Dot size={32} />
+            <div className="flex items-center space-x-2 text-sm">
               <Avatar className=" size-4">
                 <AvatarImage src="/images/19.jpg" />
                 <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
               </Avatar>
-              {/* TODO: add school link */}
+              {/* add link of class teacher */}
               <Link
-                href={`/${lang}/school/student`}
-                className=" font-medium text-sm line-clamp-1 link-hover"
+                className={cn(
+                  "line-clamp-1 link-hover",
+                  isClassTeacher ? "text-myGray" : ""
+                )}
+                href={`/${lang}/profile/1232`}
               >
-                SOSTHS
+                <TextTooltip
+                  content={"Level 5 Software Development"}
+                  trigger={<span>L5SOD</span>}
+                />
               </Link>
             </div>
-          )}
-        </div>
-        <div className=" grid grid-cols-4 w-full">
-          <div className=" flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className=" text-sm line">Math</span>
           </div>
-          <div className=" flex items-center -space-x-2">
+          <div className="flex -space-x-2">
             <Dot size={32} />
-            <span className=" text-sm line">Kiny</span>
+            <div className="flex items-center space-x-2 text-sm">
+              <Avatar className=" size-4">
+                <AvatarImage src="/images/19.jpg" />
+                <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
+              </Avatar>
+              {/* add link of class teacher */}
+              <Link
+                className={cn(
+                  "line-clamp-1 link-hover",
+                  isClassTeacher ? "text-myGray" : ""
+                )}
+                href={`/${lang}/profile/1232`}
+              >
+                <TextTooltip
+                  content={"Level 3 Networking"}
+                  trigger={<span>L3SOD</span>}
+                />
+              </Link>
+            </div>
           </div>
-          <div className=" flex items-center -space-x-2">
+          <div className="flex -space-x-2">
             <Dot size={32} />
-            <span className=" text-sm line">Kisw</span>
+            <div className="flex items-center space-x-2 text-sm">
+              <Avatar className=" size-4">
+                <AvatarImage src="/images/19.jpg" />
+                <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
+              </Avatar>
+              {/* add link of class teacher */}
+              <Link
+                className={cn(
+                  "line-clamp-1 link-hover",
+                  isClassTeacher ? "text-myGray" : ""
+                )}
+                href={`/${lang}/profile/1232`}
+              >
+                <TextTooltip
+                  content={"Level 4 Software Development"}
+                  trigger={<span>L4SOD</span>}
+                />
+              </Link>
+            </div>
           </div>
+          <Button type="button" variant="ghost" size="sm">And others 3</Button>
         </div>
       </div>
       <Separator />
@@ -114,11 +157,11 @@ const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
           href={`/${lang}/class/student`}
           className={cn("btn w-full", isClassTeacher && "btn-info")}
         >
-          Join class
+          Join School
         </Link>
       </div>
     </div>
   );
 };
 
-export default ClassCard;
+export default SchoolCard;
