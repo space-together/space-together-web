@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import SchoolHeader from "@/components/app/school/school-header";
+import SchoolHomeNav from "@/components/app/school/school-home-navbar";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
@@ -20,6 +21,7 @@ const SchoolPage =async (props: props) => {
     <div className=" px-4 space-y-4">
       <SchoolHeader isMySchool lang={lang}/>
       <Separator />
+      <SchoolHomeNav />
       <div className=" h-screen"/>
     </div>
   );
