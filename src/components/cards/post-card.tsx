@@ -6,15 +6,17 @@ import MyImage from "../my-components/myImage";
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Dot } from "lucide-react";
+import { Locale } from "@/i18n";
 
 interface props {
   postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY";
+  lang: Locale;
 }
 
-const PostCard = ({ postRole }: props) => {
+const PostCard = ({ postRole, lang }: props) => {
   return (
     <div className=" happy-card p-0">
-      <PostCardHeader />
+      <PostCardHeader lang={lang} />
       <Separator />
       {postRole === "NOTES" && (
         <div className=" px-4 pb-2">

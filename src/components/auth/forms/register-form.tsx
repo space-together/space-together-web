@@ -32,7 +32,7 @@ interface props {
 const RegisterForm = ({ diction, lang }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
-  const [seePassword, setSeePassword] = useState(true);
+  const [seePassword, setSeePassword] = useState(false);
   const [isPending, startTransition] = useTransition();
 const router = useRouter();
   const form = useForm<registerSchemaType>({

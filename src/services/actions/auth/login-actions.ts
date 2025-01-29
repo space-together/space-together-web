@@ -26,7 +26,7 @@ export const loginService = async (value: loginModelTypes, lang: Locale) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: `/${lang}/onboarding`,
+      redirectTo: `/${lang}/auth/onboarding`,
     });
   } catch (error) {
     if (error instanceof AuthError) {
