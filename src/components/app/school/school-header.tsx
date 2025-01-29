@@ -1,7 +1,7 @@
 import MyImage from "@/components/my-components/myImage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TfiWorld } from "react-icons/tfi";
-import { FaSchool } from "react-icons/fa6";
+import { FaSchool, FaUserMinus } from "react-icons/fa6";
 import { Dot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FaUserPlus } from "react-icons/fa";
@@ -10,10 +10,10 @@ import { Locale } from "@/i18n";
 
 interface props {
   isMySchool?: boolean;
-  lang : Locale
+  lang: Locale;
 }
 
-const SchoolHeader = ({ isMySchool , lang}: props) => {
+const SchoolHeader = ({ isMySchool, lang }: props) => {
   return (
     <div className=" space-y-2">
       <MyImage
@@ -51,13 +51,15 @@ const SchoolHeader = ({ isMySchool , lang}: props) => {
         </div>
         <div>
           {/* TODO: add school link */}
-          {!isMySchool && (
+          {!isMySchool ? (
             <Link href={`/${lang}/school/school-username/ask-to-join`}>
               <Button variant="info">
                 <FaUserPlus />
                 Ask Join school
               </Button>
             </Link>
+          ) : (
+            <Button variant="error"> <FaUserMinus /> Left school</Button>
           )}
         </div>
       </div>

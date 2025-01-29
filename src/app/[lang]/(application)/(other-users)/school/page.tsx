@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import SchoolHeader from "@/components/app/school/school-header";
+import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -16,8 +17,9 @@ const SchoolPage =async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <div className=" px-4">
+    <div className=" px-4 space-y-4">
       <SchoolHeader isMySchool lang={lang}/>
+      <Separator />
       <div className=" h-screen"/>
     </div>
   );
