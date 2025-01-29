@@ -12,6 +12,7 @@ interface props {
   lang: Locale;
   isClassTeacher?: boolean;
   isSchool?: boolean;
+  isOther ?: boolean; // others users which are not in class
 }
 
 const ClassCard = ({ lang, isClassTeacher, isSchool }: props) => {
