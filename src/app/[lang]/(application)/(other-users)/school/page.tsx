@@ -23,7 +23,7 @@ const SchoolPage =async (props: props) => {
       <SchoolHeader isMySchool lang={lang}/>
       <Separator />
       <SchoolHomeNav />
-      <SchoolHomeBody />
+      <SchoolHomeBody lang={lang}/>
       <div className=" h-screen"/>
     </div>
   );
