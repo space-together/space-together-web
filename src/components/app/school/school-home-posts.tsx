@@ -3,31 +3,38 @@ import CreateNewPostInSchool from "./create-new-post-in-school";
 import { FaSignsPost } from "react-icons/fa6";
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface props {
   lang: Locale;
+  isOnSchoolPost?: boolean;
+  className?: string;
 }
 
-const SchoolHomePosts = ({ lang }: props) => {
+const SchoolHomePosts = ({ lang, isOnSchoolPost, className }: props) => {
   return (
     <div className="space-y-2 w-full">
-      <CreateNewPostInSchool />
-      <div>
-        <div className=" space-y-2">
-          <div className=" space-x-1 flex items-center">
-            <FaSignsPost />
-            <h2 className=" font-semibold">Posts</h2>
-          </div>
-          <div className=" grid grid-cols-1 w-full gap-4">
-            <PostCard lang={lang} postRole="IMAGE" />
-            <PostCard lang={lang} postRole="TEXT" />
-            <PostCard lang={lang} postRole="IMAGE" />
-            <PostCard lang={lang} postRole="TEXT" />
-          </div>
-          <div className=" happy-card justify-center items-center flex-row">
-            <span className=" link">See More</span>
-          </div>
+      {!isOnSchoolPost && <CreateNewPostInSchool />}
+      <div className=" space-y-2">
+        <div className=" space-x-1 flex items-center">
+          <FaSignsPost />
+          <h2 className=" font-semibold">Posts</h2>
         </div>
+        <div className={cn("grid grid-cols-1 w-full gap-4", className)}>
+          <PostCard lang={lang} postRole="IMAGE" />
+          <PostCard lang={lang} postRole="TEXT" />
+          <PostCard lang={lang} postRole="IMAGE" />
+          <PostCard lang={lang} postRole="TEXT" />
+        </div>
+        {!isOnSchoolPost && (
+          <Link
+            href={`/${lang}/school/posts`}
+            className=" happy-card justify-center items-center flex-row"
+          >
+            <span className=" link">See More</span>
+          </Link>
+        )}
       </div>
     </div>
   );
