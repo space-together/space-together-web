@@ -5,12 +5,14 @@ import ProfileHeaderSocialAccount from "./profile-header-social-accounts";
 import { AiOutlineSetting } from "react-icons/ai";
 import Link from "next/link";
 import { Locale } from "@/i18n";
+import { LuMessageCircle } from "react-icons/lu";
 
 interface props {
     lang : Locale
+    OtherUser ?: boolean;
 }
 
-const ProfileHeader = ({lang} : props) => {
+const ProfileHeader = ({lang , OtherUser} : props) => {
   return (
     <div className=" happy-card flex flex-row justify-between items-center">
       <div className=" flex gap-2">
@@ -45,10 +47,10 @@ const ProfileHeader = ({lang} : props) => {
       {/* other user social accounts */}
       <ProfileHeaderSocialAccount />
       {/* make action */}
-      <Link href={`/${lang}/settings`}>
+      <Link href={`/${lang}/${OtherUser ? "message/user" : "settings"}`}>
         <Button variant="info" className=" ">
-            <AiOutlineSetting size={20}/>
-            Settings
+          {OtherUser ? <LuMessageCircle/> :<AiOutlineSetting size={20}/> }
+            {OtherUser ? "Message" : "Settings"}
         </Button>
       </Link>
     </div>
