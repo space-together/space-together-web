@@ -45,7 +45,7 @@ const UserCardSmall = ({ userRole, lang }: props) => {
           </div>
         </div>
       </div>
-      <Link href={`/${lang}/message/12334`}>
+      <Link href={`/${lang}/messages/12334`}>
         <Button variant="info" size="sm">
           <LuMessageCircle />
           Message

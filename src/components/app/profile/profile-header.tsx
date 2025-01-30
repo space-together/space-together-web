@@ -47,7 +47,7 @@ const ProfileHeader = ({lang , OtherUser} : props) => {
       {/* other user social accounts */}
       <ProfileHeaderSocialAccount />
       {/* make action */}
-      <Link href={`/${lang}/${OtherUser ? "message/user" : "settings"}`}>
+      <Link href={`/${lang}/${OtherUser ? "messages/user" : "settings"}`}>
         <Button variant="info" className=" ">
           {OtherUser ? <LuMessageCircle/> :<AiOutlineSetting size={20}/> }
             {OtherUser ? "Message" : "Settings"}

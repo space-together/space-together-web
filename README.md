@@ -40,3 +40,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 <!-- TODO: make class about page which will explain about class -->
 <!-- TODO: make other user profile which other user come and visit-->
 <!-- TODO: make class page for student who don't have class or have many classes -->
+<!-- TODO: make message page

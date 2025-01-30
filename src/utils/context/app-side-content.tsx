@@ -7,6 +7,7 @@ import { LiaUsersSolid } from "react-icons/lia";
 import { MdClass } from "react-icons/md";
 import { CiGrid31 } from "react-icons/ci";
 import { Locale } from "@/i18n";
+import { LuMessageCircle } from "react-icons/lu";
 
 // Define type for sidebar items
 export type SidebarItem = {
@@ -97,9 +98,9 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
         url: "/class",
       },
       {
-        title: "Collections",
-        icon: TfiLayoutGrid3,
-        url: "/student/collections",
+        title: "Messages",
+        icon: LuMessageCircle,
+        url: "/messages",
       },
     ],
   },
