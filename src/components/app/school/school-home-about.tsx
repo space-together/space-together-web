@@ -9,9 +9,10 @@ import { MdOutlineSchool, MdSchool } from "react-icons/md";
 
 interface props {
   lang: Locale;
+  isAboutSchool ?: boolean; 
 }
 
-const SchoolHomeAbout = ({ lang }: props) => {
+const SchoolHomeAbout = ({ lang, isAboutSchool }: props) => {
   return (
     <div className=" w-full happy-card space-y-4">
       <div className=" space-y-1">
@@ -75,11 +76,13 @@ const SchoolHomeAbout = ({ lang }: props) => {
           </div>
         </div>
       </div>
-      <Link href={`/${lang}/school/about`} className=" ">
+      {/* to check is in on about school it will not show it */}
+      {!isAboutSchool && (<Link href={`/${lang}/school/about`} className=" ">
         <Button variant="ghost" size="sm" className=" w-full">
           See more
         </Button>
-      </Link>
+      </Link>)}
+      
     </div>
   );
 };

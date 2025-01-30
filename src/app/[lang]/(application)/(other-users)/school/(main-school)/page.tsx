@@ -8,7 +8,7 @@ interface props {
   params: Promise<{ lang: Locale }>;
 }
 
-const SchoolPage =async (props: props) => {
+const SchoolPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const user = (await auth())?.user;
@@ -17,8 +17,8 @@ const SchoolPage =async (props: props) => {
   }
   return (
     <div className=" px-4 space-y-4">
-      <SchoolHomeBody lang={lang}/>
-      <div className=" h-screen"/>
+      <SchoolHomeBody lang={lang} />
+      <div className=" h-screen" />
     </div>
   );
 };

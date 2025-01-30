@@ -1,11 +1,31 @@
-import React from 'react'
-
-const SchoolAboutPage = () => {
-  return (
-    <div  className=' h-screen'>
-      about page
-    </div>
-  )
+import { auth } from "@/auth";
+import SchoolHomeAbout from "@/components/app/school/school-home-about";
+import SchoolImages from "@/components/app/school/school-images";
+import { Locale } from "@/i18n";
+import { redirect } from "next/navigation";
+import React from "react";
+interface props {
+  params: Promise<{ lang: Locale }>;
 }
 
-export default SchoolAboutPage
+const SchoolAboutPage =async (props: props) => {
+  const params = await props.params;
+  const { lang } = params;
+  const user = (await auth())?.user;
+  if (!user) {
+    return redirect(`/${lang}/auth/login`);
+  }
+  return (
+    <div className=" min-h-screen px-4 space-x-4 flex ">
+      <div className=" w-1/2">
+        <SchoolHomeAbout isAboutSchool lang={lang} />
+      </div>
+      <div className=" w-1/2">
+        <SchoolImages />
+      </div>
+      <div className=" h-screen"></div>
+    </div>
+  );
+};
+
+export default SchoolAboutPage;
