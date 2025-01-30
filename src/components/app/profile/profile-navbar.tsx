@@ -9,19 +9,19 @@ const ProfileNavBar = () => {
   return (
     <nav className=" happy-card">
       <div className=" space-x-2">
-        <Button className=" text-info">
+        <Button  size="sm" className=" text-info">
           <RxActivityLog /> All
         </Button>
-        <Button>
+        <Button size="sm">
           <FaSignsPost /> Posts
         </Button>
-        <Button>
+        <Button size="sm">
           <BsFileEarmarkPost /> Notes
         </Button>
-        <Button>
+        <Button size="sm">
           <HiOutlineDocumentReport /> Reports
         </Button>
-        <Button>
+        <Button size="sm">
           <FaRegBookmark /> Saved
         </Button>
       </div>
