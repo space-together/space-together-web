@@ -18,7 +18,7 @@ const SchoolImages = () => {
         <MyImage src="/images/1.jpg" className=" w-full" classname=" card"/>
       </div>
       {/* TODO: to make dialog where users can see all images for school */}
-      <Button variant="ghost" size="sm">
+      <Button variant="ghost" size="sm" className=" w-full">
         see more
       </Button>
       </div>

@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import SchoolContacts from "@/components/app/school/school-contacts";
 import SchoolHomeAbout from "@/components/app/school/school-home-about";
 import SchoolImages from "@/components/app/school/school-images";
 import { Locale } from "@/i18n";
@@ -8,7 +9,7 @@ interface props {
   params: Promise<{ lang: Locale }>;
 }
 
-const SchoolAboutPage =async (props: props) => {
+const SchoolAboutPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const user = (await auth())?.user;
@@ -17,10 +18,11 @@ const SchoolAboutPage =async (props: props) => {
   }
   return (
     <div className=" min-h-screen px-4 space-x-4 flex ">
-      <div className=" w-1/2">
+      <div className=" w-1/2 space-y-4">
         <SchoolHomeAbout isAboutSchool lang={lang} />
+        <SchoolContacts />
       </div>
-      <div className=" w-1/2">
+      <div className=" w-1/2 space-y-4">
         <SchoolImages />
       </div>
       <div className=" h-screen"></div>
