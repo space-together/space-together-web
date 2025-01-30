@@ -1,9 +1,18 @@
+import ProfilePosts from '@/components/app/profile/profile-posts'
+import { Locale } from '@/i18n';
 import React from 'react'
 
-const ProfilePostPage = () => {
+interface Props {
+  params: Promise<{ lang: Locale }>;
+}
+
+const ProfilePostPage = async (props: Props) => {
+  const params = await props.params;
+  const { lang } = params;
   return (
-    <div>
-      profile post page
+    <div className=' px-4'>
+      <ProfilePosts onThePage lang={lang}/>
+      <div className=' h-screen'></div>
     </div>
   )
 }
