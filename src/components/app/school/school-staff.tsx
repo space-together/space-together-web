@@ -4,6 +4,7 @@ import React from "react";
 
 interface props {
     lang: Locale
+    onThePage?: boolean;
 }
 
 const SchoolStaff = ({lang} : props) => {

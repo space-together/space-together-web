@@ -1,13 +1,15 @@
 import UserCardSmall from "@/components/cards/user-card-small";
 import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
+import Link from "next/link";
 import React from "react";
 
 interface props {
   lang: Locale;
+  onThePage?: boolean;
 }
 
-const SchoolStudents = ({ lang }: props) => {
+const SchoolStudents = ({ lang, onThePage }: props) => {
   return (
     <div className=" happy-card space-y-2">
       <div className="">
@@ -20,7 +22,13 @@ const SchoolStudents = ({ lang }: props) => {
         <UserCardSmall lang={lang} userRole="STUDENT" />
         <UserCardSmall lang={lang} userRole="STUDENT" />
       </div>
-      <Button variant="ghost" size="sm">See More</Button>
+      {!onThePage && (
+        <Link href={`/${lang}/school/peoples`} className=" w-full">
+          <Button variant="ghost" size="sm">
+            See More
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };
