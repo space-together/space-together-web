@@ -10,6 +10,7 @@ const MainProfileNotesPage = async (props: Props) => {
   return (
     <div className=' px-4'>
      <ProfileNotes onThePage lang={lang}/>
+     <div className=' h-screen'></div>
     </div>
   )
 }
