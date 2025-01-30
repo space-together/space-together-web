@@ -1,5 +1,6 @@
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
+import Link from "next/link";
 import React from "react";
 import { FaSignsPost } from "react-icons/fa6";
 interface props {
@@ -25,9 +26,9 @@ const ProfilePosts = ({ lang, onThePage }: props) => {
         <PostCard lang={lang} postRole="IMAGE" />
       </div>
       {!onThePage && (
-        <div className=" happy-card justify-center items-center flex-row">
+        <Link href={`/${lang}/profile/posts`}  className=" happy-card justify-center items-center flex-row">
           <span className=" link">See More</span>
-        </div>
+        </Link>
       )}
     </div>
   );

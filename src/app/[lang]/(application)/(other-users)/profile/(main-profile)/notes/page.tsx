@@ -1,9 +1,15 @@
+import ProfileNotes from '@/components/app/profile/profile-notes';
+import { Locale } from '@/i18n';
 import React from 'react'
-
-const MainProfileNotesPage = () => {
+interface Props {
+  params: Promise<{ lang: Locale }>;
+}
+const MainProfileNotesPage = async (props: Props) => {
+  const params = await props.params;
+  const { lang } = params;
   return (
-    <div>
-     profile notes
+    <div className=' px-4'>
+     <ProfileNotes onThePage lang={lang}/>
     </div>
   )
 }
