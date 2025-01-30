@@ -14,7 +14,7 @@ const SchoolPostsPage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <div className=" min-h-screen px-4 space-x-4 flex ">
+    <div className=" px-4 space-x-4 flex ">
       <SchoolHomePosts className=" grid-cols-3" isOnSchoolPost lang={lang} />
       <div className=" h-screen"/>
     </div>

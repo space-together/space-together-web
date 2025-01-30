@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { RxActivityLog } from "react-icons/rx";
 import { FaPeopleGroup, FaSignsPost } from "react-icons/fa6";
 import { FaSchool } from "react-icons/fa6";
-import { PiContactlessPayment } from "react-icons/pi";
+// import { PiContactlessPayment } from "react-icons/pi";
 import { MdClass } from "react-icons/md";
 import { Locale } from "@/i18n";
 import Link from "next/link";
@@ -49,12 +49,12 @@ const SchoolHomeNav = ({ lang }: props) => {
             Classes
           </Button>
         </Link>
-        <Link href={`/${lang}/school/announcement`}>
+        {/* <Link href={`/${lang}/school/announcement`}>
           <Button size="sm" className={cn(pathname === `/${lang}/school/announcement` && "text-info")}>
             <PiContactlessPayment />
             Announcement
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );
