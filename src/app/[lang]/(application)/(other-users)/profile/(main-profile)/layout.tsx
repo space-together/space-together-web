@@ -19,7 +19,7 @@ const MainProfileLayout = async (props: props) => {
   }
   return (
     <section>
-      <div className=" px-4 space-y-4 w-full">
+      <div className=" px-4 space-y-4 w-full pb-4">
         <ProfileHeader lang={lang} />
         <ProfileNavBar lang={lang}/>
       </div>
