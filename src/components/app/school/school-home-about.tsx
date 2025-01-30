@@ -9,7 +9,7 @@ import { MdOutlineSchool, MdSchool } from "react-icons/md";
 
 interface props {
   lang: Locale;
-  isAboutSchool ?: boolean; 
+  isAboutSchool?: boolean;
 }
 
 const SchoolHomeAbout = ({ lang, isAboutSchool }: props) => {
@@ -75,14 +75,85 @@ const SchoolHomeAbout = ({ lang, isAboutSchool }: props) => {
             </div>
           </div>
         </div>
+        {/* other this about school */}
+        {isAboutSchool && (
+        // TODO: add tooltip when you hover it you see the meaning for item
+          <div>
+            {/* sectors */}
+            <div className=" space-y-2">
+              <div className=" flex space-x-2 items-center text-myGray">
+                <MdOutlineSchool />{" "}
+                <h4 className=" font-semibold">Sectors school have</h4>
+              </div>
+              {/* all sectors */}
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Primary</h6>
+                  <span className=" text-sm text-myGray">P1 --- P6</span>
+                </div>
+              </div>
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Ordinary Level</h6>
+                  <span className=" text-sm text-myGray">S1 --- S3</span>
+                </div>
+              </div>
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Adicantance Level</h6>
+                  <span className=" text-sm text-myGray">S4 --- S6 (4)</span>
+                </div>
+              </div>
+            </div>
+            {/* school trades */}
+            <div className=" space-y-2">
+              <div className=" flex space-x-2 items-center text-myGray">
+                <MdOutlineSchool /> <h4 className=" font-semibold">Trades</h4>
+              </div>
+              {/* all trades */}
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Math Physic Geography (MPG)</h6>
+                  <span className=" text-sm text-myGray">S4MPG --- S6MPG</span>
+                </div>
+              </div>
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Math Physic Computer (MPC)</h6>
+                  <span className=" text-sm text-myGray">S4MPC --- S6MPC</span>
+                </div>
+              </div>
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Kinyarwanda English Kiswahili (KEK)</h6>
+                  <span className=" text-sm text-myGray">S4KEK --- S6KEK</span>
+                </div>
+              </div>
+              <div className=" flex -space-x-1 items-center">
+                <Dot size={32} />
+                <div className=" flex space-x-2 items-center">
+                  <h6 className=" font-medium">Software Development (SOD)</h6>
+                  <span className=" text-sm text-myGray">L3SOD --- L5SOD</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       {/* to check is in on about school it will not show it */}
-      {!isAboutSchool && (<Link href={`/${lang}/school/about`} className=" ">
-        <Button variant="ghost" size="sm" className=" w-full">
-          See more
-        </Button>
-      </Link>)}
-      
+      {!isAboutSchool && (
+        <Link href={`/${lang}/school/about`} className=" ">
+          <Button variant="ghost" size="sm" className=" w-full">
+            See more
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };

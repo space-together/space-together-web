@@ -20,10 +20,10 @@ const SchoolAboutPage = async (props: props) => {
     <div className=" min-h-screen px-4 space-x-4 flex ">
       <div className=" w-1/2 space-y-4">
         <SchoolHomeAbout isAboutSchool lang={lang} />
-        <SchoolImages />
       </div>
       <div className=" w-1/2 space-y-4">
         <SchoolContacts />
+        <SchoolImages />
       </div>
       <div className=" h-screen"></div>
     </div>
