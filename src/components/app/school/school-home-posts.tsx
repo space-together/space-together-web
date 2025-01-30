@@ -17,10 +17,12 @@ const SchoolHomePosts = ({ lang, isOnSchoolPost, className }: props) => {
     <div className="space-y-2 w-full">
       {!isOnSchoolPost && <CreateNewPostInSchool />}
       <div className=" space-y-2">
-        <div className=" space-x-1 flex items-center">
-          <FaSignsPost />
-          <h2 className=" font-semibold">Posts</h2>
-        </div>
+        {!isOnSchoolPost && (
+          <div className=" space-x-1 flex items-center">
+            <FaSignsPost />
+            <h2 className=" font-semibold">Posts</h2>
+          </div>
+        )}
         <div className={cn("grid grid-cols-1 w-full gap-4", className)}>
           <PostCard lang={lang} postRole="IMAGE" />
           <PostCard lang={lang} postRole="TEXT" />
