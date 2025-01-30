@@ -1,10 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import { FaSchool } from "react-icons/fa6";
 import { MdOutlineSchool, MdSchool } from "react-icons/md";
 
-const SchoolHomeAbout = () => {
+interface props {
+  lang: Locale;
+}
+
+const SchoolHomeAbout = ({ lang }: props) => {
   return (
     <div className=" w-full happy-card space-y-4">
       <div className=" space-y-1">
@@ -68,6 +75,11 @@ const SchoolHomeAbout = () => {
           </div>
         </div>
       </div>
+      <Link href={`/${lang}/school/about`} className=" ">
+        <Button variant="ghost" size="sm" className=" w-full">
+          See more
+        </Button>
+      </Link>
     </div>
   );
 };

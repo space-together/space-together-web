@@ -21,7 +21,7 @@ const SchoolHomeBody = ({ lang }: props) => {
           <SchoolClasses lang={lang}/>
         </div>
         <div className=" w-1/2 space-y-4">
-          <SchoolHomeAbout />
+          <SchoolHomeAbout lang={lang}/>
           <SchoolContacts />
           <SchoolStaff lang={lang} />
           <SchoolTeachers lang={lang} />

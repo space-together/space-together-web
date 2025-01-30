@@ -1,13 +1,12 @@
 import { auth } from "@/auth";
 import SchoolHomeBody from "@/components/app/school/school-home-body";
-import SchoolHomeNav from "@/components/app/school/school-home-navbar";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
 import React from "react";
+
 interface props {
   params: Promise<{ lang: Locale }>;
 }
-
 
 const SchoolPage =async (props: props) => {
   const params = await props.params;
@@ -18,7 +17,6 @@ const SchoolPage =async (props: props) => {
   }
   return (
     <div className=" px-4 space-y-4">
-      <SchoolHomeNav />
       <SchoolHomeBody lang={lang}/>
       <div className=" h-screen"/>
     </div>
