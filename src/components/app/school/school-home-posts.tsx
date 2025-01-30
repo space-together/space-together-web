@@ -32,7 +32,7 @@ const SchoolHomePosts = ({ lang, isOnSchoolPost, className }: props) => {
         {!isOnSchoolPost && (
           <Link
             href={`/${lang}/school/posts`}
-            className=" happy-card justify-center items-center flex-row"
+            className=" happy-card justify-center items-center flex-row "
           >
             <span className=" link">See More</span>
           </Link>

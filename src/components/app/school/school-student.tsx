@@ -23,8 +23,11 @@ const SchoolStudents = ({ lang, onThePage }: props) => {
         <UserCardSmall lang={lang} userRole="STUDENT" />
       </div>
       {!onThePage && (
-        <Link href={`/${lang}/school/peoples`} className=" w-full">
-          <Button variant="ghost" size="sm">
+        <Link
+          href={`/${lang}/school/peoples`}
+          className=" w-full  items-center flex justify-center"
+        >
+          <Button variant="ghost" size="sm" className="w-full">
             See More
           </Button>
         </Link>
