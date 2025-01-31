@@ -1,13 +1,15 @@
 import React from "react";
-import MessagesAsideNavbar from "./message-aside-navbar";
+import MessagesAsideLeftNavbar from "./message-aside-left-navbar";
 import MessageSearch from "./messages-search";
+import MessagesAsideNavbar from "./message-aside-navbar";
 
 const MessagesAside = () => {
   return (
     <aside className=" fixed w-80 h-screen bg-base-100 flex">
-      <MessagesAsideNavbar />
-      <div className="w-full max-h-screen min-h-screen border-r border-r-border">
+      <MessagesAsideLeftNavbar />
+      <div className="w-full border-r border-r-border">
         <MessageSearch />
+        <MessagesAsideNavbar />
       </div>
     </aside>
   );
