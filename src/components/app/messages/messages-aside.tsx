@@ -6,17 +6,20 @@ import MessageAsideBody from "./message-aside-body";
 import { Locale } from "@/i18n";
 
 interface props {
-    lang : Locale
+  lang: Locale;
 }
 
-const MessagesAside = ({lang} : props) => {
+const MessagesAside = ({ lang }: props) => {
   return (
     <aside className=" fixed w-80 h-screen bg-base-100 flex">
       <MessagesAsideLeftNavbar lang={lang} />
       <div className="w-full border-r border-r-border">
         <MessageSearch />
         <MessagesAsideNavbar lang={lang} />
-        <MessageAsideBody />
+        <div className=" max-h-[75vh] overflow-y-auto">
+          <MessageAsideBody lang={lang} />
+        </div>
+        <div />
       </div>
     </aside>
   );
