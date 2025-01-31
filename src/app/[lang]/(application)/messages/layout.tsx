@@ -1,7 +1,8 @@
-import { auth } from '@/auth';
-import { Locale } from '@/i18n';
-import { redirect } from 'next/navigation';
-import React from 'react'
+import { auth } from "@/auth";
+import MessagesAside from "@/components/app/messages/messages-aside";
+import { Locale } from "@/i18n";
+import { redirect } from "next/navigation";
+import React from "react";
 
 interface props {
   children: React.ReactNode;
@@ -16,12 +17,14 @@ const MessageLayout = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-  
   return (
     <section>
-      {children}
+      <div>
+        <MessagesAside />
+      </div>
+      <div className=" pl-80">{children}</div>
     </section>
-  )
-}
+  );
+};
 
-export default MessageLayout
+export default MessageLayout;
