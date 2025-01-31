@@ -29,6 +29,7 @@ import MyImage from "@/components/my-components/myImage";
 import { Locale } from "@/i18n";
 import { authUser } from "@/types/userModel";
 import UseTheme from "@/context/theme/use-theme";
+import { ReactNode } from "react";
 
 // Reusable component for rendering sidebar groups
 const SidebarGroupComponent = ({
@@ -36,6 +37,7 @@ const SidebarGroupComponent = ({
   items,
   index,
   lang,
+  otherData1,
 }: sidebarGroupsProps) => {
   const path = usePathname();
   const theme = UseTheme();
@@ -56,8 +58,56 @@ const SidebarGroupComponent = ({
       </div>
       <SidebarGroupContent>
         <SidebarMenu className=" space-y-1 pr-2">
-          {items.map((item, index) =>
-            item.children ? (
+          {items.map((item, index) => {
+            if (item.otherData1)
+              return (
+                <Accordion
+                  type="single"
+                  collapsible
+                  key={index}
+                  className="group/accordion"
+                >
+                  <AccordionItem value={item.title}>
+                    <SidebarMenuItem>
+                      <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0 rounded-l-none">
+                        {item.url ? (
+                          <Link
+                            href={cn(lang ? `/${lang}${item.url}` : item.url)}
+                            className={cn(
+                              "flex items-center gap-2 font-normal rounded-l-none",
+                              path === item.url ||
+                                (path === `/${lang}${item.url}` &&
+                                  `bg-base-300 ${
+                                    theme === "dark" && "bg-white/10"
+                                  }`)
+                            )}
+                          >
+                            {item.icon && <item.icon className="size-6" />}
+                            {item.image && (
+                              <MyImage className=" size-6" src={item.image} />
+                            )}
+                            {item.title}
+                          </Link>
+                        ) : (
+                          <div className="flex items-center gap-2 font-normal">
+                            {item.icon && <item.icon className="size-6" />}
+                            {item.image && (
+                              <MyImage className=" size-6" src={item.image} />
+                            )}
+                            {item.title}
+                          </div>
+                        )}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <SidebarMenuSub>
+                          {otherData1}
+                        </SidebarMenuSub>
+                      </AccordionContent>
+                    </SidebarMenuItem>
+                  </AccordionItem>
+                </Accordion>
+              );
+            return item.children ? (
               <Accordion
                 type="single"
                 collapsible
@@ -140,8 +190,8 @@ const SidebarGroupComponent = ({
                   )}
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            )
-          )}
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
@@ -152,9 +202,10 @@ interface props {
   items: sidebarGroupsProps[];
   lang?: Locale;
   user?: authUser;
+  otherData1?: ReactNode[];
 }
 
-export function AppSidebar({ items, lang, user }: props) {
+export function AppSidebar({ items, lang, user, otherData1 }: props) {
   return (
     <Sidebar className=" pt-14">
       <SidebarContent className=" border-r shrink-0 border-border">
@@ -166,6 +217,7 @@ export function AppSidebar({ items, lang, user }: props) {
               items={group.items}
               index={index}
               lang={lang}
+              otherData1={otherData1}
             />
           ))}
           <div className="h-[1.5rem]]" />

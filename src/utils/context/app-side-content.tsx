@@ -7,7 +7,7 @@ import { LiaUsersSolid } from "react-icons/lia";
 import { MdClass } from "react-icons/md";
 import { CiGrid31 } from "react-icons/ci";
 import { Locale } from "@/i18n";
-import { LuMessageCircle } from "react-icons/lu";
+import { ReactNode } from "react";
 
 // Define type for sidebar items
 export type SidebarItem = {
@@ -16,6 +16,7 @@ export type SidebarItem = {
   image?: string;
   url?: string;
   children?: SidebarItem[];
+  otherData1 ?: boolean;
 };
 
 export type sidebarGroupsProps = {
@@ -23,6 +24,7 @@ export type sidebarGroupsProps = {
   items: SidebarItem[];
   index?: number;
   lang ?: Locale;
+  otherData1 ?: ReactNode[]
 };
 
 // Sidebar configurations
@@ -96,10 +98,11 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
         title: "Class Room",
         image: "/icons/blackboard.png",
         url: "/class",
+        otherData1: true
       },
       {
         title: "Messages",
-        icon: LuMessageCircle,
+        image: "/icons/chat.png",
         url: "/messages",
       },
     ],

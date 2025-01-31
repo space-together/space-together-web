@@ -1,8 +1,12 @@
 import { auth } from "@/auth";
+import OtherData1 from "@/components/site/navbar/app-aside-other-data1";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
-import { studentSidebarGroups, teacherSidebarGroups } from "@/utils/context/app-side-content";
+import {
+  studentSidebarGroups,
+  teacherSidebarGroups,
+} from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -18,7 +22,7 @@ export default async function StudentLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-  
+
   return (
     <SidebarProvider className=" w-full">
       <AppSidebar
@@ -29,11 +33,12 @@ export default async function StudentLayout(props: props) {
           image: user.image ?? undefined,
         }}
         lang={lang}
-        items={ user.role === "STUDENT" ? studentSidebarGroups : teacherSidebarGroups}
+        otherData1={[<OtherData1 lang={lang} key={198} />, <OtherData1 key={12} lang={lang} />]}
+        items={
+          user.role === "STUDENT" ? studentSidebarGroups : teacherSidebarGroups
+        }
       />
-      <main className="w-full">
-        {children}
-      </main>
+      <main className="w-full">{children}</main>
     </SidebarProvider>
   );
 }
