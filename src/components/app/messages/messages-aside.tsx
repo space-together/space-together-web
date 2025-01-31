@@ -2,14 +2,21 @@ import React from "react";
 import MessagesAsideLeftNavbar from "./message-aside-left-navbar";
 import MessageSearch from "./messages-search";
 import MessagesAsideNavbar from "./message-aside-navbar";
+import MessageAsideBody from "./message-aside-body";
+import { Locale } from "@/i18n";
 
-const MessagesAside = () => {
+interface props {
+    lang : Locale
+}
+
+const MessagesAside = ({lang} : props) => {
   return (
     <aside className=" fixed w-80 h-screen bg-base-100 flex">
-      <MessagesAsideLeftNavbar />
+      <MessagesAsideLeftNavbar lang={lang} />
       <div className="w-full border-r border-r-border">
         <MessageSearch />
-        <MessagesAsideNavbar />
+        <MessagesAsideNavbar lang={lang} />
+        <MessageAsideBody />
       </div>
     </aside>
   );

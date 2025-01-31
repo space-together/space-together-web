@@ -20,7 +20,7 @@ const MessageLayout = async (props: props) => {
   return (
     <section>
       <div>
-        <MessagesAside />
+        <MessagesAside lang={lang} />
       </div>
       <div className=" pl-80">{children}</div>
     </section>

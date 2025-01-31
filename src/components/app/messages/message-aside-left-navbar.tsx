@@ -1,10 +1,14 @@
 import { Button } from '@/components/ui/button'
+import { Locale } from '@/i18n'
 import React from 'react'
 import { AiOutlineSetting } from 'react-icons/ai'
 import { FaSchool } from 'react-icons/fa6'
 import { MdClass } from 'react-icons/md'
+interface props {
+    lang : Locale
+}
 
-const MessagesAsideLeftNavbar = () => {
+const MessagesAsideLeftNavbar = ({} : props) => {
   return (
     <div className=' w-16 h-screen border-r border-r-border p-2 space-y-4'>
       <Button shape='square'>
