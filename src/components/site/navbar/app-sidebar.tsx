@@ -69,17 +69,21 @@ const SidebarGroupComponent = ({
                 >
                   <AccordionItem value={item.title}>
                     <SidebarMenuItem>
-                      <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0 rounded-l-none">
+                      <AccordionTrigger
+                        className={cn(
+                          "hover:no-underline btn btn-sm btn-ghost py-0 rounded-l-none",
+                          path === item.url ||
+                            (path === `/${lang}${item.url}` &&
+                              `bg-base-300 ${
+                                theme === "dark" && "bg-white/10"
+                              }`)
+                        )}
+                      >
                         {item.url ? (
                           <Link
                             href={cn(lang ? `/${lang}${item.url}` : item.url)}
                             className={cn(
-                              "flex items-center gap-2 font-normal rounded-l-none",
-                              path === item.url ||
-                                (path === `/${lang}${item.url}` &&
-                                  `bg-base-300 ${
-                                    theme === "dark" && "bg-white/10"
-                                  }`)
+                              "flex items-center gap-2 font-normal rounded-l-none"
                             )}
                           >
                             {item.icon && <item.icon className="size-6" />}
@@ -99,9 +103,7 @@ const SidebarGroupComponent = ({
                         )}
                       </AccordionTrigger>
                       <AccordionContent>
-                        <SidebarMenuSub>
-                          {otherData1}
-                        </SidebarMenuSub>
+                        <SidebarMenuSub>{otherData1}</SidebarMenuSub>
                       </AccordionContent>
                     </SidebarMenuItem>
                   </AccordionItem>
