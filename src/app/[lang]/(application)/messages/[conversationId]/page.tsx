@@ -1,11 +1,14 @@
-import React from 'react'
+import ConversationBody from "@/components/app/messages/conversation-body";
+import MessageFooter from "@/components/app/messages/message-footer";
+import React from "react";
 
-const MessageRequestsPage = () => {
+const MessageConversationPage = () => {
   return (
-    <div className=' min-h-screen'>
-      messages requests hello
+    <div className=" h-[90vh] max-h-[90vh] overflow-y-auto min-h-[90vh] w-full relative">
+      <ConversationBody />
+      <MessageFooter />
     </div>
-  )
-}
+  );
+};
 
-export default MessageRequestsPage
+export default MessageConversationPage;
