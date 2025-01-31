@@ -3,7 +3,7 @@ import React from "react";
 
 const ConversationBody = () => {
   return (
-    <div className=" max-h-[80%] min-h-[80%] overflow-y-auto px-4">
+    <div className=" max-h-[80%] min-h-[80%] overflow-y-auto px-4 py-4">
       <MessageCard sender/>
       <MessageCard sender/>
       <MessageCard sender/>
