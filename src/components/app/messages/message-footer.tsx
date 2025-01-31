@@ -34,7 +34,7 @@ const MessageFooter = () => {
     textarea.style.height = `${newHeight}px`;
   };
   return (
-    <footer className=" bottom-0 absolute w-full border-t border-t-border">
+    <footer className=" bottom-0 absolute w-full border-t border-t-border bg-base-200">
       <div className=" flex w-full py-4 space-x-2 px-4 items-end">
         <Button variant="ghost" size="md" shape="circle">
           <BsEmojiSmile size={20} />
