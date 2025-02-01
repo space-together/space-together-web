@@ -1,15 +1,14 @@
 import { auth } from "@/auth";
-import MessagesAside from "@/components/app/messages/messages-aside";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
 import React from "react";
-
+import NotesAside from "@/components/app/notes/notes-aside";
 interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
 }
 
-const MessageLayout = async (props: props) => {
+const NotesLayout = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const { children } = props;
@@ -18,13 +17,11 @@ const MessageLayout = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <section>
-      <div>
-        <MessagesAside lang={lang} />
-      </div>
+    <section className=" flex">
+      <NotesAside lang={lang}/>
       <div className=" pl-80">{children}</div>
     </section>
   );
 };
 
-export default MessageLayout;
+export default NotesLayout;

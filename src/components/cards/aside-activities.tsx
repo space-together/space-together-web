@@ -9,9 +9,9 @@ interface props {
   className ?: string;
 }
 
-const MessagesAsideLeftNavbar = ({ lang, className }: props) => {
+const AsideActivities = ({ lang, className }: props) => {
   return (
-    <div className={cn(" w-16 h-screen border-r border-r-border p-2 space-y-4 bg-base-100" , className)}>
+    <div className={cn(" w-16 h-screen border-r fixed border-r-border p-2 space-y-4 bg-base-100" , className)}>
       <Button shape="square">
         <Link href={`/${lang}/school`}>
           <MyImage src="/icons/school.png" className=" size-8" />
@@ -41,4 +41,4 @@ const MessagesAsideLeftNavbar = ({ lang, className }: props) => {
   );
 };
 
-export default MessagesAsideLeftNavbar;
+export default AsideActivities;
