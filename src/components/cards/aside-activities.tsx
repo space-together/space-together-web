@@ -4,17 +4,65 @@ import { Button } from "@/components/ui/button";
 import UseTheme from "@/context/theme/use-theme";
 import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { authUser } from "@/types/userModel";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 interface props {
   lang: Locale;
   className?: string;
+  user?: authUser;
 }
 
-const AsideActivities = ({ lang, className }: props) => {
+const AsideActivities = ({ lang, className, user }: props) => {
   const pathname = usePathname();
   const theme = UseTheme();
+  if (user?.role)
+    return (
+      <div
+        className={cn(
+          " w-16 h-screen border-r fixed border-r-border p-2 space-y-2 bg-base-100",
+          className
+        )}
+      >
+        <Button
+          shape="square"
+          variant="ghost"
+          className={cn(
+            pathname === `/${lang}/school` &&
+              (theme === "dark" ? "bg-white/10" : "bg-black/10")
+          )}
+        >
+          <Link href={`/${lang}/school-staff`}>
+            <MyImage src="/icons/dashboard.png" className=" size-8" />
+          </Link>
+        </Button>
+        <Button
+          shape="square"
+          variant="ghost"
+          className={cn(
+            pathname === `/${lang}/messages` &&
+              (theme === "dark" ? "bg-white/10" : "bg-black/10")
+          )}
+        >
+          <Link href={`/${lang}/messages`}>
+            <MyImage src="/icons/chat.png" className=" size-8" />
+          </Link>
+        </Button>
+        <Button
+          shape="square"
+          variant="ghost"
+          className={cn(
+            pathname === `/${lang}/settings` &&
+              (theme === "dark" ? "bg-white/10" : "bg-black/10")
+          )}
+        >
+          <Link href={`/${lang}/settings`}>
+            <MyImage src="/icons/cogwheel.png" className=" size-8" />
+          </Link>
+        </Button>
+      </div>
+    );
   return (
     <div
       className={cn(

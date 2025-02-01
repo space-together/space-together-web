@@ -19,7 +19,15 @@ const layout = async (props: props) => {
   }
   return (
     <div>
-      <AsideActivities lang={lang} />
+      <AsideActivities
+        user={{
+          ...user,
+          name: user.name ?? "",
+          email: user.email ?? undefined,
+          image: user.image ?? undefined,
+        }}
+        lang={lang}
+      />
       <div className=" pl-16 ">{children}</div>
     </div>
   );

@@ -11,16 +11,19 @@ import { Locale } from "@/i18n";
 interface props {
   isMySchool?: boolean;
   lang: Locale;
+  onThePage?: boolean;
 }
 
-const SchoolHeader = ({ isMySchool, lang }: props) => {
+const SchoolHeader = ({ isMySchool, lang, onThePage }: props) => {
   return (
     <div className=" space-y-2">
-      <MyImage
-        src="/images/8.jpg"
-        className=" w-full h-80"
-        classname=" card rounded-t-none"
-      />
+      {!onThePage && (
+        <MyImage
+          src="/images/8.jpg"
+          className=" w-full h-80"
+          classname=" card rounded-t-none"
+        />
+      )}
       <div className=" flex justify-between items-center">
         <div className=" flex space-x-2 items-center">
           <Avatar className=" size-32">
@@ -29,7 +32,7 @@ const SchoolHeader = ({ isMySchool, lang }: props) => {
           </Avatar>
           <div className=" space-y-1">
             <h3 className=" font-semibold text-2xl">School name</h3>
-            <span>@ school_username</span>
+            <Link href={`/${lang}/school`} className=" link-hover">@ school_username</Link>
             <div>
               <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
                 <TfiWorld />
@@ -50,17 +53,20 @@ const SchoolHeader = ({ isMySchool, lang }: props) => {
           </div>
         </div>
         <div>
-          {/* TODO: add school link */}
-          {!isMySchool ? (
-            <Link href={`/${lang}/school/school-username/ask-to-join`}>
-              <Button variant="info">
-                <FaUserPlus />
-                Ask Join school
+          {!onThePage &&
+            (!isMySchool ? (
+              <Link href={`/${lang}/school/school-username/ask-to-join`}>
+                <Button variant="info">
+                  <FaUserPlus />
+                  Ask Join school
+                </Button>
+              </Link>
+            ) : (
+              <Button variant="error">
+                {" "}
+                <FaUserMinus /> Left school
               </Button>
-            </Link>
-          ) : (
-            <Button variant="error"> <FaUserMinus /> Left school</Button>
-          )}
+            ))}
         </div>
       </div>
     </div>
