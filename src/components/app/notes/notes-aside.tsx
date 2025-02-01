@@ -11,6 +11,7 @@ const NotesAside = ({  }: props) => {
     <aside className=" fixed w-80 h-screen bg-base-100 flex">
       <div className="w-full border-r border-r-border">
         <AsideSearch />
+        notes aside
       </div>
     </aside>
   );
