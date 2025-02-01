@@ -21,7 +21,7 @@ const OtherData1 = ({ lang }: props) => {
         </Avatar>
         <div className=" flex flex-col items-start">
           <h5 className=" font-medium">Class names</h5>
-          <span>@ L5SOD</span>
+          <span className=" text-myGray font-normal">@ L5SOD</span>
         </div>
       </Link>
     </SidebarMenuSubItem>

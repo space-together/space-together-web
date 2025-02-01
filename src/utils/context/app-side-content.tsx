@@ -112,7 +112,7 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
     items: [
       {
         title: "Settings",
-        icon: AiOutlineSetting,
+        image: "/icons/cogwheel.png",
         url: "/admin/setting",
       },
     ],
