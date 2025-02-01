@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Dot } from "lucide-react";
 import { Locale } from "@/i18n";
+import Link from "next/link";
 
 interface props {
   postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "TEXT";
@@ -26,10 +27,12 @@ const PostCard = ({ postRole, lang }: props) => {
           </div>
           <h3 className=" text-lg font-semibold text-center">Lesson 1</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-            doloribus nobis totam nemo id provident tempora quos, sed modi.
-            Commodi optio, nemo beatae tenetur repellat aspernatur asperiores
-            delectus nihil accusamus...
+            <Link href={`/${lang}/notes/student`}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatem doloribus nobis totam nemo id provident tempora quos,
+              sed modi. Commodi optio, nemo beatae tenetur repellat aspernatur
+              asperiores delectus nihil accusamus...
+            </Link>
           </p>
         </div>
       )}
@@ -90,14 +93,14 @@ const PostCard = ({ postRole, lang }: props) => {
       {postRole === "TEXT" && (
         <div>
           <div className=" p-4">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, labore
-            eius nesciunt vel veritatis, quod delectus eligendi accusantium
-            dicta dolorem provident culpa! Sunt exercitationem accusantium
-            nesciunt. Perferendis nam maxime facilis.
-          </p>
-        </div>
-        <Separator />
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui,
+              labore eius nesciunt vel veritatis, quod delectus eligendi
+              accusantium dicta dolorem provident culpa! Sunt exercitationem
+              accusantium nesciunt. Perferendis nam maxime facilis.
+            </p>
+          </div>
+          <Separator />
         </div>
       )}
       {postRole !== "ACTIVITY" && <PostCardFooter postRole={postRole} />}
