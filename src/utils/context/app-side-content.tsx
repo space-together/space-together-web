@@ -16,15 +16,15 @@ export type SidebarItem = {
   image?: string;
   url?: string;
   children?: SidebarItem[];
-  otherData1 ?: boolean;
+  otherData1?: boolean;
 };
 
 export type sidebarGroupsProps = {
   label?: string;
   items: SidebarItem[];
   index?: number;
-  lang ?: Locale;
-  otherData1 ?: ReactNode[]
+  lang?: Locale;
+  otherData1?: ReactNode[];
 };
 
 // Sidebar configurations
@@ -95,10 +95,10 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
         url: "/school",
       },
       {
-        title: "Class Room",
+        title: "Class & school",
         image: "/icons/blackboard.png",
         url: "/class",
-        otherData1: true
+        otherData1: true,
       },
       {
         title: "Notes",
@@ -134,14 +134,14 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
         url: "/school",
       },
       {
-        title: "Class Room",
+        title: "Class & school",
         image: "/icons/blackboard.png",
-        url: "/class",
+        url: "/teacher",
       },
       {
-        title: "Collections",
-        icon: TfiLayoutGrid3,
-        url: "/student/collections",
+        title: "Messages",
+        image: "/icons/chat.png",
+        url: "/messages",
       },
     ],
   },
@@ -150,7 +150,7 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
     items: [
       {
         title: "Settings",
-        icon: AiOutlineSetting,
+        image: "/icons/cogwheel.png",
         url: "/admin/setting",
       },
     ],
