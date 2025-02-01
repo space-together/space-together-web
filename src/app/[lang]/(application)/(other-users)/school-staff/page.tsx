@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
+import StaffDashboardActions from "@/components/app/school-staff/dashboard/staff-dashboard-actions";
 import StaffDashboardPeople from "@/components/app/school-staff/dashboard/staff-dashboard-details";
+import StaffSchoolDashboardRequest from "@/components/app/school-staff/dashboard/staff-dashboard-request";
 import SchoolHeader from "@/components/app/school/school-header";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
@@ -19,7 +21,15 @@ const SchoolStaffPage = async (props: props) => {
   return (
     <div className=" p-4 space-y-4">
       <SchoolHeader onThePage lang={lang} />
-      <StaffDashboardPeople lang={lang}/>
+      <StaffDashboardPeople lang={lang} />
+      <div className=" flex space-x-4">
+        <div className=" w-1/2">
+          <StaffDashboardActions />
+        </div>
+        <div className=" w-1/2">
+        <StaffSchoolDashboardRequest />
+        </div>
+      </div>
     </div>
   );
 };
