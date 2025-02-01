@@ -14,7 +14,7 @@ const NotesIdPage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <div>
+    <div className=' min-h-screen'>
       notes page
     </div>
   )

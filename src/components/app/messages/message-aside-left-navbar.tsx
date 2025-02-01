@@ -23,6 +23,16 @@ const MessagesAsideLeftNavbar = ({ lang, className }: props) => {
         </Link>
       </Button>
       <Button shape="square">
+        <Link href={`/${lang}/notes`}>
+          <MyImage src="/icons/note.png" className=" size-8" />
+        </Link>
+      </Button>
+      <Button shape="square">
+        <Link href={`/${lang}/messages`}>
+          <MyImage src="/icons/chat.png" className=" size-8" />
+        </Link>
+      </Button>
+      <Button shape="square">
         <Link href={`/${lang}/settings`}>
           <MyImage src="/icons/cogwheel.png" className=" size-8" />
         </Link>
