@@ -16,7 +16,7 @@ interface props {
 
 export default function UserTooltip({ trigger , lang}: props) {
   return (
-    <HoverCard open>
+    <HoverCard>
       <HoverCardTrigger asChild>{trigger}</HoverCardTrigger>
       <HoverCardContent className=" w-72">
         <div className="space-y-3">
