@@ -158,7 +158,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
       <div className=" p-4">
         {/* TODO: add link of class */}
         <Link
-          href={`/${lang}/class/student`}
+          href={`/${lang}/teacher/school/student`}
           className={cn("btn w-full", isClassTeacher && "btn-info")}
         >
           Join School
