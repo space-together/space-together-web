@@ -15,7 +15,7 @@ const NotesHeader = ({}: props) => {
         <UserCardSmallSmall />
       </div>
       <Button variant="ghost" shape="circle">
-        <BsExclamationCircle size={20} />
+        <BsExclamationCircle size={22} />
       </Button>
     </div>
   );

@@ -9,7 +9,7 @@ const UserCardSmallSmall = () => {
         <AvatarFallback>PR</AvatarFallback>
       </Avatar>
       <div className=" flex flex-col -space-y-1">
-        <h4 className=" font-medium text-sm">Hakizimana Jea</h4>
+        <h5 className=" font-medium text-sm">Hakizimana Jea</h5>
         <span className=" text-myGray font-medium text-xs">TEACHER</span>
       </div>
     </div>
