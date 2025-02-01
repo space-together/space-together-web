@@ -101,6 +101,11 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
         otherData1: true
       },
       {
+        title: "Notes",
+        image: "/icons/note.png",
+        url: "/notes",
+      },
+      {
         title: "Messages",
         image: "/icons/chat.png",
         url: "/messages",
