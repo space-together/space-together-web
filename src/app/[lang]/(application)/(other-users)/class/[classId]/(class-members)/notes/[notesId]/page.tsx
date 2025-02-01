@@ -19,6 +19,7 @@ const ClassNotesIdPage = async (props: props) => {
       <NotesHeader lang={lang} />
       <div className=" px-4">
         <NotesBody />
+        
       </div>
     </div>
   );
