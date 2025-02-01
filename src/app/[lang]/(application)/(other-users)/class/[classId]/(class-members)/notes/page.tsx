@@ -9,7 +9,7 @@ interface props {
   params: Promise<{ lang: Locale }>;
 }
 
-const ClassNotesPage =async (props: props) => {
+const ClassNotesPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const user = (await auth())?.user;
@@ -29,7 +29,9 @@ const ClassNotesPage =async (props: props) => {
             <PostCard lang={lang} postRole="NOTES" />
             <PostCard lang={lang} postRole="NOTES" />
           </div>
-          <div className=" happy-card justify-center flex-row link-info link">See all Kinyarwanda Notes</div>
+          <div className=" happy-card justify-center flex-row link-info link">
+            See all Kinyarwanda Notes
+          </div>
         </div>
         <div className=" space-y-2">
           <h5 className=" text-lg font-medium">This week English Noters</h5>
@@ -39,7 +41,9 @@ const ClassNotesPage =async (props: props) => {
             <PostCard lang={lang} postRole="NOTES" />
             <PostCard lang={lang} postRole="NOTES" />
           </div>
-          <div className=" happy-card justify-center flex-row link-info link">See all Kinyarwanda Notes</div>
+          <div className=" happy-card justify-center flex-row link-info link">
+            See all Kinyarwanda Notes
+          </div>
         </div>
       </div>
       <div className=" h-screen" />

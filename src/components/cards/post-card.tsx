@@ -27,7 +27,7 @@ const PostCard = ({ postRole, lang }: props) => {
           </div>
           <h3 className=" text-lg font-semibold text-center">Lesson 1</h3>
           <p>
-            <Link href={`/${lang}/notes/student`}>
+            <Link href={`/${lang}/class/student/notes/student`}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem doloribus nobis totam nemo id provident tempora quos,
               sed modi. Commodi optio, nemo beatae tenetur repellat aspernatur

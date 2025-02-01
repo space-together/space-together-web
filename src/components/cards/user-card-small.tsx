@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
+import { cn } from "@/lib/utils";
 
 interface props {
   userRole:
@@ -16,11 +17,12 @@ interface props {
     | "TEACHER"
     | "STUDENT";
   lang: Locale;
+  className ?:  string;
 }
 
-const UserCardSmall = ({ userRole, lang }: props) => {
+const UserCardSmall = ({ userRole, lang,className }: props) => {
   return (
-    <div className=" flex justify-between items-center  space-y-2">
+    <div className={cn("flex justify-between items-center  space-y-2", className)}>
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/student`}>
           <Avatar className=" size-12">
