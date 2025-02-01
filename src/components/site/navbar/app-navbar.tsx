@@ -1,10 +1,10 @@
 "use client";
 import SiteLogo from "./site-logo";
-import Link from "next/link";
 import { Locale } from "@/i18n";
 import MyImage from "@/components/my-components/myImage";
 import { authUser } from "@/types/userModel";
 import NavProfileDropDown from "./nav-profile-drop-down";
+import NavMessageDropDown from "./nav-messages-drop-down";
 
 interface props {
   lang: Locale;
@@ -18,9 +18,7 @@ const AppNavbar = ({ lang, user }: props) => {
         <SiteLogo />
       </div>
       <div className=" flex gap-2 items-center mr-4">
-        <Link className=" btn btn-circle btn-ghost" href={`/${lang}/message`}>
-          <MyImage className=" size-8" src="/icons/chat.png" />
-        </Link>
+        <NavMessageDropDown lang={lang}/>
         <div role="button" className=" btn btn-circle btn-ghost">
           <MyImage className=" size-8" src="/icons/bell.png" />
         </div>
