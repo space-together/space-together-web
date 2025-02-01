@@ -138,6 +138,9 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
           if (role === "student") {
             return router.push(`/${lang}/class`);
           }
+          if (role === "schoolstaff") {
+            return router.push(`/${lang}/school-staff`);
+          }
           return router.push(`/${lang}/${role}`);
         }
       } else {

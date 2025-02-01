@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
 import {
+  schoolStaffSidebarGroups,
   studentSidebarGroups,
   teacherSidebarGroups,
 } from "@/utils/context/app-side-content";
@@ -35,7 +36,11 @@ export default async function StudentLayout(props: props) {
         lang={lang}
         otherData1={[<OtherData1 lang={lang} key={198} />, <OtherData1 key={12} lang={lang} />]}
         items={
-          user.role === "STUDENT" ? studentSidebarGroups : teacherSidebarGroups
+          user.role === "STUDENT"
+            ? studentSidebarGroups
+            : user.role === "SCHOOLSTAFF"
+            ? schoolStaffSidebarGroups
+            : teacherSidebarGroups
         }
       />
       <main className="w-full">{children}</main>

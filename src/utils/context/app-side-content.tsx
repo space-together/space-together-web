@@ -156,3 +156,31 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
     ],
   },
 ];
+
+export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
+  {
+    //   label: "Dashboard",
+    items: [
+      {
+        title: "Dashboard",
+        image: "/icons/dashboard.png",
+        url: "/school-staff",
+      },
+      {
+        title: "Messages",
+        image: "/icons/chat.png",
+        url: "/messages",
+      },
+    ],
+  },
+  {
+    //   label: "Settings",
+    items: [
+      {
+        title: "Settings",
+        image: "/icons/cogwheel.png",
+        url: "/admin/setting",
+      },
+    ],
+  },
+];
