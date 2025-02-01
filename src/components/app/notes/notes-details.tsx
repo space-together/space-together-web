@@ -13,7 +13,11 @@ const NotesDetails = () => {
 
   if (!isVisible) return null;
 
-  return <div>notes</div>;
+  return <div className="bg-base-100 h-full min-h-screen border-l border-l-border">
+    <div className=" w-96">
+        {/* TODO: to make and to find  why i need note details */}
+    </div>
+  </div>;
 };
 
 export default NotesDetails;
