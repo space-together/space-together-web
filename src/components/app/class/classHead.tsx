@@ -1,8 +1,14 @@
 import MyImage from "@/components/my-components/myImage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserTooltip from "@/context/tooltip/user-tooltip";
+import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 
-const ClassHead = () => {
+interface props {
+  lang : Locale
+}
+
+const ClassHead = ({lang} : props) => {
   return (
     <div className=" w-full relative">
       <MyImage
@@ -32,10 +38,15 @@ const ClassHead = () => {
             </div>
             <div className=" flex items-center -space-x-2 ">
               <Dot size={32} />
-              <Avatar className=" size-8">
-                <AvatarImage src="/images/2.jpg" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
+              <UserTooltip
+                lang={lang}
+                trigger={
+                  <Avatar className=" size-8">
+                    <AvatarImage src="/images/2.jpg" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                }
+              />
               <span className=" pl-3"> Hakizimana Doe</span>
               <span className=" pl-4 text-myGray">CT</span>
             </div>

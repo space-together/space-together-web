@@ -13,7 +13,7 @@ const ClassIdPage = async (props: Props) => {
   const { lang } = params;
   return (
     <div className=" px-4">
-      <ClassHead />
+      <ClassHead lang={lang}/>
       <div className=" mt-28">
         <Separator />
         <div className="flex  justify-between space-x-4 mt-4">
