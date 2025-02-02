@@ -30,7 +30,7 @@ export default function UserTooltip({ trigger , lang}: props) {
                 <h5 className="text-sm font-medium">Keith Kennedy</h5>
                 <p className="text-xs text-muted-foreground">@k.kennedy</p>
               </div>
-              <strong className=" text-sm text-myGray">STUDENT</strong>
+              <strong className=" text-xs text-myGray ">STUDENT</strong>
             </div>
           </div>
           <div className=" flex space-x-2">
