@@ -17,7 +17,7 @@ const ClassIdPage = async (props: Props) => {
   return (
     <div className=" p-4 min-h-screen h-full ">
       <ClassTimetable />
-      {educationClass
+      {/* {educationClass
         ? educationClass.map((item) => <div key={item.id}>{item.name}</div>)
         : "No education for sector"}
       <UserTooltip
@@ -28,7 +28,7 @@ const ClassIdPage = async (props: Props) => {
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         }
-      />
+      /> */}
     </div>
   );
 };
