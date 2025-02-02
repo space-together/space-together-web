@@ -17,7 +17,7 @@ interface props {
 const AsideActivities = ({ lang, className, user }: props) => {
   const pathname = usePathname();
   const theme = UseTheme();
-  if (user?.role)
+  if (user?.role === "SCHOOLSTAFF")
     return (
       <div
         className={cn(
