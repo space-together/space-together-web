@@ -6,7 +6,9 @@ interface props {
   lang: Locale;
 }
 type MessageTypes = "friends" | "requests";
+
 const MessagesAsideNavbar = ({}: props) => {
+  
   const [choose, setChoose] = useState<MessageTypes>(() => {
     const storedChoice = localStorage.getItem("chooseMessages") as MessageTypes;
     if (!!storedChoice) return storedChoice;
