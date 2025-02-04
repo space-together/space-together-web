@@ -29,7 +29,6 @@ export default async function Layout(props: props) {
           image: user.image ?? undefined,
         }}
         items={adminSidebarGroups}
-        name="Admin"
         lang={lang}
       />
       <main className="w-full">{children}</main>
