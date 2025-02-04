@@ -28,7 +28,7 @@ const Page = async (props : Props) => {
       </div>
       <div className=" mt-4 w-full space-y-3">
         <LoginForm lang={lang} diction={diction.auth.login.form}/>
-        <AuthProviders />
+        <AuthProviders lang={lang}/>
       </div>
     </div>
   );
