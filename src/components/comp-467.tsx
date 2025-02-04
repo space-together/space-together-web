@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Image from "next/image";
 
 const items = [
   {
@@ -68,7 +69,7 @@ export default function Component() {
             <TableRow key={item.id}>
               <TableCell>
                 <div className="flex items-center gap-3">
-                  <img
+                  <Image
                     className="rounded-full"
                     src={item.image}
                     width={40}

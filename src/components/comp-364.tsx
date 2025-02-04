@@ -1,10 +1,11 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import Image from "next/image";
 
 export default function HoverCardDemo() {
   return (
     <HoverCard>
       <div className="flex items-center gap-3">
-        <img
+        <Image
           className="shrink-0 rounded-full"
           src="avatar-40-05.jpg"
           width={40}
@@ -23,7 +24,7 @@ export default function HoverCardDemo() {
       <HoverCardContent>
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <img
+            <Image
               className="shrink-0 rounded-full"
               src="avatar-40-05.jpg"
               width={40}
@@ -41,21 +42,21 @@ export default function HoverCardDemo() {
           </p>
           <div className="flex items-center gap-2">
             <div className="flex -space-x-1.5">
-              <img
+              <Image
                 className="rounded-full ring-1 ring-background"
                 src="/avatar-20-04.jpg"
                 width={20}
                 height={20}
                 alt="Friend 01"
               />
-              <img
+              <Image
                 className="rounded-full ring-1 ring-background"
                 src="/avatar-20-05.jpg"
                 width={20}
                 height={20}
                 alt="Friend 02"
               />
-              <img
+              <Image
                 className="rounded-full ring-1 ring-background"
                 src="/avatar-20-06.jpg"
                 width={20}

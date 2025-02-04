@@ -353,7 +353,7 @@ export namespace Prisma {
   export type DecimalJsLike = runtime.DecimalJsLike
 
   /**
-   * Metrics 
+   * Metrics
    */
   export type Metrics = runtime.Metrics
   export type Metric<T> = runtime.Metric<T>
@@ -371,14 +371,14 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.2.1
-   * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
+   * Prisma Client JS version: 6.3.1
+   * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
    */
   export type PrismaVersion = {
     client: string
   }
 
-  export const prismaVersion: PrismaVersion 
+  export const prismaVersion: PrismaVersion
 
   /**
    * Utility Types
@@ -394,15 +394,15 @@ export namespace Prisma {
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   namespace NullTypes {
     /**
     * Type of `Prisma.DbNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class DbNull {
@@ -412,9 +412,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.JsonNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class JsonNull {
@@ -424,9 +424,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.AnyNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class AnyNull {
@@ -437,21 +437,21 @@ export namespace Prisma {
 
   /**
    * Helper for filtering JSON entries that have `null` on the database (empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const DbNull: NullTypes.DbNull
 
   /**
    * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const JsonNull: NullTypes.JsonNull
 
   /**
    * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const AnyNull: NullTypes.AnyNull
@@ -2876,6 +2876,10 @@ export namespace Prisma {
      * Filter which Users to update
      */
     where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
   }
 
   /**
@@ -2938,6 +2942,10 @@ export namespace Prisma {
      * Filter which Users to delete
      */
     where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -4052,6 +4060,10 @@ export namespace Prisma {
      * Filter which Accounts to update
      */
     where?: AccountWhereInput
+    /**
+     * Limit how many Accounts to update.
+     */
+    limit?: number
   }
 
   /**
@@ -4114,6 +4126,10 @@ export namespace Prisma {
      * Filter which Accounts to delete
      */
     where?: AccountWhereInput
+    /**
+     * Limit how many Accounts to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -5034,6 +5050,10 @@ export namespace Prisma {
      * Filter which Sessions to update
      */
     where?: SessionWhereInput
+    /**
+     * Limit how many Sessions to update.
+     */
+    limit?: number
   }
 
   /**
@@ -5096,6 +5116,10 @@ export namespace Prisma {
      * Filter which Sessions to delete
      */
     where?: SessionWhereInput
+    /**
+     * Limit how many Sessions to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -5959,6 +5983,10 @@ export namespace Prisma {
      * Filter which VerificationTokens to update
      */
     where?: VerificationTokenWhereInput
+    /**
+     * Limit how many VerificationTokens to update.
+     */
+    limit?: number
   }
 
   /**
@@ -6013,6 +6041,10 @@ export namespace Prisma {
      * Filter which VerificationTokens to delete
      */
     where?: VerificationTokenWhereInput
+    /**
+     * Limit how many VerificationTokens to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -6985,6 +7017,10 @@ export namespace Prisma {
      * Filter which Authenticators to update
      */
     where?: AuthenticatorWhereInput
+    /**
+     * Limit how many Authenticators to update.
+     */
+    limit?: number
   }
 
   /**
@@ -7047,6 +7083,10 @@ export namespace Prisma {
      * Filter which Authenticators to delete
      */
     where?: AuthenticatorWhereInput
+    /**
+     * Limit how many Authenticators to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -8002,6 +8042,10 @@ export namespace Prisma {
      * Filter which Educations to update
      */
     where?: EducationWhereInput
+    /**
+     * Limit how many Educations to update.
+     */
+    limit?: number
   }
 
   /**
@@ -8064,6 +8108,10 @@ export namespace Prisma {
      * Filter which Educations to delete
      */
     where?: EducationWhereInput
+    /**
+     * Limit how many Educations to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -9075,6 +9123,10 @@ export namespace Prisma {
      * Filter which Sectors to update
      */
     where?: SectorWhereInput
+    /**
+     * Limit how many Sectors to update.
+     */
+    limit?: number
   }
 
   /**
@@ -9137,6 +9189,10 @@ export namespace Prisma {
      * Filter which Sectors to delete
      */
     where?: SectorWhereInput
+    /**
+     * Limit how many Sectors to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -10193,6 +10249,10 @@ export namespace Prisma {
      * Filter which Trades to update
      */
     where?: TradeWhereInput
+    /**
+     * Limit how many Trades to update.
+     */
+    limit?: number
   }
 
   /**
@@ -10255,6 +10315,10 @@ export namespace Prisma {
      * Filter which Trades to delete
      */
     where?: TradeWhereInput
+    /**
+     * Limit how many Trades to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -11299,6 +11363,10 @@ export namespace Prisma {
      * Filter which ClassRooms to update
      */
     where?: ClassRoomWhereInput
+    /**
+     * Limit how many ClassRooms to update.
+     */
+    limit?: number
   }
 
   /**
@@ -11361,6 +11429,10 @@ export namespace Prisma {
      * Filter which ClassRooms to delete
      */
     where?: ClassRoomWhereInput
+    /**
+     * Limit how many ClassRooms to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -12439,6 +12511,10 @@ export namespace Prisma {
      * Filter which Classes to update
      */
     where?: ClassWhereInput
+    /**
+     * Limit how many Classes to update.
+     */
+    limit?: number
   }
 
   /**
@@ -12501,6 +12577,10 @@ export namespace Prisma {
      * Filter which Classes to delete
      */
     where?: ClassWhereInput
+    /**
+     * Limit how many Classes to delete.
+     */
+    limit?: number
   }
 
   /**
