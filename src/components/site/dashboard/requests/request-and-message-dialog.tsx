@@ -5,7 +5,7 @@ import UseTheme from "@/context/theme/use-theme";
 const RequestAndMessageDialog = () => {
   return (
     <Dialog>
-      <DialogTrigger className=" btn btn-sm btn-info">Reply</DialogTrigger>
+      <DialogTrigger className=" btn btn-sm btn-info">Reply </DialogTrigger>
       <DialogContent data-theme={UseTheme()}>
         <DialogTitle>Reply hello</DialogTitle>
       </DialogContent>
