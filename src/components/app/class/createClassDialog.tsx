@@ -32,9 +32,9 @@ const CreateClassDialog = ({ isOpen }: props) => {
     resolver: zodResolver(classSchema),
     defaultValues: {
       name: "",
-      section : "",
-      room : "",
-      subjects : undefined,
+      // section : "",
+      // room : "",
+      // subjects : undefined,
     }
   })
 
@@ -62,7 +62,7 @@ const CreateClassDialog = ({ isOpen }: props) => {
                 </FormItem> 
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="section"
               render={({ field }) => (
@@ -74,8 +74,8 @@ const CreateClassDialog = ({ isOpen }: props) => {
                   <FormMessage />
                 </FormItem> 
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={form.control}
               name="subjects"
               render={({ field }) => (
@@ -87,8 +87,8 @@ const CreateClassDialog = ({ isOpen }: props) => {
                   <FormMessage />
                 </FormItem> 
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={form.control}
               name="room"
               render={({ field }) => (
@@ -100,7 +100,7 @@ const CreateClassDialog = ({ isOpen }: props) => {
                   <FormMessage />
                 </FormItem> 
               )}
-            />
+            /> */}
             <AlertDialogFooter>
               <AlertDialogCancel>
                 Cancel

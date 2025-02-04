@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ClassAbout = () => {
+const ClassPeople = () => {
   return (
     <div className=' happy-card'>
-      class about comp
+      class people
     </div>
   )
 }
 
-export default ClassAbout
+export default ClassPeople
