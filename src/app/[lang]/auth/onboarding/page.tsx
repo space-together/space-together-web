@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import OnboardingForm from "@/components/auth/forms/onboarding-form";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
-import { fetchAllUserRoles } from "@/utils/service/functions/fetchDataFn";
 
 interface Props {
   params: Promise<{ lang: Locale }>;
@@ -11,7 +10,6 @@ const OnboardingPage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
   const diction = await getDictionary(lang);
-  const userRoles = await fetchAllUserRoles();
 
 
   const authResult = await auth();
@@ -32,7 +30,6 @@ const OnboardingPage = async (props: Props) => {
         <OnboardingForm
           lang={lang}
           user={user}
-          userRoles={userRoles}
           dictionary={diction.auth.onboarding.form}
         />
       </div>
