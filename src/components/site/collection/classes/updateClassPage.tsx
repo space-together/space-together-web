@@ -2,7 +2,7 @@ import DocumentPageStatic, {
     DocumentPageStaticError,
   } from "@/utils/static/page/documentPageStatic";
   import { fetchAllClassesType, fetchAllEducation, getClassAPI } from "@/services/data/fetchDataFn";
-import UpdateClassForm from "./updateClassForm";
+// import UpdateClassForm from "./updateClassForm";
 
 interface props {
     classId : string 
@@ -45,7 +45,8 @@ interface props {
   
     return (
       <DocumentPageStatic collectionName="classes" documentName="Class-update">
-        <UpdateClassForm classModel={getClass} classTypes={getClassTypes} educations={getEducations} />
+        <div>hello</div>
+        {/* <UpdateClassForm classModel={getClass} classTypes={getClassTypes} educations={getEducations} /> */}
       </DocumentPageStatic>
     );
   };
