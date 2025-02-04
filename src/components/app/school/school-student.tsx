@@ -13,7 +13,7 @@ const SchoolStudents = ({ lang, onThePage }: props) => {
   return (
     <div className=" happy-card space-y-2">
       <div className="">
-        <h3 className=" font-semibold capitalize">school staff </h3>
+        <h3 className=" font-semibold capitalize">school Student </h3>
       </div>
       <div className=" space-y-2 ml-2">
         <UserCardSmall lang={lang} userRole="STUDENT" />
