@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import ClassTimetableHeader from "./ClassTimetableHeader";
+import ClassTimetableHeader from "@/components/app/class/ClassTimetableHeader";
 
 const timetable = {
   Monday: {
@@ -55,7 +55,7 @@ const timetable = {
   },
 };
 
-const ClassTimetable: React.FC = () => {
+const Timetable: React.FC = () => {
   return (
     <div className="p-4 bg-white shadow rounded-lg">
       <ClassTimetableHeader />
@@ -90,4 +90,4 @@ const ClassTimetable: React.FC = () => {
   );
 };
 
-export default ClassTimetable;
+export default Timetable;

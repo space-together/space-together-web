@@ -51,7 +51,7 @@ const ClassTimetable: React.FC = () => {
       <Separator />
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse border border-gray-300">
-          {/* <thead>
+          <thead>
             <tr className="bg-gray-100">
               <th className="border p-2">Time</th>
               {slots.map((slot, index) => (
@@ -82,7 +82,7 @@ const ClassTimetable: React.FC = () => {
                 </th>
               ))}
             </tr>
-          </thead> */}
+          </thead>
           <tbody>
             <tr>
               <td className="border p-2 font-bold">Schedule</td>

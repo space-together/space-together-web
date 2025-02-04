@@ -3,21 +3,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UserTooltip from "@/context/tooltip/user-tooltip";
 import { Locale } from "@/i18n";
 import { getSectorsByEducationId } from "@/services/data/sector-data";
+import Timetable from "../../../../../../time-table";
 
 interface Props {
   params: Promise<{ lang: Locale }>;
 }
 
 const ClassIdPage = async (props: Props) => {
-  // const params = await props.params;
-  // const { lang } = params;
-  // const educationClass = await getSectorsByEducationId(
-  //   "6797b81f071fbeb2d8b5512c"
-  // );
+  const params = await props.params;
+  const { lang } = params;
+  const educationClass = await getSectorsByEducationId(
+    "6797b81f071fbeb2d8b5512c"
+  );
   return (
     <div className=" p-4 min-h-screen h-full ">
       <ClassTimetable />
-      {/* {educationClass
+      {educationClass
         ? educationClass.map((item) => <div key={item.id}>{item.name}</div>)
         : "No education for sector"}
       <UserTooltip
@@ -28,7 +29,8 @@ const ClassIdPage = async (props: Props) => {
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         }
-      /> */}
+      />
+      <Timetable />
     </div>
   );
 };
