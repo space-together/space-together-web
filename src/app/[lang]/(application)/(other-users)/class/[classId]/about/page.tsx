@@ -11,9 +11,9 @@ const ClassAboutPage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
   return (
-    <div>
+    <div className=" px-4">
       <ClassHead lang={lang} />
-      <div className=" pt-32 px-4 flex space-x-4 w-full justify-between">
+      <div className=" pt-32 flex space-x-4 w-full justify-between">
         <div className="  w-1/2">
           <ClassAbout />
         </div>

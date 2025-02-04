@@ -8,7 +8,7 @@ const HomePage = async () => {
   const session = await auth();
   return (
     <div className=" min-h-screen">
-      other HomePage {JSON.stringify(session)}
+      is login 🔒🔒 {JSON.stringify(session)}
       <div className=" flex gap-4">
         <Link href={`/auth/register`} className=" btn btn-info">Register</Link>
         <Link href={`/auth/login`} className=" btn btn-accent">Login</Link>
