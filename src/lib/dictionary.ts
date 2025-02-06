@@ -3,7 +3,7 @@ import type { Locale } from '@/i18n';
 
 const dictionaries = {
   en: () => import('@/locale/en.json').then(module => module.default),
-  kiny: () => import('@/locale/kiny.json').then(module => module.default),
+  rw: () => import('@/locale/rw.json').then(module => module.default),
 };
 
 export const getDictionary = async (locale: Locale) => {

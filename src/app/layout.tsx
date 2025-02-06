@@ -27,8 +27,16 @@ export const metadata: Metadata = {
     "Space Together",
   ],
   authors: [
-    { name: "Bruno Rwanda Happyheart", url: "https://github.com/space-together-org/space-together-web" },
+    { name: "Bruno Rwanda Happyheart", url: "https://github.com/brunorwanda4" },
+    { name: "Muganza Jesus", url: "https://github.com/brunorwanda4" },
   ],
+  alternates : {
+    canonical: '/',
+    languages: {
+      'en': '/en',
+      'rw': '/rw',
+    },
+  },
   openGraph: {
     title: "space-together - Empowering Education",
     description:
@@ -53,6 +61,11 @@ export const metadata: Metadata = {
     images: ["/logo/1.png"],
   },
   robots: "index, follow",
+  formatDetection: {
+    email: true,
+    address: true,
+    telephone: true,
+  },
 };
 
 export default function RootLayout({
