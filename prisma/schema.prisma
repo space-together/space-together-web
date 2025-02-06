@@ -40,6 +40,8 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
+  Student       Student[]
+  Teacher       Teacher[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -202,6 +204,8 @@ model Class {
   classRoomId  String?    @db.ObjectId
   classTeacher String     @db.ObjectId
   classType    ClassType? @default(PRIVET)
+  Student      Student[]
+  SubClass     SubClass[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -209,4 +213,67 @@ model Class {
   trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
   sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
   classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+}
+
+model SubClass {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  classId String @db.ObjectId
+  code    String
+  name    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Student {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String  @db.ObjectId
+  subClassId String?
+  classId    String  @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Teacher {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  classesId String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subject {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  code        String
+  classRoomId String
+  name        String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Model {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  subjectId String @db.ObjectId
+  // teacher Str
+}
+
+model Note {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  subjectId   String   @db.ObjectId
+  seenBy      String[] @db.ObjectId
+  commentsIds String[] @db.ObjectId
+  fileId      String?  @db.ObjectId
+  content     String   @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
