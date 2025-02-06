@@ -5,10 +5,11 @@ import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 
 interface props {
-  lang : Locale
+  lang: Locale;
 }
 
-const ClassHead = ({lang} : props) => {
+const ClassHead = ({ lang }: props) => {
+  const imageSrc = "/images/2.jpg";
   return (
     <div className=" w-full relative">
       <MyImage
@@ -42,8 +43,9 @@ const ClassHead = ({lang} : props) => {
                 lang={lang}
                 trigger={
                   <Avatar className=" size-8">
-                    <AvatarImage src="/images/2.jpg"
-             onError={(e) => (e.currentTarget.src = "https://img.freepik.com/free-photo/happy-boy-with-adorable-smile_23-2149352352.jpg?t=st=1738836062~exp=1738839662~hmac=510ea2f9b13ba3cc58ae199263d0d0d9b1955c59aa634454b0c142d278ab7845&w=996")} />
+                    <AvatarImage
+                      src={ imageSrc ||"/images/2.jpg"}
+                    />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                 }
