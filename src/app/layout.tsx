@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Space Together - School Management & Learning System",
+  title: "space-together - School Management & Learning System",
   description:
     "Space Together is a comprehensive platform designed to manage schools, teachers, students, and learning resources efficiently. It streamlines class management, subject organization, student progress tracking, and communication.",
   icons: {
