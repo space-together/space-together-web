@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@yourtwitterhandle",
-    title: "Space Together - School Management & Learning System",
+    site: "@SpaceTogetherEdu",
+    title: "space-together - School Management & Learning System",
     description:
       "A modern education platform for schools, teachers, and students to collaborate efficiently.",
     images: ["/logo/1.png"],
