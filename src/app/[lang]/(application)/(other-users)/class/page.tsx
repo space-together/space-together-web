@@ -1,9 +1,9 @@
-import ClassTimetable from "@/components/app/class/classTimetable";
+// import ClassTimetable from "@/components/app/class/classTimetable";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UserTooltip from "@/context/tooltip/user-tooltip";
 import { Locale } from "@/i18n";
 import { getSectorsByEducationId } from "@/services/data/sector-data";
-import Timetable from "../../../../../../time-table";
+import Timetable from "@/components/my-components/time-table";
 
 interface Props {
   params: Promise<{ lang: Locale }>;
@@ -18,7 +18,8 @@ const ClassIdPage = async (props: Props) => {
   
   return (
     <div className=" p-4 min-h-screen h-full ">
-      <ClassTimetable />
+      {/* <ClassTimetable /> */}
+      <Timetable />
       {educationClass
         ? educationClass.map((item) => <div key={item.id}>{item.name}</div>)
         : "No education for sector"}
