@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     { name: "Bruno Rwanda Happyheart", url: "https://github.com/space-together-org/space-together-web" },
   ],
   openGraph: {
-    title: "Space Together - Empowering Education",
+    title: "space-together - Empowering Education",
     description:
       "An innovative school management and learning system that enhances education through digital tools.",
-    url: "https://space-together-web.vercel.app/",
+    url: "https://space-together-web.vercel.app",
     type: "website",
     images: [
       {
