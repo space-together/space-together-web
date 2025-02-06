@@ -112,7 +112,7 @@ const ClassCard = ({ lang, isClassTeacher, isSchool, isOther }: props) => {
       <div className=" p-4">
         {/* TODO: add link of class */}
         {isOther ? <Link href={`/${lang}/class/student/about`} className=" btn w-full">About class</Link> : <Link
-          href={`/${lang}/class/student`}
+          href={`/${lang}/teacher/class/900`}
           className={cn("btn w-full", isClassTeacher && "btn-info")}
         >
           Join class
