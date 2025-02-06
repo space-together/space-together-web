@@ -61,7 +61,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
       </div>
       <div className=" w-full h-full relative">
         <MyImage
-          src={cn(`/images/${pathname === `/${lang}/auth/onboarding` ? 15 : 11}.jpg`)}
+          src={cn(`/images/${pathname === `/${lang}/auth/onboarding` ? 15 : 11}.jpg` || "https://img.freepik.com/free-photo/college-students-different-ethnicities-cramming_23-2149891296.jpg?t=st=1738835147~exp=1738838747~hmac=31ae8c00e47db52182ae42129f135ee3ffa117c884a7e9df21dd64434e516b67&w=996")}
           alt="Picture of the author"
           className="  h-full w-full"
         />

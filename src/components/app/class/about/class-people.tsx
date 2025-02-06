@@ -1,11 +1,28 @@
-import React from 'react'
+import UserCardSmall from "@/components/cards/user-card-small";
+import { Locale } from "@/i18n";
+import React from "react";
+import { IoPeopleSharp } from "react-icons/io5";
 
-const ClassPeople = () => {
-  return (
-    <div className=' happy-card'>
-      class people
-    </div>
-  )
+interface props{
+    lang: Locale,
 }
 
-export default ClassPeople
+const ClassPeople = ({lang}: props) => {
+  return (
+    <div className=" happy-card">
+      <div className=" space-y-1">
+        <div className=" flex space-x-2 items-center">
+          <IoPeopleSharp /> <h3 className=" font-semibold">Class Members</h3>
+        </div>
+      <div>
+        <h4  className=" font-medium">Teachers</h4>
+        <div>
+            <UserCardSmall userRole="TEACHER" lang={lang}/>
+        </div>
+      </div>
+      </div>
+    </div>
+  );
+};
+
+export default ClassPeople;

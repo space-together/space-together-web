@@ -5,6 +5,7 @@ import { Locale } from "@/i18n";
 import React from "react";
 interface Props {
   params: Promise<{ lang: Locale }>;
+  
 }
 
 const ClassAboutPage = async (props: Props) => {
@@ -18,7 +19,7 @@ const ClassAboutPage = async (props: Props) => {
           <ClassAbout />
         </div>
         <div className=" w-1/2">
-          <ClassPeople />
+          <ClassPeople lang={lang}/>
         </div>
       </div>
     </div>
