@@ -4,7 +4,7 @@ import React from 'react'
 const Progress = () => {
   return (
     <div>
-       <div className='happy-card'>
+       <div className=''>
        <ChartProgress/>
        ...in progress
     </div>

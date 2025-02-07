@@ -7,6 +7,7 @@ import React from 'react'
 import { Separator } from '@/components/ui/separator';
 import ClassBody from '@/components/app/class/classBody';
 import Progress from '@/components/app/teacher/teacher-class-progress';
+import TeacherClassCreateNotes from '@/components/app/teacher/teacher-class-create-notes';
 
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -24,7 +25,10 @@ const TeacherClassPage =async (props: props) => {
       <div className=" mt-28">
         <Separator />
         <div className="flex  space-x-4 mt-4">
+            <div className=' space-y-4 w-1/2'>
+                <TeacherClassCreateNotes/>
           <ClassBody lang={lang}/>
+            </div>
           
           <div className="w-1/2">
           <Progress/>
