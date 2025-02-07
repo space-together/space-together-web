@@ -92,7 +92,7 @@ const CreateClassForm = () => {
         </div>
         <DialogFooter>
           <DialogClose>
-            <Button size="sm" className="">
+            <Button type="button" size="sm" className="">
               Cancel
             </Button>
           </DialogClose>
