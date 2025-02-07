@@ -23,6 +23,7 @@ const CreateClassForm = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
+  
   const form = useForm<classSchemaType>({
     resolver: zodResolver(classSchema),
     defaultValues: {
@@ -74,7 +75,7 @@ const CreateClassForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Describer class</FormLabel>
+              <FormLabel>Describer class (potion)</FormLabel>
               <FormControl>
                 <Textarea
                   className=" resize-none"
@@ -91,12 +92,12 @@ const CreateClassForm = () => {
           <FormMessageSuccess message={success} />
         </div>
         <DialogFooter>
-          <DialogClose>
+          <DialogClose asChild>
             <Button type="button" size="sm" className="">
               Cancel
             </Button>
           </DialogClose>
-          <Button disabled={isPending} variant="info" size="sm">
+          <Button disabled={isPending} type="submit" variant="info" size="sm">
             Create class
             {isPending && (
               <LoaderCircle

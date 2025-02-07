@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 
 import { db } from "@/lib/db";
 import { ClassType } from "../../prisma/prisma/generated";

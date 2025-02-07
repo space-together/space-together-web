@@ -17,7 +17,7 @@ const TeacherPage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
 
-  const haveClass = true;
+  const haveClass = false;
   return (
     <div className=" px-4">
       {!haveClass ? (
