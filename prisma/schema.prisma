@@ -230,7 +230,7 @@ model Student {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   userId     String  @db.ObjectId
   subClassId String?
-  classId    String  @db.ObjectId
+  classId    String? @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -250,23 +250,22 @@ model Teacher {
 }
 
 model Subject {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  code        String
-  classRoomId String
-  name        String
-  description String
-  knowledge   String[]
-  skills      String[]
-  attitude    String[]
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  code           String    @unique
+  classRoomId    String
+  name           String
+  description    String
+  knowledge      String[]
+  skills         String[]
+  attitude       String[]
+  tableOfContent Json
+  resources      Json
+  totalTime      Int
+  startTime      DateTime?
+  endTime        DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Model {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  subjectId String @db.ObjectId
-  // teacher Str
 }
 
 model Note {
