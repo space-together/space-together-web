@@ -28,7 +28,7 @@ const TeacherHomeBody = ({ lang }: props) => {
           <h2 className=" font-semibold">Classes</h2>
         </div>
         <div className=" grid grid-cols-3 gap-4">
-          <ClassCard isStudent lang={lang} />
+          <ClassCard lang={lang} />
           <ClassCard isSchool isClassTeacher lang={lang} />
           <ClassCard isSchool lang={lang} />
           <ClassCard isClassTeacher lang={lang} />
