@@ -10,19 +10,19 @@ export const getClassById = async (id: string) => {
 };
 
 export const getClassByUsername = async (username: string) => {
-    try {
-        const Class = await db.class.findFirst({ where: { username } });
-        return Class;
-    } catch {
-        return null;
-    }
+  try {
+    const Class = await db.class.findFirst({ where: { username } });
+    return Class;
+  } catch {
+    return null;
+  }
 };
 
 export const getAllClasses = async () => {
-    try {
-        const classes = await db.class.findMany();
-        return classes;
-    } catch {
-        return [];
-    }
+  try {
+    const classes = await db.class.findMany();
+    return classes;
+  } catch {
+    return [];
+  }
 };

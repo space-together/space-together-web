@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
+import { Class } from "../../../prisma/prisma/generated";
 
 interface props {
   lang: Locale;
@@ -14,6 +15,7 @@ interface props {
   isSchool?: boolean;
   isOther?: boolean; // others users which are not in class
   isStudent?: boolean;
+  myClass ?: Class
 }
 
 const ClassCard = ({
@@ -22,6 +24,7 @@ const ClassCard = ({
   isSchool,
   isOther,
   isStudent,
+  myClass,
 }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
@@ -39,10 +42,10 @@ const ClassCard = ({
           </Avatar>
           <div className=" mt-6  space-x-1">
             <h3 className=" font-medium leading-5 line-clamp-3">
-              Level 5 Software development
+              {myClass?.name ?? "Level 5 Software development"}
             </h3>
-            <Link className=" text-sm" href={`/${lang}/class/student`}>
-              @ L5SOD
+            <Link className=" text-sm line-clamp-1 flex space-x-1" href={`/${lang}/class/${myClass?.username}`}>
+              <span>@</span> <span className=" line-clamp-1"> {myClass?.username ?? "L5SOD"}</span>
             </Link>
           </div>
         </div>
@@ -133,7 +136,7 @@ const ClassCard = ({
           </Link>
         ) : (
           <Link
-            href={`/${lang}/teacher/class/900`}
+            href={`/${lang}/class/${myClass?.id ? myClass.id : "student"}`}
             className={cn("btn w-full", isClassTeacher && "btn-info")}
           >
             Join class

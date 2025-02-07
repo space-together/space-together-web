@@ -13,13 +13,14 @@ import UseTheme from "@/context/theme/use-theme";
 import { Plus } from "lucide-react";
 interface props {
   isOpen?: boolean;
+  haveClass ?: boolean;
 }
 
-const CreateClassDialog = ({ isOpen }: props) => {
+const CreateClassDialog = ({ isOpen, haveClass }: props) => {
   return (
     <Dialog open={isOpen}>
       <DialogTrigger asChild>
-        <Button variant="info">
+        <Button  size={haveClass ? "sm" : "md"} variant={haveClass ? "ghost":"info"}>
           <Plus /> Create Class
         </Button>
       </DialogTrigger>
