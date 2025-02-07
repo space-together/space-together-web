@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { sectorSchema, sectorSchemaType } from "@/utils/schema/sectorSchema";
-import { getSectorByUsername } from "../data/sector-data";
+import sectorService from "../data/sector-data";
 
 export const createSectorAction = async (values: sectorSchemaType) => {
   const validation = sectorSchema.safeParse(values);
@@ -11,7 +11,7 @@ export const createSectorAction = async (values: sectorSchemaType) => {
     return { error: "Invalid valuers" };
   }
   const { name, username, description, education } = validation.data;
-const getUsername = await getSectorByUsername(username);
+const getUsername = await sectorService.getSectorByUsername(username);
 
 if (!!getUsername) {
     return {
@@ -41,7 +41,7 @@ export const updateSectorAction = async (id: string, values: sectorSchemaType) =
     return { error: "Invalid values" };
   }
   const { name, username, description, education } = validation.data;
-  const getUsername = await getSectorByUsername(username);
+  const getUsername = await sectorService.getSectorByUsername(username);
 
   if (getUsername && getUsername.id !== id) {
     return {

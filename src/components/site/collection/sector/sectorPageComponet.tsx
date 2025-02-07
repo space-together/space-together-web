@@ -2,13 +2,13 @@ import CollectionPageStatic from "@/utils/static/page/collectionPageStatic";
 import CreateSectorDialog from "./CreateSectorDialog";
 import AllSectorTable from "./allSectorTable";
 import { getAllEducation } from "@/services/data/education-data";
-import { getAllSectors } from "@/services/data/sector-data";
+import sectorService from "@/services/data/sector-data";
 
 interface props {
   collection: string;
 }
 const SectorPageDocument = async ({ collection }: props) => {
-  const getSectors = await getAllSectors();
+  const getSectors = await sectorService.getAllSectors();
 
   const getEducation = await getAllEducation();
 

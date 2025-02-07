@@ -12,9 +12,10 @@ import { Button } from "../ui/button";
 interface props {
   lang: Locale;
   isClassTeacher?: boolean;
+  isStudent ?: boolean;
 }
 
-const SchoolCard = ({ lang, isClassTeacher }: props) => {
+const SchoolCard = ({ lang, isClassTeacher, isStudent }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -78,7 +79,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
           </div>
         </div>
       </div>
-      <div className=" px-4">
+      {!isStudent && <div className=" px-4">
         <div className=" flex justify-between">
           <h5 className=" capitalize font-medium text-myGray">your classes</h5>
         </div>
@@ -153,7 +154,7 @@ const SchoolCard = ({ lang, isClassTeacher }: props) => {
             And others 3
           </Button>
         </div>
-      </div>
+      </div>}
       <Separator />
       <div className=" p-4">
         {/* TODO: add link of class */}

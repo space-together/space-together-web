@@ -2,15 +2,15 @@ import CollectionPageStatic, {
 } from "@/utils/static/page/collectionPageStatic";
 import CreateTradeDialog from "./createTradeDialog";
 import AllTradeTable from "./AllTradeTable";
-import { getAllSectors } from "@/services/data/sector-data";
 import { getAllTrades } from "@/services/data/trade-data";
+import sectorService from "@/services/data/sector-data";
 // import AllEducationComponent from "./allEducationComponent"
 
 interface props {
   collection: string;
 }
 const TradePageDocument = async ({ collection }: props) => {
-  const getSectors = await getAllSectors();
+  const getSectors = await sectorService.getAllSectors();
 
   const getTrades = await getAllTrades();
 

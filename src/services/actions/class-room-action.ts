@@ -8,7 +8,8 @@ import {
 import { ClassRoomType } from "../../../prisma/prisma/generated";
 import { generateCode } from "@/utils/functions/characters";
 import { getTradeById } from "../data/trade-data";
-import { getSectorById } from "../data/sector-data";
+import sectorService from "../data/sector-data";
+
 
 export const createClassRoomAction = async (values: classRoomSchemaType) => {
   const validation = classRoomSchema.safeParse(values);
@@ -29,7 +30,7 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
     let myTrade: null | string = null;
     if (!getTrade) myTrade = null;
     
-    const getSector = await getSectorById(sector);
+    const getSector = await sectorService.getSectorById(sector);
     if (!getSector)
       return { error: "Sector is not exit, Please try other Sector" };
     const create = await db.classRoom.create({

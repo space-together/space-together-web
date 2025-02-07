@@ -40,12 +40,12 @@ import {
 } from "../../../../../prisma/prisma/generated";
 import { classTypeContext } from "@/utils/context/class-context";
 import { toLowerCase } from "@/utils/functions/characters";
-import { getSectorsByEducationId } from "@/services/data/sector-data";
 import {
   getAllClassRoomBySectorId,
   getAllClassRoomByTradeId,
 } from "@/services/data/class-room-data";
 import { getTradesBySectorId } from "@/services/data/trade-data";
+import sectorService from "@/services/data/sector-data";
 
 interface props {
   educations: Education[];
@@ -116,7 +116,7 @@ const CreateClassForm = ({ educations , sectorsK}: props) => {
     setSectors(null);
     setTrades(null);
     setClassRoom(null);
-    const get = await getSectorsByEducationId(id);
+    const get = await sectorService.getSectorsByEducationId(id);
     if (get.length == 0) return  setSectors(null);
     
     return setSectors(get);

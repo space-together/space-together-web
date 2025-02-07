@@ -12,10 +12,17 @@ interface props {
   lang: Locale;
   isClassTeacher?: boolean;
   isSchool?: boolean;
-  isOther ?: boolean; // others users which are not in class
+  isOther?: boolean; // others users which are not in class
+  isStudent?: boolean;
 }
 
-const ClassCard = ({ lang, isClassTeacher, isSchool, isOther }: props) => {
+const ClassCard = ({
+  lang,
+  isClassTeacher,
+  isSchool,
+  isOther,
+  isStudent,
+}: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -31,7 +38,9 @@ const ClassCard = ({ lang, isClassTeacher, isSchool, isOther }: props) => {
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" mt-6  space-x-1">
-            <h3 className=" font-medium leading-5 line-clamp-3">Level 5 Software development</h3>
+            <h3 className=" font-medium leading-5 line-clamp-3">
+              Level 5 Software development
+            </h3>
             <Link className=" text-sm" href={`/${lang}/class/student`}>
               @ L5SOD
             </Link>
@@ -68,55 +77,68 @@ const ClassCard = ({ lang, isClassTeacher, isSchool, isOther }: props) => {
                 )}
                 href={`/${lang}/profile/1232`}
               >
-                <TextTooltip content={"Class Teacher"} trigger={<span>Mihingo__</span>} />
+                <TextTooltip
+                  content={"Class Teacher"}
+                  trigger={<span>Mihingo__</span>}
+                />
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <div className=" px-4">
-        <div className=" flex justify-between">
-          <h5 className=" capitalize font-medium text-myGray">your lessons</h5>
-          {isSchool && (
-            <div className=" flex space-x-2 py-2">
-              <Avatar className=" size-4">
-                <AvatarImage src="/images/19.jpg" />
-                <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
-              </Avatar>
-              {/* TODO: add school link */}
-              <Link
-                href={`/${lang}/school/student`}
-                className=" font-medium text-sm line-clamp-1 link-hover"
-              >
-                SOSTHS
-              </Link>
+      {!isStudent && (
+        <div className=" px-4">
+          <div className=" flex justify-between">
+            <h5 className=" capitalize font-medium text-myGray">
+              your lessons
+            </h5>
+            {isSchool && (
+              <div className=" flex space-x-2 py-2">
+                <Avatar className=" size-4">
+                  <AvatarImage src="/images/19.jpg" />
+                  <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
+                </Avatar>
+                {/* TODO: add school link */}
+                <Link
+                  href={`/${lang}/school/student`}
+                  className=" font-medium text-sm line-clamp-1 link-hover"
+                >
+                  SOSTHS
+                </Link>
+              </div>
+            )}
+          </div>
+          <div className=" grid grid-cols-4 w-full">
+            <div className=" flex items-center -space-x-2">
+              <Dot size={32} />
+              <span className=" text-sm line">Math</span>
             </div>
-          )}
-        </div>
-        <div className=" grid grid-cols-4 w-full">
-          <div className=" flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className=" text-sm line">Math</span>
-          </div>
-          <div className=" flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className=" text-sm line">Kiny</span>
-          </div>
-          <div className=" flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className=" text-sm line">Kisw</span>
+            <div className=" flex items-center -space-x-2">
+              <Dot size={32} />
+              <span className=" text-sm line">Kiny</span>
+            </div>
+            <div className=" flex items-center -space-x-2">
+              <Dot size={32} />
+              <span className=" text-sm line">Kisw</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <Separator />
       <div className=" p-4">
         {/* TODO: add link of class */}
-        {isOther ? <Link href={`/${lang}/class/student/about`} className=" btn w-full">About class</Link> : <Link
-          href={`/${lang}/teacher/class/900`}
-          className={cn("btn w-full", isClassTeacher && "btn-info")}
-        >
-          Join class
-        </Link>}
+        {isOther ? (
+          <Link href={`/${lang}/class/student/about`} className=" btn w-full">
+            About class
+          </Link>
+        ) : (
+          <Link
+            href={`/${lang}/teacher/class/900`}
+            className={cn("btn w-full", isClassTeacher && "btn-info")}
+          >
+            Join class
+          </Link>
+        )}
       </div>
     </div>
   );
