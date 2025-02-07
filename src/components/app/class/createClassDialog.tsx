@@ -10,7 +10,7 @@ import {
 
 import UseTheme from "@/context/theme/use-theme";
 interface props {
-  isOpen: boolean
+  isOpen?: boolean
 }
 
 const CreateClassDialog = ({ isOpen }: props) => {

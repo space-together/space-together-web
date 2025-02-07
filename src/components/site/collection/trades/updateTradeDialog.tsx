@@ -108,7 +108,7 @@ const UpdateTradeDialog = ({ sectors, trade }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="warning" size="xs">
+        <Button disabled={isPending} variant="warning" size="xs">
           update
           {isPending && (
             <LoaderCircle

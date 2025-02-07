@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -14,8 +15,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { LoaderCircle } from "lucide-react";
+import { classService } from "@/services/class-services";
+import { FormMessageError, FormMessageSuccess } from "./formError";
 
 const CreateClassForm = () => {
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+  const [isPending, startTransition] = useTransition();
   const form = useForm<classSchemaType>({
     resolver: zodResolver(classSchema),
     defaultValues: {
@@ -31,12 +38,24 @@ const CreateClassForm = () => {
     },
   });
 
-  const onSubmit = (values: classSchemaType) => {
-    console.log(values);
+  const handleSubmit = (values: classSchemaType) => {
+    setError("");
+    setSuccess("");
+    startTransition(async () => {
+      const action = await classService.createClass(values);
+      if (action.error) {
+        setError(action.error);
+      }
+
+      if (action.success) {
+        setSuccess(action.success);
+        form.reset();
+      }
+    });
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className=" space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -57,15 +76,37 @@ const CreateClassForm = () => {
             <FormItem>
               <FormLabel>Describer class</FormLabel>
               <FormControl>
-                <Textarea className=" resize-none" placeholder="Class Name" {...field} />
+                <Textarea
+                  className=" resize-none"
+                  placeholder="Class Name"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <div>
+          <FormMessageError message={error} />
+          <FormMessageSuccess message={success} />
+        </div>
         <DialogFooter>
-          <DialogClose><Button size="sm" className="">Cancel</Button></DialogClose>
-          <Button variant="info" size="sm">Create class</Button>
+          <DialogClose>
+            <Button size="sm" className="">
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button disabled={isPending} variant="info" size="sm">
+            Create class
+            {isPending && (
+              <LoaderCircle
+                className="-ms-1 me-2 animate-spin"
+                size={12}
+                strokeWidth={2}
+                aria-hidden="true"
+              />
+            )}
+          </Button>
         </DialogFooter>
       </form>
     </Form>

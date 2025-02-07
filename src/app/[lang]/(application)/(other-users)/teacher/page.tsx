@@ -22,7 +22,7 @@ const TeacherPage = async (props: props) => {
     <div className=" px-4">
       {!haveClass ? (
         <div className=" w-full grid place-content-center h-[80vh]">
-          <CreateClassDialog isOpen/>
+          <CreateClassDialog />
         </div>
       ) : (
         <TeacherHomeBody lang={lang}/>
