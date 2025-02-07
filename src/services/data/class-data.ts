@@ -26,3 +26,12 @@ export const getAllClasses = async () => {
     return [];
   }
 };
+
+export const getAllClassesByUserId = async (id: string) => {
+  try {
+    const classes = await db.class.findMany({ where: { userId: id } });
+    return classes;
+  } catch {
+    return [];
+  }
+};
