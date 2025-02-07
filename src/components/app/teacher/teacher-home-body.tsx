@@ -1,17 +1,19 @@
 import ClassCard from "@/components/cards/class-card";
-import SchoolCard from "@/components/cards/school-card";
+// import SchoolCard from "@/components/cards/school-card";
 import { Locale } from "@/i18n";
-import { FaSchool } from "react-icons/fa6";
+// import { FaSchool } from "react-icons/fa6";
 import { MdClass } from "react-icons/md";
+import { Class } from "../../../../prisma/prisma/generated";
 
 interface props {
   lang: Locale;
+  classes: Class[];
 }
 
-const TeacherHomeBody = ({ lang }: props) => {
+const TeacherHomeBody = ({ lang, classes }: props) => {
   return (
     <div className="py-4 space-y-4">
-       <div className=" space-y-2">
+      {/* <div className=" space-y-2">
         <div className=" space-x-1 flex items-center">
           <FaSchool />
           <h2 className=" font-semibold">School</h2>
@@ -21,17 +23,16 @@ const TeacherHomeBody = ({ lang }: props) => {
           <SchoolCard lang={lang} />
           <SchoolCard lang={lang} />
         </div>
-      </div>
+      </div> */}
       <div className=" space-y-2">
         <div className=" space-x-1 flex items-center">
           <MdClass />
           <h2 className=" font-semibold">Classes</h2>
         </div>
         <div className=" grid grid-cols-3 gap-4">
-          <ClassCard lang={lang} />
-          <ClassCard isSchool isClassTeacher lang={lang} />
-          <ClassCard isSchool lang={lang} />
-          <ClassCard isClassTeacher lang={lang} />
+          {classes.map((item) => {
+            return <ClassCard key={item.id} lang={lang} />;
+          })}
         </div>
       </div>
     </div>

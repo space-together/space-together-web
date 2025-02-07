@@ -2,8 +2,8 @@ import { db } from "@/lib/db";
 
 export const getClassById = async (id: string) => {
   try {
-    const classRoom = await db.class.findUnique({ where: { id } });
-    return classRoom;
+    const Class = await db.class.findUnique({ where: { id } });
+    return Class;
   } catch {
     return null;
   }
@@ -11,8 +11,8 @@ export const getClassById = async (id: string) => {
 
 export const getClassByUsername = async (username: string) => {
     try {
-        const classRoom = await db.class.findFirst({ where: { username } });
-        return classRoom;
+        const Class = await db.class.findFirst({ where: { username } });
+        return Class;
     } catch {
         return null;
     }

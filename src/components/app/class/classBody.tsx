@@ -2,15 +2,18 @@ import React from "react";
 import CreateNewPostInClass from "./create-post-new-post-in-class";
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
+import TeacherClassCreateNotes from "../teacher/teacher-class-create-notes";
 
 interface props {
-  lang : Locale
+  lang : Locale,
+  isTeacher ?: boolean;
 }
 
-const ClassBody = ({lang} : props) => {
+const ClassBody = ({lang , isTeacher} : props) => {
   return (
     <div className="w-full space-y-4">
       <CreateNewPostInClass />
+      {isTeacher && <TeacherClassCreateNotes />}
       {/* simple of notes */}
       <PostCard lang={lang} postRole="NOTES"/>
       <PostCard lang={lang} postRole="IMAGE"/>
