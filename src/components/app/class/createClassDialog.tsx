@@ -1,12 +1,12 @@
 "use client";
 import CreateClassForm from "@/components/form/create-class-form";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/dialog";
 
 import UseTheme from "@/context/theme/use-theme";
 interface props {
@@ -16,14 +16,14 @@ interface props {
 const CreateClassDialog = ({ isOpen }: props) => {
 
   return (
-    <AlertDialog open={isOpen}>
-      <AlertDialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Create new Class</AlertDialogTitle>
-        </AlertDialogHeader>
+    <Dialog open={isOpen}>
+      <DialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
+        <DialogHeader>
+          <DialogTitle>Create new Class</DialogTitle>
+        </DialogHeader>
         <CreateClassForm />
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   )
 }
 

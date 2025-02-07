@@ -11,12 +11,9 @@ import { Input } from "@/components/ui/input";
 import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogFooter,
-} from "../ui/alert-dialog";
 import { Textarea } from "../ui/textarea";
+import { DialogClose, DialogFooter } from "../ui/dialog";
+import { Button } from "../ui/button";
 
 const CreateClassForm = () => {
   const form = useForm<classSchemaType>({
@@ -66,10 +63,10 @@ const CreateClassForm = () => {
             </FormItem>
           )}
         />
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Create class</AlertDialogAction>
-        </AlertDialogFooter>
+        <DialogFooter>
+          <DialogClose><Button size="sm" className="">Cancel</Button></DialogClose>
+          <Button variant="info" size="sm">Create class</Button>
+        </DialogFooter>
       </form>
     </Form>
   );
