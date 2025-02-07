@@ -18,11 +18,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 6.3.1
- * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
+ * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
  */
 Prisma.prismaVersion = {
   client: "6.3.1",
-  engine: "acc0b9dd43eb689cbd20c9470515d719db10d0b0"
+  engine: "4123509d24aa4dede1e864b46351bf2790323b69"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -235,8 +235,64 @@ exports.Prisma.ClassScalarFieldEnum = {
   sectorId: 'sectorId',
   tradeId: 'tradeId',
   classRoomId: 'classRoomId',
-  classTeacher: 'classTeacher',
+  userId: 'userId',
   classType: 'classType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubClassScalarFieldEnum = {
+  id: 'id',
+  classId: 'classId',
+  code: 'code',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StudentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subClassId: 'subClassId',
+  classId: 'classId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeacherScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  classesId: 'classesId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubjectScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  classRoomId: 'classRoomId',
+  name: 'name',
+  description: 'description',
+  knowledge: 'knowledge',
+  skills: 'skills',
+  attitude: 'attitude',
+  tableOfContent: 'tableOfContent',
+  resources: 'resources',
+  totalTime: 'totalTime',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subjectId: 'subjectId',
+  seenBy: 'seenBy',
+  commentsIds: 'commentsIds',
+  fileId: 'fileId',
+  content: 'content',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -285,7 +341,12 @@ exports.Prisma.ModelName = {
   Sector: 'Sector',
   Trade: 'Trade',
   ClassRoom: 'ClassRoom',
-  Class: 'Class'
+  Class: 'Class',
+  SubClass: 'SubClass',
+  Student: 'Student',
+  Teacher: 'Teacher',
+  Subject: 'Subject',
+  Note: 'Note'
 };
 
 /**

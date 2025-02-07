@@ -16,8 +16,8 @@ import { Textarea } from "../ui/textarea";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
-import { classService } from "@/services/class-services";
 import { FormMessageError, FormMessageSuccess } from "./formError";
+import { createClassAction } from "@/services/actions/class-action";
 
 const CreateClassForm = () => {
   const [error, setError] = useState<string>("");
@@ -29,13 +29,13 @@ const CreateClassForm = () => {
     defaultValues: {
       name: "",
       description: "",
-      trade: "",
-      education: "",
-      class_teacher: "",
-      class_type: "",
-      class_room: "",
-      is_public: "",
-      username: "",
+      // trade: "",
+      // education: "",
+      // class_teacher: "",
+      // class_type: "",
+      // class_room: "",
+      // is_public: "",
+      // username: "",
     },
   });
 
@@ -43,13 +43,13 @@ const CreateClassForm = () => {
     setError("");
     setSuccess("");
     startTransition(async () => {
-      const action = await classService.createClass(values);
-      if (action.error) {
-        setError(action.error);
+      const action = createClassAction(values);
+      if ((await action).error) {
+        setError((await action).error ?? "");
       }
 
-      if (action.success) {
-        setSuccess(action.success);
+      if ((await action).success) {
+        setSuccess((await action).success ?? "");
         form.reset();
       }
     });

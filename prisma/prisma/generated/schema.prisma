@@ -40,9 +40,13 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
+  Student       Student[]
+  Teacher       Teacher[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Class Class[]
 }
 
 model Account {
@@ -190,23 +194,92 @@ enum ClassType {
 }
 
 model Class {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  username     String     @unique
-  description  String?
-  code         String     @unique
-  symbol       String?
-  disabled     Boolean    @default(false)
-  sectorId     String?    @db.ObjectId
-  tradeId      String?    @db.ObjectId
-  classRoomId  String?    @db.ObjectId
-  classTeacher String     @db.ObjectId
-  classType    ClassType? @default(PRIVET)
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  username    String     @unique
+  description String?
+  code        String     @unique
+  symbol      String?
+  disabled    Boolean    @default(false)
+  sectorId    String?    @db.ObjectId
+  tradeId     String?    @db.ObjectId
+  classRoomId String?    @db.ObjectId
+  userId      String     @db.ObjectId
+  classType   ClassType? @default(PRIVET)
+  Student     Student[]
+  SubClass    SubClass[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
-  sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
-  classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+  trade        Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  sector       Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classTeacher ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+}
+
+model SubClass {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  classId String @db.ObjectId
+  code    String
+  name    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Student {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String  @db.ObjectId
+  subClassId String?
+  classId    String? @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Teacher {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  classesId String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subject {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  code           String    @unique
+  classRoomId    String
+  name           String
+  description    String
+  knowledge      String[]
+  skills         String[]
+  attitude       String[]
+  tableOfContent Json
+  resources      Json
+  totalTime      Int
+  startTime      DateTime?
+  endTime        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  subjectId   String   @db.ObjectId
+  seenBy      String[] @db.ObjectId
+  commentsIds String[] @db.ObjectId
+  fileId      String?  @db.ObjectId
+  content     String   @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -45,6 +45,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Class Class[]
 }
 
 model Account {
@@ -192,27 +194,28 @@ enum ClassType {
 }
 
 model Class {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  username     String     @unique
-  description  String?
-  code         String     @unique
-  symbol       String?
-  disabled     Boolean    @default(false)
-  sectorId     String?    @db.ObjectId
-  tradeId      String?    @db.ObjectId
-  classRoomId  String?    @db.ObjectId
-  classTeacher String     @db.ObjectId
-  classType    ClassType? @default(PRIVET)
-  Student      Student[]
-  SubClass     SubClass[]
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  username    String     @unique
+  description String?
+  code        String     @unique
+  symbol      String?
+  disabled    Boolean    @default(false)
+  sectorId    String?    @db.ObjectId
+  tradeId     String?    @db.ObjectId
+  classRoomId String?    @db.ObjectId
+  userId      String     @db.ObjectId
+  classType   ClassType? @default(PRIVET)
+  Student     Student[]
+  SubClass    SubClass[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
-  sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
-  classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+  trade        Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  sector       Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classTeacher ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
 }
 
 model SubClass {
