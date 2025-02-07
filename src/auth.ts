@@ -3,6 +3,7 @@ import authConfig from "./lib/auth/auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "./services/data/user";
+import { UserRole } from "../prisma/prisma/generated";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
@@ -22,7 +23,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       if (token.role && session.user) {
-        session.user.role = token.role as string;
+        session.user.role = token.role as UserRole;
+      }
+
+      if (token.username && session.user) {
+        session.user.username = token.username as string;
       }
 
       return session;

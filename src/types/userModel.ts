@@ -1,3 +1,4 @@
+import { UserRole } from "../../prisma/prisma/generated";
 import { ProfileImageModelGet } from "./imageModel";
 
 export interface Gender {
@@ -73,5 +74,6 @@ export type authUser = {
   email?: string;
   id?: string;
   image?: string;
-  role: string;
+  role: UserRole;
+  username ?: string
 };

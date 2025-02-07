@@ -8,6 +8,7 @@ import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
 import { Class } from "../../../prisma/prisma/generated";
+import { authUser } from "@/types/userModel";
 
 interface props {
   lang: Locale;
@@ -15,7 +16,8 @@ interface props {
   isSchool?: boolean;
   isOther?: boolean; // others users which are not in class
   isStudent?: boolean;
-  myClass ?: Class
+  user?: authUser;
+  myClass?: Class;
 }
 
 const ClassCard = ({
@@ -25,6 +27,7 @@ const ClassCard = ({
   isOther,
   isStudent,
   myClass,
+  user,
 }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
@@ -44,8 +47,15 @@ const ClassCard = ({
             <h3 className=" font-medium leading-5 line-clamp-3">
               {myClass?.name ?? "Level 5 Software development"}
             </h3>
-            <Link className=" text-sm line-clamp-1 flex space-x-1" href={`/${lang}/class/${myClass?.username}`}>
-              <span>@</span> <span className=" line-clamp-1"> {myClass?.username ?? "L5SOD"}</span>
+            <Link
+              className=" text-sm line-clamp-1 flex space-x-1"
+              href={`/${lang}/class/${myClass?.username}`}
+            >
+              <span>@</span>{" "}
+              <span className=" line-clamp-1">
+                {" "}
+                {myClass?.username ?? "L5SOD"}
+              </span>
             </Link>
           </div>
         </div>
@@ -82,7 +92,9 @@ const ClassCard = ({
               >
                 <TextTooltip
                   content={"Class Teacher"}
-                  trigger={<span>Mihingo__</span>}
+                  trigger={
+                    <span>{user?.username ? user.username : user?.name}</span>
+                  }
                 />
               </Link>
             </div>

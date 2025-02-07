@@ -26,7 +26,16 @@ const TeacherPage = async (props: props) => {
           <CreateClassDialog />
         </div>
       ) : (
-        <TeacherHomeBody classes={classes} lang={lang} />
+        <TeacherHomeBody
+          user={{
+            ...user,
+            name: user.name ?? "",
+            email: user.email ?? undefined,
+            image: user.image ?? undefined,
+          }}
+          classes={classes}
+          lang={lang}
+        />
       )}
     </div>
   );

@@ -5,13 +5,15 @@ import { Locale } from "@/i18n";
 import { MdClass } from "react-icons/md";
 import { Class } from "../../../../prisma/prisma/generated";
 import CreateClassDialog from "../class/createClassDialog";
+import { authUser } from "@/types/userModel";
 
 interface props {
   lang: Locale;
   classes: Class[];
+  user?: authUser;
 }
 
-const TeacherHomeBody = ({ lang, classes }: props) => {
+const TeacherHomeBody = ({ lang, classes , user}: props) => {
   return (
     <div className="py-4 space-y-4">
       {/* <div className=" space-y-2">
@@ -35,7 +37,7 @@ const TeacherHomeBody = ({ lang, classes }: props) => {
         </div>
         <div className=" grid grid-cols-3 gap-4">
           {classes.map((item) => {
-            return <ClassCard myClass={item} key={item.id} lang={lang} />;
+            return <ClassCard myClass={item} user={user} key={item.id} lang={lang} />;
           })}
         </div>
       </div>
