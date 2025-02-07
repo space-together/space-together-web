@@ -1,23 +1,44 @@
+import { auth } from "@/auth";
 import ClassActivities from "@/components/app/class/classActivities";
 import ClassBody from "@/components/app/class/classBody";
 import ClassHead from "@/components/app/class/classHead";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
+import { getClassById } from "@/services/data/class-data";
+import { redirect } from "next/navigation";
 
 interface Props {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: Locale; classId: string }>;
 }
 
 const ClassIdPage = async (props: Props) => {
   const params = await props.params;
-  const { lang } = params;
+  const { lang, classId } = params;
+  const user = (await auth())?.user;
+  if (!user) {
+    return redirect(`/${lang}/auth/login`);
+  }
+  const myClass = await getClassById(classId);
+
+  if (!myClass) {
+    return <div>this class is note found, please use try again</div>;
+  }
   return (
     <div className=" px-4">
-      <ClassHead lang={lang}/>
+      <ClassHead
+        user={{
+          ...user,
+          name: user.name ?? "",
+          email: user.email ?? undefined,
+          image: user.image ?? undefined,
+        }}
+        myClass={myClass}
+        lang={lang}
+      />
       <div className=" mt-28">
         <Separator />
         <div className="flex  justify-between space-x-4 mt-4">
-          <ClassBody isTeacher={true} lang={lang}/>
+          <ClassBody isTeacher={true} lang={lang} />
           <ClassActivities />
         </div>
       </div>
