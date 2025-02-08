@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import ClassNotFound from "@/components/app/class/class-not-found";
+import ClassSettingName from "@/components/app/class/setting/class-setting-name";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
@@ -18,7 +19,8 @@ const ClassSettingPage = async (props: props) => {
   }
   const getClass = await getClassById(classId);
   if (!getClass) return <ClassNotFound />;
-  if (user.role !== "ADMIN") return redirect(`/${lang}/class/${classId}`);
+  if (user.role !== "ADMIN" || user.id !== getClass.id)
+    return redirect(`/${lang}/class/${classId}`);
   return (
     <div className=" py-4  w-full space-y-4">
       <div className=" space-y-2">
@@ -26,7 +28,7 @@ const ClassSettingPage = async (props: props) => {
         <Separator />
       </div>
       <div className=" ">
-        
+        <ClassSettingName />
       </div>
     </div>
   );
