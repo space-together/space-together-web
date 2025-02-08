@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import ClassNotFound from "@/components/app/class/class-not-found";
-import {ClassSettingName, ClassSettingUsername} from "@/components/app/class/setting/class-setting-name";
+import {ClassSettingName, ClassSettingSymbol, ClassSettingUsername} from "@/components/app/class/setting/class-setting-name";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
@@ -26,10 +26,12 @@ const ClassSettingPage = async (props: props) => {
         <h2 className=" happy-title-head">General Settings</h2>
         <Separator />
       </div>
-      <div className=" space-y-2 ">
+      <div className=" space-y-4 ">
         <ClassSettingName getClass={getClass}/>
         <ClassSettingUsername getClass={getClass}/>
+        <ClassSettingSymbol getClass={getClass} />
       </div>
+      <Separator />
     </div>
   );
 };

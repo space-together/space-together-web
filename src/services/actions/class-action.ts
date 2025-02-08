@@ -8,6 +8,8 @@ import {
   classSchemaType,
   classUpdateNameSchema,
   classUpdateNameSchemaType,
+  classUpdateSymbolSchema,
+  classUpdateSymbolSchemaType,
   classUpdateUsernameSchema,
   classUpdateUsernameSchemaType,
 } from "@/utils/schema/classSchema";
@@ -159,11 +161,35 @@ export const updateClassusernameAction = async (
   try {
     const updateClass = await db.class.update({
       where: { id },
-      data: { username : username },
+      data: { username },
     });
 
     return updateClass
       ? { success: "Class username updated", data: updateClass }
+      : { error: "Failed to update Class" };
+  } catch (error) {
+    return { error: `Error updating class: [${error}]` };
+  }
+};
+
+export const updateClassSymbolAction = async (
+  id: string,
+  value: classUpdateSymbolSchemaType
+) => {
+  const validation = classUpdateSymbolSchema.safeParse(value);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { symbol } = validation.data;
+  try {
+    const updateClass = await db.class.update({
+      where: { id },
+      data: { symbol },
+    });
+
+    return updateClass
+      ? { success: "Class symbol updated", data: updateClass }
       : { error: "Failed to update Class" };
   } catch (error) {
     return { error: `Error updating class: [${error}]` };

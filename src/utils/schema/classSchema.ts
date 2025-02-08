@@ -50,8 +50,15 @@ export const classUpdateNameSchema = z.object({
     }),
 });
 
-export type classUpdateNameSchemaType = z.infer<typeof classUpdateNameSchema>
+export type classUpdateNameSchemaType = z.infer<typeof classUpdateNameSchema>;
 
+export const classUpdateSymbolSchema = z.object({
+  symbol: z.string(),
+});
+
+export type classUpdateSymbolSchemaType = z.infer<
+  typeof classUpdateSymbolSchema
+>;
 
 export const classUpdateUsernameSchema = z.object({
   username: z
@@ -99,4 +106,6 @@ export const classUpdateUsernameSchema = z.object({
     ),
 });
 
-export type classUpdateUsernameSchemaType = z.infer<typeof classUpdateUsernameSchema>
+export type classUpdateUsernameSchemaType = z.infer<
+  typeof classUpdateUsernameSchema
+>;
