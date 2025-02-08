@@ -15,6 +15,8 @@ import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { LoaderCircle } from "lucide-react";
 import { Button } from "../ui/button";
+import { handleFormSubmission } from "@/hooks/form-notification";
+import { CreatePostAction } from "@/services/actions/post-actions";
 
 interface props {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,8 +32,8 @@ const CreatePostForm = ({setIsOpen} : props) => {
     },
   });
 
-  const onSubmit = () => {
-    
+  const onSubmit = (values: PostSchemaType) => {
+    handleFormSubmission (() => CreatePostAction(values),startTransition)
   };
   return (
     <Form {...form}>
