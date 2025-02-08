@@ -1,10 +1,10 @@
 import Z from 'zod';
 
 export const postSchema = Z.object({
-    post: Z
+    content: Z
     .string()
     .min(1, {
-        message: "post required",
+        message: "content required",
     })
     .max(200, {
         message: "maximum character is 200",

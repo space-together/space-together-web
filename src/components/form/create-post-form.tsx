@@ -24,16 +24,21 @@ const CreatePostForm = ({setIsOpen} : props) => {
   const [isPending, startTransition] = useTransition();
   const form = useForm<PostSchemaType>({
     resolver: zodResolver(postSchema),
-    defaultValues: {},
+    defaultValues: {
+      content : "",
+      file : ""
+    },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="post"
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormLabel><span className=" happy-title-base">Announce something ...</span></FormLabel>
@@ -45,7 +50,7 @@ const CreatePostForm = ({setIsOpen} : props) => {
         />
         <FormField
           control={form.control}
-          name="post"
+          name="file"
           render={({ field }) => (
             <FormItem>
               <FormControl>
