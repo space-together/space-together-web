@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import ClassBody from "@/components/app/class/classBody";
-import ClassTeacherProgress from "@/components/app/teacher/teacher-class-ClassTeacherProgress";
 import TeacherClassCreateNotes from "@/components/app/teacher/teacher-class-create-notes";
+import ClassTeacherProgress from "@/components/app/teacher/teacher-class-progress";
 
 interface props {
   params: Promise<{ lang: Locale }>;
