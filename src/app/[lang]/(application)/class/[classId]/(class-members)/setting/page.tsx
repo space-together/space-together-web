@@ -17,7 +17,7 @@ const ClassSettingPage = async (props: props) => {
   }
   const getClass = await getClassById(classId);
   if (!getClass) return <ClassNotFound />;
-  if (user.role === "ADMIN")
+  if (user.role !== "ADMIN")
     return redirect(`/${lang}/class/${classId}`);
   return <div>class setting page</div>;
 };

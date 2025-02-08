@@ -10,7 +10,7 @@ interface props {
 
 export default async function ClassIdLayout(props: props) {
   const params = await props.params;
-  const { lang } = params;
+  const { lang, classId } = params;
   const { children } = props;
   const user = (await auth())?.user;
   if (!user) {
@@ -18,8 +18,8 @@ export default async function ClassIdLayout(props: props) {
   }
 
   return (
-    <div>
-      <ClassSettingAside />
+    <div className=" flex gap-4">
+      <ClassSettingAside classId={classId} lang={lang}/>
       {children}
     </div>
   );
