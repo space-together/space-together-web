@@ -15,11 +15,8 @@ const CreateNewPostInClass = () => {
           <div className=" bg-base-200 w-full p-2 rounded-full px-4">
             <p>Announce something in class...</p>
           </div>
-          <div>
-            
-          </div>
         </div>
-      </div> : <div>
+      </div> : <div className=" bg-base-100">
         {/* TODO: make create post in form */}
         is close
         </div>}
