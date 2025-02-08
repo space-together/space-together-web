@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import ClassBody from "@/components/app/class/classBody";
-import Progress from "@/components/app/teacher/teacher-class-progress";
+import ClassTeacherProgress from "@/components/app/teacher/teacher-class-ClassTeacherProgress";
 import TeacherClassCreateNotes from "@/components/app/teacher/teacher-class-create-notes";
 
 interface props {
@@ -29,7 +29,7 @@ const TeacherClassPage = async (props: props) => {
             <ClassBody lang={lang} />
           </div>
           <div className="w-1/2">
-            <Progress />
+            <ClassTeacherProgress />
           </div>
         </div>
       </div>

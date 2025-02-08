@@ -1,7 +1,7 @@
 import { ChartProgress } from "@/components/cards/chartProgress";
 import React from "react";
 
-const Progress = () => {
+const ClassTeacherProgress = () => {
   return (
     <div>
       <div className="">
@@ -12,4 +12,4 @@ const Progress = () => {
   );
 };
 
-export default Progress;
+export default ClassTeacherProgress;
