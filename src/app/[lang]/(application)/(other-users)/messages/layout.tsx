@@ -18,7 +18,7 @@ const MessageLayout = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <section>
+    <section className=" w-full">
       <MessagesAside lang={lang} />
       <div className=" pl-80">{children}</div>
     </section>

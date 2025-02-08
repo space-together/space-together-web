@@ -48,7 +48,7 @@ export default async function ApplicationLayout(props: props) {
           }
           lang={lang}
         />
-        <main className=" pt-14 bg-base-200">{children}</main>
+        <main className=" pt-14 bg-base-200 w-full">{children}</main>
     </SidebarProvider>
   );
 }
