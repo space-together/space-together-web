@@ -19,10 +19,11 @@ import { handleFormSubmission } from "@/hooks/form-notification";
 import { CreatePostAction } from "@/services/actions/post-actions";
 
 interface props {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  classId ?: string
 }
 
-const CreatePostForm = ({setIsOpen} : props) => {
+const CreatePostForm = ({setIsOpen , classId} : props) => {
   const [isPending, startTransition] = useTransition();
   const form = useForm<PostSchemaType>({
     resolver: zodResolver(postSchema),
@@ -33,7 +34,7 @@ const CreatePostForm = ({setIsOpen} : props) => {
   });
 
   const onSubmit = (values: PostSchemaType) => {
-    handleFormSubmission (() => CreatePostAction(values),startTransition)
+    handleFormSubmission (() => CreatePostAction(values, classId),startTransition)
   };
   return (
     <Form {...form}>

@@ -4,7 +4,7 @@ import { db } from "@/lib/db"; // Add this line to import the db object
 
 import { postSchema, PostSchemaType } from "@/utils/schema/postSchema";
 
-export const CreatePostAction = async (values: PostSchemaType) => {
+export const CreatePostAction = async (values: PostSchemaType , classId ?: string) => {
   const validation = postSchema.safeParse(values);
 
   if (!validation.success) {
@@ -24,6 +24,7 @@ export const CreatePostAction = async (values: PostSchemaType) => {
       data: {
         content ,
         userId: user.id,
+        classId
       },
     });
 

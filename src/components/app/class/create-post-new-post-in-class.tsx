@@ -3,7 +3,11 @@ import CreatePostForm from "@/components/form/create-post-form";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React, { useState } from "react";
 
-const CreateNewPostInClass = () => {
+interface props {
+  classId ?: string;
+}
+
+const CreateNewPostInClass = ({classId} : props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -25,7 +29,7 @@ const CreateNewPostInClass = () => {
         </div>
       ) : (
         <div className=" bg-base-100 p-4 rounded-lg space-y-2">
-          <CreatePostForm setIsOpen= {setIsOpen}/>
+          <CreatePostForm classId={classId} setIsOpen= {setIsOpen}/>
         </div>
       )}
     </div>

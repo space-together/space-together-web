@@ -39,7 +39,7 @@ const ClassIdPage = async (props: Props) => {
       <div className=" mt-28">
         <Separator />
         <div className="flex  justify-between space-x-4 mt-4">
-          <ClassBody isTeacher={true} lang={lang} />
+          <ClassBody classId={classId} isTeacher={true} lang={lang} />
           <ClassActivities />
         </div>
       </div>

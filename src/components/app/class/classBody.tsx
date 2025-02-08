@@ -7,12 +7,13 @@ import TeacherClassCreateNotes from "../teacher/teacher-class-create-notes";
 interface props {
   lang : Locale,
   isTeacher ?: boolean;
+  classId ?: string
 }
 
-const ClassBody = ({lang , isTeacher} : props) => {
+const ClassBody = ({lang , isTeacher , classId} : props) => {
   return (
     <div className="w-full space-y-4">
-      <CreateNewPostInClass />
+      <CreateNewPostInClass classId={classId}/>
       {isTeacher && <TeacherClassCreateNotes />}
       {/* simple of notes */}
       <PostCard lang={lang} postRole="NOTES"/>
