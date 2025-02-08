@@ -18,11 +18,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 6.3.1
- * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
+ * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
  */
 Prisma.prismaVersion = {
   client: "6.3.1",
-  engine: "4123509d24aa4dede1e864b46351bf2790323b69"
+  engine: "acc0b9dd43eb689cbd20c9470515d719db10d0b0"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -293,7 +293,6 @@ exports.Prisma.NoteScalarFieldEnum = {
   commentsIds: 'commentsIds',
   fileId: 'fileId',
   content: 'content',
-  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
