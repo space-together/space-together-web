@@ -21,6 +21,7 @@ const CreateNewPostInClass = () => {
         </div>
       </div> : <div>
         {/* TODO: make create post in form */}
+        is close
         </div>}
       
     </div>
