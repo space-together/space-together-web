@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import ClassNotFound from "@/components/app/class/class-not-found";
-import ClassSettingName from "@/components/app/class/setting/class-setting-name";
+import {ClassSettingName} from "@/components/app/class/setting/class-setting-name";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";

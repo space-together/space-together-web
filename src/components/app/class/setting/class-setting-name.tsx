@@ -26,7 +26,7 @@ interface props {
   getClass: Class;
 }
 
-const ClassSettingName = ({ getClass }: props) => {
+export const ClassSettingName = ({ getClass }: props) => {
   const [isPending, startTransition] = useTransition();
   const form = useForm<classUpdateNameSchemaType>({
     resolver: zodResolver(classUpdateNameSchema),
@@ -131,4 +131,3 @@ const ClassSettingName = ({ getClass }: props) => {
   );
 };
 
-export default ClassSettingName;
