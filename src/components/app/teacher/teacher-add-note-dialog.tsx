@@ -15,7 +15,7 @@ import { IoAddCircleSharp } from "react-icons/io5";
 const TeacherCreateNoteDialog = () => {
   const theme = UseTheme();
   return (
-    <Dialog open>
+    <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
