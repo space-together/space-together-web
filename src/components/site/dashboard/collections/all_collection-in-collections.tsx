@@ -2,6 +2,7 @@
 
 import CardError from "@/components/my-components/card-error";
 import MyImage from "@/components/my-components/myImage";
+import { Button } from "@/components/ui/button";
 import { fetchDatabaseStatus } from "@/services/databaseStatusService";
 import { DatabaseStats } from "@/types/databaseStatus";
 import { FetchError } from "@/types/fetchErr";
@@ -138,7 +139,7 @@ const AllCollectionInCollection = async () => {
     return {
       ...main,
       items: collectionData?.document_count || 0,
-      size : collectionData?.size_bytes || 0,
+      size: collectionData?.size_bytes || 0,
       role: main.role
         ? {
             ...main.role,
@@ -173,7 +174,9 @@ const AllCollectionInCollection = async () => {
 
   return (
     <div className=" space-y-2">
-      <h2 className=" happy-title-base">Main collects ({mainCollections.length})</h2>
+      <h2 className=" happy-title-base">
+        Main collects ({mainCollections.length})
+      </h2>
       <div className="w-full grid grid-cols-4 gap-2">
         {mainCollections.map((collection, index) => (
           <div
@@ -190,7 +193,9 @@ const AllCollectionInCollection = async () => {
                   src={collection.icon || "/icons/data-collection.png"}
                 />
                 <div className="flex flex-col justify-center w-full items-center">
-                  <h4 className="font-semibold text-lg capitalize">{collection.name}</h4>
+                  <h4 className="font-semibold text-lg capitalize">
+                    {collection.name}
+                  </h4>
                   <p>{collection.description}</p>
                 </div>
               </Link>
@@ -206,12 +211,15 @@ const AllCollectionInCollection = async () => {
                 </div>
               </div>
             </div>
-            <Link
-              href={`/admin/collection/${collection.name}`}
-              className=" btn btn-outline btn-sm mt-3 items-center flex justify-center group "
-            >
-              See data
-              <FaArrowRight className=" group-hover:scale-x-105 duration-200" />
+            <Link href={`/admin/collection/${collection.name}`}>
+              <Button
+                variant="info"
+                size="sm"
+                className="items-center flex justify-center group  w-full"
+              >
+                See data
+                <FaArrowRight className=" group-hover:scale-x-105 duration-200" />
+              </Button>
             </Link>
           </div>
         ))}
@@ -219,7 +227,9 @@ const AllCollectionInCollection = async () => {
 
       {/* other collections */}
       <div>
-        <h3 className="happy-title-base">Other Collections ({otherCollections.length})</h3>
+        <h3 className="happy-title-base">
+          Other Collections ({otherCollections.length})
+        </h3>
         <div className="w-full grid grid-cols-4 gap-2 mt-2">
           {otherCollections.map((collection, index) => (
             <div key={index} className="h-full w-full happy-card">
@@ -235,12 +245,15 @@ const AllCollectionInCollection = async () => {
                   </div>
                 </div>
               </div>
-              <Link
-                href={`/admin/collection/${collection.name}`}
-                className=" btn btn-outline btn-sm mt-3 items-center flex justify-center group "
-              >
-                See data
-                <FaArrowRight className=" group-hover:scale-x-105 duration-200" />
+              <Link href={`/admin/collection/${collection.name}`}>
+                <Button
+                  variant="info"
+                  size="sm"
+                  className="items-center flex justify-center group  w-full"
+                >
+                  See data
+                  <FaArrowRight className=" group-hover:scale-x-105 duration-200" />
+                </Button>
               </Link>
             </div>
           ))}
