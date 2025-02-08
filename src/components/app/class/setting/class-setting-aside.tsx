@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineSetting } from "react-icons/ai";
+import { FaBook } from "react-icons/fa6";
+import { LiaUsersSolid } from "react-icons/lia";
 
 interface props {
   lang: Locale;
@@ -15,7 +17,7 @@ interface props {
 
 const ClassSettingAside = ({ lang, classId }: props) => {
   const pathname = usePathname();
-  const theme = UseTheme()
+  const theme = UseTheme();
   return (
     <aside className=" bg-base-100 w-52 h-screen border-r border-r-border space-y-2 py-2">
       <div className=" pr-2">
@@ -23,10 +25,11 @@ const ClassSettingAside = ({ lang, classId }: props) => {
           <Button
             variant="ghost"
             size="sm"
-            className={cn(" font-medium w-full justify-start rounded-l-none", pathname === `/${lang}/class/${classId}/setting` &&
-              `bg-base-300 ${
-                theme === "dark" && "bg-white/10"
-              }`)}
+            className={cn(
+              " font-medium w-full justify-start rounded-l-none",
+              pathname === `/${lang}/class/${classId}/setting` &&
+                `bg-base-300 ${theme === "dark" && "bg-white/10"}`
+            )}
           >
             <AiOutlineSetting />
             General
@@ -34,8 +37,35 @@ const ClassSettingAside = ({ lang, classId }: props) => {
         </Link>
       </div>
       <Separator />
-      <div>
-
+      <div className=" space-y-1 pr-2">
+        <Link href={`/${lang}/class/${classId}/setting/people`}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn(
+              " font-medium w-full justify-start rounded-l-none",
+              pathname === `/${lang}/class/${classId}/setting/people` &&
+                `bg-base-300 ${theme === "dark" && "bg-white/10"}`
+            )}
+          >
+            <LiaUsersSolid size={20} />
+            People
+          </Button>
+        </Link>
+        <Link href={`/${lang}/class/${classId}/setting/subjects`}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn(
+              " font-medium w-full justify-start rounded-l-none",
+              pathname === `/${lang}/class/${classId}/setting/subjects` &&
+                `bg-base-300 ${theme === "dark" && "bg-white/10"}`
+            )}
+          >
+            <FaBook />
+            Subjects
+          </Button>
+        </Link>
       </div>
     </aside>
   );
