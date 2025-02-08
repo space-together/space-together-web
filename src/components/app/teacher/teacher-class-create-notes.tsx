@@ -15,19 +15,6 @@ const TeacherClassCreateNotes = () => {
         >
           <div className="flex space-x-2 ">
             <CgNotes />
-            <span>Physics</span>
-          </div>
-          <div>
-            <IoAddCircleSharp size={24} />
-          </div>
-        </Button>
-        <Button
-          variant="ghost"
-          size="md"
-          className=" flex justify-between items-center"
-        >
-          <div className="flex space-x-2 ">
-            <CgNotes />
             <span>Maths</span>
           </div>
           <div>
