@@ -40,6 +40,7 @@ const NavProfileDropDown = ({ user, lang }: props) => {
             <AvatarFallback>{user.role}</AvatarFallback>
           </Avatar>
           <span className=" font-medium">{user.name}</span>
+          {user.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

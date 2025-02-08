@@ -1,6 +1,5 @@
 "use client";
 import React, { useTransition } from "react";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -9,32 +8,35 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { NoteSchema, NoteSchemaType } from "@/utils/schema/note-schema";
+import { postSchema, PostSchemaType } from "@/utils/schema/postSchema";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { DialogClose, DialogFooter } from "../ui/dialog";
-import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { LoaderCircle } from "lucide-react";
+import { Button } from "../ui/button";
 
-const CreateNoteForm = () => {
-  //   const [error, setError] = useState<string>("");
-  //   const [success, setSuccess] = useState<string>("");
+interface props {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const CreatePostForm = ({setIsOpen} : props) => {
   const [isPending, startTransition] = useTransition();
-  const form = useForm<NoteSchemaType>({
-    resolver: zodResolver(NoteSchema),
+  const form = useForm<PostSchemaType>({
+    resolver: zodResolver(postSchema),
     defaultValues: {},
   });
+
   const onSubmit = () => {};
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-2">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="description"
+          name="post"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel><span className=" happy-title-base">Announce something ...</span></FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -43,12 +45,12 @@ const CreateNoteForm = () => {
         />
         <FormField
           control={form.control}
-          name="name"
+          name="post"
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <div className="space-y-2">
-                  <FormLabel>Upload notes</FormLabel>
+                  <FormLabel>Upload</FormLabel>
                   <Input
                     {...field}
                     className=" pe-3 file:me-3 file:border-0 file:border-e"
@@ -60,14 +62,13 @@ const CreateNoteForm = () => {
             </FormItem>
           )}
         />
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button type="button" size="sm" className="">
-              Cancel
-            </Button>
-          </DialogClose>
+        <div className="  space-x-4 mt-4 justify-end w-full flex">
+          <Button onClick={() => setIsOpen(false)} type="button" size="sm" className="">
+            Cancel
+          </Button>
+
           <Button disabled={isPending} type="submit" variant="info" size="sm">
-            Add notes
+            Post
             {isPending && (
               <LoaderCircle
                 className="-ms-1 me-2 animate-spin"
@@ -77,10 +78,10 @@ const CreateNoteForm = () => {
               />
             )}
           </Button>
-        </DialogFooter>
+        </div>
       </form>
     </Form>
   );
 };
 
-export default CreateNoteForm;
+export default CreatePostForm;

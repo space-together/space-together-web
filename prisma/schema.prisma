@@ -284,3 +284,23 @@ model Note {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+enum PostRole {
+  NOTES
+  IMAGE
+  VIDEO
+  POST
+  ACTIVITY
+  TEXT
+}
+
+model Post {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String   @db.ObjectId
+  fileId  String?  @db.ObjectId
+  content String   @db.ObjectId
+  role    PostRole @default(POST)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
