@@ -1,6 +1,14 @@
 import { auth } from "@/auth";
 import AppNavbar from "@/components/site/navbar/app-navbar";
+import { AppSidebar } from "@/components/site/navbar/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
+import {
+  adminSidebarGroups,
+  schoolStaffSidebarGroups,
+  studentSidebarGroups,
+  teacherSidebarGroups,
+} from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 import React from "react";
 interface props {
@@ -16,8 +24,9 @@ export default async function ApplicationLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+
   return (
-    <div>
+    <SidebarProvider className="">
       <AppNavbar
         user={{
           ...user,
@@ -27,7 +36,19 @@ export default async function ApplicationLayout(props: props) {
         }}
         lang={lang}
       />
-      <div className=" pt-14 bg-base-200">{children}</div>
-    </div>
+        <AppSidebar
+          items={
+            user.role === "STUDENT"
+              ? studentSidebarGroups
+              : user.role === "SCHOOLSTAFF"
+              ? schoolStaffSidebarGroups
+              : user.role === "ADMIN"
+              ? adminSidebarGroups
+              : teacherSidebarGroups
+          }
+          lang={lang}
+        />
+        <main className=" pt-14 bg-base-200">{children}</main>
+    </SidebarProvider>
   );
 }

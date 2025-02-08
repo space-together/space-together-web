@@ -18,8 +18,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import ProfileButton from "./profile-button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -27,7 +25,6 @@ import { sidebarGroupsProps } from "@/utils/context/app-side-content";
 import { Separator } from "@/components/ui/separator";
 import MyImage from "@/components/my-components/myImage";
 import { Locale } from "@/i18n";
-import { authUser } from "@/types/userModel";
 import UseTheme from "@/context/theme/use-theme";
 import { ReactNode } from "react";
 
@@ -203,13 +200,12 @@ const SidebarGroupComponent = ({
 interface props {
   items: sidebarGroupsProps[];
   lang?: Locale;
-  user?: authUser;
   otherData1?: ReactNode[];
 }
 
-export function AppSidebar({ items, lang, user, otherData1 }: props) {
+export function AppSidebar({ items, lang, otherData1 }: props) {
   return (
-    <Sidebar className=" pt-14">
+    <Sidebar className=" pt-14" collapsible="icon">
       <SidebarContent className=" border-r shrink-0 border-border">
         <div className=" overflow-y-auto max-h-[calc(100vh-5.5rem) space-y-1">
           {items.map((group, index) => (
@@ -224,20 +220,8 @@ export function AppSidebar({ items, lang, user, otherData1 }: props) {
           ))}
           <div className="h-[1.5rem]]" />
         </div>
-        <SidebarFooter className=" fixed bottom-0 from-base-300 via-base-300  to-transparent h-20 w-[16rem] ">
-          <div className=" flex justify-between items-center ">
-            <div className="flex  items-center space-x-1 pt-6">
-              <Avatar>
-                <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
-                <AvatarFallback>CEO</AvatarFallback>
-              </Avatar>
-              <div className=" flex flex-col">
-                <h6 className="text-sm font-medium">{user?.name}</h6>
-                <span className=" my-sm-text">{user?.role}</span>
-              </div>
-            </div>
-            <ProfileButton />
-          </div>
+        <SidebarFooter className=" ">
+          {/* TODO: add aside footer */}
         </SidebarFooter>
       </SidebarContent>
     </Sidebar>

@@ -1,8 +1,5 @@
 import { auth } from "@/auth";
-import { AppSidebar } from "@/components/site/navbar/app-sidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
-import { adminSidebarGroups } from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
 interface props {
   children: React.ReactNode;
@@ -19,19 +16,5 @@ export default async function Layout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-  return (
-    <SidebarProvider className=" gap-2 w-full">
-      <AppSidebar
-        user={{
-          ...user,
-          name: user.name ?? "",
-          email: user.email ?? undefined,
-          image: user.image ?? undefined,
-        }}
-        items={adminSidebarGroups}
-        lang={lang}
-      />
-      <main className="w-full">{children}</main>
-    </SidebarProvider>
-  );
+  return <section className="">{children}</section>;
 }
