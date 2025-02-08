@@ -218,6 +218,8 @@ model Class {
   sector       Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
   user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   classTeacher ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+
+  Post Post[]
 }
 
 model SubClass {
@@ -302,9 +304,11 @@ model Post {
   file    String?
   content String?
   role    PostRole @default(POST)
+  classId String?  @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
 }

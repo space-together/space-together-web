@@ -304,6 +304,7 @@ exports.Prisma.PostScalarFieldEnum = {
   file: 'file',
   content: 'content',
   role: 'role',
+  classId: 'classId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
