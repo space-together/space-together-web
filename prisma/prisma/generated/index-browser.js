@@ -293,6 +293,7 @@ exports.Prisma.NoteScalarFieldEnum = {
   commentsIds: 'commentsIds',
   fileId: 'fileId',
   content: 'content',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
