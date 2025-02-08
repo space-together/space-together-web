@@ -44,7 +44,7 @@ const ClassPageDocument = async ({ collectionName, documentId }: props) => {
                 </div>
                 <p>{data?.classRoomId}</p>
                 <p className=" text-sm">{data?.code}</p>
-                <div>{data?.classTeacher} </div>
+                <div>{data?.userId} </div>
                 <p>{data?.createdAt && data.createdAt.toString()}</p>
                 {data?.updatedAt && (
                   <p className=" text-warning">
