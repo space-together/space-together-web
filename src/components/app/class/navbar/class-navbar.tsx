@@ -57,7 +57,7 @@ const ClassNavbar = ({ user, lang, classId }: props) => {
       </Link>
       {user.role === "ADMIN" && (
         <Link
-          href={`/${lang}/class/${classId}/people`}
+          href={`/${lang}/class/${classId}/setting`}
           className={cn(
             " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
             pathname === `/${lang}/class/${classId}/setting` &&
