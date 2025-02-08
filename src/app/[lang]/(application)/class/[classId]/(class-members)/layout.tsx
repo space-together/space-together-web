@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
+import ClassNotFound from "@/components/app/class/class-not-found";
 import ClassNavbar from "@/components/app/class/navbar/class-navbar";
 import { Locale } from "@/i18n";
+import { getClassById } from "@/services/data/class-data";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -16,12 +18,20 @@ export default async function ClassIdLayout(props: props) {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-
+  const getClass = await getClassById(classId);
+  if (!getClass) {
+    return (
+      <div>
+        <ClassNotFound />
+      </div>
+    );
+  }
   return (
     <div>
       <ClassNavbar
-      classId = {classId}
+        classId={classId}
         lang={lang}
+        getClass={getClass}
         user={{
           ...user,
           name: user.name ?? "",

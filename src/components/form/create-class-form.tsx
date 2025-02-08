@@ -43,13 +43,13 @@ const CreateClassForm = () => {
     setError("");
     setSuccess("");
     startTransition(async () => {
-      const action = createClassAction(values);
-      if ((await action).error) {
-        setError((await action).error ?? "");
+      const action = await createClassAction(values);
+      if ((action).error) {
+        setError((action).error ?? "");
       }
 
-      if ((await action).success) {
-        setSuccess((await action).success ?? "");
+      if ((action).success) {
+        setSuccess((action).success ?? "");
         form.reset();
       }
     });
