@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 
 interface props {
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: Locale; classId: string }>;
 }
 
 export default async function ClassIdLayout(props: props) {
   const params = await props.params;
-  const { lang } = params;
+  const { lang, classId } = params;
   const { children } = props;
   const user = (await auth())?.user;
   if (!user) {
@@ -19,16 +19,17 @@ export default async function ClassIdLayout(props: props) {
 
   return (
     <div>
-         <ClassNavbar
-          lang={lang}
-          user={{
-            ...user,
-            name: user.name ?? "",
-            email: user.email ?? undefined,
-            image: user.image ?? undefined,
-          }}
-        />
+      <ClassNavbar
+      classId = {classId}
+        lang={lang}
+        user={{
+          ...user,
+          name: user.name ?? "",
+          email: user.email ?? undefined,
+          image: user.image ?? undefined,
+        }}
+      />
       {children}
     </div>
-  )
+  );
 }

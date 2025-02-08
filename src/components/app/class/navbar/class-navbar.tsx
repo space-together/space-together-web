@@ -2,7 +2,6 @@
 import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { authUser } from "@/types/userModel";
-import { toLowerCase } from "@/utils/functions/characters";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -10,49 +9,64 @@ import React from "react";
 interface props {
   user: authUser;
   lang: Locale;
+  classId : string
 }
 
-const ClassNavbar = ({ user, lang }: props) => {
+const ClassNavbar = ({ user, lang, classId }: props) => {
   const pathname = usePathname();
-  const role = toLowerCase(user.role);
   return (
     <div className=" h-10 border-b border-border w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
       <Link
-        href={`/${lang}/class/${role}`}
+        href={`/${lang}/class/${classId}`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${classId}` && "border-b-2 border-b-info"
         )}
       >
         Class room
       </Link>
       <Link
-        href={`/${lang}/class/${role}/notes`}
+        href={`/${lang}/class/${classId}/notes`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}/notes` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${classId}/notes` &&
+            "border-b-2 border-b-info"
         )}
       >
         Notes
       </Link>
       <Link
-        href={`/${lang}/class/${role}/class-work`}
+        href={`/${lang}/class/${classId}/class-work`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}/class-work` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${classId}/class-work` &&
+            "border-b-2 border-b-info"
         )}
       >
         class work
       </Link>
       <Link
-        href={`/${lang}/class/${role}/people`}
+        href={`/${lang}/class/${classId}/people`}
         className={cn(
           " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
-          pathname === `/${lang}/class/${role}/people` && "border-b-2 border-b-info"
+          pathname === `/${lang}/class/${classId}/people` &&
+            "border-b-2 border-b-info"
         )}
       >
         People
       </Link>
+      {user.role === "ADMIN" && (
+        <Link
+          href={`/${lang}/class/${classId}/people`}
+          className={cn(
+            " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+            pathname === `/${lang}/class/${classId}/setting` &&
+              "border-b-2 border-b-info"
+          )}
+        >
+          setting
+        </Link>
+      )}
     </div>
   );
 };

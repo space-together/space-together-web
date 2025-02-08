@@ -67,7 +67,7 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
       cell: ({ row }) => {
         const classModel = row.original;
         return (
-          <Link href={`/collection/${collectionName}/${classModel.id}`}>
+          <Link className=" link-hover" href={`/class/${collectionName}/${classModel.id}`}>
             <MyImage src="/icons/teacher.png" className="size-8" />
           </Link>
         );
@@ -79,7 +79,7 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
       cell: ({ row }) => {
         const classModel = row.original;
         return (
-          <Link href={`/collection/${collectionName}/${classModel.id}`} className=" line-clamp-1">
+          <Link href={`/class/${classModel.id}`} className=" line-clamp-1">
             {row.getValue("name") || <span className=" text-myGray">N/A</span>}
           </Link>
         );
@@ -158,9 +158,9 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
           <div className=" flex gap-2">
             <Link
               className=" btn btn-xs btn-warning"
-              href={`/collection/${collectionName}/update/${classModel.id}`}
+              href={`/class/${collectionName}/${classModel.id}/setting`}
             >
-              Update
+              Settings
             </Link>
             <DeleteClassDialog classModel={classModel} />
           </div>
