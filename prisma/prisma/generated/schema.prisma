@@ -279,6 +279,7 @@ model Note {
   commentsIds String[] @db.ObjectId
   fileId      String?  @db.ObjectId
   content     String   @db.ObjectId
+  description String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

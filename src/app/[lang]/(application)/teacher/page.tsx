@@ -17,11 +17,17 @@ const TeacherPage = async (props: props) => {
   if (!user?.id) {
     return redirect(`/${lang}/auth/login`);
   }
-
   const classes = await getAllClassesByUserId(user.id);
+  if (!classes) {
+    return (
+      <div>
+        some thing went wog
+      </div>
+    )
+  }
   return (
     <div className=" px-4">
-      {!classes ? (
+      {classes.length === 0 ? (
         <div className=" w-full grid place-content-center h-[80vh]">
           <CreateClassDialog />
         </div>

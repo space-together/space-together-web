@@ -17369,6 +17369,7 @@ export namespace Prisma {
     subjectId: string | null
     fileId: string | null
     content: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17379,6 +17380,7 @@ export namespace Prisma {
     subjectId: string | null
     fileId: string | null
     content: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17391,6 +17393,7 @@ export namespace Prisma {
     commentsIds: number
     fileId: number
     content: number
+    description: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -17403,6 +17406,7 @@ export namespace Prisma {
     subjectId?: true
     fileId?: true
     content?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17413,6 +17417,7 @@ export namespace Prisma {
     subjectId?: true
     fileId?: true
     content?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17425,6 +17430,7 @@ export namespace Prisma {
     commentsIds?: true
     fileId?: true
     content?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -17510,6 +17516,7 @@ export namespace Prisma {
     commentsIds: string[]
     fileId: string | null
     content: string
+    description: string | null
     createdAt: Date
     updatedAt: Date
     _count: NoteCountAggregateOutputType | null
@@ -17539,6 +17546,7 @@ export namespace Prisma {
     commentsIds?: boolean
     fileId?: boolean
     content?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["note"]>
@@ -17553,11 +17561,12 @@ export namespace Prisma {
     commentsIds?: boolean
     fileId?: boolean
     content?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "subjectId" | "seenBy" | "commentsIds" | "fileId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
+  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "subjectId" | "seenBy" | "commentsIds" | "fileId" | "content" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
 
   export type $NotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Note"
@@ -17570,6 +17579,7 @@ export namespace Prisma {
       commentsIds: string[]
       fileId: string | null
       content: string
+      description: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["note"]>
@@ -17971,6 +17981,7 @@ export namespace Prisma {
     readonly commentsIds: FieldRef<"Note", 'String[]'>
     readonly fileId: FieldRef<"Note", 'String'>
     readonly content: FieldRef<"Note", 'String'>
+    readonly description: FieldRef<"Note", 'String'>
     readonly createdAt: FieldRef<"Note", 'DateTime'>
     readonly updatedAt: FieldRef<"Note", 'DateTime'>
   }
@@ -18542,6 +18553,7 @@ export namespace Prisma {
     commentsIds: 'commentsIds',
     fileId: 'fileId',
     content: 'content',
+    description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -19854,6 +19866,7 @@ export namespace Prisma {
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableFilter<"Note"> | string | null
     content?: StringFilter<"Note"> | string
+    description?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
   }
@@ -19866,6 +19879,7 @@ export namespace Prisma {
     commentsIds?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19881,6 +19895,7 @@ export namespace Prisma {
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableFilter<"Note"> | string | null
     content?: StringFilter<"Note"> | string
+    description?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
   }, "id">
@@ -19893,6 +19908,7 @@ export namespace Prisma {
     commentsIds?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NoteCountOrderByAggregateInput
@@ -19911,6 +19927,7 @@ export namespace Prisma {
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableWithAggregatesFilter<"Note"> | string | null
     content?: StringWithAggregatesFilter<"Note"> | string
+    description?: StringNullableWithAggregatesFilter<"Note"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
   }
@@ -21137,6 +21154,7 @@ export namespace Prisma {
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
     content: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21149,6 +21167,7 @@ export namespace Prisma {
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
     content: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21160,6 +21179,7 @@ export namespace Prisma {
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21171,6 +21191,7 @@ export namespace Prisma {
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21183,6 +21204,7 @@ export namespace Prisma {
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
     content: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21194,6 +21216,7 @@ export namespace Prisma {
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21205,6 +21228,7 @@ export namespace Prisma {
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22204,6 +22228,7 @@ export namespace Prisma {
     commentsIds?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22214,6 +22239,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22224,6 +22250,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
