@@ -3,7 +3,12 @@
 import { db } from "@/lib/db";
 import { ClassType } from "../../../prisma/prisma/generated";
 import { generateCode, generateUsername } from "@/utils/functions/characters";
-import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
+import {
+  classSchema,
+  classSchemaType,
+  classUpdateNameSchema,
+  classUpdateNameSchemaType,
+} from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
 
 export async function createClassAction(values: classSchemaType) {
@@ -12,24 +17,17 @@ export async function createClassAction(values: classSchemaType) {
     return { error: "Invalid values" };
   }
 
-  const {
-    name,
-    username,
-    description,
-    sector,
-    trade,
-    class_room,
-    class_type,
-  } = validation.data as {
-    name: string;
-    username: string;
-    description: string;
-    sector: string;
-    trade: string;
-    class_room: string;
-    class_type: ClassType;
-    class_teacher: string;
-  };
+  const { name, username, description, sector, trade, class_room, class_type } =
+    validation.data as {
+      name: string;
+      username: string;
+      description: string;
+      sector: string;
+      trade: string;
+      class_room: string;
+      class_type: ClassType;
+      class_teacher: string;
+    };
   let myUsername = username;
   if (!username) {
     myUsername = generateUsername(name);
@@ -37,7 +35,7 @@ export async function createClassAction(values: classSchemaType) {
   try {
     const user = (await auth())?.user;
     if (!user?.id) {
-      return {error : "To create class you must me login"}
+      return { error: "To create class you must me login" };
     }
     const createdClass = await db.class.create({
       data: {
@@ -67,29 +65,22 @@ export async function updateClassAction(id: string, values: classSchemaType) {
     return { error: "Invalid values" };
   }
 
-  const {
-    name,
-    username,
-    description,
-    sector,
-    trade,
-    class_room,
-    class_type,
-  } = validation.data as {
-    name: string;
-    username: string;
-    description: string;
-    sector: string;
-    trade: string;
-    class_room: string;
-    class_type: ClassType;
-    class_teacher: string;
-  };
+  const { name, username, description, sector, trade, class_room, class_type } =
+    validation.data as {
+      name: string;
+      username: string;
+      description: string;
+      sector: string;
+      trade: string;
+      class_room: string;
+      class_type: ClassType;
+      class_teacher: string;
+    };
 
   try {
     const user = (await auth())?.user;
     if (!user?.id) {
-      return {error : "To create class you must me login"}
+      return { error: "To create class you must me login" };
     }
 
     const updatedClass = await db.class.update({
@@ -127,3 +118,28 @@ export async function deleteClassAction(id: string) {
     return { error: `Error deleting class: [${error}]` };
   }
 }
+
+export const updateClassNameAction = async (
+  id: string,
+  value: classUpdateNameSchemaType
+) => {
+  const validation = classUpdateNameSchema.safeParse(value);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { name } = validation.data;
+
+  try {
+    const updateClass = await db.class.update({
+      where: { id },
+      data: { name },
+    });
+
+    return updateClass
+      ? { success: "Class name updated", data: updateClass }
+      : { error: "Failed to update Class" };
+  } catch (error) {
+    return { error: `Error updating class: [${error}]` };
+  }
+};
