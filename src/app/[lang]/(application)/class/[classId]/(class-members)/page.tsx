@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import ClassNotFound from "@/components/app/class/class-not-found";
 import ClassActivities from "@/components/app/class/classActivities";
 import ClassBody from "@/components/app/class/classBody";
 import ClassHead from "@/components/app/class/classHead";
@@ -21,7 +22,7 @@ const ClassIdPage = async (props: Props) => {
   const myClass = await getClassById(classId);
 
   if (!myClass) {
-    return <div>this class is note found, please use try again</div>;
+    return <ClassNotFound />;
   }
   return (
     <div className=" px-4">

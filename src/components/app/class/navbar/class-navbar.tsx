@@ -43,7 +43,7 @@ const ClassNavbar = ({ user, lang, classId }: props) => {
             "border-b-2 border-b-info"
         )}
       >
-        class work
+        Class work
       </Link>
       <Link
         href={`/${lang}/class/${classId}/people`}
@@ -64,7 +64,7 @@ const ClassNavbar = ({ user, lang, classId }: props) => {
               "border-b-2 border-b-info"
           )}
         >
-          setting
+          Setting
         </Link>
       )}
     </div>
