@@ -301,7 +301,7 @@ exports.Prisma.NoteScalarFieldEnum = {
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  fileId: 'fileId',
+  file: 'file',
   content: 'content',
   role: 'role',
   createdAt: 'createdAt',

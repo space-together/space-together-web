@@ -299,8 +299,8 @@ enum PostRole {
 model Post {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   userId  String   @db.ObjectId
-  fileId  String?  @db.ObjectId
-  content String   @db.ObjectId
+  file    String?
+  content String?
   role    PostRole @default(POST)
 
   createdAt DateTime @default(now())

@@ -18601,7 +18601,7 @@ export namespace Prisma {
   export type PostMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    fileId: string | null
+    file: string | null
     content: string | null
     role: $Enums.PostRole | null
     createdAt: Date | null
@@ -18611,7 +18611,7 @@ export namespace Prisma {
   export type PostMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    fileId: string | null
+    file: string | null
     content: string | null
     role: $Enums.PostRole | null
     createdAt: Date | null
@@ -18621,7 +18621,7 @@ export namespace Prisma {
   export type PostCountAggregateOutputType = {
     id: number
     userId: number
-    fileId: number
+    file: number
     content: number
     role: number
     createdAt: number
@@ -18633,7 +18633,7 @@ export namespace Prisma {
   export type PostMinAggregateInputType = {
     id?: true
     userId?: true
-    fileId?: true
+    file?: true
     content?: true
     role?: true
     createdAt?: true
@@ -18643,7 +18643,7 @@ export namespace Prisma {
   export type PostMaxAggregateInputType = {
     id?: true
     userId?: true
-    fileId?: true
+    file?: true
     content?: true
     role?: true
     createdAt?: true
@@ -18653,7 +18653,7 @@ export namespace Prisma {
   export type PostCountAggregateInputType = {
     id?: true
     userId?: true
-    fileId?: true
+    file?: true
     content?: true
     role?: true
     createdAt?: true
@@ -18736,8 +18736,8 @@ export namespace Prisma {
   export type PostGroupByOutputType = {
     id: string
     userId: string
-    fileId: string | null
-    content: string
+    file: string | null
+    content: string | null
     role: $Enums.PostRole
     createdAt: Date
     updatedAt: Date
@@ -18763,7 +18763,7 @@ export namespace Prisma {
   export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    fileId?: boolean
+    file?: boolean
     content?: boolean
     role?: boolean
     createdAt?: boolean
@@ -18776,14 +18776,14 @@ export namespace Prisma {
   export type PostSelectScalar = {
     id?: boolean
     userId?: boolean
-    fileId?: boolean
+    file?: boolean
     content?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fileId" | "content" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "file" | "content" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Post$userArgs<ExtArgs>
   }
@@ -18796,8 +18796,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      fileId: string | null
-      content: string
+      file: string | null
+      content: string | null
       role: $Enums.PostRole
       createdAt: Date
       updatedAt: Date
@@ -19196,7 +19196,7 @@ export namespace Prisma {
   interface PostFieldRefs {
     readonly id: FieldRef<"Post", 'String'>
     readonly userId: FieldRef<"Post", 'String'>
-    readonly fileId: FieldRef<"Post", 'String'>
+    readonly file: FieldRef<"Post", 'String'>
     readonly content: FieldRef<"Post", 'String'>
     readonly role: FieldRef<"Post", 'PostRole'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
@@ -19848,7 +19848,7 @@ export namespace Prisma {
   export const PostScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    fileId: 'fileId',
+    file: 'file',
     content: 'content',
     role: 'role',
     createdAt: 'createdAt',
@@ -21252,8 +21252,8 @@ export namespace Prisma {
     NOT?: PostWhereInput | PostWhereInput[]
     id?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
-    fileId?: StringNullableFilter<"Post"> | string | null
-    content?: StringFilter<"Post"> | string
+    file?: StringNullableFilter<"Post"> | string | null
+    content?: StringNullableFilter<"Post"> | string | null
     role?: EnumPostRoleFilter<"Post"> | $Enums.PostRole
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
@@ -21263,7 +21263,7 @@ export namespace Prisma {
   export type PostOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    fileId?: SortOrder
+    file?: SortOrder
     content?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -21277,8 +21277,8 @@ export namespace Prisma {
     OR?: PostWhereInput[]
     NOT?: PostWhereInput | PostWhereInput[]
     userId?: StringFilter<"Post"> | string
-    fileId?: StringNullableFilter<"Post"> | string | null
-    content?: StringFilter<"Post"> | string
+    file?: StringNullableFilter<"Post"> | string | null
+    content?: StringNullableFilter<"Post"> | string | null
     role?: EnumPostRoleFilter<"Post"> | $Enums.PostRole
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
@@ -21288,7 +21288,7 @@ export namespace Prisma {
   export type PostOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    fileId?: SortOrder
+    file?: SortOrder
     content?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -21304,8 +21304,8 @@ export namespace Prisma {
     NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Post"> | string
     userId?: StringWithAggregatesFilter<"Post"> | string
-    fileId?: StringNullableWithAggregatesFilter<"Post"> | string | null
-    content?: StringWithAggregatesFilter<"Post"> | string
+    file?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    content?: StringNullableWithAggregatesFilter<"Post"> | string | null
     role?: EnumPostRoleWithAggregatesFilter<"Post"> | $Enums.PostRole
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
@@ -22618,8 +22618,8 @@ export namespace Prisma {
 
   export type PostCreateInput = {
     id?: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22629,16 +22629,16 @@ export namespace Prisma {
   export type PostUncheckedCreateInput = {
     id?: string
     userId: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type PostUpdateInput = {
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22647,8 +22647,8 @@ export namespace Prisma {
 
   export type PostUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22657,16 +22657,16 @@ export namespace Prisma {
   export type PostCreateManyInput = {
     id?: string
     userId: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type PostUpdateManyMutationInput = {
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22674,8 +22674,8 @@ export namespace Prisma {
 
   export type PostUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23723,7 +23723,7 @@ export namespace Prisma {
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    fileId?: SortOrder
+    file?: SortOrder
     content?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -23733,7 +23733,7 @@ export namespace Prisma {
   export type PostMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    fileId?: SortOrder
+    file?: SortOrder
     content?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -23743,7 +23743,7 @@ export namespace Prisma {
   export type PostMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    fileId?: SortOrder
+    file?: SortOrder
     content?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -25300,8 +25300,8 @@ export namespace Prisma {
 
   export type PostCreateWithoutUserInput = {
     id?: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25309,8 +25309,8 @@ export namespace Prisma {
 
   export type PostUncheckedCreateWithoutUserInput = {
     id?: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25532,8 +25532,8 @@ export namespace Prisma {
     NOT?: PostScalarWhereInput | PostScalarWhereInput[]
     id?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
-    fileId?: StringNullableFilter<"Post"> | string | null
-    content?: StringFilter<"Post"> | string
+    file?: StringNullableFilter<"Post"> | string | null
+    content?: StringNullableFilter<"Post"> | string | null
     role?: EnumPostRoleFilter<"Post"> | $Enums.PostRole
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
@@ -27566,8 +27566,8 @@ export namespace Prisma {
 
   export type PostCreateManyUserInput = {
     id?: string
-    fileId?: string | null
-    content: string
+    file?: string | null
+    content?: string | null
     role?: $Enums.PostRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27755,24 +27755,24 @@ export namespace Prisma {
   }
 
   export type PostUpdateWithoutUserInput = {
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateWithoutUserInput = {
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateManyWithoutUserInput = {
-    fileId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
+    file?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -1,4 +1,5 @@
 "use server";
+import { auth } from "@/auth";
 import { db } from "@/lib/db"; // Add this line to import the db object
 
 import { postSchema, PostSchemaType } from "@/utils/schema/postSchema";
@@ -10,26 +11,30 @@ export const CreatePostAction = async (values: PostSchemaType) => {
     return { error: "invalid values" };
   }
 
-  const { content, file } = validation.data;
+  const { content } = validation.data;
 
-  // TODO : to make file store
   try {
+    const user = (await auth())?.user;
+    if (!user?.id) {
+      return { error: "To create class you must be logged in" };
+    }
+
+
     const create = await db.post.create({
       data: {
-        content,
-        fileId: file,
+        content ,
+        userId: user.id,
       },
     });
 
     if (!create) {
-      return { error: "Failed to create Education" };
+      return { error: "Failed to Post created" };
     }
 
-    return { success: "Education created", data: create };
+    return { success: "Post Created", data: create };
   } catch (error) {
     return {
-      error: `Some this went wong to create class error is  [${error}]`,
+      error: `Something went wrong to create post error is  [${error}]`,
     };
   }
 };
-
