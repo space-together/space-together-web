@@ -79,7 +79,7 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Settings",
         icon: AiOutlineSetting,
-        url: "/admin/setting",
+        url: "/setting",
       },
     ],
   },
@@ -118,7 +118,7 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Settings",
         image: "/icons/cogwheel.png",
-        url: "/admin/setting",
+        url: "/setting",
       },
     ],
   },
@@ -151,7 +151,7 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Settings",
         image: "/icons/cogwheel.png",
-        url: "/admin/setting",
+        url: "/setting",
       },
     ],
   },
@@ -184,7 +184,7 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Settings",
         image: "/icons/cogwheel.png",
-        url: "/admin/setting",
+        url: "/setting",
       },
     ],
   },
