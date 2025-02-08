@@ -8,6 +8,8 @@ import {
   classSchemaType,
   classUpdateNameSchema,
   classUpdateNameSchemaType,
+  classUpdateUsernameSchema,
+  classUpdateUsernameSchemaType,
 } from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
 
@@ -138,6 +140,30 @@ export const updateClassNameAction = async (
 
     return updateClass
       ? { success: "Class name updated", data: updateClass }
+      : { error: "Failed to update Class" };
+  } catch (error) {
+    return { error: `Error updating class: [${error}]` };
+  }
+};
+
+export const updateClassusernameAction = async (
+  id: string,
+  value: classUpdateUsernameSchemaType
+) => {
+  const validation = classUpdateUsernameSchema.safeParse(value);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { username } = validation.data;
+  try {
+    const updateClass = await db.class.update({
+      where: { id },
+      data: { username : username },
+    });
+
+    return updateClass
+      ? { success: "Class username updated", data: updateClass }
       : { error: "Failed to update Class" };
   } catch (error) {
     return { error: `Error updating class: [${error}]` };
