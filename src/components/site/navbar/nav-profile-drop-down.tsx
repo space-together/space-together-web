@@ -42,15 +42,17 @@ const NavProfileDropDown = ({ user, lang }: props) => {
           <span className=" font-medium">{user.name}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href={`/${lang}/profile`} className=" btn btn-ghost btn-sm">
-            <User />
-            <span>Your Profile</span>
+        <DropdownMenuItem asChild>
+          <Link href={`/${lang}/profile`}>
+           <Button variant="ghost" size="sm" className=" w-full justify-start">
+           <User />
+           <span>Your Profile</span>
+           </Button>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Button onClick={() => logout()} variant="ghost" size="sm" className=" text-error">
+        <DropdownMenuItem asChild>
+          <Button onClick={() => logout()} type="button" variant="ghost" size="sm" className=" text-error w-full justify-start cursor-pointer">
             <LogOut />
             <span>Logout</span>
           </Button>

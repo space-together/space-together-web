@@ -19,7 +19,7 @@ const OnboardingPage = async (props: Props) => {
       : undefined;
 
   return (
-    <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
+    <div className=" h-screen px-12 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
         <h1 className=" happy-title-head">
           {diction.auth.onboarding.page.title}

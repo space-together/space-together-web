@@ -213,7 +213,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                     render={({ field }) => (
                       <RPNInput.default
                         {...field}
-                        className="flex rounded-lg shadow-sm shadow-black/5"
+                        className="flex rounded-lg shadow-sm shadow-black/5 w-80"
                         international
                         flagComponent={FlagComponent}
                         countrySelectComponent={CountrySelect}
