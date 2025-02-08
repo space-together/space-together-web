@@ -54,7 +54,7 @@ const SidebarGroupComponent = ({
         )}
       </div>
       <SidebarGroupContent>
-        <SidebarMenu className=" space-y-1 pr-2">
+        <SidebarMenu className=" pr-2">
           {items.map((item, index) => {
             if (item.otherData1)
               return (
