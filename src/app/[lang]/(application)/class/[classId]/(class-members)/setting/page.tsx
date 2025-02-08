@@ -19,8 +19,7 @@ const ClassSettingPage = async (props: props) => {
   }
   const getClass = await getClassById(classId);
   if (!getClass) return <ClassNotFound />;
-  if (user.role !== "ADMIN" || user.id !== getClass.id)
-    return redirect(`/${lang}/class/${classId}`);
+  if (user.role !== "ADMIN") return redirect(`/${lang}/class/${classId}`);
   return (
     <div className=" py-4  w-full space-y-4">
       <div className=" space-y-2">
@@ -28,7 +27,7 @@ const ClassSettingPage = async (props: props) => {
         <Separator />
       </div>
       <div className=" ">
-        <ClassSettingName />
+        <ClassSettingName getClass={getClass}/>
       </div>
     </div>
   );

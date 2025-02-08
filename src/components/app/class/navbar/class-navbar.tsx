@@ -57,7 +57,7 @@ const ClassNavbar = ({ user, lang, classId , getClass}: props) => {
       >
         People
       </Link>
-      {user.role === "ADMIN" || user.id === getClass.userId && (
+      {user.role === "ADMIN" && (
         <Link
           href={`/${lang}/class/${classId}/setting`}
           className={cn(
