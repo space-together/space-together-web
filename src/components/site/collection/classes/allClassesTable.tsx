@@ -8,10 +8,10 @@ import { Separator } from "@/components/ui/separator";
 import { FaCloudArrowDown } from "react-icons/fa6";
 import { useState } from "react";
 import MyImage from "@/components/my-components/myImage";
-import { BsPlus } from "react-icons/bs";
 import Link from "next/link";
 import DeleteClassDialog from "./deleteClassDialog";
 import { Class } from "../../../../../prisma/prisma/generated";
+import CreateClassDialog from "@/components/app/class/createClassDialog";
 
 interface props {
   classes: Class[] | null;
@@ -174,12 +174,7 @@ const AllClassesTable = ({ classes, collectionName }: props) => {
       <div className="flex justify-between p-4">
         <h1 className="happy-title-base">Classes Table ({classes ?classes.length : 0})</h1>
         <div className="space-x-2">
-          <Link
-            className=" btn btn-sm btn-info"
-            href={`/admin/collection/${collectionName}/add`}
-          >
-            <BsPlus /> Create new class
-          </Link>
+         <CreateClassDialog haveClass/>
           <Button variant="success" size="sm">
             <FaCloudArrowDown /> Export
           </Button>
