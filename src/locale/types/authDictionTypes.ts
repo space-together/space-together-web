@@ -19,7 +19,7 @@ export interface AuthSettingDictionType {
     };
     language: {
       title: string;
-      kiny: string;
+      rw: string;
       en: string;
     };
     theme: {

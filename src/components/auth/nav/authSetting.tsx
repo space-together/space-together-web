@@ -100,15 +100,15 @@ const AuthSetting = ({ lang, diction }: props) => {
                       type="radio"
                       onChange={() => setSelectedLang(locale)}
                     />
-                    {locale === "kiny" ? (
-                      <span>{diction.dialog.language.kiny}</span>
+                    {locale === "rw" ? (
+                      <span>{diction.dialog.language.rw}</span>
                     ) : (
                       <span>{diction.dialog.language.en}</span>
                     )}
                   </div>
                   <MyImage
                     src={`/icons/${
-                      locale === "kiny" ? "rwanda" : "english"
+                      locale === "rw" ? "rwanda" : "english"
                     }.png`}
                     className=" size-4"
                   />
