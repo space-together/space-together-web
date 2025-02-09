@@ -22,7 +22,7 @@ const ClassHead = ({ lang, myClass, user }: props) => {
       />
       <div className=" absolute z-10 -bottom-24 left-10 flex items-center space-x-2">
         <Avatar className=" size-36  ">
-          <AvatarImage src="/images/17.jpg" />
+          <AvatarImage src={myClass?.symbol ? myClass.symbol :"/images/17.jpg" }/>
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <div className=" mt-12">
@@ -48,7 +48,7 @@ const ClassHead = ({ lang, myClass, user }: props) => {
                 lang={lang}
                 trigger={
                   <Avatar className=" size-8">
-                    <AvatarImage src="/images/2.jpg" />
+                    <AvatarImage src={"/images/2.jpg"} />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                 }
