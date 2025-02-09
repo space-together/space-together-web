@@ -32,6 +32,12 @@ const ClassSettingPage = async (props: props) => {
         <ClassSettingSymbol getClass={getClass} />
       </div>
       <Separator />
+      <div>
+        <h3 className=" happy-title-base">Class codes</h3>
+        <div>
+          
+        </div>
+      </div>
     </div>
   );
 };

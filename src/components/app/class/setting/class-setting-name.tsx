@@ -1,9 +1,9 @@
 "use client";
 
-import React, {  useState, useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from "react-dropzone";
 
 import {
   classUpdateNameSchema,
@@ -31,11 +31,11 @@ import {
   updateClassusernameAction,
 } from "@/services/actions/class-action";
 import { handleFormSubmission } from "@/hooks/form-notification";
+import { LoaderCircle } from "lucide-react";
 
 interface Props {
   getClass: Class;
 }
-
 
 // Class Name Setting Component
 export const ClassSettingName = ({ getClass }: Props) => {
@@ -46,12 +46,18 @@ export const ClassSettingName = ({ getClass }: Props) => {
   });
 
   const onSubmit = (values: classUpdateNameSchemaType) => {
-    handleFormSubmission(() => updateClassNameAction(getClass.id, values), startTransition);
+    handleFormSubmission(
+      () => updateClassNameAction(getClass.id, values),
+      startTransition
+    );
   };
 
   return (
     <Form {...form}>
-      <form className="space-y-1 items-center" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="space-y-1 items-center"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="name"
@@ -60,9 +66,27 @@ export const ClassSettingName = ({ getClass }: Props) => {
               <FormLabel>Class Name</FormLabel>
               <FormControl>
                 <div className="flex space-x-2 items-center">
-                  <Input className="w-80" placeholder="Class Name" {...field} />
-                  <Button type="submit" size="sm" variant="outline">
+                  <Input
+                    disabled={isPending}
+                    className="w-80"
+                    placeholder="Class Name"
+                    {...field}
+                  />
+                  <Button
+                    disabled={isPending}
+                    type="submit"
+                    size="sm"
+                    variant="outline"
+                  >
                     Rename
+                    {isPending && (
+                      <LoaderCircle
+                        className="-ms-1 me-2 animate-spin"
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                      />
+                    )}
                   </Button>
                 </div>
               </FormControl>
@@ -84,12 +108,18 @@ export const ClassSettingUsername = ({ getClass }: Props) => {
   });
 
   const onSubmit = (values: classUpdateUsernameSchemaType) => {
-    handleFormSubmission(() => updateClassusernameAction(getClass.id, values), startTransition);
+    handleFormSubmission(
+      () => updateClassusernameAction(getClass.id, values),
+      startTransition
+    );
   };
 
   return (
     <Form {...form}>
-      <form className="space-y-1 items-center" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="space-y-1 items-center"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="username"
@@ -98,9 +128,22 @@ export const ClassSettingUsername = ({ getClass }: Props) => {
               <FormLabel>Class Username</FormLabel>
               <FormControl>
                 <div className="flex space-x-2 items-center">
-                  <Input className="w-80" placeholder="Class Username" {...field} />
+                  <Input
+                    disabled={isPending}
+                    className="w-80"
+                    placeholder="Class Username"
+                    {...field}
+                  />
                   <Button type="submit" size="sm" variant="outline">
                     Rename
+                    {isPending && (
+                      <LoaderCircle
+                        className="-ms-1 me-2 animate-spin"
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                      />
+                    )}
                   </Button>
                 </div>
               </FormControl>
@@ -139,7 +182,7 @@ export const ClassSettingSymbol = ({ getClass }: Props) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const imageDataUrl = event.target?.result as string;
-      form.setValue('symbol', imageDataUrl);
+      form.setValue("symbol", imageDataUrl);
     };
     reader.onerror = () => setError("Failed to read image file.");
     reader.readAsDataURL(file);
@@ -152,26 +195,56 @@ export const ClassSettingSymbol = ({ getClass }: Props) => {
   });
 
   const onSubmit = (values: classUpdateSymbolSchemaType) => {
-    handleFormSubmission(() => updateClassSymbolAction(getClass.id, values), startTransition);
+    handleFormSubmission(
+      () => updateClassSymbolAction(getClass.id, values),
+      startTransition
+    );
   };
 
   return (
     <Form {...form}>
-      <form className="space-y-1 items-center" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="space-y-1 items-center"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="symbol"
           render={({ field }) => (
             <FormItem className="flex gap-2 items-center">
               <FormLabel htmlFor="image" className="flex gap-3 items-center">
-                <MyImage
-                  src={field.value || "/default.jpg"}
-                  className="size-24 min-h-24 min-w-24 rounded-full"
-                  alt="Profile"
-                />
-                <div {...getRootProps()} className="cursor-pointer">
-                  <input {...getInputProps()} id="image" />
-                  <span> Class profile </span>
+                <div className=" flex space-x-2 items-center">
+                  <MyImage
+                    src={field.value || "/default.jpg"}
+                    className="size-24 min-h-24 min-w-24 rounded-full"
+                    alt="Profile"
+                  />
+                  <div {...getRootProps()} className="cursor-pointer">
+                    <FormControl>
+                      <input
+                        disabled={isPending}
+                        {...getInputProps()}
+                        id="image"
+                      />
+                    </FormControl>
+                    <span> Class profile </span>
+                  </div>
+                  <Button
+                    disabled={isPending}
+                    type="submit"
+                    size="sm"
+                    variant="outline"
+                  >
+                    Update symbol
+                    {isPending && (
+                      <LoaderCircle
+                        className="-ms-1 me-2 animate-spin"
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Button>
                 </div>
               </FormLabel>
               {error && <p className="text-sm text-error">{error}</p>}
