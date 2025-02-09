@@ -40,7 +40,7 @@ const ClassCard = ({
         <Separator />
         <div className=" -bottom-20 p-4 flex items-center gap-2 absolute">
           <Avatar className=" size-20">
-            <AvatarImage src="/images/19.jpg" />
+            <AvatarImage src={myClass?.symbol ? myClass.symbol :"/images/19.jpg"} />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" mt-6  space-x-1">
@@ -49,11 +49,10 @@ const ClassCard = ({
             </h3>
             <Link
               className=" text-sm line-clamp-1 flex space-x-1"
-              href={`/${lang}/class/${myClass?.username}`}
+              href={`/${lang}/class/${myClass?.id}`}
             >
               <span>@</span>{" "}
               <span className=" line-clamp-1">
-                {" "}
                 {myClass?.username ?? "L5SOD"}
               </span>
             </Link>
