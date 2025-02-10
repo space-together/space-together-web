@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { FormMessageError, FormMessageSuccess } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { LoaderCircle } from "lucide-react";
+import { handleFormSubmission } from "@/hooks/form-notification";
+import { sendTeachersRequestToJoinClass } from "@/services/actions/send-user-request-action";
 
 interface Props {
   classId: string;
@@ -40,9 +42,13 @@ const AddPersonInClass = ({ classId }: Props) => {
   });
 
   const onSubmit = (values: addPersonSchemaType) => {
-    setError("")
-    setSuccess("")
-    console.log("Submitted data:", values);
+    setError("");
+    setSuccess("");
+    handleFormSubmission(
+      () => sendTeachersRequestToJoinClass(values, classId),
+      startTransition
+    );
+    form.reset();
   };
 
   return (
@@ -61,8 +67,8 @@ const AddPersonInClass = ({ classId }: Props) => {
                   render={({ field }) => (
                     <TagInput
                       id={id}
-                      tags={field.value || []} // Ensure it's always an array
-                      setTags={(newTags) => field.onChange(newTags)} // Sync with form
+                      tags={field.value || []}
+                      setTags={(newTags) => field.onChange(newTags)}
                       placeholder="Add an email"
                       styleClasses={{
                         inlineTagsContainer:
