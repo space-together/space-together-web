@@ -267,15 +267,20 @@ model Teacher {
   class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
 }
 
+enum SendUserRequestType {
+  JOINCLASS
+}
+
 model SendUserRequest {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  senderId    String    @db.ObjectId
-  userId      String?   @db.ObjectId
+  id          String               @id @default(auto()) @map("_id") @db.ObjectId
+  senderId    String               @db.ObjectId
+  userId      String?              @db.ObjectId
   description String?
-  classId     String?   @db.ObjectId
+  classId     String?              @db.ObjectId
   email       String?
   role        UserRole?
-  seen        Boolean   @default(false)
+  seen        Boolean              @default(false)
+  type        SendUserRequestType?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

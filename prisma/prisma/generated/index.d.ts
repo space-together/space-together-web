@@ -190,6 +190,13 @@ export const ClassType: {
 export type ClassType = (typeof ClassType)[keyof typeof ClassType]
 
 
+export const SendUserRequestType: {
+  JOINCLASS: 'JOINCLASS'
+};
+
+export type SendUserRequestType = (typeof SendUserRequestType)[keyof typeof SendUserRequestType]
+
+
 export const PostRole: {
   NOTES: 'NOTES',
   IMAGE: 'IMAGE',
@@ -242,6 +249,10 @@ export const ClassRoomType: typeof $Enums.ClassRoomType
 export type ClassType = $Enums.ClassType
 
 export const ClassType: typeof $Enums.ClassType
+
+export type SendUserRequestType = $Enums.SendUserRequestType
+
+export const SendUserRequestType: typeof $Enums.SendUserRequestType
 
 export type PostRole = $Enums.PostRole
 
@@ -18069,6 +18080,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.UserRole | null
     seen: boolean | null
+    type: $Enums.SendUserRequestType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18082,6 +18094,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.UserRole | null
     seen: boolean | null
+    type: $Enums.SendUserRequestType | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18095,6 +18108,7 @@ export namespace Prisma {
     email: number
     role: number
     seen: number
+    type: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -18110,6 +18124,7 @@ export namespace Prisma {
     email?: true
     role?: true
     seen?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18123,6 +18138,7 @@ export namespace Prisma {
     email?: true
     role?: true
     seen?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18136,6 +18152,7 @@ export namespace Prisma {
     email?: true
     role?: true
     seen?: true
+    type?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -18222,6 +18239,7 @@ export namespace Prisma {
     email: string | null
     role: $Enums.UserRole | null
     seen: boolean
+    type: $Enums.SendUserRequestType | null
     createdAt: Date
     updatedAt: Date
     _count: SendUserRequestCountAggregateOutputType | null
@@ -18252,6 +18270,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     seen?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     class?: boolean | SendUserRequest$classArgs<ExtArgs>
@@ -18269,11 +18288,12 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     seen?: boolean
+    type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SendUserRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "userId" | "description" | "classId" | "email" | "role" | "seen" | "createdAt" | "updatedAt", ExtArgs["result"]["sendUserRequest"]>
+  export type SendUserRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "userId" | "description" | "classId" | "email" | "role" | "seen" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["sendUserRequest"]>
   export type SendUserRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     class?: boolean | SendUserRequest$classArgs<ExtArgs>
     User?: boolean | SendUserRequest$UserArgs<ExtArgs>
@@ -18294,6 +18314,7 @@ export namespace Prisma {
       email: string | null
       role: $Enums.UserRole | null
       seen: boolean
+      type: $Enums.SendUserRequestType | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sendUserRequest"]>
@@ -18698,6 +18719,7 @@ export namespace Prisma {
     readonly email: FieldRef<"SendUserRequest", 'String'>
     readonly role: FieldRef<"SendUserRequest", 'UserRole'>
     readonly seen: FieldRef<"SendUserRequest", 'Boolean'>
+    readonly type: FieldRef<"SendUserRequest", 'SendUserRequestType'>
     readonly createdAt: FieldRef<"SendUserRequest", 'DateTime'>
     readonly updatedAt: FieldRef<"SendUserRequest", 'DateTime'>
   }
@@ -32977,6 +32999,7 @@ export namespace Prisma {
     email: 'email',
     role: 'role',
     seen: 'seen',
+    type: 'type',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -33271,6 +33294,20 @@ export namespace Prisma {
    * Reference to a field of type 'ClassType[]'
    */
   export type ListEnumClassTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClassType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SendUserRequestType'
+   */
+  export type EnumSendUserRequestTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SendUserRequestType'>
+    
+
+
+  /**
+   * Reference to a field of type 'SendUserRequestType[]'
+   */
+  export type ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SendUserRequestType[]'>
     
 
 
@@ -34426,6 +34463,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"SendUserRequest"> | string | null
     role?: EnumUserRoleNullableFilter<"SendUserRequest"> | $Enums.UserRole | null
     seen?: BoolFilter<"SendUserRequest"> | boolean
+    type?: EnumSendUserRequestTypeNullableFilter<"SendUserRequest"> | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
     updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
     class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
@@ -34441,6 +34479,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     seen?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     class?: ClassOrderByWithRelationInput
@@ -34459,6 +34498,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"SendUserRequest"> | string | null
     role?: EnumUserRoleNullableFilter<"SendUserRequest"> | $Enums.UserRole | null
     seen?: BoolFilter<"SendUserRequest"> | boolean
+    type?: EnumSendUserRequestTypeNullableFilter<"SendUserRequest"> | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
     updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
     class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
@@ -34474,6 +34514,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     seen?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SendUserRequestCountOrderByAggregateInput
@@ -34493,6 +34534,7 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"SendUserRequest"> | string | null
     role?: EnumUserRoleNullableWithAggregatesFilter<"SendUserRequest"> | $Enums.UserRole | null
     seen?: BoolWithAggregatesFilter<"SendUserRequest"> | boolean
+    type?: EnumSendUserRequestTypeNullableWithAggregatesFilter<"SendUserRequest"> | $Enums.SendUserRequestType | null
     createdAt?: DateTimeWithAggregatesFilter<"SendUserRequest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SendUserRequest"> | Date | string
   }
@@ -36499,6 +36541,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutSendUserRequestInput
@@ -36514,6 +36557,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36524,6 +36568,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutSendUserRequestNestedInput
@@ -36538,6 +36583,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36551,6 +36597,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36561,6 +36608,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36573,6 +36621,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38397,6 +38446,14 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type EnumSendUserRequestTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SendUserRequestType | EnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel> | $Enums.SendUserRequestType | null
+    isSet?: boolean
+  }
+
   export type SendUserRequestCountOrderByAggregateInput = {
     id?: SortOrder
     senderId?: SortOrder
@@ -38406,6 +38463,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     seen?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38419,6 +38477,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     seen?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38432,6 +38491,7 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     seen?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38444,6 +38504,17 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumUserRoleNullableFilter<$PrismaModel>
     _max?: NestedEnumUserRoleNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumSendUserRequestTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SendUserRequestType | EnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSendUserRequestTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.SendUserRequestType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -40323,6 +40394,11 @@ export namespace Prisma {
     unset?: boolean
   }
 
+  export type NullableEnumSendUserRequestTypeFieldUpdateOperationsInput = {
+    set?: $Enums.SendUserRequestType | null
+    unset?: boolean
+  }
+
   export type ClassUpdateOneWithoutSendUserRequestNestedInput = {
     create?: XOR<ClassCreateWithoutSendUserRequestInput, ClassUncheckedCreateWithoutSendUserRequestInput>
     connectOrCreate?: ClassCreateOrConnectWithoutSendUserRequestInput
@@ -41438,6 +41514,14 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SendUserRequestType | EnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel> | $Enums.SendUserRequestType | null
+    isSet?: boolean
+  }
+
   export type NestedEnumUserRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel> | null
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel> | null
@@ -41446,6 +41530,17 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumUserRoleNullableFilter<$PrismaModel>
     _max?: NestedEnumUserRoleNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumSendUserRequestTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SendUserRequestType | EnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SendUserRequestType[] | ListEnumSendUserRequestTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSendUserRequestTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.SendUserRequestType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumSendUserRequestTypeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -41757,6 +41852,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     class?: ClassCreateNestedOneWithoutSendUserRequestInput
@@ -41770,6 +41866,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -42026,6 +42123,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"SendUserRequest"> | string | null
     role?: EnumUserRoleNullableFilter<"SendUserRequest"> | $Enums.UserRole | null
     seen?: BoolFilter<"SendUserRequest"> | boolean
+    type?: EnumSendUserRequestTypeNullableFilter<"SendUserRequest"> | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
     updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
   }
@@ -43580,6 +43678,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
     User?: UserCreateNestedOneWithoutSendUserRequestInput
@@ -43593,6 +43692,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -47249,6 +47349,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -47477,6 +47578,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneWithoutSendUserRequestNestedInput
@@ -47489,6 +47591,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -47500,6 +47603,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -48094,6 +48198,7 @@ export namespace Prisma {
     email?: string | null
     role?: $Enums.UserRole | null
     seen?: boolean
+    type?: $Enums.SendUserRequestType | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -48284,6 +48389,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneWithoutSendUserRequestNestedInput
@@ -48296,6 +48402,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -48307,6 +48414,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
     seen?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableEnumSendUserRequestTypeFieldUpdateOperationsInput | $Enums.SendUserRequestType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

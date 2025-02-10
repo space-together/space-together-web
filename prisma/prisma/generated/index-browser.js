@@ -276,6 +276,7 @@ exports.Prisma.SendUserRequestScalarFieldEnum = {
   email: 'email',
   role: 'role',
   seen: 'seen',
+  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -437,6 +438,10 @@ exports.ClassType = exports.$Enums.ClassType = {
   SCHOOLCLASS: 'SCHOOLCLASS',
   PRIVET: 'PRIVET',
   PUBLIC: 'PUBLIC'
+};
+
+exports.SendUserRequestType = exports.$Enums.SendUserRequestType = {
+  JOINCLASS: 'JOINCLASS'
 };
 
 exports.PostRole = exports.$Enums.PostRole = {
