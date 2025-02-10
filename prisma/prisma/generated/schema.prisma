@@ -225,6 +225,7 @@ model Class {
 
   Subject Subject[]
   Model   Model[]
+  Teacher Teacher[]
 }
 
 model SubClass {
@@ -252,13 +253,14 @@ model Student {
 }
 
 model Teacher {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  classesId String[]
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @db.ObjectId
+  classId String @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
 }
 
 enum PostRole {
