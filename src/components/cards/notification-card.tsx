@@ -5,28 +5,31 @@ import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { authUser } from "@/types/userModel";
+import { User } from "../../../prisma/prisma/generated";
+import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
   lang: Locale;
   user : authUser;
+  sender : User;
 }
 
-const NotificationCard = ({ lang, }: props) => {
+const NotificationCard = ({ lang, sender}: props) => {
   return (
     <div className={cn("happy-card flex-row justify-between")}>
       <div className=" flex space-x-2">
-        <Link href={`/${lang}/profile/student`}>
+        <Link href={`/${lang}/profile/${sender.id}`}>
           <Avatar className=" size-12">
-            <AvatarImage src="/images/2.jpg" />
+            <AvatarImage src={sender.image ? sender.image :"/images/2.jpg"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>
         <div>
-          <Link href={`/${lang}/profile/student`}>
+          <Link href={`/profile/student/${lang}/profile/${sender.id}`}>
             <div className=" flex space-x-2">
-              <h4 className=" font-medium">Murekezi Hindiro</h4>
+              <h4 className=" font-medium">{sender.name || "Murekezi Hindiro"}</h4>
               <span className=" font-medium text-myGray capitalize text-sm">
-                Student
+                {toLowerCase(sender.role)}
               </span>
             </div>
           </Link>
