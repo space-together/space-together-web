@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import SubjectCardSmall from "@/components/cards/subject-card-small";
 import CreateSubjectDialog from "@/components/site/collection/subject/create-subject-dialog";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
@@ -19,7 +20,9 @@ const ClassSettingSubjectsPage = async (props: Props) => {
   return (
     <div>
       <CreateSubjectDialog classId={classId}/>
-      class setting subject page
+      <div>
+        <SubjectCardSmall />
+      </div>
     </div>
   );
 };

@@ -383,6 +383,15 @@ exports.Prisma.NoteScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ModelScalarFieldEnum = {
+  id: 'id',
+  teacherId: 'teacherId',
+  subjectId: 'subjectId',
+  classId: 'classId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -466,7 +475,8 @@ exports.Prisma.ModelName = {
   Competence: 'Competence',
   PerformanceCriteria: 'PerformanceCriteria',
   Assessment: 'Assessment',
-  Note: 'Note'
+  Note: 'Note',
+  Model: 'Model'
 };
 
 /**

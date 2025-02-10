@@ -224,6 +224,7 @@ model Class {
   Post Post[]
 
   Subject Subject[]
+  Model   Model[]
 }
 
 model SubClass {
@@ -318,6 +319,7 @@ model Subject {
   class     Class?     @relation(fields: [classId], references: [id], onDelete: Cascade)
   classRoom ClassRoom? @relation(fields: [classId], references: [id], onDelete: Cascade)
   Note      Note[]
+  Model     Model[]
 }
 
 model LearningOutcome {
@@ -446,5 +448,18 @@ model Note {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Subject Subject @relation(fields: [subjectId], references: [id])
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+}
+
+model Model {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  teacherId String @db.ObjectId
+  subjectId String @db.ObjectId
+  classId   String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  class   Class?  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }

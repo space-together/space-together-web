@@ -138,6 +138,11 @@ export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
  * 
  */
 export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
+/**
+ * Model Model
+ * 
+ */
+export type Model = $Result.DefaultSelection<Prisma.$ModelPayload>
 
 /**
  * Enums
@@ -590,6 +595,16 @@ export class PrismaClient<
     * ```
     */
   get note(): Prisma.NoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.model`: Exposes CRUD operations for the **Model** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Models
+    * const models = await prisma.model.findMany()
+    * ```
+    */
+  get model(): Prisma.ModelDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1054,7 +1069,8 @@ export namespace Prisma {
     Competence: 'Competence',
     PerformanceCriteria: 'PerformanceCriteria',
     Assessment: 'Assessment',
-    Note: 'Note'
+    Note: 'Note',
+    Model: 'Model'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1070,7 +1086,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "post" | "subject" | "learningOutcome" | "indicativeContent" | "knowledge" | "skill" | "attitude" | "resource" | "competence" | "performanceCriteria" | "assessment" | "note"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "post" | "subject" | "learningOutcome" | "indicativeContent" | "knowledge" | "skill" | "attitude" | "resource" | "competence" | "performanceCriteria" | "assessment" | "note" | "model"
       txIsolationLevel: never
     }
     model: {
@@ -2924,6 +2940,80 @@ export namespace Prisma {
           }
         }
       }
+      Model: {
+        payload: Prisma.$ModelPayload<ExtArgs>
+        fields: Prisma.ModelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ModelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ModelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          findFirst: {
+            args: Prisma.ModelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ModelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          findMany: {
+            args: Prisma.ModelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>[]
+          }
+          create: {
+            args: Prisma.ModelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          createMany: {
+            args: Prisma.ModelCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ModelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          update: {
+            args: Prisma.ModelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          deleteMany: {
+            args: Prisma.ModelDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ModelUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ModelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelPayload>
+          }
+          aggregate: {
+            args: Prisma.ModelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateModel>
+          }
+          groupBy: {
+            args: Prisma.ModelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ModelGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ModelFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ModelAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ModelCountArgs<ExtArgs>
+            result: $Utils.Optional<ModelCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3020,6 +3110,7 @@ export namespace Prisma {
     performanceCriteria?: PerformanceCriteriaOmit
     assessment?: AssessmentOmit
     note?: NoteOmit
+    model?: ModelOmit
   }
 
   /* Types for Logging */
@@ -3363,6 +3454,7 @@ export namespace Prisma {
     SubClass: number
     Post: number
     Subject: number
+    Model: number
   }
 
   export type ClassCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3370,6 +3462,7 @@ export namespace Prisma {
     SubClass?: boolean | ClassCountOutputTypeCountSubClassArgs
     Post?: boolean | ClassCountOutputTypeCountPostArgs
     Subject?: boolean | ClassCountOutputTypeCountSubjectArgs
+    Model?: boolean | ClassCountOutputTypeCountModelArgs
   }
 
   // Custom InputTypes
@@ -3411,6 +3504,13 @@ export namespace Prisma {
     where?: SubjectWhereInput
   }
 
+  /**
+   * ClassCountOutputType without action
+   */
+  export type ClassCountOutputTypeCountModelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModelWhereInput
+  }
+
 
   /**
    * Count Type SubjectCountOutputType
@@ -3426,6 +3526,7 @@ export namespace Prisma {
     Skill: number
     Attitude: number
     Note: number
+    Model: number
   }
 
   export type SubjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3438,6 +3539,7 @@ export namespace Prisma {
     Skill?: boolean | SubjectCountOutputTypeCountSkillArgs
     Attitude?: boolean | SubjectCountOutputTypeCountAttitudeArgs
     Note?: boolean | SubjectCountOutputTypeCountNoteArgs
+    Model?: boolean | SubjectCountOutputTypeCountModelArgs
   }
 
   // Custom InputTypes
@@ -3512,6 +3614,13 @@ export namespace Prisma {
    */
   export type SubjectCountOutputTypeCountNoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NoteWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountModelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModelWhereInput
   }
 
 
@@ -13613,6 +13722,7 @@ export namespace Prisma {
     classTeacher?: boolean | Class$classTeacherArgs<ExtArgs>
     Post?: boolean | Class$PostArgs<ExtArgs>
     Subject?: boolean | Class$SubjectArgs<ExtArgs>
+    Model?: boolean | Class$ModelArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["class"]>
 
@@ -13645,6 +13755,7 @@ export namespace Prisma {
     classTeacher?: boolean | Class$classTeacherArgs<ExtArgs>
     Post?: boolean | Class$PostArgs<ExtArgs>
     Subject?: boolean | Class$SubjectArgs<ExtArgs>
+    Model?: boolean | Class$ModelArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -13659,6 +13770,7 @@ export namespace Prisma {
       classTeacher: Prisma.$ClassRoomPayload<ExtArgs> | null
       Post: Prisma.$PostPayload<ExtArgs>[]
       Subject: Prisma.$SubjectPayload<ExtArgs>[]
+      Model: Prisma.$ModelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14046,6 +14158,7 @@ export namespace Prisma {
     classTeacher<T extends Class$classTeacherArgs<ExtArgs> = {}>(args?: Subset<T, Class$classTeacherArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     Post<T extends Class$PostArgs<ExtArgs> = {}>(args?: Subset<T, Class$PostArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Subject<T extends Class$SubjectArgs<ExtArgs> = {}>(args?: Subset<T, Class$SubjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Model<T extends Class$ModelArgs<ExtArgs> = {}>(args?: Subset<T, Class$ModelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14628,6 +14741,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Class.Model
+   */
+  export type Class$ModelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    where?: ModelWhereInput
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    cursor?: ModelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ModelScalarFieldEnum | ModelScalarFieldEnum[]
   }
 
   /**
@@ -19035,6 +19172,7 @@ export namespace Prisma {
     class?: boolean | Subject$classArgs<ExtArgs>
     classRoom?: boolean | Subject$classRoomArgs<ExtArgs>
     Note?: boolean | Subject$NoteArgs<ExtArgs>
+    Model?: boolean | Subject$ModelArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subject"]>
 
@@ -19072,6 +19210,7 @@ export namespace Prisma {
     class?: boolean | Subject$classArgs<ExtArgs>
     classRoom?: boolean | Subject$classRoomArgs<ExtArgs>
     Note?: boolean | Subject$NoteArgs<ExtArgs>
+    Model?: boolean | Subject$ModelArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -19089,6 +19228,7 @@ export namespace Prisma {
       class: Prisma.$ClassPayload<ExtArgs> | null
       classRoom: Prisma.$ClassRoomPayload<ExtArgs> | null
       Note: Prisma.$NotePayload<ExtArgs>[]
+      Model: Prisma.$ModelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19481,6 +19621,7 @@ export namespace Prisma {
     class<T extends Subject$classArgs<ExtArgs> = {}>(args?: Subset<T, Subject$classArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     classRoom<T extends Subject$classRoomArgs<ExtArgs> = {}>(args?: Subset<T, Subject$classRoomArgs<ExtArgs>>): Prisma__ClassRoomClient<$Result.GetResult<Prisma.$ClassRoomPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     Note<T extends Subject$NoteArgs<ExtArgs> = {}>(args?: Subset<T, Subject$NoteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Model<T extends Subject$ModelArgs<ExtArgs> = {}>(args?: Subset<T, Subject$ModelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20147,6 +20288,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Model
+   */
+  export type Subject$ModelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    where?: ModelWhereInput
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    cursor?: ModelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ModelScalarFieldEnum | ModelScalarFieldEnum[]
   }
 
   /**
@@ -30286,6 +30451,1019 @@ export namespace Prisma {
 
 
   /**
+   * Model Model
+   */
+
+  export type AggregateModel = {
+    _count: ModelCountAggregateOutputType | null
+    _min: ModelMinAggregateOutputType | null
+    _max: ModelMaxAggregateOutputType | null
+  }
+
+  export type ModelMinAggregateOutputType = {
+    id: string | null
+    teacherId: string | null
+    subjectId: string | null
+    classId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModelMaxAggregateOutputType = {
+    id: string | null
+    teacherId: string | null
+    subjectId: string | null
+    classId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModelCountAggregateOutputType = {
+    id: number
+    teacherId: number
+    subjectId: number
+    classId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ModelMinAggregateInputType = {
+    id?: true
+    teacherId?: true
+    subjectId?: true
+    classId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModelMaxAggregateInputType = {
+    id?: true
+    teacherId?: true
+    subjectId?: true
+    classId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModelCountAggregateInputType = {
+    id?: true
+    teacherId?: true
+    subjectId?: true
+    classId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ModelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Model to aggregate.
+     */
+    where?: ModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Models to fetch.
+     */
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Models from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Models.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Models
+    **/
+    _count?: true | ModelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ModelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ModelMaxAggregateInputType
+  }
+
+  export type GetModelAggregateType<T extends ModelAggregateArgs> = {
+        [P in keyof T & keyof AggregateModel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateModel[P]>
+      : GetScalarType<T[P], AggregateModel[P]>
+  }
+
+
+
+
+  export type ModelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModelWhereInput
+    orderBy?: ModelOrderByWithAggregationInput | ModelOrderByWithAggregationInput[]
+    by: ModelScalarFieldEnum[] | ModelScalarFieldEnum
+    having?: ModelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ModelCountAggregateInputType | true
+    _min?: ModelMinAggregateInputType
+    _max?: ModelMaxAggregateInputType
+  }
+
+  export type ModelGroupByOutputType = {
+    id: string
+    teacherId: string
+    subjectId: string
+    classId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ModelCountAggregateOutputType | null
+    _min: ModelMinAggregateOutputType | null
+    _max: ModelMaxAggregateOutputType | null
+  }
+
+  type GetModelGroupByPayload<T extends ModelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ModelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ModelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ModelGroupByOutputType[P]>
+            : GetScalarType<T[P], ModelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ModelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teacherId?: boolean
+    subjectId?: boolean
+    classId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | Model$classArgs<ExtArgs>
+    Subject?: boolean | SubjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["model"]>
+
+
+
+  export type ModelSelectScalar = {
+    id?: boolean
+    teacherId?: boolean
+    subjectId?: boolean
+    classId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ModelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teacherId" | "subjectId" | "classId" | "createdAt" | "updatedAt", ExtArgs["result"]["model"]>
+  export type ModelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | Model$classArgs<ExtArgs>
+    Subject?: boolean | SubjectDefaultArgs<ExtArgs>
+  }
+
+  export type $ModelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Model"
+    objects: {
+      class: Prisma.$ClassPayload<ExtArgs> | null
+      Subject: Prisma.$SubjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      teacherId: string
+      subjectId: string
+      classId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["model"]>
+    composites: {}
+  }
+
+  type ModelGetPayload<S extends boolean | null | undefined | ModelDefaultArgs> = $Result.GetResult<Prisma.$ModelPayload, S>
+
+  type ModelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ModelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ModelCountAggregateInputType | true
+    }
+
+  export interface ModelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Model'], meta: { name: 'Model' } }
+    /**
+     * Find zero or one Model that matches the filter.
+     * @param {ModelFindUniqueArgs} args - Arguments to find a Model
+     * @example
+     * // Get one Model
+     * const model = await prisma.model.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ModelFindUniqueArgs>(args: SelectSubset<T, ModelFindUniqueArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Model that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ModelFindUniqueOrThrowArgs} args - Arguments to find a Model
+     * @example
+     * // Get one Model
+     * const model = await prisma.model.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ModelFindUniqueOrThrowArgs>(args: SelectSubset<T, ModelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Model that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelFindFirstArgs} args - Arguments to find a Model
+     * @example
+     * // Get one Model
+     * const model = await prisma.model.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ModelFindFirstArgs>(args?: SelectSubset<T, ModelFindFirstArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Model that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelFindFirstOrThrowArgs} args - Arguments to find a Model
+     * @example
+     * // Get one Model
+     * const model = await prisma.model.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ModelFindFirstOrThrowArgs>(args?: SelectSubset<T, ModelFindFirstOrThrowArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Models that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Models
+     * const models = await prisma.model.findMany()
+     * 
+     * // Get first 10 Models
+     * const models = await prisma.model.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const modelWithIdOnly = await prisma.model.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ModelFindManyArgs>(args?: SelectSubset<T, ModelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Model.
+     * @param {ModelCreateArgs} args - Arguments to create a Model.
+     * @example
+     * // Create one Model
+     * const Model = await prisma.model.create({
+     *   data: {
+     *     // ... data to create a Model
+     *   }
+     * })
+     * 
+     */
+    create<T extends ModelCreateArgs>(args: SelectSubset<T, ModelCreateArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Models.
+     * @param {ModelCreateManyArgs} args - Arguments to create many Models.
+     * @example
+     * // Create many Models
+     * const model = await prisma.model.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ModelCreateManyArgs>(args?: SelectSubset<T, ModelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Model.
+     * @param {ModelDeleteArgs} args - Arguments to delete one Model.
+     * @example
+     * // Delete one Model
+     * const Model = await prisma.model.delete({
+     *   where: {
+     *     // ... filter to delete one Model
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ModelDeleteArgs>(args: SelectSubset<T, ModelDeleteArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Model.
+     * @param {ModelUpdateArgs} args - Arguments to update one Model.
+     * @example
+     * // Update one Model
+     * const model = await prisma.model.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ModelUpdateArgs>(args: SelectSubset<T, ModelUpdateArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Models.
+     * @param {ModelDeleteManyArgs} args - Arguments to filter Models to delete.
+     * @example
+     * // Delete a few Models
+     * const { count } = await prisma.model.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ModelDeleteManyArgs>(args?: SelectSubset<T, ModelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Models.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Models
+     * const model = await prisma.model.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ModelUpdateManyArgs>(args: SelectSubset<T, ModelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Model.
+     * @param {ModelUpsertArgs} args - Arguments to update or create a Model.
+     * @example
+     * // Update or create a Model
+     * const model = await prisma.model.upsert({
+     *   create: {
+     *     // ... data to create a Model
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Model we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ModelUpsertArgs>(args: SelectSubset<T, ModelUpsertArgs<ExtArgs>>): Prisma__ModelClient<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Models that matches the filter.
+     * @param {ModelFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const model = await prisma.model.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ModelFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Model.
+     * @param {ModelAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const model = await prisma.model.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ModelAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Models.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelCountArgs} args - Arguments to filter Models to count.
+     * @example
+     * // Count the number of Models
+     * const count = await prisma.model.count({
+     *   where: {
+     *     // ... the filter for the Models we want to count
+     *   }
+     * })
+    **/
+    count<T extends ModelCountArgs>(
+      args?: Subset<T, ModelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ModelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Model.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ModelAggregateArgs>(args: Subset<T, ModelAggregateArgs>): Prisma.PrismaPromise<GetModelAggregateType<T>>
+
+    /**
+     * Group by Model.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ModelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ModelGroupByArgs['orderBy'] }
+        : { orderBy?: ModelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ModelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Model model
+   */
+  readonly fields: ModelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Model.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ModelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    class<T extends Model$classArgs<ExtArgs> = {}>(args?: Subset<T, Model$classArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    Subject<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Model model
+   */ 
+  interface ModelFieldRefs {
+    readonly id: FieldRef<"Model", 'String'>
+    readonly teacherId: FieldRef<"Model", 'String'>
+    readonly subjectId: FieldRef<"Model", 'String'>
+    readonly classId: FieldRef<"Model", 'String'>
+    readonly createdAt: FieldRef<"Model", 'DateTime'>
+    readonly updatedAt: FieldRef<"Model", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Model findUnique
+   */
+  export type ModelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter, which Model to fetch.
+     */
+    where: ModelWhereUniqueInput
+  }
+
+  /**
+   * Model findUniqueOrThrow
+   */
+  export type ModelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter, which Model to fetch.
+     */
+    where: ModelWhereUniqueInput
+  }
+
+  /**
+   * Model findFirst
+   */
+  export type ModelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter, which Model to fetch.
+     */
+    where?: ModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Models to fetch.
+     */
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Models.
+     */
+    cursor?: ModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Models from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Models.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Models.
+     */
+    distinct?: ModelScalarFieldEnum | ModelScalarFieldEnum[]
+  }
+
+  /**
+   * Model findFirstOrThrow
+   */
+  export type ModelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter, which Model to fetch.
+     */
+    where?: ModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Models to fetch.
+     */
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Models.
+     */
+    cursor?: ModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Models from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Models.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Models.
+     */
+    distinct?: ModelScalarFieldEnum | ModelScalarFieldEnum[]
+  }
+
+  /**
+   * Model findMany
+   */
+  export type ModelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter, which Models to fetch.
+     */
+    where?: ModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Models to fetch.
+     */
+    orderBy?: ModelOrderByWithRelationInput | ModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Models.
+     */
+    cursor?: ModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Models from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Models.
+     */
+    skip?: number
+    distinct?: ModelScalarFieldEnum | ModelScalarFieldEnum[]
+  }
+
+  /**
+   * Model create
+   */
+  export type ModelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Model.
+     */
+    data: XOR<ModelCreateInput, ModelUncheckedCreateInput>
+  }
+
+  /**
+   * Model createMany
+   */
+  export type ModelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Models.
+     */
+    data: ModelCreateManyInput | ModelCreateManyInput[]
+  }
+
+  /**
+   * Model update
+   */
+  export type ModelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Model.
+     */
+    data: XOR<ModelUpdateInput, ModelUncheckedUpdateInput>
+    /**
+     * Choose, which Model to update.
+     */
+    where: ModelWhereUniqueInput
+  }
+
+  /**
+   * Model updateMany
+   */
+  export type ModelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Models.
+     */
+    data: XOR<ModelUpdateManyMutationInput, ModelUncheckedUpdateManyInput>
+    /**
+     * Filter which Models to update
+     */
+    where?: ModelWhereInput
+    /**
+     * Limit how many Models to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Model upsert
+   */
+  export type ModelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Model to update in case it exists.
+     */
+    where: ModelWhereUniqueInput
+    /**
+     * In case the Model found by the `where` argument doesn't exist, create a new Model with this data.
+     */
+    create: XOR<ModelCreateInput, ModelUncheckedCreateInput>
+    /**
+     * In case the Model was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ModelUpdateInput, ModelUncheckedUpdateInput>
+  }
+
+  /**
+   * Model delete
+   */
+  export type ModelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+    /**
+     * Filter which Model to delete.
+     */
+    where: ModelWhereUniqueInput
+  }
+
+  /**
+   * Model deleteMany
+   */
+  export type ModelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Models to delete
+     */
+    where?: ModelWhereInput
+    /**
+     * Limit how many Models to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Model findRaw
+   */
+  export type ModelFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Model aggregateRaw
+   */
+  export type ModelAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Model.class
+   */
+  export type Model$classArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+  }
+
+  /**
+   * Model without action
+   */
+  export type ModelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Model
+     */
+    select?: ModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Model
+     */
+    omit?: ModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -30635,6 +31813,18 @@ export namespace Prisma {
   };
 
   export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+  export const ModelScalarFieldEnum: {
+    id: 'id',
+    teacherId: 'teacherId',
+    subjectId: 'subjectId',
+    classId: 'classId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ModelScalarFieldEnum = (typeof ModelScalarFieldEnum)[keyof typeof ModelScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -31615,6 +32805,7 @@ export namespace Prisma {
     classTeacher?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
     Post?: PostListRelationFilter
     Subject?: SubjectListRelationFilter
+    Model?: ModelListRelationFilter
   }
 
   export type ClassOrderByWithRelationInput = {
@@ -31640,6 +32831,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomOrderByWithRelationInput
     Post?: PostOrderByRelationAggregateInput
     Subject?: SubjectOrderByRelationAggregateInput
+    Model?: ModelOrderByRelationAggregateInput
   }
 
   export type ClassWhereUniqueInput = Prisma.AtLeast<{
@@ -31668,6 +32860,7 @@ export namespace Prisma {
     classTeacher?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
     Post?: PostListRelationFilter
     Subject?: SubjectListRelationFilter
+    Model?: ModelListRelationFilter
   }, "id" | "username" | "code">
 
   export type ClassOrderByWithAggregationInput = {
@@ -31992,6 +33185,7 @@ export namespace Prisma {
     class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
     classRoom?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
     Note?: NoteListRelationFilter
+    Model?: ModelListRelationFilter
   }
 
   export type SubjectOrderByWithRelationInput = {
@@ -32022,6 +33216,7 @@ export namespace Prisma {
     class?: ClassOrderByWithRelationInput
     classRoom?: ClassRoomOrderByWithRelationInput
     Note?: NoteOrderByRelationAggregateInput
+    Model?: ModelOrderByRelationAggregateInput
   }
 
   export type SubjectWhereUniqueInput = Prisma.AtLeast<{
@@ -32055,6 +33250,7 @@ export namespace Prisma {
     class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
     classRoom?: XOR<ClassRoomNullableScalarRelationFilter, ClassRoomWhereInput> | null
     Note?: NoteListRelationFilter
+    Model?: ModelListRelationFilter
   }, "id" | "code">
 
   export type SubjectOrderByWithAggregationInput = {
@@ -32692,6 +33888,69 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Note"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
+  }
+
+  export type ModelWhereInput = {
+    AND?: ModelWhereInput | ModelWhereInput[]
+    OR?: ModelWhereInput[]
+    NOT?: ModelWhereInput | ModelWhereInput[]
+    id?: StringFilter<"Model"> | string
+    teacherId?: StringFilter<"Model"> | string
+    subjectId?: StringFilter<"Model"> | string
+    classId?: StringFilter<"Model"> | string
+    createdAt?: DateTimeFilter<"Model"> | Date | string
+    updatedAt?: DateTimeFilter<"Model"> | Date | string
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    Subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
+  }
+
+  export type ModelOrderByWithRelationInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    subjectId?: SortOrder
+    classId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    class?: ClassOrderByWithRelationInput
+    Subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type ModelWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ModelWhereInput | ModelWhereInput[]
+    OR?: ModelWhereInput[]
+    NOT?: ModelWhereInput | ModelWhereInput[]
+    teacherId?: StringFilter<"Model"> | string
+    subjectId?: StringFilter<"Model"> | string
+    classId?: StringFilter<"Model"> | string
+    createdAt?: DateTimeFilter<"Model"> | Date | string
+    updatedAt?: DateTimeFilter<"Model"> | Date | string
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    Subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
+  }, "id">
+
+  export type ModelOrderByWithAggregationInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    subjectId?: SortOrder
+    classId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ModelCountOrderByAggregateInput
+    _max?: ModelMaxOrderByAggregateInput
+    _min?: ModelMinOrderByAggregateInput
+  }
+
+  export type ModelScalarWhereWithAggregatesInput = {
+    AND?: ModelScalarWhereWithAggregatesInput | ModelScalarWhereWithAggregatesInput[]
+    OR?: ModelScalarWhereWithAggregatesInput[]
+    NOT?: ModelScalarWhereWithAggregatesInput | ModelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Model"> | string
+    teacherId?: StringWithAggregatesFilter<"Model"> | string
+    subjectId?: StringWithAggregatesFilter<"Model"> | string
+    classId?: StringWithAggregatesFilter<"Model"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Model"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Model"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -33528,6 +34787,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateInput = {
@@ -33549,6 +34809,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassUpdateInput = {
@@ -33569,6 +34830,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateInput = {
@@ -33589,6 +34851,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassCreateManyInput = {
@@ -33900,6 +35163,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateInput = {
@@ -33928,6 +35192,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUpdateInput = {
@@ -33956,6 +35221,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateInput = {
@@ -33983,6 +35249,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateManyInput = {
@@ -34597,6 +35864,63 @@ export namespace Prisma {
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelCreateInput = {
+    id?: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class?: ClassCreateNestedOneWithoutModelInput
+    Subject: SubjectCreateNestedOneWithoutModelInput
+  }
+
+  export type ModelUncheckedCreateInput = {
+    id?: string
+    teacherId: string
+    subjectId: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelUpdateInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneWithoutModelNestedInput
+    Subject?: SubjectUpdateOneRequiredWithoutModelNestedInput
+  }
+
+  export type ModelUncheckedUpdateInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelCreateManyInput = {
+    id?: string
+    teacherId: string
+    subjectId: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelUpdateManyMutationInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelUncheckedUpdateManyInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -35384,7 +36708,17 @@ export namespace Prisma {
     isNot?: ClassRoomWhereInput | null
   }
 
+  export type ModelListRelationFilter = {
+    every?: ModelWhereInput
+    some?: ModelWhereInput
+    none?: ModelWhereInput
+  }
+
   export type SubClassOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ModelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36081,6 +37415,33 @@ export namespace Prisma {
     fileId?: SortOrder
     content?: SortOrder
     description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModelCountOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    subjectId?: SortOrder
+    classId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    subjectId?: SortOrder
+    classId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModelMinOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    subjectId?: SortOrder
+    classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36930,6 +38291,13 @@ export namespace Prisma {
     connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
   }
 
+  export type ModelCreateNestedManyWithoutClassInput = {
+    create?: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput> | ModelCreateWithoutClassInput[] | ModelUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutClassInput | ModelCreateOrConnectWithoutClassInput[]
+    createMany?: ModelCreateManyClassInputEnvelope
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+  }
+
   export type StudentUncheckedCreateNestedManyWithoutClassInput = {
     create?: XOR<StudentCreateWithoutClassInput, StudentUncheckedCreateWithoutClassInput> | StudentCreateWithoutClassInput[] | StudentUncheckedCreateWithoutClassInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutClassInput | StudentCreateOrConnectWithoutClassInput[]
@@ -36956,6 +38324,13 @@ export namespace Prisma {
     connectOrCreate?: SubjectCreateOrConnectWithoutClassInput | SubjectCreateOrConnectWithoutClassInput[]
     createMany?: SubjectCreateManyClassInputEnvelope
     connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+  }
+
+  export type ModelUncheckedCreateNestedManyWithoutClassInput = {
+    create?: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput> | ModelCreateWithoutClassInput[] | ModelUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutClassInput | ModelCreateOrConnectWithoutClassInput[]
+    createMany?: ModelCreateManyClassInputEnvelope
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
   }
 
   export type NullableEnumClassTypeFieldUpdateOperationsInput = {
@@ -37059,6 +38434,20 @@ export namespace Prisma {
     deleteMany?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
   }
 
+  export type ModelUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput> | ModelCreateWithoutClassInput[] | ModelUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutClassInput | ModelCreateOrConnectWithoutClassInput[]
+    upsert?: ModelUpsertWithWhereUniqueWithoutClassInput | ModelUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ModelCreateManyClassInputEnvelope
+    set?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    disconnect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    delete?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    update?: ModelUpdateWithWhereUniqueWithoutClassInput | ModelUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ModelUpdateManyWithWhereWithoutClassInput | ModelUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ModelScalarWhereInput | ModelScalarWhereInput[]
+  }
+
   export type StudentUncheckedUpdateManyWithoutClassNestedInput = {
     create?: XOR<StudentCreateWithoutClassInput, StudentUncheckedCreateWithoutClassInput> | StudentCreateWithoutClassInput[] | StudentUncheckedCreateWithoutClassInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutClassInput | StudentCreateOrConnectWithoutClassInput[]
@@ -37113,6 +38502,20 @@ export namespace Prisma {
     update?: SubjectUpdateWithWhereUniqueWithoutClassInput | SubjectUpdateWithWhereUniqueWithoutClassInput[]
     updateMany?: SubjectUpdateManyWithWhereWithoutClassInput | SubjectUpdateManyWithWhereWithoutClassInput[]
     deleteMany?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
+  }
+
+  export type ModelUncheckedUpdateManyWithoutClassNestedInput = {
+    create?: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput> | ModelCreateWithoutClassInput[] | ModelUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutClassInput | ModelCreateOrConnectWithoutClassInput[]
+    upsert?: ModelUpsertWithWhereUniqueWithoutClassInput | ModelUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: ModelCreateManyClassInputEnvelope
+    set?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    disconnect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    delete?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    update?: ModelUpdateWithWhereUniqueWithoutClassInput | ModelUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: ModelUpdateManyWithWhereWithoutClassInput | ModelUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: ModelScalarWhereInput | ModelScalarWhereInput[]
   }
 
   export type ClassCreateNestedOneWithoutSubClassInput = {
@@ -37299,6 +38702,13 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
+  export type ModelCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput> | ModelCreateWithoutSubjectInput[] | ModelUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutSubjectInput | ModelCreateOrConnectWithoutSubjectInput[]
+    createMany?: ModelCreateManySubjectInputEnvelope
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+  }
+
   export type KnowledgeUncheckedCreateNestedManyWithoutSubjectInput = {
     create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
@@ -37360,6 +38770,13 @@ export namespace Prisma {
     connectOrCreate?: NoteCreateOrConnectWithoutSubjectInput | NoteCreateOrConnectWithoutSubjectInput[]
     createMany?: NoteCreateManySubjectInputEnvelope
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  }
+
+  export type ModelUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput> | ModelCreateWithoutSubjectInput[] | ModelUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutSubjectInput | ModelCreateOrConnectWithoutSubjectInput[]
+    createMany?: ModelCreateManySubjectInputEnvelope
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
   }
 
   export type NullableEnumSubjectTypeFieldUpdateOperationsInput = {
@@ -37513,6 +38930,20 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+  export type ModelUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput> | ModelCreateWithoutSubjectInput[] | ModelUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutSubjectInput | ModelCreateOrConnectWithoutSubjectInput[]
+    upsert?: ModelUpsertWithWhereUniqueWithoutSubjectInput | ModelUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ModelCreateManySubjectInputEnvelope
+    set?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    disconnect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    delete?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    update?: ModelUpdateWithWhereUniqueWithoutSubjectInput | ModelUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ModelUpdateManyWithWhereWithoutSubjectInput | ModelUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ModelScalarWhereInput | ModelScalarWhereInput[]
+  }
+
   export type KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput = {
     create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
@@ -37637,6 +39068,20 @@ export namespace Prisma {
     update?: NoteUpdateWithWhereUniqueWithoutSubjectInput | NoteUpdateWithWhereUniqueWithoutSubjectInput[]
     updateMany?: NoteUpdateManyWithWhereWithoutSubjectInput | NoteUpdateManyWithWhereWithoutSubjectInput[]
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
+  }
+
+  export type ModelUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput> | ModelCreateWithoutSubjectInput[] | ModelUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ModelCreateOrConnectWithoutSubjectInput | ModelCreateOrConnectWithoutSubjectInput[]
+    upsert?: ModelUpsertWithWhereUniqueWithoutSubjectInput | ModelUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ModelCreateManySubjectInputEnvelope
+    set?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    disconnect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    delete?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    connect?: ModelWhereUniqueInput | ModelWhereUniqueInput[]
+    update?: ModelUpdateWithWhereUniqueWithoutSubjectInput | ModelUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ModelUpdateManyWithWhereWithoutSubjectInput | ModelUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ModelScalarWhereInput | ModelScalarWhereInput[]
   }
 
   export type IndicativeContentCreateNestedManyWithoutLearningOutcomeInput = {
@@ -37921,6 +39366,36 @@ export namespace Prisma {
     upsert?: SubjectUpsertWithoutNoteInput
     connect?: SubjectWhereUniqueInput
     update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutNoteInput, SubjectUpdateWithoutNoteInput>, SubjectUncheckedUpdateWithoutNoteInput>
+  }
+
+  export type ClassCreateNestedOneWithoutModelInput = {
+    create?: XOR<ClassCreateWithoutModelInput, ClassUncheckedCreateWithoutModelInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutModelInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type SubjectCreateNestedOneWithoutModelInput = {
+    create?: XOR<SubjectCreateWithoutModelInput, SubjectUncheckedCreateWithoutModelInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutModelInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type ClassUpdateOneWithoutModelNestedInput = {
+    create?: XOR<ClassCreateWithoutModelInput, ClassUncheckedCreateWithoutModelInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutModelInput
+    upsert?: ClassUpsertWithoutModelInput
+    disconnect?: boolean
+    delete?: ClassWhereInput | boolean
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutModelInput, ClassUpdateWithoutModelInput>, ClassUncheckedUpdateWithoutModelInput>
+  }
+
+  export type SubjectUpdateOneRequiredWithoutModelNestedInput = {
+    create?: XOR<SubjectCreateWithoutModelInput, SubjectUncheckedCreateWithoutModelInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutModelInput
+    upsert?: SubjectUpsertWithoutModelInput
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutModelInput, SubjectUpdateWithoutModelInput>, SubjectUncheckedUpdateWithoutModelInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -38438,6 +39913,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutUserInput = {
@@ -38458,6 +39934,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutUserInput = {
@@ -39268,6 +40745,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSectorInput = {
@@ -39288,6 +40766,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSectorInput = {
@@ -39474,6 +40953,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutTradeInput = {
@@ -39494,6 +40974,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutTradeInput = {
@@ -39654,6 +41135,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutClassTeacherInput = {
@@ -39674,6 +41156,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutClassTeacherInput = {
@@ -39711,6 +41194,7 @@ export namespace Prisma {
     Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
     class?: ClassCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutClassRoomInput = {
@@ -39738,6 +41222,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutClassRoomInput = {
@@ -40134,6 +41619,7 @@ export namespace Prisma {
     Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutClassInput = {
@@ -40161,6 +41647,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutClassInput = {
@@ -40170,6 +41657,31 @@ export namespace Prisma {
 
   export type SubjectCreateManyClassInputEnvelope = {
     data: SubjectCreateManyClassInput | SubjectCreateManyClassInput[]
+  }
+
+  export type ModelCreateWithoutClassInput = {
+    id?: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Subject: SubjectCreateNestedOneWithoutModelInput
+  }
+
+  export type ModelUncheckedCreateWithoutClassInput = {
+    id?: string
+    teacherId: string
+    subjectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelCreateOrConnectWithoutClassInput = {
+    where: ModelWhereUniqueInput
+    create: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput>
+  }
+
+  export type ModelCreateManyClassInputEnvelope = {
+    data: ModelCreateManyClassInput | ModelCreateManyClassInput[]
   }
 
   export type StudentUpsertWithWhereUniqueWithoutClassInput = {
@@ -40418,6 +41930,34 @@ export namespace Prisma {
     data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyWithoutClassInput>
   }
 
+  export type ModelUpsertWithWhereUniqueWithoutClassInput = {
+    where: ModelWhereUniqueInput
+    update: XOR<ModelUpdateWithoutClassInput, ModelUncheckedUpdateWithoutClassInput>
+    create: XOR<ModelCreateWithoutClassInput, ModelUncheckedCreateWithoutClassInput>
+  }
+
+  export type ModelUpdateWithWhereUniqueWithoutClassInput = {
+    where: ModelWhereUniqueInput
+    data: XOR<ModelUpdateWithoutClassInput, ModelUncheckedUpdateWithoutClassInput>
+  }
+
+  export type ModelUpdateManyWithWhereWithoutClassInput = {
+    where: ModelScalarWhereInput
+    data: XOR<ModelUpdateManyMutationInput, ModelUncheckedUpdateManyWithoutClassInput>
+  }
+
+  export type ModelScalarWhereInput = {
+    AND?: ModelScalarWhereInput | ModelScalarWhereInput[]
+    OR?: ModelScalarWhereInput[]
+    NOT?: ModelScalarWhereInput | ModelScalarWhereInput[]
+    id?: StringFilter<"Model"> | string
+    teacherId?: StringFilter<"Model"> | string
+    subjectId?: StringFilter<"Model"> | string
+    classId?: StringFilter<"Model"> | string
+    createdAt?: DateTimeFilter<"Model"> | Date | string
+    updatedAt?: DateTimeFilter<"Model"> | Date | string
+  }
+
   export type ClassCreateWithoutSubClassInput = {
     id?: string
     name: string
@@ -40436,6 +41976,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSubClassInput = {
@@ -40456,6 +41997,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSubClassInput = {
@@ -40491,6 +42033,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSubClassInput = {
@@ -40510,6 +42053,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type UserCreateWithoutStudentInput = {
@@ -40583,6 +42127,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutStudentInput = {
@@ -40603,6 +42148,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutStudentInput = {
@@ -40695,6 +42241,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutStudentInput = {
@@ -40714,6 +42261,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type UserCreateWithoutTeacherInput = {
@@ -40897,6 +42445,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutClassInput
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutPostInput = {
@@ -40917,6 +42466,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutClassInput
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutPostInput = {
@@ -41009,6 +42559,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutClassNestedInput
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutPostInput = {
@@ -41028,6 +42579,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutClassNestedInput
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type KnowledgeCreateWithoutSubjectInput = {
@@ -41239,6 +42791,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutClassInput
     classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
     Post?: PostCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSubjectInput = {
@@ -41259,6 +42812,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutClassInput
     SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSubjectInput = {
@@ -41334,6 +42888,31 @@ export namespace Prisma {
 
   export type NoteCreateManySubjectInputEnvelope = {
     data: NoteCreateManySubjectInput | NoteCreateManySubjectInput[]
+  }
+
+  export type ModelCreateWithoutSubjectInput = {
+    id?: string
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class?: ClassCreateNestedOneWithoutModelInput
+  }
+
+  export type ModelUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    teacherId: string
+    classId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelCreateOrConnectWithoutSubjectInput = {
+    where: ModelWhereUniqueInput
+    create: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ModelCreateManySubjectInputEnvelope = {
+    data: ModelCreateManySubjectInput | ModelCreateManySubjectInput[]
   }
 
   export type KnowledgeUpsertWithWhereUniqueWithoutSubjectInput = {
@@ -41581,6 +43160,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutClassNestedInput
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSubjectInput = {
@@ -41600,6 +43180,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutClassNestedInput
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassRoomUpsertWithoutSubjectInput = {
@@ -41675,6 +43256,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Note"> | Date | string
   }
 
+  export type ModelUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: ModelWhereUniqueInput
+    update: XOR<ModelUpdateWithoutSubjectInput, ModelUncheckedUpdateWithoutSubjectInput>
+    create: XOR<ModelCreateWithoutSubjectInput, ModelUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ModelUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: ModelWhereUniqueInput
+    data: XOR<ModelUpdateWithoutSubjectInput, ModelUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type ModelUpdateManyWithWhereWithoutSubjectInput = {
+    where: ModelScalarWhereInput
+    data: XOR<ModelUpdateManyMutationInput, ModelUncheckedUpdateManyWithoutSubjectInput>
+  }
+
   export type IndicativeContentCreateWithoutLearningOutcomeInput = {
     id?: string
     content: string
@@ -41721,6 +43318,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutLearningOutcomeInput = {
@@ -41748,6 +43346,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutLearningOutcomeInput = {
@@ -41807,6 +43406,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutLearningOutcomeInput = {
@@ -41833,6 +43433,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutIndicativeContentInput = {
@@ -41861,6 +43462,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutIndicativeContentInput = {
@@ -41888,6 +43490,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutIndicativeContentInput = {
@@ -41954,6 +43557,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutIndicativeContentInput = {
@@ -41980,6 +43584,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type LearningOutcomeUpsertWithoutIndicativeContentInput = {
@@ -42035,6 +43640,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutKnowledgeInput = {
@@ -42062,6 +43668,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutKnowledgeInput = {
@@ -42105,6 +43712,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutKnowledgeInput = {
@@ -42131,6 +43739,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutSkillInput = {
@@ -42159,6 +43768,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutSkillInput = {
@@ -42186,6 +43796,7 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutSkillInput = {
@@ -42229,6 +43840,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutSkillInput = {
@@ -42255,6 +43867,7 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutAttitudeInput = {
@@ -42283,6 +43896,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAttitudeInput = {
@@ -42310,6 +43924,7 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAttitudeInput = {
@@ -42353,6 +43968,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAttitudeInput = {
@@ -42379,6 +43995,7 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutResourceInput = {
@@ -42407,6 +44024,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutResourceInput = {
@@ -42434,6 +44052,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutResourceInput = {
@@ -42477,6 +44096,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutResourceInput = {
@@ -42503,6 +44123,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type PerformanceCriteriaCreateWithoutCompetenceInput = {
@@ -42554,6 +44175,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutCompetenceInput = {
@@ -42581,6 +44203,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutCompetenceInput = {
@@ -42651,6 +44274,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutCompetenceInput = {
@@ -42677,6 +44301,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type CompetenceCreateWithoutPerformanceCriteriaInput = {
@@ -42751,6 +44376,7 @@ export namespace Prisma {
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
     Note?: NoteCreateNestedManyWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAssessmentInput = {
@@ -42778,6 +44404,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
     Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAssessmentInput = {
@@ -42821,6 +44448,7 @@ export namespace Prisma {
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAssessmentInput = {
@@ -42847,6 +44475,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutNoteInput = {
@@ -42875,6 +44504,7 @@ export namespace Prisma {
     Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
     class?: ClassCreateNestedOneWithoutSubjectInput
     classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
+    Model?: ModelCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutNoteInput = {
@@ -42902,6 +44532,7 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
     Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
     Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+    Model?: ModelUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutNoteInput = {
@@ -42945,6 +44576,7 @@ export namespace Prisma {
     Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
     class?: ClassUpdateOneWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutNoteInput = {
@@ -42971,6 +44603,233 @@ export namespace Prisma {
     IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type ClassCreateWithoutModelInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classType?: $Enums.ClassType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Student?: StudentCreateNestedManyWithoutClassInput
+    SubClass?: SubClassCreateNestedManyWithoutClassInput
+    trade?: TradeCreateNestedOneWithoutClassInput
+    sector?: SectorCreateNestedOneWithoutClassInput
+    user?: UserCreateNestedOneWithoutClassInput
+    classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
+    Post?: PostCreateNestedManyWithoutClassInput
+    Subject?: SubjectCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutModelInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classRoomId?: string | null
+    userId: string
+    classType?: $Enums.ClassType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Student?: StudentUncheckedCreateNestedManyWithoutClassInput
+    SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
+    Post?: PostUncheckedCreateNestedManyWithoutClassInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutModelInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutModelInput, ClassUncheckedCreateWithoutModelInput>
+  }
+
+  export type SubjectCreateWithoutModelInput = {
+    id?: string
+    name: string
+    classRoomId?: string | null
+    code: string
+    sectorId?: string | null
+    tradeId?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    symbol?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+    class?: ClassCreateNestedOneWithoutSubjectInput
+    classRoom?: ClassRoomCreateNestedOneWithoutSubjectInput
+    Note?: NoteCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutModelInput = {
+    id?: string
+    name: string
+    classRoomId?: string | null
+    classId?: string | null
+    code: string
+    sectorId?: string | null
+    tradeId?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    symbol?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+    Note?: NoteUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutModelInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutModelInput, SubjectUncheckedCreateWithoutModelInput>
+  }
+
+  export type ClassUpsertWithoutModelInput = {
+    update: XOR<ClassUpdateWithoutModelInput, ClassUncheckedUpdateWithoutModelInput>
+    create: XOR<ClassCreateWithoutModelInput, ClassUncheckedCreateWithoutModelInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutModelInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutModelInput, ClassUncheckedUpdateWithoutModelInput>
+  }
+
+  export type ClassUpdateWithoutModelInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Student?: StudentUpdateManyWithoutClassNestedInput
+    SubClass?: SubClassUpdateManyWithoutClassNestedInput
+    trade?: TradeUpdateOneWithoutClassNestedInput
+    sector?: SectorUpdateOneWithoutClassNestedInput
+    user?: UserUpdateOneWithoutClassNestedInput
+    classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
+    Post?: PostUpdateManyWithoutClassNestedInput
+    Subject?: SubjectUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutModelInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Student?: StudentUncheckedUpdateManyWithoutClassNestedInput
+    SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
+    Post?: PostUncheckedUpdateManyWithoutClassNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type SubjectUpsertWithoutModelInput = {
+    update: XOR<SubjectUpdateWithoutModelInput, SubjectUncheckedUpdateWithoutModelInput>
+    create: XOR<SubjectCreateWithoutModelInput, SubjectUncheckedCreateWithoutModelInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutModelInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutModelInput, SubjectUncheckedUpdateWithoutModelInput>
+  }
+
+  export type SubjectUpdateWithoutModelInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+    class?: ClassUpdateOneWithoutSubjectNestedInput
+    classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
+    Note?: NoteUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutModelInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+    Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -43197,6 +45056,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutUserInput = {
@@ -43216,6 +45076,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutUserInput = {
@@ -43444,6 +45305,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSectorInput = {
@@ -43463,6 +45325,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutSectorInput = {
@@ -43570,6 +45433,7 @@ export namespace Prisma {
     classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutTradeInput = {
@@ -43589,6 +45453,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutTradeInput = {
@@ -43657,6 +45522,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutClassNestedInput
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutClassTeacherInput = {
@@ -43676,6 +45542,7 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutClassTeacherInput = {
@@ -43718,6 +45585,7 @@ export namespace Prisma {
     Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
     class?: ClassUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutClassRoomInput = {
@@ -43744,6 +45612,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateManyWithoutClassRoomInput = {
@@ -43803,6 +45672,14 @@ export namespace Prisma {
     issueDate?: Date | string | null
     purpose?: string | null
     symbol?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelCreateManyClassInput = {
+    id?: string
+    teacherId: string
+    subjectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -43901,6 +45778,7 @@ export namespace Prisma {
     Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
     classRoom?: ClassRoomUpdateOneWithoutSubjectNestedInput
     Note?: NoteUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutClassInput = {
@@ -43927,6 +45805,7 @@ export namespace Prisma {
     Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
     Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
     Note?: NoteUncheckedUpdateManyWithoutSubjectNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateManyWithoutClassInput = {
@@ -43942,6 +45821,27 @@ export namespace Prisma {
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelUpdateWithoutClassInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Subject?: SubjectUpdateOneRequiredWithoutModelNestedInput
+  }
+
+  export type ModelUncheckedUpdateWithoutClassInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelUncheckedUpdateManyWithoutClassInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44011,6 +45911,14 @@ export namespace Prisma {
     fileId?: string | null
     content: string
     description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelCreateManySubjectInput = {
+    id?: string
+    teacherId: string
+    classId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -44196,6 +46104,27 @@ export namespace Prisma {
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
     content?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelUpdateWithoutSubjectInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneWithoutModelNestedInput
+  }
+
+  export type ModelUncheckedUpdateWithoutSubjectInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelUncheckedUpdateManyWithoutSubjectInput = {
+    teacherId?: StringFieldUpdateOperationsInput | string
+    classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
