@@ -308,8 +308,8 @@ model Subject {
   classRoomId       String?             @db.ObjectId
   classId           String?             @db.ObjectId
   code              String              @unique
-  sector            String?             @db.ObjectId
-  trade             String?             @db.ObjectId
+  sectorId          String?             @db.ObjectId
+  tradeId           String?             @db.ObjectId
   subjectType       SubjectType?
   curriculum        String?
   copyright         String?

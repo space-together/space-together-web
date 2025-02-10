@@ -14,7 +14,7 @@ interface props {
   classId : string
 }
 
-const ClassNavbar = ({ user, lang, classId , getClass}: props) => {
+const ClassNavbar = ({ user, lang, classId ,}: props) => {
   const pathname = usePathname();
   return (
     <div className=" h-10 border-b border-border w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
