@@ -310,6 +310,7 @@ model Subject {
   learningHours     Int?
   issueDate         DateTime?
   purpose           String?
+  symbol            String?
   knowledge         Knowledge[]
   Resource          Resource[]
   Competence        Competence[]

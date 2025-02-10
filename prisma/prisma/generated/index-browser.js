@@ -303,6 +303,7 @@ exports.Prisma.SubjectScalarFieldEnum = {
   learningHours: 'learningHours',
   issueDate: 'issueDate',
   purpose: 'purpose',
+  symbol: 'symbol',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

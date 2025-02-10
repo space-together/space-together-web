@@ -19666,6 +19666,7 @@ export namespace Prisma {
     learningHours: number | null
     issueDate: Date | null
     purpose: string | null
+    symbol: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19682,6 +19683,7 @@ export namespace Prisma {
     learningHours: number | null
     issueDate: Date | null
     purpose: string | null
+    symbol: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19698,6 +19700,7 @@ export namespace Prisma {
     learningHours: number
     issueDate: number
     purpose: number
+    symbol: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -19724,6 +19727,7 @@ export namespace Prisma {
     learningHours?: true
     issueDate?: true
     purpose?: true
+    symbol?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19740,6 +19744,7 @@ export namespace Prisma {
     learningHours?: true
     issueDate?: true
     purpose?: true
+    symbol?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19756,6 +19761,7 @@ export namespace Prisma {
     learningHours?: true
     issueDate?: true
     purpose?: true
+    symbol?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -19859,6 +19865,7 @@ export namespace Prisma {
     learningHours: number | null
     issueDate: Date | null
     purpose: string | null
+    symbol: string | null
     createdAt: Date
     updatedAt: Date
     _count: SubjectCountAggregateOutputType | null
@@ -19894,6 +19901,7 @@ export namespace Prisma {
     learningHours?: boolean
     issueDate?: boolean
     purpose?: boolean
+    symbol?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     knowledge?: boolean | Subject$knowledgeArgs<ExtArgs>
@@ -19921,11 +19929,12 @@ export namespace Prisma {
     learningHours?: boolean
     issueDate?: boolean
     purpose?: boolean
+    symbol?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "sector" | "trade" | "subjectType" | "curriculum" | "copyright" | "learningHours" | "issueDate" | "purpose" | "createdAt" | "updatedAt", ExtArgs["result"]["subject"]>
+  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "sector" | "trade" | "subjectType" | "curriculum" | "copyright" | "learningHours" | "issueDate" | "purpose" | "symbol" | "createdAt" | "updatedAt", ExtArgs["result"]["subject"]>
   export type SubjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     knowledge?: boolean | Subject$knowledgeArgs<ExtArgs>
     Resource?: boolean | Subject$ResourceArgs<ExtArgs>
@@ -19962,6 +19971,7 @@ export namespace Prisma {
       learningHours: number | null
       issueDate: Date | null
       purpose: string | null
+      symbol: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["subject"]>
@@ -20375,6 +20385,7 @@ export namespace Prisma {
     readonly learningHours: FieldRef<"Subject", 'Int'>
     readonly issueDate: FieldRef<"Subject", 'DateTime'>
     readonly purpose: FieldRef<"Subject", 'String'>
+    readonly symbol: FieldRef<"Subject", 'String'>
     readonly createdAt: FieldRef<"Subject", 'DateTime'>
     readonly updatedAt: FieldRef<"Subject", 'DateTime'>
   }
@@ -30290,6 +30301,7 @@ export namespace Prisma {
     learningHours: 'learningHours',
     issueDate: 'issueDate',
     purpose: 'purpose',
+    symbol: 'symbol',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -31807,6 +31819,7 @@ export namespace Prisma {
     learningHours?: IntNullableFilter<"Subject"> | number | null
     issueDate?: DateTimeNullableFilter<"Subject"> | Date | string | null
     purpose?: StringNullableFilter<"Subject"> | string | null
+    symbol?: StringNullableFilter<"Subject"> | string | null
     createdAt?: DateTimeFilter<"Subject"> | Date | string
     updatedAt?: DateTimeFilter<"Subject"> | Date | string
     knowledge?: KnowledgeListRelationFilter
@@ -31831,6 +31844,7 @@ export namespace Prisma {
     learningHours?: SortOrder
     issueDate?: SortOrder
     purpose?: SortOrder
+    symbol?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     knowledge?: KnowledgeOrderByRelationAggregateInput
@@ -31858,6 +31872,7 @@ export namespace Prisma {
     learningHours?: IntNullableFilter<"Subject"> | number | null
     issueDate?: DateTimeNullableFilter<"Subject"> | Date | string | null
     purpose?: StringNullableFilter<"Subject"> | string | null
+    symbol?: StringNullableFilter<"Subject"> | string | null
     createdAt?: DateTimeFilter<"Subject"> | Date | string
     updatedAt?: DateTimeFilter<"Subject"> | Date | string
     knowledge?: KnowledgeListRelationFilter
@@ -31882,6 +31897,7 @@ export namespace Prisma {
     learningHours?: SortOrder
     issueDate?: SortOrder
     purpose?: SortOrder
+    symbol?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SubjectCountOrderByAggregateInput
@@ -31906,6 +31922,7 @@ export namespace Prisma {
     learningHours?: IntNullableWithAggregatesFilter<"Subject"> | number | null
     issueDate?: DateTimeNullableWithAggregatesFilter<"Subject"> | Date | string | null
     purpose?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    symbol?: StringNullableWithAggregatesFilter<"Subject"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
   }
@@ -33691,6 +33708,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -33715,6 +33733,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -33738,6 +33757,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -33761,6 +33781,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -33785,6 +33806,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33800,6 +33822,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33815,6 +33838,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -35400,6 +35424,7 @@ export namespace Prisma {
     learningHours?: SortOrder
     issueDate?: SortOrder
     purpose?: SortOrder
+    symbol?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -35420,6 +35445,7 @@ export namespace Prisma {
     learningHours?: SortOrder
     issueDate?: SortOrder
     purpose?: SortOrder
+    symbol?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -35436,6 +35462,7 @@ export namespace Prisma {
     learningHours?: SortOrder
     issueDate?: SortOrder
     purpose?: SortOrder
+    symbol?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -40748,6 +40775,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -40771,6 +40799,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -40825,6 +40854,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -40847,6 +40877,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -40870,6 +40901,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -40893,6 +40925,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -40954,6 +40987,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -40976,6 +41010,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41026,6 +41061,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Resource?: ResourceCreateNestedManyWithoutSubjectInput
@@ -41049,6 +41085,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
@@ -41087,6 +41124,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Resource?: ResourceUpdateManyWithoutSubjectNestedInput
@@ -41109,6 +41147,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41132,6 +41171,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -41155,6 +41195,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -41193,6 +41234,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -41215,6 +41257,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41238,6 +41281,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -41261,6 +41305,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -41299,6 +41344,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -41321,6 +41367,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41344,6 +41391,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -41367,6 +41415,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -41405,6 +41454,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -41427,6 +41477,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41473,6 +41524,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -41496,6 +41548,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -41561,6 +41614,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -41583,6 +41637,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
@@ -41652,6 +41707,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
@@ -41675,6 +41731,7 @@ export namespace Prisma {
     learningHours?: number | null
     issueDate?: Date | string | null
     purpose?: string | null
+    symbol?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
@@ -41713,6 +41770,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
@@ -41735,6 +41793,7 @@ export namespace Prisma {
     learningHours?: NullableIntFieldUpdateOperationsInput | number | null
     issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
