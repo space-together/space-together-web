@@ -20,7 +20,11 @@ import { createNoteAction } from "@/services/actions/note-action";
 import { FormMessageError, FormMessageSuccess } from "./formError";
 import { handleFormSubmission } from "@/hooks/form-notification";
 
-const CreateNoteForm = () => {
+interface props {
+  subjectId : string ,
+}
+
+const CreateNoteForm = ({subjectId} : props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -28,10 +32,10 @@ const CreateNoteForm = () => {
     resolver: zodResolver(NoteSchema),
     defaultValues: {},
   });
-  const onSubmit = (values) => {
+  const onSubmit = (values : NoteSchemaType) => {
     setError("");
     setSuccess("");
-    handleFormSubmission(() => createNoteAction(values), startTransition);
+    handleFormSubmission(() => createNoteAction(values, subjectId), startTransition);
   };
   return (
     <Form {...form}>
