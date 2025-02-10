@@ -15,9 +15,9 @@ const ClassSettingPeoplePage = async (props: props) => {
   }
   return (
     <div className=" w-full space-y-4 pr-4">
-      class people setting page{" "}
+      class people setting page
       <div className=" mt-4">
-        <h2>Class Teachers</h2>
+        <h2  className=" happy-title-head">Class Teachers</h2>
         <div className=" mt-4">
           <UserCardSmallCallSetting userRole="TEACHER" lang={lang} />
         </div>

@@ -40,10 +40,12 @@ const UserCardSmallCallSetting = ({ userRole, lang, className }: props) => {
             <Link href={`/${lang}/profile/student`}>
               <h4 className=" font-medium">Murekezi Hindiro</h4>
             </Link>
-            <div className=" -space-x-2 flex items-center">
-              <Dot size={32} />
-              <span className=" text-sm font-medium ">Kinyarwanda</span>
-            </div>
+            {userRole === "TEACHER" && (
+              <div className=" -space-x-2 flex items-center">
+                <Dot size={32} />
+                <span className=" text-sm font-medium ">Kinyarwanda</span>
+              </div>
+            )}
           </div>
           <div className=" flex items-center">
             <span className=" font-medium text-myGray capitalize">
