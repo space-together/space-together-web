@@ -12,7 +12,12 @@ import React from "react";
 import { CgNotes } from "react-icons/cg";
 import { IoAddCircleSharp } from "react-icons/io5";
 
-const TeacherCreateNoteDialog = () => {
+interface props {
+  subjectId : string ,
+}
+
+
+const TeacherCreateNoteDialog = ({subjectId} : props) => {
   const theme = UseTheme();
   return (
     <Dialog>
@@ -33,7 +38,7 @@ const TeacherCreateNoteDialog = () => {
       </DialogTrigger>
       <DialogContent data-theme={theme} className=" bg-base-100">
       <DialogHeader className=" happy-title-base">Create add new notes</DialogHeader>
-        <CreateNoteForm />
+        <CreateNoteForm subjectId={subjectId}/>
       </DialogContent>
     </Dialog>
   );

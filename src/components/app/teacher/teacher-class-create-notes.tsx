@@ -6,7 +6,7 @@ const TeacherClassCreateNotes = () => {
     <div className="happy-card">
       <h3 className=" happy-title-base">Your lessons</h3>
       <div className=" flex flex-col space-y-1">
-        <TeacherCreateNoteDialog/>
+        <TeacherCreateNoteDialog subjectId="bruno"/>
       </div>
     </div>
   );
