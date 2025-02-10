@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import SubjectCardSmall from "@/components/cards/subject-card-small";
 import CreateSubjectDialog from "@/components/site/collection/subject/create-subject-dialog";
 import { Locale } from "@/i18n";
+import { getSubjectByClassId } from "@/services/data/subject-data";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -16,12 +17,15 @@ const ClassSettingSubjectsPage = async (props: Props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-
+  const classSubject = await getSubjectByClassId(classId);
   return (
     <div>
-      <CreateSubjectDialog classId={classId}/>
-      <div>
-        <SubjectCardSmall />
+      <CreateSubjectDialog classId={classId} />
+      <div className=" space-y-2 mt-4">
+        {classSubject &&
+          classSubject.map((item) => {
+            return <SubjectCardSmall subject={item} key={item.id} />;
+          })}
       </div>
     </div>
   );

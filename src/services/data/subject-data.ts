@@ -18,6 +18,15 @@ export const getSubjectByCode = async (code: string) => {
   }
 };
 
+export const getSubjectByClassId = async (classId: string) => {
+  try {
+    const subjects = await db.subject.findMany({ where: { classId } });
+    return subjects;
+  } catch {
+    return null;
+  }
+};
+
 export const getAllSubject = async () => {
   try {
     const subjectList = await db.subject.findMany();
