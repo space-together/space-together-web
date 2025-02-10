@@ -13,8 +13,8 @@ export const subjectSchema = z.object({
  }),
  purpose : z.string().min(1, {
   message : "Purpose is required"
- }).max(12, {
-  message : "Maxlength of subject purpose is 12"
+ }).max(80, {
+  message : "Maxlength of subject purpose is 80"
  }),
  learningHours : z.string().min(1, {
   message : "learningHours is required"

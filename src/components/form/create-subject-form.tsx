@@ -24,7 +24,11 @@ import { LoaderCircle } from "lucide-react";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { createSubjectAction } from "@/services/actions/subject-cations";
 
-const CreateSubjectForm = () => {
+interface props {
+  classId : string;
+}
+
+const CreateSubjectForm = ({classId} : props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -76,7 +80,7 @@ const CreateSubjectForm = () => {
   const handleSubmit = (values: subjectSchemaType) => {
     setError("");
     setSuccess("");
-    handleFormSubmission(() => createSubjectAction(values), startTransition);
+    handleFormSubmission(() => createSubjectAction(values, classId), startTransition);
   };
   return (
     <Form {...form}>

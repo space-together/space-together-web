@@ -260,20 +260,6 @@ model Teacher {
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Note {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String   @db.ObjectId
-  subjectId   String   @db.ObjectId
-  seenBy      String[] @db.ObjectId
-  commentsIds String[] @db.ObjectId
-  fileId      String?
-  content     String   @db.ObjectId
-  description String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 enum PostRole {
   NOTES
   IMAGE
@@ -331,6 +317,7 @@ model Subject {
 
   class     Class?     @relation(fields: [classId], references: [id], onDelete: Cascade)
   classRoom ClassRoom? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  Note      Note[]
 }
 
 model LearningOutcome {
@@ -444,4 +431,20 @@ model Assessment {
   updatedAt DateTime @updatedAt
 
   subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  subjectId   String   @db.ObjectId
+  seenBy      String[] @db.ObjectId
+  commentsIds String[] @db.ObjectId
+  fileId      String?
+  content     String   @db.ObjectId
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Subject Subject @relation(fields: [subjectId], references: [id])
 }

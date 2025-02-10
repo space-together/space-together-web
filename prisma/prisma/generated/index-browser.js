@@ -267,19 +267,6 @@ exports.Prisma.TeacherScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.NoteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  subjectId: 'subjectId',
-  seenBy: 'seenBy',
-  commentsIds: 'commentsIds',
-  fileId: 'fileId',
-  content: 'content',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -383,6 +370,19 @@ exports.Prisma.AssessmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.NoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subjectId: 'subjectId',
+  seenBy: 'seenBy',
+  commentsIds: 'commentsIds',
+  fileId: 'fileId',
+  content: 'content',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -455,7 +455,6 @@ exports.Prisma.ModelName = {
   SubClass: 'SubClass',
   Student: 'Student',
   Teacher: 'Teacher',
-  Note: 'Note',
   Post: 'Post',
   Subject: 'Subject',
   LearningOutcome: 'LearningOutcome',
@@ -466,7 +465,8 @@ exports.Prisma.ModelName = {
   Resource: 'Resource',
   Competence: 'Competence',
   PerformanceCriteria: 'PerformanceCriteria',
-  Assessment: 'Assessment'
+  Assessment: 'Assessment',
+  Note: 'Note'
 };
 
 /**

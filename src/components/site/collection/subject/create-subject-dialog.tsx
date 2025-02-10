@@ -11,7 +11,11 @@ import {
 import UseTheme from "@/context/theme/use-theme";
 import { BsPlus } from "react-icons/bs";
 
-const CreateSubjectDialog = () => {
+interface props {
+  classId : string;
+}
+
+const CreateSubjectDialog = ({classId} : props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -23,7 +27,7 @@ const CreateSubjectDialog = () => {
         <DialogHeader>
           <DialogTitle>Add new subject</DialogTitle>
         </DialogHeader>
-        <CreateSubjectForm />
+        <CreateSubjectForm classId={classId}/>
       </DialogContent>
     </Dialog>
   );

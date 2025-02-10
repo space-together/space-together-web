@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import { uploadSymbolToCloudinary } from "../cloudinary-service";
 import { getSubjectByCode } from "../data/subject-data";
 
-export const createSubjectAction = async (values: subjectSchemaType) => {
+export const createSubjectAction = async (values: subjectSchemaType, classId?: string) => {
   const validation = subjectSchema.safeParse(values);
 
   if (!validation.success) {
@@ -25,6 +25,7 @@ export const createSubjectAction = async (values: subjectSchemaType) => {
       data: {
         name,
         code,
+        classId: classId,
         symbol: uploadSymbol,
         learningHours: Number(learningHours),
         purpose,
