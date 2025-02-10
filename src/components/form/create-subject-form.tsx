@@ -23,9 +23,10 @@ import { Button } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { createSubjectAction } from "@/services/actions/subject-cations";
+import { generateCode } from "@/utils/functions/characters";
 
 interface props {
-  classId : string;
+  classId ?: string;
 }
 
 const CreateSubjectForm = ({classId} : props) => {
@@ -37,7 +38,7 @@ const CreateSubjectForm = ({classId} : props) => {
     resolver: zodResolver(subjectSchema),
     defaultValues: {
       name: "",
-      code: "",
+      code: classId ? generateCode() : "",
       purpose: "",
       learningHours: "",
       symbol: "",
@@ -81,6 +82,7 @@ const CreateSubjectForm = ({classId} : props) => {
     setError("");
     setSuccess("");
     handleFormSubmission(() => createSubjectAction(values, classId), startTransition);
+    form.reset()
   };
   return (
     <Form {...form}>

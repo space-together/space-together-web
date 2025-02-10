@@ -12,7 +12,7 @@ import UseTheme from "@/context/theme/use-theme";
 import { BsPlus } from "react-icons/bs";
 
 interface props {
-  classId : string;
+  classId ?: string;
 }
 
 const CreateSubjectDialog = ({classId} : props) => {
