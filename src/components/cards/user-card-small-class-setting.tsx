@@ -9,6 +9,7 @@ import { TextTooltip } from "@/context/tooltip/text-tooltip";
 import { cn } from "@/lib/utils";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { AiOutlineSetting } from "react-icons/ai";
 
 interface props {
   userRole:
@@ -64,6 +65,10 @@ const UserCardSmallCallSetting = ({ userRole, lang, className }: props) => {
         </div>
       </div>
       <div className=" space-x-2">
+        <Button size="sm">
+          <AiOutlineSetting />
+          Setting
+        </Button>
         <Button variant="warning" size="sm">
           <IoIosRemoveCircleOutline />
           Disable
