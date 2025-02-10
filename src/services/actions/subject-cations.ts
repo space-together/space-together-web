@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import {
   subjectSchema,
@@ -6,6 +6,7 @@ import {
 } from "@/utils/schema/subject-schema";
 import { db } from "@/lib/db";
 import { uploadSymbolToCloudinary } from "../cloudinary-service";
+import { getSubjectByCode } from "../data/subject-data";
 
 export const createSubjectAction = async (values: subjectSchemaType) => {
   const validation = subjectSchema.safeParse(values);
@@ -16,13 +17,16 @@ export const createSubjectAction = async (values: subjectSchemaType) => {
 
   const { name, code, symbol, learningHours, purpose } = validation.data;
   try {
+    const getCode = await getSubjectByCode(code);
+    if (!!getCode) return { error: "Code is leady exit" };
+    
     const uploadSymbol = await uploadSymbolToCloudinary(symbol);
     const create = await db.subject.create({
       data: {
         name,
         code,
-        symbol : uploadSymbol,
-        learningHours : Number(learningHours),
+        symbol: uploadSymbol,
+        learningHours: Number(learningHours),
         purpose,
       },
     });

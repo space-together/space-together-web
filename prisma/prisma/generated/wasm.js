@@ -310,6 +310,79 @@ exports.Prisma.SubjectScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LearningOutcomeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  learningHours: 'learningHours',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndicativeContentScalarFieldEnum = {
+  id: 'id',
+  learningOutcomeId: 'learningOutcomeId',
+  content: 'content'
+};
+
+exports.Prisma.KnowledgeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttitudeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResourceScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  category: 'category',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompetenceScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PerformanceCriteriaScalarFieldEnum = {
+  id: 'id',
+  competenceId: 'competenceId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  type: 'type',
+  method: 'method',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -357,6 +430,17 @@ exports.SubjectType = exports.$Enums.SubjectType = {
   GENERAL: 'GENERAL'
 };
 
+exports.ResourceType = exports.$Enums.ResourceType = {
+  EQUIPMENT: 'EQUIPMENT',
+  MATERIAL: 'MATERIAL',
+  TOOLS: 'TOOLS'
+};
+
+exports.AssessmentType = exports.$Enums.AssessmentType = {
+  FORMATIVE: 'FORMATIVE',
+  SUMMATIVE: 'SUMMATIVE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -373,7 +457,16 @@ exports.Prisma.ModelName = {
   Teacher: 'Teacher',
   Note: 'Note',
   Post: 'Post',
-  Subject: 'Subject'
+  Subject: 'Subject',
+  LearningOutcome: 'LearningOutcome',
+  IndicativeContent: 'IndicativeContent',
+  Knowledge: 'Knowledge',
+  Skill: 'Skill',
+  Attitude: 'Attitude',
+  Resource: 'Resource',
+  Competence: 'Competence',
+  PerformanceCriteria: 'PerformanceCriteria',
+  Assessment: 'Assessment'
 };
 
 /**
