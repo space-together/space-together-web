@@ -16,11 +16,12 @@ export const subjectSchema = z.object({
  }).max(12, {
   message : "Maxlength of subject purpose is 12"
  }),
- learningHours : z.number().min(1, {
+ learningHours : z.string().min(1, {
   message : "learningHours is required"
  }).max(5, {
   message : "Maxlength 5"
  }),
+ symbol : z.string()
 });
 
 export type subjectSchemaType = z.infer<typeof subjectSchema>;

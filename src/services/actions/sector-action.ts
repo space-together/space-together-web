@@ -11,9 +11,9 @@ export const createSectorAction = async (values: sectorSchemaType) => {
     return { error: "Invalid valuers" };
   }
   const { name, username, description, education } = validation.data;
-const getUsername = await sectorService.getSectorByUsername(username);
+  const getUsername = await sectorService.getSectorByUsername(username);
 
-if (!!getUsername) {
+  if (!!getUsername) {
     return {
       error: `Sector username name is ready exit [${getUsername.username}], try other username`,
     };
@@ -23,7 +23,7 @@ if (!!getUsername) {
       name,
       username,
       description,
-      educationId : education
+      educationId: education,
     },
   });
 
@@ -34,7 +34,10 @@ if (!!getUsername) {
   return { success: "Education created", data: create };
 };
 
-export const updateSectorAction = async (id: string, values: sectorSchemaType) => {
+export const updateSectorAction = async (
+  id: string,
+  values: sectorSchemaType
+) => {
   const validation = sectorSchema.safeParse(values);
 
   if (!validation.success) {
