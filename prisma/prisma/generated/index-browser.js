@@ -267,24 +267,6 @@ exports.Prisma.TeacherScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SubjectScalarFieldEnum = {
-  id: 'id',
-  code: 'code',
-  classRoomId: 'classRoomId',
-  name: 'name',
-  description: 'description',
-  knowledge: 'knowledge',
-  skills: 'skills',
-  attitude: 'attitude',
-  tableOfContent: 'tableOfContent',
-  resources: 'resources',
-  totalTime: 'totalTime',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.NoteScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -305,6 +287,95 @@ exports.Prisma.PostScalarFieldEnum = {
   content: 'content',
   role: 'role',
   classId: 'classId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  sector: 'sector',
+  trade: 'trade',
+  subjectType: 'subjectType',
+  curriculum: 'curriculum',
+  copyright: 'copyright',
+  learningHours: 'learningHours',
+  issueDate: 'issueDate',
+  purpose: 'purpose',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LearningOutcomeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  learningHours: 'learningHours',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndicativeContentScalarFieldEnum = {
+  id: 'id',
+  learningOutcomeId: 'learningOutcomeId',
+  content: 'content'
+};
+
+exports.Prisma.KnowledgeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttitudeScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResourceScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  category: 'category',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompetenceScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PerformanceCriteriaScalarFieldEnum = {
+  id: 'id',
+  competenceId: 'competenceId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentScalarFieldEnum = {
+  id: 'id',
+  SubjectId: 'SubjectId',
+  type: 'type',
+  method: 'method',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -352,6 +423,21 @@ exports.PostRole = exports.$Enums.PostRole = {
   TEXT: 'TEXT'
 };
 
+exports.SubjectType = exports.$Enums.SubjectType = {
+  GENERAL: 'GENERAL'
+};
+
+exports.ResourceType = exports.$Enums.ResourceType = {
+  EQUIPMENT: 'EQUIPMENT',
+  MATERIAL: 'MATERIAL',
+  TOOLS: 'TOOLS'
+};
+
+exports.AssessmentType = exports.$Enums.AssessmentType = {
+  FORMATIVE: 'FORMATIVE',
+  SUMMATIVE: 'SUMMATIVE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -366,9 +452,18 @@ exports.Prisma.ModelName = {
   SubClass: 'SubClass',
   Student: 'Student',
   Teacher: 'Teacher',
-  Subject: 'Subject',
   Note: 'Note',
-  Post: 'Post'
+  Post: 'Post',
+  Subject: 'Subject',
+  LearningOutcome: 'LearningOutcome',
+  IndicativeContent: 'IndicativeContent',
+  Knowledge: 'Knowledge',
+  Skill: 'Skill',
+  Attitude: 'Attitude',
+  Resource: 'Resource',
+  Competence: 'Competence',
+  PerformanceCriteria: 'PerformanceCriteria',
+  Assessment: 'Assessment'
 };
 
 /**

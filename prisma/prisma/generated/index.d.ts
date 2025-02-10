@@ -79,11 +79,6 @@ export type Student = $Result.DefaultSelection<Prisma.$StudentPayload>
  */
 export type Teacher = $Result.DefaultSelection<Prisma.$TeacherPayload>
 /**
- * Model Subject
- * 
- */
-export type Subject = $Result.DefaultSelection<Prisma.$SubjectPayload>
-/**
  * Model Note
  * 
  */
@@ -93,6 +88,56 @@ export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
  * 
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
+ * Model Subject
+ * 
+ */
+export type Subject = $Result.DefaultSelection<Prisma.$SubjectPayload>
+/**
+ * Model LearningOutcome
+ * 
+ */
+export type LearningOutcome = $Result.DefaultSelection<Prisma.$LearningOutcomePayload>
+/**
+ * Model IndicativeContent
+ * 
+ */
+export type IndicativeContent = $Result.DefaultSelection<Prisma.$IndicativeContentPayload>
+/**
+ * Model Knowledge
+ * 
+ */
+export type Knowledge = $Result.DefaultSelection<Prisma.$KnowledgePayload>
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
+/**
+ * Model Attitude
+ * 
+ */
+export type Attitude = $Result.DefaultSelection<Prisma.$AttitudePayload>
+/**
+ * Model Resource
+ * 
+ */
+export type Resource = $Result.DefaultSelection<Prisma.$ResourcePayload>
+/**
+ * Model Competence
+ * 
+ */
+export type Competence = $Result.DefaultSelection<Prisma.$CompetencePayload>
+/**
+ * Model PerformanceCriteria
+ * 
+ */
+export type PerformanceCriteria = $Result.DefaultSelection<Prisma.$PerformanceCriteriaPayload>
+/**
+ * Model Assessment
+ * 
+ */
+export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
 
 /**
  * Enums
@@ -146,6 +191,30 @@ export const PostRole: {
 
 export type PostRole = (typeof PostRole)[keyof typeof PostRole]
 
+
+export const SubjectType: {
+  GENERAL: 'GENERAL'
+};
+
+export type SubjectType = (typeof SubjectType)[keyof typeof SubjectType]
+
+
+export const ResourceType: {
+  EQUIPMENT: 'EQUIPMENT',
+  MATERIAL: 'MATERIAL',
+  TOOLS: 'TOOLS'
+};
+
+export type ResourceType = (typeof ResourceType)[keyof typeof ResourceType]
+
+
+export const AssessmentType: {
+  FORMATIVE: 'FORMATIVE',
+  SUMMATIVE: 'SUMMATIVE'
+};
+
+export type AssessmentType = (typeof AssessmentType)[keyof typeof AssessmentType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -167,6 +236,18 @@ export const ClassType: typeof $Enums.ClassType
 export type PostRole = $Enums.PostRole
 
 export const PostRole: typeof $Enums.PostRole
+
+export type SubjectType = $Enums.SubjectType
+
+export const SubjectType: typeof $Enums.SubjectType
+
+export type ResourceType = $Enums.ResourceType
+
+export const ResourceType: typeof $Enums.ResourceType
+
+export type AssessmentType = $Enums.AssessmentType
+
+export const AssessmentType: typeof $Enums.AssessmentType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -391,16 +472,6 @@ export class PrismaClient<
   get teacher(): Prisma.TeacherDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.subject`: Exposes CRUD operations for the **Subject** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Subjects
-    * const subjects = await prisma.subject.findMany()
-    * ```
-    */
-  get subject(): Prisma.SubjectDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.note`: Exposes CRUD operations for the **Note** model.
     * Example usage:
     * ```ts
@@ -419,6 +490,106 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subject`: Exposes CRUD operations for the **Subject** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subjects
+    * const subjects = await prisma.subject.findMany()
+    * ```
+    */
+  get subject(): Prisma.SubjectDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.learningOutcome`: Exposes CRUD operations for the **LearningOutcome** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LearningOutcomes
+    * const learningOutcomes = await prisma.learningOutcome.findMany()
+    * ```
+    */
+  get learningOutcome(): Prisma.LearningOutcomeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.indicativeContent`: Exposes CRUD operations for the **IndicativeContent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IndicativeContents
+    * const indicativeContents = await prisma.indicativeContent.findMany()
+    * ```
+    */
+  get indicativeContent(): Prisma.IndicativeContentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.knowledge`: Exposes CRUD operations for the **Knowledge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Knowledges
+    * const knowledges = await prisma.knowledge.findMany()
+    * ```
+    */
+  get knowledge(): Prisma.KnowledgeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skill`: Exposes CRUD operations for the **Skill** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Skills
+    * const skills = await prisma.skill.findMany()
+    * ```
+    */
+  get skill(): Prisma.SkillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.attitude`: Exposes CRUD operations for the **Attitude** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Attitudes
+    * const attitudes = await prisma.attitude.findMany()
+    * ```
+    */
+  get attitude(): Prisma.AttitudeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.resource`: Exposes CRUD operations for the **Resource** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Resources
+    * const resources = await prisma.resource.findMany()
+    * ```
+    */
+  get resource(): Prisma.ResourceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.competence`: Exposes CRUD operations for the **Competence** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Competences
+    * const competences = await prisma.competence.findMany()
+    * ```
+    */
+  get competence(): Prisma.CompetenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.performanceCriteria`: Exposes CRUD operations for the **PerformanceCriteria** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PerformanceCriteria
+    * const performanceCriteria = await prisma.performanceCriteria.findMany()
+    * ```
+    */
+  get performanceCriteria(): Prisma.PerformanceCriteriaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.assessment`: Exposes CRUD operations for the **Assessment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Assessments
+    * const assessments = await prisma.assessment.findMany()
+    * ```
+    */
+  get assessment(): Prisma.AssessmentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -872,9 +1043,18 @@ export namespace Prisma {
     SubClass: 'SubClass',
     Student: 'Student',
     Teacher: 'Teacher',
-    Subject: 'Subject',
     Note: 'Note',
-    Post: 'Post'
+    Post: 'Post',
+    Subject: 'Subject',
+    LearningOutcome: 'LearningOutcome',
+    IndicativeContent: 'IndicativeContent',
+    Knowledge: 'Knowledge',
+    Skill: 'Skill',
+    Attitude: 'Attitude',
+    Resource: 'Resource',
+    Competence: 'Competence',
+    PerformanceCriteria: 'PerformanceCriteria',
+    Assessment: 'Assessment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -890,7 +1070,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "subject" | "note" | "post"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "note" | "post" | "subject" | "learningOutcome" | "indicativeContent" | "knowledge" | "skill" | "attitude" | "resource" | "competence" | "performanceCriteria" | "assessment"
       txIsolationLevel: never
     }
     model: {
@@ -1856,80 +2036,6 @@ export namespace Prisma {
           }
         }
       }
-      Subject: {
-        payload: Prisma.$SubjectPayload<ExtArgs>
-        fields: Prisma.SubjectFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SubjectFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SubjectFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          findFirst: {
-            args: Prisma.SubjectFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SubjectFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          findMany: {
-            args: Prisma.SubjectFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>[]
-          }
-          create: {
-            args: Prisma.SubjectCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          createMany: {
-            args: Prisma.SubjectCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.SubjectDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          update: {
-            args: Prisma.SubjectUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          deleteMany: {
-            args: Prisma.SubjectDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SubjectUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.SubjectUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
-          }
-          aggregate: {
-            args: Prisma.SubjectAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSubject>
-          }
-          groupBy: {
-            args: Prisma.SubjectGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SubjectGroupByOutputType>[]
-          }
-          findRaw: {
-            args: Prisma.SubjectFindRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          aggregateRaw: {
-            args: Prisma.SubjectAggregateRawArgs<ExtArgs>
-            result: JsonObject
-          }
-          count: {
-            args: Prisma.SubjectCountArgs<ExtArgs>
-            result: $Utils.Optional<SubjectCountAggregateOutputType> | number
-          }
-        }
-      }
       Note: {
         payload: Prisma.$NotePayload<ExtArgs>
         fields: Prisma.NoteFieldRefs
@@ -2078,6 +2184,746 @@ export namespace Prisma {
           }
         }
       }
+      Subject: {
+        payload: Prisma.$SubjectPayload<ExtArgs>
+        fields: Prisma.SubjectFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubjectFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubjectFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          findFirst: {
+            args: Prisma.SubjectFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubjectFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          findMany: {
+            args: Prisma.SubjectFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>[]
+          }
+          create: {
+            args: Prisma.SubjectCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          createMany: {
+            args: Prisma.SubjectCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SubjectDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          update: {
+            args: Prisma.SubjectUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubjectDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubjectUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SubjectUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          aggregate: {
+            args: Prisma.SubjectAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubject>
+          }
+          groupBy: {
+            args: Prisma.SubjectGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubjectGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SubjectFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SubjectAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SubjectCountArgs<ExtArgs>
+            result: $Utils.Optional<SubjectCountAggregateOutputType> | number
+          }
+        }
+      }
+      LearningOutcome: {
+        payload: Prisma.$LearningOutcomePayload<ExtArgs>
+        fields: Prisma.LearningOutcomeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LearningOutcomeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LearningOutcomeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          findFirst: {
+            args: Prisma.LearningOutcomeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LearningOutcomeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          findMany: {
+            args: Prisma.LearningOutcomeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>[]
+          }
+          create: {
+            args: Prisma.LearningOutcomeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          createMany: {
+            args: Prisma.LearningOutcomeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.LearningOutcomeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          update: {
+            args: Prisma.LearningOutcomeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          deleteMany: {
+            args: Prisma.LearningOutcomeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LearningOutcomeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LearningOutcomeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LearningOutcomePayload>
+          }
+          aggregate: {
+            args: Prisma.LearningOutcomeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLearningOutcome>
+          }
+          groupBy: {
+            args: Prisma.LearningOutcomeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LearningOutcomeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.LearningOutcomeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.LearningOutcomeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.LearningOutcomeCountArgs<ExtArgs>
+            result: $Utils.Optional<LearningOutcomeCountAggregateOutputType> | number
+          }
+        }
+      }
+      IndicativeContent: {
+        payload: Prisma.$IndicativeContentPayload<ExtArgs>
+        fields: Prisma.IndicativeContentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IndicativeContentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IndicativeContentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          findFirst: {
+            args: Prisma.IndicativeContentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IndicativeContentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          findMany: {
+            args: Prisma.IndicativeContentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>[]
+          }
+          create: {
+            args: Prisma.IndicativeContentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          createMany: {
+            args: Prisma.IndicativeContentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.IndicativeContentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          update: {
+            args: Prisma.IndicativeContentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          deleteMany: {
+            args: Prisma.IndicativeContentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IndicativeContentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IndicativeContentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndicativeContentPayload>
+          }
+          aggregate: {
+            args: Prisma.IndicativeContentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIndicativeContent>
+          }
+          groupBy: {
+            args: Prisma.IndicativeContentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IndicativeContentGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.IndicativeContentFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.IndicativeContentAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.IndicativeContentCountArgs<ExtArgs>
+            result: $Utils.Optional<IndicativeContentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Knowledge: {
+        payload: Prisma.$KnowledgePayload<ExtArgs>
+        fields: Prisma.KnowledgeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KnowledgeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KnowledgeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          findFirst: {
+            args: Prisma.KnowledgeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KnowledgeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          findMany: {
+            args: Prisma.KnowledgeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>[]
+          }
+          create: {
+            args: Prisma.KnowledgeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          createMany: {
+            args: Prisma.KnowledgeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.KnowledgeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          update: {
+            args: Prisma.KnowledgeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          deleteMany: {
+            args: Prisma.KnowledgeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KnowledgeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.KnowledgeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnowledgePayload>
+          }
+          aggregate: {
+            args: Prisma.KnowledgeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKnowledge>
+          }
+          groupBy: {
+            args: Prisma.KnowledgeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KnowledgeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.KnowledgeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.KnowledgeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.KnowledgeCountArgs<ExtArgs>
+            result: $Utils.Optional<KnowledgeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Skill: {
+        payload: Prisma.$SkillPayload<ExtArgs>
+        fields: Prisma.SkillFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findMany: {
+            args: Prisma.SkillFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          create: {
+            args: Prisma.SkillCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          createMany: {
+            args: Prisma.SkillCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SkillDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          update: {
+            args: Prisma.SkillUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SkillUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkill>
+          }
+          groupBy: {
+            args: Prisma.SkillGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SkillFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SkillAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SkillCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillCountAggregateOutputType> | number
+          }
+        }
+      }
+      Attitude: {
+        payload: Prisma.$AttitudePayload<ExtArgs>
+        fields: Prisma.AttitudeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AttitudeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AttitudeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          findFirst: {
+            args: Prisma.AttitudeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AttitudeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          findMany: {
+            args: Prisma.AttitudeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>[]
+          }
+          create: {
+            args: Prisma.AttitudeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          createMany: {
+            args: Prisma.AttitudeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AttitudeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          update: {
+            args: Prisma.AttitudeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          deleteMany: {
+            args: Prisma.AttitudeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AttitudeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AttitudeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttitudePayload>
+          }
+          aggregate: {
+            args: Prisma.AttitudeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAttitude>
+          }
+          groupBy: {
+            args: Prisma.AttitudeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AttitudeGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AttitudeFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AttitudeAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AttitudeCountArgs<ExtArgs>
+            result: $Utils.Optional<AttitudeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Resource: {
+        payload: Prisma.$ResourcePayload<ExtArgs>
+        fields: Prisma.ResourceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResourceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResourceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          findFirst: {
+            args: Prisma.ResourceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResourceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          findMany: {
+            args: Prisma.ResourceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>[]
+          }
+          create: {
+            args: Prisma.ResourceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          createMany: {
+            args: Prisma.ResourceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ResourceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          update: {
+            args: Prisma.ResourceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          deleteMany: {
+            args: Prisma.ResourceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResourceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ResourceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          aggregate: {
+            args: Prisma.ResourceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResource>
+          }
+          groupBy: {
+            args: Prisma.ResourceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResourceGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ResourceFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ResourceAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ResourceCountArgs<ExtArgs>
+            result: $Utils.Optional<ResourceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Competence: {
+        payload: Prisma.$CompetencePayload<ExtArgs>
+        fields: Prisma.CompetenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompetenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompetenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          findFirst: {
+            args: Prisma.CompetenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompetenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          findMany: {
+            args: Prisma.CompetenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>[]
+          }
+          create: {
+            args: Prisma.CompetenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          createMany: {
+            args: Prisma.CompetenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CompetenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          update: {
+            args: Prisma.CompetenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          deleteMany: {
+            args: Prisma.CompetenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompetenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CompetenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompetencePayload>
+          }
+          aggregate: {
+            args: Prisma.CompetenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompetence>
+          }
+          groupBy: {
+            args: Prisma.CompetenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompetenceGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.CompetenceFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.CompetenceAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.CompetenceCountArgs<ExtArgs>
+            result: $Utils.Optional<CompetenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      PerformanceCriteria: {
+        payload: Prisma.$PerformanceCriteriaPayload<ExtArgs>
+        fields: Prisma.PerformanceCriteriaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PerformanceCriteriaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PerformanceCriteriaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          findFirst: {
+            args: Prisma.PerformanceCriteriaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PerformanceCriteriaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          findMany: {
+            args: Prisma.PerformanceCriteriaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>[]
+          }
+          create: {
+            args: Prisma.PerformanceCriteriaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          createMany: {
+            args: Prisma.PerformanceCriteriaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PerformanceCriteriaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          update: {
+            args: Prisma.PerformanceCriteriaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          deleteMany: {
+            args: Prisma.PerformanceCriteriaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PerformanceCriteriaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PerformanceCriteriaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PerformanceCriteriaPayload>
+          }
+          aggregate: {
+            args: Prisma.PerformanceCriteriaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePerformanceCriteria>
+          }
+          groupBy: {
+            args: Prisma.PerformanceCriteriaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PerformanceCriteriaGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.PerformanceCriteriaFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.PerformanceCriteriaAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.PerformanceCriteriaCountArgs<ExtArgs>
+            result: $Utils.Optional<PerformanceCriteriaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Assessment: {
+        payload: Prisma.$AssessmentPayload<ExtArgs>
+        fields: Prisma.AssessmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssessmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssessmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findFirst: {
+            args: Prisma.AssessmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssessmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findMany: {
+            args: Prisma.AssessmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>[]
+          }
+          create: {
+            args: Prisma.AssessmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          createMany: {
+            args: Prisma.AssessmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AssessmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          update: {
+            args: Prisma.AssessmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssessmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssessmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AssessmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          aggregate: {
+            args: Prisma.AssessmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAssessment>
+          }
+          groupBy: {
+            args: Prisma.AssessmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AssessmentGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AssessmentFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AssessmentAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AssessmentCountArgs<ExtArgs>
+            result: $Utils.Optional<AssessmentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2162,9 +3008,18 @@ export namespace Prisma {
     subClass?: SubClassOmit
     student?: StudentOmit
     teacher?: TeacherOmit
-    subject?: SubjectOmit
     note?: NoteOmit
     post?: PostOmit
+    subject?: SubjectOmit
+    learningOutcome?: LearningOutcomeOmit
+    indicativeContent?: IndicativeContentOmit
+    knowledge?: KnowledgeOmit
+    skill?: SkillOmit
+    attitude?: AttitudeOmit
+    resource?: ResourceOmit
+    competence?: CompetenceOmit
+    performanceCriteria?: PerformanceCriteriaOmit
+    assessment?: AssessmentOmit
   }
 
   /* Types for Logging */
@@ -2536,6 +3391,162 @@ export namespace Prisma {
    */
   export type ClassCountOutputTypeCountPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostWhereInput
+  }
+
+
+  /**
+   * Count Type SubjectCountOutputType
+   */
+
+  export type SubjectCountOutputType = {
+    knowledge: number
+    Resource: number
+    Competence: number
+    Assessment: number
+    LearningOutcome: number
+    IndicativeContent: number
+    Skill: number
+    Attitude: number
+  }
+
+  export type SubjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    knowledge?: boolean | SubjectCountOutputTypeCountKnowledgeArgs
+    Resource?: boolean | SubjectCountOutputTypeCountResourceArgs
+    Competence?: boolean | SubjectCountOutputTypeCountCompetenceArgs
+    Assessment?: boolean | SubjectCountOutputTypeCountAssessmentArgs
+    LearningOutcome?: boolean | SubjectCountOutputTypeCountLearningOutcomeArgs
+    IndicativeContent?: boolean | SubjectCountOutputTypeCountIndicativeContentArgs
+    Skill?: boolean | SubjectCountOutputTypeCountSkillArgs
+    Attitude?: boolean | SubjectCountOutputTypeCountAttitudeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubjectCountOutputType
+     */
+    select?: SubjectCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountKnowledgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KnowledgeWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountResourceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountCompetenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompetenceWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountLearningOutcomeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LearningOutcomeWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountIndicativeContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndicativeContentWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountSkillArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountAttitudeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttitudeWhereInput
+  }
+
+
+  /**
+   * Count Type LearningOutcomeCountOutputType
+   */
+
+  export type LearningOutcomeCountOutputType = {
+    indicativeContent: number
+  }
+
+  export type LearningOutcomeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    indicativeContent?: boolean | LearningOutcomeCountOutputTypeCountIndicativeContentArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LearningOutcomeCountOutputType without action
+   */
+  export type LearningOutcomeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcomeCountOutputType
+     */
+    select?: LearningOutcomeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LearningOutcomeCountOutputType without action
+   */
+  export type LearningOutcomeCountOutputTypeCountIndicativeContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndicativeContentWhereInput
+  }
+
+
+  /**
+   * Count Type CompetenceCountOutputType
+   */
+
+  export type CompetenceCountOutputType = {
+    PerformanceCriteria: number
+  }
+
+  export type CompetenceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    PerformanceCriteria?: boolean | CompetenceCountOutputTypeCountPerformanceCriteriaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CompetenceCountOutputType without action
+   */
+  export type CompetenceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompetenceCountOutputType
+     */
+    select?: CompetenceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompetenceCountOutputType without action
+   */
+  export type CompetenceCountOutputTypeCountPerformanceCriteriaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PerformanceCriteriaWhereInput
   }
 
 
@@ -16591,1062 +17602,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Subject
-   */
-
-  export type AggregateSubject = {
-    _count: SubjectCountAggregateOutputType | null
-    _avg: SubjectAvgAggregateOutputType | null
-    _sum: SubjectSumAggregateOutputType | null
-    _min: SubjectMinAggregateOutputType | null
-    _max: SubjectMaxAggregateOutputType | null
-  }
-
-  export type SubjectAvgAggregateOutputType = {
-    totalTime: number | null
-  }
-
-  export type SubjectSumAggregateOutputType = {
-    totalTime: number | null
-  }
-
-  export type SubjectMinAggregateOutputType = {
-    id: string | null
-    code: string | null
-    classRoomId: string | null
-    name: string | null
-    description: string | null
-    totalTime: number | null
-    startTime: Date | null
-    endTime: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SubjectMaxAggregateOutputType = {
-    id: string | null
-    code: string | null
-    classRoomId: string | null
-    name: string | null
-    description: string | null
-    totalTime: number | null
-    startTime: Date | null
-    endTime: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SubjectCountAggregateOutputType = {
-    id: number
-    code: number
-    classRoomId: number
-    name: number
-    description: number
-    knowledge: number
-    skills: number
-    attitude: number
-    tableOfContent: number
-    resources: number
-    totalTime: number
-    startTime: number
-    endTime: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type SubjectAvgAggregateInputType = {
-    totalTime?: true
-  }
-
-  export type SubjectSumAggregateInputType = {
-    totalTime?: true
-  }
-
-  export type SubjectMinAggregateInputType = {
-    id?: true
-    code?: true
-    classRoomId?: true
-    name?: true
-    description?: true
-    totalTime?: true
-    startTime?: true
-    endTime?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SubjectMaxAggregateInputType = {
-    id?: true
-    code?: true
-    classRoomId?: true
-    name?: true
-    description?: true
-    totalTime?: true
-    startTime?: true
-    endTime?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SubjectCountAggregateInputType = {
-    id?: true
-    code?: true
-    classRoomId?: true
-    name?: true
-    description?: true
-    knowledge?: true
-    skills?: true
-    attitude?: true
-    tableOfContent?: true
-    resources?: true
-    totalTime?: true
-    startTime?: true
-    endTime?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type SubjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subject to aggregate.
-     */
-    where?: SubjectWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subjects to fetch.
-     */
-    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SubjectWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subjects from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subjects.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Subjects
-    **/
-    _count?: true | SubjectCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SubjectAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SubjectSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SubjectMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SubjectMaxAggregateInputType
-  }
-
-  export type GetSubjectAggregateType<T extends SubjectAggregateArgs> = {
-        [P in keyof T & keyof AggregateSubject]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSubject[P]>
-      : GetScalarType<T[P], AggregateSubject[P]>
-  }
-
-
-
-
-  export type SubjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubjectWhereInput
-    orderBy?: SubjectOrderByWithAggregationInput | SubjectOrderByWithAggregationInput[]
-    by: SubjectScalarFieldEnum[] | SubjectScalarFieldEnum
-    having?: SubjectScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SubjectCountAggregateInputType | true
-    _avg?: SubjectAvgAggregateInputType
-    _sum?: SubjectSumAggregateInputType
-    _min?: SubjectMinAggregateInputType
-    _max?: SubjectMaxAggregateInputType
-  }
-
-  export type SubjectGroupByOutputType = {
-    id: string
-    code: string
-    classRoomId: string
-    name: string
-    description: string
-    knowledge: string[]
-    skills: string[]
-    attitude: string[]
-    tableOfContent: JsonValue
-    resources: JsonValue
-    totalTime: number
-    startTime: Date | null
-    endTime: Date | null
-    createdAt: Date
-    updatedAt: Date
-    _count: SubjectCountAggregateOutputType | null
-    _avg: SubjectAvgAggregateOutputType | null
-    _sum: SubjectSumAggregateOutputType | null
-    _min: SubjectMinAggregateOutputType | null
-    _max: SubjectMaxAggregateOutputType | null
-  }
-
-  type GetSubjectGroupByPayload<T extends SubjectGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SubjectGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SubjectGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SubjectGroupByOutputType[P]>
-            : GetScalarType<T[P], SubjectGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SubjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    classRoomId?: boolean
-    name?: boolean
-    description?: boolean
-    knowledge?: boolean
-    skills?: boolean
-    attitude?: boolean
-    tableOfContent?: boolean
-    resources?: boolean
-    totalTime?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["subject"]>
-
-
-
-  export type SubjectSelectScalar = {
-    id?: boolean
-    code?: boolean
-    classRoomId?: boolean
-    name?: boolean
-    description?: boolean
-    knowledge?: boolean
-    skills?: boolean
-    attitude?: boolean
-    tableOfContent?: boolean
-    resources?: boolean
-    totalTime?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "classRoomId" | "name" | "description" | "knowledge" | "skills" | "attitude" | "tableOfContent" | "resources" | "totalTime" | "startTime" | "endTime" | "createdAt" | "updatedAt", ExtArgs["result"]["subject"]>
-
-  export type $SubjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Subject"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      code: string
-      classRoomId: string
-      name: string
-      description: string
-      knowledge: string[]
-      skills: string[]
-      attitude: string[]
-      tableOfContent: Prisma.JsonValue
-      resources: Prisma.JsonValue
-      totalTime: number
-      startTime: Date | null
-      endTime: Date | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["subject"]>
-    composites: {}
-  }
-
-  type SubjectGetPayload<S extends boolean | null | undefined | SubjectDefaultArgs> = $Result.GetResult<Prisma.$SubjectPayload, S>
-
-  type SubjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SubjectFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SubjectCountAggregateInputType | true
-    }
-
-  export interface SubjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subject'], meta: { name: 'Subject' } }
-    /**
-     * Find zero or one Subject that matches the filter.
-     * @param {SubjectFindUniqueArgs} args - Arguments to find a Subject
-     * @example
-     * // Get one Subject
-     * const subject = await prisma.subject.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SubjectFindUniqueArgs>(args: SelectSubset<T, SubjectFindUniqueArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find one Subject that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SubjectFindUniqueOrThrowArgs} args - Arguments to find a Subject
-     * @example
-     * // Get one Subject
-     * const subject = await prisma.subject.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SubjectFindUniqueOrThrowArgs>(args: SelectSubset<T, SubjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Subject that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectFindFirstArgs} args - Arguments to find a Subject
-     * @example
-     * // Get one Subject
-     * const subject = await prisma.subject.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SubjectFindFirstArgs>(args?: SelectSubset<T, SubjectFindFirstArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Subject that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectFindFirstOrThrowArgs} args - Arguments to find a Subject
-     * @example
-     * // Get one Subject
-     * const subject = await prisma.subject.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SubjectFindFirstOrThrowArgs>(args?: SelectSubset<T, SubjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find zero or more Subjects that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Subjects
-     * const subjects = await prisma.subject.findMany()
-     * 
-     * // Get first 10 Subjects
-     * const subjects = await prisma.subject.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const subjectWithIdOnly = await prisma.subject.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SubjectFindManyArgs>(args?: SelectSubset<T, SubjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", ClientOptions>>
-
-    /**
-     * Create a Subject.
-     * @param {SubjectCreateArgs} args - Arguments to create a Subject.
-     * @example
-     * // Create one Subject
-     * const Subject = await prisma.subject.create({
-     *   data: {
-     *     // ... data to create a Subject
-     *   }
-     * })
-     * 
-     */
-    create<T extends SubjectCreateArgs>(args: SelectSubset<T, SubjectCreateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Create many Subjects.
-     * @param {SubjectCreateManyArgs} args - Arguments to create many Subjects.
-     * @example
-     * // Create many Subjects
-     * const subject = await prisma.subject.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SubjectCreateManyArgs>(args?: SelectSubset<T, SubjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Subject.
-     * @param {SubjectDeleteArgs} args - Arguments to delete one Subject.
-     * @example
-     * // Delete one Subject
-     * const Subject = await prisma.subject.delete({
-     *   where: {
-     *     // ... filter to delete one Subject
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SubjectDeleteArgs>(args: SelectSubset<T, SubjectDeleteArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Update one Subject.
-     * @param {SubjectUpdateArgs} args - Arguments to update one Subject.
-     * @example
-     * // Update one Subject
-     * const subject = await prisma.subject.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SubjectUpdateArgs>(args: SelectSubset<T, SubjectUpdateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Delete zero or more Subjects.
-     * @param {SubjectDeleteManyArgs} args - Arguments to filter Subjects to delete.
-     * @example
-     * // Delete a few Subjects
-     * const { count } = await prisma.subject.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SubjectDeleteManyArgs>(args?: SelectSubset<T, SubjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Subjects.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Subjects
-     * const subject = await prisma.subject.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SubjectUpdateManyArgs>(args: SelectSubset<T, SubjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Subject.
-     * @param {SubjectUpsertArgs} args - Arguments to update or create a Subject.
-     * @example
-     * // Update or create a Subject
-     * const subject = await prisma.subject.upsert({
-     *   create: {
-     *     // ... data to create a Subject
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Subject we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SubjectUpsertArgs>(args: SelectSubset<T, SubjectUpsertArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find zero or more Subjects that matches the filter.
-     * @param {SubjectFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const subject = await prisma.subject.findRaw({
-     *   filter: { age: { $gt: 25 } }
-     * })
-     */
-    findRaw(args?: SubjectFindRawArgs): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a Subject.
-     * @param {SubjectAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const subject = await prisma.subject.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-     */
-    aggregateRaw(args?: SubjectAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
-
-
-    /**
-     * Count the number of Subjects.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectCountArgs} args - Arguments to filter Subjects to count.
-     * @example
-     * // Count the number of Subjects
-     * const count = await prisma.subject.count({
-     *   where: {
-     *     // ... the filter for the Subjects we want to count
-     *   }
-     * })
-    **/
-    count<T extends SubjectCountArgs>(
-      args?: Subset<T, SubjectCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SubjectCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Subject.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SubjectAggregateArgs>(args: Subset<T, SubjectAggregateArgs>): Prisma.PrismaPromise<GetSubjectAggregateType<T>>
-
-    /**
-     * Group by Subject.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubjectGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SubjectGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SubjectGroupByArgs['orderBy'] }
-        : { orderBy?: SubjectGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SubjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Subject model
-   */
-  readonly fields: SubjectFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Subject.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SubjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Subject model
-   */ 
-  interface SubjectFieldRefs {
-    readonly id: FieldRef<"Subject", 'String'>
-    readonly code: FieldRef<"Subject", 'String'>
-    readonly classRoomId: FieldRef<"Subject", 'String'>
-    readonly name: FieldRef<"Subject", 'String'>
-    readonly description: FieldRef<"Subject", 'String'>
-    readonly knowledge: FieldRef<"Subject", 'String[]'>
-    readonly skills: FieldRef<"Subject", 'String[]'>
-    readonly attitude: FieldRef<"Subject", 'String[]'>
-    readonly tableOfContent: FieldRef<"Subject", 'Json'>
-    readonly resources: FieldRef<"Subject", 'Json'>
-    readonly totalTime: FieldRef<"Subject", 'Int'>
-    readonly startTime: FieldRef<"Subject", 'DateTime'>
-    readonly endTime: FieldRef<"Subject", 'DateTime'>
-    readonly createdAt: FieldRef<"Subject", 'DateTime'>
-    readonly updatedAt: FieldRef<"Subject", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Subject findUnique
-   */
-  export type SubjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter, which Subject to fetch.
-     */
-    where: SubjectWhereUniqueInput
-  }
-
-  /**
-   * Subject findUniqueOrThrow
-   */
-  export type SubjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter, which Subject to fetch.
-     */
-    where: SubjectWhereUniqueInput
-  }
-
-  /**
-   * Subject findFirst
-   */
-  export type SubjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter, which Subject to fetch.
-     */
-    where?: SubjectWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subjects to fetch.
-     */
-    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subjects.
-     */
-    cursor?: SubjectWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subjects from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subjects.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subjects.
-     */
-    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
-  }
-
-  /**
-   * Subject findFirstOrThrow
-   */
-  export type SubjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter, which Subject to fetch.
-     */
-    where?: SubjectWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subjects to fetch.
-     */
-    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subjects.
-     */
-    cursor?: SubjectWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subjects from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subjects.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subjects.
-     */
-    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
-  }
-
-  /**
-   * Subject findMany
-   */
-  export type SubjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter, which Subjects to fetch.
-     */
-    where?: SubjectWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subjects to fetch.
-     */
-    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Subjects.
-     */
-    cursor?: SubjectWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subjects from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subjects.
-     */
-    skip?: number
-    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
-  }
-
-  /**
-   * Subject create
-   */
-  export type SubjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * The data needed to create a Subject.
-     */
-    data: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
-  }
-
-  /**
-   * Subject createMany
-   */
-  export type SubjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Subjects.
-     */
-    data: SubjectCreateManyInput | SubjectCreateManyInput[]
-  }
-
-  /**
-   * Subject update
-   */
-  export type SubjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * The data needed to update a Subject.
-     */
-    data: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
-    /**
-     * Choose, which Subject to update.
-     */
-    where: SubjectWhereUniqueInput
-  }
-
-  /**
-   * Subject updateMany
-   */
-  export type SubjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Subjects.
-     */
-    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyInput>
-    /**
-     * Filter which Subjects to update
-     */
-    where?: SubjectWhereInput
-    /**
-     * Limit how many Subjects to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Subject upsert
-   */
-  export type SubjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * The filter to search for the Subject to update in case it exists.
-     */
-    where: SubjectWhereUniqueInput
-    /**
-     * In case the Subject found by the `where` argument doesn't exist, create a new Subject with this data.
-     */
-    create: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
-    /**
-     * In case the Subject was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
-  }
-
-  /**
-   * Subject delete
-   */
-  export type SubjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-    /**
-     * Filter which Subject to delete.
-     */
-    where: SubjectWhereUniqueInput
-  }
-
-  /**
-   * Subject deleteMany
-   */
-  export type SubjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subjects to delete
-     */
-    where?: SubjectWhereInput
-    /**
-     * Limit how many Subjects to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Subject findRaw
-   */
-  export type SubjectFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Subject aggregateRaw
-   */
-  export type SubjectAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-  /**
-   * Subject without action
-   */
-  export type SubjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subject
-     */
-    select?: SubjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subject
-     */
-    omit?: SubjectOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Model Note
    */
 
@@ -19680,6 +19635,10420 @@ export namespace Prisma {
 
 
   /**
+   * Model Subject
+   */
+
+  export type AggregateSubject = {
+    _count: SubjectCountAggregateOutputType | null
+    _avg: SubjectAvgAggregateOutputType | null
+    _sum: SubjectSumAggregateOutputType | null
+    _min: SubjectMinAggregateOutputType | null
+    _max: SubjectMaxAggregateOutputType | null
+  }
+
+  export type SubjectAvgAggregateOutputType = {
+    learningHours: number | null
+  }
+
+  export type SubjectSumAggregateOutputType = {
+    learningHours: number | null
+  }
+
+  export type SubjectMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    sector: string | null
+    trade: string | null
+    subjectType: $Enums.SubjectType | null
+    curriculum: string | null
+    copyright: string | null
+    learningHours: number | null
+    issueDate: Date | null
+    purpose: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubjectMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    code: string | null
+    sector: string | null
+    trade: string | null
+    subjectType: $Enums.SubjectType | null
+    curriculum: string | null
+    copyright: string | null
+    learningHours: number | null
+    issueDate: Date | null
+    purpose: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubjectCountAggregateOutputType = {
+    id: number
+    name: number
+    code: number
+    sector: number
+    trade: number
+    subjectType: number
+    curriculum: number
+    copyright: number
+    learningHours: number
+    issueDate: number
+    purpose: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SubjectAvgAggregateInputType = {
+    learningHours?: true
+  }
+
+  export type SubjectSumAggregateInputType = {
+    learningHours?: true
+  }
+
+  export type SubjectMinAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    sector?: true
+    trade?: true
+    subjectType?: true
+    curriculum?: true
+    copyright?: true
+    learningHours?: true
+    issueDate?: true
+    purpose?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubjectMaxAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    sector?: true
+    trade?: true
+    subjectType?: true
+    curriculum?: true
+    copyright?: true
+    learningHours?: true
+    issueDate?: true
+    purpose?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubjectCountAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    sector?: true
+    trade?: true
+    subjectType?: true
+    curriculum?: true
+    copyright?: true
+    learningHours?: true
+    issueDate?: true
+    purpose?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SubjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subject to aggregate.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subjects
+    **/
+    _count?: true | SubjectCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubjectAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubjectSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubjectMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubjectMaxAggregateInputType
+  }
+
+  export type GetSubjectAggregateType<T extends SubjectAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubject]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubject[P]>
+      : GetScalarType<T[P], AggregateSubject[P]>
+  }
+
+
+
+
+  export type SubjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubjectWhereInput
+    orderBy?: SubjectOrderByWithAggregationInput | SubjectOrderByWithAggregationInput[]
+    by: SubjectScalarFieldEnum[] | SubjectScalarFieldEnum
+    having?: SubjectScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubjectCountAggregateInputType | true
+    _avg?: SubjectAvgAggregateInputType
+    _sum?: SubjectSumAggregateInputType
+    _min?: SubjectMinAggregateInputType
+    _max?: SubjectMaxAggregateInputType
+  }
+
+  export type SubjectGroupByOutputType = {
+    id: string
+    name: string
+    code: string
+    sector: string | null
+    trade: string | null
+    subjectType: $Enums.SubjectType | null
+    curriculum: string | null
+    copyright: string | null
+    learningHours: number | null
+    issueDate: Date | null
+    purpose: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SubjectCountAggregateOutputType | null
+    _avg: SubjectAvgAggregateOutputType | null
+    _sum: SubjectSumAggregateOutputType | null
+    _min: SubjectMinAggregateOutputType | null
+    _max: SubjectMaxAggregateOutputType | null
+  }
+
+  type GetSubjectGroupByPayload<T extends SubjectGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubjectGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubjectGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubjectGroupByOutputType[P]>
+            : GetScalarType<T[P], SubjectGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    sector?: boolean
+    trade?: boolean
+    subjectType?: boolean
+    curriculum?: boolean
+    copyright?: boolean
+    learningHours?: boolean
+    issueDate?: boolean
+    purpose?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    knowledge?: boolean | Subject$knowledgeArgs<ExtArgs>
+    Resource?: boolean | Subject$ResourceArgs<ExtArgs>
+    Competence?: boolean | Subject$CompetenceArgs<ExtArgs>
+    Assessment?: boolean | Subject$AssessmentArgs<ExtArgs>
+    LearningOutcome?: boolean | Subject$LearningOutcomeArgs<ExtArgs>
+    IndicativeContent?: boolean | Subject$IndicativeContentArgs<ExtArgs>
+    Skill?: boolean | Subject$SkillArgs<ExtArgs>
+    Attitude?: boolean | Subject$AttitudeArgs<ExtArgs>
+    _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subject"]>
+
+
+
+  export type SubjectSelectScalar = {
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    sector?: boolean
+    trade?: boolean
+    subjectType?: boolean
+    curriculum?: boolean
+    copyright?: boolean
+    learningHours?: boolean
+    issueDate?: boolean
+    purpose?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "sector" | "trade" | "subjectType" | "curriculum" | "copyright" | "learningHours" | "issueDate" | "purpose" | "createdAt" | "updatedAt", ExtArgs["result"]["subject"]>
+  export type SubjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    knowledge?: boolean | Subject$knowledgeArgs<ExtArgs>
+    Resource?: boolean | Subject$ResourceArgs<ExtArgs>
+    Competence?: boolean | Subject$CompetenceArgs<ExtArgs>
+    Assessment?: boolean | Subject$AssessmentArgs<ExtArgs>
+    LearningOutcome?: boolean | Subject$LearningOutcomeArgs<ExtArgs>
+    IndicativeContent?: boolean | Subject$IndicativeContentArgs<ExtArgs>
+    Skill?: boolean | Subject$SkillArgs<ExtArgs>
+    Attitude?: boolean | Subject$AttitudeArgs<ExtArgs>
+    _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $SubjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subject"
+    objects: {
+      knowledge: Prisma.$KnowledgePayload<ExtArgs>[]
+      Resource: Prisma.$ResourcePayload<ExtArgs>[]
+      Competence: Prisma.$CompetencePayload<ExtArgs>[]
+      Assessment: Prisma.$AssessmentPayload<ExtArgs>[]
+      LearningOutcome: Prisma.$LearningOutcomePayload<ExtArgs>[]
+      IndicativeContent: Prisma.$IndicativeContentPayload<ExtArgs>[]
+      Skill: Prisma.$SkillPayload<ExtArgs>[]
+      Attitude: Prisma.$AttitudePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      code: string
+      sector: string | null
+      trade: string | null
+      subjectType: $Enums.SubjectType | null
+      curriculum: string | null
+      copyright: string | null
+      learningHours: number | null
+      issueDate: Date | null
+      purpose: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["subject"]>
+    composites: {}
+  }
+
+  type SubjectGetPayload<S extends boolean | null | undefined | SubjectDefaultArgs> = $Result.GetResult<Prisma.$SubjectPayload, S>
+
+  type SubjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubjectFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubjectCountAggregateInputType | true
+    }
+
+  export interface SubjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subject'], meta: { name: 'Subject' } }
+    /**
+     * Find zero or one Subject that matches the filter.
+     * @param {SubjectFindUniqueArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubjectFindUniqueArgs>(args: SelectSubset<T, SubjectFindUniqueArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Subject that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubjectFindUniqueOrThrowArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubjectFindUniqueOrThrowArgs>(args: SelectSubset<T, SubjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Subject that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindFirstArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubjectFindFirstArgs>(args?: SelectSubset<T, SubjectFindFirstArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Subject that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindFirstOrThrowArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubjectFindFirstOrThrowArgs>(args?: SelectSubset<T, SubjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Subjects that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subjects
+     * const subjects = await prisma.subject.findMany()
+     * 
+     * // Get first 10 Subjects
+     * const subjects = await prisma.subject.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subjectWithIdOnly = await prisma.subject.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubjectFindManyArgs>(args?: SelectSubset<T, SubjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Subject.
+     * @param {SubjectCreateArgs} args - Arguments to create a Subject.
+     * @example
+     * // Create one Subject
+     * const Subject = await prisma.subject.create({
+     *   data: {
+     *     // ... data to create a Subject
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubjectCreateArgs>(args: SelectSubset<T, SubjectCreateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Subjects.
+     * @param {SubjectCreateManyArgs} args - Arguments to create many Subjects.
+     * @example
+     * // Create many Subjects
+     * const subject = await prisma.subject.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubjectCreateManyArgs>(args?: SelectSubset<T, SubjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Subject.
+     * @param {SubjectDeleteArgs} args - Arguments to delete one Subject.
+     * @example
+     * // Delete one Subject
+     * const Subject = await prisma.subject.delete({
+     *   where: {
+     *     // ... filter to delete one Subject
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubjectDeleteArgs>(args: SelectSubset<T, SubjectDeleteArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Subject.
+     * @param {SubjectUpdateArgs} args - Arguments to update one Subject.
+     * @example
+     * // Update one Subject
+     * const subject = await prisma.subject.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubjectUpdateArgs>(args: SelectSubset<T, SubjectUpdateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Subjects.
+     * @param {SubjectDeleteManyArgs} args - Arguments to filter Subjects to delete.
+     * @example
+     * // Delete a few Subjects
+     * const { count } = await prisma.subject.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubjectDeleteManyArgs>(args?: SelectSubset<T, SubjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subjects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subjects
+     * const subject = await prisma.subject.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubjectUpdateManyArgs>(args: SelectSubset<T, SubjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Subject.
+     * @param {SubjectUpsertArgs} args - Arguments to update or create a Subject.
+     * @example
+     * // Update or create a Subject
+     * const subject = await prisma.subject.upsert({
+     *   create: {
+     *     // ... data to create a Subject
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subject we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubjectUpsertArgs>(args: SelectSubset<T, SubjectUpsertArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Subjects that matches the filter.
+     * @param {SubjectFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const subject = await prisma.subject.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SubjectFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Subject.
+     * @param {SubjectAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const subject = await prisma.subject.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SubjectAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Subjects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectCountArgs} args - Arguments to filter Subjects to count.
+     * @example
+     * // Count the number of Subjects
+     * const count = await prisma.subject.count({
+     *   where: {
+     *     // ... the filter for the Subjects we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubjectCountArgs>(
+      args?: Subset<T, SubjectCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubjectCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subject.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubjectAggregateArgs>(args: Subset<T, SubjectAggregateArgs>): Prisma.PrismaPromise<GetSubjectAggregateType<T>>
+
+    /**
+     * Group by Subject.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubjectGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubjectGroupByArgs['orderBy'] }
+        : { orderBy?: SubjectGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subject model
+   */
+  readonly fields: SubjectFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subject.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    knowledge<T extends Subject$knowledgeArgs<ExtArgs> = {}>(args?: Subset<T, Subject$knowledgeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Resource<T extends Subject$ResourceArgs<ExtArgs> = {}>(args?: Subset<T, Subject$ResourceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Competence<T extends Subject$CompetenceArgs<ExtArgs> = {}>(args?: Subset<T, Subject$CompetenceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Assessment<T extends Subject$AssessmentArgs<ExtArgs> = {}>(args?: Subset<T, Subject$AssessmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    LearningOutcome<T extends Subject$LearningOutcomeArgs<ExtArgs> = {}>(args?: Subset<T, Subject$LearningOutcomeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    IndicativeContent<T extends Subject$IndicativeContentArgs<ExtArgs> = {}>(args?: Subset<T, Subject$IndicativeContentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Skill<T extends Subject$SkillArgs<ExtArgs> = {}>(args?: Subset<T, Subject$SkillArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    Attitude<T extends Subject$AttitudeArgs<ExtArgs> = {}>(args?: Subset<T, Subject$AttitudeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subject model
+   */ 
+  interface SubjectFieldRefs {
+    readonly id: FieldRef<"Subject", 'String'>
+    readonly name: FieldRef<"Subject", 'String'>
+    readonly code: FieldRef<"Subject", 'String'>
+    readonly sector: FieldRef<"Subject", 'String'>
+    readonly trade: FieldRef<"Subject", 'String'>
+    readonly subjectType: FieldRef<"Subject", 'SubjectType'>
+    readonly curriculum: FieldRef<"Subject", 'String'>
+    readonly copyright: FieldRef<"Subject", 'String'>
+    readonly learningHours: FieldRef<"Subject", 'Int'>
+    readonly issueDate: FieldRef<"Subject", 'DateTime'>
+    readonly purpose: FieldRef<"Subject", 'String'>
+    readonly createdAt: FieldRef<"Subject", 'DateTime'>
+    readonly updatedAt: FieldRef<"Subject", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subject findUnique
+   */
+  export type SubjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject findUniqueOrThrow
+   */
+  export type SubjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject findFirst
+   */
+  export type SubjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subjects.
+     */
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject findFirstOrThrow
+   */
+  export type SubjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subjects.
+     */
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject findMany
+   */
+  export type SubjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subjects to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject create
+   */
+  export type SubjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subject.
+     */
+    data: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
+  }
+
+  /**
+   * Subject createMany
+   */
+  export type SubjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subjects.
+     */
+    data: SubjectCreateManyInput | SubjectCreateManyInput[]
+  }
+
+  /**
+   * Subject update
+   */
+  export type SubjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subject.
+     */
+    data: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
+    /**
+     * Choose, which Subject to update.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject updateMany
+   */
+  export type SubjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subjects.
+     */
+    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Subjects to update
+     */
+    where?: SubjectWhereInput
+    /**
+     * Limit how many Subjects to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subject upsert
+   */
+  export type SubjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subject to update in case it exists.
+     */
+    where: SubjectWhereUniqueInput
+    /**
+     * In case the Subject found by the `where` argument doesn't exist, create a new Subject with this data.
+     */
+    create: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
+    /**
+     * In case the Subject was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
+  }
+
+  /**
+   * Subject delete
+   */
+  export type SubjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter which Subject to delete.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject deleteMany
+   */
+  export type SubjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subjects to delete
+     */
+    where?: SubjectWhereInput
+    /**
+     * Limit how many Subjects to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subject findRaw
+   */
+  export type SubjectFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Subject aggregateRaw
+   */
+  export type SubjectAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Subject.knowledge
+   */
+  export type Subject$knowledgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    where?: KnowledgeWhereInput
+    orderBy?: KnowledgeOrderByWithRelationInput | KnowledgeOrderByWithRelationInput[]
+    cursor?: KnowledgeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: KnowledgeScalarFieldEnum | KnowledgeScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Resource
+   */
+  export type Subject$ResourceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    where?: ResourceWhereInput
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    cursor?: ResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Competence
+   */
+  export type Subject$CompetenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    where?: CompetenceWhereInput
+    orderBy?: CompetenceOrderByWithRelationInput | CompetenceOrderByWithRelationInput[]
+    cursor?: CompetenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompetenceScalarFieldEnum | CompetenceScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Assessment
+   */
+  export type Subject$AssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    cursor?: AssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.LearningOutcome
+   */
+  export type Subject$LearningOutcomeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    where?: LearningOutcomeWhereInput
+    orderBy?: LearningOutcomeOrderByWithRelationInput | LearningOutcomeOrderByWithRelationInput[]
+    cursor?: LearningOutcomeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LearningOutcomeScalarFieldEnum | LearningOutcomeScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.IndicativeContent
+   */
+  export type Subject$IndicativeContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    where?: IndicativeContentWhereInput
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    cursor?: IndicativeContentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IndicativeContentScalarFieldEnum | IndicativeContentScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Skill
+   */
+  export type Subject$SkillArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    where?: SkillWhereInput
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    cursor?: SkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Attitude
+   */
+  export type Subject$AttitudeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    where?: AttitudeWhereInput
+    orderBy?: AttitudeOrderByWithRelationInput | AttitudeOrderByWithRelationInput[]
+    cursor?: AttitudeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttitudeScalarFieldEnum | AttitudeScalarFieldEnum[]
+  }
+
+  /**
+   * Subject without action
+   */
+  export type SubjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LearningOutcome
+   */
+
+  export type AggregateLearningOutcome = {
+    _count: LearningOutcomeCountAggregateOutputType | null
+    _avg: LearningOutcomeAvgAggregateOutputType | null
+    _sum: LearningOutcomeSumAggregateOutputType | null
+    _min: LearningOutcomeMinAggregateOutputType | null
+    _max: LearningOutcomeMaxAggregateOutputType | null
+  }
+
+  export type LearningOutcomeAvgAggregateOutputType = {
+    learningHours: number | null
+  }
+
+  export type LearningOutcomeSumAggregateOutputType = {
+    learningHours: number | null
+  }
+
+  export type LearningOutcomeMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    learningHours: number | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LearningOutcomeMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    learningHours: number | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LearningOutcomeCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    learningHours: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LearningOutcomeAvgAggregateInputType = {
+    learningHours?: true
+  }
+
+  export type LearningOutcomeSumAggregateInputType = {
+    learningHours?: true
+  }
+
+  export type LearningOutcomeMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    learningHours?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LearningOutcomeMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    learningHours?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LearningOutcomeCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    learningHours?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LearningOutcomeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LearningOutcome to aggregate.
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LearningOutcomes to fetch.
+     */
+    orderBy?: LearningOutcomeOrderByWithRelationInput | LearningOutcomeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LearningOutcomeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LearningOutcomes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LearningOutcomes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LearningOutcomes
+    **/
+    _count?: true | LearningOutcomeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LearningOutcomeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LearningOutcomeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LearningOutcomeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LearningOutcomeMaxAggregateInputType
+  }
+
+  export type GetLearningOutcomeAggregateType<T extends LearningOutcomeAggregateArgs> = {
+        [P in keyof T & keyof AggregateLearningOutcome]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLearningOutcome[P]>
+      : GetScalarType<T[P], AggregateLearningOutcome[P]>
+  }
+
+
+
+
+  export type LearningOutcomeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LearningOutcomeWhereInput
+    orderBy?: LearningOutcomeOrderByWithAggregationInput | LearningOutcomeOrderByWithAggregationInput[]
+    by: LearningOutcomeScalarFieldEnum[] | LearningOutcomeScalarFieldEnum
+    having?: LearningOutcomeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LearningOutcomeCountAggregateInputType | true
+    _avg?: LearningOutcomeAvgAggregateInputType
+    _sum?: LearningOutcomeSumAggregateInputType
+    _min?: LearningOutcomeMinAggregateInputType
+    _max?: LearningOutcomeMaxAggregateInputType
+  }
+
+  export type LearningOutcomeGroupByOutputType = {
+    id: string
+    SubjectId: string
+    learningHours: number | null
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LearningOutcomeCountAggregateOutputType | null
+    _avg: LearningOutcomeAvgAggregateOutputType | null
+    _sum: LearningOutcomeSumAggregateOutputType | null
+    _min: LearningOutcomeMinAggregateOutputType | null
+    _max: LearningOutcomeMaxAggregateOutputType | null
+  }
+
+  type GetLearningOutcomeGroupByPayload<T extends LearningOutcomeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LearningOutcomeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LearningOutcomeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LearningOutcomeGroupByOutputType[P]>
+            : GetScalarType<T[P], LearningOutcomeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LearningOutcomeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    learningHours?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    indicativeContent?: boolean | LearningOutcome$indicativeContentArgs<ExtArgs>
+    subject?: boolean | LearningOutcome$subjectArgs<ExtArgs>
+    _count?: boolean | LearningOutcomeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["learningOutcome"]>
+
+
+
+  export type LearningOutcomeSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    learningHours?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LearningOutcomeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "learningHours" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["learningOutcome"]>
+  export type LearningOutcomeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    indicativeContent?: boolean | LearningOutcome$indicativeContentArgs<ExtArgs>
+    subject?: boolean | LearningOutcome$subjectArgs<ExtArgs>
+    _count?: boolean | LearningOutcomeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $LearningOutcomePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LearningOutcome"
+    objects: {
+      indicativeContent: Prisma.$IndicativeContentPayload<ExtArgs>[]
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string
+      learningHours: number | null
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["learningOutcome"]>
+    composites: {}
+  }
+
+  type LearningOutcomeGetPayload<S extends boolean | null | undefined | LearningOutcomeDefaultArgs> = $Result.GetResult<Prisma.$LearningOutcomePayload, S>
+
+  type LearningOutcomeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LearningOutcomeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LearningOutcomeCountAggregateInputType | true
+    }
+
+  export interface LearningOutcomeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LearningOutcome'], meta: { name: 'LearningOutcome' } }
+    /**
+     * Find zero or one LearningOutcome that matches the filter.
+     * @param {LearningOutcomeFindUniqueArgs} args - Arguments to find a LearningOutcome
+     * @example
+     * // Get one LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LearningOutcomeFindUniqueArgs>(args: SelectSubset<T, LearningOutcomeFindUniqueArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one LearningOutcome that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LearningOutcomeFindUniqueOrThrowArgs} args - Arguments to find a LearningOutcome
+     * @example
+     * // Get one LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LearningOutcomeFindUniqueOrThrowArgs>(args: SelectSubset<T, LearningOutcomeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first LearningOutcome that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeFindFirstArgs} args - Arguments to find a LearningOutcome
+     * @example
+     * // Get one LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LearningOutcomeFindFirstArgs>(args?: SelectSubset<T, LearningOutcomeFindFirstArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first LearningOutcome that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeFindFirstOrThrowArgs} args - Arguments to find a LearningOutcome
+     * @example
+     * // Get one LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LearningOutcomeFindFirstOrThrowArgs>(args?: SelectSubset<T, LearningOutcomeFindFirstOrThrowArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more LearningOutcomes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LearningOutcomes
+     * const learningOutcomes = await prisma.learningOutcome.findMany()
+     * 
+     * // Get first 10 LearningOutcomes
+     * const learningOutcomes = await prisma.learningOutcome.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const learningOutcomeWithIdOnly = await prisma.learningOutcome.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LearningOutcomeFindManyArgs>(args?: SelectSubset<T, LearningOutcomeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a LearningOutcome.
+     * @param {LearningOutcomeCreateArgs} args - Arguments to create a LearningOutcome.
+     * @example
+     * // Create one LearningOutcome
+     * const LearningOutcome = await prisma.learningOutcome.create({
+     *   data: {
+     *     // ... data to create a LearningOutcome
+     *   }
+     * })
+     * 
+     */
+    create<T extends LearningOutcomeCreateArgs>(args: SelectSubset<T, LearningOutcomeCreateArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many LearningOutcomes.
+     * @param {LearningOutcomeCreateManyArgs} args - Arguments to create many LearningOutcomes.
+     * @example
+     * // Create many LearningOutcomes
+     * const learningOutcome = await prisma.learningOutcome.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LearningOutcomeCreateManyArgs>(args?: SelectSubset<T, LearningOutcomeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a LearningOutcome.
+     * @param {LearningOutcomeDeleteArgs} args - Arguments to delete one LearningOutcome.
+     * @example
+     * // Delete one LearningOutcome
+     * const LearningOutcome = await prisma.learningOutcome.delete({
+     *   where: {
+     *     // ... filter to delete one LearningOutcome
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LearningOutcomeDeleteArgs>(args: SelectSubset<T, LearningOutcomeDeleteArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one LearningOutcome.
+     * @param {LearningOutcomeUpdateArgs} args - Arguments to update one LearningOutcome.
+     * @example
+     * // Update one LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LearningOutcomeUpdateArgs>(args: SelectSubset<T, LearningOutcomeUpdateArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more LearningOutcomes.
+     * @param {LearningOutcomeDeleteManyArgs} args - Arguments to filter LearningOutcomes to delete.
+     * @example
+     * // Delete a few LearningOutcomes
+     * const { count } = await prisma.learningOutcome.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LearningOutcomeDeleteManyArgs>(args?: SelectSubset<T, LearningOutcomeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LearningOutcomes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LearningOutcomes
+     * const learningOutcome = await prisma.learningOutcome.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LearningOutcomeUpdateManyArgs>(args: SelectSubset<T, LearningOutcomeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LearningOutcome.
+     * @param {LearningOutcomeUpsertArgs} args - Arguments to update or create a LearningOutcome.
+     * @example
+     * // Update or create a LearningOutcome
+     * const learningOutcome = await prisma.learningOutcome.upsert({
+     *   create: {
+     *     // ... data to create a LearningOutcome
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LearningOutcome we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LearningOutcomeUpsertArgs>(args: SelectSubset<T, LearningOutcomeUpsertArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more LearningOutcomes that matches the filter.
+     * @param {LearningOutcomeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const learningOutcome = await prisma.learningOutcome.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: LearningOutcomeFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a LearningOutcome.
+     * @param {LearningOutcomeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const learningOutcome = await prisma.learningOutcome.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: LearningOutcomeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of LearningOutcomes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeCountArgs} args - Arguments to filter LearningOutcomes to count.
+     * @example
+     * // Count the number of LearningOutcomes
+     * const count = await prisma.learningOutcome.count({
+     *   where: {
+     *     // ... the filter for the LearningOutcomes we want to count
+     *   }
+     * })
+    **/
+    count<T extends LearningOutcomeCountArgs>(
+      args?: Subset<T, LearningOutcomeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LearningOutcomeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LearningOutcome.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LearningOutcomeAggregateArgs>(args: Subset<T, LearningOutcomeAggregateArgs>): Prisma.PrismaPromise<GetLearningOutcomeAggregateType<T>>
+
+    /**
+     * Group by LearningOutcome.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LearningOutcomeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LearningOutcomeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LearningOutcomeGroupByArgs['orderBy'] }
+        : { orderBy?: LearningOutcomeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LearningOutcomeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLearningOutcomeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LearningOutcome model
+   */
+  readonly fields: LearningOutcomeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LearningOutcome.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LearningOutcomeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    indicativeContent<T extends LearningOutcome$indicativeContentArgs<ExtArgs> = {}>(args?: Subset<T, LearningOutcome$indicativeContentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    subject<T extends LearningOutcome$subjectArgs<ExtArgs> = {}>(args?: Subset<T, LearningOutcome$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LearningOutcome model
+   */ 
+  interface LearningOutcomeFieldRefs {
+    readonly id: FieldRef<"LearningOutcome", 'String'>
+    readonly SubjectId: FieldRef<"LearningOutcome", 'String'>
+    readonly learningHours: FieldRef<"LearningOutcome", 'Int'>
+    readonly description: FieldRef<"LearningOutcome", 'String'>
+    readonly createdAt: FieldRef<"LearningOutcome", 'DateTime'>
+    readonly updatedAt: FieldRef<"LearningOutcome", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LearningOutcome findUnique
+   */
+  export type LearningOutcomeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter, which LearningOutcome to fetch.
+     */
+    where: LearningOutcomeWhereUniqueInput
+  }
+
+  /**
+   * LearningOutcome findUniqueOrThrow
+   */
+  export type LearningOutcomeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter, which LearningOutcome to fetch.
+     */
+    where: LearningOutcomeWhereUniqueInput
+  }
+
+  /**
+   * LearningOutcome findFirst
+   */
+  export type LearningOutcomeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter, which LearningOutcome to fetch.
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LearningOutcomes to fetch.
+     */
+    orderBy?: LearningOutcomeOrderByWithRelationInput | LearningOutcomeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LearningOutcomes.
+     */
+    cursor?: LearningOutcomeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LearningOutcomes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LearningOutcomes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LearningOutcomes.
+     */
+    distinct?: LearningOutcomeScalarFieldEnum | LearningOutcomeScalarFieldEnum[]
+  }
+
+  /**
+   * LearningOutcome findFirstOrThrow
+   */
+  export type LearningOutcomeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter, which LearningOutcome to fetch.
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LearningOutcomes to fetch.
+     */
+    orderBy?: LearningOutcomeOrderByWithRelationInput | LearningOutcomeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LearningOutcomes.
+     */
+    cursor?: LearningOutcomeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LearningOutcomes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LearningOutcomes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LearningOutcomes.
+     */
+    distinct?: LearningOutcomeScalarFieldEnum | LearningOutcomeScalarFieldEnum[]
+  }
+
+  /**
+   * LearningOutcome findMany
+   */
+  export type LearningOutcomeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter, which LearningOutcomes to fetch.
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LearningOutcomes to fetch.
+     */
+    orderBy?: LearningOutcomeOrderByWithRelationInput | LearningOutcomeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LearningOutcomes.
+     */
+    cursor?: LearningOutcomeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LearningOutcomes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LearningOutcomes.
+     */
+    skip?: number
+    distinct?: LearningOutcomeScalarFieldEnum | LearningOutcomeScalarFieldEnum[]
+  }
+
+  /**
+   * LearningOutcome create
+   */
+  export type LearningOutcomeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LearningOutcome.
+     */
+    data: XOR<LearningOutcomeCreateInput, LearningOutcomeUncheckedCreateInput>
+  }
+
+  /**
+   * LearningOutcome createMany
+   */
+  export type LearningOutcomeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LearningOutcomes.
+     */
+    data: LearningOutcomeCreateManyInput | LearningOutcomeCreateManyInput[]
+  }
+
+  /**
+   * LearningOutcome update
+   */
+  export type LearningOutcomeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LearningOutcome.
+     */
+    data: XOR<LearningOutcomeUpdateInput, LearningOutcomeUncheckedUpdateInput>
+    /**
+     * Choose, which LearningOutcome to update.
+     */
+    where: LearningOutcomeWhereUniqueInput
+  }
+
+  /**
+   * LearningOutcome updateMany
+   */
+  export type LearningOutcomeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LearningOutcomes.
+     */
+    data: XOR<LearningOutcomeUpdateManyMutationInput, LearningOutcomeUncheckedUpdateManyInput>
+    /**
+     * Filter which LearningOutcomes to update
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * Limit how many LearningOutcomes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LearningOutcome upsert
+   */
+  export type LearningOutcomeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LearningOutcome to update in case it exists.
+     */
+    where: LearningOutcomeWhereUniqueInput
+    /**
+     * In case the LearningOutcome found by the `where` argument doesn't exist, create a new LearningOutcome with this data.
+     */
+    create: XOR<LearningOutcomeCreateInput, LearningOutcomeUncheckedCreateInput>
+    /**
+     * In case the LearningOutcome was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LearningOutcomeUpdateInput, LearningOutcomeUncheckedUpdateInput>
+  }
+
+  /**
+   * LearningOutcome delete
+   */
+  export type LearningOutcomeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+    /**
+     * Filter which LearningOutcome to delete.
+     */
+    where: LearningOutcomeWhereUniqueInput
+  }
+
+  /**
+   * LearningOutcome deleteMany
+   */
+  export type LearningOutcomeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LearningOutcomes to delete
+     */
+    where?: LearningOutcomeWhereInput
+    /**
+     * Limit how many LearningOutcomes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LearningOutcome findRaw
+   */
+  export type LearningOutcomeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * LearningOutcome aggregateRaw
+   */
+  export type LearningOutcomeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * LearningOutcome.indicativeContent
+   */
+  export type LearningOutcome$indicativeContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    where?: IndicativeContentWhereInput
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    cursor?: IndicativeContentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IndicativeContentScalarFieldEnum | IndicativeContentScalarFieldEnum[]
+  }
+
+  /**
+   * LearningOutcome.subject
+   */
+  export type LearningOutcome$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * LearningOutcome without action
+   */
+  export type LearningOutcomeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LearningOutcome
+     */
+    select?: LearningOutcomeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LearningOutcome
+     */
+    omit?: LearningOutcomeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LearningOutcomeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IndicativeContent
+   */
+
+  export type AggregateIndicativeContent = {
+    _count: IndicativeContentCountAggregateOutputType | null
+    _min: IndicativeContentMinAggregateOutputType | null
+    _max: IndicativeContentMaxAggregateOutputType | null
+  }
+
+  export type IndicativeContentMinAggregateOutputType = {
+    id: string | null
+    learningOutcomeId: string | null
+    content: string | null
+  }
+
+  export type IndicativeContentMaxAggregateOutputType = {
+    id: string | null
+    learningOutcomeId: string | null
+    content: string | null
+  }
+
+  export type IndicativeContentCountAggregateOutputType = {
+    id: number
+    learningOutcomeId: number
+    content: number
+    _all: number
+  }
+
+
+  export type IndicativeContentMinAggregateInputType = {
+    id?: true
+    learningOutcomeId?: true
+    content?: true
+  }
+
+  export type IndicativeContentMaxAggregateInputType = {
+    id?: true
+    learningOutcomeId?: true
+    content?: true
+  }
+
+  export type IndicativeContentCountAggregateInputType = {
+    id?: true
+    learningOutcomeId?: true
+    content?: true
+    _all?: true
+  }
+
+  export type IndicativeContentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IndicativeContent to aggregate.
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IndicativeContents to fetch.
+     */
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IndicativeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IndicativeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IndicativeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IndicativeContents
+    **/
+    _count?: true | IndicativeContentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IndicativeContentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IndicativeContentMaxAggregateInputType
+  }
+
+  export type GetIndicativeContentAggregateType<T extends IndicativeContentAggregateArgs> = {
+        [P in keyof T & keyof AggregateIndicativeContent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIndicativeContent[P]>
+      : GetScalarType<T[P], AggregateIndicativeContent[P]>
+  }
+
+
+
+
+  export type IndicativeContentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndicativeContentWhereInput
+    orderBy?: IndicativeContentOrderByWithAggregationInput | IndicativeContentOrderByWithAggregationInput[]
+    by: IndicativeContentScalarFieldEnum[] | IndicativeContentScalarFieldEnum
+    having?: IndicativeContentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IndicativeContentCountAggregateInputType | true
+    _min?: IndicativeContentMinAggregateInputType
+    _max?: IndicativeContentMaxAggregateInputType
+  }
+
+  export type IndicativeContentGroupByOutputType = {
+    id: string
+    learningOutcomeId: string
+    content: string
+    _count: IndicativeContentCountAggregateOutputType | null
+    _min: IndicativeContentMinAggregateOutputType | null
+    _max: IndicativeContentMaxAggregateOutputType | null
+  }
+
+  type GetIndicativeContentGroupByPayload<T extends IndicativeContentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IndicativeContentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IndicativeContentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IndicativeContentGroupByOutputType[P]>
+            : GetScalarType<T[P], IndicativeContentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IndicativeContentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    learningOutcomeId?: boolean
+    content?: boolean
+    subject?: boolean | IndicativeContent$subjectArgs<ExtArgs>
+    LearningOutcome?: boolean | LearningOutcomeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["indicativeContent"]>
+
+
+
+  export type IndicativeContentSelectScalar = {
+    id?: boolean
+    learningOutcomeId?: boolean
+    content?: boolean
+  }
+
+  export type IndicativeContentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "learningOutcomeId" | "content", ExtArgs["result"]["indicativeContent"]>
+  export type IndicativeContentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | IndicativeContent$subjectArgs<ExtArgs>
+    LearningOutcome?: boolean | LearningOutcomeDefaultArgs<ExtArgs>
+  }
+
+  export type $IndicativeContentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IndicativeContent"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+      LearningOutcome: Prisma.$LearningOutcomePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      learningOutcomeId: string
+      content: string
+    }, ExtArgs["result"]["indicativeContent"]>
+    composites: {}
+  }
+
+  type IndicativeContentGetPayload<S extends boolean | null | undefined | IndicativeContentDefaultArgs> = $Result.GetResult<Prisma.$IndicativeContentPayload, S>
+
+  type IndicativeContentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IndicativeContentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IndicativeContentCountAggregateInputType | true
+    }
+
+  export interface IndicativeContentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IndicativeContent'], meta: { name: 'IndicativeContent' } }
+    /**
+     * Find zero or one IndicativeContent that matches the filter.
+     * @param {IndicativeContentFindUniqueArgs} args - Arguments to find a IndicativeContent
+     * @example
+     * // Get one IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IndicativeContentFindUniqueArgs>(args: SelectSubset<T, IndicativeContentFindUniqueArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one IndicativeContent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IndicativeContentFindUniqueOrThrowArgs} args - Arguments to find a IndicativeContent
+     * @example
+     * // Get one IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IndicativeContentFindUniqueOrThrowArgs>(args: SelectSubset<T, IndicativeContentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first IndicativeContent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentFindFirstArgs} args - Arguments to find a IndicativeContent
+     * @example
+     * // Get one IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IndicativeContentFindFirstArgs>(args?: SelectSubset<T, IndicativeContentFindFirstArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first IndicativeContent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentFindFirstOrThrowArgs} args - Arguments to find a IndicativeContent
+     * @example
+     * // Get one IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IndicativeContentFindFirstOrThrowArgs>(args?: SelectSubset<T, IndicativeContentFindFirstOrThrowArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more IndicativeContents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IndicativeContents
+     * const indicativeContents = await prisma.indicativeContent.findMany()
+     * 
+     * // Get first 10 IndicativeContents
+     * const indicativeContents = await prisma.indicativeContent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const indicativeContentWithIdOnly = await prisma.indicativeContent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IndicativeContentFindManyArgs>(args?: SelectSubset<T, IndicativeContentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a IndicativeContent.
+     * @param {IndicativeContentCreateArgs} args - Arguments to create a IndicativeContent.
+     * @example
+     * // Create one IndicativeContent
+     * const IndicativeContent = await prisma.indicativeContent.create({
+     *   data: {
+     *     // ... data to create a IndicativeContent
+     *   }
+     * })
+     * 
+     */
+    create<T extends IndicativeContentCreateArgs>(args: SelectSubset<T, IndicativeContentCreateArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many IndicativeContents.
+     * @param {IndicativeContentCreateManyArgs} args - Arguments to create many IndicativeContents.
+     * @example
+     * // Create many IndicativeContents
+     * const indicativeContent = await prisma.indicativeContent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IndicativeContentCreateManyArgs>(args?: SelectSubset<T, IndicativeContentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a IndicativeContent.
+     * @param {IndicativeContentDeleteArgs} args - Arguments to delete one IndicativeContent.
+     * @example
+     * // Delete one IndicativeContent
+     * const IndicativeContent = await prisma.indicativeContent.delete({
+     *   where: {
+     *     // ... filter to delete one IndicativeContent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IndicativeContentDeleteArgs>(args: SelectSubset<T, IndicativeContentDeleteArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one IndicativeContent.
+     * @param {IndicativeContentUpdateArgs} args - Arguments to update one IndicativeContent.
+     * @example
+     * // Update one IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IndicativeContentUpdateArgs>(args: SelectSubset<T, IndicativeContentUpdateArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more IndicativeContents.
+     * @param {IndicativeContentDeleteManyArgs} args - Arguments to filter IndicativeContents to delete.
+     * @example
+     * // Delete a few IndicativeContents
+     * const { count } = await prisma.indicativeContent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IndicativeContentDeleteManyArgs>(args?: SelectSubset<T, IndicativeContentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IndicativeContents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IndicativeContents
+     * const indicativeContent = await prisma.indicativeContent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IndicativeContentUpdateManyArgs>(args: SelectSubset<T, IndicativeContentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IndicativeContent.
+     * @param {IndicativeContentUpsertArgs} args - Arguments to update or create a IndicativeContent.
+     * @example
+     * // Update or create a IndicativeContent
+     * const indicativeContent = await prisma.indicativeContent.upsert({
+     *   create: {
+     *     // ... data to create a IndicativeContent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IndicativeContent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IndicativeContentUpsertArgs>(args: SelectSubset<T, IndicativeContentUpsertArgs<ExtArgs>>): Prisma__IndicativeContentClient<$Result.GetResult<Prisma.$IndicativeContentPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more IndicativeContents that matches the filter.
+     * @param {IndicativeContentFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const indicativeContent = await prisma.indicativeContent.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: IndicativeContentFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a IndicativeContent.
+     * @param {IndicativeContentAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const indicativeContent = await prisma.indicativeContent.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: IndicativeContentAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of IndicativeContents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentCountArgs} args - Arguments to filter IndicativeContents to count.
+     * @example
+     * // Count the number of IndicativeContents
+     * const count = await prisma.indicativeContent.count({
+     *   where: {
+     *     // ... the filter for the IndicativeContents we want to count
+     *   }
+     * })
+    **/
+    count<T extends IndicativeContentCountArgs>(
+      args?: Subset<T, IndicativeContentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IndicativeContentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IndicativeContent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IndicativeContentAggregateArgs>(args: Subset<T, IndicativeContentAggregateArgs>): Prisma.PrismaPromise<GetIndicativeContentAggregateType<T>>
+
+    /**
+     * Group by IndicativeContent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndicativeContentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IndicativeContentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IndicativeContentGroupByArgs['orderBy'] }
+        : { orderBy?: IndicativeContentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IndicativeContentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIndicativeContentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IndicativeContent model
+   */
+  readonly fields: IndicativeContentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IndicativeContent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IndicativeContentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends IndicativeContent$subjectArgs<ExtArgs> = {}>(args?: Subset<T, IndicativeContent$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    LearningOutcome<T extends LearningOutcomeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LearningOutcomeDefaultArgs<ExtArgs>>): Prisma__LearningOutcomeClient<$Result.GetResult<Prisma.$LearningOutcomePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IndicativeContent model
+   */ 
+  interface IndicativeContentFieldRefs {
+    readonly id: FieldRef<"IndicativeContent", 'String'>
+    readonly learningOutcomeId: FieldRef<"IndicativeContent", 'String'>
+    readonly content: FieldRef<"IndicativeContent", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IndicativeContent findUnique
+   */
+  export type IndicativeContentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter, which IndicativeContent to fetch.
+     */
+    where: IndicativeContentWhereUniqueInput
+  }
+
+  /**
+   * IndicativeContent findUniqueOrThrow
+   */
+  export type IndicativeContentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter, which IndicativeContent to fetch.
+     */
+    where: IndicativeContentWhereUniqueInput
+  }
+
+  /**
+   * IndicativeContent findFirst
+   */
+  export type IndicativeContentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter, which IndicativeContent to fetch.
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IndicativeContents to fetch.
+     */
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IndicativeContents.
+     */
+    cursor?: IndicativeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IndicativeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IndicativeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IndicativeContents.
+     */
+    distinct?: IndicativeContentScalarFieldEnum | IndicativeContentScalarFieldEnum[]
+  }
+
+  /**
+   * IndicativeContent findFirstOrThrow
+   */
+  export type IndicativeContentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter, which IndicativeContent to fetch.
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IndicativeContents to fetch.
+     */
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IndicativeContents.
+     */
+    cursor?: IndicativeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IndicativeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IndicativeContents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IndicativeContents.
+     */
+    distinct?: IndicativeContentScalarFieldEnum | IndicativeContentScalarFieldEnum[]
+  }
+
+  /**
+   * IndicativeContent findMany
+   */
+  export type IndicativeContentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter, which IndicativeContents to fetch.
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IndicativeContents to fetch.
+     */
+    orderBy?: IndicativeContentOrderByWithRelationInput | IndicativeContentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IndicativeContents.
+     */
+    cursor?: IndicativeContentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IndicativeContents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IndicativeContents.
+     */
+    skip?: number
+    distinct?: IndicativeContentScalarFieldEnum | IndicativeContentScalarFieldEnum[]
+  }
+
+  /**
+   * IndicativeContent create
+   */
+  export type IndicativeContentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IndicativeContent.
+     */
+    data: XOR<IndicativeContentCreateInput, IndicativeContentUncheckedCreateInput>
+  }
+
+  /**
+   * IndicativeContent createMany
+   */
+  export type IndicativeContentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IndicativeContents.
+     */
+    data: IndicativeContentCreateManyInput | IndicativeContentCreateManyInput[]
+  }
+
+  /**
+   * IndicativeContent update
+   */
+  export type IndicativeContentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IndicativeContent.
+     */
+    data: XOR<IndicativeContentUpdateInput, IndicativeContentUncheckedUpdateInput>
+    /**
+     * Choose, which IndicativeContent to update.
+     */
+    where: IndicativeContentWhereUniqueInput
+  }
+
+  /**
+   * IndicativeContent updateMany
+   */
+  export type IndicativeContentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IndicativeContents.
+     */
+    data: XOR<IndicativeContentUpdateManyMutationInput, IndicativeContentUncheckedUpdateManyInput>
+    /**
+     * Filter which IndicativeContents to update
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * Limit how many IndicativeContents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IndicativeContent upsert
+   */
+  export type IndicativeContentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IndicativeContent to update in case it exists.
+     */
+    where: IndicativeContentWhereUniqueInput
+    /**
+     * In case the IndicativeContent found by the `where` argument doesn't exist, create a new IndicativeContent with this data.
+     */
+    create: XOR<IndicativeContentCreateInput, IndicativeContentUncheckedCreateInput>
+    /**
+     * In case the IndicativeContent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IndicativeContentUpdateInput, IndicativeContentUncheckedUpdateInput>
+  }
+
+  /**
+   * IndicativeContent delete
+   */
+  export type IndicativeContentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+    /**
+     * Filter which IndicativeContent to delete.
+     */
+    where: IndicativeContentWhereUniqueInput
+  }
+
+  /**
+   * IndicativeContent deleteMany
+   */
+  export type IndicativeContentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IndicativeContents to delete
+     */
+    where?: IndicativeContentWhereInput
+    /**
+     * Limit how many IndicativeContents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IndicativeContent findRaw
+   */
+  export type IndicativeContentFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * IndicativeContent aggregateRaw
+   */
+  export type IndicativeContentAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * IndicativeContent.subject
+   */
+  export type IndicativeContent$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * IndicativeContent without action
+   */
+  export type IndicativeContentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndicativeContent
+     */
+    select?: IndicativeContentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IndicativeContent
+     */
+    omit?: IndicativeContentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndicativeContentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Knowledge
+   */
+
+  export type AggregateKnowledge = {
+    _count: KnowledgeCountAggregateOutputType | null
+    _min: KnowledgeMinAggregateOutputType | null
+    _max: KnowledgeMaxAggregateOutputType | null
+  }
+
+  export type KnowledgeMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KnowledgeMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KnowledgeCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type KnowledgeMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KnowledgeMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KnowledgeCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type KnowledgeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Knowledge to aggregate.
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Knowledges to fetch.
+     */
+    orderBy?: KnowledgeOrderByWithRelationInput | KnowledgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KnowledgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Knowledges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Knowledges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Knowledges
+    **/
+    _count?: true | KnowledgeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KnowledgeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KnowledgeMaxAggregateInputType
+  }
+
+  export type GetKnowledgeAggregateType<T extends KnowledgeAggregateArgs> = {
+        [P in keyof T & keyof AggregateKnowledge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKnowledge[P]>
+      : GetScalarType<T[P], AggregateKnowledge[P]>
+  }
+
+
+
+
+  export type KnowledgeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KnowledgeWhereInput
+    orderBy?: KnowledgeOrderByWithAggregationInput | KnowledgeOrderByWithAggregationInput[]
+    by: KnowledgeScalarFieldEnum[] | KnowledgeScalarFieldEnum
+    having?: KnowledgeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KnowledgeCountAggregateInputType | true
+    _min?: KnowledgeMinAggregateInputType
+    _max?: KnowledgeMaxAggregateInputType
+  }
+
+  export type KnowledgeGroupByOutputType = {
+    id: string
+    SubjectId: string | null
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: KnowledgeCountAggregateOutputType | null
+    _min: KnowledgeMinAggregateOutputType | null
+    _max: KnowledgeMaxAggregateOutputType | null
+  }
+
+  type GetKnowledgeGroupByPayload<T extends KnowledgeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KnowledgeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KnowledgeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KnowledgeGroupByOutputType[P]>
+            : GetScalarType<T[P], KnowledgeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KnowledgeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    subject?: boolean | Knowledge$subjectArgs<ExtArgs>
+  }, ExtArgs["result"]["knowledge"]>
+
+
+
+  export type KnowledgeSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type KnowledgeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["knowledge"]>
+  export type KnowledgeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | Knowledge$subjectArgs<ExtArgs>
+  }
+
+  export type $KnowledgePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Knowledge"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string | null
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["knowledge"]>
+    composites: {}
+  }
+
+  type KnowledgeGetPayload<S extends boolean | null | undefined | KnowledgeDefaultArgs> = $Result.GetResult<Prisma.$KnowledgePayload, S>
+
+  type KnowledgeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KnowledgeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: KnowledgeCountAggregateInputType | true
+    }
+
+  export interface KnowledgeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Knowledge'], meta: { name: 'Knowledge' } }
+    /**
+     * Find zero or one Knowledge that matches the filter.
+     * @param {KnowledgeFindUniqueArgs} args - Arguments to find a Knowledge
+     * @example
+     * // Get one Knowledge
+     * const knowledge = await prisma.knowledge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KnowledgeFindUniqueArgs>(args: SelectSubset<T, KnowledgeFindUniqueArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Knowledge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KnowledgeFindUniqueOrThrowArgs} args - Arguments to find a Knowledge
+     * @example
+     * // Get one Knowledge
+     * const knowledge = await prisma.knowledge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KnowledgeFindUniqueOrThrowArgs>(args: SelectSubset<T, KnowledgeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Knowledge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeFindFirstArgs} args - Arguments to find a Knowledge
+     * @example
+     * // Get one Knowledge
+     * const knowledge = await prisma.knowledge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KnowledgeFindFirstArgs>(args?: SelectSubset<T, KnowledgeFindFirstArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Knowledge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeFindFirstOrThrowArgs} args - Arguments to find a Knowledge
+     * @example
+     * // Get one Knowledge
+     * const knowledge = await prisma.knowledge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KnowledgeFindFirstOrThrowArgs>(args?: SelectSubset<T, KnowledgeFindFirstOrThrowArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Knowledges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Knowledges
+     * const knowledges = await prisma.knowledge.findMany()
+     * 
+     * // Get first 10 Knowledges
+     * const knowledges = await prisma.knowledge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const knowledgeWithIdOnly = await prisma.knowledge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KnowledgeFindManyArgs>(args?: SelectSubset<T, KnowledgeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Knowledge.
+     * @param {KnowledgeCreateArgs} args - Arguments to create a Knowledge.
+     * @example
+     * // Create one Knowledge
+     * const Knowledge = await prisma.knowledge.create({
+     *   data: {
+     *     // ... data to create a Knowledge
+     *   }
+     * })
+     * 
+     */
+    create<T extends KnowledgeCreateArgs>(args: SelectSubset<T, KnowledgeCreateArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Knowledges.
+     * @param {KnowledgeCreateManyArgs} args - Arguments to create many Knowledges.
+     * @example
+     * // Create many Knowledges
+     * const knowledge = await prisma.knowledge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KnowledgeCreateManyArgs>(args?: SelectSubset<T, KnowledgeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Knowledge.
+     * @param {KnowledgeDeleteArgs} args - Arguments to delete one Knowledge.
+     * @example
+     * // Delete one Knowledge
+     * const Knowledge = await prisma.knowledge.delete({
+     *   where: {
+     *     // ... filter to delete one Knowledge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KnowledgeDeleteArgs>(args: SelectSubset<T, KnowledgeDeleteArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Knowledge.
+     * @param {KnowledgeUpdateArgs} args - Arguments to update one Knowledge.
+     * @example
+     * // Update one Knowledge
+     * const knowledge = await prisma.knowledge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KnowledgeUpdateArgs>(args: SelectSubset<T, KnowledgeUpdateArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Knowledges.
+     * @param {KnowledgeDeleteManyArgs} args - Arguments to filter Knowledges to delete.
+     * @example
+     * // Delete a few Knowledges
+     * const { count } = await prisma.knowledge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KnowledgeDeleteManyArgs>(args?: SelectSubset<T, KnowledgeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Knowledges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Knowledges
+     * const knowledge = await prisma.knowledge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KnowledgeUpdateManyArgs>(args: SelectSubset<T, KnowledgeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Knowledge.
+     * @param {KnowledgeUpsertArgs} args - Arguments to update or create a Knowledge.
+     * @example
+     * // Update or create a Knowledge
+     * const knowledge = await prisma.knowledge.upsert({
+     *   create: {
+     *     // ... data to create a Knowledge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Knowledge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KnowledgeUpsertArgs>(args: SelectSubset<T, KnowledgeUpsertArgs<ExtArgs>>): Prisma__KnowledgeClient<$Result.GetResult<Prisma.$KnowledgePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Knowledges that matches the filter.
+     * @param {KnowledgeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const knowledge = await prisma.knowledge.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: KnowledgeFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Knowledge.
+     * @param {KnowledgeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const knowledge = await prisma.knowledge.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: KnowledgeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Knowledges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeCountArgs} args - Arguments to filter Knowledges to count.
+     * @example
+     * // Count the number of Knowledges
+     * const count = await prisma.knowledge.count({
+     *   where: {
+     *     // ... the filter for the Knowledges we want to count
+     *   }
+     * })
+    **/
+    count<T extends KnowledgeCountArgs>(
+      args?: Subset<T, KnowledgeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KnowledgeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Knowledge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KnowledgeAggregateArgs>(args: Subset<T, KnowledgeAggregateArgs>): Prisma.PrismaPromise<GetKnowledgeAggregateType<T>>
+
+    /**
+     * Group by Knowledge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnowledgeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KnowledgeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KnowledgeGroupByArgs['orderBy'] }
+        : { orderBy?: KnowledgeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KnowledgeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKnowledgeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Knowledge model
+   */
+  readonly fields: KnowledgeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Knowledge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KnowledgeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends Knowledge$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Knowledge$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Knowledge model
+   */ 
+  interface KnowledgeFieldRefs {
+    readonly id: FieldRef<"Knowledge", 'String'>
+    readonly SubjectId: FieldRef<"Knowledge", 'String'>
+    readonly description: FieldRef<"Knowledge", 'String'>
+    readonly createdAt: FieldRef<"Knowledge", 'DateTime'>
+    readonly updatedAt: FieldRef<"Knowledge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Knowledge findUnique
+   */
+  export type KnowledgeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Knowledge to fetch.
+     */
+    where: KnowledgeWhereUniqueInput
+  }
+
+  /**
+   * Knowledge findUniqueOrThrow
+   */
+  export type KnowledgeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Knowledge to fetch.
+     */
+    where: KnowledgeWhereUniqueInput
+  }
+
+  /**
+   * Knowledge findFirst
+   */
+  export type KnowledgeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Knowledge to fetch.
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Knowledges to fetch.
+     */
+    orderBy?: KnowledgeOrderByWithRelationInput | KnowledgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Knowledges.
+     */
+    cursor?: KnowledgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Knowledges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Knowledges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Knowledges.
+     */
+    distinct?: KnowledgeScalarFieldEnum | KnowledgeScalarFieldEnum[]
+  }
+
+  /**
+   * Knowledge findFirstOrThrow
+   */
+  export type KnowledgeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Knowledge to fetch.
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Knowledges to fetch.
+     */
+    orderBy?: KnowledgeOrderByWithRelationInput | KnowledgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Knowledges.
+     */
+    cursor?: KnowledgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Knowledges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Knowledges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Knowledges.
+     */
+    distinct?: KnowledgeScalarFieldEnum | KnowledgeScalarFieldEnum[]
+  }
+
+  /**
+   * Knowledge findMany
+   */
+  export type KnowledgeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Knowledges to fetch.
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Knowledges to fetch.
+     */
+    orderBy?: KnowledgeOrderByWithRelationInput | KnowledgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Knowledges.
+     */
+    cursor?: KnowledgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Knowledges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Knowledges.
+     */
+    skip?: number
+    distinct?: KnowledgeScalarFieldEnum | KnowledgeScalarFieldEnum[]
+  }
+
+  /**
+   * Knowledge create
+   */
+  export type KnowledgeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Knowledge.
+     */
+    data: XOR<KnowledgeCreateInput, KnowledgeUncheckedCreateInput>
+  }
+
+  /**
+   * Knowledge createMany
+   */
+  export type KnowledgeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Knowledges.
+     */
+    data: KnowledgeCreateManyInput | KnowledgeCreateManyInput[]
+  }
+
+  /**
+   * Knowledge update
+   */
+  export type KnowledgeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Knowledge.
+     */
+    data: XOR<KnowledgeUpdateInput, KnowledgeUncheckedUpdateInput>
+    /**
+     * Choose, which Knowledge to update.
+     */
+    where: KnowledgeWhereUniqueInput
+  }
+
+  /**
+   * Knowledge updateMany
+   */
+  export type KnowledgeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Knowledges.
+     */
+    data: XOR<KnowledgeUpdateManyMutationInput, KnowledgeUncheckedUpdateManyInput>
+    /**
+     * Filter which Knowledges to update
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * Limit how many Knowledges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Knowledge upsert
+   */
+  export type KnowledgeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Knowledge to update in case it exists.
+     */
+    where: KnowledgeWhereUniqueInput
+    /**
+     * In case the Knowledge found by the `where` argument doesn't exist, create a new Knowledge with this data.
+     */
+    create: XOR<KnowledgeCreateInput, KnowledgeUncheckedCreateInput>
+    /**
+     * In case the Knowledge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KnowledgeUpdateInput, KnowledgeUncheckedUpdateInput>
+  }
+
+  /**
+   * Knowledge delete
+   */
+  export type KnowledgeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+    /**
+     * Filter which Knowledge to delete.
+     */
+    where: KnowledgeWhereUniqueInput
+  }
+
+  /**
+   * Knowledge deleteMany
+   */
+  export type KnowledgeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Knowledges to delete
+     */
+    where?: KnowledgeWhereInput
+    /**
+     * Limit how many Knowledges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Knowledge findRaw
+   */
+  export type KnowledgeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Knowledge aggregateRaw
+   */
+  export type KnowledgeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Knowledge.subject
+   */
+  export type Knowledge$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Knowledge without action
+   */
+  export type KnowledgeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Knowledge
+     */
+    select?: KnowledgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Knowledge
+     */
+    omit?: KnowledgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KnowledgeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Skill
+   */
+
+  export type AggregateSkill = {
+    _count: SkillCountAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  export type SkillMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SkillMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SkillAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skill to aggregate.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Skills
+    **/
+    _count?: true | SkillCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type GetSkillAggregateType<T extends SkillAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkill]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkill[P]>
+      : GetScalarType<T[P], AggregateSkill[P]>
+  }
+
+
+
+
+  export type SkillGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillWhereInput
+    orderBy?: SkillOrderByWithAggregationInput | SkillOrderByWithAggregationInput[]
+    by: SkillScalarFieldEnum[] | SkillScalarFieldEnum
+    having?: SkillScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillCountAggregateInputType | true
+    _min?: SkillMinAggregateInputType
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type SkillGroupByOutputType = {
+    id: string
+    SubjectId: string | null
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SkillCountAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  type GetSkillGroupByPayload<T extends SkillGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    subject?: boolean | Skill$subjectArgs<ExtArgs>
+  }, ExtArgs["result"]["skill"]>
+
+
+
+  export type SkillSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["skill"]>
+  export type SkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | Skill$subjectArgs<ExtArgs>
+  }
+
+  export type $SkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Skill"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string | null
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["skill"]>
+    composites: {}
+  }
+
+  type SkillGetPayload<S extends boolean | null | undefined | SkillDefaultArgs> = $Result.GetResult<Prisma.$SkillPayload, S>
+
+  type SkillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillCountAggregateInputType | true
+    }
+
+  export interface SkillDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Skill'], meta: { name: 'Skill' } }
+    /**
+     * Find zero or one Skill that matches the filter.
+     * @param {SkillFindUniqueArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillFindUniqueArgs>(args: SelectSubset<T, SkillFindUniqueArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Skill that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillFindUniqueOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Skill that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillFindFirstArgs>(args?: SelectSubset<T, SkillFindFirstArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Skill that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Skills that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Skills
+     * const skills = await prisma.skill.findMany()
+     * 
+     * // Get first 10 Skills
+     * const skills = await prisma.skill.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillWithIdOnly = await prisma.skill.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillFindManyArgs>(args?: SelectSubset<T, SkillFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Skill.
+     * @param {SkillCreateArgs} args - Arguments to create a Skill.
+     * @example
+     * // Create one Skill
+     * const Skill = await prisma.skill.create({
+     *   data: {
+     *     // ... data to create a Skill
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillCreateArgs>(args: SelectSubset<T, SkillCreateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Skills.
+     * @param {SkillCreateManyArgs} args - Arguments to create many Skills.
+     * @example
+     * // Create many Skills
+     * const skill = await prisma.skill.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillCreateManyArgs>(args?: SelectSubset<T, SkillCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Skill.
+     * @param {SkillDeleteArgs} args - Arguments to delete one Skill.
+     * @example
+     * // Delete one Skill
+     * const Skill = await prisma.skill.delete({
+     *   where: {
+     *     // ... filter to delete one Skill
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillDeleteArgs>(args: SelectSubset<T, SkillDeleteArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Skill.
+     * @param {SkillUpdateArgs} args - Arguments to update one Skill.
+     * @example
+     * // Update one Skill
+     * const skill = await prisma.skill.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillUpdateArgs>(args: SelectSubset<T, SkillUpdateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Skills.
+     * @param {SkillDeleteManyArgs} args - Arguments to filter Skills to delete.
+     * @example
+     * // Delete a few Skills
+     * const { count } = await prisma.skill.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillDeleteManyArgs>(args?: SelectSubset<T, SkillDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Skills
+     * const skill = await prisma.skill.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillUpdateManyArgs>(args: SelectSubset<T, SkillUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Skill.
+     * @param {SkillUpsertArgs} args - Arguments to update or create a Skill.
+     * @example
+     * // Update or create a Skill
+     * const skill = await prisma.skill.upsert({
+     *   create: {
+     *     // ... data to create a Skill
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Skill we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillUpsertArgs>(args: SelectSubset<T, SkillUpsertArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Skills that matches the filter.
+     * @param {SkillFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const skill = await prisma.skill.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SkillFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Skill.
+     * @param {SkillAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const skill = await prisma.skill.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SkillAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillCountArgs} args - Arguments to filter Skills to count.
+     * @example
+     * // Count the number of Skills
+     * const count = await prisma.skill.count({
+     *   where: {
+     *     // ... the filter for the Skills we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillCountArgs>(
+      args?: Subset<T, SkillCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillAggregateArgs>(args: Subset<T, SkillAggregateArgs>): Prisma.PrismaPromise<GetSkillAggregateType<T>>
+
+    /**
+     * Group by Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillGroupByArgs['orderBy'] }
+        : { orderBy?: SkillGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Skill model
+   */
+  readonly fields: SkillFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Skill.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends Skill$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Skill$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Skill model
+   */ 
+  interface SkillFieldRefs {
+    readonly id: FieldRef<"Skill", 'String'>
+    readonly SubjectId: FieldRef<"Skill", 'String'>
+    readonly description: FieldRef<"Skill", 'String'>
+    readonly createdAt: FieldRef<"Skill", 'DateTime'>
+    readonly updatedAt: FieldRef<"Skill", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Skill findUnique
+   */
+  export type SkillFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findUniqueOrThrow
+   */
+  export type SkillFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findFirst
+   */
+  export type SkillFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findFirstOrThrow
+   */
+  export type SkillFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findMany
+   */
+  export type SkillFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skills to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill create
+   */
+  export type SkillCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Skill.
+     */
+    data: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+  }
+
+  /**
+   * Skill createMany
+   */
+  export type SkillCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Skills.
+     */
+    data: SkillCreateManyInput | SkillCreateManyInput[]
+  }
+
+  /**
+   * Skill update
+   */
+  export type SkillUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Skill.
+     */
+    data: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+    /**
+     * Choose, which Skill to update.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill updateMany
+   */
+  export type SkillUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Skills.
+     */
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyInput>
+    /**
+     * Filter which Skills to update
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill upsert
+   */
+  export type SkillUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Skill to update in case it exists.
+     */
+    where: SkillWhereUniqueInput
+    /**
+     * In case the Skill found by the `where` argument doesn't exist, create a new Skill with this data.
+     */
+    create: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+    /**
+     * In case the Skill was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+  }
+
+  /**
+   * Skill delete
+   */
+  export type SkillDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter which Skill to delete.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill deleteMany
+   */
+  export type SkillDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skills to delete
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill findRaw
+   */
+  export type SkillFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Skill aggregateRaw
+   */
+  export type SkillAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Skill.subject
+   */
+  export type Skill$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Skill without action
+   */
+  export type SkillDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Attitude
+   */
+
+  export type AggregateAttitude = {
+    _count: AttitudeCountAggregateOutputType | null
+    _min: AttitudeMinAggregateOutputType | null
+    _max: AttitudeMaxAggregateOutputType | null
+  }
+
+  export type AttitudeMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AttitudeMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AttitudeCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AttitudeMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AttitudeMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AttitudeCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AttitudeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attitude to aggregate.
+     */
+    where?: AttitudeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attitudes to fetch.
+     */
+    orderBy?: AttitudeOrderByWithRelationInput | AttitudeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AttitudeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attitudes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attitudes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Attitudes
+    **/
+    _count?: true | AttitudeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AttitudeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AttitudeMaxAggregateInputType
+  }
+
+  export type GetAttitudeAggregateType<T extends AttitudeAggregateArgs> = {
+        [P in keyof T & keyof AggregateAttitude]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAttitude[P]>
+      : GetScalarType<T[P], AggregateAttitude[P]>
+  }
+
+
+
+
+  export type AttitudeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttitudeWhereInput
+    orderBy?: AttitudeOrderByWithAggregationInput | AttitudeOrderByWithAggregationInput[]
+    by: AttitudeScalarFieldEnum[] | AttitudeScalarFieldEnum
+    having?: AttitudeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AttitudeCountAggregateInputType | true
+    _min?: AttitudeMinAggregateInputType
+    _max?: AttitudeMaxAggregateInputType
+  }
+
+  export type AttitudeGroupByOutputType = {
+    id: string
+    SubjectId: string | null
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: AttitudeCountAggregateOutputType | null
+    _min: AttitudeMinAggregateOutputType | null
+    _max: AttitudeMaxAggregateOutputType | null
+  }
+
+  type GetAttitudeGroupByPayload<T extends AttitudeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AttitudeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AttitudeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AttitudeGroupByOutputType[P]>
+            : GetScalarType<T[P], AttitudeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AttitudeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    subject?: boolean | Attitude$subjectArgs<ExtArgs>
+  }, ExtArgs["result"]["attitude"]>
+
+
+
+  export type AttitudeSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AttitudeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["attitude"]>
+  export type AttitudeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | Attitude$subjectArgs<ExtArgs>
+  }
+
+  export type $AttitudePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Attitude"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string | null
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["attitude"]>
+    composites: {}
+  }
+
+  type AttitudeGetPayload<S extends boolean | null | undefined | AttitudeDefaultArgs> = $Result.GetResult<Prisma.$AttitudePayload, S>
+
+  type AttitudeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AttitudeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AttitudeCountAggregateInputType | true
+    }
+
+  export interface AttitudeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Attitude'], meta: { name: 'Attitude' } }
+    /**
+     * Find zero or one Attitude that matches the filter.
+     * @param {AttitudeFindUniqueArgs} args - Arguments to find a Attitude
+     * @example
+     * // Get one Attitude
+     * const attitude = await prisma.attitude.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AttitudeFindUniqueArgs>(args: SelectSubset<T, AttitudeFindUniqueArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Attitude that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AttitudeFindUniqueOrThrowArgs} args - Arguments to find a Attitude
+     * @example
+     * // Get one Attitude
+     * const attitude = await prisma.attitude.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AttitudeFindUniqueOrThrowArgs>(args: SelectSubset<T, AttitudeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Attitude that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeFindFirstArgs} args - Arguments to find a Attitude
+     * @example
+     * // Get one Attitude
+     * const attitude = await prisma.attitude.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AttitudeFindFirstArgs>(args?: SelectSubset<T, AttitudeFindFirstArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Attitude that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeFindFirstOrThrowArgs} args - Arguments to find a Attitude
+     * @example
+     * // Get one Attitude
+     * const attitude = await prisma.attitude.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AttitudeFindFirstOrThrowArgs>(args?: SelectSubset<T, AttitudeFindFirstOrThrowArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Attitudes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Attitudes
+     * const attitudes = await prisma.attitude.findMany()
+     * 
+     * // Get first 10 Attitudes
+     * const attitudes = await prisma.attitude.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const attitudeWithIdOnly = await prisma.attitude.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AttitudeFindManyArgs>(args?: SelectSubset<T, AttitudeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Attitude.
+     * @param {AttitudeCreateArgs} args - Arguments to create a Attitude.
+     * @example
+     * // Create one Attitude
+     * const Attitude = await prisma.attitude.create({
+     *   data: {
+     *     // ... data to create a Attitude
+     *   }
+     * })
+     * 
+     */
+    create<T extends AttitudeCreateArgs>(args: SelectSubset<T, AttitudeCreateArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Attitudes.
+     * @param {AttitudeCreateManyArgs} args - Arguments to create many Attitudes.
+     * @example
+     * // Create many Attitudes
+     * const attitude = await prisma.attitude.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AttitudeCreateManyArgs>(args?: SelectSubset<T, AttitudeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Attitude.
+     * @param {AttitudeDeleteArgs} args - Arguments to delete one Attitude.
+     * @example
+     * // Delete one Attitude
+     * const Attitude = await prisma.attitude.delete({
+     *   where: {
+     *     // ... filter to delete one Attitude
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AttitudeDeleteArgs>(args: SelectSubset<T, AttitudeDeleteArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Attitude.
+     * @param {AttitudeUpdateArgs} args - Arguments to update one Attitude.
+     * @example
+     * // Update one Attitude
+     * const attitude = await prisma.attitude.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AttitudeUpdateArgs>(args: SelectSubset<T, AttitudeUpdateArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Attitudes.
+     * @param {AttitudeDeleteManyArgs} args - Arguments to filter Attitudes to delete.
+     * @example
+     * // Delete a few Attitudes
+     * const { count } = await prisma.attitude.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AttitudeDeleteManyArgs>(args?: SelectSubset<T, AttitudeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Attitudes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Attitudes
+     * const attitude = await prisma.attitude.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AttitudeUpdateManyArgs>(args: SelectSubset<T, AttitudeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Attitude.
+     * @param {AttitudeUpsertArgs} args - Arguments to update or create a Attitude.
+     * @example
+     * // Update or create a Attitude
+     * const attitude = await prisma.attitude.upsert({
+     *   create: {
+     *     // ... data to create a Attitude
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Attitude we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AttitudeUpsertArgs>(args: SelectSubset<T, AttitudeUpsertArgs<ExtArgs>>): Prisma__AttitudeClient<$Result.GetResult<Prisma.$AttitudePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Attitudes that matches the filter.
+     * @param {AttitudeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const attitude = await prisma.attitude.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AttitudeFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Attitude.
+     * @param {AttitudeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const attitude = await prisma.attitude.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AttitudeAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Attitudes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeCountArgs} args - Arguments to filter Attitudes to count.
+     * @example
+     * // Count the number of Attitudes
+     * const count = await prisma.attitude.count({
+     *   where: {
+     *     // ... the filter for the Attitudes we want to count
+     *   }
+     * })
+    **/
+    count<T extends AttitudeCountArgs>(
+      args?: Subset<T, AttitudeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AttitudeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Attitude.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AttitudeAggregateArgs>(args: Subset<T, AttitudeAggregateArgs>): Prisma.PrismaPromise<GetAttitudeAggregateType<T>>
+
+    /**
+     * Group by Attitude.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttitudeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AttitudeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AttitudeGroupByArgs['orderBy'] }
+        : { orderBy?: AttitudeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AttitudeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAttitudeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Attitude model
+   */
+  readonly fields: AttitudeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Attitude.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AttitudeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends Attitude$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Attitude$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Attitude model
+   */ 
+  interface AttitudeFieldRefs {
+    readonly id: FieldRef<"Attitude", 'String'>
+    readonly SubjectId: FieldRef<"Attitude", 'String'>
+    readonly description: FieldRef<"Attitude", 'String'>
+    readonly createdAt: FieldRef<"Attitude", 'DateTime'>
+    readonly updatedAt: FieldRef<"Attitude", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Attitude findUnique
+   */
+  export type AttitudeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter, which Attitude to fetch.
+     */
+    where: AttitudeWhereUniqueInput
+  }
+
+  /**
+   * Attitude findUniqueOrThrow
+   */
+  export type AttitudeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter, which Attitude to fetch.
+     */
+    where: AttitudeWhereUniqueInput
+  }
+
+  /**
+   * Attitude findFirst
+   */
+  export type AttitudeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter, which Attitude to fetch.
+     */
+    where?: AttitudeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attitudes to fetch.
+     */
+    orderBy?: AttitudeOrderByWithRelationInput | AttitudeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attitudes.
+     */
+    cursor?: AttitudeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attitudes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attitudes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attitudes.
+     */
+    distinct?: AttitudeScalarFieldEnum | AttitudeScalarFieldEnum[]
+  }
+
+  /**
+   * Attitude findFirstOrThrow
+   */
+  export type AttitudeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter, which Attitude to fetch.
+     */
+    where?: AttitudeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attitudes to fetch.
+     */
+    orderBy?: AttitudeOrderByWithRelationInput | AttitudeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attitudes.
+     */
+    cursor?: AttitudeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attitudes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attitudes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attitudes.
+     */
+    distinct?: AttitudeScalarFieldEnum | AttitudeScalarFieldEnum[]
+  }
+
+  /**
+   * Attitude findMany
+   */
+  export type AttitudeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter, which Attitudes to fetch.
+     */
+    where?: AttitudeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attitudes to fetch.
+     */
+    orderBy?: AttitudeOrderByWithRelationInput | AttitudeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Attitudes.
+     */
+    cursor?: AttitudeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attitudes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attitudes.
+     */
+    skip?: number
+    distinct?: AttitudeScalarFieldEnum | AttitudeScalarFieldEnum[]
+  }
+
+  /**
+   * Attitude create
+   */
+  export type AttitudeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Attitude.
+     */
+    data: XOR<AttitudeCreateInput, AttitudeUncheckedCreateInput>
+  }
+
+  /**
+   * Attitude createMany
+   */
+  export type AttitudeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Attitudes.
+     */
+    data: AttitudeCreateManyInput | AttitudeCreateManyInput[]
+  }
+
+  /**
+   * Attitude update
+   */
+  export type AttitudeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Attitude.
+     */
+    data: XOR<AttitudeUpdateInput, AttitudeUncheckedUpdateInput>
+    /**
+     * Choose, which Attitude to update.
+     */
+    where: AttitudeWhereUniqueInput
+  }
+
+  /**
+   * Attitude updateMany
+   */
+  export type AttitudeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Attitudes.
+     */
+    data: XOR<AttitudeUpdateManyMutationInput, AttitudeUncheckedUpdateManyInput>
+    /**
+     * Filter which Attitudes to update
+     */
+    where?: AttitudeWhereInput
+    /**
+     * Limit how many Attitudes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Attitude upsert
+   */
+  export type AttitudeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Attitude to update in case it exists.
+     */
+    where: AttitudeWhereUniqueInput
+    /**
+     * In case the Attitude found by the `where` argument doesn't exist, create a new Attitude with this data.
+     */
+    create: XOR<AttitudeCreateInput, AttitudeUncheckedCreateInput>
+    /**
+     * In case the Attitude was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AttitudeUpdateInput, AttitudeUncheckedUpdateInput>
+  }
+
+  /**
+   * Attitude delete
+   */
+  export type AttitudeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+    /**
+     * Filter which Attitude to delete.
+     */
+    where: AttitudeWhereUniqueInput
+  }
+
+  /**
+   * Attitude deleteMany
+   */
+  export type AttitudeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attitudes to delete
+     */
+    where?: AttitudeWhereInput
+    /**
+     * Limit how many Attitudes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Attitude findRaw
+   */
+  export type AttitudeFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Attitude aggregateRaw
+   */
+  export type AttitudeAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Attitude.subject
+   */
+  export type Attitude$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Attitude without action
+   */
+  export type AttitudeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attitude
+     */
+    select?: AttitudeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Attitude
+     */
+    omit?: AttitudeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttitudeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Resource
+   */
+
+  export type AggregateResource = {
+    _count: ResourceCountAggregateOutputType | null
+    _min: ResourceMinAggregateOutputType | null
+    _max: ResourceMaxAggregateOutputType | null
+  }
+
+  export type ResourceMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    category: $Enums.ResourceType | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResourceMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    category: $Enums.ResourceType | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ResourceCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    category: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ResourceMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    category?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResourceMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    category?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ResourceCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    category?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ResourceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Resource to aggregate.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Resources
+    **/
+    _count?: true | ResourceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResourceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResourceMaxAggregateInputType
+  }
+
+  export type GetResourceAggregateType<T extends ResourceAggregateArgs> = {
+        [P in keyof T & keyof AggregateResource]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResource[P]>
+      : GetScalarType<T[P], AggregateResource[P]>
+  }
+
+
+
+
+  export type ResourceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceWhereInput
+    orderBy?: ResourceOrderByWithAggregationInput | ResourceOrderByWithAggregationInput[]
+    by: ResourceScalarFieldEnum[] | ResourceScalarFieldEnum
+    having?: ResourceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResourceCountAggregateInputType | true
+    _min?: ResourceMinAggregateInputType
+    _max?: ResourceMaxAggregateInputType
+  }
+
+  export type ResourceGroupByOutputType = {
+    id: string
+    SubjectId: string
+    category: $Enums.ResourceType | null
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ResourceCountAggregateOutputType | null
+    _min: ResourceMinAggregateOutputType | null
+    _max: ResourceMaxAggregateOutputType | null
+  }
+
+  type GetResourceGroupByPayload<T extends ResourceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResourceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResourceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResourceGroupByOutputType[P]>
+            : GetScalarType<T[P], ResourceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResourceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    category?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    subject?: boolean | Resource$subjectArgs<ExtArgs>
+  }, ExtArgs["result"]["resource"]>
+
+
+
+  export type ResourceSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    category?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "category" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["resource"]>
+  export type ResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | Resource$subjectArgs<ExtArgs>
+  }
+
+  export type $ResourcePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Resource"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string
+      category: $Enums.ResourceType | null
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["resource"]>
+    composites: {}
+  }
+
+  type ResourceGetPayload<S extends boolean | null | undefined | ResourceDefaultArgs> = $Result.GetResult<Prisma.$ResourcePayload, S>
+
+  type ResourceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResourceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResourceCountAggregateInputType | true
+    }
+
+  export interface ResourceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Resource'], meta: { name: 'Resource' } }
+    /**
+     * Find zero or one Resource that matches the filter.
+     * @param {ResourceFindUniqueArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResourceFindUniqueArgs>(args: SelectSubset<T, ResourceFindUniqueArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Resource that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResourceFindUniqueOrThrowArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResourceFindUniqueOrThrowArgs>(args: SelectSubset<T, ResourceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Resource that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindFirstArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResourceFindFirstArgs>(args?: SelectSubset<T, ResourceFindFirstArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Resource that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindFirstOrThrowArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResourceFindFirstOrThrowArgs>(args?: SelectSubset<T, ResourceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Resources that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Resources
+     * const resources = await prisma.resource.findMany()
+     * 
+     * // Get first 10 Resources
+     * const resources = await prisma.resource.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const resourceWithIdOnly = await prisma.resource.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResourceFindManyArgs>(args?: SelectSubset<T, ResourceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Resource.
+     * @param {ResourceCreateArgs} args - Arguments to create a Resource.
+     * @example
+     * // Create one Resource
+     * const Resource = await prisma.resource.create({
+     *   data: {
+     *     // ... data to create a Resource
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResourceCreateArgs>(args: SelectSubset<T, ResourceCreateArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Resources.
+     * @param {ResourceCreateManyArgs} args - Arguments to create many Resources.
+     * @example
+     * // Create many Resources
+     * const resource = await prisma.resource.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResourceCreateManyArgs>(args?: SelectSubset<T, ResourceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Resource.
+     * @param {ResourceDeleteArgs} args - Arguments to delete one Resource.
+     * @example
+     * // Delete one Resource
+     * const Resource = await prisma.resource.delete({
+     *   where: {
+     *     // ... filter to delete one Resource
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResourceDeleteArgs>(args: SelectSubset<T, ResourceDeleteArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Resource.
+     * @param {ResourceUpdateArgs} args - Arguments to update one Resource.
+     * @example
+     * // Update one Resource
+     * const resource = await prisma.resource.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResourceUpdateArgs>(args: SelectSubset<T, ResourceUpdateArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Resources.
+     * @param {ResourceDeleteManyArgs} args - Arguments to filter Resources to delete.
+     * @example
+     * // Delete a few Resources
+     * const { count } = await prisma.resource.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResourceDeleteManyArgs>(args?: SelectSubset<T, ResourceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Resources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Resources
+     * const resource = await prisma.resource.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResourceUpdateManyArgs>(args: SelectSubset<T, ResourceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Resource.
+     * @param {ResourceUpsertArgs} args - Arguments to update or create a Resource.
+     * @example
+     * // Update or create a Resource
+     * const resource = await prisma.resource.upsert({
+     *   create: {
+     *     // ... data to create a Resource
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Resource we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResourceUpsertArgs>(args: SelectSubset<T, ResourceUpsertArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Resources that matches the filter.
+     * @param {ResourceFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const resource = await prisma.resource.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ResourceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Resource.
+     * @param {ResourceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const resource = await prisma.resource.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ResourceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Resources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceCountArgs} args - Arguments to filter Resources to count.
+     * @example
+     * // Count the number of Resources
+     * const count = await prisma.resource.count({
+     *   where: {
+     *     // ... the filter for the Resources we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResourceCountArgs>(
+      args?: Subset<T, ResourceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResourceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Resource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResourceAggregateArgs>(args: Subset<T, ResourceAggregateArgs>): Prisma.PrismaPromise<GetResourceAggregateType<T>>
+
+    /**
+     * Group by Resource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResourceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResourceGroupByArgs['orderBy'] }
+        : { orderBy?: ResourceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResourceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResourceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Resource model
+   */
+  readonly fields: ResourceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Resource.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResourceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends Resource$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Resource$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Resource model
+   */ 
+  interface ResourceFieldRefs {
+    readonly id: FieldRef<"Resource", 'String'>
+    readonly SubjectId: FieldRef<"Resource", 'String'>
+    readonly category: FieldRef<"Resource", 'ResourceType'>
+    readonly description: FieldRef<"Resource", 'String'>
+    readonly createdAt: FieldRef<"Resource", 'DateTime'>
+    readonly updatedAt: FieldRef<"Resource", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Resource findUnique
+   */
+  export type ResourceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource findUniqueOrThrow
+   */
+  export type ResourceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource findFirst
+   */
+  export type ResourceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Resources.
+     */
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource findFirstOrThrow
+   */
+  export type ResourceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Resources.
+     */
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource findMany
+   */
+  export type ResourceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resources to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource create
+   */
+  export type ResourceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Resource.
+     */
+    data: XOR<ResourceCreateInput, ResourceUncheckedCreateInput>
+  }
+
+  /**
+   * Resource createMany
+   */
+  export type ResourceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Resources.
+     */
+    data: ResourceCreateManyInput | ResourceCreateManyInput[]
+  }
+
+  /**
+   * Resource update
+   */
+  export type ResourceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Resource.
+     */
+    data: XOR<ResourceUpdateInput, ResourceUncheckedUpdateInput>
+    /**
+     * Choose, which Resource to update.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource updateMany
+   */
+  export type ResourceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Resources.
+     */
+    data: XOR<ResourceUpdateManyMutationInput, ResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which Resources to update
+     */
+    where?: ResourceWhereInput
+    /**
+     * Limit how many Resources to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Resource upsert
+   */
+  export type ResourceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Resource to update in case it exists.
+     */
+    where: ResourceWhereUniqueInput
+    /**
+     * In case the Resource found by the `where` argument doesn't exist, create a new Resource with this data.
+     */
+    create: XOR<ResourceCreateInput, ResourceUncheckedCreateInput>
+    /**
+     * In case the Resource was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResourceUpdateInput, ResourceUncheckedUpdateInput>
+  }
+
+  /**
+   * Resource delete
+   */
+  export type ResourceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter which Resource to delete.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource deleteMany
+   */
+  export type ResourceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Resources to delete
+     */
+    where?: ResourceWhereInput
+    /**
+     * Limit how many Resources to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Resource findRaw
+   */
+  export type ResourceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Resource aggregateRaw
+   */
+  export type ResourceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Resource.subject
+   */
+  export type Resource$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Resource without action
+   */
+  export type ResourceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Competence
+   */
+
+  export type AggregateCompetence = {
+    _count: CompetenceCountAggregateOutputType | null
+    _min: CompetenceMinAggregateOutputType | null
+    _max: CompetenceMaxAggregateOutputType | null
+  }
+
+  export type CompetenceMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CompetenceMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CompetenceCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CompetenceMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CompetenceMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CompetenceCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CompetenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Competence to aggregate.
+     */
+    where?: CompetenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Competences to fetch.
+     */
+    orderBy?: CompetenceOrderByWithRelationInput | CompetenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompetenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Competences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Competences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Competences
+    **/
+    _count?: true | CompetenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompetenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompetenceMaxAggregateInputType
+  }
+
+  export type GetCompetenceAggregateType<T extends CompetenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompetence]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompetence[P]>
+      : GetScalarType<T[P], AggregateCompetence[P]>
+  }
+
+
+
+
+  export type CompetenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompetenceWhereInput
+    orderBy?: CompetenceOrderByWithAggregationInput | CompetenceOrderByWithAggregationInput[]
+    by: CompetenceScalarFieldEnum[] | CompetenceScalarFieldEnum
+    having?: CompetenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompetenceCountAggregateInputType | true
+    _min?: CompetenceMinAggregateInputType
+    _max?: CompetenceMaxAggregateInputType
+  }
+
+  export type CompetenceGroupByOutputType = {
+    id: string
+    SubjectId: string
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CompetenceCountAggregateOutputType | null
+    _min: CompetenceMinAggregateOutputType | null
+    _max: CompetenceMaxAggregateOutputType | null
+  }
+
+  type GetCompetenceGroupByPayload<T extends CompetenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompetenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompetenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompetenceGroupByOutputType[P]>
+            : GetScalarType<T[P], CompetenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompetenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    PerformanceCriteria?: boolean | Competence$PerformanceCriteriaArgs<ExtArgs>
+    subject?: boolean | Competence$subjectArgs<ExtArgs>
+    _count?: boolean | CompetenceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["competence"]>
+
+
+
+  export type CompetenceSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CompetenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["competence"]>
+  export type CompetenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    PerformanceCriteria?: boolean | Competence$PerformanceCriteriaArgs<ExtArgs>
+    subject?: boolean | Competence$subjectArgs<ExtArgs>
+    _count?: boolean | CompetenceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $CompetencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Competence"
+    objects: {
+      PerformanceCriteria: Prisma.$PerformanceCriteriaPayload<ExtArgs>[]
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["competence"]>
+    composites: {}
+  }
+
+  type CompetenceGetPayload<S extends boolean | null | undefined | CompetenceDefaultArgs> = $Result.GetResult<Prisma.$CompetencePayload, S>
+
+  type CompetenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompetenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompetenceCountAggregateInputType | true
+    }
+
+  export interface CompetenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Competence'], meta: { name: 'Competence' } }
+    /**
+     * Find zero or one Competence that matches the filter.
+     * @param {CompetenceFindUniqueArgs} args - Arguments to find a Competence
+     * @example
+     * // Get one Competence
+     * const competence = await prisma.competence.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompetenceFindUniqueArgs>(args: SelectSubset<T, CompetenceFindUniqueArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Competence that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompetenceFindUniqueOrThrowArgs} args - Arguments to find a Competence
+     * @example
+     * // Get one Competence
+     * const competence = await prisma.competence.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompetenceFindUniqueOrThrowArgs>(args: SelectSubset<T, CompetenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Competence that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceFindFirstArgs} args - Arguments to find a Competence
+     * @example
+     * // Get one Competence
+     * const competence = await prisma.competence.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompetenceFindFirstArgs>(args?: SelectSubset<T, CompetenceFindFirstArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Competence that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceFindFirstOrThrowArgs} args - Arguments to find a Competence
+     * @example
+     * // Get one Competence
+     * const competence = await prisma.competence.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompetenceFindFirstOrThrowArgs>(args?: SelectSubset<T, CompetenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Competences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Competences
+     * const competences = await prisma.competence.findMany()
+     * 
+     * // Get first 10 Competences
+     * const competences = await prisma.competence.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const competenceWithIdOnly = await prisma.competence.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompetenceFindManyArgs>(args?: SelectSubset<T, CompetenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Competence.
+     * @param {CompetenceCreateArgs} args - Arguments to create a Competence.
+     * @example
+     * // Create one Competence
+     * const Competence = await prisma.competence.create({
+     *   data: {
+     *     // ... data to create a Competence
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompetenceCreateArgs>(args: SelectSubset<T, CompetenceCreateArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Competences.
+     * @param {CompetenceCreateManyArgs} args - Arguments to create many Competences.
+     * @example
+     * // Create many Competences
+     * const competence = await prisma.competence.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompetenceCreateManyArgs>(args?: SelectSubset<T, CompetenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Competence.
+     * @param {CompetenceDeleteArgs} args - Arguments to delete one Competence.
+     * @example
+     * // Delete one Competence
+     * const Competence = await prisma.competence.delete({
+     *   where: {
+     *     // ... filter to delete one Competence
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompetenceDeleteArgs>(args: SelectSubset<T, CompetenceDeleteArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Competence.
+     * @param {CompetenceUpdateArgs} args - Arguments to update one Competence.
+     * @example
+     * // Update one Competence
+     * const competence = await prisma.competence.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompetenceUpdateArgs>(args: SelectSubset<T, CompetenceUpdateArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Competences.
+     * @param {CompetenceDeleteManyArgs} args - Arguments to filter Competences to delete.
+     * @example
+     * // Delete a few Competences
+     * const { count } = await prisma.competence.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompetenceDeleteManyArgs>(args?: SelectSubset<T, CompetenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Competences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Competences
+     * const competence = await prisma.competence.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompetenceUpdateManyArgs>(args: SelectSubset<T, CompetenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Competence.
+     * @param {CompetenceUpsertArgs} args - Arguments to update or create a Competence.
+     * @example
+     * // Update or create a Competence
+     * const competence = await prisma.competence.upsert({
+     *   create: {
+     *     // ... data to create a Competence
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Competence we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompetenceUpsertArgs>(args: SelectSubset<T, CompetenceUpsertArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Competences that matches the filter.
+     * @param {CompetenceFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const competence = await prisma.competence.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: CompetenceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Competence.
+     * @param {CompetenceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const competence = await prisma.competence.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: CompetenceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Competences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceCountArgs} args - Arguments to filter Competences to count.
+     * @example
+     * // Count the number of Competences
+     * const count = await prisma.competence.count({
+     *   where: {
+     *     // ... the filter for the Competences we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompetenceCountArgs>(
+      args?: Subset<T, CompetenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompetenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Competence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompetenceAggregateArgs>(args: Subset<T, CompetenceAggregateArgs>): Prisma.PrismaPromise<GetCompetenceAggregateType<T>>
+
+    /**
+     * Group by Competence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompetenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompetenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompetenceGroupByArgs['orderBy'] }
+        : { orderBy?: CompetenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompetenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompetenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Competence model
+   */
+  readonly fields: CompetenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Competence.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompetenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    PerformanceCriteria<T extends Competence$PerformanceCriteriaArgs<ExtArgs> = {}>(args?: Subset<T, Competence$PerformanceCriteriaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    subject<T extends Competence$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Competence$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Competence model
+   */ 
+  interface CompetenceFieldRefs {
+    readonly id: FieldRef<"Competence", 'String'>
+    readonly SubjectId: FieldRef<"Competence", 'String'>
+    readonly description: FieldRef<"Competence", 'String'>
+    readonly createdAt: FieldRef<"Competence", 'DateTime'>
+    readonly updatedAt: FieldRef<"Competence", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Competence findUnique
+   */
+  export type CompetenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Competence to fetch.
+     */
+    where: CompetenceWhereUniqueInput
+  }
+
+  /**
+   * Competence findUniqueOrThrow
+   */
+  export type CompetenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Competence to fetch.
+     */
+    where: CompetenceWhereUniqueInput
+  }
+
+  /**
+   * Competence findFirst
+   */
+  export type CompetenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Competence to fetch.
+     */
+    where?: CompetenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Competences to fetch.
+     */
+    orderBy?: CompetenceOrderByWithRelationInput | CompetenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Competences.
+     */
+    cursor?: CompetenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Competences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Competences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Competences.
+     */
+    distinct?: CompetenceScalarFieldEnum | CompetenceScalarFieldEnum[]
+  }
+
+  /**
+   * Competence findFirstOrThrow
+   */
+  export type CompetenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Competence to fetch.
+     */
+    where?: CompetenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Competences to fetch.
+     */
+    orderBy?: CompetenceOrderByWithRelationInput | CompetenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Competences.
+     */
+    cursor?: CompetenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Competences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Competences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Competences.
+     */
+    distinct?: CompetenceScalarFieldEnum | CompetenceScalarFieldEnum[]
+  }
+
+  /**
+   * Competence findMany
+   */
+  export type CompetenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter, which Competences to fetch.
+     */
+    where?: CompetenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Competences to fetch.
+     */
+    orderBy?: CompetenceOrderByWithRelationInput | CompetenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Competences.
+     */
+    cursor?: CompetenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Competences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Competences.
+     */
+    skip?: number
+    distinct?: CompetenceScalarFieldEnum | CompetenceScalarFieldEnum[]
+  }
+
+  /**
+   * Competence create
+   */
+  export type CompetenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Competence.
+     */
+    data: XOR<CompetenceCreateInput, CompetenceUncheckedCreateInput>
+  }
+
+  /**
+   * Competence createMany
+   */
+  export type CompetenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Competences.
+     */
+    data: CompetenceCreateManyInput | CompetenceCreateManyInput[]
+  }
+
+  /**
+   * Competence update
+   */
+  export type CompetenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Competence.
+     */
+    data: XOR<CompetenceUpdateInput, CompetenceUncheckedUpdateInput>
+    /**
+     * Choose, which Competence to update.
+     */
+    where: CompetenceWhereUniqueInput
+  }
+
+  /**
+   * Competence updateMany
+   */
+  export type CompetenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Competences.
+     */
+    data: XOR<CompetenceUpdateManyMutationInput, CompetenceUncheckedUpdateManyInput>
+    /**
+     * Filter which Competences to update
+     */
+    where?: CompetenceWhereInput
+    /**
+     * Limit how many Competences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Competence upsert
+   */
+  export type CompetenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Competence to update in case it exists.
+     */
+    where: CompetenceWhereUniqueInput
+    /**
+     * In case the Competence found by the `where` argument doesn't exist, create a new Competence with this data.
+     */
+    create: XOR<CompetenceCreateInput, CompetenceUncheckedCreateInput>
+    /**
+     * In case the Competence was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompetenceUpdateInput, CompetenceUncheckedUpdateInput>
+  }
+
+  /**
+   * Competence delete
+   */
+  export type CompetenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    /**
+     * Filter which Competence to delete.
+     */
+    where: CompetenceWhereUniqueInput
+  }
+
+  /**
+   * Competence deleteMany
+   */
+  export type CompetenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Competences to delete
+     */
+    where?: CompetenceWhereInput
+    /**
+     * Limit how many Competences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Competence findRaw
+   */
+  export type CompetenceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Competence aggregateRaw
+   */
+  export type CompetenceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Competence.PerformanceCriteria
+   */
+  export type Competence$PerformanceCriteriaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    where?: PerformanceCriteriaWhereInput
+    orderBy?: PerformanceCriteriaOrderByWithRelationInput | PerformanceCriteriaOrderByWithRelationInput[]
+    cursor?: PerformanceCriteriaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PerformanceCriteriaScalarFieldEnum | PerformanceCriteriaScalarFieldEnum[]
+  }
+
+  /**
+   * Competence.subject
+   */
+  export type Competence$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Competence without action
+   */
+  export type CompetenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PerformanceCriteria
+   */
+
+  export type AggregatePerformanceCriteria = {
+    _count: PerformanceCriteriaCountAggregateOutputType | null
+    _min: PerformanceCriteriaMinAggregateOutputType | null
+    _max: PerformanceCriteriaMaxAggregateOutputType | null
+  }
+
+  export type PerformanceCriteriaMinAggregateOutputType = {
+    id: string | null
+    competenceId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PerformanceCriteriaMaxAggregateOutputType = {
+    id: string | null
+    competenceId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PerformanceCriteriaCountAggregateOutputType = {
+    id: number
+    competenceId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PerformanceCriteriaMinAggregateInputType = {
+    id?: true
+    competenceId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PerformanceCriteriaMaxAggregateInputType = {
+    id?: true
+    competenceId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PerformanceCriteriaCountAggregateInputType = {
+    id?: true
+    competenceId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PerformanceCriteriaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PerformanceCriteria to aggregate.
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PerformanceCriteria to fetch.
+     */
+    orderBy?: PerformanceCriteriaOrderByWithRelationInput | PerformanceCriteriaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PerformanceCriteriaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PerformanceCriteria from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PerformanceCriteria.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PerformanceCriteria
+    **/
+    _count?: true | PerformanceCriteriaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PerformanceCriteriaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PerformanceCriteriaMaxAggregateInputType
+  }
+
+  export type GetPerformanceCriteriaAggregateType<T extends PerformanceCriteriaAggregateArgs> = {
+        [P in keyof T & keyof AggregatePerformanceCriteria]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePerformanceCriteria[P]>
+      : GetScalarType<T[P], AggregatePerformanceCriteria[P]>
+  }
+
+
+
+
+  export type PerformanceCriteriaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PerformanceCriteriaWhereInput
+    orderBy?: PerformanceCriteriaOrderByWithAggregationInput | PerformanceCriteriaOrderByWithAggregationInput[]
+    by: PerformanceCriteriaScalarFieldEnum[] | PerformanceCriteriaScalarFieldEnum
+    having?: PerformanceCriteriaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PerformanceCriteriaCountAggregateInputType | true
+    _min?: PerformanceCriteriaMinAggregateInputType
+    _max?: PerformanceCriteriaMaxAggregateInputType
+  }
+
+  export type PerformanceCriteriaGroupByOutputType = {
+    id: string
+    competenceId: string
+    description: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PerformanceCriteriaCountAggregateOutputType | null
+    _min: PerformanceCriteriaMinAggregateOutputType | null
+    _max: PerformanceCriteriaMaxAggregateOutputType | null
+  }
+
+  type GetPerformanceCriteriaGroupByPayload<T extends PerformanceCriteriaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PerformanceCriteriaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PerformanceCriteriaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PerformanceCriteriaGroupByOutputType[P]>
+            : GetScalarType<T[P], PerformanceCriteriaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PerformanceCriteriaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    competenceId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    competence?: boolean | PerformanceCriteria$competenceArgs<ExtArgs>
+  }, ExtArgs["result"]["performanceCriteria"]>
+
+
+
+  export type PerformanceCriteriaSelectScalar = {
+    id?: boolean
+    competenceId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PerformanceCriteriaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "competenceId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["performanceCriteria"]>
+  export type PerformanceCriteriaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    competence?: boolean | PerformanceCriteria$competenceArgs<ExtArgs>
+  }
+
+  export type $PerformanceCriteriaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PerformanceCriteria"
+    objects: {
+      competence: Prisma.$CompetencePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      competenceId: string
+      description: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["performanceCriteria"]>
+    composites: {}
+  }
+
+  type PerformanceCriteriaGetPayload<S extends boolean | null | undefined | PerformanceCriteriaDefaultArgs> = $Result.GetResult<Prisma.$PerformanceCriteriaPayload, S>
+
+  type PerformanceCriteriaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PerformanceCriteriaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PerformanceCriteriaCountAggregateInputType | true
+    }
+
+  export interface PerformanceCriteriaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PerformanceCriteria'], meta: { name: 'PerformanceCriteria' } }
+    /**
+     * Find zero or one PerformanceCriteria that matches the filter.
+     * @param {PerformanceCriteriaFindUniqueArgs} args - Arguments to find a PerformanceCriteria
+     * @example
+     * // Get one PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PerformanceCriteriaFindUniqueArgs>(args: SelectSubset<T, PerformanceCriteriaFindUniqueArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one PerformanceCriteria that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PerformanceCriteriaFindUniqueOrThrowArgs} args - Arguments to find a PerformanceCriteria
+     * @example
+     * // Get one PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PerformanceCriteriaFindUniqueOrThrowArgs>(args: SelectSubset<T, PerformanceCriteriaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first PerformanceCriteria that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaFindFirstArgs} args - Arguments to find a PerformanceCriteria
+     * @example
+     * // Get one PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PerformanceCriteriaFindFirstArgs>(args?: SelectSubset<T, PerformanceCriteriaFindFirstArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first PerformanceCriteria that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaFindFirstOrThrowArgs} args - Arguments to find a PerformanceCriteria
+     * @example
+     * // Get one PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PerformanceCriteriaFindFirstOrThrowArgs>(args?: SelectSubset<T, PerformanceCriteriaFindFirstOrThrowArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more PerformanceCriteria that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findMany()
+     * 
+     * // Get first 10 PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const performanceCriteriaWithIdOnly = await prisma.performanceCriteria.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PerformanceCriteriaFindManyArgs>(args?: SelectSubset<T, PerformanceCriteriaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a PerformanceCriteria.
+     * @param {PerformanceCriteriaCreateArgs} args - Arguments to create a PerformanceCriteria.
+     * @example
+     * // Create one PerformanceCriteria
+     * const PerformanceCriteria = await prisma.performanceCriteria.create({
+     *   data: {
+     *     // ... data to create a PerformanceCriteria
+     *   }
+     * })
+     * 
+     */
+    create<T extends PerformanceCriteriaCreateArgs>(args: SelectSubset<T, PerformanceCriteriaCreateArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many PerformanceCriteria.
+     * @param {PerformanceCriteriaCreateManyArgs} args - Arguments to create many PerformanceCriteria.
+     * @example
+     * // Create many PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PerformanceCriteriaCreateManyArgs>(args?: SelectSubset<T, PerformanceCriteriaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PerformanceCriteria.
+     * @param {PerformanceCriteriaDeleteArgs} args - Arguments to delete one PerformanceCriteria.
+     * @example
+     * // Delete one PerformanceCriteria
+     * const PerformanceCriteria = await prisma.performanceCriteria.delete({
+     *   where: {
+     *     // ... filter to delete one PerformanceCriteria
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PerformanceCriteriaDeleteArgs>(args: SelectSubset<T, PerformanceCriteriaDeleteArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one PerformanceCriteria.
+     * @param {PerformanceCriteriaUpdateArgs} args - Arguments to update one PerformanceCriteria.
+     * @example
+     * // Update one PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PerformanceCriteriaUpdateArgs>(args: SelectSubset<T, PerformanceCriteriaUpdateArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more PerformanceCriteria.
+     * @param {PerformanceCriteriaDeleteManyArgs} args - Arguments to filter PerformanceCriteria to delete.
+     * @example
+     * // Delete a few PerformanceCriteria
+     * const { count } = await prisma.performanceCriteria.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PerformanceCriteriaDeleteManyArgs>(args?: SelectSubset<T, PerformanceCriteriaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PerformanceCriteria.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PerformanceCriteriaUpdateManyArgs>(args: SelectSubset<T, PerformanceCriteriaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PerformanceCriteria.
+     * @param {PerformanceCriteriaUpsertArgs} args - Arguments to update or create a PerformanceCriteria.
+     * @example
+     * // Update or create a PerformanceCriteria
+     * const performanceCriteria = await prisma.performanceCriteria.upsert({
+     *   create: {
+     *     // ... data to create a PerformanceCriteria
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PerformanceCriteria we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PerformanceCriteriaUpsertArgs>(args: SelectSubset<T, PerformanceCriteriaUpsertArgs<ExtArgs>>): Prisma__PerformanceCriteriaClient<$Result.GetResult<Prisma.$PerformanceCriteriaPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more PerformanceCriteria that matches the filter.
+     * @param {PerformanceCriteriaFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const performanceCriteria = await prisma.performanceCriteria.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: PerformanceCriteriaFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a PerformanceCriteria.
+     * @param {PerformanceCriteriaAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const performanceCriteria = await prisma.performanceCriteria.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: PerformanceCriteriaAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of PerformanceCriteria.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaCountArgs} args - Arguments to filter PerformanceCriteria to count.
+     * @example
+     * // Count the number of PerformanceCriteria
+     * const count = await prisma.performanceCriteria.count({
+     *   where: {
+     *     // ... the filter for the PerformanceCriteria we want to count
+     *   }
+     * })
+    **/
+    count<T extends PerformanceCriteriaCountArgs>(
+      args?: Subset<T, PerformanceCriteriaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PerformanceCriteriaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PerformanceCriteria.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PerformanceCriteriaAggregateArgs>(args: Subset<T, PerformanceCriteriaAggregateArgs>): Prisma.PrismaPromise<GetPerformanceCriteriaAggregateType<T>>
+
+    /**
+     * Group by PerformanceCriteria.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PerformanceCriteriaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PerformanceCriteriaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PerformanceCriteriaGroupByArgs['orderBy'] }
+        : { orderBy?: PerformanceCriteriaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PerformanceCriteriaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPerformanceCriteriaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PerformanceCriteria model
+   */
+  readonly fields: PerformanceCriteriaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PerformanceCriteria.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PerformanceCriteriaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    competence<T extends PerformanceCriteria$competenceArgs<ExtArgs> = {}>(args?: Subset<T, PerformanceCriteria$competenceArgs<ExtArgs>>): Prisma__CompetenceClient<$Result.GetResult<Prisma.$CompetencePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PerformanceCriteria model
+   */ 
+  interface PerformanceCriteriaFieldRefs {
+    readonly id: FieldRef<"PerformanceCriteria", 'String'>
+    readonly competenceId: FieldRef<"PerformanceCriteria", 'String'>
+    readonly description: FieldRef<"PerformanceCriteria", 'String'>
+    readonly createdAt: FieldRef<"PerformanceCriteria", 'DateTime'>
+    readonly updatedAt: FieldRef<"PerformanceCriteria", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PerformanceCriteria findUnique
+   */
+  export type PerformanceCriteriaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter, which PerformanceCriteria to fetch.
+     */
+    where: PerformanceCriteriaWhereUniqueInput
+  }
+
+  /**
+   * PerformanceCriteria findUniqueOrThrow
+   */
+  export type PerformanceCriteriaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter, which PerformanceCriteria to fetch.
+     */
+    where: PerformanceCriteriaWhereUniqueInput
+  }
+
+  /**
+   * PerformanceCriteria findFirst
+   */
+  export type PerformanceCriteriaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter, which PerformanceCriteria to fetch.
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PerformanceCriteria to fetch.
+     */
+    orderBy?: PerformanceCriteriaOrderByWithRelationInput | PerformanceCriteriaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PerformanceCriteria.
+     */
+    cursor?: PerformanceCriteriaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PerformanceCriteria from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PerformanceCriteria.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PerformanceCriteria.
+     */
+    distinct?: PerformanceCriteriaScalarFieldEnum | PerformanceCriteriaScalarFieldEnum[]
+  }
+
+  /**
+   * PerformanceCriteria findFirstOrThrow
+   */
+  export type PerformanceCriteriaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter, which PerformanceCriteria to fetch.
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PerformanceCriteria to fetch.
+     */
+    orderBy?: PerformanceCriteriaOrderByWithRelationInput | PerformanceCriteriaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PerformanceCriteria.
+     */
+    cursor?: PerformanceCriteriaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PerformanceCriteria from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PerformanceCriteria.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PerformanceCriteria.
+     */
+    distinct?: PerformanceCriteriaScalarFieldEnum | PerformanceCriteriaScalarFieldEnum[]
+  }
+
+  /**
+   * PerformanceCriteria findMany
+   */
+  export type PerformanceCriteriaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter, which PerformanceCriteria to fetch.
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PerformanceCriteria to fetch.
+     */
+    orderBy?: PerformanceCriteriaOrderByWithRelationInput | PerformanceCriteriaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PerformanceCriteria.
+     */
+    cursor?: PerformanceCriteriaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PerformanceCriteria from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PerformanceCriteria.
+     */
+    skip?: number
+    distinct?: PerformanceCriteriaScalarFieldEnum | PerformanceCriteriaScalarFieldEnum[]
+  }
+
+  /**
+   * PerformanceCriteria create
+   */
+  export type PerformanceCriteriaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PerformanceCriteria.
+     */
+    data: XOR<PerformanceCriteriaCreateInput, PerformanceCriteriaUncheckedCreateInput>
+  }
+
+  /**
+   * PerformanceCriteria createMany
+   */
+  export type PerformanceCriteriaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PerformanceCriteria.
+     */
+    data: PerformanceCriteriaCreateManyInput | PerformanceCriteriaCreateManyInput[]
+  }
+
+  /**
+   * PerformanceCriteria update
+   */
+  export type PerformanceCriteriaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PerformanceCriteria.
+     */
+    data: XOR<PerformanceCriteriaUpdateInput, PerformanceCriteriaUncheckedUpdateInput>
+    /**
+     * Choose, which PerformanceCriteria to update.
+     */
+    where: PerformanceCriteriaWhereUniqueInput
+  }
+
+  /**
+   * PerformanceCriteria updateMany
+   */
+  export type PerformanceCriteriaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PerformanceCriteria.
+     */
+    data: XOR<PerformanceCriteriaUpdateManyMutationInput, PerformanceCriteriaUncheckedUpdateManyInput>
+    /**
+     * Filter which PerformanceCriteria to update
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * Limit how many PerformanceCriteria to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PerformanceCriteria upsert
+   */
+  export type PerformanceCriteriaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PerformanceCriteria to update in case it exists.
+     */
+    where: PerformanceCriteriaWhereUniqueInput
+    /**
+     * In case the PerformanceCriteria found by the `where` argument doesn't exist, create a new PerformanceCriteria with this data.
+     */
+    create: XOR<PerformanceCriteriaCreateInput, PerformanceCriteriaUncheckedCreateInput>
+    /**
+     * In case the PerformanceCriteria was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PerformanceCriteriaUpdateInput, PerformanceCriteriaUncheckedUpdateInput>
+  }
+
+  /**
+   * PerformanceCriteria delete
+   */
+  export type PerformanceCriteriaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+    /**
+     * Filter which PerformanceCriteria to delete.
+     */
+    where: PerformanceCriteriaWhereUniqueInput
+  }
+
+  /**
+   * PerformanceCriteria deleteMany
+   */
+  export type PerformanceCriteriaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PerformanceCriteria to delete
+     */
+    where?: PerformanceCriteriaWhereInput
+    /**
+     * Limit how many PerformanceCriteria to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PerformanceCriteria findRaw
+   */
+  export type PerformanceCriteriaFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PerformanceCriteria aggregateRaw
+   */
+  export type PerformanceCriteriaAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * PerformanceCriteria.competence
+   */
+  export type PerformanceCriteria$competenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Competence
+     */
+    select?: CompetenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Competence
+     */
+    omit?: CompetenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompetenceInclude<ExtArgs> | null
+    where?: CompetenceWhereInput
+  }
+
+  /**
+   * PerformanceCriteria without action
+   */
+  export type PerformanceCriteriaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PerformanceCriteria
+     */
+    select?: PerformanceCriteriaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PerformanceCriteria
+     */
+    omit?: PerformanceCriteriaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PerformanceCriteriaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Assessment
+   */
+
+  export type AggregateAssessment = {
+    _count: AssessmentCountAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  export type AssessmentMinAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    type: $Enums.AssessmentType | null
+    method: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AssessmentMaxAggregateOutputType = {
+    id: string | null
+    SubjectId: string | null
+    type: $Enums.AssessmentType | null
+    method: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AssessmentCountAggregateOutputType = {
+    id: number
+    SubjectId: number
+    type: number
+    method: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AssessmentMinAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    type?: true
+    method?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AssessmentMaxAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    type?: true
+    method?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AssessmentCountAggregateInputType = {
+    id?: true
+    SubjectId?: true
+    type?: true
+    method?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AssessmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessment to aggregate.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Assessments
+    **/
+    _count?: true | AssessmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssessmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type GetAssessmentAggregateType<T extends AssessmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssessment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssessment[P]>
+      : GetScalarType<T[P], AggregateAssessment[P]>
+  }
+
+
+
+
+  export type AssessmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithAggregationInput | AssessmentOrderByWithAggregationInput[]
+    by: AssessmentScalarFieldEnum[] | AssessmentScalarFieldEnum
+    having?: AssessmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssessmentCountAggregateInputType | true
+    _min?: AssessmentMinAggregateInputType
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type AssessmentGroupByOutputType = {
+    id: string
+    SubjectId: string
+    type: $Enums.AssessmentType | null
+    method: string
+    createdAt: Date
+    updatedAt: Date
+    _count: AssessmentCountAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  type GetAssessmentGroupByPayload<T extends AssessmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssessmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssessmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+            : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssessmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    SubjectId?: boolean
+    type?: boolean
+    method?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    subject?: boolean | Assessment$subjectArgs<ExtArgs>
+  }, ExtArgs["result"]["assessment"]>
+
+
+
+  export type AssessmentSelectScalar = {
+    id?: boolean
+    SubjectId?: boolean
+    type?: boolean
+    method?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "SubjectId" | "type" | "method" | "createdAt" | "updatedAt", ExtArgs["result"]["assessment"]>
+  export type AssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subject?: boolean | Assessment$subjectArgs<ExtArgs>
+  }
+
+  export type $AssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Assessment"
+    objects: {
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      SubjectId: string
+      type: $Enums.AssessmentType | null
+      method: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["assessment"]>
+    composites: {}
+  }
+
+  type AssessmentGetPayload<S extends boolean | null | undefined | AssessmentDefaultArgs> = $Result.GetResult<Prisma.$AssessmentPayload, S>
+
+  type AssessmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AssessmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AssessmentCountAggregateInputType | true
+    }
+
+  export interface AssessmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Assessment'], meta: { name: 'Assessment' } }
+    /**
+     * Find zero or one Assessment that matches the filter.
+     * @param {AssessmentFindUniqueArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AssessmentFindUniqueArgs>(args: SelectSubset<T, AssessmentFindUniqueArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Assessment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AssessmentFindUniqueOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AssessmentFindUniqueOrThrowArgs>(args: SelectSubset<T, AssessmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Assessment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AssessmentFindFirstArgs>(args?: SelectSubset<T, AssessmentFindFirstArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Assessment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AssessmentFindFirstOrThrowArgs>(args?: SelectSubset<T, AssessmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Assessments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Assessments
+     * const assessments = await prisma.assessment.findMany()
+     * 
+     * // Get first 10 Assessments
+     * const assessments = await prisma.assessment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assessmentWithIdOnly = await prisma.assessment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AssessmentFindManyArgs>(args?: SelectSubset<T, AssessmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Assessment.
+     * @param {AssessmentCreateArgs} args - Arguments to create a Assessment.
+     * @example
+     * // Create one Assessment
+     * const Assessment = await prisma.assessment.create({
+     *   data: {
+     *     // ... data to create a Assessment
+     *   }
+     * })
+     * 
+     */
+    create<T extends AssessmentCreateArgs>(args: SelectSubset<T, AssessmentCreateArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Assessments.
+     * @param {AssessmentCreateManyArgs} args - Arguments to create many Assessments.
+     * @example
+     * // Create many Assessments
+     * const assessment = await prisma.assessment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AssessmentCreateManyArgs>(args?: SelectSubset<T, AssessmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Assessment.
+     * @param {AssessmentDeleteArgs} args - Arguments to delete one Assessment.
+     * @example
+     * // Delete one Assessment
+     * const Assessment = await prisma.assessment.delete({
+     *   where: {
+     *     // ... filter to delete one Assessment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AssessmentDeleteArgs>(args: SelectSubset<T, AssessmentDeleteArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Assessment.
+     * @param {AssessmentUpdateArgs} args - Arguments to update one Assessment.
+     * @example
+     * // Update one Assessment
+     * const assessment = await prisma.assessment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AssessmentUpdateArgs>(args: SelectSubset<T, AssessmentUpdateArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Assessments.
+     * @param {AssessmentDeleteManyArgs} args - Arguments to filter Assessments to delete.
+     * @example
+     * // Delete a few Assessments
+     * const { count } = await prisma.assessment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AssessmentDeleteManyArgs>(args?: SelectSubset<T, AssessmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Assessments
+     * const assessment = await prisma.assessment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AssessmentUpdateManyArgs>(args: SelectSubset<T, AssessmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Assessment.
+     * @param {AssessmentUpsertArgs} args - Arguments to update or create a Assessment.
+     * @example
+     * // Update or create a Assessment
+     * const assessment = await prisma.assessment.upsert({
+     *   create: {
+     *     // ... data to create a Assessment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Assessment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AssessmentUpsertArgs>(args: SelectSubset<T, AssessmentUpsertArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Assessments that matches the filter.
+     * @param {AssessmentFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const assessment = await prisma.assessment.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AssessmentFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Assessment.
+     * @param {AssessmentAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const assessment = await prisma.assessment.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AssessmentAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentCountArgs} args - Arguments to filter Assessments to count.
+     * @example
+     * // Count the number of Assessments
+     * const count = await prisma.assessment.count({
+     *   where: {
+     *     // ... the filter for the Assessments we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssessmentCountArgs>(
+      args?: Subset<T, AssessmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssessmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssessmentAggregateArgs>(args: Subset<T, AssessmentAggregateArgs>): Prisma.PrismaPromise<GetAssessmentAggregateType<T>>
+
+    /**
+     * Group by Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssessmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssessmentGroupByArgs['orderBy'] }
+        : { orderBy?: AssessmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssessmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssessmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Assessment model
+   */
+  readonly fields: AssessmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Assessment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subject<T extends Assessment$subjectArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Assessment model
+   */ 
+  interface AssessmentFieldRefs {
+    readonly id: FieldRef<"Assessment", 'String'>
+    readonly SubjectId: FieldRef<"Assessment", 'String'>
+    readonly type: FieldRef<"Assessment", 'AssessmentType'>
+    readonly method: FieldRef<"Assessment", 'String'>
+    readonly createdAt: FieldRef<"Assessment", 'DateTime'>
+    readonly updatedAt: FieldRef<"Assessment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Assessment findUnique
+   */
+  export type AssessmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+  /**
+   * Assessment findUniqueOrThrow
+   */
+  export type AssessmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+  /**
+   * Assessment findFirst
+   */
+  export type AssessmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * Assessment findFirstOrThrow
+   */
+  export type AssessmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * Assessment findMany
+   */
+  export type AssessmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessments to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * Assessment create
+   */
+  export type AssessmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Assessment.
+     */
+    data: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+  }
+
+  /**
+   * Assessment createMany
+   */
+  export type AssessmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Assessments.
+     */
+    data: AssessmentCreateManyInput | AssessmentCreateManyInput[]
+  }
+
+  /**
+   * Assessment update
+   */
+  export type AssessmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Assessment.
+     */
+    data: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+    /**
+     * Choose, which Assessment to update.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+  /**
+   * Assessment updateMany
+   */
+  export type AssessmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Assessments.
+     */
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Assessments to update
+     */
+    where?: AssessmentWhereInput
+    /**
+     * Limit how many Assessments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Assessment upsert
+   */
+  export type AssessmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Assessment to update in case it exists.
+     */
+    where: AssessmentWhereUniqueInput
+    /**
+     * In case the Assessment found by the `where` argument doesn't exist, create a new Assessment with this data.
+     */
+    create: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+    /**
+     * In case the Assessment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+  }
+
+  /**
+   * Assessment delete
+   */
+  export type AssessmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter which Assessment to delete.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+  /**
+   * Assessment deleteMany
+   */
+  export type AssessmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessments to delete
+     */
+    where?: AssessmentWhereInput
+    /**
+     * Limit how many Assessments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Assessment findRaw
+   */
+  export type AssessmentFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Assessment aggregateRaw
+   */
+  export type AssessmentAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Assessment.subject
+   */
+  export type Assessment$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * Assessment without action
+   */
+  export type AssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Assessment
+     */
+    omit?: AssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19879,27 +30248,6 @@ export namespace Prisma {
   export type TeacherScalarFieldEnum = (typeof TeacherScalarFieldEnum)[keyof typeof TeacherScalarFieldEnum]
 
 
-  export const SubjectScalarFieldEnum: {
-    id: 'id',
-    code: 'code',
-    classRoomId: 'classRoomId',
-    name: 'name',
-    description: 'description',
-    knowledge: 'knowledge',
-    skills: 'skills',
-    attitude: 'attitude',
-    tableOfContent: 'tableOfContent',
-    resources: 'resources',
-    totalTime: 'totalTime',
-    startTime: 'startTime',
-    endTime: 'endTime',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
-
-
   export const NoteScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -19928,6 +30276,125 @@ export namespace Prisma {
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+  export const SubjectScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    sector: 'sector',
+    trade: 'trade',
+    subjectType: 'subjectType',
+    curriculum: 'curriculum',
+    copyright: 'copyright',
+    learningHours: 'learningHours',
+    issueDate: 'issueDate',
+    purpose: 'purpose',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
+
+
+  export const LearningOutcomeScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    learningHours: 'learningHours',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LearningOutcomeScalarFieldEnum = (typeof LearningOutcomeScalarFieldEnum)[keyof typeof LearningOutcomeScalarFieldEnum]
+
+
+  export const IndicativeContentScalarFieldEnum: {
+    id: 'id',
+    learningOutcomeId: 'learningOutcomeId',
+    content: 'content'
+  };
+
+  export type IndicativeContentScalarFieldEnum = (typeof IndicativeContentScalarFieldEnum)[keyof typeof IndicativeContentScalarFieldEnum]
+
+
+  export const KnowledgeScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type KnowledgeScalarFieldEnum = (typeof KnowledgeScalarFieldEnum)[keyof typeof KnowledgeScalarFieldEnum]
+
+
+  export const SkillScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
+
+
+  export const AttitudeScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AttitudeScalarFieldEnum = (typeof AttitudeScalarFieldEnum)[keyof typeof AttitudeScalarFieldEnum]
+
+
+  export const ResourceScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    category: 'category',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ResourceScalarFieldEnum = (typeof ResourceScalarFieldEnum)[keyof typeof ResourceScalarFieldEnum]
+
+
+  export const CompetenceScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CompetenceScalarFieldEnum = (typeof CompetenceScalarFieldEnum)[keyof typeof CompetenceScalarFieldEnum]
+
+
+  export const PerformanceCriteriaScalarFieldEnum: {
+    id: 'id',
+    competenceId: 'competenceId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PerformanceCriteriaScalarFieldEnum = (typeof PerformanceCriteriaScalarFieldEnum)[keyof typeof PerformanceCriteriaScalarFieldEnum]
+
+
+  export const AssessmentScalarFieldEnum: {
+    id: 'id',
+    SubjectId: 'SubjectId',
+    type: 'type',
+    method: 'method',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AssessmentScalarFieldEnum = (typeof AssessmentScalarFieldEnum)[keyof typeof AssessmentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20057,13 +30524,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
    * Reference to a field of type 'PostRole'
    */
   export type EnumPostRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostRole'>
@@ -20074,6 +30534,48 @@ export namespace Prisma {
    * Reference to a field of type 'PostRole[]'
    */
   export type ListEnumPostRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubjectType'
+   */
+  export type EnumSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubjectType'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubjectType[]'
+   */
+  export type ListEnumSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubjectType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ResourceType'
+   */
+  export type EnumResourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ResourceType[]'
+   */
+  export type ListEnumResourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResourceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssessmentType'
+   */
+  export type EnumAssessmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssessmentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssessmentType[]'
+   */
+  export type ListEnumAssessmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssessmentType[]'>
     
 
 
@@ -21140,110 +31642,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Teacher"> | Date | string
   }
 
-  export type SubjectWhereInput = {
-    AND?: SubjectWhereInput | SubjectWhereInput[]
-    OR?: SubjectWhereInput[]
-    NOT?: SubjectWhereInput | SubjectWhereInput[]
-    id?: StringFilter<"Subject"> | string
-    code?: StringFilter<"Subject"> | string
-    classRoomId?: StringFilter<"Subject"> | string
-    name?: StringFilter<"Subject"> | string
-    description?: StringFilter<"Subject"> | string
-    knowledge?: StringNullableListFilter<"Subject">
-    skills?: StringNullableListFilter<"Subject">
-    attitude?: StringNullableListFilter<"Subject">
-    tableOfContent?: JsonFilter<"Subject">
-    resources?: JsonFilter<"Subject">
-    totalTime?: IntFilter<"Subject"> | number
-    startTime?: DateTimeNullableFilter<"Subject"> | Date | string | null
-    endTime?: DateTimeNullableFilter<"Subject"> | Date | string | null
-    createdAt?: DateTimeFilter<"Subject"> | Date | string
-    updatedAt?: DateTimeFilter<"Subject"> | Date | string
-  }
-
-  export type SubjectOrderByWithRelationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    classRoomId?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    knowledge?: SortOrder
-    skills?: SortOrder
-    attitude?: SortOrder
-    tableOfContent?: SortOrder
-    resources?: SortOrder
-    totalTime?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SubjectWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    code?: string
-    AND?: SubjectWhereInput | SubjectWhereInput[]
-    OR?: SubjectWhereInput[]
-    NOT?: SubjectWhereInput | SubjectWhereInput[]
-    classRoomId?: StringFilter<"Subject"> | string
-    name?: StringFilter<"Subject"> | string
-    description?: StringFilter<"Subject"> | string
-    knowledge?: StringNullableListFilter<"Subject">
-    skills?: StringNullableListFilter<"Subject">
-    attitude?: StringNullableListFilter<"Subject">
-    tableOfContent?: JsonFilter<"Subject">
-    resources?: JsonFilter<"Subject">
-    totalTime?: IntFilter<"Subject"> | number
-    startTime?: DateTimeNullableFilter<"Subject"> | Date | string | null
-    endTime?: DateTimeNullableFilter<"Subject"> | Date | string | null
-    createdAt?: DateTimeFilter<"Subject"> | Date | string
-    updatedAt?: DateTimeFilter<"Subject"> | Date | string
-  }, "id" | "code">
-
-  export type SubjectOrderByWithAggregationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    classRoomId?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    knowledge?: SortOrder
-    skills?: SortOrder
-    attitude?: SortOrder
-    tableOfContent?: SortOrder
-    resources?: SortOrder
-    totalTime?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: SubjectCountOrderByAggregateInput
-    _avg?: SubjectAvgOrderByAggregateInput
-    _max?: SubjectMaxOrderByAggregateInput
-    _min?: SubjectMinOrderByAggregateInput
-    _sum?: SubjectSumOrderByAggregateInput
-  }
-
-  export type SubjectScalarWhereWithAggregatesInput = {
-    AND?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
-    OR?: SubjectScalarWhereWithAggregatesInput[]
-    NOT?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Subject"> | string
-    code?: StringWithAggregatesFilter<"Subject"> | string
-    classRoomId?: StringWithAggregatesFilter<"Subject"> | string
-    name?: StringWithAggregatesFilter<"Subject"> | string
-    description?: StringWithAggregatesFilter<"Subject"> | string
-    knowledge?: StringNullableListFilter<"Subject">
-    skills?: StringNullableListFilter<"Subject">
-    attitude?: StringNullableListFilter<"Subject">
-    tableOfContent?: JsonWithAggregatesFilter<"Subject">
-    resources?: JsonWithAggregatesFilter<"Subject">
-    totalTime?: IntWithAggregatesFilter<"Subject"> | number
-    startTime?: DateTimeNullableWithAggregatesFilter<"Subject"> | Date | string | null
-    endTime?: DateTimeNullableWithAggregatesFilter<"Subject"> | Date | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
-  }
-
   export type NoteWhereInput = {
     AND?: NoteWhereInput | NoteWhereInput[]
     OR?: NoteWhereInput[]
@@ -21392,6 +31790,635 @@ export namespace Prisma {
     classId?: StringNullableWithAggregatesFilter<"Post"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+  }
+
+  export type SubjectWhereInput = {
+    AND?: SubjectWhereInput | SubjectWhereInput[]
+    OR?: SubjectWhereInput[]
+    NOT?: SubjectWhereInput | SubjectWhereInput[]
+    id?: StringFilter<"Subject"> | string
+    name?: StringFilter<"Subject"> | string
+    code?: StringFilter<"Subject"> | string
+    sector?: StringNullableFilter<"Subject"> | string | null
+    trade?: StringNullableFilter<"Subject"> | string | null
+    subjectType?: EnumSubjectTypeNullableFilter<"Subject"> | $Enums.SubjectType | null
+    curriculum?: StringNullableFilter<"Subject"> | string | null
+    copyright?: StringNullableFilter<"Subject"> | string | null
+    learningHours?: IntNullableFilter<"Subject"> | number | null
+    issueDate?: DateTimeNullableFilter<"Subject"> | Date | string | null
+    purpose?: StringNullableFilter<"Subject"> | string | null
+    createdAt?: DateTimeFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeFilter<"Subject"> | Date | string
+    knowledge?: KnowledgeListRelationFilter
+    Resource?: ResourceListRelationFilter
+    Competence?: CompetenceListRelationFilter
+    Assessment?: AssessmentListRelationFilter
+    LearningOutcome?: LearningOutcomeListRelationFilter
+    IndicativeContent?: IndicativeContentListRelationFilter
+    Skill?: SkillListRelationFilter
+    Attitude?: AttitudeListRelationFilter
+  }
+
+  export type SubjectOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    sector?: SortOrder
+    trade?: SortOrder
+    subjectType?: SortOrder
+    curriculum?: SortOrder
+    copyright?: SortOrder
+    learningHours?: SortOrder
+    issueDate?: SortOrder
+    purpose?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    knowledge?: KnowledgeOrderByRelationAggregateInput
+    Resource?: ResourceOrderByRelationAggregateInput
+    Competence?: CompetenceOrderByRelationAggregateInput
+    Assessment?: AssessmentOrderByRelationAggregateInput
+    LearningOutcome?: LearningOutcomeOrderByRelationAggregateInput
+    IndicativeContent?: IndicativeContentOrderByRelationAggregateInput
+    Skill?: SkillOrderByRelationAggregateInput
+    Attitude?: AttitudeOrderByRelationAggregateInput
+  }
+
+  export type SubjectWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: SubjectWhereInput | SubjectWhereInput[]
+    OR?: SubjectWhereInput[]
+    NOT?: SubjectWhereInput | SubjectWhereInput[]
+    name?: StringFilter<"Subject"> | string
+    sector?: StringNullableFilter<"Subject"> | string | null
+    trade?: StringNullableFilter<"Subject"> | string | null
+    subjectType?: EnumSubjectTypeNullableFilter<"Subject"> | $Enums.SubjectType | null
+    curriculum?: StringNullableFilter<"Subject"> | string | null
+    copyright?: StringNullableFilter<"Subject"> | string | null
+    learningHours?: IntNullableFilter<"Subject"> | number | null
+    issueDate?: DateTimeNullableFilter<"Subject"> | Date | string | null
+    purpose?: StringNullableFilter<"Subject"> | string | null
+    createdAt?: DateTimeFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeFilter<"Subject"> | Date | string
+    knowledge?: KnowledgeListRelationFilter
+    Resource?: ResourceListRelationFilter
+    Competence?: CompetenceListRelationFilter
+    Assessment?: AssessmentListRelationFilter
+    LearningOutcome?: LearningOutcomeListRelationFilter
+    IndicativeContent?: IndicativeContentListRelationFilter
+    Skill?: SkillListRelationFilter
+    Attitude?: AttitudeListRelationFilter
+  }, "id" | "code">
+
+  export type SubjectOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    sector?: SortOrder
+    trade?: SortOrder
+    subjectType?: SortOrder
+    curriculum?: SortOrder
+    copyright?: SortOrder
+    learningHours?: SortOrder
+    issueDate?: SortOrder
+    purpose?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SubjectCountOrderByAggregateInput
+    _avg?: SubjectAvgOrderByAggregateInput
+    _max?: SubjectMaxOrderByAggregateInput
+    _min?: SubjectMinOrderByAggregateInput
+    _sum?: SubjectSumOrderByAggregateInput
+  }
+
+  export type SubjectScalarWhereWithAggregatesInput = {
+    AND?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
+    OR?: SubjectScalarWhereWithAggregatesInput[]
+    NOT?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Subject"> | string
+    name?: StringWithAggregatesFilter<"Subject"> | string
+    code?: StringWithAggregatesFilter<"Subject"> | string
+    sector?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    trade?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    subjectType?: EnumSubjectTypeNullableWithAggregatesFilter<"Subject"> | $Enums.SubjectType | null
+    curriculum?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    copyright?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    learningHours?: IntNullableWithAggregatesFilter<"Subject"> | number | null
+    issueDate?: DateTimeNullableWithAggregatesFilter<"Subject"> | Date | string | null
+    purpose?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
+  }
+
+  export type LearningOutcomeWhereInput = {
+    AND?: LearningOutcomeWhereInput | LearningOutcomeWhereInput[]
+    OR?: LearningOutcomeWhereInput[]
+    NOT?: LearningOutcomeWhereInput | LearningOutcomeWhereInput[]
+    id?: StringFilter<"LearningOutcome"> | string
+    SubjectId?: StringFilter<"LearningOutcome"> | string
+    learningHours?: IntNullableFilter<"LearningOutcome"> | number | null
+    description?: StringNullableFilter<"LearningOutcome"> | string | null
+    createdAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+    updatedAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+    indicativeContent?: IndicativeContentListRelationFilter
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type LearningOutcomeOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    learningHours?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    indicativeContent?: IndicativeContentOrderByRelationAggregateInput
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type LearningOutcomeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LearningOutcomeWhereInput | LearningOutcomeWhereInput[]
+    OR?: LearningOutcomeWhereInput[]
+    NOT?: LearningOutcomeWhereInput | LearningOutcomeWhereInput[]
+    SubjectId?: StringFilter<"LearningOutcome"> | string
+    learningHours?: IntNullableFilter<"LearningOutcome"> | number | null
+    description?: StringNullableFilter<"LearningOutcome"> | string | null
+    createdAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+    updatedAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+    indicativeContent?: IndicativeContentListRelationFilter
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type LearningOutcomeOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    learningHours?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LearningOutcomeCountOrderByAggregateInput
+    _avg?: LearningOutcomeAvgOrderByAggregateInput
+    _max?: LearningOutcomeMaxOrderByAggregateInput
+    _min?: LearningOutcomeMinOrderByAggregateInput
+    _sum?: LearningOutcomeSumOrderByAggregateInput
+  }
+
+  export type LearningOutcomeScalarWhereWithAggregatesInput = {
+    AND?: LearningOutcomeScalarWhereWithAggregatesInput | LearningOutcomeScalarWhereWithAggregatesInput[]
+    OR?: LearningOutcomeScalarWhereWithAggregatesInput[]
+    NOT?: LearningOutcomeScalarWhereWithAggregatesInput | LearningOutcomeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LearningOutcome"> | string
+    SubjectId?: StringWithAggregatesFilter<"LearningOutcome"> | string
+    learningHours?: IntNullableWithAggregatesFilter<"LearningOutcome"> | number | null
+    description?: StringNullableWithAggregatesFilter<"LearningOutcome"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LearningOutcome"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LearningOutcome"> | Date | string
+  }
+
+  export type IndicativeContentWhereInput = {
+    AND?: IndicativeContentWhereInput | IndicativeContentWhereInput[]
+    OR?: IndicativeContentWhereInput[]
+    NOT?: IndicativeContentWhereInput | IndicativeContentWhereInput[]
+    id?: StringFilter<"IndicativeContent"> | string
+    learningOutcomeId?: StringFilter<"IndicativeContent"> | string
+    content?: StringFilter<"IndicativeContent"> | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    LearningOutcome?: XOR<LearningOutcomeScalarRelationFilter, LearningOutcomeWhereInput>
+  }
+
+  export type IndicativeContentOrderByWithRelationInput = {
+    id?: SortOrder
+    learningOutcomeId?: SortOrder
+    content?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+    LearningOutcome?: LearningOutcomeOrderByWithRelationInput
+  }
+
+  export type IndicativeContentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: IndicativeContentWhereInput | IndicativeContentWhereInput[]
+    OR?: IndicativeContentWhereInput[]
+    NOT?: IndicativeContentWhereInput | IndicativeContentWhereInput[]
+    learningOutcomeId?: StringFilter<"IndicativeContent"> | string
+    content?: StringFilter<"IndicativeContent"> | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    LearningOutcome?: XOR<LearningOutcomeScalarRelationFilter, LearningOutcomeWhereInput>
+  }, "id">
+
+  export type IndicativeContentOrderByWithAggregationInput = {
+    id?: SortOrder
+    learningOutcomeId?: SortOrder
+    content?: SortOrder
+    _count?: IndicativeContentCountOrderByAggregateInput
+    _max?: IndicativeContentMaxOrderByAggregateInput
+    _min?: IndicativeContentMinOrderByAggregateInput
+  }
+
+  export type IndicativeContentScalarWhereWithAggregatesInput = {
+    AND?: IndicativeContentScalarWhereWithAggregatesInput | IndicativeContentScalarWhereWithAggregatesInput[]
+    OR?: IndicativeContentScalarWhereWithAggregatesInput[]
+    NOT?: IndicativeContentScalarWhereWithAggregatesInput | IndicativeContentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IndicativeContent"> | string
+    learningOutcomeId?: StringWithAggregatesFilter<"IndicativeContent"> | string
+    content?: StringWithAggregatesFilter<"IndicativeContent"> | string
+  }
+
+  export type KnowledgeWhereInput = {
+    AND?: KnowledgeWhereInput | KnowledgeWhereInput[]
+    OR?: KnowledgeWhereInput[]
+    NOT?: KnowledgeWhereInput | KnowledgeWhereInput[]
+    id?: StringFilter<"Knowledge"> | string
+    SubjectId?: StringNullableFilter<"Knowledge"> | string | null
+    description?: StringFilter<"Knowledge"> | string
+    createdAt?: DateTimeFilter<"Knowledge"> | Date | string
+    updatedAt?: DateTimeFilter<"Knowledge"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type KnowledgeOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type KnowledgeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: KnowledgeWhereInput | KnowledgeWhereInput[]
+    OR?: KnowledgeWhereInput[]
+    NOT?: KnowledgeWhereInput | KnowledgeWhereInput[]
+    SubjectId?: StringNullableFilter<"Knowledge"> | string | null
+    description?: StringFilter<"Knowledge"> | string
+    createdAt?: DateTimeFilter<"Knowledge"> | Date | string
+    updatedAt?: DateTimeFilter<"Knowledge"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type KnowledgeOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: KnowledgeCountOrderByAggregateInput
+    _max?: KnowledgeMaxOrderByAggregateInput
+    _min?: KnowledgeMinOrderByAggregateInput
+  }
+
+  export type KnowledgeScalarWhereWithAggregatesInput = {
+    AND?: KnowledgeScalarWhereWithAggregatesInput | KnowledgeScalarWhereWithAggregatesInput[]
+    OR?: KnowledgeScalarWhereWithAggregatesInput[]
+    NOT?: KnowledgeScalarWhereWithAggregatesInput | KnowledgeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Knowledge"> | string
+    SubjectId?: StringNullableWithAggregatesFilter<"Knowledge"> | string | null
+    description?: StringWithAggregatesFilter<"Knowledge"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Knowledge"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Knowledge"> | Date | string
+  }
+
+  export type SkillWhereInput = {
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    id?: StringFilter<"Skill"> | string
+    SubjectId?: StringNullableFilter<"Skill"> | string | null
+    description?: StringFilter<"Skill"> | string
+    createdAt?: DateTimeFilter<"Skill"> | Date | string
+    updatedAt?: DateTimeFilter<"Skill"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type SkillOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type SkillWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    SubjectId?: StringNullableFilter<"Skill"> | string | null
+    description?: StringFilter<"Skill"> | string
+    createdAt?: DateTimeFilter<"Skill"> | Date | string
+    updatedAt?: DateTimeFilter<"Skill"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type SkillOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SkillCountOrderByAggregateInput
+    _max?: SkillMaxOrderByAggregateInput
+    _min?: SkillMinOrderByAggregateInput
+  }
+
+  export type SkillScalarWhereWithAggregatesInput = {
+    AND?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    OR?: SkillScalarWhereWithAggregatesInput[]
+    NOT?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Skill"> | string
+    SubjectId?: StringNullableWithAggregatesFilter<"Skill"> | string | null
+    description?: StringWithAggregatesFilter<"Skill"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Skill"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Skill"> | Date | string
+  }
+
+  export type AttitudeWhereInput = {
+    AND?: AttitudeWhereInput | AttitudeWhereInput[]
+    OR?: AttitudeWhereInput[]
+    NOT?: AttitudeWhereInput | AttitudeWhereInput[]
+    id?: StringFilter<"Attitude"> | string
+    SubjectId?: StringNullableFilter<"Attitude"> | string | null
+    description?: StringFilter<"Attitude"> | string
+    createdAt?: DateTimeFilter<"Attitude"> | Date | string
+    updatedAt?: DateTimeFilter<"Attitude"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type AttitudeOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type AttitudeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AttitudeWhereInput | AttitudeWhereInput[]
+    OR?: AttitudeWhereInput[]
+    NOT?: AttitudeWhereInput | AttitudeWhereInput[]
+    SubjectId?: StringNullableFilter<"Attitude"> | string | null
+    description?: StringFilter<"Attitude"> | string
+    createdAt?: DateTimeFilter<"Attitude"> | Date | string
+    updatedAt?: DateTimeFilter<"Attitude"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type AttitudeOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AttitudeCountOrderByAggregateInput
+    _max?: AttitudeMaxOrderByAggregateInput
+    _min?: AttitudeMinOrderByAggregateInput
+  }
+
+  export type AttitudeScalarWhereWithAggregatesInput = {
+    AND?: AttitudeScalarWhereWithAggregatesInput | AttitudeScalarWhereWithAggregatesInput[]
+    OR?: AttitudeScalarWhereWithAggregatesInput[]
+    NOT?: AttitudeScalarWhereWithAggregatesInput | AttitudeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Attitude"> | string
+    SubjectId?: StringNullableWithAggregatesFilter<"Attitude"> | string | null
+    description?: StringWithAggregatesFilter<"Attitude"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Attitude"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Attitude"> | Date | string
+  }
+
+  export type ResourceWhereInput = {
+    AND?: ResourceWhereInput | ResourceWhereInput[]
+    OR?: ResourceWhereInput[]
+    NOT?: ResourceWhereInput | ResourceWhereInput[]
+    id?: StringFilter<"Resource"> | string
+    SubjectId?: StringFilter<"Resource"> | string
+    category?: EnumResourceTypeNullableFilter<"Resource"> | $Enums.ResourceType | null
+    description?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type ResourceOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type ResourceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResourceWhereInput | ResourceWhereInput[]
+    OR?: ResourceWhereInput[]
+    NOT?: ResourceWhereInput | ResourceWhereInput[]
+    SubjectId?: StringFilter<"Resource"> | string
+    category?: EnumResourceTypeNullableFilter<"Resource"> | $Enums.ResourceType | null
+    description?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type ResourceOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ResourceCountOrderByAggregateInput
+    _max?: ResourceMaxOrderByAggregateInput
+    _min?: ResourceMinOrderByAggregateInput
+  }
+
+  export type ResourceScalarWhereWithAggregatesInput = {
+    AND?: ResourceScalarWhereWithAggregatesInput | ResourceScalarWhereWithAggregatesInput[]
+    OR?: ResourceScalarWhereWithAggregatesInput[]
+    NOT?: ResourceScalarWhereWithAggregatesInput | ResourceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Resource"> | string
+    SubjectId?: StringWithAggregatesFilter<"Resource"> | string
+    category?: EnumResourceTypeNullableWithAggregatesFilter<"Resource"> | $Enums.ResourceType | null
+    description?: StringWithAggregatesFilter<"Resource"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
+  }
+
+  export type CompetenceWhereInput = {
+    AND?: CompetenceWhereInput | CompetenceWhereInput[]
+    OR?: CompetenceWhereInput[]
+    NOT?: CompetenceWhereInput | CompetenceWhereInput[]
+    id?: StringFilter<"Competence"> | string
+    SubjectId?: StringFilter<"Competence"> | string
+    description?: StringFilter<"Competence"> | string
+    createdAt?: DateTimeFilter<"Competence"> | Date | string
+    updatedAt?: DateTimeFilter<"Competence"> | Date | string
+    PerformanceCriteria?: PerformanceCriteriaListRelationFilter
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type CompetenceOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    PerformanceCriteria?: PerformanceCriteriaOrderByRelationAggregateInput
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type CompetenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CompetenceWhereInput | CompetenceWhereInput[]
+    OR?: CompetenceWhereInput[]
+    NOT?: CompetenceWhereInput | CompetenceWhereInput[]
+    SubjectId?: StringFilter<"Competence"> | string
+    description?: StringFilter<"Competence"> | string
+    createdAt?: DateTimeFilter<"Competence"> | Date | string
+    updatedAt?: DateTimeFilter<"Competence"> | Date | string
+    PerformanceCriteria?: PerformanceCriteriaListRelationFilter
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type CompetenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CompetenceCountOrderByAggregateInput
+    _max?: CompetenceMaxOrderByAggregateInput
+    _min?: CompetenceMinOrderByAggregateInput
+  }
+
+  export type CompetenceScalarWhereWithAggregatesInput = {
+    AND?: CompetenceScalarWhereWithAggregatesInput | CompetenceScalarWhereWithAggregatesInput[]
+    OR?: CompetenceScalarWhereWithAggregatesInput[]
+    NOT?: CompetenceScalarWhereWithAggregatesInput | CompetenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Competence"> | string
+    SubjectId?: StringWithAggregatesFilter<"Competence"> | string
+    description?: StringWithAggregatesFilter<"Competence"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Competence"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Competence"> | Date | string
+  }
+
+  export type PerformanceCriteriaWhereInput = {
+    AND?: PerformanceCriteriaWhereInput | PerformanceCriteriaWhereInput[]
+    OR?: PerformanceCriteriaWhereInput[]
+    NOT?: PerformanceCriteriaWhereInput | PerformanceCriteriaWhereInput[]
+    id?: StringFilter<"PerformanceCriteria"> | string
+    competenceId?: StringFilter<"PerformanceCriteria"> | string
+    description?: StringFilter<"PerformanceCriteria"> | string
+    createdAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+    updatedAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+    competence?: XOR<CompetenceNullableScalarRelationFilter, CompetenceWhereInput> | null
+  }
+
+  export type PerformanceCriteriaOrderByWithRelationInput = {
+    id?: SortOrder
+    competenceId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    competence?: CompetenceOrderByWithRelationInput
+  }
+
+  export type PerformanceCriteriaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PerformanceCriteriaWhereInput | PerformanceCriteriaWhereInput[]
+    OR?: PerformanceCriteriaWhereInput[]
+    NOT?: PerformanceCriteriaWhereInput | PerformanceCriteriaWhereInput[]
+    competenceId?: StringFilter<"PerformanceCriteria"> | string
+    description?: StringFilter<"PerformanceCriteria"> | string
+    createdAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+    updatedAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+    competence?: XOR<CompetenceNullableScalarRelationFilter, CompetenceWhereInput> | null
+  }, "id">
+
+  export type PerformanceCriteriaOrderByWithAggregationInput = {
+    id?: SortOrder
+    competenceId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PerformanceCriteriaCountOrderByAggregateInput
+    _max?: PerformanceCriteriaMaxOrderByAggregateInput
+    _min?: PerformanceCriteriaMinOrderByAggregateInput
+  }
+
+  export type PerformanceCriteriaScalarWhereWithAggregatesInput = {
+    AND?: PerformanceCriteriaScalarWhereWithAggregatesInput | PerformanceCriteriaScalarWhereWithAggregatesInput[]
+    OR?: PerformanceCriteriaScalarWhereWithAggregatesInput[]
+    NOT?: PerformanceCriteriaScalarWhereWithAggregatesInput | PerformanceCriteriaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PerformanceCriteria"> | string
+    competenceId?: StringWithAggregatesFilter<"PerformanceCriteria"> | string
+    description?: StringWithAggregatesFilter<"PerformanceCriteria"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PerformanceCriteria"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PerformanceCriteria"> | Date | string
+  }
+
+  export type AssessmentWhereInput = {
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    SubjectId?: StringFilter<"Assessment"> | string
+    type?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    method?: StringFilter<"Assessment"> | string
+    createdAt?: DateTimeFilter<"Assessment"> | Date | string
+    updatedAt?: DateTimeFilter<"Assessment"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }
+
+  export type AssessmentOrderByWithRelationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    type?: SortOrder
+    method?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    subject?: SubjectOrderByWithRelationInput
+  }
+
+  export type AssessmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    SubjectId?: StringFilter<"Assessment"> | string
+    type?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    method?: StringFilter<"Assessment"> | string
+    createdAt?: DateTimeFilter<"Assessment"> | Date | string
+    updatedAt?: DateTimeFilter<"Assessment"> | Date | string
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+  }, "id">
+
+  export type AssessmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    type?: SortOrder
+    method?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AssessmentCountOrderByAggregateInput
+    _max?: AssessmentMaxOrderByAggregateInput
+    _min?: AssessmentMinOrderByAggregateInput
+  }
+
+  export type AssessmentScalarWhereWithAggregatesInput = {
+    AND?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    OR?: AssessmentScalarWhereWithAggregatesInput[]
+    NOT?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Assessment"> | string
+    SubjectId?: StringWithAggregatesFilter<"Assessment"> | string
+    type?: EnumAssessmentTypeNullableWithAggregatesFilter<"Assessment"> | $Enums.AssessmentType | null
+    method?: StringWithAggregatesFilter<"Assessment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Assessment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Assessment"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -22494,128 +33521,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SubjectCreateInput = {
-    id?: string
-    code: string
-    classRoomId: string
-    name: string
-    description: string
-    knowledge?: SubjectCreateknowledgeInput | string[]
-    skills?: SubjectCreateskillsInput | string[]
-    attitude?: SubjectCreateattitudeInput | string[]
-    tableOfContent: InputJsonValue
-    resources: InputJsonValue
-    totalTime: number
-    startTime?: Date | string | null
-    endTime?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type SubjectUncheckedCreateInput = {
-    id?: string
-    code: string
-    classRoomId: string
-    name: string
-    description: string
-    knowledge?: SubjectCreateknowledgeInput | string[]
-    skills?: SubjectCreateskillsInput | string[]
-    attitude?: SubjectCreateattitudeInput | string[]
-    tableOfContent: InputJsonValue
-    resources: InputJsonValue
-    totalTime: number
-    startTime?: Date | string | null
-    endTime?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type SubjectUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    classRoomId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    knowledge?: SubjectUpdateknowledgeInput | string[]
-    skills?: SubjectUpdateskillsInput | string[]
-    attitude?: SubjectUpdateattitudeInput | string[]
-    tableOfContent?: InputJsonValue | InputJsonValue
-    resources?: InputJsonValue | InputJsonValue
-    totalTime?: IntFieldUpdateOperationsInput | number
-    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubjectUncheckedUpdateInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    classRoomId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    knowledge?: SubjectUpdateknowledgeInput | string[]
-    skills?: SubjectUpdateskillsInput | string[]
-    attitude?: SubjectUpdateattitudeInput | string[]
-    tableOfContent?: InputJsonValue | InputJsonValue
-    resources?: InputJsonValue | InputJsonValue
-    totalTime?: IntFieldUpdateOperationsInput | number
-    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubjectCreateManyInput = {
-    id?: string
-    code: string
-    classRoomId: string
-    name: string
-    description: string
-    knowledge?: SubjectCreateknowledgeInput | string[]
-    skills?: SubjectCreateskillsInput | string[]
-    attitude?: SubjectCreateattitudeInput | string[]
-    tableOfContent: InputJsonValue
-    resources: InputJsonValue
-    totalTime: number
-    startTime?: Date | string | null
-    endTime?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type SubjectUpdateManyMutationInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    classRoomId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    knowledge?: SubjectUpdateknowledgeInput | string[]
-    skills?: SubjectUpdateskillsInput | string[]
-    attitude?: SubjectUpdateattitudeInput | string[]
-    tableOfContent?: InputJsonValue | InputJsonValue
-    resources?: InputJsonValue | InputJsonValue
-    totalTime?: IntFieldUpdateOperationsInput | number
-    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubjectUncheckedUpdateManyInput = {
-    code?: StringFieldUpdateOperationsInput | string
-    classRoomId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    knowledge?: SubjectUpdateknowledgeInput | string[]
-    skills?: SubjectUpdateskillsInput | string[]
-    attitude?: SubjectUpdateattitudeInput | string[]
-    tableOfContent?: InputJsonValue | InputJsonValue
-    resources?: InputJsonValue | InputJsonValue
-    totalTime?: IntFieldUpdateOperationsInput | number
-    startTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type NoteCreateInput = {
     id?: string
     userId: string
@@ -22770,6 +33675,622 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     classId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectCreateInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateManyInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubjectUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LearningOutcomeCreateInput = {
+    id?: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    indicativeContent?: IndicativeContentCreateNestedManyWithoutLearningOutcomeInput
+    subject?: SubjectCreateNestedOneWithoutLearningOutcomeInput
+  }
+
+  export type LearningOutcomeUncheckedCreateInput = {
+    id?: string
+    SubjectId: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    indicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutLearningOutcomeInput
+  }
+
+  export type LearningOutcomeUpdateInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    indicativeContent?: IndicativeContentUpdateManyWithoutLearningOutcomeNestedInput
+    subject?: SubjectUpdateOneWithoutLearningOutcomeNestedInput
+  }
+
+  export type LearningOutcomeUncheckedUpdateInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    indicativeContent?: IndicativeContentUncheckedUpdateManyWithoutLearningOutcomeNestedInput
+  }
+
+  export type LearningOutcomeCreateManyInput = {
+    id?: string
+    SubjectId: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LearningOutcomeUpdateManyMutationInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LearningOutcomeUncheckedUpdateManyInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndicativeContentCreateInput = {
+    id?: string
+    content: string
+    subject?: SubjectCreateNestedOneWithoutIndicativeContentInput
+    LearningOutcome: LearningOutcomeCreateNestedOneWithoutIndicativeContentInput
+  }
+
+  export type IndicativeContentUncheckedCreateInput = {
+    id?: string
+    learningOutcomeId: string
+    content: string
+  }
+
+  export type IndicativeContentUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    subject?: SubjectUpdateOneWithoutIndicativeContentNestedInput
+    LearningOutcome?: LearningOutcomeUpdateOneRequiredWithoutIndicativeContentNestedInput
+  }
+
+  export type IndicativeContentUncheckedUpdateInput = {
+    learningOutcomeId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndicativeContentCreateManyInput = {
+    id?: string
+    learningOutcomeId: string
+    content: string
+  }
+
+  export type IndicativeContentUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndicativeContentUncheckedUpdateManyInput = {
+    learningOutcomeId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KnowledgeCreateInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutKnowledgeInput
+  }
+
+  export type KnowledgeUncheckedCreateInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KnowledgeUpdateInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutKnowledgeNestedInput
+  }
+
+  export type KnowledgeUncheckedUpdateInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnowledgeCreateManyInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KnowledgeUpdateManyMutationInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnowledgeUncheckedUpdateManyInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillCreateInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutSkillInput
+  }
+
+  export type SkillUncheckedCreateInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillUpdateInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutSkillNestedInput
+  }
+
+  export type SkillUncheckedUpdateInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillCreateManyInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillUpdateManyMutationInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillUncheckedUpdateManyInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeCreateInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutAttitudeInput
+  }
+
+  export type AttitudeUncheckedCreateInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttitudeUpdateInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutAttitudeNestedInput
+  }
+
+  export type AttitudeUncheckedUpdateInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeCreateManyInput = {
+    id?: string
+    SubjectId?: string | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttitudeUpdateManyMutationInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeUncheckedUpdateManyInput = {
+    SubjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceCreateInput = {
+    id?: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutResourceInput
+  }
+
+  export type ResourceUncheckedCreateInput = {
+    id?: string
+    SubjectId: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceUpdateInput = {
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutResourceNestedInput
+  }
+
+  export type ResourceUncheckedUpdateInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceCreateManyInput = {
+    id?: string
+    SubjectId: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceUpdateManyMutationInput = {
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateManyInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompetenceCreateInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PerformanceCriteria?: PerformanceCriteriaCreateNestedManyWithoutCompetenceInput
+    subject?: SubjectCreateNestedOneWithoutCompetenceInput
+  }
+
+  export type CompetenceUncheckedCreateInput = {
+    id?: string
+    SubjectId: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PerformanceCriteria?: PerformanceCriteriaUncheckedCreateNestedManyWithoutCompetenceInput
+  }
+
+  export type CompetenceUpdateInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PerformanceCriteria?: PerformanceCriteriaUpdateManyWithoutCompetenceNestedInput
+    subject?: SubjectUpdateOneWithoutCompetenceNestedInput
+  }
+
+  export type CompetenceUncheckedUpdateInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PerformanceCriteria?: PerformanceCriteriaUncheckedUpdateManyWithoutCompetenceNestedInput
+  }
+
+  export type CompetenceCreateManyInput = {
+    id?: string
+    SubjectId: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompetenceUpdateManyMutationInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompetenceUncheckedUpdateManyInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PerformanceCriteriaCreateInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    competence?: CompetenceCreateNestedOneWithoutPerformanceCriteriaInput
+  }
+
+  export type PerformanceCriteriaUncheckedCreateInput = {
+    id?: string
+    competenceId: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PerformanceCriteriaUpdateInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    competence?: CompetenceUpdateOneWithoutPerformanceCriteriaNestedInput
+  }
+
+  export type PerformanceCriteriaUncheckedUpdateInput = {
+    competenceId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PerformanceCriteriaCreateManyInput = {
+    id?: string
+    competenceId: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PerformanceCriteriaUpdateManyMutationInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PerformanceCriteriaUncheckedUpdateManyInput = {
+    competenceId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentCreateInput = {
+    id?: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutAssessmentInput
+  }
+
+  export type AssessmentUncheckedCreateInput = {
+    id?: string
+    SubjectId: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentUpdateInput = {
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutAssessmentNestedInput
+  }
+
+  export type AssessmentUncheckedUpdateInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentCreateManyInput = {
+    id?: string
+    SubjectId: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentUpdateManyMutationInput = {
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentUncheckedUpdateManyInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23693,83 +35214,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
-  export type JsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-  }
-
-  export type SubjectCountOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    classRoomId?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    knowledge?: SortOrder
-    skills?: SortOrder
-    attitude?: SortOrder
-    tableOfContent?: SortOrder
-    resources?: SortOrder
-    totalTime?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SubjectAvgOrderByAggregateInput = {
-    totalTime?: SortOrder
-  }
-
-  export type SubjectMaxOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    classRoomId?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    totalTime?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SubjectMinOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    classRoomId?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    totalTime?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SubjectSumOrderByAggregateInput = {
-    totalTime?: SortOrder
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
 
   export type NoteCountOrderByAggregateInput = {
     id?: SortOrder
@@ -23854,6 +35298,451 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPostRoleFilter<$PrismaModel>
     _max?: NestedEnumPostRoleFilter<$PrismaModel>
+  }
+
+  export type EnumSubjectTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubjectType | EnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSubjectTypeNullableFilter<$PrismaModel> | $Enums.SubjectType | null
+    isSet?: boolean
+  }
+
+  export type KnowledgeListRelationFilter = {
+    every?: KnowledgeWhereInput
+    some?: KnowledgeWhereInput
+    none?: KnowledgeWhereInput
+  }
+
+  export type ResourceListRelationFilter = {
+    every?: ResourceWhereInput
+    some?: ResourceWhereInput
+    none?: ResourceWhereInput
+  }
+
+  export type CompetenceListRelationFilter = {
+    every?: CompetenceWhereInput
+    some?: CompetenceWhereInput
+    none?: CompetenceWhereInput
+  }
+
+  export type AssessmentListRelationFilter = {
+    every?: AssessmentWhereInput
+    some?: AssessmentWhereInput
+    none?: AssessmentWhereInput
+  }
+
+  export type LearningOutcomeListRelationFilter = {
+    every?: LearningOutcomeWhereInput
+    some?: LearningOutcomeWhereInput
+    none?: LearningOutcomeWhereInput
+  }
+
+  export type IndicativeContentListRelationFilter = {
+    every?: IndicativeContentWhereInput
+    some?: IndicativeContentWhereInput
+    none?: IndicativeContentWhereInput
+  }
+
+  export type SkillListRelationFilter = {
+    every?: SkillWhereInput
+    some?: SkillWhereInput
+    none?: SkillWhereInput
+  }
+
+  export type AttitudeListRelationFilter = {
+    every?: AttitudeWhereInput
+    some?: AttitudeWhereInput
+    none?: AttitudeWhereInput
+  }
+
+  export type KnowledgeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResourceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CompetenceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssessmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LearningOutcomeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IndicativeContentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SkillOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AttitudeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SubjectCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    sector?: SortOrder
+    trade?: SortOrder
+    subjectType?: SortOrder
+    curriculum?: SortOrder
+    copyright?: SortOrder
+    learningHours?: SortOrder
+    issueDate?: SortOrder
+    purpose?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectAvgOrderByAggregateInput = {
+    learningHours?: SortOrder
+  }
+
+  export type SubjectMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    sector?: SortOrder
+    trade?: SortOrder
+    subjectType?: SortOrder
+    curriculum?: SortOrder
+    copyright?: SortOrder
+    learningHours?: SortOrder
+    issueDate?: SortOrder
+    purpose?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    sector?: SortOrder
+    trade?: SortOrder
+    subjectType?: SortOrder
+    curriculum?: SortOrder
+    copyright?: SortOrder
+    learningHours?: SortOrder
+    issueDate?: SortOrder
+    purpose?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectSumOrderByAggregateInput = {
+    learningHours?: SortOrder
+  }
+
+  export type EnumSubjectTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubjectType | EnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSubjectTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.SubjectType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSubjectTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumSubjectTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type SubjectNullableScalarRelationFilter = {
+    is?: SubjectWhereInput | null
+    isNot?: SubjectWhereInput | null
+  }
+
+  export type LearningOutcomeCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    learningHours?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LearningOutcomeAvgOrderByAggregateInput = {
+    learningHours?: SortOrder
+  }
+
+  export type LearningOutcomeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    learningHours?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LearningOutcomeMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    learningHours?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LearningOutcomeSumOrderByAggregateInput = {
+    learningHours?: SortOrder
+  }
+
+  export type LearningOutcomeScalarRelationFilter = {
+    is?: LearningOutcomeWhereInput
+    isNot?: LearningOutcomeWhereInput
+  }
+
+  export type IndicativeContentCountOrderByAggregateInput = {
+    id?: SortOrder
+    learningOutcomeId?: SortOrder
+    content?: SortOrder
+  }
+
+  export type IndicativeContentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    learningOutcomeId?: SortOrder
+    content?: SortOrder
+  }
+
+  export type IndicativeContentMinOrderByAggregateInput = {
+    id?: SortOrder
+    learningOutcomeId?: SortOrder
+    content?: SortOrder
+  }
+
+  export type KnowledgeCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KnowledgeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KnowledgeMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttitudeCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttitudeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AttitudeMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumResourceTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ResourceType | EnumResourceTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumResourceTypeNullableFilter<$PrismaModel> | $Enums.ResourceType | null
+    isSet?: boolean
+  }
+
+  export type ResourceCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResourceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResourceMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumResourceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ResourceType | EnumResourceTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumResourceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ResourceType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumResourceTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumResourceTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type PerformanceCriteriaListRelationFilter = {
+    every?: PerformanceCriteriaWhereInput
+    some?: PerformanceCriteriaWhereInput
+    none?: PerformanceCriteriaWhereInput
+  }
+
+  export type PerformanceCriteriaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CompetenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompetenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompetenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompetenceNullableScalarRelationFilter = {
+    is?: CompetenceWhereInput | null
+    isNot?: CompetenceWhereInput | null
+  }
+
+  export type PerformanceCriteriaCountOrderByAggregateInput = {
+    id?: SortOrder
+    competenceId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PerformanceCriteriaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    competenceId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PerformanceCriteriaMinOrderByAggregateInput = {
+    id?: SortOrder
+    competenceId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumAssessmentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel> | $Enums.AssessmentType | null
+    isSet?: boolean
+  }
+
+  export type AssessmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    type?: SortOrder
+    method?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AssessmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    type?: SortOrder
+    method?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AssessmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    SubjectId?: SortOrder
+    type?: SortOrder
+    method?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AssessmentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -24875,33 +36764,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTeacherInput, UserUpdateWithoutTeacherInput>, UserUncheckedUpdateWithoutTeacherInput>
   }
 
-  export type SubjectCreateknowledgeInput = {
-    set: string[]
-  }
-
-  export type SubjectCreateskillsInput = {
-    set: string[]
-  }
-
-  export type SubjectCreateattitudeInput = {
-    set: string[]
-  }
-
-  export type SubjectUpdateknowledgeInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type SubjectUpdateskillsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type SubjectUpdateattitudeInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
   export type NoteCreateseenByInput = {
     set: string[]
   }
@@ -24954,6 +36816,599 @@ export namespace Prisma {
     delete?: ClassWhereInput | boolean
     connect?: ClassWhereUniqueInput
     update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutPostInput, ClassUpdateWithoutPostInput>, ClassUncheckedUpdateWithoutPostInput>
+  }
+
+  export type KnowledgeCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
+    createMany?: KnowledgeCreateManySubjectInputEnvelope
+    connect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+  }
+
+  export type ResourceCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput> | ResourceCreateWithoutSubjectInput[] | ResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutSubjectInput | ResourceCreateOrConnectWithoutSubjectInput[]
+    createMany?: ResourceCreateManySubjectInputEnvelope
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+  }
+
+  export type CompetenceCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput> | CompetenceCreateWithoutSubjectInput[] | CompetenceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: CompetenceCreateOrConnectWithoutSubjectInput | CompetenceCreateOrConnectWithoutSubjectInput[]
+    createMany?: CompetenceCreateManySubjectInputEnvelope
+    connect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+  }
+
+  export type AssessmentCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput> | AssessmentCreateWithoutSubjectInput[] | AssessmentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutSubjectInput | AssessmentCreateOrConnectWithoutSubjectInput[]
+    createMany?: AssessmentCreateManySubjectInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type LearningOutcomeCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput> | LearningOutcomeCreateWithoutSubjectInput[] | LearningOutcomeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutSubjectInput | LearningOutcomeCreateOrConnectWithoutSubjectInput[]
+    createMany?: LearningOutcomeCreateManySubjectInputEnvelope
+    connect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+  }
+
+  export type IndicativeContentCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput> | IndicativeContentCreateWithoutSubjectInput[] | IndicativeContentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutSubjectInput | IndicativeContentCreateOrConnectWithoutSubjectInput[]
+    createMany?: IndicativeContentCreateManySubjectInputEnvelope
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+  }
+
+  export type SkillCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput> | SkillCreateWithoutSubjectInput[] | SkillUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutSubjectInput | SkillCreateOrConnectWithoutSubjectInput[]
+    createMany?: SkillCreateManySubjectInputEnvelope
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+  }
+
+  export type AttitudeCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput> | AttitudeCreateWithoutSubjectInput[] | AttitudeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AttitudeCreateOrConnectWithoutSubjectInput | AttitudeCreateOrConnectWithoutSubjectInput[]
+    createMany?: AttitudeCreateManySubjectInputEnvelope
+    connect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+  }
+
+  export type KnowledgeUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
+    createMany?: KnowledgeCreateManySubjectInputEnvelope
+    connect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+  }
+
+  export type ResourceUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput> | ResourceCreateWithoutSubjectInput[] | ResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutSubjectInput | ResourceCreateOrConnectWithoutSubjectInput[]
+    createMany?: ResourceCreateManySubjectInputEnvelope
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+  }
+
+  export type CompetenceUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput> | CompetenceCreateWithoutSubjectInput[] | CompetenceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: CompetenceCreateOrConnectWithoutSubjectInput | CompetenceCreateOrConnectWithoutSubjectInput[]
+    createMany?: CompetenceCreateManySubjectInputEnvelope
+    connect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+  }
+
+  export type AssessmentUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput> | AssessmentCreateWithoutSubjectInput[] | AssessmentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutSubjectInput | AssessmentCreateOrConnectWithoutSubjectInput[]
+    createMany?: AssessmentCreateManySubjectInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput> | LearningOutcomeCreateWithoutSubjectInput[] | LearningOutcomeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutSubjectInput | LearningOutcomeCreateOrConnectWithoutSubjectInput[]
+    createMany?: LearningOutcomeCreateManySubjectInputEnvelope
+    connect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+  }
+
+  export type IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput> | IndicativeContentCreateWithoutSubjectInput[] | IndicativeContentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutSubjectInput | IndicativeContentCreateOrConnectWithoutSubjectInput[]
+    createMany?: IndicativeContentCreateManySubjectInputEnvelope
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+  }
+
+  export type SkillUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput> | SkillCreateWithoutSubjectInput[] | SkillUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutSubjectInput | SkillCreateOrConnectWithoutSubjectInput[]
+    createMany?: SkillCreateManySubjectInputEnvelope
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+  }
+
+  export type AttitudeUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput> | AttitudeCreateWithoutSubjectInput[] | AttitudeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AttitudeCreateOrConnectWithoutSubjectInput | AttitudeCreateOrConnectWithoutSubjectInput[]
+    createMany?: AttitudeCreateManySubjectInputEnvelope
+    connect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+  }
+
+  export type NullableEnumSubjectTypeFieldUpdateOperationsInput = {
+    set?: $Enums.SubjectType | null
+    unset?: boolean
+  }
+
+  export type KnowledgeUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
+    upsert?: KnowledgeUpsertWithWhereUniqueWithoutSubjectInput | KnowledgeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: KnowledgeCreateManySubjectInputEnvelope
+    set?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    disconnect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    delete?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    connect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    update?: KnowledgeUpdateWithWhereUniqueWithoutSubjectInput | KnowledgeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: KnowledgeUpdateManyWithWhereWithoutSubjectInput | KnowledgeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: KnowledgeScalarWhereInput | KnowledgeScalarWhereInput[]
+  }
+
+  export type ResourceUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput> | ResourceCreateWithoutSubjectInput[] | ResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutSubjectInput | ResourceCreateOrConnectWithoutSubjectInput[]
+    upsert?: ResourceUpsertWithWhereUniqueWithoutSubjectInput | ResourceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ResourceCreateManySubjectInputEnvelope
+    set?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    disconnect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    delete?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    update?: ResourceUpdateWithWhereUniqueWithoutSubjectInput | ResourceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ResourceUpdateManyWithWhereWithoutSubjectInput | ResourceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+  }
+
+  export type CompetenceUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput> | CompetenceCreateWithoutSubjectInput[] | CompetenceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: CompetenceCreateOrConnectWithoutSubjectInput | CompetenceCreateOrConnectWithoutSubjectInput[]
+    upsert?: CompetenceUpsertWithWhereUniqueWithoutSubjectInput | CompetenceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: CompetenceCreateManySubjectInputEnvelope
+    set?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    disconnect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    delete?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    connect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    update?: CompetenceUpdateWithWhereUniqueWithoutSubjectInput | CompetenceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: CompetenceUpdateManyWithWhereWithoutSubjectInput | CompetenceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: CompetenceScalarWhereInput | CompetenceScalarWhereInput[]
+  }
+
+  export type AssessmentUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput> | AssessmentCreateWithoutSubjectInput[] | AssessmentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutSubjectInput | AssessmentCreateOrConnectWithoutSubjectInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutSubjectInput | AssessmentUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: AssessmentCreateManySubjectInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutSubjectInput | AssessmentUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutSubjectInput | AssessmentUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type LearningOutcomeUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput> | LearningOutcomeCreateWithoutSubjectInput[] | LearningOutcomeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutSubjectInput | LearningOutcomeCreateOrConnectWithoutSubjectInput[]
+    upsert?: LearningOutcomeUpsertWithWhereUniqueWithoutSubjectInput | LearningOutcomeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: LearningOutcomeCreateManySubjectInputEnvelope
+    set?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    disconnect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    delete?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    connect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    update?: LearningOutcomeUpdateWithWhereUniqueWithoutSubjectInput | LearningOutcomeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: LearningOutcomeUpdateManyWithWhereWithoutSubjectInput | LearningOutcomeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: LearningOutcomeScalarWhereInput | LearningOutcomeScalarWhereInput[]
+  }
+
+  export type IndicativeContentUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput> | IndicativeContentCreateWithoutSubjectInput[] | IndicativeContentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutSubjectInput | IndicativeContentCreateOrConnectWithoutSubjectInput[]
+    upsert?: IndicativeContentUpsertWithWhereUniqueWithoutSubjectInput | IndicativeContentUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: IndicativeContentCreateManySubjectInputEnvelope
+    set?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    disconnect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    delete?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    update?: IndicativeContentUpdateWithWhereUniqueWithoutSubjectInput | IndicativeContentUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: IndicativeContentUpdateManyWithWhereWithoutSubjectInput | IndicativeContentUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+  }
+
+  export type SkillUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput> | SkillCreateWithoutSubjectInput[] | SkillUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutSubjectInput | SkillCreateOrConnectWithoutSubjectInput[]
+    upsert?: SkillUpsertWithWhereUniqueWithoutSubjectInput | SkillUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: SkillCreateManySubjectInputEnvelope
+    set?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    disconnect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    delete?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    update?: SkillUpdateWithWhereUniqueWithoutSubjectInput | SkillUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: SkillUpdateManyWithWhereWithoutSubjectInput | SkillUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: SkillScalarWhereInput | SkillScalarWhereInput[]
+  }
+
+  export type AttitudeUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput> | AttitudeCreateWithoutSubjectInput[] | AttitudeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AttitudeCreateOrConnectWithoutSubjectInput | AttitudeCreateOrConnectWithoutSubjectInput[]
+    upsert?: AttitudeUpsertWithWhereUniqueWithoutSubjectInput | AttitudeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: AttitudeCreateManySubjectInputEnvelope
+    set?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    disconnect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    delete?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    connect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    update?: AttitudeUpdateWithWhereUniqueWithoutSubjectInput | AttitudeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: AttitudeUpdateManyWithWhereWithoutSubjectInput | AttitudeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: AttitudeScalarWhereInput | AttitudeScalarWhereInput[]
+  }
+
+  export type KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput> | KnowledgeCreateWithoutSubjectInput[] | KnowledgeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: KnowledgeCreateOrConnectWithoutSubjectInput | KnowledgeCreateOrConnectWithoutSubjectInput[]
+    upsert?: KnowledgeUpsertWithWhereUniqueWithoutSubjectInput | KnowledgeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: KnowledgeCreateManySubjectInputEnvelope
+    set?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    disconnect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    delete?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    connect?: KnowledgeWhereUniqueInput | KnowledgeWhereUniqueInput[]
+    update?: KnowledgeUpdateWithWhereUniqueWithoutSubjectInput | KnowledgeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: KnowledgeUpdateManyWithWhereWithoutSubjectInput | KnowledgeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: KnowledgeScalarWhereInput | KnowledgeScalarWhereInput[]
+  }
+
+  export type ResourceUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput> | ResourceCreateWithoutSubjectInput[] | ResourceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutSubjectInput | ResourceCreateOrConnectWithoutSubjectInput[]
+    upsert?: ResourceUpsertWithWhereUniqueWithoutSubjectInput | ResourceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ResourceCreateManySubjectInputEnvelope
+    set?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    disconnect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    delete?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    update?: ResourceUpdateWithWhereUniqueWithoutSubjectInput | ResourceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ResourceUpdateManyWithWhereWithoutSubjectInput | ResourceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+  }
+
+  export type CompetenceUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput> | CompetenceCreateWithoutSubjectInput[] | CompetenceUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: CompetenceCreateOrConnectWithoutSubjectInput | CompetenceCreateOrConnectWithoutSubjectInput[]
+    upsert?: CompetenceUpsertWithWhereUniqueWithoutSubjectInput | CompetenceUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: CompetenceCreateManySubjectInputEnvelope
+    set?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    disconnect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    delete?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    connect?: CompetenceWhereUniqueInput | CompetenceWhereUniqueInput[]
+    update?: CompetenceUpdateWithWhereUniqueWithoutSubjectInput | CompetenceUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: CompetenceUpdateManyWithWhereWithoutSubjectInput | CompetenceUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: CompetenceScalarWhereInput | CompetenceScalarWhereInput[]
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput> | AssessmentCreateWithoutSubjectInput[] | AssessmentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutSubjectInput | AssessmentCreateOrConnectWithoutSubjectInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutSubjectInput | AssessmentUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: AssessmentCreateManySubjectInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutSubjectInput | AssessmentUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutSubjectInput | AssessmentUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput> | LearningOutcomeCreateWithoutSubjectInput[] | LearningOutcomeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutSubjectInput | LearningOutcomeCreateOrConnectWithoutSubjectInput[]
+    upsert?: LearningOutcomeUpsertWithWhereUniqueWithoutSubjectInput | LearningOutcomeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: LearningOutcomeCreateManySubjectInputEnvelope
+    set?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    disconnect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    delete?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    connect?: LearningOutcomeWhereUniqueInput | LearningOutcomeWhereUniqueInput[]
+    update?: LearningOutcomeUpdateWithWhereUniqueWithoutSubjectInput | LearningOutcomeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: LearningOutcomeUpdateManyWithWhereWithoutSubjectInput | LearningOutcomeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: LearningOutcomeScalarWhereInput | LearningOutcomeScalarWhereInput[]
+  }
+
+  export type IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput> | IndicativeContentCreateWithoutSubjectInput[] | IndicativeContentUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutSubjectInput | IndicativeContentCreateOrConnectWithoutSubjectInput[]
+    upsert?: IndicativeContentUpsertWithWhereUniqueWithoutSubjectInput | IndicativeContentUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: IndicativeContentCreateManySubjectInputEnvelope
+    set?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    disconnect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    delete?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    update?: IndicativeContentUpdateWithWhereUniqueWithoutSubjectInput | IndicativeContentUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: IndicativeContentUpdateManyWithWhereWithoutSubjectInput | IndicativeContentUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+  }
+
+  export type SkillUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput> | SkillCreateWithoutSubjectInput[] | SkillUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutSubjectInput | SkillCreateOrConnectWithoutSubjectInput[]
+    upsert?: SkillUpsertWithWhereUniqueWithoutSubjectInput | SkillUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: SkillCreateManySubjectInputEnvelope
+    set?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    disconnect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    delete?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    update?: SkillUpdateWithWhereUniqueWithoutSubjectInput | SkillUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: SkillUpdateManyWithWhereWithoutSubjectInput | SkillUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: SkillScalarWhereInput | SkillScalarWhereInput[]
+  }
+
+  export type AttitudeUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput> | AttitudeCreateWithoutSubjectInput[] | AttitudeUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: AttitudeCreateOrConnectWithoutSubjectInput | AttitudeCreateOrConnectWithoutSubjectInput[]
+    upsert?: AttitudeUpsertWithWhereUniqueWithoutSubjectInput | AttitudeUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: AttitudeCreateManySubjectInputEnvelope
+    set?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    disconnect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    delete?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    connect?: AttitudeWhereUniqueInput | AttitudeWhereUniqueInput[]
+    update?: AttitudeUpdateWithWhereUniqueWithoutSubjectInput | AttitudeUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: AttitudeUpdateManyWithWhereWithoutSubjectInput | AttitudeUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: AttitudeScalarWhereInput | AttitudeScalarWhereInput[]
+  }
+
+  export type IndicativeContentCreateNestedManyWithoutLearningOutcomeInput = {
+    create?: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput> | IndicativeContentCreateWithoutLearningOutcomeInput[] | IndicativeContentUncheckedCreateWithoutLearningOutcomeInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutLearningOutcomeInput | IndicativeContentCreateOrConnectWithoutLearningOutcomeInput[]
+    createMany?: IndicativeContentCreateManyLearningOutcomeInputEnvelope
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+  }
+
+  export type SubjectCreateNestedOneWithoutLearningOutcomeInput = {
+    create?: XOR<SubjectCreateWithoutLearningOutcomeInput, SubjectUncheckedCreateWithoutLearningOutcomeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutLearningOutcomeInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type IndicativeContentUncheckedCreateNestedManyWithoutLearningOutcomeInput = {
+    create?: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput> | IndicativeContentCreateWithoutLearningOutcomeInput[] | IndicativeContentUncheckedCreateWithoutLearningOutcomeInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutLearningOutcomeInput | IndicativeContentCreateOrConnectWithoutLearningOutcomeInput[]
+    createMany?: IndicativeContentCreateManyLearningOutcomeInputEnvelope
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+  }
+
+  export type IndicativeContentUpdateManyWithoutLearningOutcomeNestedInput = {
+    create?: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput> | IndicativeContentCreateWithoutLearningOutcomeInput[] | IndicativeContentUncheckedCreateWithoutLearningOutcomeInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutLearningOutcomeInput | IndicativeContentCreateOrConnectWithoutLearningOutcomeInput[]
+    upsert?: IndicativeContentUpsertWithWhereUniqueWithoutLearningOutcomeInput | IndicativeContentUpsertWithWhereUniqueWithoutLearningOutcomeInput[]
+    createMany?: IndicativeContentCreateManyLearningOutcomeInputEnvelope
+    set?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    disconnect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    delete?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    update?: IndicativeContentUpdateWithWhereUniqueWithoutLearningOutcomeInput | IndicativeContentUpdateWithWhereUniqueWithoutLearningOutcomeInput[]
+    updateMany?: IndicativeContentUpdateManyWithWhereWithoutLearningOutcomeInput | IndicativeContentUpdateManyWithWhereWithoutLearningOutcomeInput[]
+    deleteMany?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+  }
+
+  export type SubjectUpdateOneWithoutLearningOutcomeNestedInput = {
+    create?: XOR<SubjectCreateWithoutLearningOutcomeInput, SubjectUncheckedCreateWithoutLearningOutcomeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutLearningOutcomeInput
+    upsert?: SubjectUpsertWithoutLearningOutcomeInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutLearningOutcomeInput, SubjectUpdateWithoutLearningOutcomeInput>, SubjectUncheckedUpdateWithoutLearningOutcomeInput>
+  }
+
+  export type IndicativeContentUncheckedUpdateManyWithoutLearningOutcomeNestedInput = {
+    create?: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput> | IndicativeContentCreateWithoutLearningOutcomeInput[] | IndicativeContentUncheckedCreateWithoutLearningOutcomeInput[]
+    connectOrCreate?: IndicativeContentCreateOrConnectWithoutLearningOutcomeInput | IndicativeContentCreateOrConnectWithoutLearningOutcomeInput[]
+    upsert?: IndicativeContentUpsertWithWhereUniqueWithoutLearningOutcomeInput | IndicativeContentUpsertWithWhereUniqueWithoutLearningOutcomeInput[]
+    createMany?: IndicativeContentCreateManyLearningOutcomeInputEnvelope
+    set?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    disconnect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    delete?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    connect?: IndicativeContentWhereUniqueInput | IndicativeContentWhereUniqueInput[]
+    update?: IndicativeContentUpdateWithWhereUniqueWithoutLearningOutcomeInput | IndicativeContentUpdateWithWhereUniqueWithoutLearningOutcomeInput[]
+    updateMany?: IndicativeContentUpdateManyWithWhereWithoutLearningOutcomeInput | IndicativeContentUpdateManyWithWhereWithoutLearningOutcomeInput[]
+    deleteMany?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+  }
+
+  export type SubjectCreateNestedOneWithoutIndicativeContentInput = {
+    create?: XOR<SubjectCreateWithoutIndicativeContentInput, SubjectUncheckedCreateWithoutIndicativeContentInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutIndicativeContentInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type LearningOutcomeCreateNestedOneWithoutIndicativeContentInput = {
+    create?: XOR<LearningOutcomeCreateWithoutIndicativeContentInput, LearningOutcomeUncheckedCreateWithoutIndicativeContentInput>
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutIndicativeContentInput
+    connect?: LearningOutcomeWhereUniqueInput
+  }
+
+  export type SubjectUpdateOneWithoutIndicativeContentNestedInput = {
+    create?: XOR<SubjectCreateWithoutIndicativeContentInput, SubjectUncheckedCreateWithoutIndicativeContentInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutIndicativeContentInput
+    upsert?: SubjectUpsertWithoutIndicativeContentInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutIndicativeContentInput, SubjectUpdateWithoutIndicativeContentInput>, SubjectUncheckedUpdateWithoutIndicativeContentInput>
+  }
+
+  export type LearningOutcomeUpdateOneRequiredWithoutIndicativeContentNestedInput = {
+    create?: XOR<LearningOutcomeCreateWithoutIndicativeContentInput, LearningOutcomeUncheckedCreateWithoutIndicativeContentInput>
+    connectOrCreate?: LearningOutcomeCreateOrConnectWithoutIndicativeContentInput
+    upsert?: LearningOutcomeUpsertWithoutIndicativeContentInput
+    connect?: LearningOutcomeWhereUniqueInput
+    update?: XOR<XOR<LearningOutcomeUpdateToOneWithWhereWithoutIndicativeContentInput, LearningOutcomeUpdateWithoutIndicativeContentInput>, LearningOutcomeUncheckedUpdateWithoutIndicativeContentInput>
+  }
+
+  export type SubjectCreateNestedOneWithoutKnowledgeInput = {
+    create?: XOR<SubjectCreateWithoutKnowledgeInput, SubjectUncheckedCreateWithoutKnowledgeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutKnowledgeInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type SubjectUpdateOneWithoutKnowledgeNestedInput = {
+    create?: XOR<SubjectCreateWithoutKnowledgeInput, SubjectUncheckedCreateWithoutKnowledgeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutKnowledgeInput
+    upsert?: SubjectUpsertWithoutKnowledgeInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutKnowledgeInput, SubjectUpdateWithoutKnowledgeInput>, SubjectUncheckedUpdateWithoutKnowledgeInput>
+  }
+
+  export type SubjectCreateNestedOneWithoutSkillInput = {
+    create?: XOR<SubjectCreateWithoutSkillInput, SubjectUncheckedCreateWithoutSkillInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSkillInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type SubjectUpdateOneWithoutSkillNestedInput = {
+    create?: XOR<SubjectCreateWithoutSkillInput, SubjectUncheckedCreateWithoutSkillInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSkillInput
+    upsert?: SubjectUpsertWithoutSkillInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutSkillInput, SubjectUpdateWithoutSkillInput>, SubjectUncheckedUpdateWithoutSkillInput>
+  }
+
+  export type SubjectCreateNestedOneWithoutAttitudeInput = {
+    create?: XOR<SubjectCreateWithoutAttitudeInput, SubjectUncheckedCreateWithoutAttitudeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutAttitudeInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type SubjectUpdateOneWithoutAttitudeNestedInput = {
+    create?: XOR<SubjectCreateWithoutAttitudeInput, SubjectUncheckedCreateWithoutAttitudeInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutAttitudeInput
+    upsert?: SubjectUpsertWithoutAttitudeInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutAttitudeInput, SubjectUpdateWithoutAttitudeInput>, SubjectUncheckedUpdateWithoutAttitudeInput>
+  }
+
+  export type SubjectCreateNestedOneWithoutResourceInput = {
+    create?: XOR<SubjectCreateWithoutResourceInput, SubjectUncheckedCreateWithoutResourceInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutResourceInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type NullableEnumResourceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ResourceType | null
+    unset?: boolean
+  }
+
+  export type SubjectUpdateOneWithoutResourceNestedInput = {
+    create?: XOR<SubjectCreateWithoutResourceInput, SubjectUncheckedCreateWithoutResourceInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutResourceInput
+    upsert?: SubjectUpsertWithoutResourceInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutResourceInput, SubjectUpdateWithoutResourceInput>, SubjectUncheckedUpdateWithoutResourceInput>
+  }
+
+  export type PerformanceCriteriaCreateNestedManyWithoutCompetenceInput = {
+    create?: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput> | PerformanceCriteriaCreateWithoutCompetenceInput[] | PerformanceCriteriaUncheckedCreateWithoutCompetenceInput[]
+    connectOrCreate?: PerformanceCriteriaCreateOrConnectWithoutCompetenceInput | PerformanceCriteriaCreateOrConnectWithoutCompetenceInput[]
+    createMany?: PerformanceCriteriaCreateManyCompetenceInputEnvelope
+    connect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+  }
+
+  export type SubjectCreateNestedOneWithoutCompetenceInput = {
+    create?: XOR<SubjectCreateWithoutCompetenceInput, SubjectUncheckedCreateWithoutCompetenceInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutCompetenceInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type PerformanceCriteriaUncheckedCreateNestedManyWithoutCompetenceInput = {
+    create?: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput> | PerformanceCriteriaCreateWithoutCompetenceInput[] | PerformanceCriteriaUncheckedCreateWithoutCompetenceInput[]
+    connectOrCreate?: PerformanceCriteriaCreateOrConnectWithoutCompetenceInput | PerformanceCriteriaCreateOrConnectWithoutCompetenceInput[]
+    createMany?: PerformanceCriteriaCreateManyCompetenceInputEnvelope
+    connect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+  }
+
+  export type PerformanceCriteriaUpdateManyWithoutCompetenceNestedInput = {
+    create?: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput> | PerformanceCriteriaCreateWithoutCompetenceInput[] | PerformanceCriteriaUncheckedCreateWithoutCompetenceInput[]
+    connectOrCreate?: PerformanceCriteriaCreateOrConnectWithoutCompetenceInput | PerformanceCriteriaCreateOrConnectWithoutCompetenceInput[]
+    upsert?: PerformanceCriteriaUpsertWithWhereUniqueWithoutCompetenceInput | PerformanceCriteriaUpsertWithWhereUniqueWithoutCompetenceInput[]
+    createMany?: PerformanceCriteriaCreateManyCompetenceInputEnvelope
+    set?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    disconnect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    delete?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    connect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    update?: PerformanceCriteriaUpdateWithWhereUniqueWithoutCompetenceInput | PerformanceCriteriaUpdateWithWhereUniqueWithoutCompetenceInput[]
+    updateMany?: PerformanceCriteriaUpdateManyWithWhereWithoutCompetenceInput | PerformanceCriteriaUpdateManyWithWhereWithoutCompetenceInput[]
+    deleteMany?: PerformanceCriteriaScalarWhereInput | PerformanceCriteriaScalarWhereInput[]
+  }
+
+  export type SubjectUpdateOneWithoutCompetenceNestedInput = {
+    create?: XOR<SubjectCreateWithoutCompetenceInput, SubjectUncheckedCreateWithoutCompetenceInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutCompetenceInput
+    upsert?: SubjectUpsertWithoutCompetenceInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutCompetenceInput, SubjectUpdateWithoutCompetenceInput>, SubjectUncheckedUpdateWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaUncheckedUpdateManyWithoutCompetenceNestedInput = {
+    create?: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput> | PerformanceCriteriaCreateWithoutCompetenceInput[] | PerformanceCriteriaUncheckedCreateWithoutCompetenceInput[]
+    connectOrCreate?: PerformanceCriteriaCreateOrConnectWithoutCompetenceInput | PerformanceCriteriaCreateOrConnectWithoutCompetenceInput[]
+    upsert?: PerformanceCriteriaUpsertWithWhereUniqueWithoutCompetenceInput | PerformanceCriteriaUpsertWithWhereUniqueWithoutCompetenceInput[]
+    createMany?: PerformanceCriteriaCreateManyCompetenceInputEnvelope
+    set?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    disconnect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    delete?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    connect?: PerformanceCriteriaWhereUniqueInput | PerformanceCriteriaWhereUniqueInput[]
+    update?: PerformanceCriteriaUpdateWithWhereUniqueWithoutCompetenceInput | PerformanceCriteriaUpdateWithWhereUniqueWithoutCompetenceInput[]
+    updateMany?: PerformanceCriteriaUpdateManyWithWhereWithoutCompetenceInput | PerformanceCriteriaUpdateManyWithWhereWithoutCompetenceInput[]
+    deleteMany?: PerformanceCriteriaScalarWhereInput | PerformanceCriteriaScalarWhereInput[]
+  }
+
+  export type CompetenceCreateNestedOneWithoutPerformanceCriteriaInput = {
+    create?: XOR<CompetenceCreateWithoutPerformanceCriteriaInput, CompetenceUncheckedCreateWithoutPerformanceCriteriaInput>
+    connectOrCreate?: CompetenceCreateOrConnectWithoutPerformanceCriteriaInput
+    connect?: CompetenceWhereUniqueInput
+  }
+
+  export type CompetenceUpdateOneWithoutPerformanceCriteriaNestedInput = {
+    create?: XOR<CompetenceCreateWithoutPerformanceCriteriaInput, CompetenceUncheckedCreateWithoutPerformanceCriteriaInput>
+    connectOrCreate?: CompetenceCreateOrConnectWithoutPerformanceCriteriaInput
+    upsert?: CompetenceUpsertWithoutPerformanceCriteriaInput
+    disconnect?: boolean
+    delete?: CompetenceWhereInput | boolean
+    connect?: CompetenceWhereUniqueInput
+    update?: XOR<XOR<CompetenceUpdateToOneWithWhereWithoutPerformanceCriteriaInput, CompetenceUpdateWithoutPerformanceCriteriaInput>, CompetenceUncheckedUpdateWithoutPerformanceCriteriaInput>
+  }
+
+  export type SubjectCreateNestedOneWithoutAssessmentInput = {
+    create?: XOR<SubjectCreateWithoutAssessmentInput, SubjectUncheckedCreateWithoutAssessmentInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutAssessmentInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type NullableEnumAssessmentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AssessmentType | null
+    unset?: boolean
+  }
+
+  export type SubjectUpdateOneWithoutAssessmentNestedInput = {
+    create?: XOR<SubjectCreateWithoutAssessmentInput, SubjectUncheckedCreateWithoutAssessmentInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutAssessmentInput
+    upsert?: SubjectUpsertWithoutAssessmentInput
+    disconnect?: boolean
+    delete?: SubjectWhereInput | boolean
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutAssessmentInput, SubjectUpdateWithoutAssessmentInput>, SubjectUncheckedUpdateWithoutAssessmentInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -25235,17 +37690,6 @@ export namespace Prisma {
     _max?: NestedEnumClassTypeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
-  export type NestedJsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-  }
 
   export type NestedEnumPostRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.PostRole | EnumPostRoleFieldRefInput<$PrismaModel>
@@ -25262,6 +37706,63 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPostRoleFilter<$PrismaModel>
     _max?: NestedEnumPostRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSubjectTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubjectType | EnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSubjectTypeNullableFilter<$PrismaModel> | $Enums.SubjectType | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumSubjectTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubjectType | EnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SubjectType[] | ListEnumSubjectTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSubjectTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.SubjectType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSubjectTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumSubjectTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumResourceTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ResourceType | EnumResourceTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumResourceTypeNullableFilter<$PrismaModel> | $Enums.ResourceType | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumResourceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ResourceType | EnumResourceTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ResourceType[] | ListEnumResourceTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumResourceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ResourceType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumResourceTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumResourceTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumAssessmentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel> | $Enums.AssessmentType | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AssessmentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -27807,6 +40308,1444 @@ export namespace Prisma {
     SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
   }
 
+  export type KnowledgeCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KnowledgeUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KnowledgeCreateOrConnectWithoutSubjectInput = {
+    where: KnowledgeWhereUniqueInput
+    create: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type KnowledgeCreateManySubjectInputEnvelope = {
+    data: KnowledgeCreateManySubjectInput | KnowledgeCreateManySubjectInput[]
+  }
+
+  export type ResourceCreateWithoutSubjectInput = {
+    id?: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceCreateOrConnectWithoutSubjectInput = {
+    where: ResourceWhereUniqueInput
+    create: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ResourceCreateManySubjectInputEnvelope = {
+    data: ResourceCreateManySubjectInput | ResourceCreateManySubjectInput[]
+  }
+
+  export type CompetenceCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PerformanceCriteria?: PerformanceCriteriaCreateNestedManyWithoutCompetenceInput
+  }
+
+  export type CompetenceUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    PerformanceCriteria?: PerformanceCriteriaUncheckedCreateNestedManyWithoutCompetenceInput
+  }
+
+  export type CompetenceCreateOrConnectWithoutSubjectInput = {
+    where: CompetenceWhereUniqueInput
+    create: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type CompetenceCreateManySubjectInputEnvelope = {
+    data: CompetenceCreateManySubjectInput | CompetenceCreateManySubjectInput[]
+  }
+
+  export type AssessmentCreateWithoutSubjectInput = {
+    id?: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentCreateOrConnectWithoutSubjectInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type AssessmentCreateManySubjectInputEnvelope = {
+    data: AssessmentCreateManySubjectInput | AssessmentCreateManySubjectInput[]
+  }
+
+  export type LearningOutcomeCreateWithoutSubjectInput = {
+    id?: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    indicativeContent?: IndicativeContentCreateNestedManyWithoutLearningOutcomeInput
+  }
+
+  export type LearningOutcomeUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    indicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutLearningOutcomeInput
+  }
+
+  export type LearningOutcomeCreateOrConnectWithoutSubjectInput = {
+    where: LearningOutcomeWhereUniqueInput
+    create: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type LearningOutcomeCreateManySubjectInputEnvelope = {
+    data: LearningOutcomeCreateManySubjectInput | LearningOutcomeCreateManySubjectInput[]
+  }
+
+  export type IndicativeContentCreateWithoutSubjectInput = {
+    id?: string
+    content: string
+    LearningOutcome: LearningOutcomeCreateNestedOneWithoutIndicativeContentInput
+  }
+
+  export type IndicativeContentUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    content: string
+  }
+
+  export type IndicativeContentCreateOrConnectWithoutSubjectInput = {
+    where: IndicativeContentWhereUniqueInput
+    create: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type IndicativeContentCreateManySubjectInputEnvelope = {
+    data: IndicativeContentCreateManySubjectInput | IndicativeContentCreateManySubjectInput[]
+  }
+
+  export type SkillCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillCreateOrConnectWithoutSubjectInput = {
+    where: SkillWhereUniqueInput
+    create: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type SkillCreateManySubjectInputEnvelope = {
+    data: SkillCreateManySubjectInput | SkillCreateManySubjectInput[]
+  }
+
+  export type AttitudeCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttitudeUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttitudeCreateOrConnectWithoutSubjectInput = {
+    where: AttitudeWhereUniqueInput
+    create: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type AttitudeCreateManySubjectInputEnvelope = {
+    data: AttitudeCreateManySubjectInput | AttitudeCreateManySubjectInput[]
+  }
+
+  export type KnowledgeUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: KnowledgeWhereUniqueInput
+    update: XOR<KnowledgeUpdateWithoutSubjectInput, KnowledgeUncheckedUpdateWithoutSubjectInput>
+    create: XOR<KnowledgeCreateWithoutSubjectInput, KnowledgeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type KnowledgeUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: KnowledgeWhereUniqueInput
+    data: XOR<KnowledgeUpdateWithoutSubjectInput, KnowledgeUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type KnowledgeUpdateManyWithWhereWithoutSubjectInput = {
+    where: KnowledgeScalarWhereInput
+    data: XOR<KnowledgeUpdateManyMutationInput, KnowledgeUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type KnowledgeScalarWhereInput = {
+    AND?: KnowledgeScalarWhereInput | KnowledgeScalarWhereInput[]
+    OR?: KnowledgeScalarWhereInput[]
+    NOT?: KnowledgeScalarWhereInput | KnowledgeScalarWhereInput[]
+    id?: StringFilter<"Knowledge"> | string
+    SubjectId?: StringNullableFilter<"Knowledge"> | string | null
+    description?: StringFilter<"Knowledge"> | string
+    createdAt?: DateTimeFilter<"Knowledge"> | Date | string
+    updatedAt?: DateTimeFilter<"Knowledge"> | Date | string
+  }
+
+  export type ResourceUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: ResourceWhereUniqueInput
+    update: XOR<ResourceUpdateWithoutSubjectInput, ResourceUncheckedUpdateWithoutSubjectInput>
+    create: XOR<ResourceCreateWithoutSubjectInput, ResourceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ResourceUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: ResourceWhereUniqueInput
+    data: XOR<ResourceUpdateWithoutSubjectInput, ResourceUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type ResourceUpdateManyWithWhereWithoutSubjectInput = {
+    where: ResourceScalarWhereInput
+    data: XOR<ResourceUpdateManyMutationInput, ResourceUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type ResourceScalarWhereInput = {
+    AND?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+    OR?: ResourceScalarWhereInput[]
+    NOT?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+    id?: StringFilter<"Resource"> | string
+    SubjectId?: StringFilter<"Resource"> | string
+    category?: EnumResourceTypeNullableFilter<"Resource"> | $Enums.ResourceType | null
+    description?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+  }
+
+  export type CompetenceUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: CompetenceWhereUniqueInput
+    update: XOR<CompetenceUpdateWithoutSubjectInput, CompetenceUncheckedUpdateWithoutSubjectInput>
+    create: XOR<CompetenceCreateWithoutSubjectInput, CompetenceUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type CompetenceUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: CompetenceWhereUniqueInput
+    data: XOR<CompetenceUpdateWithoutSubjectInput, CompetenceUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type CompetenceUpdateManyWithWhereWithoutSubjectInput = {
+    where: CompetenceScalarWhereInput
+    data: XOR<CompetenceUpdateManyMutationInput, CompetenceUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type CompetenceScalarWhereInput = {
+    AND?: CompetenceScalarWhereInput | CompetenceScalarWhereInput[]
+    OR?: CompetenceScalarWhereInput[]
+    NOT?: CompetenceScalarWhereInput | CompetenceScalarWhereInput[]
+    id?: StringFilter<"Competence"> | string
+    SubjectId?: StringFilter<"Competence"> | string
+    description?: StringFilter<"Competence"> | string
+    createdAt?: DateTimeFilter<"Competence"> | Date | string
+    updatedAt?: DateTimeFilter<"Competence"> | Date | string
+  }
+
+  export type AssessmentUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: AssessmentWhereUniqueInput
+    update: XOR<AssessmentUpdateWithoutSubjectInput, AssessmentUncheckedUpdateWithoutSubjectInput>
+    create: XOR<AssessmentCreateWithoutSubjectInput, AssessmentUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type AssessmentUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: AssessmentWhereUniqueInput
+    data: XOR<AssessmentUpdateWithoutSubjectInput, AssessmentUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type AssessmentUpdateManyWithWhereWithoutSubjectInput = {
+    where: AssessmentScalarWhereInput
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type AssessmentScalarWhereInput = {
+    AND?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    OR?: AssessmentScalarWhereInput[]
+    NOT?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    SubjectId?: StringFilter<"Assessment"> | string
+    type?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    method?: StringFilter<"Assessment"> | string
+    createdAt?: DateTimeFilter<"Assessment"> | Date | string
+    updatedAt?: DateTimeFilter<"Assessment"> | Date | string
+  }
+
+  export type LearningOutcomeUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: LearningOutcomeWhereUniqueInput
+    update: XOR<LearningOutcomeUpdateWithoutSubjectInput, LearningOutcomeUncheckedUpdateWithoutSubjectInput>
+    create: XOR<LearningOutcomeCreateWithoutSubjectInput, LearningOutcomeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type LearningOutcomeUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: LearningOutcomeWhereUniqueInput
+    data: XOR<LearningOutcomeUpdateWithoutSubjectInput, LearningOutcomeUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type LearningOutcomeUpdateManyWithWhereWithoutSubjectInput = {
+    where: LearningOutcomeScalarWhereInput
+    data: XOR<LearningOutcomeUpdateManyMutationInput, LearningOutcomeUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type LearningOutcomeScalarWhereInput = {
+    AND?: LearningOutcomeScalarWhereInput | LearningOutcomeScalarWhereInput[]
+    OR?: LearningOutcomeScalarWhereInput[]
+    NOT?: LearningOutcomeScalarWhereInput | LearningOutcomeScalarWhereInput[]
+    id?: StringFilter<"LearningOutcome"> | string
+    SubjectId?: StringFilter<"LearningOutcome"> | string
+    learningHours?: IntNullableFilter<"LearningOutcome"> | number | null
+    description?: StringNullableFilter<"LearningOutcome"> | string | null
+    createdAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+    updatedAt?: DateTimeFilter<"LearningOutcome"> | Date | string
+  }
+
+  export type IndicativeContentUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: IndicativeContentWhereUniqueInput
+    update: XOR<IndicativeContentUpdateWithoutSubjectInput, IndicativeContentUncheckedUpdateWithoutSubjectInput>
+    create: XOR<IndicativeContentCreateWithoutSubjectInput, IndicativeContentUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type IndicativeContentUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: IndicativeContentWhereUniqueInput
+    data: XOR<IndicativeContentUpdateWithoutSubjectInput, IndicativeContentUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type IndicativeContentUpdateManyWithWhereWithoutSubjectInput = {
+    where: IndicativeContentScalarWhereInput
+    data: XOR<IndicativeContentUpdateManyMutationInput, IndicativeContentUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type IndicativeContentScalarWhereInput = {
+    AND?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+    OR?: IndicativeContentScalarWhereInput[]
+    NOT?: IndicativeContentScalarWhereInput | IndicativeContentScalarWhereInput[]
+    id?: StringFilter<"IndicativeContent"> | string
+    learningOutcomeId?: StringFilter<"IndicativeContent"> | string
+    content?: StringFilter<"IndicativeContent"> | string
+  }
+
+  export type SkillUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: SkillWhereUniqueInput
+    update: XOR<SkillUpdateWithoutSubjectInput, SkillUncheckedUpdateWithoutSubjectInput>
+    create: XOR<SkillCreateWithoutSubjectInput, SkillUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type SkillUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: SkillWhereUniqueInput
+    data: XOR<SkillUpdateWithoutSubjectInput, SkillUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type SkillUpdateManyWithWhereWithoutSubjectInput = {
+    where: SkillScalarWhereInput
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type SkillScalarWhereInput = {
+    AND?: SkillScalarWhereInput | SkillScalarWhereInput[]
+    OR?: SkillScalarWhereInput[]
+    NOT?: SkillScalarWhereInput | SkillScalarWhereInput[]
+    id?: StringFilter<"Skill"> | string
+    SubjectId?: StringNullableFilter<"Skill"> | string | null
+    description?: StringFilter<"Skill"> | string
+    createdAt?: DateTimeFilter<"Skill"> | Date | string
+    updatedAt?: DateTimeFilter<"Skill"> | Date | string
+  }
+
+  export type AttitudeUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: AttitudeWhereUniqueInput
+    update: XOR<AttitudeUpdateWithoutSubjectInput, AttitudeUncheckedUpdateWithoutSubjectInput>
+    create: XOR<AttitudeCreateWithoutSubjectInput, AttitudeUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type AttitudeUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: AttitudeWhereUniqueInput
+    data: XOR<AttitudeUpdateWithoutSubjectInput, AttitudeUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type AttitudeUpdateManyWithWhereWithoutSubjectInput = {
+    where: AttitudeScalarWhereInput
+    data: XOR<AttitudeUpdateManyMutationInput, AttitudeUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type AttitudeScalarWhereInput = {
+    AND?: AttitudeScalarWhereInput | AttitudeScalarWhereInput[]
+    OR?: AttitudeScalarWhereInput[]
+    NOT?: AttitudeScalarWhereInput | AttitudeScalarWhereInput[]
+    id?: StringFilter<"Attitude"> | string
+    SubjectId?: StringNullableFilter<"Attitude"> | string | null
+    description?: StringFilter<"Attitude"> | string
+    createdAt?: DateTimeFilter<"Attitude"> | Date | string
+    updatedAt?: DateTimeFilter<"Attitude"> | Date | string
+  }
+
+  export type IndicativeContentCreateWithoutLearningOutcomeInput = {
+    id?: string
+    content: string
+    subject?: SubjectCreateNestedOneWithoutIndicativeContentInput
+  }
+
+  export type IndicativeContentUncheckedCreateWithoutLearningOutcomeInput = {
+    id?: string
+    content: string
+  }
+
+  export type IndicativeContentCreateOrConnectWithoutLearningOutcomeInput = {
+    where: IndicativeContentWhereUniqueInput
+    create: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput>
+  }
+
+  export type IndicativeContentCreateManyLearningOutcomeInputEnvelope = {
+    data: IndicativeContentCreateManyLearningOutcomeInput | IndicativeContentCreateManyLearningOutcomeInput[]
+  }
+
+  export type SubjectCreateWithoutLearningOutcomeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutLearningOutcomeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutLearningOutcomeInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutLearningOutcomeInput, SubjectUncheckedCreateWithoutLearningOutcomeInput>
+  }
+
+  export type IndicativeContentUpsertWithWhereUniqueWithoutLearningOutcomeInput = {
+    where: IndicativeContentWhereUniqueInput
+    update: XOR<IndicativeContentUpdateWithoutLearningOutcomeInput, IndicativeContentUncheckedUpdateWithoutLearningOutcomeInput>
+    create: XOR<IndicativeContentCreateWithoutLearningOutcomeInput, IndicativeContentUncheckedCreateWithoutLearningOutcomeInput>
+  }
+
+  export type IndicativeContentUpdateWithWhereUniqueWithoutLearningOutcomeInput = {
+    where: IndicativeContentWhereUniqueInput
+    data: XOR<IndicativeContentUpdateWithoutLearningOutcomeInput, IndicativeContentUncheckedUpdateWithoutLearningOutcomeInput>
+  }
+
+  export type IndicativeContentUpdateManyWithWhereWithoutLearningOutcomeInput = {
+    where: IndicativeContentScalarWhereInput
+    data: XOR<IndicativeContentUpdateManyMutationInput, IndicativeContentUncheckedUpdateManyWithoutLearningOutcomeInput>
+  }
+
+  export type SubjectUpsertWithoutLearningOutcomeInput = {
+    update: XOR<SubjectUpdateWithoutLearningOutcomeInput, SubjectUncheckedUpdateWithoutLearningOutcomeInput>
+    create: XOR<SubjectCreateWithoutLearningOutcomeInput, SubjectUncheckedCreateWithoutLearningOutcomeInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutLearningOutcomeInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutLearningOutcomeInput, SubjectUncheckedUpdateWithoutLearningOutcomeInput>
+  }
+
+  export type SubjectUpdateWithoutLearningOutcomeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutLearningOutcomeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateWithoutIndicativeContentInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutIndicativeContentInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutIndicativeContentInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutIndicativeContentInput, SubjectUncheckedCreateWithoutIndicativeContentInput>
+  }
+
+  export type LearningOutcomeCreateWithoutIndicativeContentInput = {
+    id?: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutLearningOutcomeInput
+  }
+
+  export type LearningOutcomeUncheckedCreateWithoutIndicativeContentInput = {
+    id?: string
+    SubjectId: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LearningOutcomeCreateOrConnectWithoutIndicativeContentInput = {
+    where: LearningOutcomeWhereUniqueInput
+    create: XOR<LearningOutcomeCreateWithoutIndicativeContentInput, LearningOutcomeUncheckedCreateWithoutIndicativeContentInput>
+  }
+
+  export type SubjectUpsertWithoutIndicativeContentInput = {
+    update: XOR<SubjectUpdateWithoutIndicativeContentInput, SubjectUncheckedUpdateWithoutIndicativeContentInput>
+    create: XOR<SubjectCreateWithoutIndicativeContentInput, SubjectUncheckedCreateWithoutIndicativeContentInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutIndicativeContentInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutIndicativeContentInput, SubjectUncheckedUpdateWithoutIndicativeContentInput>
+  }
+
+  export type SubjectUpdateWithoutIndicativeContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutIndicativeContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type LearningOutcomeUpsertWithoutIndicativeContentInput = {
+    update: XOR<LearningOutcomeUpdateWithoutIndicativeContentInput, LearningOutcomeUncheckedUpdateWithoutIndicativeContentInput>
+    create: XOR<LearningOutcomeCreateWithoutIndicativeContentInput, LearningOutcomeUncheckedCreateWithoutIndicativeContentInput>
+    where?: LearningOutcomeWhereInput
+  }
+
+  export type LearningOutcomeUpdateToOneWithWhereWithoutIndicativeContentInput = {
+    where?: LearningOutcomeWhereInput
+    data: XOR<LearningOutcomeUpdateWithoutIndicativeContentInput, LearningOutcomeUncheckedUpdateWithoutIndicativeContentInput>
+  }
+
+  export type LearningOutcomeUpdateWithoutIndicativeContentInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutLearningOutcomeNestedInput
+  }
+
+  export type LearningOutcomeUncheckedUpdateWithoutIndicativeContentInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectCreateWithoutKnowledgeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutKnowledgeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutKnowledgeInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutKnowledgeInput, SubjectUncheckedCreateWithoutKnowledgeInput>
+  }
+
+  export type SubjectUpsertWithoutKnowledgeInput = {
+    update: XOR<SubjectUpdateWithoutKnowledgeInput, SubjectUncheckedUpdateWithoutKnowledgeInput>
+    create: XOR<SubjectCreateWithoutKnowledgeInput, SubjectUncheckedCreateWithoutKnowledgeInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutKnowledgeInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutKnowledgeInput, SubjectUncheckedUpdateWithoutKnowledgeInput>
+  }
+
+  export type SubjectUpdateWithoutKnowledgeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutKnowledgeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateWithoutSkillInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutSkillInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutSkillInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutSkillInput, SubjectUncheckedCreateWithoutSkillInput>
+  }
+
+  export type SubjectUpsertWithoutSkillInput = {
+    update: XOR<SubjectUpdateWithoutSkillInput, SubjectUncheckedUpdateWithoutSkillInput>
+    create: XOR<SubjectCreateWithoutSkillInput, SubjectUncheckedCreateWithoutSkillInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutSkillInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutSkillInput, SubjectUncheckedUpdateWithoutSkillInput>
+  }
+
+  export type SubjectUpdateWithoutSkillInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutSkillInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateWithoutAttitudeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutAttitudeInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutAttitudeInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutAttitudeInput, SubjectUncheckedCreateWithoutAttitudeInput>
+  }
+
+  export type SubjectUpsertWithoutAttitudeInput = {
+    update: XOR<SubjectUpdateWithoutAttitudeInput, SubjectUncheckedUpdateWithoutAttitudeInput>
+    create: XOR<SubjectCreateWithoutAttitudeInput, SubjectUncheckedCreateWithoutAttitudeInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutAttitudeInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutAttitudeInput, SubjectUncheckedUpdateWithoutAttitudeInput>
+  }
+
+  export type SubjectUpdateWithoutAttitudeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutAttitudeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateWithoutResourceInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutResourceInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutResourceInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutResourceInput, SubjectUncheckedCreateWithoutResourceInput>
+  }
+
+  export type SubjectUpsertWithoutResourceInput = {
+    update: XOR<SubjectUpdateWithoutResourceInput, SubjectUncheckedUpdateWithoutResourceInput>
+    create: XOR<SubjectCreateWithoutResourceInput, SubjectUncheckedCreateWithoutResourceInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutResourceInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutResourceInput, SubjectUncheckedUpdateWithoutResourceInput>
+  }
+
+  export type SubjectUpdateWithoutResourceInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutResourceInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type PerformanceCriteriaCreateWithoutCompetenceInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PerformanceCriteriaUncheckedCreateWithoutCompetenceInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PerformanceCriteriaCreateOrConnectWithoutCompetenceInput = {
+    where: PerformanceCriteriaWhereUniqueInput
+    create: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaCreateManyCompetenceInputEnvelope = {
+    data: PerformanceCriteriaCreateManyCompetenceInput | PerformanceCriteriaCreateManyCompetenceInput[]
+  }
+
+  export type SubjectCreateWithoutCompetenceInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutCompetenceInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Assessment?: AssessmentUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutCompetenceInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutCompetenceInput, SubjectUncheckedCreateWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaUpsertWithWhereUniqueWithoutCompetenceInput = {
+    where: PerformanceCriteriaWhereUniqueInput
+    update: XOR<PerformanceCriteriaUpdateWithoutCompetenceInput, PerformanceCriteriaUncheckedUpdateWithoutCompetenceInput>
+    create: XOR<PerformanceCriteriaCreateWithoutCompetenceInput, PerformanceCriteriaUncheckedCreateWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaUpdateWithWhereUniqueWithoutCompetenceInput = {
+    where: PerformanceCriteriaWhereUniqueInput
+    data: XOR<PerformanceCriteriaUpdateWithoutCompetenceInput, PerformanceCriteriaUncheckedUpdateWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaUpdateManyWithWhereWithoutCompetenceInput = {
+    where: PerformanceCriteriaScalarWhereInput
+    data: XOR<PerformanceCriteriaUpdateManyMutationInput, PerformanceCriteriaUncheckedUpdateManyWithoutCompetenceInput>
+  }
+
+  export type PerformanceCriteriaScalarWhereInput = {
+    AND?: PerformanceCriteriaScalarWhereInput | PerformanceCriteriaScalarWhereInput[]
+    OR?: PerformanceCriteriaScalarWhereInput[]
+    NOT?: PerformanceCriteriaScalarWhereInput | PerformanceCriteriaScalarWhereInput[]
+    id?: StringFilter<"PerformanceCriteria"> | string
+    competenceId?: StringFilter<"PerformanceCriteria"> | string
+    description?: StringFilter<"PerformanceCriteria"> | string
+    createdAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+    updatedAt?: DateTimeFilter<"PerformanceCriteria"> | Date | string
+  }
+
+  export type SubjectUpsertWithoutCompetenceInput = {
+    update: XOR<SubjectUpdateWithoutCompetenceInput, SubjectUncheckedUpdateWithoutCompetenceInput>
+    create: XOR<SubjectCreateWithoutCompetenceInput, SubjectUncheckedCreateWithoutCompetenceInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutCompetenceInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutCompetenceInput, SubjectUncheckedUpdateWithoutCompetenceInput>
+  }
+
+  export type SubjectUpdateWithoutCompetenceInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutCompetenceInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Assessment?: AssessmentUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type CompetenceCreateWithoutPerformanceCriteriaInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subject?: SubjectCreateNestedOneWithoutCompetenceInput
+  }
+
+  export type CompetenceUncheckedCreateWithoutPerformanceCriteriaInput = {
+    id?: string
+    SubjectId: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompetenceCreateOrConnectWithoutPerformanceCriteriaInput = {
+    where: CompetenceWhereUniqueInput
+    create: XOR<CompetenceCreateWithoutPerformanceCriteriaInput, CompetenceUncheckedCreateWithoutPerformanceCriteriaInput>
+  }
+
+  export type CompetenceUpsertWithoutPerformanceCriteriaInput = {
+    update: XOR<CompetenceUpdateWithoutPerformanceCriteriaInput, CompetenceUncheckedUpdateWithoutPerformanceCriteriaInput>
+    create: XOR<CompetenceCreateWithoutPerformanceCriteriaInput, CompetenceUncheckedCreateWithoutPerformanceCriteriaInput>
+    where?: CompetenceWhereInput
+  }
+
+  export type CompetenceUpdateToOneWithWhereWithoutPerformanceCriteriaInput = {
+    where?: CompetenceWhereInput
+    data: XOR<CompetenceUpdateWithoutPerformanceCriteriaInput, CompetenceUncheckedUpdateWithoutPerformanceCriteriaInput>
+  }
+
+  export type CompetenceUpdateWithoutPerformanceCriteriaInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: SubjectUpdateOneWithoutCompetenceNestedInput
+  }
+
+  export type CompetenceUncheckedUpdateWithoutPerformanceCriteriaInput = {
+    SubjectId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectCreateWithoutAssessmentInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentCreateNestedManyWithoutSubjectInput
+    Skill?: SkillCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutAssessmentInput = {
+    id?: string
+    name: string
+    code: string
+    sector?: string | null
+    trade?: string | null
+    subjectType?: $Enums.SubjectType | null
+    curriculum?: string | null
+    copyright?: string | null
+    learningHours?: number | null
+    issueDate?: Date | string | null
+    purpose?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    knowledge?: KnowledgeUncheckedCreateNestedManyWithoutSubjectInput
+    Resource?: ResourceUncheckedCreateNestedManyWithoutSubjectInput
+    Competence?: CompetenceUncheckedCreateNestedManyWithoutSubjectInput
+    LearningOutcome?: LearningOutcomeUncheckedCreateNestedManyWithoutSubjectInput
+    IndicativeContent?: IndicativeContentUncheckedCreateNestedManyWithoutSubjectInput
+    Skill?: SkillUncheckedCreateNestedManyWithoutSubjectInput
+    Attitude?: AttitudeUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutAssessmentInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutAssessmentInput, SubjectUncheckedCreateWithoutAssessmentInput>
+  }
+
+  export type SubjectUpsertWithoutAssessmentInput = {
+    update: XOR<SubjectUpdateWithoutAssessmentInput, SubjectUncheckedUpdateWithoutAssessmentInput>
+    create: XOR<SubjectCreateWithoutAssessmentInput, SubjectUncheckedCreateWithoutAssessmentInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutAssessmentInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutAssessmentInput, SubjectUncheckedUpdateWithoutAssessmentInput>
+  }
+
+  export type SubjectUpdateWithoutAssessmentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutAssessmentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    sector?: NullableStringFieldUpdateOperationsInput | string | null
+    trade?: NullableStringFieldUpdateOperationsInput | string | null
+    subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
+    curriculum?: NullableStringFieldUpdateOperationsInput | string | null
+    copyright?: NullableStringFieldUpdateOperationsInput | string | null
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    issueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    purpose?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    knowledge?: KnowledgeUncheckedUpdateManyWithoutSubjectNestedInput
+    Resource?: ResourceUncheckedUpdateManyWithoutSubjectNestedInput
+    Competence?: CompetenceUncheckedUpdateManyWithoutSubjectNestedInput
+    LearningOutcome?: LearningOutcomeUncheckedUpdateManyWithoutSubjectNestedInput
+    IndicativeContent?: IndicativeContentUncheckedUpdateManyWithoutSubjectNestedInput
+    Skill?: SkillUncheckedUpdateManyWithoutSubjectNestedInput
+    Attitude?: AttitudeUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -28588,6 +42527,258 @@ export namespace Prisma {
     file?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnowledgeCreateManySubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceCreateManySubjectInput = {
+    id?: string
+    category?: $Enums.ResourceType | null
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompetenceCreateManySubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentCreateManySubjectInput = {
+    id?: string
+    type?: $Enums.AssessmentType | null
+    method: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LearningOutcomeCreateManySubjectInput = {
+    id?: string
+    learningHours?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndicativeContentCreateManySubjectInput = {
+    id?: string
+    content: string
+  }
+
+  export type SkillCreateManySubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AttitudeCreateManySubjectInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type KnowledgeUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnowledgeUncheckedUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnowledgeUncheckedUpdateManyWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUpdateWithoutSubjectInput = {
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateWithoutSubjectInput = {
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateManyWithoutSubjectInput = {
+    category?: NullableEnumResourceTypeFieldUpdateOperationsInput | $Enums.ResourceType | null
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompetenceUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PerformanceCriteria?: PerformanceCriteriaUpdateManyWithoutCompetenceNestedInput
+  }
+
+  export type CompetenceUncheckedUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PerformanceCriteria?: PerformanceCriteriaUncheckedUpdateManyWithoutCompetenceNestedInput
+  }
+
+  export type CompetenceUncheckedUpdateManyWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentUpdateWithoutSubjectInput = {
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentUncheckedUpdateWithoutSubjectInput = {
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutSubjectInput = {
+    type?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    method?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LearningOutcomeUpdateWithoutSubjectInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    indicativeContent?: IndicativeContentUpdateManyWithoutLearningOutcomeNestedInput
+  }
+
+  export type LearningOutcomeUncheckedUpdateWithoutSubjectInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    indicativeContent?: IndicativeContentUncheckedUpdateManyWithoutLearningOutcomeNestedInput
+  }
+
+  export type LearningOutcomeUncheckedUpdateManyWithoutSubjectInput = {
+    learningHours?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndicativeContentUpdateWithoutSubjectInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    LearningOutcome?: LearningOutcomeUpdateOneRequiredWithoutIndicativeContentNestedInput
+  }
+
+  export type IndicativeContentUncheckedUpdateWithoutSubjectInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndicativeContentUncheckedUpdateManyWithoutSubjectInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillUncheckedUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillUncheckedUpdateManyWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeUncheckedUpdateWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttitudeUncheckedUpdateManyWithoutSubjectInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndicativeContentCreateManyLearningOutcomeInput = {
+    id?: string
+    content: string
+  }
+
+  export type IndicativeContentUpdateWithoutLearningOutcomeInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    subject?: SubjectUpdateOneWithoutIndicativeContentNestedInput
+  }
+
+  export type IndicativeContentUncheckedUpdateWithoutLearningOutcomeInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndicativeContentUncheckedUpdateManyWithoutLearningOutcomeInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PerformanceCriteriaCreateManyCompetenceInput = {
+    id?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PerformanceCriteriaUpdateWithoutCompetenceInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PerformanceCriteriaUncheckedUpdateWithoutCompetenceInput = {
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PerformanceCriteriaUncheckedUpdateManyWithoutCompetenceInput = {
+    description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

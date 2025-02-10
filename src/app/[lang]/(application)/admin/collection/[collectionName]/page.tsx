@@ -5,6 +5,7 @@ import SectorPageDocument from "@/components/site/collection/sector/sectorPageCo
 import TradePageDocument from "@/components/site/collection/trades/TradePageDocument";
 import ClassesPageDocument from "@/components/site/collection/classes/classesPageDocument";
 import ClassRoomPageDocument from "@/components/site/collection/class_room/classRoomPageDocument";
+import SubjectPageCollection from "@/components/site/collection/subject";
 
 export default async function CollectionPage(props: {
   params: Promise<{ collectionName: string }>;
@@ -25,6 +26,8 @@ export default async function CollectionPage(props: {
       return <ClassesPageDocument collection={collectionName} />;
     case "Class_room":
       return <ClassRoomPageDocument collection={collectionName} />;
+    case "subjects":
+      return <SubjectPageCollection collection={collectionName} />;
     default:
       return <CollectionPageErrorStatic collection={collectionName} />;
   }

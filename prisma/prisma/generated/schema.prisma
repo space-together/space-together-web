@@ -256,25 +256,6 @@ model Teacher {
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Subject {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  code           String    @unique
-  classRoomId    String
-  name           String
-  description    String
-  knowledge      String[]
-  skills         String[]
-  attitude       String[]
-  tableOfContent Json
-  resources      Json
-  totalTime      Int
-  startTime      DateTime?
-  endTime        DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Note {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   userId      String   @db.ObjectId
@@ -311,4 +292,146 @@ model Post {
 
   user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
   class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+enum SubjectType {
+  GENERAL
+}
+
+model Subject {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  code              String              @unique
+  sector            String?             @db.ObjectId
+  trade             String?             @db.ObjectId
+  subjectType       SubjectType?
+  curriculum        String?
+  copyright         String?
+  learningHours     Int?
+  issueDate         DateTime?
+  purpose           String?
+  knowledge         Knowledge[]
+  Resource          Resource[]
+  Competence        Competence[]
+  Assessment        Assessment[]
+  LearningOutcome   LearningOutcome[]
+  IndicativeContent IndicativeContent[]
+  Skill             Skill[]
+  Attitude          Attitude[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LearningOutcome {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId         String              @db.ObjectId
+  learningHours     Int?
+  description       String?
+  indicativeContent IndicativeContent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model IndicativeContent {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  learningOutcomeId String @db.ObjectId
+  content           String
+
+  subject         Subject?        @relation(fields: [learningOutcomeId], references: [id], onDelete: Cascade)
+  LearningOutcome LearningOutcome @relation(fields: [learningOutcomeId], references: [id], onDelete: Cascade)
+}
+
+model Knowledge {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId   String? @db.ObjectId
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId   String? @db.ObjectId
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model Attitude {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId   String? @db.ObjectId
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+enum ResourceType {
+  EQUIPMENT
+  MATERIAL
+  TOOLS
+}
+
+model Resource {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId   String        @db.ObjectId
+  category    ResourceType?
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model Competence {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId           String                @db.ObjectId
+  description         String
+  PerformanceCriteria PerformanceCriteria[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+}
+
+model PerformanceCriteria {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  competenceId String @db.ObjectId
+  description  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  competence Competence? @relation(fields: [competenceId], references: [id], onDelete: Cascade)
+}
+
+enum AssessmentType {
+  FORMATIVE
+  SUMMATIVE
+}
+
+model Assessment {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  SubjectId String          @db.ObjectId
+  type      AssessmentType?
+  method    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
 }

@@ -13,6 +13,8 @@ const DocumentPage = async (props: {
       return <UserPageDocument collectionName={collectionName} documentId={documentId}/>;
     case "classes":
       return <ClassPageDocument collectionName={collectionName} documentId={documentId}/>;
+    case "subjects":
+      return <ClassPageDocument collectionName={collectionName} documentId={documentId}/>;
     default:
       return <DocumentPageStaticError documentName={documentId} collectionName={collectionName} />;
   }

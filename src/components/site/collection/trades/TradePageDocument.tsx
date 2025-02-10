@@ -11,7 +11,6 @@ interface props {
 }
 const TradePageDocument = async ({ collection }: props) => {
   const getSectors = await sectorService.getAllSectors();
-
   const getTrades = await getAllTrades();
 
   return (
