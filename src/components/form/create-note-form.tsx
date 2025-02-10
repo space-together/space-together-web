@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -16,16 +16,23 @@ import { Textarea } from "../ui/textarea";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
+import { createNoteAction } from "@/services/actions/note-action";
+import { FormMessageError, FormMessageSuccess } from "./formError";
+import { handleFormSubmission } from "@/hooks/form-notification";
 
 const CreateNoteForm = () => {
-  //   const [error, setError] = useState<string>("");
-  //   const [success, setSuccess] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<NoteSchemaType>({
     resolver: zodResolver(NoteSchema),
     defaultValues: {},
   });
-  const onSubmit = () => {};
+  const onSubmit = (values) => {
+    setError("");
+    setSuccess("");
+    handleFormSubmission(() => createNoteAction(values), startTransition);
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-2">
@@ -60,6 +67,10 @@ const CreateNoteForm = () => {
             </FormItem>
           )}
         />
+        <div>
+          <FormMessageError message={error} />
+          <FormMessageSuccess message={success} />
+        </div>
         <DialogFooter>
           <DialogClose asChild>
             <Button type="button" size="sm" className="">

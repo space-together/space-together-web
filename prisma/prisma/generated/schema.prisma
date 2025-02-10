@@ -266,7 +266,7 @@ model Note {
   subjectId   String   @db.ObjectId
   seenBy      String[] @db.ObjectId
   commentsIds String[] @db.ObjectId
-  fileId      String?  @db.ObjectId
+  fileId      String?
   content     String   @db.ObjectId
   description String?
 
