@@ -102,7 +102,7 @@ const AllSubjectTable = ({ subjects }: props) => {
     {
       id: "actions",
       header: "Actions",
-      cell: ({ row }) => {
+      cell: ({  }) => {
         // const subject = row.original;
         return (
           <div className=" flex gap-2">
