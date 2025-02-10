@@ -19,7 +19,7 @@ export const createSubjectAction = async (values: subjectSchemaType) => {
   try {
     const getCode = await getSubjectByCode(code);
     if (!!getCode) return { error: "Code is leady exit" };
-    
+
     const uploadSymbol = await uploadSymbolToCloudinary(symbol);
     const create = await db.subject.create({
       data: {
