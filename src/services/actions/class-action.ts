@@ -14,7 +14,7 @@ import {
   classUpdateUsernameSchemaType,
 } from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
-import { uploadImageToCloudinary } from "../cloudinary-service";
+import { uploadSymbolToCloudinary } from "../cloudinary-service";
 
 export async function createClassAction(values: classSchemaType) {
   const validation = classSchema.safeParse(values);
@@ -184,7 +184,7 @@ export const updateClassSymbolAction = async (
 
   const { symbol } = validation.data;
 
-  const uploadSymbol = await uploadImageToCloudinary(symbol);
+  const uploadSymbol = await uploadSymbolToCloudinary(symbol);
   try {
     const updateClass = await db.class.update({
       where: { id },

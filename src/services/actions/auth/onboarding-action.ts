@@ -6,6 +6,7 @@ import {
 
 import { db } from "@/lib/db";
 import { UserRole } from "../../../../prisma/prisma/generated";
+import { uploadProfilesToCloudinary } from "@/services/cloudinary-service";
 
 export const onboardingAction = async (
   value: onboardingSchemaTypes,
@@ -16,14 +17,16 @@ export const onboardingAction = async (
   if (!validation.success) {
     return { error: "Invalid data" };
   }
-  const { image, age, phone, gender, role } = validation.data;
+  const { image, age, phone, gender, role ,} = validation.data;
   if (!Object.values(UserRole).includes(role as UserRole)) {
     return { error: `Invalid role value: ${role}` };
   }
+
+  const cloudinary = await uploadProfilesToCloudinary(image);
   try {
     const user = await db.user.update({
       data: {
-        image,
+        image : cloudinary,
         age : new Date(age),
         phone,
         gender,
