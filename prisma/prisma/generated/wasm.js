@@ -267,6 +267,17 @@ exports.Prisma.TeacherScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SendUserRequestScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  userId: 'userId',
+  description: 'description',
+  classId: 'classId',
+  email: 'email',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -464,6 +475,7 @@ exports.Prisma.ModelName = {
   SubClass: 'SubClass',
   Student: 'Student',
   Teacher: 'Teacher',
+  SendUserRequest: 'SendUserRequest',
   Post: 'Post',
   Subject: 'Subject',
   LearningOutcome: 'LearningOutcome',

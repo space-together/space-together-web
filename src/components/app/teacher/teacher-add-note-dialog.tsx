@@ -13,9 +13,8 @@ import { CgNotes } from "react-icons/cg";
 import { IoAddCircleSharp } from "react-icons/io5";
 
 interface props {
-  subjectId : string ,
+  subjectId : string,
 }
-
 
 const TeacherCreateNoteDialog = ({subjectId} : props) => {
   const theme = UseTheme();

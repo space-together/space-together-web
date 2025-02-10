@@ -79,6 +79,11 @@ export type Student = $Result.DefaultSelection<Prisma.$StudentPayload>
  */
 export type Teacher = $Result.DefaultSelection<Prisma.$TeacherPayload>
 /**
+ * Model SendUserRequest
+ * 
+ */
+export type SendUserRequest = $Result.DefaultSelection<Prisma.$SendUserRequestPayload>
+/**
  * Model Post
  * 
  */
@@ -475,6 +480,16 @@ export class PrismaClient<
     * ```
     */
   get teacher(): Prisma.TeacherDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sendUserRequest`: Exposes CRUD operations for the **SendUserRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SendUserRequests
+    * const sendUserRequests = await prisma.sendUserRequest.findMany()
+    * ```
+    */
+  get sendUserRequest(): Prisma.SendUserRequestDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.post`: Exposes CRUD operations for the **Post** model.
@@ -1058,6 +1073,7 @@ export namespace Prisma {
     SubClass: 'SubClass',
     Student: 'Student',
     Teacher: 'Teacher',
+    SendUserRequest: 'SendUserRequest',
     Post: 'Post',
     Subject: 'Subject',
     LearningOutcome: 'LearningOutcome',
@@ -1086,7 +1102,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "post" | "subject" | "learningOutcome" | "indicativeContent" | "knowledge" | "skill" | "attitude" | "resource" | "competence" | "performanceCriteria" | "assessment" | "note" | "model"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "education" | "sector" | "trade" | "classRoom" | "class" | "subClass" | "student" | "teacher" | "sendUserRequest" | "post" | "subject" | "learningOutcome" | "indicativeContent" | "knowledge" | "skill" | "attitude" | "resource" | "competence" | "performanceCriteria" | "assessment" | "note" | "model"
       txIsolationLevel: never
     }
     model: {
@@ -2049,6 +2065,80 @@ export namespace Prisma {
           count: {
             args: Prisma.TeacherCountArgs<ExtArgs>
             result: $Utils.Optional<TeacherCountAggregateOutputType> | number
+          }
+        }
+      }
+      SendUserRequest: {
+        payload: Prisma.$SendUserRequestPayload<ExtArgs>
+        fields: Prisma.SendUserRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SendUserRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SendUserRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.SendUserRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SendUserRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          findMany: {
+            args: Prisma.SendUserRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>[]
+          }
+          create: {
+            args: Prisma.SendUserRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          createMany: {
+            args: Prisma.SendUserRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SendUserRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          update: {
+            args: Prisma.SendUserRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.SendUserRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SendUserRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SendUserRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SendUserRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.SendUserRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSendUserRequest>
+          }
+          groupBy: {
+            args: Prisma.SendUserRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SendUserRequestGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.SendUserRequestFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.SendUserRequestAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.SendUserRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<SendUserRequestCountAggregateOutputType> | number
           }
         }
       }
@@ -3098,6 +3188,7 @@ export namespace Prisma {
     subClass?: SubClassOmit
     student?: StudentOmit
     teacher?: TeacherOmit
+    sendUserRequest?: SendUserRequestOmit
     post?: PostOmit
     subject?: SubjectOmit
     learningOutcome?: LearningOutcomeOmit
@@ -3212,6 +3303,7 @@ export namespace Prisma {
     Teacher: number
     Class: number
     Post: number
+    addTeacherRequest: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3222,6 +3314,7 @@ export namespace Prisma {
     Teacher?: boolean | UserCountOutputTypeCountTeacherArgs
     Class?: boolean | UserCountOutputTypeCountClassArgs
     Post?: boolean | UserCountOutputTypeCountPostArgs
+    addTeacherRequest?: boolean | UserCountOutputTypeCountAddTeacherRequestArgs
   }
 
   // Custom InputTypes
@@ -3282,6 +3375,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAddTeacherRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SendUserRequestWhereInput
   }
 
 
@@ -3456,6 +3556,7 @@ export namespace Prisma {
     Subject: number
     Model: number
     Teacher: number
+    addTeacherRequest: number
   }
 
   export type ClassCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3465,6 +3566,7 @@ export namespace Prisma {
     Subject?: boolean | ClassCountOutputTypeCountSubjectArgs
     Model?: boolean | ClassCountOutputTypeCountModelArgs
     Teacher?: boolean | ClassCountOutputTypeCountTeacherArgs
+    addTeacherRequest?: boolean | ClassCountOutputTypeCountAddTeacherRequestArgs
   }
 
   // Custom InputTypes
@@ -3518,6 +3620,13 @@ export namespace Prisma {
    */
   export type ClassCountOutputTypeCountTeacherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeacherWhereInput
+  }
+
+  /**
+   * ClassCountOutputType without action
+   */
+  export type ClassCountOutputTypeCountAddTeacherRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SendUserRequestWhereInput
   }
 
 
@@ -3950,6 +4059,7 @@ export namespace Prisma {
     Teacher?: boolean | User$TeacherArgs<ExtArgs>
     Class?: boolean | User$ClassArgs<ExtArgs>
     Post?: boolean | User$PostArgs<ExtArgs>
+    addTeacherRequest?: boolean | User$addTeacherRequestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3982,6 +4092,7 @@ export namespace Prisma {
     Teacher?: boolean | User$TeacherArgs<ExtArgs>
     Class?: boolean | User$ClassArgs<ExtArgs>
     Post?: boolean | User$PostArgs<ExtArgs>
+    addTeacherRequest?: boolean | User$addTeacherRequestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3995,6 +4106,7 @@ export namespace Prisma {
       Teacher: Prisma.$TeacherPayload<ExtArgs>[]
       Class: Prisma.$ClassPayload<ExtArgs>[]
       Post: Prisma.$PostPayload<ExtArgs>[]
+      addTeacherRequest: Prisma.$SendUserRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4382,6 +4494,7 @@ export namespace Prisma {
     Teacher<T extends User$TeacherArgs<ExtArgs> = {}>(args?: Subset<T, User$TeacherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Class<T extends User$ClassArgs<ExtArgs> = {}>(args?: Subset<T, User$ClassArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Post<T extends User$PostArgs<ExtArgs> = {}>(args?: Subset<T, User$PostArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    addTeacherRequest<T extends User$addTeacherRequestArgs<ExtArgs> = {}>(args?: Subset<T, User$addTeacherRequestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4961,6 +5074,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * User.addTeacherRequest
+   */
+  export type User$addTeacherRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    where?: SendUserRequestWhereInput
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    cursor?: SendUserRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SendUserRequestScalarFieldEnum | SendUserRequestScalarFieldEnum[]
   }
 
   /**
@@ -13733,6 +13870,7 @@ export namespace Prisma {
     Subject?: boolean | Class$SubjectArgs<ExtArgs>
     Model?: boolean | Class$ModelArgs<ExtArgs>
     Teacher?: boolean | Class$TeacherArgs<ExtArgs>
+    addTeacherRequest?: boolean | Class$addTeacherRequestArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["class"]>
 
@@ -13767,6 +13905,7 @@ export namespace Prisma {
     Subject?: boolean | Class$SubjectArgs<ExtArgs>
     Model?: boolean | Class$ModelArgs<ExtArgs>
     Teacher?: boolean | Class$TeacherArgs<ExtArgs>
+    addTeacherRequest?: boolean | Class$addTeacherRequestArgs<ExtArgs>
     _count?: boolean | ClassCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -13783,6 +13922,7 @@ export namespace Prisma {
       Subject: Prisma.$SubjectPayload<ExtArgs>[]
       Model: Prisma.$ModelPayload<ExtArgs>[]
       Teacher: Prisma.$TeacherPayload<ExtArgs>[]
+      addTeacherRequest: Prisma.$SendUserRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14172,6 +14312,7 @@ export namespace Prisma {
     Subject<T extends Class$SubjectArgs<ExtArgs> = {}>(args?: Subset<T, Class$SubjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Model<T extends Class$ModelArgs<ExtArgs> = {}>(args?: Subset<T, Class$ModelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     Teacher<T extends Class$TeacherArgs<ExtArgs> = {}>(args?: Subset<T, Class$TeacherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    addTeacherRequest<T extends Class$addTeacherRequestArgs<ExtArgs> = {}>(args?: Subset<T, Class$addTeacherRequestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14802,6 +14943,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TeacherScalarFieldEnum | TeacherScalarFieldEnum[]
+  }
+
+  /**
+   * Class.addTeacherRequest
+   */
+  export type Class$addTeacherRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    where?: SendUserRequestWhereInput
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    cursor?: SendUserRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SendUserRequestScalarFieldEnum | SendUserRequestScalarFieldEnum[]
   }
 
   /**
@@ -17882,6 +18047,1060 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TeacherInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SendUserRequest
+   */
+
+  export type AggregateSendUserRequest = {
+    _count: SendUserRequestCountAggregateOutputType | null
+    _min: SendUserRequestMinAggregateOutputType | null
+    _max: SendUserRequestMaxAggregateOutputType | null
+  }
+
+  export type SendUserRequestMinAggregateOutputType = {
+    id: string | null
+    senderId: string | null
+    userId: string | null
+    description: string | null
+    classId: string | null
+    email: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SendUserRequestMaxAggregateOutputType = {
+    id: string | null
+    senderId: string | null
+    userId: string | null
+    description: string | null
+    classId: string | null
+    email: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SendUserRequestCountAggregateOutputType = {
+    id: number
+    senderId: number
+    userId: number
+    description: number
+    classId: number
+    email: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SendUserRequestMinAggregateInputType = {
+    id?: true
+    senderId?: true
+    userId?: true
+    description?: true
+    classId?: true
+    email?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SendUserRequestMaxAggregateInputType = {
+    id?: true
+    senderId?: true
+    userId?: true
+    description?: true
+    classId?: true
+    email?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SendUserRequestCountAggregateInputType = {
+    id?: true
+    senderId?: true
+    userId?: true
+    description?: true
+    classId?: true
+    email?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SendUserRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SendUserRequest to aggregate.
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SendUserRequests to fetch.
+     */
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SendUserRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SendUserRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SendUserRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SendUserRequests
+    **/
+    _count?: true | SendUserRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SendUserRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SendUserRequestMaxAggregateInputType
+  }
+
+  export type GetSendUserRequestAggregateType<T extends SendUserRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateSendUserRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSendUserRequest[P]>
+      : GetScalarType<T[P], AggregateSendUserRequest[P]>
+  }
+
+
+
+
+  export type SendUserRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SendUserRequestWhereInput
+    orderBy?: SendUserRequestOrderByWithAggregationInput | SendUserRequestOrderByWithAggregationInput[]
+    by: SendUserRequestScalarFieldEnum[] | SendUserRequestScalarFieldEnum
+    having?: SendUserRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SendUserRequestCountAggregateInputType | true
+    _min?: SendUserRequestMinAggregateInputType
+    _max?: SendUserRequestMaxAggregateInputType
+  }
+
+  export type SendUserRequestGroupByOutputType = {
+    id: string
+    senderId: string
+    userId: string | null
+    description: string | null
+    classId: string | null
+    email: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SendUserRequestCountAggregateOutputType | null
+    _min: SendUserRequestMinAggregateOutputType | null
+    _max: SendUserRequestMaxAggregateOutputType | null
+  }
+
+  type GetSendUserRequestGroupByPayload<T extends SendUserRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SendUserRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SendUserRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SendUserRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], SendUserRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SendUserRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    senderId?: boolean
+    userId?: boolean
+    description?: boolean
+    classId?: boolean
+    email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | SendUserRequest$classArgs<ExtArgs>
+    User?: boolean | SendUserRequest$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["sendUserRequest"]>
+
+
+
+  export type SendUserRequestSelectScalar = {
+    id?: boolean
+    senderId?: boolean
+    userId?: boolean
+    description?: boolean
+    classId?: boolean
+    email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SendUserRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "senderId" | "userId" | "description" | "classId" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["sendUserRequest"]>
+  export type SendUserRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | SendUserRequest$classArgs<ExtArgs>
+    User?: boolean | SendUserRequest$UserArgs<ExtArgs>
+  }
+
+  export type $SendUserRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SendUserRequest"
+    objects: {
+      class: Prisma.$ClassPayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      senderId: string
+      userId: string | null
+      description: string | null
+      classId: string | null
+      email: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["sendUserRequest"]>
+    composites: {}
+  }
+
+  type SendUserRequestGetPayload<S extends boolean | null | undefined | SendUserRequestDefaultArgs> = $Result.GetResult<Prisma.$SendUserRequestPayload, S>
+
+  type SendUserRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SendUserRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SendUserRequestCountAggregateInputType | true
+    }
+
+  export interface SendUserRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SendUserRequest'], meta: { name: 'SendUserRequest' } }
+    /**
+     * Find zero or one SendUserRequest that matches the filter.
+     * @param {SendUserRequestFindUniqueArgs} args - Arguments to find a SendUserRequest
+     * @example
+     * // Get one SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SendUserRequestFindUniqueArgs>(args: SelectSubset<T, SendUserRequestFindUniqueArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one SendUserRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SendUserRequestFindUniqueOrThrowArgs} args - Arguments to find a SendUserRequest
+     * @example
+     * // Get one SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SendUserRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, SendUserRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SendUserRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestFindFirstArgs} args - Arguments to find a SendUserRequest
+     * @example
+     * // Get one SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SendUserRequestFindFirstArgs>(args?: SelectSubset<T, SendUserRequestFindFirstArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SendUserRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestFindFirstOrThrowArgs} args - Arguments to find a SendUserRequest
+     * @example
+     * // Get one SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SendUserRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, SendUserRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more SendUserRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SendUserRequests
+     * const sendUserRequests = await prisma.sendUserRequest.findMany()
+     * 
+     * // Get first 10 SendUserRequests
+     * const sendUserRequests = await prisma.sendUserRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sendUserRequestWithIdOnly = await prisma.sendUserRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SendUserRequestFindManyArgs>(args?: SelectSubset<T, SendUserRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a SendUserRequest.
+     * @param {SendUserRequestCreateArgs} args - Arguments to create a SendUserRequest.
+     * @example
+     * // Create one SendUserRequest
+     * const SendUserRequest = await prisma.sendUserRequest.create({
+     *   data: {
+     *     // ... data to create a SendUserRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends SendUserRequestCreateArgs>(args: SelectSubset<T, SendUserRequestCreateArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many SendUserRequests.
+     * @param {SendUserRequestCreateManyArgs} args - Arguments to create many SendUserRequests.
+     * @example
+     * // Create many SendUserRequests
+     * const sendUserRequest = await prisma.sendUserRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SendUserRequestCreateManyArgs>(args?: SelectSubset<T, SendUserRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SendUserRequest.
+     * @param {SendUserRequestDeleteArgs} args - Arguments to delete one SendUserRequest.
+     * @example
+     * // Delete one SendUserRequest
+     * const SendUserRequest = await prisma.sendUserRequest.delete({
+     *   where: {
+     *     // ... filter to delete one SendUserRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SendUserRequestDeleteArgs>(args: SelectSubset<T, SendUserRequestDeleteArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one SendUserRequest.
+     * @param {SendUserRequestUpdateArgs} args - Arguments to update one SendUserRequest.
+     * @example
+     * // Update one SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SendUserRequestUpdateArgs>(args: SelectSubset<T, SendUserRequestUpdateArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more SendUserRequests.
+     * @param {SendUserRequestDeleteManyArgs} args - Arguments to filter SendUserRequests to delete.
+     * @example
+     * // Delete a few SendUserRequests
+     * const { count } = await prisma.sendUserRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SendUserRequestDeleteManyArgs>(args?: SelectSubset<T, SendUserRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SendUserRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SendUserRequests
+     * const sendUserRequest = await prisma.sendUserRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SendUserRequestUpdateManyArgs>(args: SelectSubset<T, SendUserRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SendUserRequest.
+     * @param {SendUserRequestUpsertArgs} args - Arguments to update or create a SendUserRequest.
+     * @example
+     * // Update or create a SendUserRequest
+     * const sendUserRequest = await prisma.sendUserRequest.upsert({
+     *   create: {
+     *     // ... data to create a SendUserRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SendUserRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SendUserRequestUpsertArgs>(args: SelectSubset<T, SendUserRequestUpsertArgs<ExtArgs>>): Prisma__SendUserRequestClient<$Result.GetResult<Prisma.$SendUserRequestPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more SendUserRequests that matches the filter.
+     * @param {SendUserRequestFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const sendUserRequest = await prisma.sendUserRequest.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: SendUserRequestFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SendUserRequest.
+     * @param {SendUserRequestAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const sendUserRequest = await prisma.sendUserRequest.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: SendUserRequestAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of SendUserRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestCountArgs} args - Arguments to filter SendUserRequests to count.
+     * @example
+     * // Count the number of SendUserRequests
+     * const count = await prisma.sendUserRequest.count({
+     *   where: {
+     *     // ... the filter for the SendUserRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends SendUserRequestCountArgs>(
+      args?: Subset<T, SendUserRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SendUserRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SendUserRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SendUserRequestAggregateArgs>(args: Subset<T, SendUserRequestAggregateArgs>): Prisma.PrismaPromise<GetSendUserRequestAggregateType<T>>
+
+    /**
+     * Group by SendUserRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SendUserRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SendUserRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SendUserRequestGroupByArgs['orderBy'] }
+        : { orderBy?: SendUserRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SendUserRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSendUserRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SendUserRequest model
+   */
+  readonly fields: SendUserRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SendUserRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SendUserRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    class<T extends SendUserRequest$classArgs<ExtArgs> = {}>(args?: Subset<T, SendUserRequest$classArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    User<T extends SendUserRequest$UserArgs<ExtArgs> = {}>(args?: Subset<T, SendUserRequest$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SendUserRequest model
+   */ 
+  interface SendUserRequestFieldRefs {
+    readonly id: FieldRef<"SendUserRequest", 'String'>
+    readonly senderId: FieldRef<"SendUserRequest", 'String'>
+    readonly userId: FieldRef<"SendUserRequest", 'String'>
+    readonly description: FieldRef<"SendUserRequest", 'String'>
+    readonly classId: FieldRef<"SendUserRequest", 'String'>
+    readonly email: FieldRef<"SendUserRequest", 'String'>
+    readonly createdAt: FieldRef<"SendUserRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"SendUserRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SendUserRequest findUnique
+   */
+  export type SendUserRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SendUserRequest to fetch.
+     */
+    where: SendUserRequestWhereUniqueInput
+  }
+
+  /**
+   * SendUserRequest findUniqueOrThrow
+   */
+  export type SendUserRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SendUserRequest to fetch.
+     */
+    where: SendUserRequestWhereUniqueInput
+  }
+
+  /**
+   * SendUserRequest findFirst
+   */
+  export type SendUserRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SendUserRequest to fetch.
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SendUserRequests to fetch.
+     */
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SendUserRequests.
+     */
+    cursor?: SendUserRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SendUserRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SendUserRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SendUserRequests.
+     */
+    distinct?: SendUserRequestScalarFieldEnum | SendUserRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SendUserRequest findFirstOrThrow
+   */
+  export type SendUserRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SendUserRequest to fetch.
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SendUserRequests to fetch.
+     */
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SendUserRequests.
+     */
+    cursor?: SendUserRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SendUserRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SendUserRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SendUserRequests.
+     */
+    distinct?: SendUserRequestScalarFieldEnum | SendUserRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SendUserRequest findMany
+   */
+  export type SendUserRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which SendUserRequests to fetch.
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SendUserRequests to fetch.
+     */
+    orderBy?: SendUserRequestOrderByWithRelationInput | SendUserRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SendUserRequests.
+     */
+    cursor?: SendUserRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SendUserRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SendUserRequests.
+     */
+    skip?: number
+    distinct?: SendUserRequestScalarFieldEnum | SendUserRequestScalarFieldEnum[]
+  }
+
+  /**
+   * SendUserRequest create
+   */
+  export type SendUserRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SendUserRequest.
+     */
+    data: XOR<SendUserRequestCreateInput, SendUserRequestUncheckedCreateInput>
+  }
+
+  /**
+   * SendUserRequest createMany
+   */
+  export type SendUserRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SendUserRequests.
+     */
+    data: SendUserRequestCreateManyInput | SendUserRequestCreateManyInput[]
+  }
+
+  /**
+   * SendUserRequest update
+   */
+  export type SendUserRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SendUserRequest.
+     */
+    data: XOR<SendUserRequestUpdateInput, SendUserRequestUncheckedUpdateInput>
+    /**
+     * Choose, which SendUserRequest to update.
+     */
+    where: SendUserRequestWhereUniqueInput
+  }
+
+  /**
+   * SendUserRequest updateMany
+   */
+  export type SendUserRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SendUserRequests.
+     */
+    data: XOR<SendUserRequestUpdateManyMutationInput, SendUserRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which SendUserRequests to update
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * Limit how many SendUserRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SendUserRequest upsert
+   */
+  export type SendUserRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SendUserRequest to update in case it exists.
+     */
+    where: SendUserRequestWhereUniqueInput
+    /**
+     * In case the SendUserRequest found by the `where` argument doesn't exist, create a new SendUserRequest with this data.
+     */
+    create: XOR<SendUserRequestCreateInput, SendUserRequestUncheckedCreateInput>
+    /**
+     * In case the SendUserRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SendUserRequestUpdateInput, SendUserRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * SendUserRequest delete
+   */
+  export type SendUserRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
+    /**
+     * Filter which SendUserRequest to delete.
+     */
+    where: SendUserRequestWhereUniqueInput
+  }
+
+  /**
+   * SendUserRequest deleteMany
+   */
+  export type SendUserRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SendUserRequests to delete
+     */
+    where?: SendUserRequestWhereInput
+    /**
+     * Limit how many SendUserRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SendUserRequest findRaw
+   */
+  export type SendUserRequestFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SendUserRequest aggregateRaw
+   */
+  export type SendUserRequestAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * SendUserRequest.class
+   */
+  export type SendUserRequest$classArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
+  }
+
+  /**
+   * SendUserRequest.User
+   */
+  export type SendUserRequest$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * SendUserRequest without action
+   */
+  export type SendUserRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SendUserRequest
+     */
+    select?: SendUserRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SendUserRequest
+     */
+    omit?: SendUserRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SendUserRequestInclude<ExtArgs> | null
   }
 
 
@@ -31727,6 +32946,20 @@ export namespace Prisma {
   export type TeacherScalarFieldEnum = (typeof TeacherScalarFieldEnum)[keyof typeof TeacherScalarFieldEnum]
 
 
+  export const SendUserRequestScalarFieldEnum: {
+    id: 'id',
+    senderId: 'senderId',
+    userId: 'userId',
+    description: 'description',
+    classId: 'classId',
+    email: 'email',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SendUserRequestScalarFieldEnum = (typeof SendUserRequestScalarFieldEnum)[keyof typeof SendUserRequestScalarFieldEnum]
+
+
   export const PostScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -32116,6 +33349,7 @@ export namespace Prisma {
     Teacher?: TeacherListRelationFilter
     Class?: ClassListRelationFilter
     Post?: PostListRelationFilter
+    addTeacherRequest?: SendUserRequestListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -32141,6 +33375,7 @@ export namespace Prisma {
     Teacher?: TeacherOrderByRelationAggregateInput
     Class?: ClassOrderByRelationAggregateInput
     Post?: PostOrderByRelationAggregateInput
+    addTeacherRequest?: SendUserRequestOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -32169,6 +33404,7 @@ export namespace Prisma {
     Teacher?: TeacherListRelationFilter
     Class?: ClassListRelationFilter
     Post?: PostListRelationFilter
+    addTeacherRequest?: SendUserRequestListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -32871,6 +34107,7 @@ export namespace Prisma {
     Subject?: SubjectListRelationFilter
     Model?: ModelListRelationFilter
     Teacher?: TeacherListRelationFilter
+    addTeacherRequest?: SendUserRequestListRelationFilter
   }
 
   export type ClassOrderByWithRelationInput = {
@@ -32898,6 +34135,7 @@ export namespace Prisma {
     Subject?: SubjectOrderByRelationAggregateInput
     Model?: ModelOrderByRelationAggregateInput
     Teacher?: TeacherOrderByRelationAggregateInput
+    addTeacherRequest?: SendUserRequestOrderByRelationAggregateInput
   }
 
   export type ClassWhereUniqueInput = Prisma.AtLeast<{
@@ -32928,6 +34166,7 @@ export namespace Prisma {
     Subject?: SubjectListRelationFilter
     Model?: ModelListRelationFilter
     Teacher?: TeacherListRelationFilter
+    addTeacherRequest?: SendUserRequestListRelationFilter
   }, "id" | "username" | "code">
 
   export type ClassOrderByWithAggregationInput = {
@@ -33149,6 +34388,79 @@ export namespace Prisma {
     classId?: StringWithAggregatesFilter<"Teacher"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Teacher"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Teacher"> | Date | string
+  }
+
+  export type SendUserRequestWhereInput = {
+    AND?: SendUserRequestWhereInput | SendUserRequestWhereInput[]
+    OR?: SendUserRequestWhereInput[]
+    NOT?: SendUserRequestWhereInput | SendUserRequestWhereInput[]
+    id?: StringFilter<"SendUserRequest"> | string
+    senderId?: StringFilter<"SendUserRequest"> | string
+    userId?: StringNullableFilter<"SendUserRequest"> | string | null
+    description?: StringNullableFilter<"SendUserRequest"> | string | null
+    classId?: StringNullableFilter<"SendUserRequest"> | string | null
+    email?: StringNullableFilter<"SendUserRequest"> | string | null
+    createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type SendUserRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    userId?: SortOrder
+    description?: SortOrder
+    classId?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    class?: ClassOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
+  }
+
+  export type SendUserRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SendUserRequestWhereInput | SendUserRequestWhereInput[]
+    OR?: SendUserRequestWhereInput[]
+    NOT?: SendUserRequestWhereInput | SendUserRequestWhereInput[]
+    senderId?: StringFilter<"SendUserRequest"> | string
+    userId?: StringNullableFilter<"SendUserRequest"> | string | null
+    description?: StringNullableFilter<"SendUserRequest"> | string | null
+    classId?: StringNullableFilter<"SendUserRequest"> | string | null
+    email?: StringNullableFilter<"SendUserRequest"> | string | null
+    createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+    class?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type SendUserRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    userId?: SortOrder
+    description?: SortOrder
+    classId?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SendUserRequestCountOrderByAggregateInput
+    _max?: SendUserRequestMaxOrderByAggregateInput
+    _min?: SendUserRequestMinOrderByAggregateInput
+  }
+
+  export type SendUserRequestScalarWhereWithAggregatesInput = {
+    AND?: SendUserRequestScalarWhereWithAggregatesInput | SendUserRequestScalarWhereWithAggregatesInput[]
+    OR?: SendUserRequestScalarWhereWithAggregatesInput[]
+    NOT?: SendUserRequestScalarWhereWithAggregatesInput | SendUserRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SendUserRequest"> | string
+    senderId?: StringWithAggregatesFilter<"SendUserRequest"> | string
+    userId?: StringNullableWithAggregatesFilter<"SendUserRequest"> | string | null
+    description?: StringNullableWithAggregatesFilter<"SendUserRequest"> | string | null
+    classId?: StringNullableWithAggregatesFilter<"SendUserRequest"> | string | null
+    email?: StringNullableWithAggregatesFilter<"SendUserRequest"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SendUserRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SendUserRequest"> | Date | string
   }
 
   export type PostWhereInput = {
@@ -34046,6 +35358,7 @@ export namespace Prisma {
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -34071,6 +35384,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -34095,6 +35409,7 @@ export namespace Prisma {
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -34119,6 +35434,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -34859,6 +36175,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateInput = {
@@ -34882,6 +36199,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassUpdateInput = {
@@ -34904,6 +36222,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateInput = {
@@ -34926,6 +36245,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassCreateManyInput = {
@@ -35134,6 +36454,77 @@ export namespace Prisma {
   export type TeacherUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     classId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestCreateInput = {
+    id?: string
+    userId?: string | null
+    description?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class?: ClassCreateNestedOneWithoutAddTeacherRequestInput
+    User?: UserCreateNestedOneWithoutAddTeacherRequestInput
+  }
+
+  export type SendUserRequestUncheckedCreateInput = {
+    id?: string
+    senderId: string
+    userId?: string | null
+    description?: string | null
+    classId?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestUpdateInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneWithoutAddTeacherRequestNestedInput
+    User?: UserUpdateOneWithoutAddTeacherRequestNestedInput
+  }
+
+  export type SendUserRequestUncheckedUpdateInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestCreateManyInput = {
+    id?: string
+    senderId: string
+    userId?: string | null
+    description?: string | null
+    classId?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestUpdateManyMutationInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestUncheckedUpdateManyInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36114,6 +37505,12 @@ export namespace Prisma {
     none?: PostWhereInput
   }
 
+  export type SendUserRequestListRelationFilter = {
+    every?: SendUserRequestWhereInput
+    some?: SendUserRequestWhereInput
+    none?: SendUserRequestWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -36139,6 +37536,10 @@ export namespace Prisma {
   }
 
   export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SendUserRequestOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36940,6 +38341,39 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type SendUserRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    userId?: SortOrder
+    description?: SortOrder
+    classId?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SendUserRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    userId?: SortOrder
+    description?: SortOrder
+    classId?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SendUserRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    senderId?: SortOrder
+    userId?: SortOrder
+    description?: SortOrder
+    classId?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type EnumPostRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.PostRole | EnumPostRoleFieldRefInput<$PrismaModel>
     in?: $Enums.PostRole[] | ListEnumPostRoleFieldRefInput<$PrismaModel>
@@ -37570,6 +39004,13 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
+  export type SendUserRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput> | SendUserRequestCreateWithoutUserInput[] | SendUserRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutUserInput | SendUserRequestCreateOrConnectWithoutUserInput[]
+    createMany?: SendUserRequestCreateManyUserInputEnvelope
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -37617,6 +39058,13 @@ export namespace Prisma {
     connectOrCreate?: PostCreateOrConnectWithoutUserInput | PostCreateOrConnectWithoutUserInput[]
     createMany?: PostCreateManyUserInputEnvelope
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type SendUserRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput> | SendUserRequestCreateWithoutUserInput[] | SendUserRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutUserInput | SendUserRequestCreateOrConnectWithoutUserInput[]
+    createMany?: SendUserRequestCreateManyUserInputEnvelope
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -37744,6 +39192,20 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
+  export type SendUserRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput> | SendUserRequestCreateWithoutUserInput[] | SendUserRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutUserInput | SendUserRequestCreateOrConnectWithoutUserInput[]
+    upsert?: SendUserRequestUpsertWithWhereUniqueWithoutUserInput | SendUserRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SendUserRequestCreateManyUserInputEnvelope
+    set?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    disconnect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    delete?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    update?: SendUserRequestUpdateWithWhereUniqueWithoutUserInput | SendUserRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SendUserRequestUpdateManyWithWhereWithoutUserInput | SendUserRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -37840,6 +39302,20 @@ export namespace Prisma {
     update?: PostUpdateWithWhereUniqueWithoutUserInput | PostUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PostUpdateManyWithWhereWithoutUserInput | PostUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type SendUserRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput> | SendUserRequestCreateWithoutUserInput[] | SendUserRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutUserInput | SendUserRequestCreateOrConnectWithoutUserInput[]
+    upsert?: SendUserRequestUpsertWithWhereUniqueWithoutUserInput | SendUserRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SendUserRequestCreateManyUserInputEnvelope
+    set?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    disconnect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    delete?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    update?: SendUserRequestUpdateWithWhereUniqueWithoutUserInput | SendUserRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SendUserRequestUpdateManyWithWhereWithoutUserInput | SendUserRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -38380,6 +39856,13 @@ export namespace Prisma {
     connect?: TeacherWhereUniqueInput | TeacherWhereUniqueInput[]
   }
 
+  export type SendUserRequestCreateNestedManyWithoutClassInput = {
+    create?: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput> | SendUserRequestCreateWithoutClassInput[] | SendUserRequestUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutClassInput | SendUserRequestCreateOrConnectWithoutClassInput[]
+    createMany?: SendUserRequestCreateManyClassInputEnvelope
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+  }
+
   export type StudentUncheckedCreateNestedManyWithoutClassInput = {
     create?: XOR<StudentCreateWithoutClassInput, StudentUncheckedCreateWithoutClassInput> | StudentCreateWithoutClassInput[] | StudentUncheckedCreateWithoutClassInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutClassInput | StudentCreateOrConnectWithoutClassInput[]
@@ -38420,6 +39903,13 @@ export namespace Prisma {
     connectOrCreate?: TeacherCreateOrConnectWithoutClassInput | TeacherCreateOrConnectWithoutClassInput[]
     createMany?: TeacherCreateManyClassInputEnvelope
     connect?: TeacherWhereUniqueInput | TeacherWhereUniqueInput[]
+  }
+
+  export type SendUserRequestUncheckedCreateNestedManyWithoutClassInput = {
+    create?: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput> | SendUserRequestCreateWithoutClassInput[] | SendUserRequestUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutClassInput | SendUserRequestCreateOrConnectWithoutClassInput[]
+    createMany?: SendUserRequestCreateManyClassInputEnvelope
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
   }
 
   export type NullableEnumClassTypeFieldUpdateOperationsInput = {
@@ -38551,6 +40041,20 @@ export namespace Prisma {
     deleteMany?: TeacherScalarWhereInput | TeacherScalarWhereInput[]
   }
 
+  export type SendUserRequestUpdateManyWithoutClassNestedInput = {
+    create?: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput> | SendUserRequestCreateWithoutClassInput[] | SendUserRequestUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutClassInput | SendUserRequestCreateOrConnectWithoutClassInput[]
+    upsert?: SendUserRequestUpsertWithWhereUniqueWithoutClassInput | SendUserRequestUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: SendUserRequestCreateManyClassInputEnvelope
+    set?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    disconnect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    delete?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    update?: SendUserRequestUpdateWithWhereUniqueWithoutClassInput | SendUserRequestUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: SendUserRequestUpdateManyWithWhereWithoutClassInput | SendUserRequestUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
+  }
+
   export type StudentUncheckedUpdateManyWithoutClassNestedInput = {
     create?: XOR<StudentCreateWithoutClassInput, StudentUncheckedCreateWithoutClassInput> | StudentCreateWithoutClassInput[] | StudentUncheckedCreateWithoutClassInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutClassInput | StudentCreateOrConnectWithoutClassInput[]
@@ -38635,6 +40139,20 @@ export namespace Prisma {
     deleteMany?: TeacherScalarWhereInput | TeacherScalarWhereInput[]
   }
 
+  export type SendUserRequestUncheckedUpdateManyWithoutClassNestedInput = {
+    create?: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput> | SendUserRequestCreateWithoutClassInput[] | SendUserRequestUncheckedCreateWithoutClassInput[]
+    connectOrCreate?: SendUserRequestCreateOrConnectWithoutClassInput | SendUserRequestCreateOrConnectWithoutClassInput[]
+    upsert?: SendUserRequestUpsertWithWhereUniqueWithoutClassInput | SendUserRequestUpsertWithWhereUniqueWithoutClassInput[]
+    createMany?: SendUserRequestCreateManyClassInputEnvelope
+    set?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    disconnect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    delete?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    connect?: SendUserRequestWhereUniqueInput | SendUserRequestWhereUniqueInput[]
+    update?: SendUserRequestUpdateWithWhereUniqueWithoutClassInput | SendUserRequestUpdateWithWhereUniqueWithoutClassInput[]
+    updateMany?: SendUserRequestUpdateManyWithWhereWithoutClassInput | SendUserRequestUpdateManyWithWhereWithoutClassInput[]
+    deleteMany?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
+  }
+
   export type ClassCreateNestedOneWithoutSubClassInput = {
     create?: XOR<ClassCreateWithoutSubClassInput, ClassUncheckedCreateWithoutSubClassInput>
     connectOrCreate?: ClassCreateOrConnectWithoutSubClassInput
@@ -38713,6 +40231,38 @@ export namespace Prisma {
     delete?: ClassWhereInput | boolean
     connect?: ClassWhereUniqueInput
     update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutTeacherInput, ClassUpdateWithoutTeacherInput>, ClassUncheckedUpdateWithoutTeacherInput>
+  }
+
+  export type ClassCreateNestedOneWithoutAddTeacherRequestInput = {
+    create?: XOR<ClassCreateWithoutAddTeacherRequestInput, ClassUncheckedCreateWithoutAddTeacherRequestInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutAddTeacherRequestInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAddTeacherRequestInput = {
+    create?: XOR<UserCreateWithoutAddTeacherRequestInput, UserUncheckedCreateWithoutAddTeacherRequestInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddTeacherRequestInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ClassUpdateOneWithoutAddTeacherRequestNestedInput = {
+    create?: XOR<ClassCreateWithoutAddTeacherRequestInput, ClassUncheckedCreateWithoutAddTeacherRequestInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutAddTeacherRequestInput
+    upsert?: ClassUpsertWithoutAddTeacherRequestInput
+    disconnect?: boolean
+    delete?: ClassWhereInput | boolean
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutAddTeacherRequestInput, ClassUpdateWithoutAddTeacherRequestInput>, ClassUncheckedUpdateWithoutAddTeacherRequestInput>
+  }
+
+  export type UserUpdateOneWithoutAddTeacherRequestNestedInput = {
+    create?: XOR<UserCreateWithoutAddTeacherRequestInput, UserUncheckedCreateWithoutAddTeacherRequestInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddTeacherRequestInput
+    upsert?: UserUpsertWithoutAddTeacherRequestInput
+    disconnect?: boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddTeacherRequestInput, UserUpdateWithoutAddTeacherRequestInput>, UserUncheckedUpdateWithoutAddTeacherRequestInput>
   }
 
   export type UserCreateNestedOneWithoutPostInput = {
@@ -40039,6 +41589,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutUserInput = {
@@ -40061,6 +41612,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutUserInput = {
@@ -40099,6 +41651,35 @@ export namespace Prisma {
 
   export type PostCreateManyUserInputEnvelope = {
     data: PostCreateManyUserInput | PostCreateManyUserInput[]
+  }
+
+  export type SendUserRequestCreateWithoutUserInput = {
+    id?: string
+    userId?: string | null
+    description?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class?: ClassCreateNestedOneWithoutAddTeacherRequestInput
+  }
+
+  export type SendUserRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    userId?: string | null
+    description?: string | null
+    classId?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestCreateOrConnectWithoutUserInput = {
+    where: SendUserRequestWhereUniqueInput
+    create: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type SendUserRequestCreateManyUserInputEnvelope = {
+    data: SendUserRequestCreateManyUserInput | SendUserRequestCreateManyUserInput[]
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -40316,6 +41897,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Post"> | Date | string
   }
 
+  export type SendUserRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: SendUserRequestWhereUniqueInput
+    update: XOR<SendUserRequestUpdateWithoutUserInput, SendUserRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<SendUserRequestCreateWithoutUserInput, SendUserRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type SendUserRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: SendUserRequestWhereUniqueInput
+    data: XOR<SendUserRequestUpdateWithoutUserInput, SendUserRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SendUserRequestUpdateManyWithWhereWithoutUserInput = {
+    where: SendUserRequestScalarWhereInput
+    data: XOR<SendUserRequestUpdateManyMutationInput, SendUserRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SendUserRequestScalarWhereInput = {
+    AND?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
+    OR?: SendUserRequestScalarWhereInput[]
+    NOT?: SendUserRequestScalarWhereInput | SendUserRequestScalarWhereInput[]
+    id?: StringFilter<"SendUserRequest"> | string
+    senderId?: StringFilter<"SendUserRequest"> | string
+    userId?: StringNullableFilter<"SendUserRequest"> | string | null
+    description?: StringNullableFilter<"SendUserRequest"> | string | null
+    classId?: StringNullableFilter<"SendUserRequest"> | string | null
+    email?: StringNullableFilter<"SendUserRequest"> | string | null
+    createdAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"SendUserRequest"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -40338,6 +41949,7 @@ export namespace Prisma {
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -40362,6 +41974,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -40401,6 +42014,7 @@ export namespace Prisma {
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -40424,6 +42038,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -40448,6 +42063,7 @@ export namespace Prisma {
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -40472,6 +42088,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -40511,6 +42128,7 @@ export namespace Prisma {
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -40534,6 +42152,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -40558,6 +42177,7 @@ export namespace Prisma {
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -40582,6 +42202,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -40621,6 +42242,7 @@ export namespace Prisma {
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -40644,6 +42266,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SectorCreateWithoutEducationInput = {
@@ -40873,6 +42496,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSectorInput = {
@@ -40895,6 +42519,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSectorInput = {
@@ -41083,6 +42708,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutTradeInput = {
@@ -41105,6 +42731,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutTradeInput = {
@@ -41267,6 +42894,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutClassTeacherInput = {
@@ -41289,6 +42917,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutClassTeacherInput = {
@@ -41628,6 +43257,7 @@ export namespace Prisma {
     Student?: StudentCreateNestedManyWithoutUserInput
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClassInput = {
@@ -41652,6 +43282,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutUserInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClassInput = {
@@ -41839,6 +43470,35 @@ export namespace Prisma {
     data: TeacherCreateManyClassInput | TeacherCreateManyClassInput[]
   }
 
+  export type SendUserRequestCreateWithoutClassInput = {
+    id?: string
+    userId?: string | null
+    description?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    User?: UserCreateNestedOneWithoutAddTeacherRequestInput
+  }
+
+  export type SendUserRequestUncheckedCreateWithoutClassInput = {
+    id?: string
+    senderId: string
+    userId?: string | null
+    description?: string | null
+    email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestCreateOrConnectWithoutClassInput = {
+    where: SendUserRequestWhereUniqueInput
+    create: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput>
+  }
+
+  export type SendUserRequestCreateManyClassInputEnvelope = {
+    data: SendUserRequestCreateManyClassInput | SendUserRequestCreateManyClassInput[]
+  }
+
   export type StudentUpsertWithWhereUniqueWithoutClassInput = {
     where: StudentWhereUniqueInput
     update: XOR<StudentUpdateWithoutClassInput, StudentUncheckedUpdateWithoutClassInput>
@@ -41987,6 +43647,7 @@ export namespace Prisma {
     Student?: StudentUpdateManyWithoutUserNestedInput
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClassInput = {
@@ -42010,6 +43671,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutUserNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClassRoomUpsertWithoutClassInput = {
@@ -42129,6 +43791,22 @@ export namespace Prisma {
     data: XOR<TeacherUpdateManyMutationInput, TeacherUncheckedUpdateManyWithoutClassInput>
   }
 
+  export type SendUserRequestUpsertWithWhereUniqueWithoutClassInput = {
+    where: SendUserRequestWhereUniqueInput
+    update: XOR<SendUserRequestUpdateWithoutClassInput, SendUserRequestUncheckedUpdateWithoutClassInput>
+    create: XOR<SendUserRequestCreateWithoutClassInput, SendUserRequestUncheckedCreateWithoutClassInput>
+  }
+
+  export type SendUserRequestUpdateWithWhereUniqueWithoutClassInput = {
+    where: SendUserRequestWhereUniqueInput
+    data: XOR<SendUserRequestUpdateWithoutClassInput, SendUserRequestUncheckedUpdateWithoutClassInput>
+  }
+
+  export type SendUserRequestUpdateManyWithWhereWithoutClassInput = {
+    where: SendUserRequestScalarWhereInput
+    data: XOR<SendUserRequestUpdateManyMutationInput, SendUserRequestUncheckedUpdateManyWithoutClassInput>
+  }
+
   export type ClassCreateWithoutSubClassInput = {
     id?: string
     name: string
@@ -42149,6 +43827,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSubClassInput = {
@@ -42171,6 +43850,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSubClassInput = {
@@ -42208,6 +43888,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSubClassInput = {
@@ -42229,6 +43910,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type UserCreateWithoutStudentInput = {
@@ -42253,6 +43935,7 @@ export namespace Prisma {
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudentInput = {
@@ -42277,6 +43960,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudentInput = {
@@ -42304,6 +43988,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutStudentInput = {
@@ -42326,6 +44011,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutStudentInput = {
@@ -42365,6 +44051,7 @@ export namespace Prisma {
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudentInput = {
@@ -42388,6 +44075,7 @@ export namespace Prisma {
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClassUpsertWithoutStudentInput = {
@@ -42420,6 +44108,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutStudentInput = {
@@ -42441,6 +44130,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type UserCreateWithoutTeacherInput = {
@@ -42465,6 +44155,7 @@ export namespace Prisma {
     Student?: StudentCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
     Post?: PostCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTeacherInput = {
@@ -42489,6 +44180,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
     Post?: PostUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTeacherInput = {
@@ -42516,6 +44208,7 @@ export namespace Prisma {
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutTeacherInput = {
@@ -42538,6 +44231,7 @@ export namespace Prisma {
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutTeacherInput = {
@@ -42577,6 +44271,7 @@ export namespace Prisma {
     Student?: StudentUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
     Post?: PostUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeacherInput = {
@@ -42600,6 +44295,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
     Post?: PostUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClassUpsertWithoutTeacherInput = {
@@ -42632,6 +44328,7 @@ export namespace Prisma {
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutTeacherInput = {
@@ -42653,6 +44350,227 @@ export namespace Prisma {
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassCreateWithoutAddTeacherRequestInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    classType?: $Enums.ClassType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Student?: StudentCreateNestedManyWithoutClassInput
+    SubClass?: SubClassCreateNestedManyWithoutClassInput
+    trade?: TradeCreateNestedOneWithoutClassInput
+    sector?: SectorCreateNestedOneWithoutClassInput
+    user?: UserCreateNestedOneWithoutClassInput
+    classTeacher?: ClassRoomCreateNestedOneWithoutClassInput
+    Post?: PostCreateNestedManyWithoutClassInput
+    Subject?: SubjectCreateNestedManyWithoutClassInput
+    Model?: ModelCreateNestedManyWithoutClassInput
+    Teacher?: TeacherCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutAddTeacherRequestInput = {
+    id?: string
+    name: string
+    username: string
+    description?: string | null
+    code: string
+    symbol?: string | null
+    disabled?: boolean
+    sectorId?: string | null
+    tradeId?: string | null
+    classRoomId?: string | null
+    userId: string
+    classType?: $Enums.ClassType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Student?: StudentUncheckedCreateNestedManyWithoutClassInput
+    SubClass?: SubClassUncheckedCreateNestedManyWithoutClassInput
+    Post?: PostUncheckedCreateNestedManyWithoutClassInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
+    Model?: ModelUncheckedCreateNestedManyWithoutClassInput
+    Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutAddTeacherRequestInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutAddTeacherRequestInput, ClassUncheckedCreateWithoutAddTeacherRequestInput>
+  }
+
+  export type UserCreateWithoutAddTeacherRequestInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    password?: string | null
+    username?: string | null
+    bio?: string | null
+    age?: Date | string | null
+    disabled?: boolean
+    gender?: $Enums.Gender | null
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    Student?: StudentCreateNestedManyWithoutUserInput
+    Teacher?: TeacherCreateNestedManyWithoutUserInput
+    Class?: ClassCreateNestedManyWithoutUserInput
+    Post?: PostCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAddTeacherRequestInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    password?: string | null
+    username?: string | null
+    bio?: string | null
+    age?: Date | string | null
+    disabled?: boolean
+    gender?: $Enums.Gender | null
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    Student?: StudentUncheckedCreateNestedManyWithoutUserInput
+    Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
+    Class?: ClassUncheckedCreateNestedManyWithoutUserInput
+    Post?: PostUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAddTeacherRequestInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAddTeacherRequestInput, UserUncheckedCreateWithoutAddTeacherRequestInput>
+  }
+
+  export type ClassUpsertWithoutAddTeacherRequestInput = {
+    update: XOR<ClassUpdateWithoutAddTeacherRequestInput, ClassUncheckedUpdateWithoutAddTeacherRequestInput>
+    create: XOR<ClassCreateWithoutAddTeacherRequestInput, ClassUncheckedCreateWithoutAddTeacherRequestInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutAddTeacherRequestInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutAddTeacherRequestInput, ClassUncheckedUpdateWithoutAddTeacherRequestInput>
+  }
+
+  export type ClassUpdateWithoutAddTeacherRequestInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Student?: StudentUpdateManyWithoutClassNestedInput
+    SubClass?: SubClassUpdateManyWithoutClassNestedInput
+    trade?: TradeUpdateOneWithoutClassNestedInput
+    sector?: SectorUpdateOneWithoutClassNestedInput
+    user?: UserUpdateOneWithoutClassNestedInput
+    classTeacher?: ClassRoomUpdateOneWithoutClassNestedInput
+    Post?: PostUpdateManyWithoutClassNestedInput
+    Subject?: SubjectUpdateManyWithoutClassNestedInput
+    Model?: ModelUpdateManyWithoutClassNestedInput
+    Teacher?: TeacherUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutAddTeacherRequestInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    symbol?: NullableStringFieldUpdateOperationsInput | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    sectorId?: NullableStringFieldUpdateOperationsInput | string | null
+    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    classType?: NullableEnumClassTypeFieldUpdateOperationsInput | $Enums.ClassType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Student?: StudentUncheckedUpdateManyWithoutClassNestedInput
+    SubClass?: SubClassUncheckedUpdateManyWithoutClassNestedInput
+    Post?: PostUncheckedUpdateManyWithoutClassNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
+    Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
+    Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type UserUpsertWithoutAddTeacherRequestInput = {
+    update: XOR<UserUpdateWithoutAddTeacherRequestInput, UserUncheckedUpdateWithoutAddTeacherRequestInput>
+    create: XOR<UserCreateWithoutAddTeacherRequestInput, UserUncheckedCreateWithoutAddTeacherRequestInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAddTeacherRequestInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAddTeacherRequestInput, UserUncheckedUpdateWithoutAddTeacherRequestInput>
+  }
+
+  export type UserUpdateWithoutAddTeacherRequestInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    Student?: StudentUpdateManyWithoutUserNestedInput
+    Teacher?: TeacherUpdateManyWithoutUserNestedInput
+    Class?: ClassUpdateManyWithoutUserNestedInput
+    Post?: PostUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAddTeacherRequestInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disabled?: BoolFieldUpdateOperationsInput | boolean
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutUserNestedInput
+    Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
+    Post?: PostUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPostInput = {
@@ -42677,6 +44595,7 @@ export namespace Prisma {
     Student?: StudentCreateNestedManyWithoutUserInput
     Teacher?: TeacherCreateNestedManyWithoutUserInput
     Class?: ClassCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostInput = {
@@ -42701,6 +44620,7 @@ export namespace Prisma {
     Student?: StudentUncheckedCreateNestedManyWithoutUserInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutUserInput
     Class?: ClassUncheckedCreateNestedManyWithoutUserInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostInput = {
@@ -42728,6 +44648,7 @@ export namespace Prisma {
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutPostInput = {
@@ -42750,6 +44671,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutPostInput = {
@@ -42789,6 +44711,7 @@ export namespace Prisma {
     Student?: StudentUpdateManyWithoutUserNestedInput
     Teacher?: TeacherUpdateManyWithoutUserNestedInput
     Class?: ClassUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostInput = {
@@ -42812,6 +44735,7 @@ export namespace Prisma {
     Student?: StudentUncheckedUpdateManyWithoutUserNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutUserNestedInput
     Class?: ClassUncheckedUpdateManyWithoutUserNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClassUpsertWithoutPostInput = {
@@ -42844,6 +44768,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutPostInput = {
@@ -42865,6 +44790,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type KnowledgeCreateWithoutSubjectInput = {
@@ -43078,6 +45004,7 @@ export namespace Prisma {
     Post?: PostCreateNestedManyWithoutClassInput
     Model?: ModelCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutSubjectInput = {
@@ -43100,6 +45027,7 @@ export namespace Prisma {
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Model?: ModelUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutSubjectInput = {
@@ -43449,6 +45377,7 @@ export namespace Prisma {
     Post?: PostUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSubjectInput = {
@@ -43470,6 +45399,7 @@ export namespace Prisma {
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassRoomUpsertWithoutSubjectInput = {
@@ -44915,6 +46845,7 @@ export namespace Prisma {
     Post?: PostCreateNestedManyWithoutClassInput
     Subject?: SubjectCreateNestedManyWithoutClassInput
     Teacher?: TeacherCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestCreateNestedManyWithoutClassInput
   }
 
   export type ClassUncheckedCreateWithoutModelInput = {
@@ -44937,6 +46868,7 @@ export namespace Prisma {
     Post?: PostUncheckedCreateNestedManyWithoutClassInput
     Subject?: SubjectUncheckedCreateNestedManyWithoutClassInput
     Teacher?: TeacherUncheckedCreateNestedManyWithoutClassInput
+    addTeacherRequest?: SendUserRequestUncheckedCreateNestedManyWithoutClassInput
   }
 
   export type ClassCreateOrConnectWithoutModelInput = {
@@ -45036,6 +46968,7 @@ export namespace Prisma {
     Post?: PostUpdateManyWithoutClassNestedInput
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutModelInput = {
@@ -45057,6 +46990,7 @@ export namespace Prisma {
     Post?: PostUncheckedUpdateManyWithoutClassNestedInput
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type SubjectUpsertWithoutModelInput = {
@@ -45196,6 +47130,16 @@ export namespace Prisma {
     content?: string | null
     role?: $Enums.PostRole
     classId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestCreateManyUserInput = {
+    id?: string
+    userId?: string | null
+    description?: string | null
+    classId?: string | null
+    email?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -45351,6 +47295,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutUserInput = {
@@ -45372,6 +47317,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutUserInput = {
@@ -45412,6 +47358,33 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumPostRoleFieldUpdateOperationsInput | $Enums.PostRole
     classId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestUpdateWithoutUserInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneWithoutAddTeacherRequestNestedInput
+  }
+
+  export type SendUserRequestUncheckedUpdateWithoutUserInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestUncheckedUpdateManyWithoutUserInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45602,6 +47575,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutSectorInput = {
@@ -45623,6 +47597,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutSectorInput = {
@@ -45732,6 +47707,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutTradeInput = {
@@ -45753,6 +47729,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutTradeInput = {
@@ -45823,6 +47800,7 @@ export namespace Prisma {
     Subject?: SubjectUpdateManyWithoutClassNestedInput
     Model?: ModelUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateWithoutClassTeacherInput = {
@@ -45844,6 +47822,7 @@ export namespace Prisma {
     Subject?: SubjectUncheckedUpdateManyWithoutClassNestedInput
     Model?: ModelUncheckedUpdateManyWithoutClassNestedInput
     Teacher?: TeacherUncheckedUpdateManyWithoutClassNestedInput
+    addTeacherRequest?: SendUserRequestUncheckedUpdateManyWithoutClassNestedInput
   }
 
   export type ClassUncheckedUpdateManyWithoutClassTeacherInput = {
@@ -45988,6 +47967,16 @@ export namespace Prisma {
   export type TeacherCreateManyClassInput = {
     id?: string
     userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SendUserRequestCreateManyClassInput = {
+    id?: string
+    senderId: string
+    userId?: string | null
+    description?: string | null
+    email?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -46168,6 +48157,33 @@ export namespace Prisma {
 
   export type TeacherUncheckedUpdateManyWithoutClassInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestUpdateWithoutClassInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneWithoutAddTeacherRequestNestedInput
+  }
+
+  export type SendUserRequestUncheckedUpdateWithoutClassInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SendUserRequestUncheckedUpdateManyWithoutClassInput = {
+    senderId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

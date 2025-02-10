@@ -49,6 +49,8 @@ model User {
   Class Class[]
 
   Post Post[]
+
+  addTeacherRequest SendUserRequest[]
 }
 
 model Account {
@@ -226,6 +228,8 @@ model Class {
   Subject Subject[]
   Model   Model[]
   Teacher Teacher[]
+
+  addTeacherRequest SendUserRequest[]
 }
 
 model SubClass {
@@ -262,6 +266,23 @@ model Teacher {
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
 }
+
+model SendUserRequest {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  senderId    String  @db.ObjectId
+  userId      String? @db.ObjectId
+  description String?
+  classId     String? @db.ObjectId
+  email       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  User  User?  @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+// model Request
 
 enum PostRole {
   NOTES
