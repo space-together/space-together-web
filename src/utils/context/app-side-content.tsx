@@ -113,8 +113,13 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
     ],
   },
   {
-    //   label: "Settings",
+      label: "Account",
     items: [
+      {
+        title: "Notifications",
+        image: "/icons/bell.png",
+        url: "/notifications",
+      },
       {
         title: "Settings",
         image: "/icons/cogwheel.png",

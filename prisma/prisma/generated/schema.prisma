@@ -275,6 +275,7 @@ model SendUserRequest {
   classId     String?   @db.ObjectId
   email       String?
   role        UserRole?
+  seen        Boolean   @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

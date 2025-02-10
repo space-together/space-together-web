@@ -275,6 +275,7 @@ exports.Prisma.SendUserRequestScalarFieldEnum = {
   classId: 'classId',
   email: 'email',
   role: 'role',
+  seen: 'seen',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
