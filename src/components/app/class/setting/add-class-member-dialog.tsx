@@ -12,26 +12,28 @@ import UseTheme from "@/context/theme/use-theme";
 import { Plus } from "lucide-react";
 
 interface props {
-    person : "TEACHER" | "STUDENT",
-    classId : string
+  person: "TEACHER" | "STUDENT";
+  classId: string;
 }
 
-const AddMemberInClassDialog = ({person, classId} : props) => {
+const AddMemberInClassDialog = ({ person, classId }: props) => {
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
-        <Button  size={"sm"} variant={"info"}>
-          <Plus /> Add {person=== "TEACHER" ? "teacher" : "student"}
+        <Button size={"sm"} variant={"info"}>
+          <Plus /> Add {person === "TEACHER" ? "teacher" : "student"}
         </Button>
       </DialogTrigger>
       <DialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
         <DialogHeader>
-          <DialogTitle>Create new Class</DialogTitle>
+          <DialogTitle>
+            Add new {person === "TEACHER" ? "teachers" : "students"}
+          </DialogTitle>
         </DialogHeader>
         <AddPersonInClass classId={classId} />
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default AddMemberInClassDialog
+export default AddMemberInClassDialog;
