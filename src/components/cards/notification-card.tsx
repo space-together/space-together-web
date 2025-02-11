@@ -8,7 +8,10 @@ import { Button } from "../ui/button";
 import { authUser } from "@/types/userModel";
 import { Class, SendUserRequest, User } from "../../../prisma/prisma/generated";
 import { toLowerCase } from "@/utils/functions/characters";
-import { UserJoinClassRequest } from "@/services/actions/send-user-request-action";
+import {
+  deleteUserRequest,
+  UserJoinClassRequest,
+} from "@/services/actions/send-user-request-action";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { LoaderCircle } from "lucide-react";
 
@@ -26,12 +29,22 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
   const [warning, setWarning] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
-  const onSubmit = () => {
+  const acceptNotification = () => {
     setError("");
     setSuccess("");
     setWarning("");
     handleFormSubmission(
       () => UserJoinClassRequest(notification),
+      startTransition
+    );
+  };
+
+  const deleteNotification = () => {
+    setError("");
+    setSuccess("");
+    setWarning("");
+    handleFormSubmission(
+      () => deleteUserRequest(notification.id),
       startTransition
     );
   };
@@ -87,14 +100,30 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
       </div>
       <div>
         <div className=" flex flex-col space-y-2">
-          {!notification.accept && (
+          {!notification.accept ? (
             <Button
               disabled={isPending}
-              onClick={() => onSubmit()}
+              onClick={() => acceptNotification()}
               variant="info"
               size="sm"
             >
               Accept
+              {isPending && (
+                <LoaderCircle
+                  className="-ms-1 me-2 animate-spin"
+                  size={12}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+            </Button>
+          ) : (
+            <Button
+              disabled={isPending}
+              size="sm"
+              onClick={() => deleteNotification()}
+            >
+              delete
               {isPending && (
                 <LoaderCircle
                   className="-ms-1 me-2 animate-spin"
