@@ -262,9 +262,8 @@ exports.Prisma.StudentScalarFieldEnum = {
 exports.Prisma.TeacherScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  classId: 'classId',
+  classesId: 'classesId',
   role: 'role',
-  subjectsIds: 'subjectsIds',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -279,6 +278,9 @@ exports.Prisma.SendUserRequestScalarFieldEnum = {
   role: 'role',
   seen: 'seen',
   type: 'type',
+  message: 'message',
+  accept: 'accept',
+  cancel: 'cancel',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -310,7 +312,8 @@ exports.Prisma.SubjectScalarFieldEnum = {
   purpose: 'purpose',
   symbol: 'symbol',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  teacherId: 'teacherId'
 };
 
 exports.Prisma.LearningOutcomeScalarFieldEnum = {

@@ -12,7 +12,9 @@ export const addPersonSchema = z.object({
 export type addPersonSchemaType = z.infer<typeof addPersonSchema>;
 
 export const addTeacherInClassSchema = z.object({
-  emails : z.string(),
+  email : z.string(),
   subjects: z.array(z.string()),
-  role : z.string()
+  message : z.string()
 })
+
+export type addTeacherInClassSchemaType = z.infer<typeof addTeacherInClassSchema>;

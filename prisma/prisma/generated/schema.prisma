@@ -227,7 +227,6 @@ model Class {
 
   Subject Subject[]
   Model   Model[]
-  Teacher Teacher[]
 
   sendUserRequest SendUserRequest[]
 }
@@ -262,16 +261,16 @@ enum TeacherROLE {
 }
 
 model Teacher {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String      @db.ObjectId
-  classId     String      @db.ObjectId
-  role        TeacherROLE @default(TEACHER)
-  subjectsIds String[]
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String      @db.ObjectId
+  classesId String[]    @db.ObjectId
+  role      TeacherROLE @default(TEACHER)
+  ModelsIds Model[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Subject   Subject[]
 }
 
 enum SendUserRequestType {
@@ -289,6 +288,9 @@ model SendUserRequest {
   role        UserRole?
   seen        Boolean              @default(false)
   type        SendUserRequestType?
+  message     String?
+  accept      Boolean?             @default(false)
+  cancel      Boolean?             @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -358,6 +360,8 @@ model Subject {
   classRoom ClassRoom? @relation(fields: [classId], references: [id], onDelete: Cascade)
   Note      Note[]
   Model     Model[]
+  Teacher   Teacher?   @relation(fields: [teacherId], references: [id])
+  teacherId String?    @db.ObjectId
 }
 
 model LearningOutcome {
@@ -500,4 +504,5 @@ model Model {
 
   class   Class?  @relation(fields: [classId], references: [id], onDelete: Cascade)
   Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Teacher Teacher @relation(fields: [teacherId], references: [id])
 }

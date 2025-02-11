@@ -14,6 +14,7 @@ import {
   FormItem,
   FormControl,
   FormMessage,
+  FormLabel,
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -21,14 +22,13 @@ import { FormMessageError, FormMessageSuccess } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { LoaderCircle } from "lucide-react";
 import { handleFormSubmission } from "@/hooks/form-notification";
-import { sendTeachersRequestToJoinClass } from "@/services/actions/send-user-request-action";
+import { sendPeopleRequestToJoinClass } from "@/services/actions/send-user-request-action";
 
 interface Props {
   classId: string;
-  person?: "TEACHER" | "STUDENT"; 
 }
 
-const AddPersonInClass = ({ classId, person }: Props) => {
+const AddPersonInClass = ({ classId }: Props) => {
   const id = useId();
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
@@ -46,7 +46,7 @@ const AddPersonInClass = ({ classId, person }: Props) => {
     setError("");
     setSuccess("");
     handleFormSubmission(
-      () => sendTeachersRequestToJoinClass(values, classId),
+      () => sendPeopleRequestToJoinClass(values, classId),
       startTransition
     );
     form.reset();
@@ -60,7 +60,7 @@ const AddPersonInClass = ({ classId, person }: Props) => {
           name="emails"
           render={() => (
             <FormItem>
-              <Label htmlFor={id}>Add teachers emails</Label>
+              <FormLabel htmlFor={id}>Add teachers emails</FormLabel>
               <FormControl>
                 <Controller
                   control={form.control}

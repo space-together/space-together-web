@@ -17,18 +17,18 @@ const RegisterPage = async (props: Props) => {
         <h1 className=" happy-title-head">
           {diction.auth.register.page.title}
         </h1>
-        <p>
-          {diction.auth.register.page.paragraph}{" "}
-          <Link href={`/${lang}/auth/login`} className=" link link-info">
-            {diction.auth.register.page.login}
-          </Link>
-        </p>
       </div>
       <div className=" mt-4 w-full space-y-3">
         <RegisterForm
         lang={lang}
           diction={diction.auth.register.form}
         />
+        <p>
+          {diction.auth.register.page.paragraph}{" "}
+          <Link href={`/${lang}/auth/login`} className=" link link-info">
+            {diction.auth.register.page.login}
+          </Link>
+        </p>
         <AuthProviders lang={lang}/>
       </div>
     </div>

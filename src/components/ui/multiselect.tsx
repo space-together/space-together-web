@@ -439,7 +439,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       >
         <div
           className={cn(
-            "relative min-h-[38px] rounded-lg border border-input text-sm transition-shadow focus-within:border-ring focus-within:outline-none focus-within:ring-[3px] focus-within:ring-ring/20 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
+            "relative min-h-[38px] rounded-lg border border-myGray text-sm transition-shadow focus-within:border-ring focus-within:outline-none focus-within:ring-[3px] focus-within:ring-ring/20 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
             {
               "p-1": selected.length !== 0,
               "cursor-text": !disabled && selected.length !== 0,
@@ -458,7 +458,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
                 <div
                   key={option.value}
                   className={cn(
-                    "animate-fadeIn relative inline-flex h-7 cursor-default items-center rounded-md border border-solid bg-background pe-7 pl-2 ps-2 text-xs font-medium text-secondary-foreground transition-all hover:bg-background disabled:cursor-not-allowed disabled:opacity-50 data-[fixed]:pe-2",
+                    "animate-fadeIn relative inline-flex h-7 cursor-default items-center rounded-md border border-solid bg-base-100 pe-7 pl-2 ps-2 text-xs font-medium text-secondary-foreground transition-all hover:bg-base-100 disabled:cursor-not-allowed disabled:opacity-50 data-[fixed]:pe-2",
                     badgeClassName,
                   )}
                   data-fixed={option.fixed}
