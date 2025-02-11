@@ -74,13 +74,15 @@ export const sendTeacherRequestToJoinClass = async (values: addTeacherInClassSch
             data: {
                 message: message,
                 userId: getUser ? getUser.id : undefined,
+                email: !getUser ? email : undefined,
                 senderId,
                 classId: classDetails.id,
                 role: "TEACHER",
+                type: "TEACHERjOINCLASS"
             }
         })
 
-// TODO: to make add model subjects
+        // TODO: to make add model subjects
     } catch (error) {
         return { error: `Failed to send teacher request: [${error}]` };
     }
