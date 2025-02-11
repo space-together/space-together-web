@@ -160,7 +160,7 @@ const CreateSubjectForm = ({classId} : props) => {
                 <Input
                   type="number"
                   {...field}
-                  placeholder="Subject code"
+                  placeholder="Hours"
                   disabled={isPending}
                 />
               </FormControl>

@@ -19,13 +19,19 @@ const ClassSettingSubjectsPage = async (props: Props) => {
   }
   const classSubject = await getSubjectByClassId(classId);
   return (
-    <div>
-      <CreateSubjectDialog classId={classId} />
+    <div className=" happy-page w-full">
+      <div className=" flex justify-between w-full items-center">
+        <h1 className=" happy-title-head">Class subjects</h1>
+        <CreateSubjectDialog classId={classId} />
+      </div>
       <div className=" space-y-2 mt-4">
-        {classSubject &&
-          classSubject.map((item) => {
+        {classSubject && classSubject.length === 0 ? (
+          <div>They is no subjects in this class</div>
+        ) : (
+          classSubject?.map((item) => {
             return <SubjectCardSmall subject={item} key={item.id} />;
-          })}
+          })
+        )}
       </div>
     </div>
   );
