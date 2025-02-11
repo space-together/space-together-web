@@ -5,29 +5,33 @@ import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { authUser } from "@/types/userModel";
-import { User } from "../../../prisma/prisma/generated";
+import { Class, SendUserRequest, User } from "../../../prisma/prisma/generated";
 import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
   lang: Locale;
-  user : authUser;
-  sender : User;
+  user: authUser;
+  sender: User;
+  getClass?: Class | null;
+  notification: SendUserRequest;
 }
 
-const NotificationCard = ({ lang, sender}: props) => {
+const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
   return (
     <div className={cn("happy-card flex-row justify-between")}>
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/${sender.id}`}>
           <Avatar className=" size-12">
-            <AvatarImage src={sender.image ? sender.image :"/images/2.jpg"} />
+            <AvatarImage src={sender.image ? sender.image : "/images/2.jpg"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>
         <div>
           <Link href={`/profile/student/${lang}/profile/${sender.id}`}>
             <div className=" flex space-x-2">
-              <h4 className=" font-medium">{sender.name || "Murekezi Hindiro"}</h4>
+              <h4 className=" font-medium">
+                {sender.name || "Murekezi Hindiro"}
+              </h4>
               <span className=" font-medium text-myGray capitalize text-sm">
                 {toLowerCase(sender.role)}
               </span>
@@ -41,19 +45,30 @@ const NotificationCard = ({ lang, sender}: props) => {
       {/* notification */}
       <div className=" flex space-x-2 items-center flex-col">
         <div className=" flex gap-2 items-center">
-        <Avatar className=" size-4">
-          <AvatarImage src="/images/2.jpg" />
-          <AvatarFallback>PR</AvatarFallback>
-        </Avatar>
-        <h5 className=" font-medium ">Class Name</h5>
-        <span className=" text-myGray text-sm font-medium capitalize">
-            ask to join class
-        </span>
+          <Avatar className=" size-4">
+            <AvatarImage
+              src={getClass?.symbol ? getClass.symbol : "/images/17.jpg"}
+            />
+            <AvatarFallback>PR</AvatarFallback>
+          </Avatar>
+          <h5 className=" font-medium ">
+            {getClass?.name ? getClass.name : "Class Name"}
+          </h5>
+          <span className=" text-myGray text-sm font-medium capitalize">
+            {notification.type || "ask to join class"}
+          </span>
         </div>
-        <p>Ask to join class and be teacher</p>
+        <p>{notification.description}</p>
       </div>
       <div>
-        <Button variant="info" size="sm">Accept</Button>
+        <div className=" flex flex-col space-y-2">
+          <Button variant="info" size="sm">
+            Accept
+          </Button>
+          <span className=" text-sm font-medium text-myGray">
+            {new Date(notification.createdAt).toLocaleDateString()}
+          </span>
+        </div>
       </div>
     </div>
   );

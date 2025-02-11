@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import OtherData1 from "@/components/site/navbar/app-aside-other-data1";
 import AppNavbar from "@/components/site/navbar/app-navbar";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -46,6 +47,7 @@ export default async function ApplicationLayout(props: props) {
               ? adminSidebarGroups
               : teacherSidebarGroups
           }
+          otherData1={[<OtherData1 lang={"en"} key={13}/>]}
           lang={lang}
         />
         <main className=" pt-14 bg-base-200 w-full">{children}</main>

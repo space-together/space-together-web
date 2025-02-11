@@ -1,9 +1,12 @@
 import { auth } from "@/auth";
 import NotificationCard from "@/components/cards/notification-card";
+import NotificationCardError from "@/components/cards/notification-card-error";
 import { Locale } from "@/i18n";
+import { getClassById } from "@/services/data/class-data";
 import { getSendUserRequestByUserId } from "@/services/data/send-user-request-data";
 import { getUserById } from "@/services/data/user";
 import { redirect } from "next/navigation";
+import { Class } from "../../../../../prisma/prisma/generated";
 
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -23,7 +26,11 @@ const NotificationsPage = async (props: props) => {
       {getRequestNotifications &&
         getRequestNotifications.map(async (item) => {
           const getSender = await getUserById(item.senderId);
-          if (!getSender) return <div key={item.id}>Ihagane</div>
+          if (!getSender) return <NotificationCardError key={item.id}/>
+          let getClass:Class| null = null;
+          if(!!item.classId) {
+            getClass = await getClassById(item.classId);
+          }
           return (
             <NotificationCard
             sender={getSender}
@@ -34,6 +41,8 @@ const NotificationsPage = async (props: props) => {
                 email: user.email ?? undefined,
                 image: user.image ?? undefined,
               }}
+              getClass= {getClass}
+              notification={item}
               lang={lang}
             />
           );
