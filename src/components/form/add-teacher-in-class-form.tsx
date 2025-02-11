@@ -58,6 +58,7 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
       startTransition
     );
     form.reset();
+    console.log(values)
   };
 
   return (
@@ -72,6 +73,7 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
               <FormControl>
                 <Input
                   {...field}
+                  value={field.value}
                   placeholder="Education name"
                   disabled={isPending}
                   type="email"
@@ -84,21 +86,23 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
         <FormField
           control={form.control}
           name="subjects"
-          render={() => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Subjects</FormLabel>
-              <FormControl>
+                <FormControl>
                 <MultipleSelector
                   commandProps={{
-                    label: "Select frameworks",
+                  label: "Select frameworks",
                   }}
                   defaultOptions={subjects}
                   placeholder="Select Subjects"
                   emptyIndicator={
-                    <p className="text-center text-sm">No results found</p>
+                  <p className="text-center text-sm">No results found</p>
                   }
+                  value={subjects.filter(subject => field.value.includes(subject.value))}
+                  onChange={(selected) => field.onChange(selected.map((option) => option.value))}
                 />
-              </FormControl>
+                </FormControl>
               <FormMessage />
             </FormItem>
           )}
