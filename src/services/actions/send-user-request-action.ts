@@ -5,6 +5,9 @@ import { getUserByEmail } from "../data/user";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { getClassById } from "../data/class-data";
+import { SendUserRequest } from "../../../prisma/prisma/generated";
+import { getModuleByUserId } from "../data/model-data";
+import { getSendUserRequestByClassId, getSendUserRequestByUserId } from "../data/send-user-request-data";
 
 export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
@@ -52,7 +55,6 @@ export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, 
         return { error: `Failed to send request: [${error}]` };
     }
 };
-
 export const sendTeacherRequestToJoinClass = async (
     values: addTeacherInClassSchemaType,
     classId: string
@@ -77,21 +79,30 @@ export const sendTeacherRequestToJoinClass = async (
 
         const senderId = authResult.user.id;
 
+        // Check if there are existing requests in parallel
+        const [getRequestUser, getRequestClass, getModel] = await Promise.all([
+            getSendUserRequestByUserId(getUser.id),
+            getSendUserRequestByClassId(getUser.id),
+            getModuleByUserId(getUser.id)
+        ]);
+
+        if (!!getRequestClass && !!getRequestUser && !!getModel) {
+            return { warning: `You have already send request **${getUser.name}** to join **${classDetails.name}** on 😥` };
+        }
+
         // Batch insert subjects using Promise.all
-        await Promise.all(
-            subjects.map((subjectId) =>
-                db.model.create({ // Change model name based on schema
-                    data: {
-                        teacherId: getUser.id,
-                        classId: classDetails.id,
-                        subjectId,
-                    },
-                })
-            )
+        const createSubjects = subjects.map((subjectId) =>
+            db.module.create({
+                data: {
+                    classId: classDetails.id,
+                    subjectId,
+                    userId: getUser.id,
+                },
+            })
         );
 
         // Create teacher join request
-        await db.sendUserRequest.create({
+        const createRequest = db.sendUserRequest.create({
             data: {
                 message,
                 userId: getUser.id,
@@ -99,12 +110,48 @@ export const sendTeacherRequestToJoinClass = async (
                 classId: classDetails.id,
                 role: "TEACHER",
                 type: "TEACHERjOINCLASS",
-                description: `Ask to join class **${classDetails.name}**`,
+                description: `Request to join class **${classDetails.name}**`,
             },
         });
+
+        // Await all operations in parallel
+        await Promise.all([...createSubjects, createRequest]);
 
         return { success: "Request has been sent! 🍀" };
     } catch (error) {
         return { error: `Failed to send teacher request: [${error}]` };
     }
 };
+
+export const UserJoinClassRequest = async (request: SendUserRequest) => {
+    await db.sendUserRequest.update({
+        where: { id: request.id },
+        data: {
+            accept: true,
+            seen: true
+        }
+    })
+
+    if (request.type === "TEACHERjOINCLASS" && !!request.userId) {
+        const getModule = await getModuleByUserId(request.userId);
+        if (!getModule) return { error: "You don't have any subjects" }
+        await db.teacher.create({
+            data: {
+                userId: request.userId,
+                role: "TEACHER",
+                modulesId: [...getModule.map((item) => item.id)],
+                classesId: request.classId ? [request.classId] : undefined,
+            }
+        })
+    }
+    return { success: `You have been join class` }
+}
+
+export const deleteUserRequest = async (id: string) => {
+    try {
+        await db.sendUserRequest.delete({ where: { id: id } })
+        return { success: "Request delete successful 🍀" }
+    } catch (error) {
+        return { error: `Failed to delete request: [${error}]` };
+    }
+}

@@ -1,6 +1,7 @@
 import { IoIosWarning } from 'react-icons/io'
 import { CiCircleCheck } from "react-icons/ci";
 import { cn } from '@/lib/utils';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 interface Props {
   message ?: string;
@@ -28,6 +29,18 @@ export const FormMessageSuccess = ({
   return (
     <div className={cn("flex text-success bg-success/20 text-sm gap-3  px-1 py-2 rounded-md" , className)}>
       <CiCircleCheck size={20}/>
+      <span>{message}</span>
+    </div>
+  )
+}
+
+export const FormMessageWarning = ({
+  message , className 
+}: Props) => {
+  if(!message) return null;
+  return (
+    <div className={cn("flex text-warning bg-warning/20 text-sm gap-3  px-1 py-2 rounded-md" , className)}>
+      <RiErrorWarningLine size={20}/>
       <span>{message}</span>
     </div>
   )

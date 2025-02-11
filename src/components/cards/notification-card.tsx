@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,9 @@ import { Button } from "../ui/button";
 import { authUser } from "@/types/userModel";
 import { Class, SendUserRequest, User } from "../../../prisma/prisma/generated";
 import { toLowerCase } from "@/utils/functions/characters";
+import { UserJoinClassRequest } from "@/services/actions/send-user-request-action";
+import { handleFormSubmission } from "@/hooks/form-notification";
+import { LoaderCircle } from "lucide-react";
 
 interface props {
   lang: Locale;
@@ -17,8 +21,29 @@ interface props {
 }
 
 const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+  const [warning, setWarning] = useState<string>("");
+  const [isPending, startTransition] = useTransition();
+
+  const onSubmit = () => {
+    setError("");
+    setSuccess("");
+    setWarning("");
+    handleFormSubmission(
+      () => UserJoinClassRequest(notification),
+      startTransition
+    );
+  };
   return (
-    <div className={cn("happy-card flex-row justify-between")}>
+    <div
+      className={cn(
+        "happy-card flex-row justify-between",
+        error && " border-error",
+        success && "border-success",
+        warning && "border-warning"
+      )}
+    >
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/${sender.id}`}>
           <Avatar className=" size-12">
@@ -62,9 +87,24 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
       </div>
       <div>
         <div className=" flex flex-col space-y-2">
-          <Button variant="info" size="sm">
-            Accept
-          </Button>
+          {!notification.accept && (
+            <Button
+              disabled={isPending}
+              onClick={() => onSubmit()}
+              variant="info"
+              size="sm"
+            >
+              Accept
+              {isPending && (
+                <LoaderCircle
+                  className="-ms-1 me-2 animate-spin"
+                  size={12}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+            </Button>
+          )}
           <span className=" text-sm font-medium text-myGray">
             {new Date(notification.createdAt).toLocaleDateString()}
           </span>

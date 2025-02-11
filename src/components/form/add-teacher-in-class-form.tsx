@@ -16,7 +16,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { FormMessageError, FormMessageSuccess } from "./formError";
+import { FormMessageError, FormMessageSuccess, FormMessageWarning } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { LoaderCircle } from "lucide-react";
 import MultipleSelector ,{ Option }from "../ui/multiselect";
@@ -34,6 +34,7 @@ interface Props {
 const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
+  const [warning , setWarning] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
   const subjects : Option[] = classSubjects?.map(({id, name}) => ({
@@ -53,12 +54,12 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
   const onSubmit = (values: addTeacherInClassSchemaType) => {
     setError("");
     setSuccess("");
+    setWarning("")
     handleFormSubmission(
       () => sendTeacherRequestToJoinClass(values, classId),
       startTransition
     );
     form.reset();
-    console.log(values)
   };
 
   return (
@@ -127,6 +128,7 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
         <div>
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />
+          <FormMessageWarning message={warning} />
         </div>
 
         <DialogFooter>

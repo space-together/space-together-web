@@ -264,6 +264,7 @@ exports.Prisma.TeacherScalarFieldEnum = {
   userId: 'userId',
   classesId: 'classesId',
   role: 'role',
+  modulesId: 'modulesId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -402,11 +403,12 @@ exports.Prisma.NoteScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ModelScalarFieldEnum = {
+exports.Prisma.ModuleScalarFieldEnum = {
   id: 'id',
   teacherId: 'teacherId',
   subjectId: 'subjectId',
   classId: 'classId',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -506,7 +508,7 @@ exports.Prisma.ModelName = {
   PerformanceCriteria: 'PerformanceCriteria',
   Assessment: 'Assessment',
   Note: 'Note',
-  Model: 'Model'
+  Module: 'Module'
 };
 
 /**
