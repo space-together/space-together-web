@@ -24,82 +24,22 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { sendTeacherRequestToJoinClass } from "@/services/actions/send-user-request-action";
 import { handleFormSubmission } from "@/hooks/form-notification";
+import { Subject } from "../../../prisma/prisma/generated";
 
 interface Props {
   classId: string;
+  classSubjects ?: Subject[] | null
 }
 
-const frameworks: Option[] = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "angular",
-    label: "Angular",
-  },
-  {
-    value: "vue",
-    label: "Vue.js",
-  },
-  {
-    value: "react",
-    label: "React",
-  },
-  {
-    value: "ember",
-    label: "Ember.js",
-  },
-  {
-    value: "gatsby",
-    label: "Gatsby",
-  },
-  {
-    value: "eleventy",
-    label: "Eleventy",
-  },
-  {
-    value: "solid",
-    label: "SolidJS",
-  },
-  {
-    value: "preact",
-    label: "Preact",
-  },
-  {
-    value: "qwik",
-    label: "Qwik",
-  },
-  {
-    value: "alpine",
-    label: "Alpine.js",
-  },
-  {
-    value: "lit",
-    label: "Lit",
-  },
-];
-
-const AddTeacherInClassForm = ({ classId }: Props) => {
+const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
+
+  const subjects : Option[] = classSubjects?.map(({id, name}) => ({
+    label : name,
+    value : id
+  })) || [];  
 
   const form = useForm<addTeacherInClassSchemaType>({
     resolver: zodResolver(addTeacherInClassSchema),
@@ -128,12 +68,13 @@ const AddTeacherInClassForm = ({ classId }: Props) => {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Teacher email</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   placeholder="Education name"
                   disabled={isPending}
+                  type="email"
                 />
               </FormControl>
               <FormMessage />
@@ -151,7 +92,7 @@ const AddTeacherInClassForm = ({ classId }: Props) => {
                   commandProps={{
                     label: "Select frameworks",
                   }}
-                  defaultOptions={frameworks}
+                  defaultOptions={subjects}
                   placeholder="Select Subjects"
                   emptyIndicator={
                     <p className="text-center text-sm">No results found</p>

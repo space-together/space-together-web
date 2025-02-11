@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import AddMemberInClassDialog from "@/components/app/class/setting/add-class-member-dialog";
 import UserCardSmallCallSetting from "@/components/cards/user-card-small-class-setting";
-import AddTeacherInClassForm from "@/components/form/add-teacher-in-class-form";
 import { Locale } from "@/i18n";
+import { getSubjectByClassId } from "@/services/data/subject-data";
 import { redirect } from "next/navigation";
 import React from "react";
 interface props {
@@ -15,6 +15,7 @@ const ClassSettingPeoplePage = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+  const classSubjects = await getSubjectByClassId(classId);
   return (
     <div className=" w-full space-y-4 pr-4">
     <div>
@@ -27,7 +28,7 @@ const ClassSettingPeoplePage = async (props: props) => {
       <div className=" mt-4">
         <div className=" flex justify-between w-full items-center">
         <h2  className=" happy-title-base">Class Teachers</h2>
-        <AddMemberInClassDialog person="TEACHER" classId={classId} />
+        <AddMemberInClassDialog classSubjects={classSubjects} person="TEACHER" classId={classId} />
         </div>
         <div className=" mt-4">
           <UserCardSmallCallSetting userRole="TEACHER" lang={lang} />

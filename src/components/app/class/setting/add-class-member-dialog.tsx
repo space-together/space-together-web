@@ -11,13 +11,15 @@ import {
 } from "@/components/ui/dialog";
 import UseTheme from "@/context/theme/use-theme";
 import { Plus } from "lucide-react";
+import { Subject } from "../../../../../prisma/prisma/generated";
 
 interface props {
   person?: "TEACHER" | "STUDENT";
   classId: string;
+  classSubjects ?: Subject[] | null
 }
 
-const AddMemberInClassDialog = ({ person, classId }: props) => {
+const AddMemberInClassDialog = ({ person, classId, classSubjects }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,7 +33,7 @@ const AddMemberInClassDialog = ({ person, classId }: props) => {
             Add new {person ? person === "TEACHER" ? "teachers" : "students" : "members"}
           </DialogTitle>
         </DialogHeader>
-        {person === "TEACHER" ? <AddTeacherInClassForm classId={classId}/> : <AddPersonInClass classId={classId}/>}
+        {person === "TEACHER" ? <AddTeacherInClassForm classSubjects={classSubjects} classId={classId}/> : <AddPersonInClass classId={classId}/>}
       </DialogContent>
     </Dialog>
   );

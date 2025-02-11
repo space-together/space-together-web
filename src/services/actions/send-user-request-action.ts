@@ -53,47 +53,58 @@ export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, 
     }
 };
 
-export const sendTeacherRequestToJoinClass = async (values: addTeacherInClassSchemaType, classId: string) => {
+export const sendTeacherRequestToJoinClass = async (
+    values: addTeacherInClassSchemaType,
+    classId: string
+) => {
+    // Validate input data
     const validation = addTeacherInClassSchema.safeParse(values);
     if (!validation.success) return { error: "Invalid values" };
 
     const { email, subjects, message } = validation.data;
 
     try {
-        const classDetails = await getClassById(classId);
+        // Fetch required data in parallel
+        const [classDetails, authResult, getUser] = await Promise.all([
+            getClassById(classId),
+            auth(),
+            getUserByEmail(email),
+        ]);
+
         if (!classDetails) return { error: "Class doesn't exist" };
+        if (!authResult?.user?.id) return { error: "You must have an account to send a request" };
+        if (!getUser || getUser.role !== "TEACHER") return { error: "This user does not exist or is not a teacher" };
 
-        // Authenticate user
-        const user = (await auth())?.user;
-        if (!user?.id) return { error: "You must have an account to send a request" };
+        const senderId = authResult.user.id;
 
-        const senderId = user.id;
-        const getUser = await getUserByEmail(email);
-        if (!getUser || getUser.role !== "TEACHER") return { error: "This user is not exit or is not teacher" }
+        // Batch insert subjects using Promise.all
+        await Promise.all(
+            subjects.map((subjectId) =>
+                db.model.create({ // Change model name based on schema
+                    data: {
+                        teacherId: getUser.id,
+                        classId: classDetails.id,
+                        subjectId,
+                    },
+                })
+            )
+        );
 
-        subjects.map(async (item) => (
-            await db.model.create({
-                data: {
-                    teacherId: getUser.id,
-                    classId: classDetails.id,
-                    subjectId: item,
-                }
-            })
-        ))
-
+        // Create teacher join request
         await db.sendUserRequest.create({
             data: {
-                message: message,
-                userId: getUser ? getUser.id : undefined,
+                message,
+                userId: getUser.id,
                 senderId,
                 classId: classDetails.id,
                 role: "TEACHER",
-                type: "TEACHERjOINCLASS"
-            }
+                type: "TEACHERjOINCLASS",
+                description: `Ask to join class **${classDetails.name}**`,
+            },
         });
 
-        return { success: "Request has been sent!🍀" };
+        return { success: "Request has been sent! 🍀" };
     } catch (error) {
         return { error: `Failed to send teacher request: [${error}]` };
     }
-}
+};
