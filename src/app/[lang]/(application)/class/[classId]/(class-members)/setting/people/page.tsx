@@ -16,11 +16,16 @@ const ClassSettingPeoplePage = async (props: props) => {
   }
   return (
     <div className=" w-full space-y-4 pr-4">
-      class people setting page
+    <div>
+    <div className=" flex justify-between items-center mt-4">
+        <h1 className="happy-title-head">Class member settings </h1>
+        <AddMemberInClassDialog classId={classId} />
+      </div>
+      <p>Settings for all people in this class you can add them or remove or disable and other activities you want</p>
+    </div>
       <div className=" mt-4">
         <div className=" flex justify-between w-full items-center">
-        <h2  className=" happy-title-head">Class Teachers</h2>
-        <AddMemberInClassDialog classId={classId}  person="TEACHER"/>
+        <h2  className=" happy-title-base">Class Teachers</h2>
         </div>
         <div className=" mt-4">
           <UserCardSmallCallSetting userRole="TEACHER" lang={lang} />

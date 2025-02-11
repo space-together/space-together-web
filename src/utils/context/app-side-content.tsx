@@ -95,7 +95,7 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
         url: "/school",
       },
       {
-        title: "Class & school",
+        title: "Classes",
         image: "/icons/blackboard.png",
         url: "/class",
         otherData1: true,
@@ -139,7 +139,7 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
         url: "/school",
       },
       {
-        title: "Class & school",
+        title: "Classes",
         image: "/icons/blackboard.png",
         url: "/teacher",
       },

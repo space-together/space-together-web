@@ -12,7 +12,7 @@ import UseTheme from "@/context/theme/use-theme";
 import { Plus } from "lucide-react";
 
 interface props {
-  person: "TEACHER" | "STUDENT";
+  person?: "TEACHER" | "STUDENT";
   classId: string;
 }
 
@@ -21,16 +21,16 @@ const AddMemberInClassDialog = ({ person, classId }: props) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button size={"sm"} variant={"info"}>
-          <Plus /> Add {person === "TEACHER" ? "teacher" : "student"}
+          <Plus /> Add {person ? person === "TEACHER" ? "teacher" : "student" : "New member"}
         </Button>
       </DialogTrigger>
       <DialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
         <DialogHeader>
           <DialogTitle>
-            Add new {person === "TEACHER" ? "teachers" : "students"}
+            Add new {person ? person === "TEACHER" ? "teachers" : "students" : "members"}
           </DialogTitle>
         </DialogHeader>
-        <AddPersonInClass classId={classId} />
+        <AddPersonInClass person={person} classId={classId} />
       </DialogContent>
     </Dialog>
   );

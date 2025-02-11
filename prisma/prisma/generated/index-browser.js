@@ -263,6 +263,8 @@ exports.Prisma.TeacherScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   classId: 'classId',
+  role: 'role',
+  subjectsIds: 'subjectsIds',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -440,8 +442,14 @@ exports.ClassType = exports.$Enums.ClassType = {
   PUBLIC: 'PUBLIC'
 };
 
+exports.TeacherROLE = exports.$Enums.TeacherROLE = {
+  CLASSTEACHER: 'CLASSTEACHER',
+  TEACHER: 'TEACHER'
+};
+
 exports.SendUserRequestType = exports.$Enums.SendUserRequestType = {
-  JOINCLASS: 'JOINCLASS'
+  JOINCLASS: 'JOINCLASS',
+  TEACHERjOINCLASS: 'TEACHERjOINCLASS'
 };
 
 exports.PostRole = exports.$Enums.PostRole = {

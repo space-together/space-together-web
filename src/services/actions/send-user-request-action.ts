@@ -40,6 +40,7 @@ export const sendTeachersRequestToJoinClass = async (values: addPersonSchemaType
             senderId,
             classId: classDetails.id,
             description: `Ask to join class **${classDetails.name}**`,
+
         }));
 
         // Batch insert requests
@@ -52,3 +53,4 @@ export const sendTeachersRequestToJoinClass = async (values: addPersonSchemaType
         return { error: `Failed to send teacher request: [${error}]` };
     }
 };
+

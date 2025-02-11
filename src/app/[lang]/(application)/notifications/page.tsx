@@ -23,7 +23,8 @@ const NotificationsPage = async (props: props) => {
   return (
     <div className=" happy-page">
       <h2 className=" happy-title-head">Notifications</h2>
-      {getRequestNotifications &&
+     <div className=" space-y-2">
+     {getRequestNotifications &&
         getRequestNotifications.map(async (item) => {
           const getSender = await getUserById(item.senderId);
           if (!getSender) return <NotificationCardError key={item.id}/>
@@ -47,6 +48,7 @@ const NotificationsPage = async (props: props) => {
             />
           );
         })}
+     </div>
     </div>
   );
 };

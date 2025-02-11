@@ -25,9 +25,10 @@ import { sendTeachersRequestToJoinClass } from "@/services/actions/send-user-req
 
 interface Props {
   classId: string;
+  person?: "TEACHER" | "STUDENT"; 
 }
 
-const AddPersonInClass = ({ classId }: Props) => {
+const AddPersonInClass = ({ classId, person }: Props) => {
   const id = useId();
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
