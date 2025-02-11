@@ -47,7 +47,7 @@ export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, 
             data: userRequestsData,
         });
 
-        return { success: "Request has been sent!" };
+        return { success: "Request has been sent 🍀" };
     } catch (error) {
         return { error: `Failed to send request: [${error}]` };
     }
@@ -69,20 +69,30 @@ export const sendTeacherRequestToJoinClass = async (values: addTeacherInClassSch
 
         const senderId = user.id;
         const getUser = await getUserByEmail(email);
+        if (!getUser || getUser.role !== "TEACHER") return { error: "This user is not exit or is not teacher" }
+
+        subjects.map(async (item) => (
+            await db.model.create({
+                data: {
+                    teacherId: getUser.id,
+                    classId: classDetails.id,
+                    subjectId: item,
+                }
+            })
+        ))
 
         await db.sendUserRequest.create({
             data: {
                 message: message,
                 userId: getUser ? getUser.id : undefined,
-                email: !getUser ? email : undefined,
                 senderId,
                 classId: classDetails.id,
                 role: "TEACHER",
                 type: "TEACHERjOINCLASS"
             }
-        })
+        });
 
-        // TODO: to make add model subjects
+        return { success: "Request has been sent!🍀" };
     } catch (error) {
         return { error: `Failed to send teacher request: [${error}]` };
     }

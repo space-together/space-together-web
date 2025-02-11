@@ -19,9 +19,11 @@ import { Button } from "@/components/ui/button";
 import { FormMessageError, FormMessageSuccess } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { LoaderCircle } from "lucide-react";
-import MultipleSelector from "../ui/multiselect";
+import MultipleSelector ,{ Option }from "../ui/multiselect";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { sendTeacherRequestToJoinClass } from "@/services/actions/send-user-request-action";
+import { handleFormSubmission } from "@/hooks/form-notification";
 
 interface Props {
   classId: string;
@@ -112,7 +114,7 @@ const AddTeacherInClassForm = ({ classId }: Props) => {
     setError("");
     setSuccess("");
     handleFormSubmission(
-      () => sendPeopleRequestToJoinClass(values, classId),
+      () => sendTeacherRequestToJoinClass(values, classId),
       startTransition
     );
     form.reset();
