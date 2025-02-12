@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { AiOutlineSetting } from "react-icons/ai";
+import { Teacher, User } from "../../../prisma/prisma/generated";
 
 interface props {
   userRole:
@@ -20,8 +21,9 @@ interface props {
     | "STUDENT";
   lang: Locale;
   className?: string;
+  user?: User | null
 }
-const UserCardSmallCallSetting = ({ userRole, lang, className }: props) => {
+const UserCardSmallCallSetting = ({ userRole, lang, className, user }: props) => {
   return (
     <div
       className={cn(
@@ -30,16 +32,16 @@ const UserCardSmallCallSetting = ({ userRole, lang, className }: props) => {
       )}
     >
       <div className=" flex space-x-2">
-        <Link href={`/${lang}/profile/student`}>
+        <Link href={`/${lang}/profile/${user?.id ? user.id : "student"}`}>
           <Avatar className=" size-14">
-            <AvatarImage src="/images/2.jpg" />
+            <AvatarImage src={user?.image ? user.image :"/images/2.jpg"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>
         <div>
           <div className=" flex space-x-4 items-center">
             <Link href={`/${lang}/profile/student`}>
-              <h4 className=" font-medium">Murekezi Hindiro</h4>
+              <h4 className=" font-medium">{user?.name ? user.name : "Murekezi Hindiro"}</h4>
             </Link>
             {userRole === "TEACHER" && (
               <div className=" -space-x-2 flex items-center">
