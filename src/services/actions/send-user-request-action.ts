@@ -131,19 +131,8 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
             seen: true
         }
     })
+    if (!request.userId) return { error: "request user is not exit" };
 
-    if (request.type === "TEACHERjOINCLASS" && !!request.userId) {
-        const getModule = await getModuleByUserId(request.userId);
-        if (!getModule) return { error: "You don't have any subjects" }
-        await db.teacher.create({
-            data: {
-                userId: request.userId,
-                role: "TEACHER",
-                modulesId: [...getModule.map((item) => item.id)],
-                classesId: request.classId ? [request.classId] : undefined,
-            }
-        })
-    }
     return { success: `You have been join class` }
 }
 

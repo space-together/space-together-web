@@ -94,7 +94,7 @@ export const LoginForm = ({ diction, lang }: props) => {
                       id="password"
                       {...field}
                       className="w-full"
-                      placeholder="********"
+                      placeholder="password"
                       type={seePassword ? "text" : "password"}
                       disabled={isPending}
                     />
