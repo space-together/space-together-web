@@ -237,6 +237,7 @@ exports.Prisma.ClassScalarFieldEnum = {
   classRoomId: 'classRoomId',
   userId: 'userId',
   classType: 'classType',
+  teachersIds: 'teachersIds',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -262,7 +263,7 @@ exports.Prisma.StudentScalarFieldEnum = {
 exports.Prisma.TeacherScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  classesId: 'classesId',
+  classesIds: 'classesIds',
   role: 'role',
   ModelsIds: 'ModelsIds',
   createdAt: 'createdAt',
@@ -394,6 +395,7 @@ exports.Prisma.NoteScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   subjectId: 'subjectId',
+  moduleId: 'moduleId',
   seenBy: 'seenBy',
   commentsIds: 'commentsIds',
   fileId: 'fileId',

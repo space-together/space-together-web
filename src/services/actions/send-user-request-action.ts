@@ -7,7 +7,6 @@ import { auth } from "@/auth";
 import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
-import { getTeacherByUserId } from "../data/teacher-data";
 
 export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
@@ -124,32 +123,67 @@ export const sendTeacherRequestToJoinClass = async (
 };
 
 export const UserJoinClassRequest = async (request: SendUserRequest) => {
-    await db.sendUserRequest.update({
+   try {
+     // Step 1: Update request status
+     await db.sendUserRequest.update({
         where: { id: request.id },
         data: {
             accept: true,
             seen: true
         }
-    })
-    if (!request.userId) return { error: "request user is not exit" };
+    });
 
+    if (!request.userId) return { error: "Request user does not exist" };
+
+    // Step 2: Handle Teacher Joining Class
     if (request.type === "TEACHERjOINCLASS") {
-        const getTeacher = await getTeacherByUserId(request.userId);
-        if (!getTeacher) {
+        const teacher = await db.teacher.findFirst({ where: { userId: request.userId } });
+
+        if (teacher) {
+            // If teacher exists, add class and modules
             const getModule = await getModuleByUserId(request.userId);
-            if (!getModule) return { error: "You don't have any subjects" }
+            await db.teacher.update({
+                where: { id: teacher.id },
+                data: {
+                    ModelsIds: getModule ? [...new Set([...teacher.ModelsIds, ...getModule.map(m => m.id)])] : teacher.ModelsIds,
+                    classesIds: request.classId ? [...new Set([...(teacher.classesIds || []), request.classId])] : teacher.classesIds
+                }
+            });
+        } else {
+            // If teacher does not exist, create a new teacher record
+            const getModule = await getModuleByUserId(request.userId);
+            if (!getModule) return { error: "You don't have any subjects" };
+
             await db.teacher.create({
                 data: {
                     userId: request.userId,
                     role: "TEACHER",
-                    ModelsIds: [...getModule.map((item) => item.id)],
-                    classesId: request.classId ? [request.classId] : undefined,
+                    ModelsIds: getModule.map(m => m.id),
+                    classesIds: request.classId ? [request.classId] : undefined
                 }
-            })
+            });
+        }
+
+        // Add teacher to the class in teachersIds array if not already present
+        if (request.classId) {
+            const classData = await db.class.findUnique({ where: { id: request.classId } });
+            if (classData && !classData.teachersIds.includes(request.userId)) {
+                await db.class.update({
+                    where: { id: request.classId },
+                    data: {
+                        teachersIds: [...classData.teachersIds, request.userId]
+                    }
+                });
+            }
         }
     }
-    return { success: `You have been join class` }
-}
+
+    return { success: "You have joined the class" };
+   } catch (error) {
+    return { error: `Failed to accept request: [${error}]` };
+   }
+};
+
 
 export const deleteUserRequest = async (id: string) => {
     try {

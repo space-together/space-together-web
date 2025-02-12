@@ -28,7 +28,7 @@ export async function getAllTeachers() {
 
 export async function getTeachersByClassId(classId: string) {
     return await db.teacher.findMany({
-        where: { classesId: { has: classId } },
+        where: { classesIds: { has: classId } },
         include: { user: true, Subject: true, module :  true},
     });
 }

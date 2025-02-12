@@ -223,6 +223,7 @@ model Class {
   classType   ClassType? @default(PRIVET)
   Student     Student[]
   SubClass    SubClass[]
+  teachersIds String[]   @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -273,11 +274,11 @@ enum TeacherROLE {
 
 // teacher in that class room user create
 model Teacher {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String      @db.ObjectId
-  classId   String      @db.ObjectId
-  role      TeacherROLE @default(TEACHER)
-  ModelsIds String[]    @db.ObjectId
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String      @db.ObjectId
+  classesIds String[]    @db.ObjectId
+  role       TeacherROLE @default(TEACHER)
+  ModelsIds  String[]    @db.ObjectId
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -511,7 +512,7 @@ model Note {
   Module  Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 }
 
-// module in class they student example : kinyarwanda, math and others
+// module in class they student example : kinyarwanda,
 model Module {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   teacherId String? @db.ObjectId
