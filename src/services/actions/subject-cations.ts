@@ -20,13 +20,13 @@ export const createSubjectAction = async (values: subjectSchemaType, classId?: s
     const getCode = await getSubjectByCode(code);
     if (!!getCode) return { error: "Code is leady exit" };
 
-    const uploadSymbol = await uploadSymbolToCloudinary(symbol);
+    const uploadSymbol = symbol ? await uploadSymbolToCloudinary(symbol) : null;
     const create = await db.subject.create({
       data: {
         name,
         code,
         classId: classId,
-        symbol: uploadSymbol,
+        symbol: uploadSymbol ? uploadSymbol : undefined,
         learningHours: Number(learningHours),
         purpose,
       },

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
-  variant?: "primary" | "secondary" | "accent" | "ghost" | "success"|"link" | "outline" | "error" | "info" | "warning";
+  variant?: "primary" | "secondary" | "accent" | "ghost" | "success"|"link" | "outline" | "error" | "info" | "warning" | "default";
   size?: "xs" |"sm" | "md" | "lg";
   shape ?: "circle" | "square"
 }
@@ -27,6 +27,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       error: "btn-error",
       warning: "btn-warning",
       success: "btn-success",
+      default : "",
     }[variant];
 
     const sizeClass = {

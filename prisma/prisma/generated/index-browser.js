@@ -237,7 +237,6 @@ exports.Prisma.ClassScalarFieldEnum = {
   classRoomId: 'classRoomId',
   userId: 'userId',
   classType: 'classType',
-  classTeacher: 'classTeacher',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -247,6 +246,25 @@ exports.Prisma.SubClassScalarFieldEnum = {
   classId: 'classId',
   code: 'code',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StudentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subClassId: 'subClassId',
+  classId: 'classId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeacherScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  classesId: 'classesId',
+  role: 'role',
+  ModelsIds: 'ModelsIds',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -295,7 +313,8 @@ exports.Prisma.SubjectScalarFieldEnum = {
   purpose: 'purpose',
   symbol: 'symbol',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  teacherId: 'teacherId'
 };
 
 exports.Prisma.LearningOutcomeScalarFieldEnum = {
@@ -386,6 +405,7 @@ exports.Prisma.NoteScalarFieldEnum = {
 
 exports.Prisma.ModuleScalarFieldEnum = {
   id: 'id',
+  teacherId: 'teacherId',
   subjectId: 'subjectId',
   classId: 'classId',
   userId: 'userId',
@@ -425,6 +445,11 @@ exports.ClassType = exports.$Enums.ClassType = {
   SCHOOLCLASS: 'SCHOOLCLASS',
   PRIVET: 'PRIVET',
   PUBLIC: 'PUBLIC'
+};
+
+exports.TeacherROLE = exports.$Enums.TeacherROLE = {
+  CLASSTEACHER: 'CLASSTEACHER',
+  TEACHER: 'TEACHER'
 };
 
 exports.SendUserRequestType = exports.$Enums.SendUserRequestType = {
@@ -468,6 +493,8 @@ exports.Prisma.ModelName = {
   ClassRoom: 'ClassRoom',
   Class: 'Class',
   SubClass: 'SubClass',
+  Student: 'Student',
+  Teacher: 'Teacher',
   SendUserRequest: 'SendUserRequest',
   Post: 'Post',
   Subject: 'Subject',

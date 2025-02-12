@@ -7,7 +7,7 @@ import { auth } from "@/auth";
 import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
-import { getSendUserRequestByClassId, getSendUserRequestByUserId } from "../data/send-user-request-data";
+import { getTeacherByUserId } from "../data/teacher-data";
 
 export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
@@ -79,16 +79,16 @@ export const sendTeacherRequestToJoinClass = async (
 
         const senderId = authResult.user.id;
 
-        // Check if there are existing requests in parallel
-        const [getRequestUser, getRequestClass, getModel] = await Promise.all([
-            getSendUserRequestByUserId(getUser.id),
-            getSendUserRequestByClassId(getUser.id),
-            getModuleByUserId(getUser.id)
-        ]);
+        // // Check if there are existing requests in parallel
+        // const [getRequestUser, getRequestClass, getModel] = await Promise.all([
+        //     getSendUserRequestByUserId(getUser.id),
+        //     getSendUserRequestByClassId(getUser.id),
+        //     getModuleByUserId(getUser.id)
+        // ]);
 
-        if (!!getRequestClass && !!getRequestUser && !!getModel) {
-            return { warning: `You have already send request **${getUser.name}** to join **${classDetails.name}** on 😥` };
-        }
+        // if (!!getRequestClass && !!getRequestUser && !!getModel) {
+        //     return { warning: `You have already send request **${getUser.name}** to join **${classDetails.name}** on 😥` };
+        // }
 
         // Batch insert subjects using Promise.all
         const createSubjects = subjects.map((subjectId) =>
@@ -96,7 +96,7 @@ export const sendTeacherRequestToJoinClass = async (
                 data: {
                     classId: classDetails.id,
                     subjectId,
-                    userId: getUser.id,
+                    userId: getUser.id
                 },
             })
         );
@@ -133,6 +133,21 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
     })
     if (!request.userId) return { error: "request user is not exit" };
 
+    if (request.type === "TEACHERjOINCLASS") {
+        const getTeacher = await getTeacherByUserId(request.userId);
+        if (!getTeacher) {
+            const getModule = await getModuleByUserId(request.userId);
+            if (!getModule) return { error: "You don't have any subjects" }
+            await db.teacher.create({
+                data: {
+                    userId: request.userId,
+                    role: "TEACHER",
+                    ModelsIds: [...getModule.map((item) => item.id)],
+                    classesId: request.classId ? [request.classId] : undefined,
+                }
+            })
+        }
+    }
     return { success: `You have been join class` }
 }
 

@@ -16,24 +16,41 @@ import { Subject } from "../../../../../prisma/prisma/generated";
 interface props {
   person?: "TEACHER" | "STUDENT";
   classId: string;
-  classSubjects ?: Subject[] | null
+  classSubjects?: Subject[] | null;
 }
 
 const AddMemberInClassDialog = ({ person, classId, classSubjects }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size={"sm"} variant={"info"}>
-          <Plus /> Add {person ? person === "TEACHER" ? "teacher" : "student" : "New member"}
+        <Button size={"sm"} variant={!person ? "info" : "outline"}>
+          <Plus /> Add{" "}
+          {person
+            ? person === "TEACHER"
+              ? "teacher"
+              : "student"
+            : "New member"}
         </Button>
       </DialogTrigger>
       <DialogContent data-theme={UseTheme()} className=" sm:max-w-[32rem]">
         <DialogHeader>
           <DialogTitle>
-            Add new {person ? person === "TEACHER" ? "teachers" : "students" : "members"}
+            Add new{" "}
+            {person
+              ? person === "TEACHER"
+                ? "teachers"
+                : "students"
+              : "members"}
           </DialogTitle>
         </DialogHeader>
-        {person === "TEACHER" ? <AddTeacherInClassForm classSubjects={classSubjects} classId={classId}/> : <AddPersonInClass classId={classId}/>}
+        {person === "TEACHER" ? (
+          <AddTeacherInClassForm
+            classSubjects={classSubjects}
+            classId={classId}
+          />
+        ) : (
+          <AddPersonInClass classId={classId} />
+        )}
       </DialogContent>
     </Dialog>
   );
