@@ -23,6 +23,7 @@ enum Gender {
 }
 
 // ----------------------------------------- USER ------------------------------------------------
+// user account
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -54,6 +55,7 @@ model User {
   sendUserRequest SendUserRequest[]
 }
 
+// account for use create this for auth
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -76,6 +78,7 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+// session this for auth
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -87,6 +90,7 @@ model Session {
   updatedAt DateTime @updatedAt
 }
 
+// verification this for auth
 model VerificationToken {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
@@ -112,7 +116,7 @@ model Authenticator {
   @@unique([userId, credentialID])
 }
 
-// model 
+// education we support  example in rwanda : REB
 
 model Education {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -130,6 +134,7 @@ model Education {
   Trade  Trade[]
 }
 
+// sector for education example in rwanda : Primary
 model Sector {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   educationId String  @db.ObjectId
@@ -147,6 +152,7 @@ model Sector {
   Class     Class[]
 }
 
+// trade we support example in rwanda : Level 3 education SOD : software development
 model Trade {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   name         String
@@ -171,6 +177,7 @@ enum ClassRoomType {
   OTHER
 }
 
+// class room example primary 1 create but space-together
 model ClassRoom {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
   name          String
@@ -200,6 +207,7 @@ enum ClassType {
   PUBLIC
 }
 
+// class room which user created
 model Class {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   name        String
@@ -232,6 +240,7 @@ model Class {
   sendUserRequest SendUserRequest[]
 }
 
+// class user create which but have other class
 model SubClass {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   classId String @db.ObjectId
@@ -262,10 +271,11 @@ enum TeacherROLE {
   TEACHER
 }
 
+// teacher in that class room user create
 model Teacher {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
   userId    String      @db.ObjectId
-  classesId String[]    @db.ObjectId
+  classId   String      @db.ObjectId
   role      TeacherROLE @default(TEACHER)
   ModelsIds String[]    @db.ObjectId
 
@@ -281,6 +291,7 @@ enum SendUserRequestType {
   TEACHERjOINCLASS
 }
 
+// request to ask teacher to join class
 model SendUserRequest {
   id          String               @id @default(auto()) @map("_id") @db.ObjectId
   senderId    String               @db.ObjectId
@@ -303,7 +314,7 @@ model SendUserRequest {
 }
 
 // model Request
-
+// post in class 
 enum PostRole {
   NOTES
   IMAGE
@@ -481,10 +492,12 @@ model Assessment {
   subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
 }
 
+// notes in class and subject
 model Note {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   userId      String   @db.ObjectId
-  subjectId   String   @db.ObjectId
+  subjectId   String?  @db.ObjectId
+  moduleId    String   @db.ObjectId
   seenBy      String[] @db.ObjectId
   commentsIds String[] @db.ObjectId
   fileId      String?
@@ -494,9 +507,11 @@ model Note {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Subject Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Module  Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 }
 
+// module in class they student example : kinyarwanda, math and others
 model Module {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   teacherId String? @db.ObjectId
@@ -510,4 +525,6 @@ model Module {
   class   Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
   Subject Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   Teacher Teacher? @relation(fields: [teacherId], references: [id])
+
+  Note Note[]
 }
