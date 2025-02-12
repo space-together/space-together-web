@@ -1,52 +1,55 @@
-"use client";
 import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { GoPersonFill } from "react-icons/go";
-import { UserRole } from "../../../prisma/prisma/generated";
+import { Module, User, UserRole } from "../../../prisma/prisma/generated";
 import { Dot } from "lucide-react";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
+import { userRoleType } from "@/utils/types/userTypes";
+import { getSubjectById } from "@/services/data/subject-data";
 
 interface props {
-  userRole?: UserRole;
   lang: Locale;
+  user?: User | null;
+  modules?: Module[] | null;
 }
 
-const UserCard = ({ userRole, lang }: props) => {
-  
+const UserCard = ({ lang, user, modules }: props) => {
   return (
     <div className=" p-0 happy-card w-80">
       <MyImage
         classname="card rounded-b-none"
         className=" w-full"
-        src="/images/2.jpg"
+        src={user?.image ? user.image :"/images/2.jpg"}
       />
       <Separator />
       <div className="  p-4">
         <div className="flex  space-x-2 items-center">
-          <h4 className=" font-semibold text-lg">John Doe</h4>
-          <p className=" text-sm text-gray-400">@JonhnDoe</p>
+          <h4 className=" font-semibold text-lg">
+            {user ? user.name : "John Doe"}
+          </h4>
+          <p className=" text-sm text-gray-400">
+            @ {user ? user.username : "JonhnDoe"}
+          </p>
         </div>
         <div>
-          {userRole === UserRole.TEACHER && (
+          {user && user.role === "TEACHER" && (
             <div>
               <h3 className=" font-medium text-myGray"> Subjects</h3>
               <div className=" grid grid-cols-2 gap-2">
-                <div className=" flex link-hover">
-                  <Dot />
-                  <span>Math</span>
-                </div>
-                <div className=" flex link-hover">
-                  <Dot />
-                  <span>Kinyarwanda</span>
-                </div>
-                <div className=" flex link-hover">
-                  <Dot />
-                  <span>English</span>
-                </div>
+                {modules &&
+                  modules.map(async (item) => {
+                    const getSubject = await getSubjectById(item.subjectId);
+                    return (
+                      <div key={item.id} className=" flex link-hover">
+                        <Dot />
+                        <span>{!!getSubject ? getSubject.name : "Math"}</span>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           )}

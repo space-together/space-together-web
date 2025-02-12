@@ -5,7 +5,7 @@ import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
-import { getModuleByTeacherInClass } from "@/services/data/model-data";
+import { getModuleByTeacherInClassId } from "@/services/data/model-data";
 import { getSubjectByClassId } from "@/services/data/subject-data";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
 import { getUserById } from "@/services/data/user";
@@ -53,7 +53,7 @@ const ClassSettingPeoplePage = async (props: props) => {
           <div className=" mt-4 space-y-2">
             {getTeachers.map(async (item) => {
               const user = await getUserById(item.userId);
-              const getModels = await getModuleByTeacherInClass(item.id , classId);
+              const getModels = await getModuleByTeacherInClassId(item.id , classId);
               return (
                 <UserCardSmallCallSetting modules={getModels} user={user} userRole="TEACHER" lang={lang} />
               );

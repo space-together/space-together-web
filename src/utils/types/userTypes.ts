@@ -1,1 +1,1 @@
-export type userRoleType = "Student" | "Teacher" | "School Staff" |null
+export type userRoleType = "Student" | "Teacher" | "SchoolStaff" |null

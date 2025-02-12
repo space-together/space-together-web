@@ -55,10 +55,21 @@ export const getAllModule = async (): Promise<Module[] | null> => {
     }
 };
 
-export const getModuleByTeacherInClass = async (teacherId: string, classId: string) => {
+export const getModuleByTeacherInClassId = async (teacherId: string, classId: string) => {
     try {
         const models = await db.module.findMany({
             where: { teacherId, classId }
+        })
+        return models
+    } catch {
+        return []
+    }
+}
+
+export const getModuleByUserIdInClassId = async (userId: string, classId: string) => {
+    try {
+        const models = await db.module.findMany({
+            where: { userId, classId }
         })
         return models
     } catch {

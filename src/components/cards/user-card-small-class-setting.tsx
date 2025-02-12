@@ -58,7 +58,7 @@ const UserCardSmallCallSetting = ({
               modules.map(async (item) => {
                 const getSubject = await getSubjectById(item.subjectId);
                 return (
-                  <div className=" -space-x-2 flex items-center">
+                  <div key={item.id} className=" -space-x-2 flex items-center">
                     <Dot size={32} />
                     <span className=" text-sm font-medium ">
                       {getSubject ? getSubject.name : "Kinyarwanda"}
