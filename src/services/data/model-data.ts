@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
+import { Module } from "../../../prisma/prisma/generated";
 
-export const getModuleById = async (id: string) => {
+export const getModuleById = async (id: string): Promise<Module | null> => {
     try {
         const model = await db.module.findUnique({ where: { id } });
         return model;
@@ -9,7 +10,7 @@ export const getModuleById = async (id: string) => {
     }
 };
 
-export const getModuleByTeacherId = async (teacherId: string) => {
+export const getModuleByTeacherId = async (teacherId: string): Promise<Module[] | null> => {
     try {
         const models = await db.module.findMany({ where: { teacherId }, orderBy: { createdAt: 'desc' } });
         return models;
@@ -18,7 +19,7 @@ export const getModuleByTeacherId = async (teacherId: string) => {
     }
 };
 
-export const getModuleByUserId = async (userId: string) => {
+export const getModuleByUserId = async (userId: string): Promise<Module[] | null> => {
     try {
         const models = await db.module.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } });
         return models;
@@ -27,7 +28,7 @@ export const getModuleByUserId = async (userId: string) => {
     }
 };
 
-export const getModuleBySubjectId = async (subjectId: string) => {
+export const getModuleBySubjectId = async (subjectId: string): Promise<Module[] | null> => {
     try {
         const models = await db.module.findMany({ where: { subjectId }, orderBy: { createdAt: 'desc' } });
         return models;
@@ -36,7 +37,7 @@ export const getModuleBySubjectId = async (subjectId: string) => {
     }
 };
 
-export const getModuleByClassId = async (classId: string) => {
+export const getModuleByClassId = async (classId: string): Promise<Module[] | null> => {
     try {
         const models = await db.module.findMany({ where: { classId }, orderBy: { createdAt: 'desc' } });
         return models;
@@ -45,11 +46,22 @@ export const getModuleByClassId = async (classId: string) => {
     }
 };
 
-export const getAllModule = async () => {
+export const getAllModule = async (): Promise<Module[] | null> => {
     try {
-        const models = await db.education.findMany({ orderBy: { createdAt: 'desc' } });
+        const models = await db.module.findMany({ orderBy: { createdAt: 'desc' } });
         return models;
     } catch {
-        return [];
+        return null;
     }
 };
+
+export const getModuleByTeacherInClass = async (teacherId: string, classId: string) => {
+    try {
+        const models = await db.module.findMany({
+            where: { teacherId, classId }
+        })
+        return models
+    } catch {
+        return []
+    }
+}

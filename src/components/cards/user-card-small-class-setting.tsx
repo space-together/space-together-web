@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { AiOutlineSetting } from "react-icons/ai";
-import { Teacher, User } from "../../../prisma/prisma/generated";
+import { Module, Teacher, User } from "../../../prisma/prisma/generated";
+import { getSubjectById } from "@/services/data/subject-data";
 
 interface props {
   userRole:
@@ -21,9 +22,16 @@ interface props {
     | "STUDENT";
   lang: Locale;
   className?: string;
-  user?: User | null
+  user?: User | null;
+  modules?: Module[] | null;
 }
-const UserCardSmallCallSetting = ({ userRole, lang, className, user }: props) => {
+const UserCardSmallCallSetting = ({
+  userRole,
+  lang,
+  className,
+  user,
+  modules,
+}: props) => {
   return (
     <div
       className={cn(
@@ -34,21 +42,30 @@ const UserCardSmallCallSetting = ({ userRole, lang, className, user }: props) =>
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/${user?.id ? user.id : "student"}`}>
           <Avatar className=" size-14">
-            <AvatarImage src={user?.image ? user.image :"/images/2.jpg"} />
+            <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>
         <div>
           <div className=" flex space-x-4 items-center">
             <Link href={`/${lang}/profile/student`}>
-              <h4 className=" font-medium">{user?.name ? user.name : "Murekezi Hindiro"}</h4>
+              <h4 className=" font-medium">
+                {user?.name ? user.name : "Murekezi Hindiro"}
+              </h4>
             </Link>
-            {userRole === "TEACHER" && (
-              <div className=" -space-x-2 flex items-center">
-                <Dot size={32} />
-                <span className=" text-sm font-medium ">Kinyarwanda</span>
-              </div>
-            )}
+            {userRole === "TEACHER" &&
+              !!modules &&
+              modules.map(async (item) => {
+                const getSubject = await getSubjectById(item.subjectId);
+                return (
+                  <div className=" -space-x-2 flex items-center">
+                    <Dot size={32} />
+                    <span className=" text-sm font-medium ">
+                      {getSubject ? getSubject.name : "Kinyarwanda"}
+                    </span>
+                  </div>
+                );
+              })}
           </div>
           <div className=" flex items-center">
             <span className=" font-medium text-myGray capitalize">

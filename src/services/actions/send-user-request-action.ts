@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
+import { getTeacherByUserId } from "../data/teacher-data";
 
 export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
@@ -89,17 +90,18 @@ export const sendTeacherRequestToJoinClass = async (
         //     return { warning: `You have already send request **${getUser.name}** to join **${classDetails.name}** on 😥` };
         // }
 
+        const getTeacher = await getTeacherByUserId(getUser.id);
         // Batch insert subjects using Promise.all
         const createSubjects = subjects.map((subjectId) =>
             db.module.create({
                 data: {
                     classId: classDetails.id,
                     subjectId,
+                    teacherId : getTeacher ? getTeacher.id : undefined,
                     userId: getUser.id
                 },
             })
         );
-
         // Create teacher join request
         const createRequest = db.sendUserRequest.create({
             data: {
@@ -184,7 +186,7 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
     }
 };
 
- 
+
 
 
 export const deleteUserRequest = async (id: string) => {
