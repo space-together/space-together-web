@@ -84,18 +84,20 @@ const UserCardSmallCallSetting = ({
         </div>
       </div>
       <div className=" space-x-2">
-        <Button size="sm">
+        {/* TODO: make function for update or remove teacher in class */}
+        {/* <Button size="sm">
           <AiOutlineSetting />
           Setting
         </Button>
         <Button variant="warning" size="sm">
           <IoIosRemoveCircleOutline />
           Disable
-        </Button>
+        </Button> 
         <Button variant="error" size="sm">
           <CiCircleRemove />
           Remove
         </Button>
+        */}
       </div>
     </div>
   );
