@@ -1,7 +1,10 @@
 import { auth } from "@/auth";
 import AddMemberInClassDialog from "@/components/app/class/setting/add-class-member-dialog";
 import UserCardSmallCallSetting from "@/components/cards/user-card-small-class-setting";
+import NotFoundPage from "@/components/page/not-found-page";
+import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
+import { getClassById } from "@/services/data/class-data";
 import { getSubjectByClassId } from "@/services/data/subject-data";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -15,11 +18,15 @@ const ClassSettingPeoplePage = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+  
+  const getClass = await getClassById(classId);
+  if (!getClass) return <NotFoundPage />;
+  if (user.role !== "ADMIN" && getClass.userId !== user.id) return <PermissionPage />
   const classSubjects = await getSubjectByClassId(classId);
   return (
     <div className=" w-full space-y-4 pr-4">
-    <div>
-    <div className=" flex justify-between items-center mt-4">
+    <div className=" space-y-2">
+    <div className=" flex justify-between items-center mt-4 ">
         <h1 className="happy-title-head">Class member settings </h1>
         <AddMemberInClassDialog classId={classId} />
       </div>

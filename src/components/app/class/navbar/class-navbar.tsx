@@ -10,13 +10,13 @@ import { Class } from "../../../../../prisma/prisma/generated";
 interface props {
   user: authUser;
   lang: Locale;
-  getClass : Class;
-  classId : string
+  getClass: Class;
+  classId: string;
 }
 
-const ClassNavbar = ({ user, lang, classId , getClass}: props) => {
+const ClassNavbar = ({ user, lang, classId, getClass }: props) => {
   const pathname = usePathname();
-  
+
   return (
     <div className=" h-10 border-b border-border w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
       <Link
@@ -58,11 +58,11 @@ const ClassNavbar = ({ user, lang, classId , getClass}: props) => {
       >
         People
       </Link>
-      {user.role === "ADMIN" || getClass.userId === user?.id && (
+      {(user?.role === "ADMIN" || getClass?.userId === user?.id) && (
         <Link
           href={`/${lang}/class/${classId}/setting`}
           className={cn(
-            " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+            "h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
             pathname === `/${lang}/class/${classId}/setting` &&
               "border-b-2 border-b-info"
           )}

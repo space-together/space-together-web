@@ -5,6 +5,7 @@ import {
   ClassSettingUsername,
 } from "@/components/app/class/setting/class-setting-name";
 import NotFoundPage from "@/components/page/not-found-page";
+import PermissionPage from "@/components/page/permission-page";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
@@ -26,13 +27,8 @@ const ClassSettingPage = async ({ params }: Props) => {
 
   const getClass = await getClassById(classId);
   
-  // Show "Class Not Found" if the class does not exist
   if (!getClass) return <NotFoundPage />;
-
-  // Allow access only if the user is an ADMIN or the class owner
-  if (user.role !== "ADMIN" && getClass.userId !== user.id) {
-    return redirect(`/${lang}/class/${classId}`);
-  }
+  if (user.role !== "ADMIN" && getClass.userId !== user.id) return <PermissionPage />
 
   return (
     <div className="py-4 w-full space-y-4">
