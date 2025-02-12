@@ -8,7 +8,7 @@ import { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
 import { Class } from "../../../prisma/prisma/generated";
-import { authUser } from "@/types/userModel";
+import { getUserById } from "@/services/data/user";
 
 interface props {
   lang: Locale;
@@ -16,19 +16,18 @@ interface props {
   isSchool?: boolean;
   isOther?: boolean; // others users which are not in class
   isStudent?: boolean;
-  user?: authUser;
   myClass?: Class;
 }
 
-const ClassCard = ({
+const ClassCard = async ({
   lang,
   isClassTeacher,
   isSchool,
   isOther,
   isStudent,
   myClass,
-  user,
 }: props) => {
+  const getUser = myClass?.userId ? await getUserById(myClass.userId) : null;
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -40,7 +39,9 @@ const ClassCard = ({
         <Separator />
         <div className=" -bottom-20 p-4 flex items-center gap-2 absolute">
           <Avatar className=" size-20">
-            <AvatarImage src={myClass?.symbol ? myClass.symbol :"/images/19.jpg"} />
+            <AvatarImage
+              src={myClass?.symbol ? myClass.symbol : "/images/19.jpg"}
+            />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" mt-6  space-x-1">
@@ -63,22 +64,24 @@ const ClassCard = ({
         {/* class members */}
         <div className=" flex gap-2 ">
           <div className="  items-center -space-x-2 text-myGray flex">
-            <Dot size={32} />
-            <span className=" text-sm">
-              32 <TextTooltip content={"Student"} trigger={<span>ST</span>} />
+            <Dot size={24} />
+            <span className=" text-xs">
+              32 <TextTooltip content={"Student"} trigger={<span className=" text-xs text-myGray">ST</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
-            <Dot size={32} />
-            <span className=" text-sm line">
-              7 <TextTooltip content={"Teacher"} trigger={<span>TEA</span>} />
+            <Dot size={24} />
+            <span className=" text-xs line">
+              7 <TextTooltip content={"Teacher"} trigger={<span className=" text-xs text-myGray">TEA</span>} />
             </span>
           </div>
           <div className=" flex items-center -space-x-2 text-myGray">
-            <Dot size={32} />
+            <Dot size={24} />
             <div className=" flex items-center space-x-2 text-sm">
               <Avatar className=" size-4">
-                <AvatarImage src="/images/17.jpg" />
+                <AvatarImage
+                  src={getUser?.image ? getUser.image : "/images/17.jpg"}
+                />
                 <AvatarFallback className=" text-sm">LOGO</AvatarFallback>
               </Avatar>
               {/* add link of class teacher */}
@@ -87,12 +90,14 @@ const ClassCard = ({
                   "line-clamp-1 link-hover",
                   isClassTeacher ? "text-myGray" : ""
                 )}
-                href={`/${lang}/profile/1232`}
+                href={`/${lang}/profile/${
+                  myClass?.userId ? myClass.userId : 1232
+                }`}
               >
                 <TextTooltip
                   content={"Class Teacher"}
                   trigger={
-                    <span>{user?.username ? user.username : user?.name}</span>
+                    <span>{getUser?.username ? getUser.username : getUser?.name}</span>
                   }
                 />
               </Link>

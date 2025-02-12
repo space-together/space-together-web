@@ -17,24 +17,30 @@ import { LoaderCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { CreatePostAction } from "@/services/actions/post-actions";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { authUser } from "@/types/userModel";
 
 interface props {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  classId ?: string
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  classId?: string;
+  user?: authUser;
 }
 
-const CreatePostForm = ({setIsOpen , classId} : props) => {
+const CreatePostForm = ({ setIsOpen, classId, user }: props) => {
   const [isPending, startTransition] = useTransition();
   const form = useForm<PostSchemaType>({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      content : "",
-      file : ""
+      content: "",
+      file: "",
     },
   });
 
   const onSubmit = (values: PostSchemaType) => {
-    handleFormSubmission (() => CreatePostAction(values, classId),startTransition)
+    handleFormSubmission(
+      () => CreatePostAction(values, classId),
+      startTransition
+    );
   };
   return (
     <Form {...form}>
@@ -44,7 +50,17 @@ const CreatePostForm = ({setIsOpen , classId} : props) => {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel><span className=" happy-title-base">Announce something ...</span></FormLabel>
+              <FormLabel className=" flex space-x-2 items-center">
+                <Avatar className=" size-12">
+                  <AvatarImage
+                    src={user?.image ? user.image : "/images/2.jpg"}
+                  />
+                  <AvatarFallback>PR</AvatarFallback>
+                </Avatar>
+                <span className=" happy-title-base">
+                  Announce something ...
+                </span>
+              </FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -71,7 +87,12 @@ const CreatePostForm = ({setIsOpen , classId} : props) => {
           )}
         />
         <div className="  space-x-4 mt-4 justify-end w-full flex">
-          <Button onClick={() => setIsOpen(false)} type="button" size="sm" className="">
+          <Button
+            onClick={() => setIsOpen(false)}
+            type="button"
+            size="sm"
+            className=""
+          >
             Cancel
           </Button>
 

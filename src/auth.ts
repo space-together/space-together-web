@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.name = token.name;
       }
 
-      if (token.picture && session.user) {
+      if (token.image && session.user) {
         session.user.image = token.picture;
       }
 
@@ -40,6 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.name = user.name;
       token.email = user.email;
       token.sub = user.id;
+      token.picture = user.image;
       // token.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
       token.role = user.role;
       return token;

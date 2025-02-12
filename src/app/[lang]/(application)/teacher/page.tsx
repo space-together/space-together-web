@@ -33,12 +33,6 @@ const TeacherPage = async (props: props) => {
         </div>
       ) : (
         <TeacherHomeBody
-          user={{
-            ...user,
-            name: user.name ?? "",
-            email: user.email ?? undefined,
-            image: user.image ?? undefined,
-          }}
           classes={classes}
           lang={lang}
         />
