@@ -35,3 +35,39 @@ export const getAllClassesByUserId = async (id: string) => {
     return [];
   }
 };
+
+export const getClassesBySectorId = async (sectorId: string) => {
+  try {
+    const classes = await db.class.findMany({ where: { sectorId } });
+    return classes;
+  } catch {
+    return [];
+  }
+};
+
+export const getClassesByTradeId = async (tradeId: string) => {
+  try {
+    const classes = await db.class.findMany({ where: { tradeId } });
+    return classes;
+  } catch {
+    return [];
+  }
+};
+
+export const getClassesByTeacherId = async (teacherId: string) => {
+  try {
+    const classes = await db.class.findMany({ where: { teachersIds: { has: teacherId } } });
+    return classes;
+  } catch {
+    return [];
+  }
+};
+
+export const getClassesByClassRoomId = async (classRoomId: string) => {
+  try {
+    const classes = await db.class.findMany({ where: { classRoomId } });
+    return classes;
+  } catch {
+    return [];
+  }
+};

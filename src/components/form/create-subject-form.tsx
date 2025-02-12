@@ -197,7 +197,7 @@ const CreateSubjectForm = ({classId} : props) => {
             </Button>
           </DialogClose>
           <Button disabled={isPending} type="submit" variant="info" size="sm">
-            Create class
+            add subject
             {isPending && (
               <LoaderCircle
                 className="-ms-1 me-2 animate-spin"

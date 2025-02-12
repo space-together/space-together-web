@@ -1,8 +1,17 @@
 import { auth } from "@/auth";
 import CreateClassDialog from "@/components/app/class/createClassDialog";
 import TeacherHomeBody from "@/components/app/teacher/teacher-home-body";
+import ErrorPage from "@/components/page/error-page";
+import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
-import { getAllClassesByUserId } from "@/services/data/class-data";
+import {
+  getAllClassesByUserId,
+  getClassesByTeacherId,
+} from "@/services/data/class-data";
+import {
+  getTeacherById,
+  getTeacherByUserId,
+} from "@/services/data/teacher-data";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -18,13 +27,17 @@ const TeacherPage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   const classes = await getAllClassesByUserId(user.id);
-  if (!classes) {
-    return (
-      <div>
-        some thing went wog
-      </div>
-    )
+  if (!classes) return <ErrorPage />;
+
+  const getTeacher = await getTeacherByUserId(user.id);
+  if (user.role !== "TEACHER" && user.role !== "ADMIN") {
+    return <PermissionPage />;
   }
+
+  const teacherClasses = getTeacher
+    ? await getClassesByTeacherId(getTeacher.id)
+    : null;
+
   return (
     <div className=" px-4">
       {classes.length === 0 ? (
@@ -33,6 +46,7 @@ const TeacherPage = async (props: props) => {
         </div>
       ) : (
         <TeacherHomeBody
+          teacherClasses={teacherClasses}
           classes={classes}
           lang={lang}
         />

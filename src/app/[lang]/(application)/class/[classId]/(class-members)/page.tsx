@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
-import ClassNotFound from "@/components/app/class/class-not-found";
 import ClassActivities from "@/components/app/class/classActivities";
 import ClassBody from "@/components/app/class/classBody";
 import ClassHead from "@/components/app/class/classHead";
+import NotFoundPage from "@/components/page/not-found-page";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
@@ -22,7 +22,7 @@ const ClassIdPage = async (props: Props) => {
   const myClass = await getClassById(classId);
 
   if (!myClass) {
-    return <ClassNotFound />;
+    return <NotFoundPage />;
   }
   return (
     <div className=" px-4">

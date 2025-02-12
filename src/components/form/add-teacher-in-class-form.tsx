@@ -113,7 +113,7 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Send Message</FormLabel>
+              <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
