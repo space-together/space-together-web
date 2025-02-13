@@ -23,7 +23,7 @@ const NotFoundPage = () => {
         <MyImage className="size-96" src="/notFound.svg" />
         <div>
           <div className="text-center">
-          <h4 className="  font-medium"> This collection is not found!</h4>
+          <h4 className="  font-medium"> Not found item</h4>
            <p className=" text-myGray">Check your internet connection or your params for this page.</p>
           </div>
           <div className="flex space-x-2 mt-2 justify-center">
