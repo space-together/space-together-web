@@ -221,17 +221,17 @@ model Class {
   classRoomId String?    @db.ObjectId
   userId      String     @db.ObjectId
   classType   ClassType? @default(PRIVET)
-  Student     Student[]
+  students    String[]   @db.ObjectId
   SubClass    SubClass[]
   teachersIds String[]   @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  trade        Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
-  sector       Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
-  user         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  classTeacher ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+  trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
 
   Post Post[]
 
@@ -239,6 +239,7 @@ model Class {
   Model   Module[]
 
   sendUserRequest SendUserRequest[]
+  Student         Student[]
 }
 
 // class user create which but have other class
@@ -257,7 +258,7 @@ model SubClass {
 model Student {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   userId     String  @db.ObjectId
-  subClassId String?
+  subClassId String? @db.ObjectId
   classId    String? @db.ObjectId
 
   createdAt DateTime @default(now())
@@ -515,11 +516,12 @@ model Note {
 
 // module in class they student example : kinyarwanda,
 model Module {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  teacherId String? @db.ObjectId
-  subjectId String  @db.ObjectId
-  classId   String  @db.ObjectId
-  userId    String  @db.ObjectId
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  teacherId  String? @db.ObjectId
+  subjectId  String  @db.ObjectId
+  classId    String  @db.ObjectId
+  subClassId String? @db.ObjectId
+  userId     String  @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
