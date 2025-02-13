@@ -456,7 +456,8 @@ exports.TeacherROLE = exports.$Enums.TeacherROLE = {
 
 exports.SendUserRequestType = exports.$Enums.SendUserRequestType = {
   JOINCLASS: 'JOINCLASS',
-  TEACHERjOINCLASS: 'TEACHERjOINCLASS'
+  TEACHERjOINCLASS: 'TEACHERjOINCLASS',
+  STUDENTJOINCLASS: 'STUDENTJOINCLASS'
 };
 
 exports.PostRole = exports.$Enums.PostRole = {

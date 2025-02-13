@@ -290,6 +290,7 @@ model Teacher {
 enum SendUserRequestType {
   JOINCLASS
   TEACHERjOINCLASS
+  STUDENTJOINCLASS
 }
 
 // request to ask teacher to join class

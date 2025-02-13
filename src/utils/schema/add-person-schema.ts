@@ -7,9 +7,10 @@ export const addPersonSchema = z.object({
       text: z.string().email("Invalid email format"),
     })
   ),
+  message : z.string()
 });
 
-export type addPersonSchemaType = z.infer<typeof addPersonSchema>;
+export type addStudentSchemaType = z.infer<typeof addPersonSchema>;
 
 export const addTeacherInClassSchema = z.object({
   email : z.string(),

@@ -1,15 +1,15 @@
 "use server";
 
-import { addPersonSchema, addPersonSchemaType, addTeacherInClassSchema, addTeacherInClassSchemaType } from "@/utils/schema/add-person-schema";
+import { addPersonSchema, addStudentSchemaType, addTeacherInClassSchema, addTeacherInClassSchemaType } from "@/utils/schema/add-person-schema";
 import { getUserByEmail } from "../data/user";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { getClassById } from "../data/class-data";
-import { SendUserRequest } from "../../../prisma/prisma/generated";
+import { SendUserRequest, SendUserRequestType, UserRole } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
 import { getTeacherByUserId } from "../data/teacher-data";
 
-export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, classId: string) => {
+export const sendPeopleRequestToJoinClass = async (values: addStudentSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
     if (!validation.success) return { error: "Invalid values" };
 
@@ -55,6 +55,52 @@ export const sendPeopleRequestToJoinClass = async (values: addPersonSchemaType, 
         return { error: `Failed to send request: [${error}]` };
     }
 };
+
+export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType, classId: string) => {
+    const validation = addPersonSchema.safeParse(values);
+    if (!validation.success) return { error: "Invalid values" };
+
+    const { emails, message } = validation.data;
+    try {
+        const [classDetails, authResult] = await Promise.all([
+            getClassById(classId),
+            auth(),
+        ]);
+
+        if (!classDetails) return { error: "Class doesn't exist" };
+        if (!authResult?.user?.id) return { error: "You must have an account to send a request" };
+        const senderId = authResult.user.id;
+        const userRequests = await Promise.all(
+            emails.map(async (item) => {
+                const existingUser = await getUserByEmail(item.text);
+                if (!existingUser || existingUser.role === "STUDENT") {
+                    return { warring: "This user does not exist or is not a student" }
+                }
+                else return { userId: existingUser.id, email: existingUser.email }
+            })
+        );
+
+        const userRequestsData = userRequests.map((request) => ({
+            userId: request.userId ?? undefined,
+            email: request.email ?? undefined,
+            senderId,
+            message,
+            classId: classDetails.id,
+            type: "STUDENTJOINCLASS" as SendUserRequestType,
+            role: "STUDENT" as UserRole,
+            description: `Ask to join class **${classDetails.name}**`,
+        }));
+
+        await db.sendUserRequest.createMany({
+            data: userRequestsData,
+        });
+
+        return { success: "Requests has been sent 🍀" };
+    } catch (error) {
+        return { error: `Failed to send request: [${error}]` };
+    }
+}
+
 export const sendTeacherRequestToJoinClass = async (
     values: addTeacherInClassSchemaType,
     classId: string
@@ -75,7 +121,7 @@ export const sendTeacherRequestToJoinClass = async (
 
         if (!classDetails) return { error: "Class doesn't exist" };
         if (!authResult?.user?.id) return { error: "You must have an account to send a request" };
-        if (!getUser || getUser.role !== "TEACHER") return { error: "This user does not exist or is not a teacher" };
+        if (!getUser || getUser.role !== "TEACHER") return { warring: "This user does not exist or is not a teacher" };
 
         const senderId = authResult.user.id;
 
@@ -97,7 +143,7 @@ export const sendTeacherRequestToJoinClass = async (
                 data: {
                     classId: classDetails.id,
                     subjectId,
-                    teacherId : getTeacher ? getTeacher.id : undefined,
+                    teacherId: getTeacher ? getTeacher.id : undefined,
                     userId: getUser.id
                 },
             })
@@ -185,9 +231,6 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
         return { error: `Failed to accept request: [${error}]` };
     }
 };
-
-
-
 
 export const deleteUserRequest = async (id: string) => {
     try {

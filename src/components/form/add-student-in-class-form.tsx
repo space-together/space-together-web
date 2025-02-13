@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TagInput } from "emblor";
 import {
   addPersonSchema,
-  addPersonSchemaType,
+  addStudentSchemaType,
 } from "@/utils/schema/add-person-schema";
 import {
   Form,
@@ -21,7 +21,8 @@ import { FormMessageError, FormMessageSuccess } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { LoaderCircle } from "lucide-react";
 import { handleFormSubmission } from "@/hooks/form-notification";
-import { sendPeopleRequestToJoinClass } from "@/services/actions/send-user-request-action";
+import { sendStudentRequestToJoinClass } from "@/services/actions/send-user-request-action";
+import { Textarea } from "../ui/textarea";
 
 interface Props {
   classId: string;
@@ -34,18 +35,19 @@ const AddStudentInClass = ({ classId }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
 
-  const form = useForm<addPersonSchemaType>({
+  const form = useForm<addStudentSchemaType>({
     resolver: zodResolver(addPersonSchema),
     defaultValues: {
-      emails: [], // Initialize as an empty array
+      emails: [],
+      message: "",
     },
   });
 
-  const onSubmit = (values: addPersonSchemaType) => {
+  const onSubmit = (values: addStudentSchemaType) => {
     setError("");
     setSuccess("");
     handleFormSubmission(
-      () => sendPeopleRequestToJoinClass(values, classId),
+      () => sendStudentRequestToJoinClass(values, classId),
       startTransition
     );
     form.reset();
@@ -91,7 +93,23 @@ const AddStudentInClass = ({ classId }: Props) => {
             </FormItem>
           )}
         />
-
+        <FormField
+          name="message"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Message</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder="Type message...."
+                  disabled={isPending}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div>
           <FormMessageError message={error} />
           <FormMessageSuccess message={success} />

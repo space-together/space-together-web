@@ -200,7 +200,8 @@ export type TeacherROLE = (typeof TeacherROLE)[keyof typeof TeacherROLE]
 
 export const SendUserRequestType: {
   JOINCLASS: 'JOINCLASS',
-  TEACHERjOINCLASS: 'TEACHERjOINCLASS'
+  TEACHERjOINCLASS: 'TEACHERjOINCLASS',
+  STUDENTJOINCLASS: 'STUDENTJOINCLASS'
 };
 
 export type SendUserRequestType = (typeof SendUserRequestType)[keyof typeof SendUserRequestType]
