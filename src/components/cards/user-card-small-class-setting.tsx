@@ -21,6 +21,7 @@ interface props {
   className?: string;
   user?: User | null;
   modules?: Module[] | null;
+  noAction?: boolean;
 }
 const UserCardSmallCallSetting = ({
   userRole,

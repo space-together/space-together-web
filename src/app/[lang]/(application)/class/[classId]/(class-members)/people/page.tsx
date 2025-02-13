@@ -7,6 +7,11 @@ import { redirect } from "next/navigation";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
 import { getUserById } from "@/services/data/user";
 import { getModuleByTeacherInClassId } from "@/services/data/model-data";
+import UserCardSmallCallSetting from "@/components/cards/user-card-small-class-setting";
+import MyImage from "@/components/my-components/myImage";
+import AddMemberInClassDialog from "@/components/app/class/setting/add-class-member-dialog";
+import { getSubjectByClassId } from "@/services/data/subject-data";
+import { getClassById } from "@/services/data/class-data";
 
 interface props {
   params: Promise<{ lang: Locale; classId: string }>;
@@ -19,25 +24,56 @@ const ClassPeoplePage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
 
-  const getTeachers = await getTeachersByClassId(classId);
-
+  // const getTeachers = await getTeachersByClassId(classId);
+  //  const classSubjects = await getSubjectByClassId(classId);
+  const [getTeachers, classSubjects, getClass] = await Promise.all([
+    await getTeachersByClassId(classId),
+    await getSubjectByClassId(classId),
+    await getClassById(classId),
+  ]);
   return (
     <div className=" px-4 py-4 space-y-2">
       <SearchPeopleClass />
       {!!getTeachers && (
         <div className="space-y-2">
-          <h1 className=" font-semibold text-2xl">Teacher </h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {getTeachers.map(async(item) => {
-              const getUser = await getUserById(item.userId);
-              const getModules = await getModuleByTeacherInClassId(item.id , classId);
-              return <UserCard modules={getModules} key={item.id} user={getUser} lang={lang} />;
-            })}
+          <h1 className="  happy-title-base">Teachers </h1>
+          <div className=" space-y-2 flex flex-col gap-2">
+            {getTeachers.length === 0 ? (
+              <div className=" justify-center items-center space-y-2 flex flex-col">
+                <MyImage src="/icons/teacher.png" className=" size-16" />
+                <p className=" font-medium text-myGray">They is no teacher in this class!</p>
+                {(getClass?.userId === user.id || user.role === "ADMIN") && (
+                  <AddMemberInClassDialog
+                    classId={classId}
+                    classSubjects={classSubjects}
+                    person="TEACHER"
+                  />
+                )}
+              </div>
+            ) : (
+              await Promise.all(
+                getTeachers.map(async (item) => {
+                  const user = await getUserById(item.userId);
+                  const getModels = await getModuleByTeacherInClassId(
+                    item.id,
+                    classId
+                  );
+                  return (
+                    <UserCardSmallCallSetting
+                      modules={getModels}
+                      user={user}
+                      userRole="TEACHER"
+                      lang={lang}
+                    />
+                  );
+                })
+              )
+            )}
           </div>
         </div>
       )}
       <div className=" space-y-2">
-        <h1 className=" font-semibold text-2xl">Classmate </h1>
+        <h1 className="  happy-title-base">Classmate </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <UserCard lang={lang} />
           <UserCard lang={lang} />
