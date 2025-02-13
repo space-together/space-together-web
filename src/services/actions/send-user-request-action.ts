@@ -1,6 +1,6 @@
 "use server";
 
-import { addPersonSchema, addPersonSchemaType, addTeacherInClassSchema, addTeacherInClassSchemaType } from "@/utils/schema/add-preson-schema";
+import { addPersonSchema, addPersonSchemaType, addTeacherInClassSchema, addTeacherInClassSchemaType } from "@/utils/schema/add-person-schema";
 import { getUserByEmail } from "../data/user";
 import { db } from "@/lib/db";
 import { auth } from "@/auth";

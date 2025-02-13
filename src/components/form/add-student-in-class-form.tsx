@@ -7,7 +7,7 @@ import { TagInput } from "emblor";
 import {
   addPersonSchema,
   addPersonSchemaType,
-} from "@/utils/schema/add-preson-schema";
+} from "@/utils/schema/add-person-schema";
 import {
   Form,
   FormField,

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   addTeacherInClassSchema,
   addTeacherInClassSchemaType,
-} from "@/utils/schema/add-preson-schema";
+} from "@/utils/schema/add-person-schema";
 import {
   Form,
   FormField,

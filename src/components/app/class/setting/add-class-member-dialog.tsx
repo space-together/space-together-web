@@ -1,5 +1,5 @@
 "use client";
-import AddStudentInClass from "@/components/form/add-person-in-class-form";
+import AddStudentInClass from "@/components/form/add-student-in-class-form";
 import AddTeacherInClassForm from "@/components/form/add-teacher-in-class-form";
 import { Button } from "@/components/ui/button";
 import {
