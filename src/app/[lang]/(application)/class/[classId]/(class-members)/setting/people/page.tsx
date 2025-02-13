@@ -73,7 +73,7 @@ const ClassSettingPeoplePage = async (props: props) => {
                 person="TEACHER"
               />
             </div>
-            <div className="space-y-2 flex flex-col gap-2 mt-2">
+            <div className="space-y-1 flex flex-col mt-2">
               {getTeachers.length === 0 ? (
                 <div className="justify-center items-center space-y-2 flex flex-col">
                   <MyImage src="/icons/teacher.png" className="size-16" />
@@ -96,12 +96,12 @@ const ClassSettingPeoplePage = async (props: props) => {
               <AddMemberInClassDialog
                 classId={classId}
                 classSubjects={classSubjects}
-                person="TEACHER"
+                person="STUDENT"
               />
             </div>
-            <div className="space-y-2 flex flex-col gap-2 mt-2">
+            <div className="space-y-1 flex flex-col mt-2">
               {getTeachers.length === 0 ? (
-                <div className="justify-center items-center space-y-2 flex flex-col">
+                <div className="justify-center items-center space-y-1 flex flex-col">
                   <MyImage src="/icons/teacher.png" className="size-16" />
                   <p className="font-medium text-myGray">
                     No teachers in this class!

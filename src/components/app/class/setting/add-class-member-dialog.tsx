@@ -28,7 +28,7 @@ const AddMemberInClassDialog = ({ person, classId, classSubjects }: props) => {
           {person
             ? person === "TEACHER"
               ? "teacher"
-              : "student"
+              : "students"
             : "New member"}
         </Button>
       </DialogTrigger>
@@ -38,7 +38,7 @@ const AddMemberInClassDialog = ({ person, classId, classSubjects }: props) => {
             Add new{" "}
             {person
               ? person === "TEACHER"
-                ? "teachers"
+                ? "teacher"
                 : "students"
               : "members"}
           </DialogTitle>
