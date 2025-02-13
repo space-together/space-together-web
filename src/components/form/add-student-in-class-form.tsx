@@ -16,7 +16,6 @@ import {
   FormMessage,
   FormLabel,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { FormMessageError, FormMessageSuccess } from "./formError";
 import { DialogClose, DialogFooter } from "../ui/dialog";
@@ -28,7 +27,7 @@ interface Props {
   classId: string;
 }
 
-const AddPersonInClass = ({ classId }: Props) => {
+const AddStudentInClass = ({ classId }: Props) => {
   const id = useId();
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
@@ -121,4 +120,4 @@ const AddPersonInClass = ({ classId }: Props) => {
   );
 };
 
-export default AddPersonInClass;
+export default AddStudentInClass;

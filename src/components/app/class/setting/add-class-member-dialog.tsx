@@ -1,5 +1,5 @@
 "use client";
-import AddPersonInClass from "@/components/form/add-person-in-class-form";
+import AddStudentInClass from "@/components/form/add-person-in-class-form";
 import AddTeacherInClassForm from "@/components/form/add-teacher-in-class-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,7 +49,7 @@ const AddMemberInClassDialog = ({ person, classId, classSubjects }: props) => {
             classId={classId}
           />
         ) : (
-          <AddPersonInClass classId={classId} />
+          <AddStudentInClass classId={classId} />
         )}
       </DialogContent>
     </Dialog>
