@@ -56,7 +56,10 @@ export const sendPeopleRequestToJoinClass = async (values: addStudentSchemaType,
     }
 };
 
-export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType, classId: string) => {
+export const sendStudentRequestToJoinClass = async (
+    values: addStudentSchemaType,
+    classId: string
+): Promise<{ success?: string; error?: string; warning?: string }> => {
     const validation = addPersonSchema.safeParse(values);
     if (!validation.success) return { error: "Invalid values" };
 
@@ -69,37 +72,39 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
 
         if (!classDetails) return { error: "Class doesn't exist" };
         if (!authResult?.user?.id) return { error: "You must have an account to send a request" };
+
         const senderId = authResult.user.id;
-        const userRequests = await Promise.all(
-            emails.map(async (item) => {
-                const existingUser = await getUserByEmail(item.text);
-                if (!existingUser || existingUser.role === "STUDENT") {
-                    return { warring: "This user does not exist or is not a student" }
-                }
-                else return { userId: existingUser.id, email: existingUser.email }
-            })
-        );
+        const userRequestsData = emails.flatMap(async (item) => {
+            const existingUser = await getUserByEmail(item.text);
+            if (existingUser?.role !== "STUDENT") return [];
 
-        const userRequestsData = userRequests.map((request) => ({
-            userId: request.userId ?? undefined,
-            email: request.email ?? undefined,
-            senderId,
-            message,
-            classId: classDetails.id,
-            type: "STUDENTJOINCLASS" as SendUserRequestType,
-            role: "STUDENT" as UserRole,
-            description: `Ask to join class **${classDetails.name}**`,
-        }));
-
-        await db.sendUserRequest.createMany({
-            data: userRequestsData,
+            return {
+                message,
+                userId: existingUser.id,
+                senderId,
+                classId: classDetails.id,
+                role: "STUDENT" as UserRole,
+                type: "STUDENTJOINCLASS" as SendUserRequestType,
+                description: `Request to join class **${classDetails.name}**`,
+            };
         });
 
-        return { success: "Requests has been sent 🍀" };
+        if (!userRequestsData.length) {
+            return { warning: "No valid students found to send requests." };
+        }
+
+        for (const requestData of userRequestsData) {
+            await db.sendUserRequest.create({ data: requestData });
+        }
+
+        return { success: "Requests have been sent 🍀" };
     } catch (error) {
-        return { error: `Failed to send request: [${error}]` };
+        return { error: `Failed to send request: ${String(error)}` };
     }
-}
+};
+
+
+
 
 export const sendTeacherRequestToJoinClass = async (
     values: addTeacherInClassSchemaType,
