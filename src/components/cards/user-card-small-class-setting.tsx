@@ -7,10 +7,7 @@ import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
 import { cn } from "@/lib/utils";
-import { CiCircleRemove } from "react-icons/ci";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
-import { AiOutlineSetting } from "react-icons/ai";
-import { Module, Teacher, User } from "../../../prisma/prisma/generated";
+import { Module, User } from "../../../prisma/prisma/generated";
 import { getSubjectById } from "@/services/data/subject-data";
 
 interface props {
