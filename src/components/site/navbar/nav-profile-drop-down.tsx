@@ -16,6 +16,7 @@ import { authUser } from "@/types/userModel";
 import { logout } from "@/utils/service/logout";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
+import { AiOutlineSetting } from "react-icons/ai";
 
 interface props {
   user: authUser;
@@ -29,7 +30,7 @@ const NavProfileDropDown = ({ user, lang }: props) => {
         <Button variant="ghost" shape="circle">
           <Avatar className=" size-10  ">
             <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
-            <AvatarFallback>{user.role}</AvatarFallback>
+            <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -37,26 +38,27 @@ const NavProfileDropDown = ({ user, lang }: props) => {
         <DropdownMenuLabel className=" flex gap-2 items-center">
           <Avatar className=" size-8  ">
             <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
-            <AvatarFallback>{user.role}</AvatarFallback>
+            <AvatarFallback>PR</AvatarFallback>
           </Avatar>
           <span className=" font-medium">{user.name}</span>
-          {user.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href={`/${lang}/profile`}>
-           <Button variant="ghost" size="sm" className=" w-full justify-start">
-           <User />
-           <span>Your Profile</span>
-           </Button>
+        <DropdownMenuItem className=" flex gap-2">
+          <Link href={`/${lang}/setting`} className=" flex gap-2 w-full">
+            <User />
+            <span>Your Profile</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className=" flex gap-2">
+          <Link href={`/${lang}/profile`} className=" flex gap-2 w-full">
+            <AiOutlineSetting />
+            <span>Setting</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Button onClick={() => logout()} type="button" variant="ghost" size="sm" className=" text-error w-full justify-start cursor-pointer">
-            <LogOut />
-            <span>Logout</span>
-          </Button>
+        <DropdownMenuItem onClick={() => logout()}>
+          <LogOut />
+          <span>Logout</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
       </DropdownMenuContent>

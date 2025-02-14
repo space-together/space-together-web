@@ -15,7 +15,7 @@ interface props {
 const ProfileHeader = ({lang , OtherUser} : props) => {
   
   return (
-    <div className=" happy-card flex flex-row justify-between items-center">
+    <div className=" my-4 flex flex-row justify-between items-center">
       <div className=" flex gap-2">
         <Avatar className=" size-32">
           <AvatarImage src="/images/2.jpg" />
