@@ -14,11 +14,11 @@ const SettingTheme = () => {
     "winter",
     "valentine",
     "synthwave",
-    "black",
-    "business",
     "forest",
-    "dark",
+    "business",
     "night",
+    "dark",
+    "black",
   ];
   return (
     <div className=" happy-card">

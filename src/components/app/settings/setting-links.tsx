@@ -1,17 +1,38 @@
-import { User } from 'lucide-react'
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import { Locale } from "@/i18n";
+import { User } from "lucide-react";
+import Link from "next/link";
+import React from "react";
+import { BsArrowRight } from "react-icons/bs";
 
-const SettingLinks = () => {
-  return (
-    <div className=' happy-card'>
-      <h2 className=' happy-title-base'>Settings</h2>
-      <div>
-        <User />
-        <span>Privacy</span>
-      </div>
-
-    </div>
-  )
+interface settingLinksProps {
+  lang: Locale;
 }
 
-export default SettingLinks
+const SettingLinks = ({ lang }: settingLinksProps) => {
+  return (
+    <div className=" happy-card space-y-4">
+      <h2 className=" happy-title-base">Settings</h2>
+      <div className=" w-full">
+        <Link href={`/${lang}/setting/privacy`}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className=" justify-between w-full group"
+          >
+            <div className=" flex gap-2 items-center">
+              <User />
+              <span>Privacy</span>
+            </div>
+            <BsArrowRight
+              size={16}
+              className=" group-hover:scale-x-125 duration-150"
+            />
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default SettingLinks;
