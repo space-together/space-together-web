@@ -8,6 +8,7 @@ import { Locale } from "@/i18n";
 import { LuMessageCircle } from "react-icons/lu";
 import { authUser } from "@/types/userModel";
 import MyImage from "@/components/my-components/myImage";
+import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
     lang : Locale
@@ -24,13 +25,12 @@ const ProfileHeader = ({lang , OtherUser, user} : props) => {
         <div className=" flex flex-col space-y-1">
           <h4 className=" text-lg font-semibold">{user.name}</h4>
           {!!user?.username &&<span className=" text-sm to-myGray">@ {user.username}</span>}
-          <span className=" text-sm font-semibold text-myGray">STUDENT</span>
+          <span className=" text-sm font-semibold text-myGray capitalize">{toLowerCase(user.role)}</span>
           <div className=" flex gap-2 items-center">
             <Avatar className=" size-6">
               <AvatarImage src="/images/19.jpg" />
               <AvatarFallback>PROFILE</AvatarFallback>
             </Avatar>
-            {/* TODO: add school link */}
             <h5 className=" text-sm link-hover">
               SOS Technical school School{" "}
             </h5>

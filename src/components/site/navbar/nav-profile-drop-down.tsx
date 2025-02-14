@@ -56,11 +56,10 @@ const NavProfileDropDown = ({ user, lang }: props) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => logout()}>
+        <DropdownMenuItem className="focus:bg-error cursor-pointer" onClick={() => logout()}>
           <LogOut />
           <span>Logout</span>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );
