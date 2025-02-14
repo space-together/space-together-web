@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
 import { RedirectContents } from "@/utils/context/redirect-content";
 import { toLowerCase } from "@/utils/functions/characters";
-import { LogOutIcon } from "lucide-react";
+import { ArrowRight, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 
 interface props {
@@ -95,7 +95,9 @@ const HomePage = async (props: props) => {
                     <div className=" flex flex-col space-y-1">
                       <div className=" flex ">
                         <span className=" text-myGray">Name :</span>
-                        <h4 className=" font-medium capitalize">{currentUser.name}</h4>
+                        <h4 className=" font-medium capitalize">
+                          {currentUser.name}
+                        </h4>
                       </div>
                       <div className=" flex ">
                         <span className=" text-myGray">email :</span>
@@ -115,6 +117,17 @@ const HomePage = async (props: props) => {
                           {toLowerCase(currentUser.role)}
                         </h4>
                       </div>
+                      <Link
+                        href={`${RedirectContents({
+                          lang,
+                          role: currentUser.role,
+                        })}`}
+                        className=" mt-3"
+                      >
+                        <Button variant="ghost" size="sm" className=" group">
+                          Visit site <ArrowRight size={14} className=" group-hover:scale-x-110 duration-150"/>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                   <form
