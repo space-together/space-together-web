@@ -5,6 +5,7 @@ import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { Locale } from "@/i18n";
 import { getUserByEmail } from "@/services/data/user";
+import { RedirectContents } from "@/utils/context/redirect-content";
 
 export const loginWithProvidesService = async (
   provide: "google" | "github",
@@ -25,11 +26,10 @@ export const loginService = async (value: loginModelTypes, lang: Locale) => {
 
   try {
     const getUser = await getUserByEmail(email);
-
     await signIn("credentials", {
       email,
       password,
-      redirectTo: getUser?.updatedAt ? `/${lang}/${getUser.role === "STUDENT" ? "class" : getUser.role === "SCHOOLSTAFF" ? "school-staff" : getUser.role === "ADMIN" ? "admin" : "teacher"}` : `/${lang}/auth/onboarding`,
+      redirectTo: getUser?.updatedAt ? RedirectContents({ lang, role: getUser.role }) : `/${lang}/auth/onboarding`,
     });
   } catch (error) {
     if (error instanceof AuthError) {
