@@ -20,7 +20,12 @@ const MainProfileLayout = async (props: props) => {
   return (
     <section>
       <div className=" px-4 space-y-4 w-full pb-4">
-        <ProfileHeader lang={lang} />
+        <ProfileHeader user={{
+          ...user,
+          name: user.name ?? "",
+          email: user.email ?? undefined,
+          image: user.image ?? undefined,
+        }} lang={lang} />
         <ProfileNavBar lang={lang}/>
       </div>
       {children}

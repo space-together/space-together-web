@@ -6,6 +6,7 @@ interface Props {
   alt?: string;
   className?: string;
   classname?: string; // consider removing this if it's redundant
+  role ?: "ICON" | "AVATAR"
 }
 
 const MyImage = ({
@@ -13,6 +14,7 @@ const MyImage = ({
   alt = "Default alt text",
   className,
   classname,
+  role
 }: Props) => {
   return (
     <div className={cn("size-32 relative w-64 h-64", className)}>
@@ -20,7 +22,7 @@ const MyImage = ({
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
         src={src}
         alt={alt}
-        className={cn("object-cover", classname)}
+        className={cn("object-cover", role === "AVATAR" && "mask mask-squircle", classname)}
         fill
         blurDataURL={`${src}?w=10&q=10`} // Low-quality blur preview
         quality={90} // Adjust quality

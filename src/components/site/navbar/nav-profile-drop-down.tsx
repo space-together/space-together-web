@@ -44,13 +44,13 @@ const NavProfileDropDown = ({ user, lang }: props) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className=" flex gap-2">
-          <Link href={`/${lang}/setting`} className=" flex gap-2 w-full">
+          <Link href={`/${lang}/profile`} className=" flex gap-2 w-full">
             <User />
             <span>Your Profile</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className=" flex gap-2">
-          <Link href={`/${lang}/profile`} className=" flex gap-2 w-full">
+          <Link href={`/${lang}/setting`} className=" flex gap-2 w-full">
             <AiOutlineSetting />
             <span>Setting</span>
           </Link>

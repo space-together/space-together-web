@@ -6,24 +6,24 @@ import { AiOutlineSetting } from "react-icons/ai";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { LuMessageCircle } from "react-icons/lu";
+import { authUser } from "@/types/userModel";
+import MyImage from "@/components/my-components/myImage";
 
 interface props {
     lang : Locale
     OtherUser ?: boolean;
+    user : authUser
 }
 
-const ProfileHeader = ({lang , OtherUser} : props) => {
+const ProfileHeader = ({lang , OtherUser, user} : props) => {
   
   return (
     <div className=" my-4 flex flex-row justify-between items-center">
-      <div className=" flex gap-2">
-        <Avatar className=" size-32">
-          <AvatarImage src="/images/2.jpg" />
-          <AvatarFallback>PROFILE</AvatarFallback>
-        </Avatar>
+      <div className=" flex gap-2 items-center">
+        <MyImage role="AVATAR" className=" size-32" src={!!user?.image ? user.image : "/images/2.jpg"}/>
         <div className=" flex flex-col space-y-1">
-          <h4 className=" text-lg font-semibold">Hakorimana Happy</h4>
-          <span className=" text-sm to-myGray">@ hakorimana__</span>
+          <h4 className=" text-lg font-semibold">{user.name}</h4>
+          {!!user?.username &&<span className=" text-sm to-myGray">@ {user.username}</span>}
           <span className=" text-sm font-semibold text-myGray">STUDENT</span>
           <div className=" flex gap-2 items-center">
             <Avatar className=" size-6">

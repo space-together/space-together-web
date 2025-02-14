@@ -84,7 +84,7 @@ const HomePage = async (props: props) => {
                     >
                       <MyImage
                         className=" size-44"
-                        classname=" mask mask-squircle "
+                        role="AVATAR"
                         src={
                           currentUser?.image ||
                           "https://img.freepik.com/free-photo/side-view-man-working-nature_23-2151205383.jpg?t=st=1735175421~exp=1735179021~hmac=d51b71c0b0332d608165e2a73a084f858fdc19c6c65d150480281a4bc0fed54a&w=1060"
