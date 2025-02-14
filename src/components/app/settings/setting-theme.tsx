@@ -22,8 +22,11 @@ const SettingTheme = () => {
   ];
   return (
     <div className=" happy-card">
-      <h2 className=" happy-title-base">Application Theme</h2>
-      <div className=" mt-2 overflow-x-auto grid grid-cols-4 gap-2 w-full max-w-auto max-w-max">
+     <div>
+     <h2 className=" happy-title-base">Application Theme</h2>
+     <p>application theme we provide change theme by click them and all application will change theme</p>
+     </div>
+      <div className=" mt-4 overflow-x-auto grid grid-cols-4 gap-2 w-full max-w-auto max-w-max ">
         {/* dark */}
         {themes.map((items) => {
           return (

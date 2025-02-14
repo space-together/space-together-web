@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import SettingHeader from "@/components/app/settings/setting-header";
+import SettingLinks from "@/components/app/settings/setting-links";
 import SettingTheme from "@/components/app/settings/setting-theme";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
@@ -24,11 +25,13 @@ const SettingPage = async (props: props) => {
           image: user.image ?? undefined,
         }}
       />
-      <div className=" w-full px-4">
+      <div className=" w-full px-4 flex space-x-4">
         <div className=" w-1/2">
           <SettingTheme />
         </div>
-        <div className=" w-1/2"></div>
+        <div className=" w-1/2">
+          <SettingLinks />
+        </div>
       </div>
     </div>
   );
