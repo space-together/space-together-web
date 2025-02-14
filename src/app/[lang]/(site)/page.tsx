@@ -16,7 +16,7 @@ const HomePage = async (props: props) => {
   const currentUser = (await auth())?.user;
   return (
     <div className=" min-h-screen p-4">
-      <nav className=" flex justify-between w-full">
+      <nav className=" flex justify-between w-full items-center">
         <SiteLogo lang={lang} />
         <div className=" flex space-x-2">
           <Link href={`/${lang}/auth/login`}>
@@ -61,7 +61,6 @@ const HomePage = async (props: props) => {
             <div className=" flex justify-center mt-4">
               {!!currentUser ? (
                 <div className=" space-y-4 flex flex-col items-center">
-                  
                   <Link
                     href={`${RedirectContents({
                       lang,
@@ -69,14 +68,13 @@ const HomePage = async (props: props) => {
                     })}`}
                   >
                     <MyImage
-                    className="size-32"
-                    classname=" mask mask-squircle "
-                    src={
-                      currentUser?.image ||
+                      classname=" mask mask-squircle "
+                      src={
+                        currentUser?.image ||
                         "https://img.freepik.com/free-photo/side-view-man-working-nature_23-2151205383.jpg?t=st=1735175421~exp=1735179021~hmac=d51b71c0b0332d608165e2a73a084f858fdc19c6c65d150480281a4bc0fed54a&w=1060"
-                    }
-                    alt="Picture of the author"
-                  />
+                      }
+                      alt="Picture of the author"
+                    />
                   </Link>
                   <form
                     action={async () => {
