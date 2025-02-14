@@ -3,12 +3,12 @@ import UseTheme from "@/context/theme/use-theme";
 import { GrLinkNext } from "react-icons/gr";
 import { usePathname } from "next/navigation";
 import MyImage from "../my-components/myImage";
-import AuthLogo from "./auth-logo";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { leftSideDictionType } from "@/locale/types/authDictionTypes";
 import React from "react";
+import SiteLogo from "../site/navbar/site-logo";
 
 interface props {
   lang: Locale;
@@ -46,7 +46,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         )}
       >
         <div className={cn(" p-2")}>
-          <AuthLogo />
+          <SiteLogo lang={lang}/>
         </div>
         <Link
           className={cn(

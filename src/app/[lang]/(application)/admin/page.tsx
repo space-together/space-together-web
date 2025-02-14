@@ -4,6 +4,7 @@ import CollectionInDatabase from "@/components/site/dashboard/collections/collec
 import HeroDashboard from "@/components/site/dashboard/hero-dashboard";
 import RequestAndMessagesDashboard from "@/components/site/dashboard/requests/request-and-messages";
 import { Locale } from "@/i18n";
+import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation";
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -17,17 +18,8 @@ const Dashboard = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   if (user.role !== "ADMIN")
-    return redirect(
-      `/${lang}/${
-        user.role === "PARENT"
-          ? "/PARENT"
-          : user.role === "STUDENT"
-          ? "/class"
-          : user.role === "TEACHER"
-          ? "/teacher"
-          : "school-staff"
-      }`
-    );
+    return redirect(`${RedirectContents({ lang, role: user.role })}`);
+
   return (
     <div className=" happy-page">
       <PageTitle title="Dashboard" />

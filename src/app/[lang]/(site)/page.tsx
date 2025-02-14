@@ -4,6 +4,8 @@ import SiteLogo from "@/components/site/navbar/site-logo";
 import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
 import { RedirectContents } from "@/utils/context/redirect-content";
+import { toLowerCase } from "@/utils/functions/characters";
+import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
 
 interface props {
@@ -17,7 +19,19 @@ const HomePage = async (props: props) => {
   return (
     <div className=" min-h-screen p-4">
       <nav className=" flex justify-between w-full items-center">
-        <SiteLogo lang={lang} />
+        <SiteLogo
+          user={
+            !!currentUser
+              ? {
+                  ...currentUser,
+                  name: currentUser.name ?? "",
+                  email: currentUser.email ?? undefined,
+                  image: currentUser.image ?? undefined,
+                }
+              : undefined
+          }
+          lang={lang}
+        />
         <div className=" flex space-x-2">
           <Link href={`/${lang}/auth/login`}>
             <Button size="sm" variant="info">
@@ -56,26 +70,53 @@ const HomePage = async (props: props) => {
             </h3>
             <p className=" text-center text-myGray">
               you can use it but when we publish your data will lost,
-              application will launched <strong>11/9/2025</strong>
+              application will launched on <strong>11/9/2025</strong>
             </p>
             <div className=" flex justify-center mt-4">
               {!!currentUser ? (
                 <div className=" space-y-4 flex flex-col items-center">
-                  <Link
-                    href={`${RedirectContents({
-                      lang,
-                      role: currentUser.role,
-                    })}`}
-                  >
-                    <MyImage
-                      classname=" mask mask-squircle "
-                      src={
-                        currentUser?.image ||
-                        "https://img.freepik.com/free-photo/side-view-man-working-nature_23-2151205383.jpg?t=st=1735175421~exp=1735179021~hmac=d51b71c0b0332d608165e2a73a084f858fdc19c6c65d150480281a4bc0fed54a&w=1060"
-                      }
-                      alt="Picture of the author"
-                    />
-                  </Link>
+                  <div className=" flex space-x-4 items-center">
+                    <Link
+                      href={`${RedirectContents({
+                        lang,
+                        role: currentUser.role,
+                      })}`}
+                    >
+                      <MyImage
+                        className=" size-44"
+                        classname=" mask mask-squircle "
+                        src={
+                          currentUser?.image ||
+                          "https://img.freepik.com/free-photo/side-view-man-working-nature_23-2151205383.jpg?t=st=1735175421~exp=1735179021~hmac=d51b71c0b0332d608165e2a73a084f858fdc19c6c65d150480281a4bc0fed54a&w=1060"
+                        }
+                        alt="Picture of the author"
+                      />
+                    </Link>
+                    <div className=" flex flex-col space-y-1">
+                      <div className=" flex ">
+                        <span className=" text-myGray">Name :</span>
+                        <h4 className=" font-medium capitalize">{currentUser.name}</h4>
+                      </div>
+                      <div className=" flex ">
+                        <span className=" text-myGray">email :</span>
+                        <h4 className=" font-medium">{currentUser.email}</h4>
+                      </div>
+                      {!!currentUser.username && (
+                        <div className=" flex ">
+                          <span className=" text-myGray">Username :</span>
+                          <h4 className=" font-medium">
+                            {currentUser.username}
+                          </h4>
+                        </div>
+                      )}
+                      <div className=" flex ">
+                        <span className=" text-myGray">User type :</span>
+                        <h4 className=" font-medium capitalize">
+                          {toLowerCase(currentUser.role)}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
                   <form
                     action={async () => {
                       "use server";
@@ -83,13 +124,13 @@ const HomePage = async (props: props) => {
                     }}
                   >
                     <Button type="submit" variant="error">
-                      Sign out
+                      <LogOutIcon /> Sign out
                     </Button>
                   </form>
                 </div>
               ) : (
                 <Link href={`/${lang}/auth/register`}>
-                  <Button variant="outline">🌼 Test application</Button>
+                  <Button variant="outline">Test application 🌼</Button>
                 </Link>
               )}
             </div>
