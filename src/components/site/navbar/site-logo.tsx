@@ -15,7 +15,7 @@ interface props {
 const SiteLogo = ({ user, lang }: props) => {
   return (
     <Link
-      href={`${user ? RedirectContents({ lang, role: user.role }) : "/"}`}
+      href={`${user ? RedirectContents({ lang, role: user.role }) : `/${lang}`}`}
       className=" flex gap-2 items-center"
     >
       <MyImage src="/logo/1.png" className=" size-10" />
