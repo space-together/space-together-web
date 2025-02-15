@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { Separator } from "../ui/separator";
+ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import MyImage from "../my-components/myImage";
 import { Locale } from "@/i18n";

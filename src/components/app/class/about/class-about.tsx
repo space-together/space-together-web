@@ -1,7 +1,6 @@
 import MyImage from "@/components/my-components/myImage";
 import { Dot } from "lucide-react";
-import React from "react";
-import { MdClass, MdOutlineSchool } from "react-icons/md";
+ import { MdClass, MdOutlineSchool } from "react-icons/md";
 
 const ClassAbout = () => {
   return (

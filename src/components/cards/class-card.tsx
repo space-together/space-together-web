@@ -1,5 +1,4 @@
-import React from "react";
-import MyImage from "../my-components/myImage";
+ import MyImage from "../my-components/myImage";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { Dot } from "lucide-react";

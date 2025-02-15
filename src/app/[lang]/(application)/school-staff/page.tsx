@@ -5,8 +5,7 @@ import StaffSchoolDashboardRequest from "@/components/app/school-staff/dashboard
 import SchoolHeader from "@/components/app/school/school-header";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-
+ 
 interface props {
   params: Promise<{ lang: Locale }>;
 }

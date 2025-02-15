@@ -1,5 +1,4 @@
-import React from "react";
-import { Locale } from "@/i18n";
+ import { Locale } from "@/i18n";
 import AsideSearch from "@/components/cards/aside-search";
 
 interface props {

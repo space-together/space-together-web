@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import React from "react";
-import ClassTimetableHeader from "./ClassTimetableHeader";
+ import ClassTimetableHeader from "./ClassTimetableHeader";
 
 // Define slot types
 type SlotType = "lesson" | "break" | "lunch";

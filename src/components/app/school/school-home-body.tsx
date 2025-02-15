@@ -1,5 +1,4 @@
-import React from "react";
-import SchoolHomePosts from "./school-home-posts";
+ import SchoolHomePosts from "./school-home-posts";
 import SchoolHomeAbout from "./school-home-about";
 import { Locale } from "@/i18n";
 import SchoolContacts from "./school-contacts";

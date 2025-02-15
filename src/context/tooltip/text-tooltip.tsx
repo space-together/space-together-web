@@ -6,8 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import UseTheme from "../theme/use-theme";
-import React from "react";
-
+ 
 interface props {
     content : string | React.ReactNode,
     trigger : string | React.ReactNode;

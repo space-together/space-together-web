@@ -1,7 +1,6 @@
 import UserCardSmall from "@/components/cards/user-card-small";
 import { Locale } from "@/i18n";
-import React from "react";
-
+ 
 interface props {
     lang: Locale
     onThePage?: boolean;

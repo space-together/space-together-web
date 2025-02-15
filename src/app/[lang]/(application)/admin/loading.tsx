@@ -1,5 +1,4 @@
-import React from "react";
-
+ 
 const page = () => {
   return (
     <div className=" w-full pr-2 mt-2">

@@ -2,8 +2,7 @@ import ClassAbout from "@/components/app/class/about/class-about";
 import ClassPeople from "@/components/app/class/about/class-people";
 import ClassHead from "@/components/app/class/classHead";
 import { Locale } from "@/i18n";
-import React from "react";
-interface Props {
+ interface Props {
   params: Promise<{ lang: Locale }>;
   
 }

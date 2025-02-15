@@ -1,5 +1,4 @@
-import React from "react";
-import TeacherCreateNoteDialog from "./teacher-add-note-dialog";
+ import TeacherCreateNoteDialog from "./teacher-add-note-dialog";
 
 const TeacherClassCreateNotes = () => {
   return (

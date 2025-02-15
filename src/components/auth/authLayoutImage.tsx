@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { leftSideDictionType } from "@/locale/types/authDictionTypes";
-import React from "react";
-import SiteLogo from "../site/navbar/site-logo";
+ import SiteLogo from "../site/navbar/site-logo";
 
 interface props {
   lang: Locale;

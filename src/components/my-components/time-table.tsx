@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import React from "react";
-import ClassTimetableHeader from "@/components/app/class/ClassTimetableHeader";
+ import ClassTimetableHeader from "@/components/app/class/ClassTimetableHeader";
 
 const timetable = {
   Monday: {

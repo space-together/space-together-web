@@ -1,8 +1,7 @@
 import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
-
+ 
 const ProfileHeaderSocialAccount = () => {
   return (
     <div className=" space-y-2">

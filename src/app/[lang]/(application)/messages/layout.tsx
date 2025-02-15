@@ -2,8 +2,7 @@ import { auth } from "@/auth";
 import MessagesAside from "@/components/app/messages/messages-aside";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-
+ 
 interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;

@@ -3,8 +3,7 @@ import SchoolHeader from "@/components/app/school/school-header";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-import SchoolHomeAbout from "@/components/app/school/school-home-about";
+ import SchoolHomeAbout from "@/components/app/school/school-home-about";
 import SchoolContacts from "@/components/app/school/school-contacts";
 import SchoolStaff from "@/components/app/school/school-staff";
 

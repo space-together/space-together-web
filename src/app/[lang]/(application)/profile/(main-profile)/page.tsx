@@ -1,7 +1,6 @@
 import ProfileBody from "@/components/app/profile/profile-body";
 import { Locale } from "@/i18n";
-import React from "react";
-
+ 
 interface Props {
   params: Promise<{ lang: Locale }>;
 }

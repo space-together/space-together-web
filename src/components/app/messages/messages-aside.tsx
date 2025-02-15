@@ -1,5 +1,4 @@
-import React from "react";
-import MessagesAsideNavbar from "./message-aside-navbar";
+ import MessagesAsideNavbar from "./message-aside-navbar";
 import MessageAsideBody from "./message-aside-body";
 import { Locale } from "@/i18n";
 // import AsideSearch from "@/components/cards/aside-search";

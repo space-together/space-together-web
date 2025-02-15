@@ -1,5 +1,4 @@
-import React from "react";
-import { Button } from "../ui/button";
+ import { Button } from "../ui/button";
 import { FaComment, FaReadme, FaRegBookmark, FaShare } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
 

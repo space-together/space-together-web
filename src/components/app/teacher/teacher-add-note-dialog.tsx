@@ -8,8 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import UseTheme from "@/context/theme/use-theme";
-import React from "react";
-import { CgNotes } from "react-icons/cg";
+ import { CgNotes } from "react-icons/cg";
 import { IoAddCircleSharp } from "react-icons/io5";
 
 interface props {

@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import ClassSettingAside from "@/components/app/class/setting/class-setting-aside";
+// import ClassSettingAside from "@/components/app/class/setting/class-setting-aside";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
@@ -24,7 +24,7 @@ export default async function ClassIdLayout(props: props) {
   if (user.role !== "ADMIN" && getClass.userId !== user.id) return <PermissionPage />
   return (
     <div className=" flex gap-4">
-      <ClassSettingAside classId={classId} lang={lang}/>
+      {/* <ClassSettingAside classId={classId} lang={lang}/> */}
       {children}
     </div>
   );

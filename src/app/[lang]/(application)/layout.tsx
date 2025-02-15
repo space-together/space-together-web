@@ -12,8 +12,7 @@ import {
   teacherSidebarGroups,
 } from "@/utils/context/app-side-content";
 import { redirect } from "next/navigation";
-import React from "react";
-interface props {
+ interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
 }

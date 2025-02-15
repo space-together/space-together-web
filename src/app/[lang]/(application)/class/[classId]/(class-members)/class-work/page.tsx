@@ -1,8 +1,7 @@
 import PostCard from "@/components/cards/post-card";
 import SearchActivities from "@/components/app/class/class-work/search-activities";
 import SelectClassActivitiesSubject from "@/components/app/class/class-work/select-class-activities-subject";
-import React from "react";
-import { Locale } from "@/i18n";
+ import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 

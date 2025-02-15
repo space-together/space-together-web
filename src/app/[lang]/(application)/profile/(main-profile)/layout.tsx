@@ -3,8 +3,7 @@ import ProfileHeader from "@/components/app/profile/profile-header";
 import ProfileNavBar from "@/components/app/profile/profile-navbar";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-interface props {
+ interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
 }

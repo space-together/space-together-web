@@ -1,6 +1,5 @@
 import CollectionPageStatic from "@/utils/static/page/collectionPageStatic";
-import React from "react";
-import CreateSubjectDialog from "./create-subject-dialog";
+ import CreateSubjectDialog from "./create-subject-dialog";
 import { getAllSubject } from "@/services/data/subject-data";
 import AllSubjectTable from "./subject-table";
 

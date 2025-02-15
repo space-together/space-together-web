@@ -12,8 +12,7 @@ import { getSubjectByClassId } from "@/services/data/subject-data";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
 import { getUserById } from "@/services/data/user";
 import { redirect } from "next/navigation";
-import React from "react";
-interface props {
+ interface props {
   params: Promise<{ lang: Locale; classId: string }>;
 }
 const ClassSettingPeoplePage = async (props: props) => {

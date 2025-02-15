@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { FaSchool } from "react-icons/fa6";
+ import { FaSchool } from "react-icons/fa6";
 import { MdOutlineSchool, MdSchool } from "react-icons/md";
 
 interface props {

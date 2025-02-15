@@ -4,8 +4,7 @@ import ConversationNavbar from "@/components/app/messages/conversation-navbar";
 import MessageFooter from "@/components/app/messages/message-footer";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-interface props {
+ interface props {
   params: Promise<{ lang: Locale }>;
 }
 

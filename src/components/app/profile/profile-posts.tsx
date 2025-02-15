@@ -1,8 +1,7 @@
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
 import Link from "next/link";
-import React from "react";
-import { FaSignsPost } from "react-icons/fa6";
+ import { FaSignsPost } from "react-icons/fa6";
 interface props {
   lang: Locale;
   onThePage?: boolean;

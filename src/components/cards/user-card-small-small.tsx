@@ -1,5 +1,4 @@
-import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const UserCardSmallSmall = () => {
   

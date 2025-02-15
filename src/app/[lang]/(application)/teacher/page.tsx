@@ -12,8 +12,7 @@ import {
   getTeacherByUserId,
 } from "@/services/data/teacher-data";
 import { redirect } from "next/navigation";
-import React from "react";
-
+ 
 interface props {
   params: Promise<{ lang: Locale }>;
 }

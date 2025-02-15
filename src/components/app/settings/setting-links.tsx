@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
 import { User } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { BsArrowRight } from "react-icons/bs";
+ import { BsArrowRight } from "react-icons/bs";
 
 interface settingLinksProps {
   lang: Locale;

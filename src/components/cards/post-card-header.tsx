@@ -1,5 +1,4 @@
-import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Link from "next/link";

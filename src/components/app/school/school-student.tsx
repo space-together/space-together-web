@@ -2,8 +2,7 @@ import UserCardSmall from "@/components/cards/user-card-small";
 import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n";
 import Link from "next/link";
-import React from "react";
-
+ 
 interface props {
   lang: Locale;
   onThePage?: boolean;

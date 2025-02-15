@@ -1,5 +1,4 @@
-import React from "react";
-import { Separator } from "@/components/ui/separator";
+ import { Separator } from "@/components/ui/separator";
 import PostCardHeader from "./post-card-header";
 import PostCardFooter from "./post-card-footer";
 import MyImage from "../my-components/myImage";

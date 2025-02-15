@@ -2,8 +2,7 @@ import { auth } from "@/auth";
 import SchoolHomeBody from "@/components/app/school/school-home-body";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-
+ 
 interface props {
   params: Promise<{ lang: Locale }>;
 }

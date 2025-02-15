@@ -5,8 +5,7 @@ import { authUser } from "@/types/userModel";
 import { toLowerCase } from "@/utils/functions/characters";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-
+ 
 interface props {
   user: authUser;
   lang: Locale;

@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 import { authUser } from "@/types/userModel";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-import { Class } from "../../../../../prisma/prisma/generated";
+ import { Class } from "../../../../../prisma/prisma/generated";
 
 interface props {
   user: authUser;
@@ -57,6 +56,16 @@ const ClassNavbar = ({ user, lang, classId, getClass }: props) => {
         )}
       >
         People
+      </Link>
+      <Link
+        href={`/${lang}/class/${classId}/subjects`}
+        className={cn(
+          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+          pathname === `/${lang}/class/${classId}/subjects` &&
+            "border-b-2 border-b-info"
+        )}
+      >
+        Subjects
       </Link>
       {(user?.role === "ADMIN" || getClass?.userId === user?.id) && (
         <Link

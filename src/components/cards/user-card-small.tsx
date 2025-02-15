@@ -1,5 +1,4 @@
-import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { toLowerCase } from "@/utils/functions/characters";
 import { Button } from "../ui/button";
 import { LuMessageCircle } from "react-icons/lu";

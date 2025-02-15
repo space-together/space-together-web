@@ -1,7 +1,6 @@
 import UserCardSmall from "@/components/cards/user-card-small";
 import { Locale } from "@/i18n";
-import React from "react";
-import { IoPeopleSharp } from "react-icons/io5";
+ import { IoPeopleSharp } from "react-icons/io5";
 
 interface props{
     lang: Locale,

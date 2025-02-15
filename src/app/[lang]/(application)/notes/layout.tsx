@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-import NotesAside from "@/components/app/notes/notes-aside";
+ import NotesAside from "@/components/app/notes/notes-aside";
 interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;

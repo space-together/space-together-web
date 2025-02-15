@@ -1,6 +1,5 @@
 import { Dot, Mail, Phone } from "lucide-react";
-import React from "react";
-import { TiContacts } from "react-icons/ti";
+ import { TiContacts } from "react-icons/ti";
 import { TbSocial } from "react-icons/tb";
 import Link from "next/link";
 import MyImage from "@/components/my-components/myImage";

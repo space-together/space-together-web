@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Locale } from "@/i18n";
 import Link from "next/link";
 import UseTheme from "@/context/theme/use-theme";

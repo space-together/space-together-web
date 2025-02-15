@@ -1,8 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Locale } from "@/i18n";
 import Link from "next/link";
-import React from "react";
-
+ 
 interface props {
   lang : Locale
 }

@@ -6,8 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
 import { redirect } from "next/navigation";
-import React from "react";
-
+ 
 interface Props {
   params: Promise<{ lang: Locale; classId: string }>;
 }
@@ -28,7 +27,7 @@ const ClassSettingPage = async ({ params }: Props) => {
     return <PermissionPage />;
 
   return (
-    <div className="py-4 w-full space-y-4">
+    <div className="p-4 w-full space-y-4 ">
       <div className="space-y-2">
         <h2 className="happy-title-head">General Settings</h2>
         <Separator />

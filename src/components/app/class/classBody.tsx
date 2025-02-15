@@ -1,5 +1,4 @@
-import React from "react";
-import CreateNewPostInClass from "./create-post-new-post-in-class";
+ import CreateNewPostInClass from "./create-post-new-post-in-class";
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
 import TeacherClassCreateNotes from "../teacher/teacher-class-create-notes";

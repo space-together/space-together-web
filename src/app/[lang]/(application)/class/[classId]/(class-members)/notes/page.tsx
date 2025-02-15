@@ -1,8 +1,7 @@
 import PostCard from "@/components/cards/post-card";
 import SearchNotesClass from "@/components/app/class/notes/search-notes-class";
 import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject";
-import React from "react";
-import { Locale } from "@/i18n";
+ import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 interface props {

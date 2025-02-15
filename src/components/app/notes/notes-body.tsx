@@ -1,5 +1,4 @@
-import React from "react";
-// TODO: make good ui for notes body
+ // TODO: make good ui for notes body
 const NotesBody = () => {
   return (
     <div className=" happy-card">

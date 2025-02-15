@@ -1,6 +1,5 @@
 import { FetchError } from "@/types/fetchErr";
-import React from "react";
-
+ 
 interface props {
   error?: FetchError;
 }

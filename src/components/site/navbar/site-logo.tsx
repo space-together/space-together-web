@@ -5,8 +5,7 @@ import { cn } from "@/lib/utils";
 import { authUser } from "@/types/userModel";
 import { RedirectContents } from "@/utils/context/redirect-content";
 import Link from "next/link";
-import React from "react";
-
+ 
 interface props {
   user?: authUser;
   lang: Locale;

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ClassTimetableHeader = () => {
   return (

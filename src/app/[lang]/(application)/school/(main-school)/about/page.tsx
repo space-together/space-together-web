@@ -4,8 +4,7 @@ import SchoolHomeAbout from "@/components/app/school/school-home-about";
 import SchoolImages from "@/components/app/school/school-images";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
-import React from "react";
-interface props {
+ interface props {
   params: Promise<{ lang: Locale }>;
 }
 

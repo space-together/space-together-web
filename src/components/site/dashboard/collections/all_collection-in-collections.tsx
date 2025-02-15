@@ -7,8 +7,7 @@ import { fetchDatabaseStatus } from "@/services/databaseStatusService";
 import { DatabaseStats } from "@/types/databaseStatus";
 import { FetchError } from "@/types/fetchErr";
 import Link from "next/link";
-import React from "react";
-import { FaArrowRight } from "react-icons/fa6";
+ import { FaArrowRight } from "react-icons/fa6";
 
 interface RoleType {
   name: string;
