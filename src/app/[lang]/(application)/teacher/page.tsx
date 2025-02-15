@@ -9,7 +9,6 @@ import {
   getClassesByTeacherId,
 } from "@/services/data/class-data";
 import {
-  getTeacherById,
   getTeacherByUserId,
 } from "@/services/data/teacher-data";
 import { redirect } from "next/navigation";

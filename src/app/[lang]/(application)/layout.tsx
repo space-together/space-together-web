@@ -51,7 +51,7 @@ export default async function ApplicationLayout(props: props) {
         otherData1={[<OtherData1 lang={"en"} key={13} />]}
         lang={lang}
       />
-      <div className=" flex flex-col">
+      <div className=" flex flex-col w-full">
         <main className=" pt-14 bg-base-200 w-full pb-4">{children}</main>
         <AppFooter lang={lang}/>
       </div>

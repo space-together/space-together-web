@@ -12,9 +12,12 @@ interface settingLinksProps {
 const SettingLinks = ({ lang }: settingLinksProps) => {
   return (
     <div className=" happy-card space-y-4">
+      <div>
       <h2 className=" happy-title-base">Settings</h2>
+      <p>Other setting for you</p>
+      </div>
       <div className=" w-full">
-        <Link href={`/${lang}/setting/privacy`}>
+        <Link href={`/${lang}/setting/profile`}>
           <Button
             variant="ghost"
             size="sm"

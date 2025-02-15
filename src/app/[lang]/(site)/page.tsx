@@ -7,6 +7,7 @@ import { RedirectContents } from "@/utils/context/redirect-content";
 import { toLowerCase } from "@/utils/functions/characters";
 import { ArrowRight, LogOutIcon } from "lucide-react";
 import Link from "next/link";
+import { BsArrowRight } from "react-icons/bs";
 
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -32,18 +33,36 @@ const HomePage = async (props: props) => {
           }
           lang={lang}
         />
-        <div className=" flex space-x-2">
-          <Link href={`/${lang}/auth/login`}>
-            <Button size="sm" variant="info">
-              Login
+        {!!currentUser ? (
+          <Link
+            href={`${RedirectContents({
+              lang,
+              role: currentUser.role,
+            })}`}
+            className=" group"
+          >
+            <Button variant="info" size="sm">
+              Go in App{" "}
+              <BsArrowRight
+                size={16}
+                className=" group-hover:scale-x-125 duration-150"
+              />
             </Button>
           </Link>
-          <Link href={`/${lang}/auth/login`}>
-            <Button variant="primary" size="sm">
-              Register
-            </Button>
-          </Link>
-        </div>
+        ) : (
+          <div className=" flex space-x-2">
+            <Link href={`/${lang}/auth/login`}>
+              <Button size="sm" variant="info">
+                Login
+              </Button>
+            </Link>
+            <Link href={`/${lang}/auth/login`}>
+              <Button variant="primary" size="sm">
+                Register
+              </Button>
+            </Link>
+          </div>
+        )}
       </nav>
       {/* body */}
       <div className=" grid place-content-center w-full h-full">
@@ -125,7 +144,11 @@ const HomePage = async (props: props) => {
                         className=" mt-3"
                       >
                         <Button variant="ghost" size="sm" className=" group">
-                          Visit site <ArrowRight size={14} className=" group-hover:scale-x-110 duration-150"/>
+                          Visit site{" "}
+                          <ArrowRight
+                            size={14}
+                            className=" group-hover:scale-x-110 duration-150"
+                          />
                         </Button>
                       </Link>
                     </div>
