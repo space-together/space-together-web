@@ -8,8 +8,6 @@ import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
 import { getTeacherByUserId } from "../data/teacher-data";
-
-
 export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
     if (!validation.success) return { error: "Invalid values" };
@@ -17,7 +15,6 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
     const { emails, message } = validation.data;
 
     try {
-        // Fetch class details and authenticate user concurrently
         const [classDetails, authResult] = await Promise.all([
             getClassById(classId),
             auth()
@@ -28,7 +25,6 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
 
         const senderId = authResult.user.id;
 
-        // Process each email concurrently
         const results = await Promise.all(
             emails.map(async (item) => {
                 const existingUser = await getUserByEmail(item.text);
@@ -50,7 +46,6 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
             })
         );
 
-        // Separate warnings from successes
         const warnings = results.filter(res => res.warning).map(res => res.warning);
         const successes = results.filter(res => res.success).map(res => res.success);
 
@@ -58,7 +53,10 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
             return { error: "No valid students found to send requests." };
         }
 
-        return { success: successes, warnings: warnings.length > 0 ? warnings : undefined };
+        return {
+            success: successes.length > 0 ? successes.join("\n ") : undefined,
+            warning: warnings.length > 0 ? warnings.join("\n ") : undefined
+        };
     } catch (error) {
         return { error: `Failed to send request: [${error}]` };
     }

@@ -37,43 +37,23 @@ export const classSchema = z.object({
     }),
 });
 
-export type classSchemaType = z.infer<typeof classSchema>;
+export type classSchemaType = z.infer<typeof classSchema>
 
-export const classUpdateNameSchema = z.object({
+export const classUpdateSchema = z.object({
   name: z
     .string()
-    .min(1, {
-      message: "Name is required",
-    })
-    .max(50, {
-      message: "Maximum character is 50",
-    }),
-});
-
-export type classUpdateNameSchemaType = z.infer<typeof classUpdateNameSchema>;
-
-export const classUpdateSymbolSchema = z.object({
+    .min(1, { message: "Name is required" })
+    .max(50, { message: "Maximum character is 50" }),
   symbol: z.string(),
-});
-
-export type classUpdateSymbolSchemaType = z.infer<
-  typeof classUpdateSymbolSchema
->;
-
-export const classUpdateUsernameSchema = z.object({
   username: z
     .string()
-    .min(1, {
-      message: "Name is required",
-    })
-    .max(50, {
-      message: "Maximum character is 50",
-    })
+    .min(1, { message: "Name is required" })
+    .max(50, { message: "Maximum character is 50" })
     .refine(
       (username) => {
         const usernameRegex = /^[a-zA-Z0-9_-]+$/;
         if (usernameRegex.test(username)) {
-          return true; // Username is valid
+          return true;
         }
 
         const invalidChars = [...username].filter(
@@ -84,28 +64,12 @@ export const classUpdateUsernameSchema = z.object({
           .filter((char) => usernameRegex.test(char))
           .join("");
 
-        if (correctedUsername) {
-          return {
-            success: false,
-            message: `Invalid username: contains disallowed characters [${invalidChars.join(
-              ""
-            )}]. Suggested username: '${correctedUsername}'.`,
-          };
-        } else {
-          return {
-            success: false,
-            message: `Invalid username: contains disallowed characters [${invalidChars.join(
-              ""
-            )}]. Please try another name.`,
-          };
-        }
+        return correctedUsername
+          ? { success: false, message: `Invalid username: contains disallowed characters [${invalidChars.join("")}]. Suggested username: '${correctedUsername}'.` }
+          : { success: false, message: `Invalid username: contains disallowed characters [${invalidChars.join("")}]. Please try another name.` };
       },
-      {
-        message: "Invalid username format",
-      }
+      { message: "Invalid username format" }
     ),
 });
 
-export type classUpdateUsernameSchemaType = z.infer<
-  typeof classUpdateUsernameSchema
->;
+export type classUpdateSchemaType = z.infer<typeof classUpdateSchema>;

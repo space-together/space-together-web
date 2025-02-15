@@ -6,15 +6,8 @@ import { generateCode, generateUsername } from "@/utils/functions/characters";
 import {
   classSchema,
   classSchemaType,
-  classUpdateNameSchema,
-  classUpdateNameSchemaType,
-  classUpdateSymbolSchema,
-  classUpdateSymbolSchemaType,
-  classUpdateUsernameSchema,
-  classUpdateUsernameSchemaType,
 } from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
-import { uploadSymbolToCloudinary } from "../cloudinary-service";
 
 export async function createClassAction(values: classSchemaType) {
   const validation = classSchema.safeParse(values);
@@ -123,78 +116,3 @@ export async function deleteClassAction(id: string) {
     return { error: `Error deleting class: [${error}]` };
   }
 }
-
-export const updateClassNameAction = async (
-  id: string,
-  value: classUpdateNameSchemaType
-) => {
-  const validation = classUpdateNameSchema.safeParse(value);
-  if (!validation.success) {
-    return { error: "Invalid values" };
-  }
-
-  const { name } = validation.data;
-
-  try {
-    const updateClass = await db.class.update({
-      where: { id },
-      data: { name },
-    });
-
-    return updateClass
-      ? { success: "Class name updated", data: updateClass }
-      : { error: "Failed to update Class" };
-  } catch (error) {
-    return { error: `Error updating class: [${error}]` };
-  }
-};
-
-export const updateClassusernameAction = async (
-  id: string,
-  value: classUpdateUsernameSchemaType
-) => {
-  const validation = classUpdateUsernameSchema.safeParse(value);
-  if (!validation.success) {
-    return { error: "Invalid values" };
-  }
-
-  const { username } = validation.data;
-  try {
-    const updateClass = await db.class.update({
-      where: { id },
-      data: { username },
-    });
-
-    return updateClass
-      ? { success: "Class username updated", data: updateClass }
-      : { error: "Failed to update Class" };
-  } catch (error) {
-    return { error: `Error updating class: [${error}]` };
-  }
-};
-
-export const updateClassSymbolAction = async (
-  id: string,
-  value: classUpdateSymbolSchemaType
-) => {
-  const validation = classUpdateSymbolSchema.safeParse(value);
-  if (!validation.success) {
-    return { error: "Invalid values" };
-  }
-
-  const { symbol } = validation.data;
-
-  const uploadSymbol = await uploadSymbolToCloudinary(symbol);
-  try {
-    const updateClass = await db.class.update({
-      where: { id },
-      data: { symbol : uploadSymbol },
-    });
-
-    return updateClass
-      ? { success: "Class symbol updated", data: updateClass }
-      : { error: "Failed to update Class" };
-  } catch (error) {
-    return { error: `Error updating class: [${error}]` };
-  }
-};

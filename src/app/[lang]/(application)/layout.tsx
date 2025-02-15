@@ -52,7 +52,7 @@ export default async function ApplicationLayout(props: props) {
         lang={lang}
       />
       <div className=" flex flex-col w-full">
-        <main className=" pt-14 bg-base-200 w-full pb-4">{children}</main>
+        <main className=" pt-14 bg-base-200 w-full pb-4 min-h-screen">{children}</main>
         <AppFooter lang={lang}/>
       </div>
     </SidebarProvider>

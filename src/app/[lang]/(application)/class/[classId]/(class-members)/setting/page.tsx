@@ -1,9 +1,7 @@
 import { auth } from "@/auth";
 import {
-  ClassSettingName,
-  ClassSettingSymbol,
-  ClassSettingUsername,
-} from "@/components/app/class/setting/class-setting-name";
+  UpdateClassForm,
+} from "@/components/form/update-class-form";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
 import { Separator } from "@/components/ui/separator";
@@ -37,9 +35,8 @@ const ClassSettingPage = async ({ params }: Props) => {
         <Separator />
       </div>
       <div className="space-y-4">
-        <ClassSettingName getClass={getClass} />
-        <ClassSettingUsername getClass={getClass} />
-        <ClassSettingSymbol getClass={getClass} />
+        <h3>public </h3>
+        <UpdateClassForm />
       </div>
       <Separator />
       <div>

@@ -29,7 +29,7 @@ export const loginService = async (value: loginModelTypes, lang: Locale) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: getUser?.updatedAt ? RedirectContents({ lang, role: getUser.role }) : `/${lang}/auth/onboarding`,
+      redirectTo: (!!getUser?.age && !!getUser.gender && !!getUser.phone) ? RedirectContents({ lang, role: getUser.role }) : `/${lang}/auth/onboarding`,
     });
   } catch (error) {
     if (error instanceof AuthError) {
