@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Class, Subject } from "../../../prisma/prisma/generated";
+import { Class, Subject, User } from "../../../prisma/prisma/generated";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { AiOutlineSetting } from "react-icons/ai";
@@ -8,12 +8,18 @@ import { CiCircleRemove } from "react-icons/ci";
 import { authUser } from "@/types/userModel";
 
 interface props {
-  subject?: Subject;
+  subject?: Subject | null;
   currentUser: authUser;
   getClass: Class;
+  teacher?: User | null;
 }
 
-const SubjectCardSmall = ({ subject, currentUser, getClass }: props) => {
+const SubjectCardSmall = ({
+  subject,
+  currentUser,
+  getClass,
+  teacher,
+}: props) => {
   return (
     <div className=" happy-card flex w-full flex-row space-x-2 items-center justify-between">
       <div className=" flex space-x-2">
@@ -30,9 +36,13 @@ const SubjectCardSmall = ({ subject, currentUser, getClass }: props) => {
             {subject?.name ? subject.name : "Kinyarwanda"}
           </h4>
           <div className=" flex space-x-2 items-center">
-            <span className=" font-medium text-sm">Hakizimana Jean</span>
-            <Avatar className=" size-12">
-              <AvatarImage src="/images/2.jpg" />
+            <span className=" font-medium text-sm">
+              {!!teacher?.name ? teacher.name : "Hakizimana Jean"}
+            </span>
+            <Avatar className=" size-8">
+              <AvatarImage
+                src={!!teacher?.image ? teacher.image : "/images/2.jpg"}
+              />
               <AvatarFallback>PR</AvatarFallback>
             </Avatar>
           </div>
@@ -55,6 +65,7 @@ const SubjectCardSmall = ({ subject, currentUser, getClass }: props) => {
           </Button>
         </div>
       )}
+      {!!teacher?.name ? "teacher": "no teacher"}
     </div>
   );
 };

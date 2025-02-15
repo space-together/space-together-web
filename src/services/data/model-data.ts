@@ -12,7 +12,7 @@ export const getModuleById = async (id: string): Promise<Module | null> => {
 
 export const getModuleByTeacherId = async (teacherId: string): Promise<Module[] | null> => {
     try {
-        const models = await db.module.findMany({ where: { teacherId }, orderBy: { createdAt: 'desc' } });
+        const models = await db.module.findMany({ where: { teacherId }, orderBy: { createdAt: 'desc' } , include : {Teacher : true , Subject : true , class : true}});
         return models;
     } catch {
         return null;
