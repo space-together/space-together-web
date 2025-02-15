@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
 import { Class } from "../../../prisma/prisma/generated";
 import { getUserById } from "@/services/data/user";
+import { Button } from "../ui/button";
 
 interface props {
   lang: Locale;
@@ -153,9 +154,10 @@ const ClassCard = async ({
         ) : (
           <Link
             href={`/${lang}/class/${myClass?.id ? myClass.id : "student"}`}
-            className={cn("btn w-full", isClassTeacher && "btn-info")}
           >
+            <Button variant={isClassTeacher ? "info" : "primary"} className=" w-full">
             Join class
+            </Button>
           </Link>
         )}
       </div>

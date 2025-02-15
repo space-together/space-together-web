@@ -21,7 +21,7 @@ const SettingLinks = ({ lang }: settingLinksProps) => {
             className=" justify-between w-full group"
           >
             <div className=" flex gap-2 items-center">
-              <User />
+              <User size={16}/>
               <span>Privacy</span>
             </div>
             <BsArrowRight

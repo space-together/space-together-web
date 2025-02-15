@@ -17,7 +17,7 @@ const MyImage = ({
   role
 }: Props) => {
   return (
-    <div className={cn("size-32 relative w-64 h-64", className)}>
+    <div className={cn("size-32 relative" , role === "ICON" && " size-4", className)}>
       <Image
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
         src={src}

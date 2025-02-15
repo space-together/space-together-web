@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import SettingHeader from "@/components/app/settings/setting-header";
+import SettingLang from "@/components/app/settings/setting-lang";
 import SettingLinks from "@/components/app/settings/setting-links";
 import SettingTheme from "@/components/app/settings/setting-theme";
 import { Locale } from "@/i18n";
@@ -29,8 +30,9 @@ const SettingPage = async (props: props) => {
         <div className=" w-1/2">
           <SettingTheme />
         </div>
-        <div className=" w-1/2">
-          <SettingLinks />
+        <div className=" w-1/2 space-y-4">
+        <SettingLang lang={lang}/>
+          <SettingLinks lang={lang}/>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ const SettingTheme = () => {
     <div className=" happy-card">
      <div>
      <h2 className=" happy-title-base">Application Theme</h2>
-     <p>application theme we provide change theme by click them and all application will change theme</p>
+     <p>Application theme we provide change theme by click them and all application will change theme</p>
      </div>
       <div className=" mt-4 overflow-x-auto grid grid-cols-4 gap-2 w-full max-w-auto max-w-max ">
         {/* dark */}
