@@ -1,7 +1,6 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { toLowerCase } from "@/utils/functions/characters";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";

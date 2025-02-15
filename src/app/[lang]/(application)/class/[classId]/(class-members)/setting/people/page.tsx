@@ -7,6 +7,7 @@ import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
 import { getClassById } from "@/services/data/class-data";
 import { getModuleByTeacherInClassId } from "@/services/data/model-data";
+import { getStudentsByClassId } from "@/services/data/student-data";
 import { getSubjectByClassId } from "@/services/data/subject-data";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
 import { getUserById } from "@/services/data/user";
@@ -28,10 +29,10 @@ const ClassSettingPeoplePage = async (props: props) => {
   if (user.role !== "ADMIN" && getClass.userId !== user.id)
     return <PermissionPage />;
 
-  const [getTeachers, classSubjects] = await Promise.all([
+  const [getTeachers, classSubjects, getStudents] = await Promise.all([
     getTeachersByClassId(classId),
     getSubjectByClassId(classId),
-    getClassById(classId),
+    getStudentsByClassId(classId),
   ]);
 
   const teacherCards = await Promise.all(
@@ -51,6 +52,21 @@ const ClassSettingPeoplePage = async (props: props) => {
       );
     })
   );
+
+  const StudentCards = await Promise.all(
+    getStudents.map(async (item) => {
+      const { user } = item;
+      return (
+        <UserCardSmallCallSetting
+          key={item.id}
+          user={user}
+          userRole="STUDENT"
+          lang={lang}
+        />
+      );
+    })
+  );
+
   return (
     <div className=" w-full space-y-4 pr-4">
       <div className=" space-y-2">
@@ -78,7 +94,7 @@ const ClassSettingPeoplePage = async (props: props) => {
                 <div className="justify-center items-center space-y-2 flex flex-col">
                   <MyImage src="/icons/teacher.png" className="size-16" />
                   <p className="font-medium text-myGray">
-                    No teachers in this class!
+                    No teachers in this class, you can add new ones!
                   </p>
                 </div>
               ) : (
@@ -88,7 +104,7 @@ const ClassSettingPeoplePage = async (props: props) => {
           </div>
         </div>
       )}
-      {!!getTeachers && (
+      {!!getStudents && (
         <div className=" mt-4">
           <div className=" w-full">
             <div className=" flex justify-between w-full items-center">
@@ -100,15 +116,15 @@ const ClassSettingPeoplePage = async (props: props) => {
               />
             </div>
             <div className="space-y-1 flex flex-col mt-2">
-              {getTeachers.length === 0 ? (
+              {StudentCards.length === 0 ? (
                 <div className="justify-center items-center space-y-1 flex flex-col">
-                  <MyImage src="/icons/teacher.png" className="size-16" />
+                  <MyImage src="/icons/student.png" className="size-16" />
                   <p className="font-medium text-myGray">
-                    No teachers in this class!
+                    No student in this class, you can add new ones!
                   </p>
                 </div>
               ) : (
-                teacherCards
+                StudentCards
               )}
             </div>
           </div>

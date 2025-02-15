@@ -122,7 +122,7 @@ const AddStudentInClass = ({ classId }: Props) => {
             </Button>
           </DialogClose>
           <Button disabled={isPending} type="submit" variant="info" size="sm">
-            Create class
+            Add new students
             {isPending && (
               <LoaderCircle
                 className="-ms-1 me-2 animate-spin"
