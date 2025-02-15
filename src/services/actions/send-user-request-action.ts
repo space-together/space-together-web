@@ -8,6 +8,7 @@ import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";
 import { getTeacherByUserId } from "../data/teacher-data";
+
 export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType, classId: string) => {
     const validation = addPersonSchema.safeParse(values);
     if (!validation.success) return { error: "Invalid values" };
@@ -55,7 +56,7 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
 
         return {
             success: successes.length > 0 ? successes.join("\n ") : undefined,
-            warning: warnings.length > 0 ? warnings.join("\n ") : undefined
+            warning: warnings.length > 0 ? warnings.join("\n") : undefined
         };
     } catch (error) {
         return { error: `Failed to send request: [${error}]` };
@@ -86,17 +87,6 @@ export const sendTeacherRequestToJoinClass = async (
         if (!getUser || getUser.role !== "TEACHER") return { warring: "This user does not exist or is not a teacher" };
 
         const senderId = authResult.user.id;
-
-        // // Check if there are existing requests in parallel
-        // const [getRequestUser, getRequestClass, getModel] = await Promise.all([
-        //     getSendUserRequestByUserId(getUser.id),
-        //     getSendUserRequestByClassId(getUser.id),
-        //     getModuleByUserId(getUser.id)
-        // ]);
-
-        // if (!!getRequestClass && !!getRequestUser && !!getModel) {
-        //     return { warning: `You have already send request **${getUser.name}** to join **${classDetails.name}** on 😥` };
-        // }
 
         const getTeacher = await getTeacherByUserId(getUser.id);
         // Batch insert subjects using Promise.all

@@ -61,7 +61,7 @@ const AddStudentInClass = ({ classId }: Props) => {
           name="emails"
           render={() => (
             <FormItem>
-              <FormLabel htmlFor={id}>Add teachers emails</FormLabel>
+              <FormLabel htmlFor={id}>Students emails</FormLabel>
               <FormControl>
                 <Controller
                   control={form.control}
