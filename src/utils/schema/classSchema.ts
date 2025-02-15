@@ -45,6 +45,14 @@ export const classUpdateSchema = z.object({
     .min(1, { message: "Name is required" })
     .max(50, { message: "Maximum character is 50" }),
   symbol: z.string(),
+  description: z
+    .string()
+    .min(1, {
+      message: "Description  is required",
+    })
+    .max(200, {
+      message: "Maximum character is 200",
+    }),
   username: z
     .string()
     .min(1, { message: "Name is required" })

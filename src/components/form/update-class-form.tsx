@@ -19,13 +19,27 @@ import {
 import { useDropzone } from "react-dropzone";
 import MyImage from "../my-components/myImage";
 import { Textarea } from "../ui/textarea";
+import { Class } from "../../../prisma/prisma/generated";
+import { updateClassAction } from "@/services/actions/class-action";
+import { handleFormSubmission } from "@/hooks/form-notification";
+import { LoaderCircle } from "lucide-react";
 
-export const UpdateClassForm = () => {
+interface props {
+  currentClass: Class;
+  classId: string;
+}
+
+export const UpdateClassForm = ({ currentClass, classId }: props) => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const form = useForm<classUpdateSchemaType>({
     resolver: zodResolver(classUpdateSchema),
-    defaultValues: { name: "", symbol: "", username: "" },
+    defaultValues: {
+      name: currentClass.name ? currentClass.name : "",
+      symbol: currentClass.symbol ? currentClass.symbol : "",
+      username: currentClass.username ? currentClass.username : "",
+      description: currentClass.description ? currentClass.description : "",
+    },
   });
 
   const onDrop = (acceptedFiles: File[]) => {
@@ -50,12 +64,18 @@ export const UpdateClassForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getInputProps } = useDropzone({
     onDrop,
-    // accept: 'image/*',
+    // accept: "image/*",
     maxFiles: 1,
   });
-  const onSubmit = (values: classUpdateSchemaType) => {};
+  const onSubmit = (values: classUpdateSchemaType) => {
+    setError("");
+    handleFormSubmission(
+      () => updateClassAction(values, classId),
+      startTransition
+    );
+  };
 
   return (
     <Form {...form}>
@@ -98,7 +118,7 @@ export const UpdateClassForm = () => {
             />
             <FormField
               control={form.control}
-              name="username"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
@@ -152,6 +172,14 @@ export const UpdateClassForm = () => {
         </div>
         <Button type="submit" variant="info" disabled={isPending}>
           Update class
+          {isPending && (
+            <LoaderCircle
+              className="-ms-1 me-2 animate-spin"
+              size={12}
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+          )}
         </Button>
       </form>
     </Form>

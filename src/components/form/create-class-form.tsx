@@ -18,12 +18,13 @@ import { Button } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
 import { FormMessageError, FormMessageSuccess } from "./formError";
 import { createClassAction } from "@/services/actions/class-action";
+import { handleFormSubmission } from "@/hooks/form-notification";
 
 const CreateClassForm = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
-  
+
   const form = useForm<classSchemaType>({
     resolver: zodResolver(classSchema),
     defaultValues: {
@@ -43,15 +44,7 @@ const CreateClassForm = () => {
     setError("");
     setSuccess("");
     startTransition(async () => {
-      const action = await createClassAction(values);
-      if ((action).error) {
-        setError((action).error ?? "");
-      }
-
-      if ((action).success) {
-        setSuccess((action).success ?? "");
-        form.reset();
-      }
+      handleFormSubmission(() => createClassAction(values), startTransition);
     });
   };
   return (

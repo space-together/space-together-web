@@ -1,7 +1,5 @@
 import { auth } from "@/auth";
-import {
-  UpdateClassForm,
-} from "@/components/form/update-class-form";
+import { UpdateClassForm } from "@/components/form/update-class-form";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
 import { Separator } from "@/components/ui/separator";
@@ -24,9 +22,10 @@ const ClassSettingPage = async ({ params }: Props) => {
   }
 
   const getClass = await getClassById(classId);
-  
+
   if (!getClass) return <NotFoundPage />;
-  if (user.role !== "ADMIN" && getClass.userId !== user.id) return <PermissionPage />
+  if (user.role !== "ADMIN" && getClass.userId !== user.id)
+    return <PermissionPage />;
 
   return (
     <div className="py-4 w-full space-y-4">
@@ -35,8 +34,8 @@ const ClassSettingPage = async ({ params }: Props) => {
         <Separator />
       </div>
       <div className="space-y-4">
-        <h3>public </h3>
-        <UpdateClassForm />
+        <h3 className=" happy-title-base">Public </h3>
+        <UpdateClassForm  classId={classId} currentClass={getClass}/>
       </div>
       <Separator />
       <div>

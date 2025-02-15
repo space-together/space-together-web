@@ -6,8 +6,11 @@ import { generateCode, generateUsername } from "@/utils/functions/characters";
 import {
   classSchema,
   classSchemaType,
+  classUpdateSchema,
+  classUpdateSchemaType,
 } from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
+import { uploadSymbolToCloudinary } from "../cloudinary-service";
 
 export async function createClassAction(values: classSchemaType) {
   const validation = classSchema.safeParse(values);
@@ -57,25 +60,16 @@ export async function createClassAction(values: classSchemaType) {
   }
 }
 
-export async function updateClassAction(id: string, values: classSchemaType) {
-  const validation = classSchema.safeParse(values);
+export async function updateClassAction(values: classUpdateSchemaType, id: string) {
+  const validation = classUpdateSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid values" };
   }
 
-  const { name, username, description, sector, trade, class_room, class_type } =
-    validation.data as {
-      name: string;
-      username: string;
-      description: string;
-      sector: string;
-      trade: string;
-      class_room: string;
-      class_type: ClassType;
-      class_teacher: string;
-    };
+  const { name, username, description, symbol } = validation.data;
 
   try {
+    const cloudinary = await uploadSymbolToCloudinary(symbol);
     const user = (await auth())?.user;
     if (!user?.id) {
       return { error: "To create class you must me login" };
@@ -87,11 +81,7 @@ export async function updateClassAction(id: string, values: classSchemaType) {
         name,
         username,
         description,
-        sectorId: sector,
-        classRoomId: class_room,
-        tradeId: trade,
-        classType: class_type,
-        userId: user.id,
+        symbol: cloudinary,
       },
     });
 
