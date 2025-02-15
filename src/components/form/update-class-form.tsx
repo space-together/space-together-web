@@ -75,6 +75,7 @@ export const UpdateClassForm = ({ currentClass, classId }: props) => {
       () => updateClassAction(values, classId),
       startTransition
     );
+    console.log(values)
   };
 
   return (
