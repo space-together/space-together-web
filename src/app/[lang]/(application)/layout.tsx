@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import OtherData1 from "@/components/site/navbar/app-aside-other-data1";
+import AppFooter from "@/components/site/navbar/app-fotter";
 import AppNavbar from "@/components/site/navbar/app-navbar";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -37,20 +38,23 @@ export default async function ApplicationLayout(props: props) {
         }}
         lang={lang}
       />
-        <AppSidebar
-          items={
-            user.role === "STUDENT"
-              ? studentSidebarGroups
-              : user.role === "SCHOOLSTAFF"
-              ? schoolStaffSidebarGroups
-              : user.role === "ADMIN"
-              ? adminSidebarGroups
-              : teacherSidebarGroups
-          }
-          otherData1={[<OtherData1 lang={"en"} key={13}/>]}
-          lang={lang}
-        />
-        <main className=" pt-14 bg-base-200 w-full">{children}</main>
+      <AppSidebar
+        items={
+          user.role === "STUDENT"
+            ? studentSidebarGroups
+            : user.role === "SCHOOLSTAFF"
+            ? schoolStaffSidebarGroups
+            : user.role === "ADMIN"
+            ? adminSidebarGroups
+            : teacherSidebarGroups
+        }
+        otherData1={[<OtherData1 lang={"en"} key={13} />]}
+        lang={lang}
+      />
+      <div className=" flex flex-col">
+        <main className=" pt-14 bg-base-200 w-full pb-4">{children}</main>
+        <AppFooter lang={lang}/>
+      </div>
     </SidebarProvider>
   );
 }
