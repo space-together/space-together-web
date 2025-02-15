@@ -7,6 +7,7 @@ import { getSendUserRequestByUserId } from "@/services/data/send-user-request-da
 import { getUserById } from "@/services/data/user";
 import { redirect } from "next/navigation";
 import { Class } from "../../../../../prisma/prisma/generated";
+import NotFoundItemsPage from "@/components/page/not-found-items-page";
 
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -23,32 +24,35 @@ const NotificationsPage = async (props: props) => {
   return (
     <div className=" happy-page">
       <h2 className=" happy-title-head">Notifications</h2>
-     <div className=" space-y-2">
-     {getRequestNotifications &&
-        getRequestNotifications.map(async (item) => {
-          const getSender = await getUserById(item.senderId);
-          if (!getSender) return <NotificationCardError key={item.id}/>
-          let getClass:Class| null = null;
-          if(!!item.classId) {
-            getClass = await getClassById(item.classId);
-          }
-          return (
-            <NotificationCard
-            sender={getSender}
-            key={item.id}
-              user={{
-                ...user,
-                name: user.name ?? "",
-                email: user.email ?? undefined,
-                image: user.image ?? undefined,
-              }}
-              getClass= {getClass}
-              notification={item}
-              lang={lang}
-            />
-          );
-        })}
-     </div>
+      <div className=" space-y-2">
+        {!getRequestNotifications || getRequestNotifications.length === 0 ? (
+          <NotFoundItemsPage description={"No notifications available"} />
+        ) : (
+          getRequestNotifications.map(async (item) => {
+            const getSender = await getUserById(item.senderId);
+            if (!getSender) return <NotificationCardError key={item.id} />;
+            let getClass: Class | null = null;
+            if (!!item.classId) {
+              getClass = await getClassById(item.classId);
+            }
+            return (
+              <NotificationCard
+                sender={getSender}
+                key={item.id}
+                user={{
+                  ...user,
+                  name: user.name ?? "",
+                  email: user.email ?? undefined,
+                  image: user.image ?? undefined,
+                }}
+                getClass={getClass}
+                notification={item}
+                lang={lang}
+              />
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

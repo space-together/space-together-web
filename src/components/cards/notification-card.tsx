@@ -14,6 +14,7 @@ import {
 } from "@/services/actions/send-user-request-action";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { LoaderCircle } from "lucide-react";
+import { formatDistanceToNowStrict } from "date-fns";
 
 interface props {
   lang: Locale;
@@ -76,7 +77,11 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
             </div>
           </Link>
           <div className=" flex items-center">
-            <span className=" font-medium text-myGray capitalize">Sender</span>
+            <span className=" font-medium text-myGray capitalize">
+              {(notification.type === "STUDENTJOINCLASS" ||
+                notification.type === "TEACHERjOINCLASS") &&
+                "Join class"}
+            </span>
           </div>
         </div>
       </div>
@@ -92,15 +97,14 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
           <h5 className=" font-medium ">
             {getClass?.name ? getClass.name : "Class Name"}
           </h5>
-          <span className=" text-myGray text-sm font-medium capitalize">
-            {notification.type || "ask to join class"}
-          </span>
         </div>
-        <p>{notification.description}</p>
+        <p>{notification.message}</p>
       </div>
       <div>
         <div className=" flex flex-col space-y-2">
-          {!notification.accept ? (
+          {(notification.type === "TEACHERjOINCLASS" ||
+            notification.type === "STUDENTJOINCLASS") &&
+          !notification.accept ? (
             <Button
               disabled={isPending}
               onClick={() => acceptNotification()}
@@ -135,7 +139,7 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
             </Button>
           )}
           <span className=" text-sm font-medium text-myGray">
-            {new Date(notification.createdAt).toLocaleDateString()}
+            {formatDistanceToNowStrict(new Date(notification.createdAt))} ago
           </span>
         </div>
       </div>
