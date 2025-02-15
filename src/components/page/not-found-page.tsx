@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import MyImage from "../my-components/myImage";
 import { Button } from "../ui/button";
 import { RefreshCcw } from "lucide-react";
