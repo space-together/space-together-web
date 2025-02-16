@@ -7,8 +7,8 @@ export async function getStudentById(studentId: string) {
     });
 }
 
-export async function getStudentByUserId(userId: string) {
-    return await db.student.findFirst({
+export async function getStudentsByUserId(userId: string) {
+    return await db.student.findMany({
         where: { userId },
         include: { user: true, class: true },
     });

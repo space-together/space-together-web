@@ -4,16 +4,14 @@ import UserTooltip from "@/context/tooltip/user-tooltip";
 import { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 import { Class } from "../../../../prisma/prisma/generated";
-import { authUser } from "@/types/userModel";
 import { getUserById } from "@/services/data/user";
 
 interface Props {
   lang: Locale;
   myClass?: Class;
-  user?: authUser;
 }
 
-const ClassHead = async ({ lang, myClass, user }: Props) => {
+const ClassHead = async ({ lang, myClass }: Props) => {
   // Fetch user data if myClass.userId exists
   const getUser = myClass?.userId ? await getUserById(myClass.userId) : null;
 
@@ -53,7 +51,7 @@ const ClassHead = async ({ lang, myClass, user }: Props) => {
                   </Avatar>
                 }
               />
-              <span className="pl-3">{user?.name || "Hakizimana Doe"}</span>
+              <span className="pl-3">{getUser?.name|| "Hakizimana Doe"}</span>
               {/* <span className="pl-4 text-myGray">CT</span> */}
             </div>
           </div>

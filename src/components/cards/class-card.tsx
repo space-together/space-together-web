@@ -16,7 +16,7 @@ interface props {
   isSchool?: boolean;
   isOther?: boolean; // others users which are not in class
   isStudent?: boolean;
-  myClass?: Class;
+  myClass?: Class | null;
 }
 
 const ClassCard = async ({
