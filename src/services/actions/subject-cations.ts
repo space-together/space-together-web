@@ -25,7 +25,7 @@ export const createSubjectAction = async (values: subjectSchemaType, classId?: s
       data: {
         name,
         code,
-        classId: classId,
+        classId,
         symbol: uploadSymbol ? uploadSymbol : undefined,
         learningHours: Number(learningHours),
         purpose,
