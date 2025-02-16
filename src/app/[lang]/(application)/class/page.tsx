@@ -20,17 +20,13 @@ const ClassIdPage = async (props: Props) => {
     return <PermissionPage />;
   }
 
-
-  const getStudents = await getStudentsByUserId(currentUser.id)
-
-    const classCards = await Promise.all(
-      getStudents.map((student) => {
-        const { class: myClass } = student;
-        return (
-          <ClassCard  key={student.id} lang={lang} myClass={myClass} />
-        )
-      })
-    )
+  const getStudents = await getStudentsByUserId(currentUser.id);
+  const classCards = await Promise.all(
+    getStudents.map((student) => {
+      const { class: myClass } = student;
+      return <ClassCard key={student.id} lang={lang} myClass={myClass} />;
+    })
+  );
   return (
     <div className="py-4 space-y-4 px-4">
       {/* <div className=" space-y-2">
@@ -44,15 +40,19 @@ const ClassIdPage = async (props: Props) => {
           <SchoolCard isStudent lang={lang} />
         </div>
       </div> */}
-      {!!getStudents && (<div className=" space-y-2">
-        <div className=" space-x-1 flex items-center">
-          <MdClass />
-          <h2 className=" font-semibold">Classes</h2>
+      {!!getStudents && (
+        <div className=" space-y-2">
+          <div className=" space-x-1 flex items-center">
+            <MdClass />
+            <h2 className=" font-semibold">Classes</h2>
+          </div>
+          {getStudents.length === 0 ? (
+            <div> no class you have</div>
+          ) : (
+            <div className=" grid grid-cols-3 gap-4">{classCards}</div>
+          )}
         </div>
-        {getStudents.length === 0 ? <div> no class you have</div> : (<div className=" grid grid-cols-3 gap-4">
-          {classCards}
-        </div>)}
-      </div>)}
+      )}
     </div>
   );
 };

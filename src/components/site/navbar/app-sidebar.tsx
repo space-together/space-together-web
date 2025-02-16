@@ -100,7 +100,7 @@ const SidebarGroupComponent = ({
                         )}
                       </AccordionTrigger>
                       <AccordionContent>
-                        <SidebarMenuSub>{otherData1}</SidebarMenuSub>
+                        <SidebarMenuSub className=" gap-0">{otherData1}</SidebarMenuSub>
                       </AccordionContent>
                     </SidebarMenuItem>
                   </AccordionItem>

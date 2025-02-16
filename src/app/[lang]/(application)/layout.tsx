@@ -5,6 +5,7 @@ import AppNavbar from "@/components/site/navbar/app-navbar";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
+import { getStudentsByUserId } from "@/services/data/student-data";
 import {
   adminSidebarGroups,
   schoolStaffSidebarGroups,
@@ -21,33 +22,39 @@ export default async function ApplicationLayout(props: props) {
   const params = await props.params;
   const { lang } = params;
   const { children } = props;
-  const user = (await auth())?.user;
-  if (!user) {
+  const currentUser = (await auth())?.user;
+  if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }
-
+  const getStudents = await getStudentsByUserId(currentUser.id);
+  const classCards = await Promise.all(
+    getStudents.map((student) => {
+      const { class: userClass } = student;
+      return <OtherData1 userClass={userClass} lang={lang} key={student.id} />;
+    })
+  );
   return (
     <SidebarProvider className="">
       <AppNavbar
         user={{
-          ...user,
-          name: user.name ?? "",
-          email: user.email ?? undefined,
-          image: user.image ?? undefined,
+          ...currentUser,
+          name: currentUser.name ?? "",
+          email: currentUser.email ?? undefined,
+          image: currentUser.image ?? undefined,
         }}
         lang={lang}
       />
       <AppSidebar
         items={
-          user.role === "STUDENT"
+          currentUser.role === "STUDENT"
             ? studentSidebarGroups
-            : user.role === "SCHOOLSTAFF"
+            : currentUser.role === "SCHOOLSTAFF"
             ? schoolStaffSidebarGroups
-            : user.role === "ADMIN"
+            : currentUser.role === "ADMIN"
             ? adminSidebarGroups
             : teacherSidebarGroups
         }
-        otherData1={[<OtherData1 lang={"en"} key={13} />]}
+        otherData1={[classCards]}
         lang={lang}
       />
       <div className=" flex flex-col w-full">
