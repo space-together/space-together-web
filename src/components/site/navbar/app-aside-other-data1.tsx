@@ -11,21 +11,23 @@ interface props {
 
 const OtherData1 = ({ lang, userClass }: props) => {
   return (
-    <SidebarMenuSubItem className=" flex line-clamp-1 w-full">
-      <Link
-        href={`/${lang}/class/${userClass?.id ? userClass.id : "student"}`}
-        className=" flex btn btn-ghost btn-sm mb-1 justify-start items-center w-full"
-      >
-        <Avatar className=" size-6 space-x-2">
-          <AvatarImage
-            src={userClass?.symbol ? userClass.symbol : "/images/1.jpg"}
-          />
-          <AvatarFallback>PR</AvatarFallback>
-        </Avatar>
-        <span className=" font-medium text-sm">
-          {userClass?.name ? userClass.name : "Class names"}
-        </span>
-      </Link>
+    <SidebarMenuSubItem className=" flex w-full">
+        <Link
+          href={`/${lang}/class/${userClass?.id ? userClass.id : "student"}`}
+          className="items-center mb-1 btn btn-sm btn-ghost justify-start w-full flex-row"
+        >
+          <div  className=" flex gap-2  text-start">
+          <Avatar className=" size-6">
+            <AvatarImage
+              src={userClass?.symbol ? userClass.symbol : "/images/1.jpg"}
+            />
+            <AvatarFallback>PR</AvatarFallback>
+          </Avatar>
+          <span className=" font-medium text-sm text-start line-clamp-1">
+            {userClass?.name ? userClass.name : "Class names"}
+          </span>
+          </div>
+        </Link>
     </SidebarMenuSubItem>
   );
 };
