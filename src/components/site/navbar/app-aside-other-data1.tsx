@@ -1,8 +1,12 @@
+"use client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
 import Link from "next/link";
 import { Class } from "../../../../prisma/prisma/generated";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import UseTheme from "@/context/theme/use-theme";
 
 interface props {
   lang: Locale;
@@ -10,11 +14,19 @@ interface props {
 }
 
 const OtherData1 = ({ lang, userClass }: props) => {
+  const pathname = usePathname();
+  const theme = UseTheme();
   return (
     <SidebarMenuSubItem className=" flex w-full">
         <Link
           href={`/${lang}/class/${userClass?.id ? userClass.id : "student"}`}
-          className="items-center mb-1 btn btn-sm btn-ghost justify-start w-full flex-row"
+          className={cn(
+            "items-center mb-1 btn btn-sm btn-ghost justify-start w-full flex-row",
+            pathname === `/${lang}/class/${userClass?.id ? userClass.id : "student"}` &&
+              `bg-base-300 ${
+                theme === "dark" && "bg-white/10"
+              }`
+          )}
         >
           <div  className=" flex gap-2  text-start">
           <Avatar className=" size-6">
