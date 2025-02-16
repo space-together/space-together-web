@@ -20,7 +20,7 @@ const CreateClassDialog = ({ isOpen, haveClass }: props) => {
   return (
     <Dialog open={isOpen}>
       <DialogTrigger asChild>
-        <Button  size={haveClass ? "sm" : "md"} variant={haveClass ? "ghost":"info"}>
+        <Button  size={haveClass ? "sm" : "md"} variant={haveClass ? "outline":"info"}>
           <Plus /> Create Class
         </Button>
       </DialogTrigger>

@@ -178,42 +178,32 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
             }
         } else if (request.type === "STUDENTJOINCLASS") {
             let student = await db.student.findFirst({
-                where: { userId: request.userId }
+                where: { userId: request.userId, classId: request.classId }
             });
 
-            // Step 1: Create Student if not exists
             if (!student) {
+                // Create a new student entry for this class
                 student = await db.student.create({
                     data: {
                         userId: request.userId,
                         classId: request.classId,
                     }
                 });
-            } else {
-                // Update the class if the student already exists but classId is different
-                if (request.classId && student.classId !== request.classId) {
-                    await db.student.update({
-                        where: { id: student.id },
-                        data: { classId: request.classId }
-                    });
-                }
             }
 
-            // Step 2: Add Student to Class if not already added
+            // Ensure student is added to the class
             if (request.classId) {
                 const classData = await db.class.findUnique({
                     where: { id: request.classId },
-                    select: { students: true } // students is string[]
+                    select: { students: true }
                 });
 
-                const studentIds: string[] = classData?.students || [];
-
-                if (!studentIds.includes(student.id)) {
+                if (classData && !classData.students.includes(student.id)) {
                     await db.class.update({
                         where: { id: request.classId },
                         data: {
                             students: {
-                                set: [...studentIds, student.id] // Merge existing and new student IDs
+                                set: [...classData.students, student.id]
                             }
                         }
                     });
