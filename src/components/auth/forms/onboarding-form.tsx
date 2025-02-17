@@ -25,14 +25,14 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
 import { authUser } from "@/utils/models/userModel";
-import { ChangeEvent, useState, useTransition, forwardRef } from "react";
+import { ChangeEvent, useState, useTransition } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Button } from "@/components/ui/button";
 import MyImage from "@/components/my-components/myImage";
 import { cn } from "@/lib/utils";
 import { getLocalTimeZone, today, toZoned } from "@internationalized/date";
-import { CalendarIcon, ChevronLeft, ChevronRight, Phone } from "lucide-react";
+import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Button as ButtonDate,
   Calendar,
@@ -49,17 +49,18 @@ import {
   Heading,
   Popover,
 } from "react-aria-components";
-import flags from "react-phone-number-input/flags";
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
-// import IsStudentDialog from "../dialog/isStudentDialog";
 import { Locale } from "@/i18n";
-// import IsTeacherDialog from "../dialog/isTeacherDialog";
-// import IsSchoolStaffDialog from "../dialog/isSchoolStaffDialog";
 import { onboardingAction } from "@/services/actions/auth/onboarding-action";
 import { useRouter } from "next/navigation";
 import { toLowerCase } from "@/utils/functions/characters";
 import { userRoleContext } from "@/utils/context/user-context";
+import {
+  CountrySelect,
+  FlagComponent,
+  PhoneInput,
+} from "@/components/form/component-form-need";
 
 interface Props {
   dictionary: authOnboardingFormDiction;
@@ -213,7 +214,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                     render={({ field }) => (
                       <RPNInput.default
                         {...field}
-                        className="flex rounded-lg shadow-sm shadow-black/5 w-80"
+                        className="flex rounded-lg w-96 border-l-0"
                         international
                         flagComponent={FlagComponent}
                         countrySelectComponent={CountrySelect}
@@ -367,9 +368,13 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                     </FormControl>
                     <SelectContent data-theme={UseTheme()}>
                       {userRoleContext.map((item) => {
-                        const role = toLowerCase(item)
+                        const role = toLowerCase(item);
                         return (
-                          <SelectItem className=" capitalize" key={role} value={item}>
+                          <SelectItem
+                            className=" capitalize"
+                            key={role}
+                            value={item}
+                          >
                             {role}
                           </SelectItem>
                         );
@@ -436,95 +441,9 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
         >
           {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
         </Button>
-        {/* <IsStudentDialog
-          lang={lang}
-          isOpen={userRole === "Student" && user?.id ? true : false}
-          userId={user?.id ? user.id : ""}
-        />
-        <IsTeacherDialog
-          lang={lang}
-          isOpen={userRole === "Teacher" && user?.id ? true : false}
-          userId={user?.id ? user.id : ""}
-        />
-        <IsSchoolStaffDialog
-          lang={lang}
-          isOpen={userRole === "School Staff" && user?.id ? true : false}
-          userId={user?.id ? user.id : ""}
-        /> */}
       </form>
     </Form>
   );
 };
 
 export default OnboardingForm;
-
-const PhoneInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, ...props }, ref) => {
-    return (
-      <Input
-        className={cn(
-          "-ms-px rounded-s-none shadow-none focus-visible:z-10",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-
-PhoneInput.displayName = "PhoneInput";
-
-type CountrySelectProps = {
-  disabled?: boolean;
-  value: RPNInput.Country;
-  onChange: (value: RPNInput.Country) => void;
-  options: { label: string; value: RPNInput.Country | undefined }[];
-};
-
-const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
-  return (
-    <Select
-      value={value}
-      onValueChange={(v) => onChange(v as RPNInput.Country)}
-    >
-      <SelectTrigger
-        data-tip={
-          value
-            ? options.find((o) => o.value === value)?.label
-            : "Select a country"
-        }
-        className="flex items-center gap-2 w-20 ring-0 focus:ring-0 tooltip border-0"
-      >
-        <FlagComponent country={value} countryName={value} />
-        <span className=" sr-only">
-          {value
-            ? options.find((o) => o.value === value)?.label
-            : "Select a country"}
-        </span>
-      </SelectTrigger>
-      <SelectContent data-theme={UseTheme()}>
-        {options.map((option, index) => (
-          <SelectItem key={index} value={option.value || "default"}>
-            {option.label}{" "}
-            {option.value && `+${RPNInput.getCountryCallingCode(option.value)}`}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-};
-
-const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
-  const Flag = flags[country];
-
-  return (
-    <span className="w-5 overflow-hidden rounded-sm">
-      {Flag ? (
-        <Flag title={countryName} />
-      ) : (
-        <Phone size={16} aria-hidden="true" />
-      )}
-    </span>
-  );
-};

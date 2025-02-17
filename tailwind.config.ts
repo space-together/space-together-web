@@ -136,7 +136,7 @@ const config: Config = {
           "@apply bg-base-100 card p-4 border border-base-300": {},
         },
         ".happy-line": {
-          "@apply flex flex-col gap-4": {},
+          "@apply flex flex-col space-y-2": {},
         },
         ".happy-title-base": {
           "@apply font-semibold text-lg": {},
