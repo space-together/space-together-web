@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import SettingPrivacyBody from '@/components/app/settings/profile/setting-privacy-body';
 import UserUserDataForm from '@/components/form/update-user-data-form';
 import { Separator } from '@/components/ui/separator';
 import { Locale } from '@/i18n';
@@ -20,6 +21,11 @@ const SettingProfilePage = async (props: props) => {
       <div>
         <h2 className=' happy-title-base'>General setting</h2>
         <UserUserDataForm />
+      </div>
+      <Separator />
+      <div>
+        <h2 className=' happy-title-base'>Privacy</h2>
+        <SettingPrivacyBody />
       </div>
     </div>
   )

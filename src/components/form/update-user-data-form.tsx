@@ -12,6 +12,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -128,6 +129,10 @@ const UserUserDataForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
+                  <FormDescription>
+                    your full which your parent give your or written on your
+                    national ID.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -148,6 +153,9 @@ const UserUserDataForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
+                  <FormDescription>
+                    username name which is unique from other usernames, which like on instagram.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -270,6 +278,9 @@ const UserUserDataForm = () => {
                       )}
                     />
                   </FormControl>
+                  <FormDescription>
+                    Your age you have now, it help if you ask to join school if your age is allowed.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -299,11 +310,14 @@ const UserUserDataForm = () => {
                       )}
                     />
                   </FormControl>
+                  <FormDescription>
+                    your phone number we can use to communicate with you.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-             <FormField
+            <FormField
               name="bio"
               control={form.control}
               render={({ field }) => (
@@ -318,6 +332,9 @@ const UserUserDataForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
+                  <FormDescription>
+                    Explain your self what you like, which game ⚽ you like or other things about you.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -353,6 +370,9 @@ const UserUserDataForm = () => {
                     </div>
                   </FormLabel>
                   {error && <p className="text-sm text-error">{error}</p>}
+                  <FormDescription>
+                    Your image for you please you image for you because it help other to know you.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

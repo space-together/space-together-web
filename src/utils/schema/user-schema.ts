@@ -94,3 +94,9 @@ export const updateUserDataSchema = z.object({
 })
 
 export type updateUserDataSchemaType = z.infer<typeof updateUserDataSchema>
+
+export const updateUserEmailSchema = z.object({
+  email : z.string().email()
+})
+
+export type updateUserEmailSchemaType = z.infer<typeof updateUserEmailSchema>
