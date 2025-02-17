@@ -7,7 +7,7 @@ interface props {
 
 const AppFooter = ({lang} : props) => {
   return (
-    <footer className="footer footer-center text-base-content p-4 border-t border-t-border">
+    <footer className="footer footer-center text-base-content p-4 border-t border-t-base-300">
       <aside>
         <p>
           Copyright © {new Date().getFullYear()} - All right reserved by <Link href={`/${lang}`} className=" font-medium">space-together</Link> - School Management & Learning System

@@ -78,8 +78,6 @@ const UpdateUserDialog = ({ usersRole, user }: props) => {
     setError("");
     setSuccess("");
 
-    console.log(values);
-
     toast({
       title: "User account updated successfully 😁",
       description: <div>user hello</div>,

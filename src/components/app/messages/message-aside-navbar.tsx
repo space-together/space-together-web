@@ -32,7 +32,7 @@ const MessagesAsideNavbar = ({}: props) => {
   };
   const messageType = new URLSearchParams(window.location.search).get("type");
   return (
-    <nav className=" border-b border-b-border px-2 flex  space-x-4">
+    <nav className=" border-b border-b-base-300 px-2 flex  space-x-4">
       <div
         className={cn(
           "h-8 pt-1 ",

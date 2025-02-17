@@ -133,7 +133,7 @@ const config: Config = {
     plugin(function ({ addComponents }) {
       addComponents({
         ".happy-card": {
-          "@apply bg-base-100 card p-4 border border-border": {},
+          "@apply bg-base-100 card p-4 border border-base-300": {},
         },
         ".happy-line": {
           "@apply flex flex-col gap-4": {},

@@ -15,11 +15,11 @@ const TeacherClassNavBar = ({ user, lang }: props) => {
   const pathname = usePathname();
   const role = toLowerCase(user.role);
   return (
-    <div className=" h-10 border-b border-border w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
+    <div className=" h-10 border-b border-base-300 w-full bg-base-100 pb-0 p-0 flex gap-2 px-2 pt-2">
       <Link
         href={`/${lang}/${role}`}
         className={cn(
-          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+          " h-8 flex justify-center items-center font-medium hover:bg-base-300 p-2 cursor-pointer",
           pathname === `/${lang}/${role}` && "border-b-2 border-b-info"
         )}
       >
@@ -28,7 +28,7 @@ const TeacherClassNavBar = ({ user, lang }: props) => {
       <Link
         href={`/${lang}/class/${role}/notes`}
         className={cn(
-          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+          " h-8 flex justify-center items-center font-medium hover:bg-base-300 p-2 cursor-pointer",
           pathname === `/${lang}/class/${role}/notes` && "border-b-2 border-b-info"
         )}
       >
@@ -38,7 +38,7 @@ const TeacherClassNavBar = ({ user, lang }: props) => {
       <Link
         href={`/${lang}/class/${role}/teachers`}
         className={cn(
-          " h-8 flex justify-center items-center font-medium hover:bg-border p-2 cursor-pointer",
+          " h-8 flex justify-center items-center font-medium hover:bg-base-300 p-2 cursor-pointer",
           pathname === `/${lang}/class/${role}/teachers` && "border-b-2 border-b-info"
         )}
       >

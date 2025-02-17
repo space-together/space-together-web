@@ -8,7 +8,6 @@ export const connectSocket = () => {
       transports: ["websocket"],
     });
 
-    console.log("Socket connected");
   }
   return socket;
 };
@@ -16,7 +15,6 @@ export const connectSocket = () => {
 export const disconnectSocket = () => {
   if (socket) {
     socket.disconnect();
-    console.log("Socket disconnected");
   }
 };
 

@@ -3,7 +3,7 @@ import { ArrowRight, Search } from "lucide-react";
 
 const MessageSearch = () => {
   return (
-    <div className="space-y-2 relative border-b  border-b-border h-14 p-2">
+    <div className="space-y-2 relative border-b  border-b-base-300 h-14 p-2">
       <div className="relative">
         <Input className="peer pe-9 ps-9" placeholder="Search..." />
         <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50">

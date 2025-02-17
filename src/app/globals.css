@@ -80,7 +80,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-base-300;
   }
   body {
     @apply bg-base-300 text-info-content;

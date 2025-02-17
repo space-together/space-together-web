@@ -13,7 +13,7 @@ const NotesDetails = () => {
 
   if (!isVisible) return null;
 
-  return <div className="bg-base-100 h-full min-h-screen border-l border-l-border">
+  return <div className="bg-base-100 h-full min-h-screen border-l border-l-base-300">
     <div className=" w-96">
       note details body
         {/* TODO: to make and to find  why i need note details */}

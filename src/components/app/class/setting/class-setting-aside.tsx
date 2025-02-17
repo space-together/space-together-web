@@ -19,7 +19,7 @@ const ClassSettingAside = ({ lang, classId }: props) => {
   const pathname = usePathname();
   const theme = UseTheme();
   return (
-    <aside className=" bg-base-100 w-52 h-screen border-r border-r-border space-y-2 py-2">
+    <aside className=" bg-base-100 w-52 h-screen border-r border-r-base-300 space-y-2 py-2">
       <div className=" pr-2">
         <Link href={`/${lang}/class/${classId}/setting`}>
           <Button

@@ -22,7 +22,7 @@ export default function Component() {
       <DialogContent>
         <div className="flex flex-col items-center gap-2">
           <div
-            className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border"
+            className="flex size-11 shrink-0 items-center justify-center rounded-full border border-base-300"
             aria-hidden="true"
           >
             <svg
@@ -76,7 +76,7 @@ export default function Component() {
           </Button>
         </form>
 
-        <div className="flex items-center gap-3 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
+        <div className="flex items-center gap-3 before:h-px before:flex-1 before:bg-base-300 after:h-px after:flex-1 after:bg-base-300">
           <span className="text-xs text-muted-foreground">Or</span>
         </div>
 

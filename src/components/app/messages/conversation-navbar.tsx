@@ -9,7 +9,7 @@ interface props {
 const ConversationNavbar = ({lang} : props) => {
   
   return (
-    <nav className=" h-12 bg-base-100 border-b border-b-border px-4 flex items-center">
+    <nav className=" h-12 bg-base-100 border-b border-b-base-300 px-4 flex items-center">
       <div className=" flex space-x-2">
         <Avatar className=" size-10">
           <AvatarImage src="/images/2.jpg" />

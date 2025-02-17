@@ -10,7 +10,7 @@ interface props {
 const MessagesAside = ({ lang }: props) => {
   return (
     <aside className=" fixed w-80 h-screen bg-base-100 flex">
-      <div className="w-full border-r border-r-border">
+      <div className="w-full border-r border-r-base-300">
         {/* <AsideSearch /> */}
         <MessagesAsideNavbar lang={lang} />
         <div className=" max-h-[75vh] overflow-y-auto">

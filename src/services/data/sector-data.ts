@@ -7,7 +7,6 @@ class SectorService {
       const education = await db.sector.findUnique({ where: { id: sector.educationId } });
       if (education) {
         sector.educationId = education.name;
-        console.log(sector)
       }
     }
     return sector;

@@ -6,7 +6,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import UseTheme from "@/context/theme/use-theme";
 // Reusable Toast Notification Component
 export const CustomToast = ({ success, error,warning, onDismiss }: { success?: string; error?: string; warning ?: string, onDismiss: () => void }) => (
-    <div data-theme={UseTheme()} className="w-[var(--width)] rounded-lg border border-border bg-base-100 px-4 py-3">
+    <div data-theme={UseTheme()} className="w-[var(--width)] rounded-lg border border-base-300 bg-base-100 px-4 py-3">
       <div className="flex gap-2">
         <div className="flex grow gap-3">
           {success && <CircleCheck className="mt-0.5 shrink-0 text-emerald-500" size={16} strokeWidth={2} aria-hidden="true" />}

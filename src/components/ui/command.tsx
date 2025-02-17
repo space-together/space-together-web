@@ -105,7 +105,7 @@ const CommandSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 h-px bg-border", className)}
+    className={cn("-mx-1 h-px bg-base-300", className)}
     {...props}
   />
 ));
@@ -131,7 +131,7 @@ const CommandShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanE
   return (
     <kbd
       className={cn(
-        "-me-1 ms-auto inline-flex h-5 max-h-full items-center rounded border border-border bg-background px-1 font-[inherit] text-[0.625rem] font-medium text-muted-foreground/70",
+        "-me-1 ms-auto inline-flex h-5 max-h-full items-center rounded border border-base-300 bg-background px-1 font-[inherit] text-[0.625rem] font-medium text-muted-foreground/70",
         className,
       )}
       {...props}
