@@ -15,15 +15,17 @@ interface Props {
 const ClassIdPage = async (props: Props) => {
   const params = await props.params;
   const { lang, classId } = params;
-  const user = (await auth())?.user;
-  if (!user) {
+  const currentUser = (await auth())?.user;
+  if (!currentUser) {
     return redirect(`/${lang}/auth/login`);
   }
   const myClass = await getClassById(classId);
-
   if (!myClass) {
     return <NotFoundPage />;
   }
+
+  //TODO: check if use allowed to access class
+
   return (
     <div className=" px-4">
       <ClassHead myClass={myClass} lang={lang} />
