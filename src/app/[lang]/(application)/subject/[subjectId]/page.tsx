@@ -1,11 +1,12 @@
-import React from 'react'
+import SubjectBody from "@/components/app/subject/subject-body";
+import React from "react";
 
 const SubjectIdPage = () => {
   return (
-    <div>
-      hello
+    <div className=" happy-page">
+      <SubjectBody />
     </div>
-  )
-}
+  );
+};
 
-export default SubjectIdPage
+export default SubjectIdPage;
