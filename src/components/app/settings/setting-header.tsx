@@ -2,20 +2,20 @@ import { Locale } from "@/i18n";
 import { authUser } from "@/types/userModel";
 import MyImage from "@/components/my-components/myImage";
 import { toLowerCase } from "@/utils/functions/characters";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface props {
   lang: Locale;
   user: authUser;
 }
-const SettingHeader = ({ user }: props) => {
+const SettingHeader = ({ user, lang }: props) => {
   return (
     <div className=" m-4 flex justify-between">
       <div className=" flex gap-2 items-center">
         <MyImage
           role="AVATAR"
           className=" size-40"
-          src={!!user?.image ? user.image : "/images/2.jpg"}
+          src={!!user?.image ? user.image : "/profiles/b/20.png"}
         />
         <div className=" flex flex-col space-y-1">
           <div>
@@ -42,10 +42,7 @@ const SettingHeader = ({ user }: props) => {
             <span>Email :</span>{" "}
             <span className=" text-sm font-semibold ">{user.email}</span>
           </div>
-          {/* TODO: to make dialog for user to update account data */}
-          <Button size="sm" variant="ghost" className=" text-info">
-            Update account
-          </Button>
+          <Link href={`/${lang}/settings/profile`}></Link>
         </div>
       </div>
       <div>

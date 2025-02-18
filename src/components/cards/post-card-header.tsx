@@ -19,7 +19,7 @@ const PostCardHeader = ({ lang }: props) => {
             lang={lang}
             trigger={
               <Avatar className=" size-12">
-                <AvatarImage src="/images/2.jpg" />
+                <AvatarImage src="/profiles/b/20.png" />
                 <AvatarFallback>PR</AvatarFallback>
               </Avatar>
             }

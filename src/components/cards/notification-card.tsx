@@ -61,7 +61,7 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/${sender.id}`}>
           <Avatar className=" size-12">
-            <AvatarImage src={sender.image ? sender.image : "/images/2.jpg"} />
+            <AvatarImage src={sender.image ? sender.image : "/profiles/b/20.png"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>

@@ -20,7 +20,7 @@ const ProfileHeader = ({lang , OtherUser, user} : props) => {
   return (
     <div className=" my-4 flex flex-row justify-between items-center">
       <div className=" flex gap-2 items-center">
-        <MyImage role="AVATAR" className=" size-32" src={!!user?.image ? user.image : "/images/2.jpg"}/>
+        <MyImage role="AVATAR" className=" size-32" src={!!user?.image ? user.image : "/profiles/b/20.png"}/>
         <div className=" flex flex-col space-y-1">
           <h4 className=" text-lg font-semibold">{user.name}</h4>
           {!!user?.username &&<span className=" text-sm to-myGray">@ {user.username}</span>}

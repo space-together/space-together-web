@@ -20,7 +20,7 @@ const CreateNewPostInClass = ({ classId, user }: props) => {
           className=" items-center space-x-2 happy-card flex flex-row"
         >
           <Avatar className=" size-12">
-            <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
+            <AvatarImage src={user?.image ? user.image : "/profiles/b/20.png"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
           <div className=" w-full flex flex-col">

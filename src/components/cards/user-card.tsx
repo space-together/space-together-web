@@ -3,12 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { GoPersonFill } from "react-icons/go";
-import { Module, User, UserRole } from "../../../prisma/prisma/generated";
+import { Module, User, } from "../../../prisma/prisma/generated";
 import { Dot } from "lucide-react";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
-import { userRoleType } from "@/utils/types/userTypes";
 import { getSubjectById } from "@/services/data/subject-data";
 
 interface props {

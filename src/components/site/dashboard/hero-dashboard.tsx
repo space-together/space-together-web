@@ -9,7 +9,7 @@ const HeroDashboard = async () => {
     <div className=" w-full justify-between  flex items-center">
       <div className=" w-full flex items-center space-x-4">
         <Avatar className=" size-20 shadow-md border-base-200">
-          <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
+          <AvatarImage src={user?.image ? user.image : "/profiles/b/20.png"} />
           <AvatarFallback>CEO</AvatarFallback>
         </Avatar>
         <div>

@@ -38,7 +38,7 @@ const UserCardSmallCallSetting = ({
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/${user?.id ? user.id : "student"}`}>
           <Avatar className=" size-14">
-            <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
+            <AvatarImage src={user?.image ? user.image : "/profiles/b/20.png"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>

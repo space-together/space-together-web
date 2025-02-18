@@ -6,7 +6,7 @@ const CreateNewPostInSchool = () => {
     <div>
       <div className=" items-center space-x-2 happy-card flex flex-row">
         <Avatar className=" size-12">
-          <AvatarImage src="/images/2.jpg" />
+          <AvatarImage src="/profiles/b/20.png" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <div className=" w-full flex flex-col">

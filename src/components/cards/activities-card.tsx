@@ -5,7 +5,7 @@ const ActivitiesCard = () => {
     <div className=" happy-card w-96 p-0">
       <div className=" flex p-4 space-x-2">
         <Avatar className=" size-12">
-          <AvatarImage src="/images/2.jpg" />
+          <AvatarImage src="/profiles/b/20.png" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <div>

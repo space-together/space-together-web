@@ -46,7 +46,7 @@ const ClassHead = async ({ lang, myClass }: Props) => {
                 lang={lang}
                 trigger={
                   <Avatar className="size-8">
-                    <AvatarImage src={getUser?.image || "/images/2.jpg"} />
+                    <AvatarImage src={getUser?.image || "/profiles/b/20.png"} />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                 }

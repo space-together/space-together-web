@@ -23,7 +23,7 @@ export default function UserTooltip({ trigger , lang}: props) {
         <div className="space-y-3">
           <div className="flex items-center gap-3">
             <Avatar className=" size-12">
-              <AvatarImage src="/images/2.jpg" />
+              <AvatarImage src="/profiles/b/20.png" />
               <AvatarFallback>PR</AvatarFallback>
             </Avatar>
             <div>

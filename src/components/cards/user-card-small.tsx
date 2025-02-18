@@ -26,7 +26,7 @@ const UserCardSmall = ({ userRole, lang,className }: props) => {
       <div className=" flex space-x-2">
         <Link href={`/${lang}/profile/student`}>
           <Avatar className=" size-12">
-            <AvatarImage src="/images/2.jpg" />
+            <AvatarImage src="/profiles/b/20.png" />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Link>

@@ -41,7 +41,7 @@ const SubjectCardSmall = ({
             </span>
             <Avatar className=" size-8">
               <AvatarImage
-                src={!!teacher?.image ? teacher.image : "/images/2.jpg"}
+                src={!!teacher?.image ? teacher.image : "/profiles/b/20.png"}
               />
               <AvatarFallback>PR</AvatarFallback>
             </Avatar>

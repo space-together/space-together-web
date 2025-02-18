@@ -53,7 +53,7 @@ const CreatePostForm = ({ setIsOpen, classId, user }: props) => {
               <FormLabel className=" flex space-x-2 items-center">
                 <Avatar className=" size-12">
                   <AvatarImage
-                    src={user?.image ? user.image : "/images/2.jpg"}
+                    src={user?.image ? user.image : "/profiles/b/20.png"}
                   />
                   <AvatarFallback>PR</AvatarFallback>
                 </Avatar>

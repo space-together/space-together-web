@@ -29,7 +29,7 @@ const NavProfileDropDown = ({ user, lang }: props) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" shape="circle">
           <Avatar className=" size-10  ">
-            <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
+            <AvatarImage src={user?.image ? user.image : "/profiles/b/20.png"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
         </Button>
@@ -37,7 +37,7 @@ const NavProfileDropDown = ({ user, lang }: props) => {
       <DropdownMenuContent className=" w-72" data-theme={theme}>
         <DropdownMenuLabel className=" flex gap-2 items-center">
           <Avatar className=" size-8  ">
-            <AvatarImage src={user?.image ? user.image : "/images/2.jpg"} />
+            <AvatarImage src={user?.image ? user.image : "/profiles/b/20.png"} />
             <AvatarFallback>PR</AvatarFallback>
           </Avatar>
           <span className=" font-medium">{user.name}</span>

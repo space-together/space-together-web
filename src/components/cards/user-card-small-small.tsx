@@ -5,7 +5,7 @@ const UserCardSmallSmall = () => {
   return (
     <div className=" flex space-x-1">
       <Avatar className=" size-8">
-        <AvatarImage src="/images/2.jpg" />
+        <AvatarImage src="/profiles/b/20.png" />
         <AvatarFallback>PR</AvatarFallback>
       </Avatar>
       <div className=" flex flex-col -space-y-1">
