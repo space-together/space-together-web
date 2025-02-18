@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
+import NotesNavbar from "@/components/app/notes/notes-navbar";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
- import NotesAside from "@/components/app/notes/notes-aside";
 interface props {
   children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
@@ -16,9 +16,9 @@ const NotesLayout = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <section className=" flex">
-      <NotesAside lang={lang}/>
-      <div className=" pl-80">{children}</div>
+    <section className="">
+      <NotesNavbar lang={lang}/>
+      {children}{" "}
     </section>
   );
 };

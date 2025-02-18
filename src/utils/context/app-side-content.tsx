@@ -144,6 +144,11 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
         url: "/teacher",
       },
       {
+        title: "Notes",
+        image: "/icons/note.png",
+        url: "/notes",
+      },
+      {
         title: "Messages",
         image: "/icons/chat.png",
         url: "/messages",
