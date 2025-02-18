@@ -3,9 +3,10 @@ import ClassActivities from "@/components/app/class/classActivities";
 import ClassBody from "@/components/app/class/classBody";
 import ClassHead from "@/components/app/class/classHead";
 import NotFoundPage from "@/components/page/not-found-page";
+import PermissionPage from "@/components/page/permission-page";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
-import { getClassById } from "@/services/data/class-data";
+import { getClassById, isUserInClass } from "@/services/data/class-data";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -16,15 +17,15 @@ const ClassIdPage = async (props: Props) => {
   const params = await props.params;
   const { lang, classId } = params;
   const currentUser = (await auth())?.user;
-  if (!currentUser) {
+  if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }
   const myClass = await getClassById(classId);
   if (!myClass) {
     return <NotFoundPage />;
   }
-
-  //TODO: check if use allowed to access class
+const isClassMember = await isUserInClass(currentUser.id, classId);
+  if (!isClassMember) return <PermissionPage />;
 
   return (
     <div className=" px-4">

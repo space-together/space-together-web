@@ -1,9 +1,10 @@
 import { auth } from "@/auth";
 import SubjectCardSmall from "@/components/cards/subject-card-small";
 import NotFoundPage from "@/components/page/not-found-page";
+import PermissionPage from "@/components/page/permission-page";
 import CreateSubjectDialog from "@/components/site/collection/subject/create-subject-dialog";
 import { Locale } from "@/i18n";
-import { getClassById } from "@/services/data/class-data";
+import { getClassById, isUserInClass } from "@/services/data/class-data";
 import { getModuleByClassId } from "@/services/data/model-data";
 import { getSubjectById } from "@/services/data/subject-data";
 import { getTeacherById } from "@/services/data/teacher-data";
@@ -16,12 +17,14 @@ interface Props {
 const ClassSubjectPage = async ({ params }: Props) => {
   const { lang, classId } = await params;
   const currentUser = (await auth())?.user;
-  if (!currentUser) {
+  if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }
 
   const getClass = await getClassById(classId);
   if (!getClass) return <NotFoundPage />;
+  const isClassMember = await isUserInClass(currentUser.id, classId);
+  if (!isClassMember) return <PermissionPage />;
 
   const getModules = await getModuleByClassId(classId);
   if (!getModules) return <NotFoundPage />;

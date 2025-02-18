@@ -4,18 +4,22 @@ import SelectClassActivitiesSubject from "@/components/app/class/class-work/sele
  import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { isUserInClass } from "@/services/data/class-data";
+import PermissionPage from "@/components/page/permission-page";
 
 interface props {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: Locale , classId : string}>;
 }
 
 const ClassWorkPage = async (props: props) => {
   const params = await props.params;
-  const { lang } = params;
-  const user = (await auth())?.user;
-  if (!user) {
+  const { lang , classId} = params;
+  const currentUser = (await auth())?.user;
+  if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }
+  const isClassMember = await isUserInClass(currentUser.id, classId);
+  if (!isClassMember) return <PermissionPage />;
   return (
     <div className=" p-4 space-y-2">
       <SearchActivities />

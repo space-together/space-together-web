@@ -80,3 +80,40 @@ export const getClassesByClassRoomId = async (classRoomId: string) => {
     return [];
   }
 };
+
+export async function isUserInClass(userId: string, classId: string): Promise<boolean> {
+  try {
+    const classOwner = await db.class.findFirst({
+      where: {
+        id: classId,
+        userId: userId,
+      },
+    });
+
+    if (classOwner) return true;
+
+    const student = await db.student.findFirst({
+      where: {
+        userId: userId,
+        classId: classId,
+      },
+    });
+
+    if (student) return true;
+
+    const teacher = await db.teacher.findFirst({
+      where: {
+        userId: userId,
+        classesIds: {
+          has: classId,
+        },
+      },
+    });
+
+    if (teacher) return true;
+
+    return false;
+  } catch {
+    return false;
+  }
+}

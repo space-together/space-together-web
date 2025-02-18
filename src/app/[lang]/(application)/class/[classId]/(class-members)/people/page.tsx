@@ -1,5 +1,5 @@
 import SearchPeopleClass from "@/components/app/class/people/search-people-class";
- import { Locale } from "@/i18n";
+import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
@@ -9,8 +9,9 @@ import UserCardSmallCallSetting from "@/components/cards/user-card-small-class-s
 import MyImage from "@/components/my-components/myImage";
 import AddMemberInClassDialog from "@/components/app/class/setting/add-class-member-dialog";
 import { getSubjectByClassId } from "@/services/data/subject-data";
-import { getClassById } from "@/services/data/class-data";
+import { getClassById, isUserInClass } from "@/services/data/class-data";
 import { getStudentsByClassId } from "@/services/data/student-data";
+import PermissionPage from "@/components/page/permission-page";
 
 interface props {
   params: Promise<{ lang: Locale; classId: string }>;
@@ -19,7 +20,9 @@ const ClassPeoplePage = async (props: props) => {
   const params = await props.params;
   const { lang, classId } = params;
   const currentUser = (await auth())?.user;
-  if (!currentUser) return redirect(`/${lang}/auth/login`);
+  if (!currentUser || !currentUser.id) return redirect(`/${lang}/auth/login`);
+  const isClassMember = await isUserInClass(currentUser.id, classId);
+  if (!isClassMember) return <PermissionPage />;
 
   const [getTeachers, classSubjects, getClass, getStudents] = await Promise.all(
     [

@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import ClassHead from "@/components/app/class/classHead";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
- import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import ClassBody from "@/components/app/class/classBody";
 import TeacherClassCreateNotes from "@/components/app/teacher/teacher-class-create-notes";
 import ClassTeacherProgress from "@/components/app/teacher/teacher-class-progress";
@@ -17,6 +17,7 @@ const TeacherClassPage = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+
   return (
     <div className="p-4 ">
       <ClassHead lang={lang} />
