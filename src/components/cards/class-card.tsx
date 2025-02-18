@@ -186,7 +186,7 @@ const ClassCard = async ({
             About class
           </Link>
         ) : (
-          <Link href={`/${lang}/class/${myClass?.id ? myClass.id : "student"}`}>
+          <Link href={isNotes ? `/${lang}/notes/classes/1234` :`/${lang}/class/${myClass?.id ? myClass.id : "student"}`}>
             <Button
               variant={isClassTeacher ? "info" : "primary"}
               className=" w-full"
