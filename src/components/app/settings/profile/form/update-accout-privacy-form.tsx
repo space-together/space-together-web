@@ -1,4 +1,5 @@
 "use client";
+
 import {
   updateUserEmailSchema,
   updateUserEmailSchemaType,
@@ -15,15 +16,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
   FormMessageError,
   FormMessageSuccess,
 } from "@/components/form/formError";
-import { Button } from "@/components/ui/button";
-import { AtSign } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const UpdateUserEmailForm = () => {
+const UpdateAccountPrivacyForm = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -41,30 +40,13 @@ const UpdateUserEmailForm = () => {
             name="email"
             control={form.control}
             render={({ field }) => (
-              <FormItem className=" w-80">
-                <FormLabel>change email</FormLabel>
-                <FormControl>
-                     <div className=" flex space-x-2 items-center">
-                    <div className="relative">
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        className="peer ps-9 w-80"
-                        placeholder="Email"
-                        type="email"
-                      />
-                      <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50">
-                        <AtSign size={16} strokeWidth={2} aria-hidden="true" />
-                      </div>
-                    </div>
-                    <Button variant="info" size="sm">
-                      Update email
-                    </Button>
-                  </div>
-                </FormControl>
+              <FormItem className="">
+                  <FormControl>
+                    <Checkbox disabled={isPending} className=" mr-2" id="privacy" {...field} />
+                  </FormControl>
+                  <FormLabel htmlFor="privacy" className=" cursor-pointer">Change account in private</FormLabel>
                 <FormDescription>
-                  change your email main which used to login, if you update
-                  email you have to verify email again!
+                  make account private on you and school staff can access you information.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -80,4 +62,4 @@ const UpdateUserEmailForm = () => {
   );
 };
 
-export default UpdateUserEmailForm;
+export default UpdateAccountPrivacyForm;
