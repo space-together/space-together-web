@@ -20,6 +20,15 @@ const NotesNavbar = ({ lang,}: props) => {
           pathname === `/${lang}/notes` && "border-b-2 border-b-info"
         )}
       >
+        All 
+      </Link>
+      <Link
+        href={`/${lang}/notes/classes`}
+        className={cn(
+          " h-8 flex justify-center items-center font-medium hover:bg-base-300 p-2 cursor-pointer",
+          pathname === `/${lang}/notes/classes` && "border-b-2 border-b-info"
+        )}
+      >
         classes
       </Link>
       <Link
