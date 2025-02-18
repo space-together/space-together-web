@@ -24,7 +24,7 @@ const SettingProfilePage = async (props: props) => {
       </div>
       <Separator />
       <div>
-        <h2 className=' happy-title-base'>Privacy</h2>
+        <h2 className=' happy-title-base'>Privacy & Security</h2>
         <SettingPrivacyBody />
       </div>
     </div>

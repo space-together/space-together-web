@@ -33,9 +33,19 @@ const UpdateUserEmailForm = () => {
       email: "",
     },
   });
+
+  const handleSubmit = (values: updateUserEmailSchemaType) => {
+    setError("");
+    setSuccess("");
+
+    console.log(values);
+  };
   return (
     <Form {...form}>
-      <form className=" flex items-center space-x-4">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className=" flex items-center space-x-4"
+      >
         <div className=" flex flex-col space-y-2">
           <FormField
             name="email"
@@ -44,7 +54,7 @@ const UpdateUserEmailForm = () => {
               <FormItem className=" w-80">
                 <FormLabel>change email</FormLabel>
                 <FormControl>
-                     <div className=" flex space-x-2 items-center">
+                  <div className=" flex space-x-2 items-center">
                     <div className="relative">
                       <Input
                         {...field}
