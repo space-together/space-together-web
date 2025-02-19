@@ -4,6 +4,7 @@ import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject
  import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
 interface props {
   params: Promise<{ lang: Locale }>;
 }
@@ -16,7 +17,9 @@ const NotesPage = async (props: props) => {
     return redirect(`/${lang}/auth/login`);
   }
   return (
-    <div className=" p-4">
+    <div className=" happy-page">
+      <h1 className=" happy-title-head">Notes</h1>
+      <Separator />
       <SearchNotesClass />
       <div className=" space-y-4 mt-3">
         <SelectNoteSubject />
