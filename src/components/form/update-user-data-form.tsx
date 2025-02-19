@@ -50,19 +50,24 @@ import {
   PhoneInput,
 } from "./component-form-need";
 import { Textarea } from "../ui/textarea";
+import { User } from "../../../prisma/prisma/generated";
 
-const UserUserDataForm = () => {
+interface props {
+  currentUser : User;
+}
+
+const UserUserDataForm = ({currentUser} : props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<updateUserDataSchemaType>({
     resolver: zodResolver(updateUserDataSchema),
     defaultValues: {
-      name: "",
-      image: "",
-      username: "",
-      bio: "",
-      phone: "",
+      name: currentUser.name ? currentUser.name : "",
+      image: currentUser.image ? currentUser.image : "",
+      username: currentUser.username ? currentUser.username : "",
+      bio: currentUser.bio ? currentUser.bio : "",
+      phone: currentUser.name ? currentUser.name : "",
       age: undefined,
     },
     shouldFocusError: true,

@@ -7,6 +7,7 @@ import { forwardRef, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import UseTheme from "@/context/theme/use-theme";
 
 export interface Option {
   value: string;
@@ -354,6 +355,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
 
       const Item = (
         <CommandItem
+        data-theme={UseTheme()}
           value={inputValue}
           className="cursor-pointer"
           onMouseDown={(e) => {

@@ -209,29 +209,29 @@ enum ClassType {
 
 // class room which user created
 model Class {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  username    String     @unique
-  description String?
-  code        String     @unique
-  symbol      String?
-  disabled    Boolean    @default(false)
-  sectorId    String?    @db.ObjectId
-  tradeId     String?    @db.ObjectId
-  classRoomId String?    @db.ObjectId
-  userId      String     @db.ObjectId
-  classType   ClassType? @default(PRIVET)
-  students    String[]   @db.ObjectId
-  SubClass    SubClass[]
-  teachersIds String[]   @db.ObjectId
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  username      String     @unique
+  description   String?
+  code          String     @unique
+  symbol        String?
+  disabled      Boolean    @default(false)
+  sector_id     String?    @db.ObjectId
+  trade_id      String?    @db.ObjectId
+  class_room_id String?    @db.ObjectId
+  userId        String     @db.ObjectId
+  classType     ClassType? @default(PRIVET)
+  students      String[]   @db.ObjectId
+  sub_class     SubClass[]
+  teachersIds   String[]   @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  trade     Trade?     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
-  sector    Sector?    @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  trade     Trade?     @relation(fields: [trade_id], references: [id], onDelete: Cascade)
+  sector    Sector?    @relation(fields: [sector_id], references: [id], onDelete: Cascade)
   user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  classRoom ClassRoom? @relation(fields: [classRoomId], references: [id], onDelete: Cascade)
+  classRoom ClassRoom? @relation(fields: [class_room_id], references: [id], onDelete: Cascade)
 
   Post Post[]
 

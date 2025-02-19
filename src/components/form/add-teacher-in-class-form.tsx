@@ -25,6 +25,7 @@ import { Textarea } from "../ui/textarea";
 import { sendTeacherRequestToJoinClass } from "@/services/actions/send-user-request-action";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { Subject } from "../../../prisma/prisma/generated";
+import UseTheme from "@/context/theme/use-theme";
 
 interface Props {
   classId: string;
@@ -92,6 +93,7 @@ const AddTeacherInClassForm = ({ classId, classSubjects }: Props) => {
               <FormLabel>Subjects</FormLabel>
                 <FormControl>
                 <MultipleSelector
+                 data-theme={UseTheme()}
                   commandProps={{
                   label: "Select frameworks",
                   }}
