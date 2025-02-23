@@ -51,7 +51,7 @@ const AllEducationComponent = async () => {
                             </span>
                           ) : (
                             <span className=" text-myGray text-sm">
-                              {new Date(item.createdAt).toDateString()}
+                              {new Date(item.created_at).toDateString()}
                             </span>
                           )}
                         </div>
@@ -92,7 +92,7 @@ const AllEducationComponent = async () => {
                                   </span>
                                 ) : (
                                   <span className=" text-myGray text-sm">
-                                    {new Date(item.createdAt).toDateString()}
+                                    {new Date(item.created_at).toDateString()}
                                   </span>
                                 )}
                             </div>

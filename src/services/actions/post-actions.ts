@@ -23,8 +23,8 @@ export const CreatePostAction = async (values: PostSchemaType , classId ?: strin
     const create = await db.post.create({
       data: {
         content ,
-        userId: user.id,
-        classId
+        user_id: user.id,
+        class_id : classId
       },
     });
 

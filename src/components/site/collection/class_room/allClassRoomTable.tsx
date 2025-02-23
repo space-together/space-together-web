@@ -140,11 +140,11 @@ const AllClassRoomTable = ({
       ),
     },
     {
-      accessorKey: "createdAt",
+      accessorKey: "created_at",
       header: "Created On",
       cell: ({ row }) => (
         <div>
-          {new Date(row.getValue("createdAt")).toLocaleDateString() || (
+          {new Date(row.getValue("created_at")).toLocaleDateString() || (
             <span className=" text-myGray">N/A</span>
           )}
         </div>

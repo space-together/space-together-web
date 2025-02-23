@@ -16,7 +16,7 @@ export async function getTeachersByRole(role: "TEACHER" | "CLASSTEACHER") {
     try {
         const teachers = await db.teacher.findMany({
             where: { role },
-            orderBy: { createdAt: 'desc' },
+            orderBy: { created_at: 'desc' },
             include: { user: true },
         });
         return teachers
@@ -29,7 +29,7 @@ export async function getTeachersByModelId(modelId: string) {
     try {
         const teachers = await db.teacher.findMany({
             where: { ModelsIds: { has: modelId } },
-            orderBy: { createdAt: 'desc' },
+            orderBy: { created_at: 'desc' },
             include: { user: true, module: true },
         });
         return teachers
@@ -41,7 +41,7 @@ export async function getTeachersByModelId(modelId: string) {
 export async function getAllTeachers() {
     try {
         const teachers = await db.teacher.findMany({
-            include: { user: true, Subject: true, module: true }, orderBy: { createdAt: 'desc' },
+            include: { user: true, Subject: true, module: true }, orderBy: { created_at: 'desc' },
         });
         return teachers
     } catch {
@@ -53,7 +53,7 @@ export async function getTeachersByClassId(classId: string) {
     try {
         const teachers = await db.teacher.findMany({
             where: { classesIds: { has: classId } },
-            orderBy: { createdAt: 'desc' },
+            orderBy: { created_at: 'desc' },
             include: { user: true, Subject: true, module: true },
         });
         return teachers
@@ -66,7 +66,7 @@ export async function getTeacherByUserId(userId: string) {
     try {
         const teachers = await db.teacher.findFirst({
             where: { userId },
-            orderBy: { createdAt: 'desc' },
+            orderBy: { created_at: 'desc' },
             include: { user: true, Subject: true, module: true },
         });
         return teachers

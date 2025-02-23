@@ -45,7 +45,7 @@ const ClassPageDocument = async ({ collectionName, documentId }: props) => {
                 <p>{data?.classRoomId}</p>
                 <p className=" text-sm">{data?.code}</p>
                 <div>{data?.userId} </div>
-                <p>{data?.createdAt && data.createdAt.toString()}</p>
+                <p>{data?.created_at && data.created_at.toString()}</p>
                 {data?.updatedAt && (
                   <p className=" text-warning">
                     {formatDate(data?.updatedAt.toString())}

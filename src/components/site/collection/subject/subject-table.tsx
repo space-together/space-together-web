@@ -49,7 +49,7 @@ const AllSubjectTable = ({ subjects }: props) => {
             row.toggleSelected(!!value);
             setSelectedSubject((prev) =>
               value
-                ? [...prev, { ...row.original, create_on: row.original.createdAt.toISOString() }]
+                ? [...prev, { ...row.original, create_on: row.original.created_at.toISOString() }]
                 : prev.filter((Subject) => Subject.id !== row.original.id)
             );
           }}
@@ -93,10 +93,10 @@ const AllSubjectTable = ({ subjects }: props) => {
       cell: ({ row }) => <span>{row.getValue("purpose") || "N/A"}</span>,
     },
     {
-      accessorKey: "createdAt",
+      accessorKey: "created_at",
       header: "Created",
       cell: ({ row }) => (
-        <span>{new Date(row.getValue("createdAt")).toLocaleDateString()}</span>
+        <span>{new Date(row.getValue("created_at")).toLocaleDateString()}</span>
       ),
     },
     {

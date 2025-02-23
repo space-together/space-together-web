@@ -27,10 +27,10 @@ export const getAllClassRoom = async () => {
   }
 };
 
-export const getAllClassRoomBySectorId = async (sectorId: string) => {
+export const getAllClassRoomBySectorId = async (sector_id: string) => {
   try {
     const classRooms = await db.classRoom.findMany({
-      where: { sectorId },
+      where: { sector_id },
     });
     return classRooms;
   } catch {

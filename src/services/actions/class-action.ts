@@ -43,12 +43,12 @@ export async function createClassAction(values: classSchemaType) {
         name,
         username: myUsername,
         description,
-        sectorId: sector,
-        classRoomId: class_room,
-        tradeId: trade,
+        sector_id: sector,
+        class_room_id: class_room,
+        trade_id: trade,
         code: generateCode(),
         classType: class_type,
-        userId: user?.id,
+        user_id: user?.id,
       },
     });
 

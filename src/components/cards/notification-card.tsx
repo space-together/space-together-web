@@ -139,7 +139,7 @@ const NotificationCard = ({ lang, sender, getClass, notification }: props) => {
             </Button>
           )}
           <span className=" text-sm font-medium text-myGray">
-            {formatDistanceToNowStrict(new Date(notification.createdAt))} ago
+            {formatDistanceToNowStrict(new Date(notification.created_at))} ago
           </span>
         </div>
       </div>

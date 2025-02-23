@@ -124,8 +124,8 @@ exports.Prisma.UserScalarFieldEnum = {
   disabled: 'disabled',
   gender: 'gender',
   phone: 'phone',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -141,8 +141,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   scope: 'scope',
   id_token: 'id_token',
   session_state: 'session_state',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -150,8 +150,8 @@ exports.Prisma.SessionScalarFieldEnum = {
   sessionToken: 'sessionToken',
   userId: 'userId',
   expires: 'expires',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.VerificationTokenScalarFieldEnum = {
@@ -180,20 +180,20 @@ exports.Prisma.EducationScalarFieldEnum = {
   symbol: 'symbol',
   disabled: 'disabled',
   roles: 'roles',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SectorScalarFieldEnum = {
   id: 'id',
-  educationId: 'educationId',
+  education_id: 'education_id',
   username: 'username',
   name: 'name',
   description: 'description',
   symbol: 'symbol',
   disabled: 'disabled',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.TradeScalarFieldEnum = {
@@ -201,12 +201,13 @@ exports.Prisma.TradeScalarFieldEnum = {
   name: 'name',
   username: 'username',
   description: 'description',
-  sectorId: 'sectorId',
-  limitClasses: 'limitClasses',
+  sector_id: 'sector_id',
+  max_classes: 'max_classes',
+  min_classes: 'min_classes',
   symbol: 'symbol',
   disabled: 'disabled',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ClassRoomScalarFieldEnum = {
@@ -217,11 +218,11 @@ exports.Prisma.ClassRoomScalarFieldEnum = {
   symbol: 'symbol',
   disabled: 'disabled',
   ClassRoomType: 'ClassRoomType',
-  sectorId: 'sectorId',
+  sector_id: 'sector_id',
   tradeId: 'tradeId',
   code: 'code',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ClassScalarFieldEnum = {
@@ -232,51 +233,51 @@ exports.Prisma.ClassScalarFieldEnum = {
   code: 'code',
   symbol: 'symbol',
   disabled: 'disabled',
-  sectorId: 'sectorId',
-  tradeId: 'tradeId',
-  classRoomId: 'classRoomId',
-  userId: 'userId',
+  sector_id: 'sector_id',
+  trade_id: 'trade_id',
+  class_room_id: 'class_room_id',
+  user_id: 'user_id',
   classType: 'classType',
   students: 'students',
-  teachersIds: 'teachersIds',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  teachers_ids: 'teachers_ids',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SubClassScalarFieldEnum = {
   id: 'id',
-  classId: 'classId',
+  class_id: 'class_id',
   code: 'code',
   name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  subClassId: 'subClassId',
-  classId: 'classId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  user_id: 'user_id',
+  subClass_id: 'subClass_id',
+  class_id: 'class_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.TeacherScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  classesIds: 'classesIds',
+  user_id: 'user_id',
+  classes_ids: 'classes_ids',
   role: 'role',
-  ModelsIds: 'ModelsIds',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  Models_ids: 'Models_ids',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SendUserRequestScalarFieldEnum = {
   id: 'id',
   senderId: 'senderId',
-  userId: 'userId',
+  user_id: 'user_id',
   description: 'description',
-  classId: 'classId',
+  class_id: 'class_id',
   email: 'email',
   role: 'role',
   seen: 'seen',
@@ -284,28 +285,28 @@ exports.Prisma.SendUserRequestScalarFieldEnum = {
   message: 'message',
   accept: 'accept',
   cancel: 'cancel',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
+  user_id: 'user_id',
   file: 'file',
   content: 'content',
   role: 'role',
-  classId: 'classId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  class_id: 'class_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
   classRoomId: 'classRoomId',
-  classId: 'classId',
+  class_id: 'class_id',
   code: 'code',
-  sectorId: 'sectorId',
+  sector_id: 'sector_id',
   tradeId: 'tradeId',
   subjectType: 'subjectType',
   curriculum: 'curriculum',
@@ -314,18 +315,18 @@ exports.Prisma.SubjectScalarFieldEnum = {
   issueDate: 'issueDate',
   purpose: 'purpose',
   symbol: 'symbol',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  teacherId: 'teacherId'
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  teacher_id: 'teacher_id'
 };
 
 exports.Prisma.LearningOutcomeScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   learningHours: 'learningHours',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.IndicativeContentScalarFieldEnum = {
@@ -336,85 +337,85 @@ exports.Prisma.IndicativeContentScalarFieldEnum = {
 
 exports.Prisma.KnowledgeScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SkillScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AttitudeScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ResourceScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   category: 'category',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CompetenceScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.PerformanceCriteriaScalarFieldEnum = {
   id: 'id',
-  competenceId: 'competenceId',
+  competence_id: 'competence_id',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AssessmentScalarFieldEnum = {
   id: 'id',
-  SubjectId: 'SubjectId',
+  Subject_id: 'Subject_id',
   type: 'type',
   method: 'method',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.NoteScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  subjectId: 'subjectId',
+  user_id: 'user_id',
+  subject_id: 'subject_id',
   moduleId: 'moduleId',
   seenBy: 'seenBy',
   commentsIds: 'commentsIds',
   fileId: 'fileId',
   content: 'content',
   description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ModuleScalarFieldEnum = {
   id: 'id',
-  teacherId: 'teacherId',
-  subjectId: 'subjectId',
-  classId: 'classId',
-  subClassId: 'subClassId',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  teacher_id: 'teacher_id',
+  subject_id: 'subject_id',
+  class_id: 'class_id',
+  subClass_id: 'subClass_id',
+  user_id: 'user_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {

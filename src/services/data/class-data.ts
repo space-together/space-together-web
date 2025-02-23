@@ -11,7 +11,7 @@ export const getClassById = async (id: string) => {
 
 export const getClassByUsername = async (username: string) => {
   try {
-    const Class = await db.class.findFirst({ where: { username }, orderBy: { createdAt: 'desc' }, });
+    const Class = await db.class.findFirst({ where: { username }, orderBy: { created_at: 'desc' }, });
     return Class;
   } catch {
     return null;
@@ -20,7 +20,7 @@ export const getClassByUsername = async (username: string) => {
 
 export const getAllClasses = async () => {
   try {
-    const classes = await db.class.findMany({ orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
@@ -29,25 +29,25 @@ export const getAllClasses = async () => {
 
 export const getAllClassesByUserId = async (id: string) => {
   try {
-    const classes = await db.class.findMany({ where: { userId: id }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { user_id: id }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
   }
 };
 
-export const getClassesBySectorId = async (sectorId: string) => {
+export const getClassesBySectorId = async (sector_id: string) => {
   try {
-    const classes = await db.class.findMany({ where: { sectorId }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { sector_id }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
   }
 };
 
-export const getClassesByTradeId = async (tradeId: string) => {
+export const getClassesByTradeId = async (trade_id: string) => {
   try {
-    const classes = await db.class.findMany({ where: { tradeId }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { trade_id }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
@@ -56,7 +56,7 @@ export const getClassesByTradeId = async (tradeId: string) => {
 
 export const getClassesByStudentId = async (studentId: string) => {
   try {
-    const classes = await db.class.findMany({ where: { students: { has: studentId } }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { students: { has: studentId } }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
@@ -65,16 +65,16 @@ export const getClassesByStudentId = async (studentId: string) => {
 
 export const getClassesByTeacherId = async (teacherId: string) => {
   try {
-    const classes = await db.class.findMany({ where: { teachersIds: { has: teacherId } }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { teachers_ids: { has: teacherId } }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
   }
 };
 
-export const getClassesByClassRoomId = async (classRoomId: string) => {
+export const getClassesByClassRoomId = async (class_room_id: string) => {
   try {
-    const classes = await db.class.findMany({ where: { classRoomId }, orderBy: { createdAt: 'desc' }, });
+    const classes = await db.class.findMany({ where: { class_room_id }, orderBy: { created_at: 'desc' }, });
     return classes;
   } catch {
     return [];
@@ -86,7 +86,7 @@ export async function isUserInClass(userId: string, classId: string): Promise<bo
     const classOwner = await db.class.findFirst({
       where: {
         id: classId,
-        userId: userId,
+        user_id: userId,
       },
     });
 
@@ -94,8 +94,8 @@ export async function isUserInClass(userId: string, classId: string): Promise<bo
 
     const student = await db.student.findFirst({
       where: {
-        userId: userId,
-        classId: classId,
+        user_id: userId,
+        class_id: classId,
       },
     });
 
@@ -103,8 +103,8 @@ export async function isUserInClass(userId: string, classId: string): Promise<bo
 
     const teacher = await db.teacher.findFirst({
       where: {
-        userId: userId,
-        classesIds: {
+        user_id: userId,
+        classes_ids: {
           has: classId,
         },
       },

@@ -51,7 +51,7 @@ const AllSectorTable = ({ sectors, educations }: props) => {
             row.toggleSelected(!!value);
             setSelectedSector((prev) =>
               value
-                ? [...prev, { ...row.original, create_on: row.original.createdAt.toISOString() }]
+                ? [...prev, { ...row.original, create_on: row.original.created_at.toISOString() }]
                 : prev.filter((sector) => sector.id !== row.original.id)
             );
           }}

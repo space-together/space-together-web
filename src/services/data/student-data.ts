@@ -12,10 +12,10 @@ export async function getStudentById(studentId: string) {
     }
 }
 
-export async function getStudentsByUserId(userId: string) {
+export async function getStudentsByUserId(user_id: string) {
     try {
         const students = await db.student.findMany({
-            where: { userId },
+            where: { user_id },
             include: { user: true, class: true },
         });
         return students
@@ -24,10 +24,10 @@ export async function getStudentsByUserId(userId: string) {
     }
 }
 
-export async function getStudentsByClassId(classId: string) {
+export async function getStudentsByClassId(class_id: string) {
     try {
         const students = await db.student.findMany({
-            where: { classId },
+            where: { class_id },
             include: { user: true, class: true },
         });
         return students
@@ -36,10 +36,10 @@ export async function getStudentsByClassId(classId: string) {
     }
 }
 
-export async function getStudentsBySubClassId(subClassId: string) {
+export async function getStudentsBySubClassId(subClass_id: string) {
     try {
         const students = await db.student.findMany({
-            where: { subClassId },
+            where: { subClass_id },
             include: { user: true, class: true },
         });
         return students

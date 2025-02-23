@@ -20,7 +20,7 @@ export const getAllSendUserRequest = async () => {
 
 export const getSendUserRequestByUserId = async (id: string) => {
     try {
-        const request = await db.sendUserRequest.findMany({ where: { userId: id }, orderBy: { createdAt: 'desc' } });
+        const request = await db.sendUserRequest.findMany({ where: { userId: id }, orderBy: { created_at: 'desc' } });
 
         return request;
     } catch {

@@ -45,8 +45,8 @@ model User {
   Student       Student[]
   Teacher       Teacher[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Class Class[]
 
@@ -70,8 +70,8 @@ model Account {
   id_token          String? @db.String
   session_state     String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -86,8 +86,8 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 // verification this for auth
@@ -127,8 +127,8 @@ model Education {
   disabled    Boolean  @default(false)
   roles       String[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Sector Sector[]
   Trade  Trade[]
@@ -136,37 +136,38 @@ model Education {
 
 // sector for education example in rwanda : Primary
 model Sector {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  educationId String  @db.ObjectId
-  username    String  @unique
-  name        String
-  description String?
-  symbol      String?
-  disabled    Boolean @default(false)
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  education_id String  @db.ObjectId
+  username     String  @unique
+  name         String
+  description  String?
+  symbol       String?
+  disabled     Boolean @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  education Education   @relation(fields: [educationId], references: [id], onDelete: Cascade)
+  education Education   @relation(fields: [education_id], references: [id], onDelete: Cascade)
   ClassRoom ClassRoom[]
   Class     Class[]
 }
 
 // trade we support example in rwanda : Level 3 education SOD : software development
 model Trade {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  username     String  @unique
-  description  String?
-  sectorId     String  @db.ObjectId
-  limitClasses Int
-  symbol       String?
-  disabled     Boolean @default(false)
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  username    String  @unique
+  description String?
+  sector_id   String  @db.ObjectId
+  max_classes Int
+  min_classes Int
+  symbol      String?
+  disabled    Boolean @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  sector Education @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  sector Education @relation(fields: [sector_id], references: [id], onDelete: Cascade)
 
   ClassRoom ClassRoom[]
   Class     Class[]
@@ -186,15 +187,15 @@ model ClassRoom {
   symbol        String?
   disabled      Boolean       @default(false)
   ClassRoomType ClassRoomType @default(OTHER)
-  sectorId      String?       @db.ObjectId
+  sector_id     String?       @db.ObjectId
   tradeId       String?       @db.ObjectId
   code          String?       @unique
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   trade  Trade?  @relation(fields: [tradeId], references: [id], onDelete: Cascade)
-  sector Sector? @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  sector Sector? @relation(fields: [sector_id], references: [id], onDelete: Cascade)
 
   Class Class[]
 
@@ -219,18 +220,18 @@ model Class {
   sector_id     String?    @db.ObjectId
   trade_id      String?    @db.ObjectId
   class_room_id String?    @db.ObjectId
-  userId        String     @db.ObjectId
+  user_id       String     @db.ObjectId
   classType     ClassType? @default(PRIVET)
   students      String[]   @db.ObjectId
   sub_class     SubClass[]
-  teachersIds   String[]   @db.ObjectId
+  teachers_ids  String[]   @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   trade     Trade?     @relation(fields: [trade_id], references: [id], onDelete: Cascade)
   sector    Sector?    @relation(fields: [sector_id], references: [id], onDelete: Cascade)
-  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   classRoom ClassRoom? @relation(fields: [class_room_id], references: [id], onDelete: Cascade)
 
   Post Post[]
@@ -244,28 +245,28 @@ model Class {
 
 // class user create which but have other class
 model SubClass {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  classId String @db.ObjectId
-  code    String
-  name    String
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  class_id String @db.ObjectId
+  code     String
+  name     String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  class     Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  class      Class?   @relation(fields: [class_id], references: [id], onDelete: Cascade)
 }
 
 // ---------------------------------------- CLASS MEMBER ------------------------------------------------
 model Student {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String  @db.ObjectId
-  subClassId String? @db.ObjectId
-  classId    String? @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String  @db.ObjectId
+  subClass_id String? @db.ObjectId
+  class_id    String? @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [class_id], references: [id], onDelete: Cascade)
 }
 
 enum TeacherROLE {
@@ -275,17 +276,17 @@ enum TeacherROLE {
 
 // teacher in that class room user create
 model Teacher {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String      @db.ObjectId
-  classesIds String[]    @db.ObjectId
-  role       TeacherROLE @default(TEACHER)
-  ModelsIds  String[]    @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String      @db.ObjectId
+  classes_ids String[]    @db.ObjectId
+  role        TeacherROLE @default(TEACHER)
+  Models_ids  String[]    @db.ObjectId
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Subject   Subject[]
-  module    Module[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user       User?     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  Subject    Subject[]
+  module     Module[]
 }
 
 enum SendUserRequestType {
@@ -298,9 +299,9 @@ enum SendUserRequestType {
 model SendUserRequest {
   id          String               @id @default(auto()) @map("_id") @db.ObjectId
   senderId    String               @db.ObjectId
-  userId      String?              @db.ObjectId
+  user_id     String?              @db.ObjectId
   description String?
-  classId     String?              @db.ObjectId
+  class_id    String?              @db.ObjectId
   email       String?
   role        UserRole?
   seen        Boolean              @default(false)
@@ -309,10 +310,10 @@ model SendUserRequest {
   accept      Boolean?             @default(false)
   cancel      Boolean?             @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [class_id], references: [id], onDelete: Cascade)
   User  User?  @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 
@@ -328,18 +329,18 @@ enum PostRole {
 }
 
 model Post {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId  String   @db.ObjectId
-  file    String?
-  content String?
-  role    PostRole @default(POST)
-  classId String?  @db.ObjectId
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id  String   @db.ObjectId
+  file     String?
+  content  String?
+  role     PostRole @default(POST)
+  class_id String?  @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  class Class? @relation(fields: [classId], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  class Class? @relation(fields: [class_id], references: [id], onDelete: Cascade)
 }
 
 // ------------------------------------- SUBJECT ----------------------------------------------------------
@@ -351,9 +352,9 @@ model Subject {
   id                String              @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   classRoomId       String?             @db.ObjectId
-  classId           String?             @db.ObjectId
+  class_id          String?             @db.ObjectId
   code              String              @unique
-  sectorId          String?             @db.ObjectId
+  sector_id         String?             @db.ObjectId
   tradeId           String?             @db.ObjectId
   subjectType       SubjectType?
   curriculum        String?
@@ -371,28 +372,28 @@ model Subject {
   Skill             Skill[]
   Attitude          Attitude[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  class     Class?     @relation(fields: [classId], references: [id], onDelete: Cascade)
-  classRoom ClassRoom? @relation(fields: [classId], references: [id], onDelete: Cascade)
-  Note      Note[]
-  Model     Module[]
-  Teacher   Teacher?   @relation(fields: [teacherId], references: [id])
-  teacherId String?    @db.ObjectId
+  class      Class?     @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  classRoom  ClassRoom? @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  Note       Note[]
+  Model      Module[]
+  Teacher    Teacher?   @relation(fields: [teacher_id], references: [id])
+  teacher_id String?    @db.ObjectId
 }
 
 model LearningOutcome {
   id                String              @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId         String              @db.ObjectId
+  Subject_id        String              @db.ObjectId
   learningHours     Int?
   description       String?
   indicativeContent IndicativeContent[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 model IndicativeContent {
@@ -406,35 +407,35 @@ model IndicativeContent {
 
 model Knowledge {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId   String? @db.ObjectId
+  Subject_id  String? @db.ObjectId
   description String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 model Skill {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId   String? @db.ObjectId
+  Subject_id  String? @db.ObjectId
   description String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 model Attitude {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId   String? @db.ObjectId
+  Subject_id  String? @db.ObjectId
   description String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 enum ResourceType {
@@ -445,37 +446,37 @@ enum ResourceType {
 
 model Resource {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId   String        @db.ObjectId
+  Subject_id  String        @db.ObjectId
   category    ResourceType?
   description String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 model Competence {
   id                  String                @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId           String                @db.ObjectId
+  Subject_id          String                @db.ObjectId
   description         String
   PerformanceCriteria PerformanceCriteria[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 model PerformanceCriteria {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  competenceId String @db.ObjectId
-  description  String
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  competence_id String @db.ObjectId
+  description   String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  competence Competence? @relation(fields: [competenceId], references: [id], onDelete: Cascade)
+  competence Competence? @relation(fields: [competence_id], references: [id], onDelete: Cascade)
 }
 
 enum AssessmentType {
@@ -484,22 +485,22 @@ enum AssessmentType {
 }
 
 model Assessment {
-  id        String          @id @default(auto()) @map("_id") @db.ObjectId
-  SubjectId String          @db.ObjectId
-  type      AssessmentType?
-  method    String
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  Subject_id String          @db.ObjectId
+  type       AssessmentType?
+  method     String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  subject Subject? @relation(fields: [SubjectId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [Subject_id], references: [id], onDelete: Cascade)
 }
 
 // notes in class and subject
 model Note {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String   @db.ObjectId
-  subjectId   String?  @db.ObjectId
+  user_id     String   @db.ObjectId
+  subject_id  String?  @db.ObjectId
   moduleId    String   @db.ObjectId
   seenBy      String[] @db.ObjectId
   commentsIds String[] @db.ObjectId
@@ -507,28 +508,28 @@ model Note {
   content     String   @db.ObjectId
   description String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  Subject Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Subject Subject? @relation(fields: [subject_id], references: [id], onDelete: Cascade)
   Module  Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 }
 
 // module in class they student example : kinyarwanda,
 model Module {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  teacherId  String? @db.ObjectId
-  subjectId  String  @db.ObjectId
-  classId    String  @db.ObjectId
-  subClassId String? @db.ObjectId
-  userId     String  @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  teacher_id  String? @db.ObjectId
+  subject_id  String  @db.ObjectId
+  class_id    String  @db.ObjectId
+  subClass_id String? @db.ObjectId
+  user_id     String  @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  class   Class?   @relation(fields: [classId], references: [id], onDelete: Cascade)
-  Subject Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  Teacher Teacher? @relation(fields: [teacherId], references: [id])
+  class   Class?   @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  Subject Subject  @relation(fields: [subject_id], references: [id], onDelete: Cascade)
+  Teacher Teacher? @relation(fields: [teacher_id], references: [id])
 
   Note Note[]
 }

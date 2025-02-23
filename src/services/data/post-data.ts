@@ -9,9 +9,9 @@ export const getPostById = async (id: string) => {
   }
 };
 
-export const getPostByUserId = async (userId: string) => {
+export const getPostByUserId = async (user_id: string) => {
   try {
-    const Post = await db.post.findFirst({ where: { userId } });
+    const Post = await db.post.findFirst({ where: { user_id } });
     return Post;
   } catch {
     return null;

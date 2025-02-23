@@ -18,9 +18,9 @@ export const getSubjectByCode = async (code: string) => {
   }
 };
 
-export const getSubjectByClassId = async (classId: string) => {
+export const getSubjectByClassId = async (class_id: string) => {
   try {
-    const subjects = await db.subject.findMany({ where: { classId } });
+    const subjects = await db.subject.findMany({ where: { class_id } });
     return subjects;
   } catch {
     return null;

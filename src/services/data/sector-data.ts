@@ -3,10 +3,10 @@ import { Sector } from "../../../prisma/prisma/generated";
 
 class SectorService {
   private async _populateEducationName(sector: Sector | null): Promise<Sector | null> {
-    if (sector?.educationId) {
-      const education = await db.sector.findUnique({ where: { id: sector.educationId } });
+    if (sector?.education_id) {
+      const education = await db.sector.findUnique({ where: { id: sector.education_id } });
       if (education) {
-        sector.educationId = education.name;
+        sector.education_id = education.name;
       }
     }
     return sector;
@@ -40,9 +40,9 @@ class SectorService {
     }
   }
 
-  async getSectorsByEducationId(educationId: string): Promise<Sector[]> {
+  async getSectorsByEducationId(education_id: string): Promise<Sector[]> {
     try {
-      const sectors = await db.sector.findMany({ where: { educationId } });
+      const sectors = await db.sector.findMany({ where: { education_id } });
       const populatedSectors = await Promise.all(sectors.map(this._populateEducationName.bind(this)));
       return populatedSectors.filter((sector): sector is Sector => sector !== null);
     } catch {

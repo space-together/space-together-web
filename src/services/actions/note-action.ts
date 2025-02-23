@@ -19,8 +19,8 @@ export const createNoteAction = async (values: NoteSchemaType, subjectId: string
             data: {
                 fileId: file,
                 description,
-                userId  : user.id,
-                subjectId,
+                user_id  : user.id,
+                subject_id : subjectId,
                 content,
             },
         });
@@ -45,7 +45,7 @@ export const deleteNoteAction = async (noteId: string) => {
             where: { id: noteId },
         });
 
-        if (!note || note.userId !== user.id) {
+        if (!note || note.user_id !== user.id) {
             return { error: "Note not found or unauthorized" };
         }
 
@@ -77,7 +77,7 @@ export const updateNoteAction = async (noteId: string, values: NoteSchemaType) =
             where: { id: noteId },
         });
 
-        if (!note || note.userId !== user.id) {
+        if (!note || note.user_id !== user.id) {
             return { error: "Note not found or unauthorized" };
         }
 
