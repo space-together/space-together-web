@@ -39,6 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!user) return token;
       token.name = user.name;
       token.email = user.email;
+      token.username = user.username;
       token.sub = user.id;
       token.picture = user.image;
       // token.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
