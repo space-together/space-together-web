@@ -18,7 +18,7 @@ const NotesSubjectsPage = async (props: Props) => {
     <div className=' happy-page'>
       <h1 className='  happy-title-head'>Teachers Notes</h1>
       <div className=" mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <SubjectCard lang={lang} />
+        <SubjectCard role='isNote' lang={lang} />
       </div>
     </div>
   )

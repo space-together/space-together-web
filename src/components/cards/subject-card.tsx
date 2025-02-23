@@ -5,9 +5,10 @@ import { Locale } from "@/i18n";
 
 interface props {
   lang: Locale;
+  role : "isNote"
 }
 
-const SubjectCard = ({ lang }: props) => {
+const SubjectCard = ({ lang , role}: props) => {
   return (
     <div className=" happy-card space-y-2">
       <div className=" flex space-x-2">
@@ -38,7 +39,7 @@ const SubjectCard = ({ lang }: props) => {
         </p>
       </div>
       <Button variant="primary">
-        <Link href={`/${lang}/subject/123`} className="w-full">
+        <Link href={role === "isNote" ? `/${lang}/notes/subjects/123` :`/${lang}/subject/123`} className="w-full">
           About Subject
         </Link>
       </Button>

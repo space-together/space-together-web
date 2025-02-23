@@ -5,6 +5,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import UseTheme from "@/context/theme/use-theme"
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -62,6 +63,7 @@ const DropdownMenuContent = React.forwardRef<
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
+    data-theme={UseTheme()}
       ref={ref}
       sideOffset={sideOffset}
       className={cn(

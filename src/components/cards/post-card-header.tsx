@@ -1,9 +1,8 @@
  import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import UserTooltip from "@/context/tooltip/user-tooltip";
+import PostCardHeaderDropdown from "./post-card-header-dropdown";
 
 interface props {
   lang: Locale;
@@ -32,9 +31,7 @@ const PostCardHeader = ({ lang }: props) => {
       </div>
       <div className=" flex gap-2 items-center">
         <span className=" font-medium text-myGray">2h ago</span>
-        <Button variant="ghost" size="sm" shape="circle">
-          <BsThreeDotsVertical />
-        </Button>
+        <PostCardHeaderDropdown />
       </div>
     </div>
   );
