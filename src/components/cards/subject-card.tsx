@@ -1,6 +1,13 @@
+import Link from "next/link";
 import MyImage from "../my-components/myImage";
+import { Button } from "../ui/button";
+import { Locale } from "@/i18n";
 
-const SubjectCard = () => {
+interface props {
+  lang: Locale;
+}
+
+const SubjectCard = ({ lang }: props) => {
   return (
     <div className=" happy-card space-y-2">
       <div className=" flex space-x-2">
@@ -23,8 +30,18 @@ const SubjectCard = () => {
       </div>
       <div>
         <span className=" font-medium">Purpose:</span>
-        <p className=" line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore dolores dolorem, quas veniam qui vel nihil incidunt tempora non rem facere earum voluptatibus animi quaerat in doloribus ipsam, expedita voluptates?</p>
+        <p className=" line-clamp-3 text-sm">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+          dolores dolorem, quas veniam qui vel nihil incidunt tempora non rem
+          facere earum voluptatibus animi quaerat in doloribus ipsam, expedita
+          voluptates?
+        </p>
       </div>
+      <Button variant="primary">
+        <Link href={`/${lang}/subject/123`} className="w-full">
+          About Subject
+        </Link>
+      </Button>
     </div>
   );
 };
