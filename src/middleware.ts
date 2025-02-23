@@ -6,6 +6,7 @@ import Negotiator from "negotiator";
 import { apiAuthPrefix, authRoutes, publicRoutes } from "./router";
 import NextAuth from "next-auth";
 import authConfig from "./lib/auth/auth.config";
+// import { RedirectContents } from "./utils/context/redirect-content";
 
 function getLocale(request: NextRequest): Locale {
   const negotiatorHeaders: Record<string, string> = {};
@@ -70,9 +71,8 @@ export default auth(async (request) => {
       const localePath =
         pathname === "/"
           ? `/${detectedLocale}`
-          : `/${detectedLocale}${
-              pathname.startsWith("/") ? pathname : `/${pathname}`
-            }`;
+          : `/${detectedLocale}${pathname.startsWith("/") ? pathname : `/${pathname}`
+          }`;
       return NextResponse.redirect(new URL(localePath, nextUrl.origin));
     }
     return NextResponse.next();
@@ -99,16 +99,16 @@ export default auth(async (request) => {
   // if (user?.role === "STUDENT" && pathname.startsWith(`/${detectedLocale}/teacher`)) {
   //   return NextResponse.redirect(new URL("/", nextUrl.origin));
   // }
-  
-  // Redirect if the user is logged in but not a teacher and tries to access the teacher page
-  // if (
-  //   isLoggedIn &&
-  //   user?.role !== "ADMIN" &&
-  //   pathname.startsWith(`/${detectedLocale}/admin`)
-  // ) {
-  //   return NextResponse.redirect(new URL(`/${detectedLocale}/${user?.role}`, nextUrl.origin));
-  // }
-  
+// console.log("user 🙄🙄 :", user)
+//   // Redirect if the user is logged in but not a teacher and tries to access the teacher page
+//   if (
+//     isLoggedIn && user?.role &&
+//     user?.role !== "ADMIN" &&
+//     pathname.startsWith(`/${detectedLocale}/admin`)
+//   ) {
+//     return NextResponse.redirect(new URL(user?.role ? RedirectContents({ lang: detectedLocale, role: user.role }) : `/`, nextUrl.origin));
+//   }
+
 
   // Step 5: Allow authenticated users to access protected routes
   return NextResponse.next();
