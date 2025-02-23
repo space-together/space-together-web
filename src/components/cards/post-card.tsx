@@ -11,9 +11,10 @@ import Link from "next/link";
 interface props {
   postRole?: "NOTES" | "IMAGE" | "VIDEO" | "POST" | "ACTIVITY" | "TEXT";
   lang: Locale;
+  role?: "isNote"
 }
 
-const PostCard = ({ postRole, lang }: props) => {
+const PostCard = ({ postRole, lang, role }: props) => {
   
   return (
     <div className=" happy-card p-0">
@@ -27,7 +28,7 @@ const PostCard = ({ postRole, lang }: props) => {
           </div>
           <h3 className=" text-lg font-semibold text-center">Lesson 1</h3>
           <p>
-            <Link href={`/${lang}/class/student/notes/student`}>
+            <Link href={role === "isNote" ? `/${lang}/notes/123` :`/${lang}/class/student/notes/student`}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem doloribus nobis totam nemo id provident tempora quos,
               sed modi. Commodi optio, nemo beatae tenetur repellat aspernatur

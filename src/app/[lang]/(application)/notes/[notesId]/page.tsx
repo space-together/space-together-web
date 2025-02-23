@@ -15,7 +15,7 @@ const NotesIdPage = async (props: props) => {
   }
   return (
     <div className=' min-h-screen'>
-      notes page
+      notes id page
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import PostCard from "@/components/cards/post-card";
 import SearchNotesClass from "@/components/app/class/notes/search-notes-class";
 import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject";
- import { Locale } from "@/i18n";
+import { Locale } from "@/i18n";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
@@ -26,10 +26,10 @@ const NotesPage = async (props: props) => {
         <div className=" space-y-2">
           <h5 className=" text-lg font-medium">All Notes</h5>
           <div className=" mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <PostCard lang={lang} postRole="NOTES" />
-            <PostCard lang={lang} postRole="NOTES" />
-            <PostCard lang={lang} postRole="NOTES" />
-            <PostCard lang={lang} postRole="NOTES" />
+            <PostCard role="isNote" lang={lang} postRole="NOTES" />
+            <PostCard role="isNote" lang={lang} postRole="NOTES" />
+            <PostCard role="isNote" lang={lang} postRole="NOTES" />
+            <PostCard role="isNote" lang={lang} postRole="NOTES" />
           </div>
         </div>
       </div>

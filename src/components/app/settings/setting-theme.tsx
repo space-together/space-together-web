@@ -14,10 +14,10 @@ const SettingTheme = () => {
     "winter",
     "valentine",
     "synthwave",
-    "forest",
     "business",
-    "night",
     "dark",
+    "night",
+    "forest",
     "black",
   ];
   return (
