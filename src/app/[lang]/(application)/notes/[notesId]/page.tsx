@@ -1,7 +1,10 @@
 import { auth } from '@/auth';
+import NotesBody from '@/components/app/notes/notes-body';
+import NotesDetails from '@/components/app/notes/notes-details';
+import NotesHeader from '@/components/app/notes/notes-header';
 import { Locale } from '@/i18n';
 import { redirect } from 'next/navigation';
-import React from 'react'
+
 interface props {
   params: Promise<{ lang: Locale }>;
 }
@@ -15,7 +18,11 @@ const NotesIdPage = async (props: props) => {
   }
   return (
     <div className=' min-h-screen'>
-      notes id page
+      <div className=" px-4">
+        <NotesHeader lang={lang} />
+        <NotesBody />
+      </div>
+      <NotesDetails />
     </div>
   )
 }
