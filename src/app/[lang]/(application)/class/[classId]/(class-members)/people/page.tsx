@@ -36,12 +36,12 @@ const ClassPeoplePage = async (props: props) => {
   const teacherCards = await Promise.all(
     getTeachers.map(async (item) => {
       const [user, getModels] = await Promise.all([
-        getUserById(item.userId),
+        getUserById(item.user_id),
         getModuleByTeacherInClassId(item.id, classId),
       ]);
       return (
         <UserCardSmallCallSetting
-          key={item.userId}
+          key={item.user_id}
           modules={getModels}
           user={user}
           userRole="TEACHER"
@@ -73,7 +73,7 @@ const ClassPeoplePage = async (props: props) => {
           <div className=" flex justify-between w-full items-center">
             <h2 className=" happy-title-base">Teachers</h2>
             {(currentUser.role === "ADMIN" ||
-              currentUser.id === getClass?.userId) && (
+              currentUser.id === getClass?.user_id) && (
               <AddMemberInClassDialog
                 classId={classId}
                 classSubjects={classSubjects}
@@ -88,7 +88,7 @@ const ClassPeoplePage = async (props: props) => {
                 <p className="font-medium text-myGray">
                   No teachers in this class!
                 </p>
-                {(getClass?.userId === currentUser.id ||
+                {(getClass?.user_id === currentUser.id ||
                   currentUser.role === "ADMIN") && (
                   <AddMemberInClassDialog
                     classId={classId}
@@ -110,7 +110,7 @@ const ClassPeoplePage = async (props: props) => {
             <div className=" flex justify-between w-full items-center">
               <h2 className=" happy-title-base">Students</h2>
               {(currentUser.role === "ADMIN" ||
-                currentUser.id === getClass?.userId) && (
+                currentUser.id === getClass?.user_id) && (
                 <AddMemberInClassDialog
                   classId={classId}
                   classSubjects={classSubjects}
