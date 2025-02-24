@@ -25,7 +25,6 @@ const AppNavbar = ({ lang, user }: props) => {
     <nav className=" w-full h-14 max-h-14 fixed border-b border-base-300 p-2 flex justify-between z-50 bg-base-100">
       <div className=" flex space-x-2  items-center">
         <SidebarTrigger className=" size-12" />
-        <SiteLogo user={user} lang={lang} />
         <TextTooltip
           trigger={
             <Button
@@ -38,6 +37,7 @@ const AppNavbar = ({ lang, user }: props) => {
           }
           content={<span  className=" font-medium"> Go back</span>}
         />
+        <SiteLogo user={user} lang={lang} />
       </div>
       <div className=" flex gap-2 items-center mr-4">
         <NavMessageDropDown lang={lang} />

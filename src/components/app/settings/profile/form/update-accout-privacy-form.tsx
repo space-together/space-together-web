@@ -25,7 +25,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 const UpdateAccountPrivacyForm = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
-  const [isPending, startTransition] = useTransition();
+   const [isPending, 
+     // startTransition
+   ] = useTransition();
   const form = useForm<updateUserEmailSchemaType>({
     resolver: zodResolver(updateUserEmailSchema),
     defaultValues: {
