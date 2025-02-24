@@ -53,13 +53,16 @@ import { Textarea } from "../ui/textarea";
 import { User } from "../../../prisma/prisma/generated";
 
 interface props {
-  currentUser : User;
+  currentUser: User;
 }
 
-const UserUserDataForm = ({currentUser} : props) => {
+const UserUserDataForm = ({ currentUser }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
-  const [isPending, startTransition] = useTransition();
+  const [
+    isPending,
+    //  startTransition
+  ] = useTransition();
   const form = useForm<updateUserDataSchemaType>({
     resolver: zodResolver(updateUserDataSchema),
     defaultValues: {
@@ -159,7 +162,8 @@ const UserUserDataForm = ({currentUser} : props) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    username name which is unique from other usernames, which like on instagram.
+                    username name which is unique from other usernames, which
+                    like on instagram.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -284,7 +288,8 @@ const UserUserDataForm = ({currentUser} : props) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    Your age you have now, it help if you ask to join school if your age is allowed.
+                    Your age you have now, it help if you ask to join school if
+                    your age is allowed.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -338,7 +343,8 @@ const UserUserDataForm = ({currentUser} : props) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    Explain your self what you like, which game ⚽ you like or other things about you.
+                    Explain your self what you like, which game ⚽ you like or
+                    other things about you.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -376,7 +382,8 @@ const UserUserDataForm = ({currentUser} : props) => {
                   </FormLabel>
                   {error && <p className="text-sm text-error">{error}</p>}
                   <FormDescription>
-                    Your image for you please you image for you because it help other to know you.
+                    Your image for you please you image for you because it help
+                    other to know you.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

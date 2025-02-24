@@ -15,7 +15,7 @@ import { Locale } from "@/i18n";
 interface props {
   lang: Locale;
 }
-const NavNotificationDropDown = ({ lang }: props) => {
+const NavNotificationDropDown = ({  }: props) => {
   const theme = UseTheme();
   return (
     <DropdownMenu>

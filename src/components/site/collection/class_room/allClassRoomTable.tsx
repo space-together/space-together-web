@@ -190,7 +190,7 @@ const AllClassRoomTable = ({
             "username",
             "name",
             "tradeId",
-            "sectorId",
+            "sector_id",
             "ClassRoomType",
             "description",
           ]}
