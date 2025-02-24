@@ -32,8 +32,8 @@ const NotificationsPage = async (props: props) => {
             const getSender = await getUserById(item.senderId);
             if (!getSender) return <NotificationCardError key={item.id} />;
             let getClass: Class | null = null;
-            if (!!item.classId) {
-              getClass = await getClassById(item.classId);
+            if (!!item.class_id) {
+              getClass = await getClassById(item.class_id);
             }
             return (
               <NotificationCard
