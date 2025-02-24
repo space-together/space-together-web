@@ -32,9 +32,9 @@ const ClassSubjectPage = async ({ params }: Props) => {
   // Fetch teachers and their users in parallel
   const moduleTeacher = await Promise.all(
     getModules.map(async (module) => {
-      if (!module.teacherId) return { module, teacher: null, user: null };
-      const teacher = await getTeacherById(module.teacherId);
-      const getSubject = await getSubjectById(module.subjectId)
+      if (!module.teacher_id) return { module, teacher: null, user: null };
+      const teacher = await getTeacherById(module.teacher_id);
+      const getSubject = await getSubjectById(module.subject_id)
       return { subject :getSubject, teacher, user: teacher?.user ?? null , module};
     })
   );
@@ -42,7 +42,7 @@ const ClassSubjectPage = async ({ params }: Props) => {
     <div className="happy-page w-full">
       <div className="flex justify-between w-full items-center">
         <h1 className="happy-title-head">Subjects</h1>
-        {(currentUser.role === "ADMIN" || currentUser.id === getClass?.userId) && (
+        {(currentUser.role === "ADMIN" || currentUser.id === getClass?.user_id) && (
           <CreateSubjectDialog classId={classId} />
         )}
       </div>

@@ -23,7 +23,7 @@ const ClassSettingPage = async ({ params }: Props) => {
   const getClass = await getClassById(classId);
 
   if (!getClass) return <NotFoundPage />;
-  if (user.role !== "ADMIN" && getClass.userId !== user.id)
+  if (user.role !== "ADMIN" && getClass.user_id !== user.id)
     return <PermissionPage />;
 
   return (

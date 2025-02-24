@@ -34,12 +34,12 @@ export const sendStudentRequestToJoinClass = async (values: addStudentSchemaType
                 }
                 await db.sendUserRequest.create({
                     data: {
-                        userId: existingUser.id,
+                        user_id: existingUser.id,
                         role: "STUDENT",
                         senderId,
                         message,
                         type: "STUDENTJOINCLASS",
-                        classId: classDetails.id,
+                        class_id: classDetails.id,
                         description: `Request to join class **${classDetails.name}**`,
                     }
                 });
@@ -93,10 +93,10 @@ export const sendTeacherRequestToJoinClass = async (
         const createSubjects = subjects.map((subjectId) =>
             db.module.create({
                 data: {
-                    classId: classDetails.id,
-                    subjectId,
-                    teacherId: getTeacher ? getTeacher.id : undefined,
-                    userId: getUser.id
+                    class_id: classDetails.id,
+                  subject_id :  subjectId,
+                   teacher_id: getTeacher && !Array.isArray(getTeacher) ? getTeacher.id : undefined,
+                    user_id: getUser.id
                 },
             })
         );
@@ -104,9 +104,9 @@ export const sendTeacherRequestToJoinClass = async (
         const createRequest = db.sendUserRequest.create({
             data: {
                 message,
-                userId: getUser.id,
+                user_id: getUser.id,
                 senderId,
-                classId: classDetails.id,
+                class_id: classDetails.id,
                 role: "TEACHER",
                 type: "TEACHERjOINCLASS",
                 description: `Request to join class **${classDetails.name}**`,
@@ -133,21 +133,21 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
             }
         });
 
-        if (!request.userId) return { error: "Request user does not exist" };
+        if (!request.user_id) return { error: "Request user does not exist" };
 
         // Step 2: Handle Teacher Joining Class
         if (request.type === "TEACHERjOINCLASS") {
-            let teacher = await db.teacher.findFirst({ where: { userId: request.userId } });
+            let teacher = await db.teacher.findFirst({ where: { user_id: request.user_id } });
 
             // Explicitly define the type for getModule
-            const getModule: { id: string }[] | null = await getModuleByUserId(request.userId);
+            const getModule: { id: string }[] | null = await getModuleByUserId(request.user_id);
 
             if (teacher) {
                 await db.teacher.update({
                     where: { id: teacher.id },
                     data: {
-                        ModelsIds: getModule ? [...new Set([...teacher.ModelsIds, ...getModule.map((m: { id: string }) => m.id)])] : teacher.ModelsIds,
-                        classesIds: request.classId ? [...new Set([...(teacher.classesIds || []), request.classId])] : teacher.classesIds
+                        Models_ids: getModule ? [...new Set([...teacher.Models_ids, ...getModule.map((m: { id: string }) => m.id)])] : teacher.Models_ids,
+                        classes_ids: request.class_id ? [...new Set([...(teacher.classes_ids || []), request.class_id])] : teacher.classes_ids
                     }
                 });
             } else {
@@ -155,52 +155,52 @@ export const UserJoinClassRequest = async (request: SendUserRequest) => {
 
                 teacher = await db.teacher.create({
                     data: {
-                        userId: request.userId,
+                        user_id: request.user_id,
                         role: "TEACHER",
-                        ModelsIds: getModule.map((m: { id: string }) => m.id),
-                        classesIds: request.classId ? [request.classId] : undefined
+                        Models_ids: getModule.map((m: { id: string }) => m.id),
+                        classes_ids: request.class_id ? [request.class_id] : undefined
                     }
                 });
             }
 
             // Add teacher to the class in teachersIds array if not already present
-            if (request.classId) {
-                const classData = await db.class.findUnique({ where: { id: request.classId } });
+            if (request.class_id) {
+                const classData = await db.class.findUnique({ where: { id: request.class_id } });
 
-                if (classData && !classData.teachersIds.includes(teacher.id)) {
+                if (classData && !classData.teachers_ids.includes(teacher.id)) {
                     await db.class.update({
-                        where: { id: request.classId },
+                        where: { id: request.class_id },
                         data: {
-                            teachersIds: [...classData.teachersIds, teacher.id]  // Use teacher.id instead of request.userId
+                            teachers_ids: [...classData.teachers_ids, teacher.id]  // Use teacher.id instead of request.userId
                         }
                     });
                 }
             }
         } else if (request.type === "STUDENTJOINCLASS") {
             let student = await db.student.findFirst({
-                where: { userId: request.userId, classId: request.classId }
+                where: { user_id: request.user_id, class_id: request.class_id }
             });
 
             if (!student) {
                 // Create a new student entry for this class
                 student = await db.student.create({
                     data: {
-                        userId: request.userId,
-                        classId: request.classId,
+                        user_id: request.user_id,
+                        class_id: request.class_id,
                     }
                 });
             }
 
             // Ensure student is added to the class
-            if (request.classId) {
+            if (request.class_id) {
                 const classData = await db.class.findUnique({
-                    where: { id: request.classId },
+                    where: { id: request.class_id },
                     select: { students: true }
                 });
 
                 if (classData && !classData.students.includes(student.id)) {
                     await db.class.update({
-                        where: { id: request.classId },
+                        where: { id: request.class_id },
                         data: {
                             students: {
                                 set: [...classData.students, student.id]

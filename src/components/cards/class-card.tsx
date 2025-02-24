@@ -29,7 +29,7 @@ const ClassCard = async ({
   myClass,
   isNotes,
 }: props) => {
-  const getUser = myClass?.userId ? await getUserById(myClass.userId) : null;
+  const getUser = myClass?.user_id ? await getUserById(myClass.user_id) : null;
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -102,7 +102,7 @@ const ClassCard = async ({
                     isClassTeacher ? "text-myGray" : ""
                   )}
                   href={`/${lang}/profile/${
-                    myClass?.userId ? myClass.userId : 1232
+                    myClass?.user_id ? myClass.user_id : 1232
                   }`}
                 >
                   <TextTooltip

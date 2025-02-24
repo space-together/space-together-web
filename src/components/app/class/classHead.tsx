@@ -13,7 +13,7 @@ interface Props {
 
 const ClassHead = async ({ lang, myClass }: Props) => {
   // Fetch user data if myClass.userId exists
-  const getUser = myClass?.userId ? await getUserById(myClass.userId) : null;
+  const getUser = myClass?.user_id ? await getUserById(myClass.user_id) : null;
 
   return (
     <div className="w-full relative">

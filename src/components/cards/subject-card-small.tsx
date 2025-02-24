@@ -49,7 +49,7 @@ const SubjectCardSmall = ({
         </div>
       </div>
       {(currentUser.role === "ADMIN" ||
-        currentUser.id === getClass?.userId) && (
+        currentUser.id === getClass?.user_id) && (
         <div className=" space-x-2">
           <Button size="sm">
             <AiOutlineSetting />

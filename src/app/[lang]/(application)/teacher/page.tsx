@@ -27,12 +27,11 @@ const TeacherPage = async (props: props) => {
   const classes = await getAllClassesByUserId(user.id);
   if (!classes) return <ErrorPage />;
 
-  const getTeacher = await getTeacherByUserId(user.id);
   if (user.role !== "TEACHER" && user.role !== "ADMIN") {
     return <PermissionPage />;
   }
-
-  const teacherClasses = getTeacher
+  const getTeacher = await getTeacherByUserId(user.id);
+  const teacherClasses = getTeacher && !Array.isArray(getTeacher)
     ? await getClassesByTeacherId(getTeacher.id)
     : null;
 

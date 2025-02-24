@@ -67,7 +67,7 @@ const ClassNavbar = ({ user, lang, classId, getClass }: props) => {
       >
         Subjects
       </Link>
-      {(user?.role === "ADMIN" || getClass?.userId === user?.id) && (
+      {(user?.role === "ADMIN" || getClass?.user_id === user?.id) && (
         <Link
           href={`/${lang}/class/${classId}/setting`}
           className={cn(
