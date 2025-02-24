@@ -1,43 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# School Management and Learning System
 
-## Getting Started
+## Overview
+This project is a full-featured **School Management and Learning System** designed to help schools manage students, courses, and educational resources effectively. It is built using **Next.js** for the frontend and **Actix (Rust)** for the backend API. The system supports file storage, messaging, and simple games to enhance the learning experience.
 
-First, run the development server:
+## Features
+### 🏫 School Management
+- Manage schools, students, teachers, and education bodies
+- Support for multiple education levels
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📚 Learning Resources
+- Store and manage books, reports, and learning materials
+- Categorization of subjects and topics
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ✉️ Communication
+- Internal messaging system for teachers and students
+- Notifications and updates
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🎮 Interactive Learning
+- Simple educational games for students
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📊 Data Handling
+- Built on **MongoDB** with **Prisma** for database interactions
+- NoSQL-based flexible data storage
 
-## Learn More
+## Tech Stack
+### Frontend:
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **Tailwind CSS** (Styling)
+- **next-intl** (Internationalization)
 
-To learn more about Next.js, take a look at the following resources:
+### Backend:
+- **Actix (Rust)** for high-performance API
+- **MongoDB** (NoSQL database)
+- **Prisma** ORM for database management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Deployment:
+- **Vercel** for hosting the Next.js frontend
+- **Tauri** for desktop version support
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Database Schema
+The database uses a **NoSQL structure** to store information efficiently. It includes:
+- **Users**: Students, teachers, and administrators
+- **Schools**: Education bodies and levels
+- **Subjects & Topics**: Organized knowledge base
+- **Messages**: Internal communication system
+- **Files**: Learning resources like books and reports
 
-## Deploy on Vercel
+## Installation
+### Prerequisites
+Ensure you have the following installed:
+- **Node.js** & **pnpm** (for Next.js)
+- **Rust & Cargo** (for Actix API)
+- **MongoDB** (for database storage)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-repo/school-management.git
+   cd school-management
+   ```
+2. **Install frontend dependencies:**
+   ```bash
+   cd frontend
+   pnpm install
+   ```
+3. **Run the frontend:**
+   ```bash
+   pnpm dev
+   ```
+4. **Run the backend:**
+   ```bash
+   cd backend
+   cargo run
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contribution
+If you would like to contribute:
+- Fork the repository
+- Create a feature branch
+- Submit a pull request
 
+## License
+This project is licensed under the **MIT License**.
 
+---
+💡 **Developed with Next.js & Actix for scalable and efficient school management.**
 
-<!-- TODO: make class about page which will explain about class -->
-<!-- TODO: make other user profile which other user come and visit-->
-<!-- TODO: make class page for student who don't have class or have many classes -->
-<!-- TODO: make message page
