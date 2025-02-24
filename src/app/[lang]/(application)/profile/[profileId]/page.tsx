@@ -5,7 +5,6 @@ import { Locale } from '@/i18n';
 import { redirect } from 'next/navigation';
 
 interface props {
-  children: React.ReactNode;
   params: Promise<{ lang: Locale }>;
 }
 const ProfileIdPage = async (props: props) => {
