@@ -15,11 +15,11 @@ const SchoolHomeBody = ({ lang }: props) => {
   return (
     <div className=" w-full space-y-4">
       <div className=" flex space-x-4 justify-between w-full">
-        <div className=" w-1/2  space-y-4">
+        <div className=" w-3/5  space-y-4">
           <SchoolHomePosts lang={lang} />
           <SchoolClasses lang={lang}/>
         </div>
-        <div className=" w-1/2 space-y-4">
+        <div className=" w-2/5 space-y-4">
           <SchoolHomeAbout lang={lang}/>
           <SchoolContacts />
           <SchoolStaff lang={lang} />
