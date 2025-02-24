@@ -52,7 +52,7 @@ const UserCardSmallCallSetting = ({
             {userRole === "TEACHER" &&
               !!modules &&
               modules.map(async (item) => {
-                const getSubject = await getSubjectById(item.subjectId);
+                const getSubject = await getSubjectById(item.subject_id);
                 return (
                   <div key={item.id} className=" -space-x-2 flex items-center">
                     <Dot size={32} />
