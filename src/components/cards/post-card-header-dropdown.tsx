@@ -1,4 +1,11 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+"use client"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Button } from "../ui/button";
 
@@ -10,10 +17,8 @@ const PostCardHeaderDropdown = () => {
           <BsThreeDotsVertical />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent >
-        <DropdownMenuItem>
-          Report
-        </DropdownMenuItem>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Report</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="focus:bg-error cursor-pointer">
           Delete
