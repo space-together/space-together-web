@@ -42,11 +42,11 @@ const AllEducationComponent = async () => {
                           <span className=" link-hover">
                             @ {item.username}{" "}
                           </span>
-                          {item.updatedAt ? (
+                          {item.updated_at ? (
                             <span className=" text-myGray text-sm">
-                              {item.updatedAt &&
+                              {item.updated_at &&
                                 `Update: ${new Date(
-                                  item.updatedAt
+                                  item.updated_at
                                 ).toDateString()}`}
                             </span>
                           ) : (
@@ -83,11 +83,11 @@ const AllEducationComponent = async () => {
                               <span className=" text-sm link-hover">
                                 @ {sector.username}
                               </span>
-                                {item.updatedAt ? (
+                                {item.updated_at ? (
                                   <span className=" text-myGray text-sm">
-                                    {item.updatedAt &&
+                                    {item.updated_at &&
                                       `Update: ${new Date(
-                                        item.updatedAt
+                                        item.updated_at
                                       ).toDateString()}`}
                                   </span>
                                 ) : (

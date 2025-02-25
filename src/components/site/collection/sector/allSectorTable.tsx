@@ -131,7 +131,7 @@ const AllSectorTable = ({ sectors, educations }: props) => {
         <DataTable
           columns={columns}
           data={sectors}
-          searchKeys={["username", "name", "educationId"]}
+          searchKeys={["username", "name", "education_id"]}
         />
       </div>
     </div>

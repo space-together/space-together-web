@@ -137,7 +137,7 @@ const AllTradeTable = ({ sectors, trades }: props) => {
         <DataTable
           columns={columns}
           data={trades}
-          searchKeys={["username", "name", "sectorId", "limitClasses"]}
+          searchKeys={["username", "name", "sector_id", "max_classes" , "min_classes"]}
         />
       </div>
     </div>
