@@ -38,10 +38,11 @@ import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 import MyImage from "@/components/my-components/myImage";
-import { createClassRoomAction } from "@/services/actions/class-room-action";
 import { Sector, Trade } from "../../../../../prisma/prisma/generated";
 import { classRoomTypeContext } from "@/utils/context/class-room-context";
 import { toLowerCase } from "@/utils/functions/characters";
+import { createMainClassAPI } from "@/services/data/api-fetch-data";
+import { handleFormSubmission } from "@/hooks/form-notification";
 
 interface props {
   sectors: Sector[] | null;
@@ -102,17 +103,10 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
   const handleSubmit = (values: classRoomSchemaType) => {
     setError("");
     setSuccess("");
-    startTransition(async () => {
-      const action = await createClassRoomAction(values);
-      if (action.error) {
-        setError(action.error);
-      }
-
-      if (action.success) {
-        setSuccess(action.success);
-        form.reset();
-      }
-    });
+    handleFormSubmission(
+      () => createMainClassAPI(values),
+      startTransition
+    );
   };
 
   return (
@@ -257,19 +251,20 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
                         defaultValue={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        {sectors && sectors.map((item) => (
-                          <FormItem
-                            key={item.id}
-                            className="flex items-center space-x-3 space-y-"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={item.id} />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.username ? item.username : item.name}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
+                        {sectors &&
+                          sectors.map((item) => (
+                            <FormItem
+                              key={item.id}
+                              className="flex items-center space-x-3 space-y-"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={item.id} />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {item.username ? item.username : item.name}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
@@ -288,19 +283,20 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
                         defaultValue={field.value}
                         className="flex flex-col space-y-3"
                       >
-                        {trades && trades.map((item) => (
-                          <FormItem
-                            key={item.id}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={item.id} />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.username ? item.username : item.name}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
+                        {trades &&
+                          trades.map((item) => (
+                            <FormItem
+                              key={item.id}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={item.id} />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {item.username ? item.username : item.name}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />

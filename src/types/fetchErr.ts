@@ -1,5 +1,6 @@
 export interface FetchError {
-  message: string;
+  message?: string;
+  error?: string;
   status?: number;
   details?: string;
 }
