@@ -1,44 +1,48 @@
 import { APIV002 } from '@/env';
 import { ClassRoom, Education } from './../../../prisma/prisma/generated/index.d';
-// import { fetchApi } from "../class/fetching-api-v0.0.2";
-import { FetchError } from '@/types/fetchErr';
+// import { FetchError } from '@/types/fetchErr';
 import { classRoomSchemaType } from '@/utils/schema/classRoomSchema';
-import axios from 'axios';
-import {  educationSchema, educationSchemaType } from '@/utils/schema/educationSchema';
-
-// const apiClient = new fetchApi();
+import axios, { AxiosError } from 'axios';
+import { educationSchema, educationSchemaType } from '@/utils/schema/educationSchema';
 
 /**
  *  Create a class room
- * @param ClassRoom
- * @returns ClassRoomModelGet | FetchError
+ * @param mainClass
+ * @returns {object} { create, success } | { error }
  */
-export async function createMainClassAPI(
-  mainClass: classRoomSchemaType) {
-  const create: ClassRoom | FetchError = await axios.post(`${APIV002}/class/main`, mainClass);
-  if ("message" in create) return { error: create.message };
-  return { create, success: "Main created successful" }
+export async function createMainClassAPI(mainClass: classRoomSchemaType) {
+  try {
+    const response = await axios.post<ClassRoom>(`${APIV002}/class/main`, mainClass);
+    return { create: response.data, success: "Main created successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
 }
+
 /**
  *  Create Education
- * @param Education
- * @returns ClassRoomModelGet | FetchError
+ * @param values
+ * @returns {object} { create, success } | { error }
  */
-export async function createEducationAPI(
-  values: educationSchemaType) {
+export async function createEducationAPI(values: educationSchemaType) {
   const validation = educationSchema.safeParse(values);
-
   if (!validation.success) {
-    return { error: "Invalid valuers" };
+    return { error: "Invalid values" };
   }
+
   const { name, username, description, logo } = validation.data;
   const education = { name, username, description, symbol: logo };
- try {
-  const create: Education | FetchError = await axios.post(`${APIV002}/education`, education);
-  if ("message" in create) return { error: create.message };
-  return { create, success: "Main created successful" }
- } catch (error) {
-  console.log("some thing went wong to create new education system", error);
-  return {error : "Some thing went wrong to create new education system"  }
- }
+
+  try {
+    const response = await axios.post<Education>(`${APIV002}/education`, education);
+    return { create: response.data, success: "Education created successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while creating education" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
 }
