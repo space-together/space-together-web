@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import EducationCard from "@/components/cards/education-card";
 import CreateEducationDialog from "@/components/site/collection/education/createEducationDialog";
 import { Locale } from "@/i18n";
+import { getAllEducationAPI } from "@/services/data/api-fetch-data";
+import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -15,6 +17,11 @@ const CollectionEducationPage = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
+  if (user.role !== "ADMIN")
+    return redirect(`${RedirectContents({ lang, role: user.role })}`);
+const [allEducation] = await Promise.all([
+  getAllEducationAPI()
+])
   return (
     <div className=" happy-page space-y-4">
       <div className=" w-full justify-between flex items-center">
@@ -22,9 +29,11 @@ const CollectionEducationPage = async (props: props) => {
         <CreateEducationDialog />
       </div>
       <div className=" grid gap-4 grid-cols-3">
-      {[...Array(3)].map((_,i) => (
-        <EducationCard lang={lang} key={i} />
-      ))}
+        {"error" in allEducation ? <div></div> : allEducation.data.map((education) => {
+          return (
+              <EducationCard education={education} lang={lang} key={education.username} />
+          )
+        })}
       </div>
     </div>
   )

@@ -23,6 +23,22 @@ export async function createMainClassAPI(mainClass: classRoomSchemaType) {
 }
 
 /**
+ *  Get all Education
+ * @returns {object} { data, success } | { error }
+ */
+export async function getAllEducationAPI() {
+  try {
+    const response = await axios.get<Education[]>(`${APIV002}/education`);
+    return { data: response.data, success: "Education fetched successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while fetching education" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+/**
  *  Create Education
  * @param values
  * @returns {object} { create, success } | { error }

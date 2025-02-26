@@ -65,7 +65,7 @@ const EducationCard = async ({ lang, education }: props) => {
       <div className=" p-4">
         <Link href={`/${lang}/notes/classes/1234`}>
           <Button variant={"info"} className=" w-full">
-            Join main class
+           View main class
           </Button>
         </Link>
       </div>
