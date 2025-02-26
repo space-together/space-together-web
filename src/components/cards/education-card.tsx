@@ -70,11 +70,9 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-        <Link href={education?.username ? `/${lang}/educations/${education.username}`: `/${lang}/educations/123`}>
-          <Button variant={"info"} className=" w-full">
-            View education
-          </Button>
-        </Link>
+        <Button variant={"info"} className=" w-full">
+          View education
+        </Button>
       </div>
     </div>
   );
