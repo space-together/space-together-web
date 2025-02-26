@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import PageTitle from "@/components/my-components/page-title";
 import CollectionInDatabase from "@/components/site/dashboard/collections/collection-in-database";
 import HeroDashboard from "@/components/site/dashboard/hero-dashboard";
+import MainCollections from "@/components/site/dashboard/main-colections";
 import RequestAndMessagesDashboard from "@/components/site/dashboard/requests/request-and-messages";
 import { Locale } from "@/i18n";
 import { RedirectContents } from "@/utils/context/redirect-content";
@@ -28,10 +29,10 @@ const Dashboard = async (props: props) => {
         <CollectionInDatabase />
       </div>
       {/* errors and request */}
-      <div>
-        <RequestAndMessagesDashboard />
+      <RequestAndMessagesDashboard />
+      <div className=" w-full ">
+        <MainCollections lang={lang}/>
       </div>
-      <div className=" h-screen "></div>
     </div>
   );
 };
