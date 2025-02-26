@@ -4,7 +4,7 @@ import { Dot } from "lucide-react";
 import Link from "next/link";
 import { Locale } from "@/i18n";
 import { Education } from "../../../prisma/prisma/generated";
-import { Button } from "../ui/button";
+import EducationDialogDetails from "../site/collection/education/education-dialog-daitails";
 
 interface props {
   lang: Locale;
@@ -70,9 +70,7 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-        <Button variant={"info"} className=" w-full">
-          View education
-        </Button>
+       <EducationDialogDetails />
       </div>
     </div>
   );
