@@ -326,13 +326,12 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
               <FormMessageError message={error} />
               <FormMessageSuccess message={success} />
             </div>
-            <DialogFooter className="px-6 pb-6 sm:justify-start">
+            <DialogFooter className="px-6 pb-6 sm:justify-end">
               <DialogClose asChild>
                 <Button type="button" variant="outline">
                   Cancel
                 </Button>
               </DialogClose>
-              <DialogClose asChild>
                 <Button
                   type="submit"
                   variant="info"
@@ -350,7 +349,6 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
                     />
                   )}
                 </Button>
-              </DialogClose>
             </DialogFooter>
           </form>
         </Form>

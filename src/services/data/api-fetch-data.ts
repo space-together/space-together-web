@@ -12,9 +12,9 @@ const apiClient = new fetchApi();
  */
 export async function createMainClassAPI(
     mainClass: classRoomSchemaType){
-      const create : ClassRoom | FetchError = await  apiClient.postData("class/main", mainClass, "main Class");
+      const create : ClassRoom | FetchError = await  apiClient.postData("", mainClass, "main Class");
 
-      if (!create) return {error : e}
-    return 
+      if ("message" in create) return {error : create.message};
+      
+    return {create , success : "Main class has been created"}
   }
-  
