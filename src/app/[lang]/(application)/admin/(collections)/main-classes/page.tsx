@@ -5,6 +5,7 @@ import CreateClassRoomDialog from "@/components/site/collection/class_room/creat
 import { Locale } from "@/i18n";
 import sectorService from "@/services/data/sector-data";
 import { getAllTrades } from "@/services/data/trade-data";
+import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation";
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -17,8 +18,8 @@ const CollectionMainClasses = async (props: props) => {
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }
-  // if (user.role !== "ADMIN")
-  //   return redirect(`${RedirectContents({ lang, role: user.role })}`);
+  if (user.role !== "ADMIN")
+    return redirect(`${RedirectContents({ lang, role: user.role })}`);
   const [ getSectors, getTrades] = await Promise.all([
     sectorService.getAllSectors(),
     await getAllTrades(),
