@@ -35,7 +35,8 @@ import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 
-import { createEducationAction } from "@/services/actions/education-action";
+import { handleFormSubmission } from "@/hooks/form-notification";
+import { createEducationAPI } from "@/services/data/api-fetch-data";
 
 const CreateEducationDialog = () => {
   const [error, setError] = useState<string>("");
@@ -88,19 +89,7 @@ const CreateEducationDialog = () => {
   const handleSubmit = (values: educationSchemaType) => {
     setError("");
     setSuccess("");
-
-    startTransition(async () => {
-      const action = await createEducationAction(values);
-
-      if (action.error) {
-        setError(action.error);
-      }
-
-      if (action.success) {
-        setSuccess(action.success);
-        form.reset();
-      }
-    });
+     handleFormSubmission(() => createEducationAPI(values), startTransition);
   };
 
   return (

@@ -1,7 +1,7 @@
  
 const page = () => {
   return (
-    <div className=" w-full pr-2 mt-2">
+    <div className=" w-full pr-2 mt-2 px-4">
       <div className=" justify-between flex w-full">
         <div className=" flex gap-2  items-center">
           <div className="  mask-square size-20 skeleton" />

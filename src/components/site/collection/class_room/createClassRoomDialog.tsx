@@ -186,107 +186,76 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-3 w-full"
           >
-            <FormField
-              control={form.control}
-              name="symbol"
-              render={({ field }) => (
-                <FormItem className="flex gap-2 items-center">
-                  <FormLabel
-                    htmlFor="image"
-                    className="flex gap-3 items-center"
-                  >
-                    <MyImage
-                      src={field.value || "/default.jpg"}
-                      className="size-24 min-h-24 min-w-24 rounded-full"
-                      alt="Profile"
-                    />
-                    <span className="cursor-pointer">Education Symbol</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleImage(e, field.onChange)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className=" sm:flex sm:gap-2 w-full">
+            <div className=" flex space-x-2">
               <FormField
-                name="name"
                 control={form.control}
+                name="symbol"
                 render={({ field }) => (
-                  <FormItem className=" w-full">
-                    <FormLabel>Name</FormLabel>
+                  <FormItem className="flex gap-2 items-center">
+                    <FormLabel
+                      htmlFor="image"
+                      className="flex gap-3 items-center"
+                    >
+                      <MyImage
+                        src={field.value || "/default.jpg"}
+                        className="size-24 min-h-24 min-w-24 rounded-full"
+                        alt="Profile"
+                      />
+                      <span className="cursor-pointer">Symbol</span>
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        {...field}
-                        placeholder="class room name"
-                        disabled={isPending}
-                        type="text"
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleImage(e, field.onChange)}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                name="username"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem className=" w-full">
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Username"
-                        disabled={isPending}
-                        type="text"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className=" sm:flex sm:gap-2 w-full flex-col space-y-2">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className=" w-full">
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="class room name"
+                          disabled={isPending}
+                          type="text"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="username"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className=" w-full">
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Username"
+                          disabled={isPending}
+                          type="text"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
             {/* class room types */}
-            <div>
-              <FormField
-                control={form.control}
-                name="class_room_type"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Class room types</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-row space-y-1"
-                      >
-                        {classRoomTypeContext.map((item, index) => (
-                          <FormItem
-                            key={index}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={item} />
-                            </FormControl>
-                            <FormLabel className="font-normal capitalize">
-                              {toLowerCase(item)}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             <div className="  flex space-x-8">
               {/* class room sector */}
               <FormField
@@ -347,6 +316,39 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
                               </FormLabel>
                             </FormItem>
                           ))}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div>
+              <FormField
+                control={form.control}
+                name="class_room_type"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>Class room types</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-row space-y-1"
+                      >
+                        {classRoomTypeContext.map((item, index) => (
+                          <FormItem
+                            key={index}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={item} />
+                            </FormControl>
+                            <FormLabel className="font-normal capitalize">
+                              {toLowerCase(item)}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
