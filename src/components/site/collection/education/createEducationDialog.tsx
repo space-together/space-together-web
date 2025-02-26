@@ -118,7 +118,7 @@ const CreateEducationDialog = () => {
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
           <DialogTitle>Add New Education</DialogTitle>
         </DialogHeader>
@@ -128,69 +128,71 @@ const CreateEducationDialog = () => {
             className="space-y-3"
           >
             <div className=" flex space-x-4">
-            <FormField
-              control={form.control}
-              name="logo"
-              render={({ field }) => (
-                <FormItem className="flex gap-2 items-center">
-                  <FormLabel
-                    htmlFor="image"
-                    className="flex gap-3 items-center"
-                  >
-                    <MyImage
-                      src={field.value || "/default.jpg"}
-                      className="size-24 min-h-24 min-w-24 rounded-full"
-                      alt="Profile"
-                    />
-                    <span className="cursor-pointer">Education Symbol</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleImage(e, field.onChange)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Education name"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="username"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Username"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="logo"
+                render={({ field }) => (
+                  <FormItem className="flex gap-2 items-center">
+                    <FormLabel
+                      htmlFor="image"
+                      className="flex gap-3 items-center"
+                    >
+                      <MyImage
+                        src={field.value || "/default.jpg"}
+                        className="size-24 min-h-24 min-w-24 rounded-full"
+                        alt="Profile"
+                      />
+                      <span className="cursor-pointer">Symbol</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleImage(e, field.onChange)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="  flex flex-col space-y-2 w-full">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Education name"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="username"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Username"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
             <FormField
               name="description"
@@ -215,28 +217,28 @@ const CreateEducationDialog = () => {
               <FormMessageSuccess message={success} />
             </div>
             <DialogFooter className="">
-            <DialogClose asChild>
+              <DialogClose asChild>
                 <Button type="button" size="sm" variant="outline">
                   Cancel
                 </Button>
               </DialogClose>
-                <Button
-                  type="submit"
-                  variant="info"
-                  size="sm"
-                  className="w-full sm:w-auto"
-                  disabled={isPending}
-                >
-                  Add Education{" "}
-                  {isPending && (
-                    <LoaderCircle
-                      className="-ms-1 me-2 animate-spin"
-                      size={12}
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Button>
+              <Button
+                type="submit"
+                variant="info"
+                size="sm"
+                className="w-full sm:w-auto"
+                disabled={isPending}
+              >
+                Add Education{" "}
+                {isPending && (
+                  <LoaderCircle
+                    className="-ms-1 me-2 animate-spin"
+                    size={12}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>
