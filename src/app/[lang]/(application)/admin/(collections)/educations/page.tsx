@@ -1,9 +1,7 @@
 import { auth } from "@/auth";
-import EducationCard from "@/components/cards/education-card";
 import CreateEducationDialog from "@/components/site/collection/education/createEducationDialog";
 import EducationBody from "@/components/site/collection/education/education-body";
 import { Locale } from "@/i18n";
-import { getAllEducationAPI } from "@/services/data/api-fetch-data";
 import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation";
 
