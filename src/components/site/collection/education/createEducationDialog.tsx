@@ -121,7 +121,8 @@ const theme = UseTheme();
               )}
               <div className="flex grow justify-between gap-12">
                 <p className="text-sm">
-                  {error ? error : success}
+                  {error}
+                  {success}
                 </p>
               </div>
             </div>

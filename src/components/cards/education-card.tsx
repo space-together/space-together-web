@@ -11,7 +11,7 @@ interface props {
   education?: Education | null;
 }
 
-const EducationCard = async ({ lang, education }: props) => {
+const EducationCard = ({ lang, education }: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">

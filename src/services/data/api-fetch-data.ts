@@ -26,31 +26,17 @@ export async function createMainClassAPI(mainClass: classRoomSchemaType) {
  *  Get all Education
  * @returns {object} { data, success } | { error }
  */
-export function getAllEducationAPI(setMessages: React.Dispatch<React.SetStateAction<string[]>>) {
-  const socket = new WebSocket("ws://127.0.0.1:2052/api/v0.0.2/education/ws");
-
-  socket.onopen = () => {
-    console.log("Connected to WebSocket");
-  };
-
-  socket.onmessage = (event) => {
-    console.log("Received:", event.data);
-    
-    // Ensure the state update is correctly typed
-    setMessages((prevMessages) => [...prevMessages, event.data]);
-  };
-
-  socket.onerror = (error) => {
-    console.error("WebSocket Error:", error);
-  };
-
-  socket.onclose = () => {
-    console.log("WebSocket Disconnected");
-  };
-
-  return socket;
+export async function getAllEducationAPI() {
+  try {
+    const response = await axios.get<Education[]>(`${APIV002}/education`);
+    return { data: response.data, success: "Education fetched successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while fetching education" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
 }
-
 
 /**
  *  Create Education
