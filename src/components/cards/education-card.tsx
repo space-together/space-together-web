@@ -18,7 +18,9 @@ const EducationCard = ({ lang, education }: props) => {
         <div className=" p-4 flex items-center gap-2">
           <Avatar className=" size-20">
             <AvatarImage
-              src={education?.symbol ? education.symbol : "/images/REB_Logo.png"}
+              src={
+                education?.symbol ? education.symbol : "/images/REB_Logo.png"
+              }
             />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
@@ -40,7 +42,12 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       {/* description of main class */}
       <div className="  text-sm line-clamp-2 px-4">
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi cum?</p>
+        <p>
+          {education?.description
+            ? education.description
+            : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur  error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi"}{" "}
+          cum?
+        </p>
       </div>
       <div className=" px-4">
         <div className=" flex justify-between">
@@ -63,9 +70,9 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-        <Link href={`/${lang}/notes/classes/1234`}>
+        <Link href={education?.username ? `/${lang}/educations/${education.username}`: `/${lang}/educations/123`}>
           <Button variant={"info"} className=" w-full">
-           View main class
+            View education
           </Button>
         </Link>
       </div>

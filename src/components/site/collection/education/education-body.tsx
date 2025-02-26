@@ -5,6 +5,7 @@ import { getAllEducationAPI } from "@/services/data/api-fetch-data";
 import { Education } from "../../../../../prisma/prisma/generated";
 import { Locale } from "@/i18n";
 import EducationCard from "@/components/cards/education-card";
+import NotFoundItemsPage from "@/components/page/not-found-items-page";
 
 interface props {
   lang : Locale;
@@ -40,7 +41,7 @@ export default function EducationBody({lang} : props) {
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {educationData.length === 0 ? (
-        <p>No updates yet...</p>
+       <NotFoundItemsPage description={"No educations found, create new ones or refetch."} />
       ) : (
         <div className=" grid gap-4 grid-cols-3">
           {educationData.map((edu) => (
