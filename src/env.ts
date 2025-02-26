@@ -1,0 +1,1 @@
+export const APIV002="http://127.0.0.1:2052/api/v0.0.2"

@@ -43,7 +43,6 @@ import { classRoomTypeContext } from "@/utils/context/class-room-context";
 import { toLowerCase } from "@/utils/functions/characters";
 import { createMainClassAPI } from "@/services/data/api-fetch-data";
 import { handleFormSubmission } from "@/hooks/form-notification";
-
 interface props {
   sectors: Sector[] | null;
   trades: Trade[] | null;
@@ -100,13 +99,64 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
     mode: "onChange",
   });
 
+  // const handleSubmit = (values: classRoomSchemaType) => {
+  //   setError("");
+  //   setSuccess("");
+
+  //   const validation = classRoomSchema.safeParse(values);
+
+  //   if (!validation.success) {
+  //     return setError("Invalid values Validation");
+  //   }
+
+  //   const {
+  //     name,
+  //     username,
+  //     trade,
+  //     sector,
+  //     // class_room_type,
+  //     description,
+  //     symbol,
+  //   } = validation.data;
+
+  //   const data: ClassRoomModelNew = {
+  //     name,
+  //     username,
+  //     trade,
+  //     sector,
+  //     class_room_type : "67bea0d391f7d511437c9e57",
+  //     description,
+  //     symbol,
+  //   };
+
+  //   startTransition(async () => {
+  //     try {
+  //       const result = await createClassRoomAPI(data);
+  //       if ("message" in result) {
+  //         setError(result.message);
+  //         toast({
+  //           title: "Error",
+  //           description: result.message,
+  //           variant: "destructive",
+  //         });
+  //       } else {
+  //         setSuccess("Class Room  entry created successfully!");
+  //         toast({
+  //           title: "Success",
+  //           description: `Created: created`,
+  //         });
+  //         form.reset();
+  //       }
+  //     } catch (err) {
+  //       setError(`Unexpected error occurred [${err}]. Please try again.`);
+  //     }
+  //   });
+  // };
+
   const handleSubmit = (values: classRoomSchemaType) => {
     setError("");
     setSuccess("");
-    handleFormSubmission(
-      () => createMainClassAPI(values),
-      startTransition
-    );
+    handleFormSubmission(() => createMainClassAPI(values), startTransition);
   };
 
   return (
@@ -129,7 +179,7 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
         data-theme={UseTheme()}
       >
         <DialogHeader>
-          <DialogTitle>Add New Class Room </DialogTitle>
+          <DialogTitle>Add New Class Room</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -328,27 +378,27 @@ const CreateClassRoomDialog = ({ sectors, trades }: props) => {
             </div>
             <DialogFooter className="px-6 pb-6 sm:justify-end">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type="button" size="sm" variant="outline">
                   Cancel
                 </Button>
               </DialogClose>
-                <Button
-                  type="submit"
-                  variant="info"
-                  size="md"
-                  className="w-full sm:w-auto"
-                  disabled={isPending}
-                >
-                  Add Create create class
-                  {isPending && (
-                    <LoaderCircle
-                      className="-ms-1 me-2 animate-spin"
-                      size={12}
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Button>
+              <Button
+                type="submit"
+                variant="info"
+                size="sm"
+                className="w-full sm:w-auto"
+                disabled={isPending}
+              >
+                Add Create create class
+                {isPending && (
+                  <LoaderCircle
+                    className="-ms-1 me-2 animate-spin"
+                    size={12}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

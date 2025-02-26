@@ -7,13 +7,14 @@ import {
 import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dailog";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -24,7 +25,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import UseTheme from "@/context/theme/use-theme";
 import {
   educationSchema,
   educationSchemaType,
@@ -34,10 +34,7 @@ import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
+
 import { createEducationAction } from "@/services/actions/education-action";
 
 const CreateEducationDialog = () => {
@@ -107,8 +104,8 @@ const CreateEducationDialog = () => {
   };
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog>
+      <DialogTrigger asChild>
         <Button disabled={isPending} variant="info" size="sm">
           <BsPlus /> Add new education
           {isPending && (
@@ -120,16 +117,17 @@ const CreateEducationDialog = () => {
             />
           )}
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent data-theme={UseTheme()}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Add New Education</AlertDialogTitle>
-        </AlertDialogHeader>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add New Education</DialogTitle>
+        </DialogHeader>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-3"
           >
+            <div className=" flex space-x-4">
             <FormField
               control={form.control}
               name="logo"
@@ -193,6 +191,7 @@ const CreateEducationDialog = () => {
                 </FormItem>
               )}
             />
+            </div>
             <FormField
               name="description"
               control={form.control}
@@ -215,9 +214,12 @@ const CreateEducationDialog = () => {
               <FormMessageError message={error} />
               <FormMessageSuccess message={success} />
             </div>
-            <AlertDialogFooter className="">
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
+            <DialogFooter className="">
+            <DialogClose asChild>
+                <Button type="button" size="sm" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
                 <Button
                   type="submit"
                   variant="info"
@@ -235,12 +237,11 @@ const CreateEducationDialog = () => {
                     />
                   )}
                 </Button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
+            </DialogFooter>
           </form>
         </Form>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 };
 

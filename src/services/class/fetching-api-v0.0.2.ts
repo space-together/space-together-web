@@ -56,7 +56,7 @@ export class fetchApi {
   }
 
   private getBaseUrl(): string {
-    return process.env.NEXT_PUBLIC_ST_API || "http://127.0.0.1:2052/api/v0.0.2/class/main";
+    return process.env.NEXT_PUBLIC_ST_API || "http://127.0.0.1:2052/api/v0.0.2";
   }
 
   private safeStringify(obj: unknown): string {
