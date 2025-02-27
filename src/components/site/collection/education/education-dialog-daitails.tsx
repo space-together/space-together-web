@@ -10,7 +10,7 @@ import {
 
 const EducationDialogDetails = () => {
   return (
-    <Dialog open>
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant={"info"} className=" w-full">
           View education
@@ -25,7 +25,12 @@ const EducationDialogDetails = () => {
           </DialogDescription>
         </DialogHeader>
         <div>
-            
+          <div>
+            update education
+          </div>
+          <div>
+            hello
+          </div>
         </div>
       </DialogContent>
     </Dialog>
