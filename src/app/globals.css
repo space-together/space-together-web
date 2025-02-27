@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
@@ -75,7 +74,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
+/* 
 @layer base {
   * {
     @apply border-base-300;
@@ -98,7 +97,7 @@
 
 .bg-grid-lg {
   @apply dark:bg-grid-white/[0.2] bg-grid-black/[0.2] bg-fixed;
-}
+} */
 
 :root {
   --card: oklch(1 0 0);
