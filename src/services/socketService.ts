@@ -4,7 +4,7 @@ let socket: Socket;
 
 export const connectSocket = () => {
   if (!socket) {
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://127.0.0.1:2052/api/v0.0.1/user/user", {
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://127.0.0.1:20045/api/v0.0.2/user/user", {
       transports: ["websocket"],
     });
 
