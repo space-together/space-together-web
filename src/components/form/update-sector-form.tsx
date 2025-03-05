@@ -20,13 +20,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { sectorSchema, sectorSchemaType } from "@/utils/schema/sectorSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleCheck, LoaderCircle, X } from "lucide-react";
+import { CircleCheck, LoaderCircle, Trash2, X } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import UseTheme from "@/context/theme/use-theme";
 import { IoIosWarning } from "react-icons/io";
-import { updateSectorAPI } from "@/services/data/api-fetch-data";
+import {
+  deleteSectorAPI,
+  updateSectorAPI,
+} from "@/services/data/api-fetch-data";
 import { Education, Sector } from "../../../prisma/prisma/generated";
 
 interface props {
@@ -141,6 +144,63 @@ const UpdateSectorForm = ({ educations, sector }: props) => {
     if (!error) {
       form.reset();
     }
+  };
+
+  const handleDelete = () => {
+    setError("");
+    setSuccess("");
+
+    startTransition(async () => {
+      const result = await deleteSectorAPI(sector.id);
+      setError(result.error || "");
+      setSuccess(result.success || "");
+      toast.custom((t) => (
+        <div
+          data-theme={theme}
+          className="w-[var(--width)] rounded-lg border border-base-300  bg-base-100 px-4 py-3"
+        >
+          <div className="flex gap-2">
+            <div className="flex grow gap-3">
+              {result.success && (
+                <CircleCheck
+                  className="mt-0.5 shrink-0 text-emerald-500"
+                  size={16}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+              {result.error && (
+                <IoIosWarning
+                  className="mt-0.5 shrink-0 text-error"
+                  size={16}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+              <div className="flex grow justify-between gap-12">
+                <p className="text-sm">
+                  {result.error}
+                  {result.success}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+              onClick={() => toast.dismiss(t)}
+              aria-label="Close banner"
+            >
+              <X
+                size={16}
+                strokeWidth={2}
+                className="opacity-60 transition-opacity group-hover:opacity-100"
+                aria-hidden="true"
+              />
+            </Button>
+          </div>
+        </div>
+      ));
+    });
   };
 
   return (
@@ -277,29 +337,32 @@ const UpdateSectorForm = ({ educations, sector }: props) => {
         </div>
         <DialogFooter className="px-6 pb-6 sm:justify-end">
           <DialogClose asChild>
-            <Button size="sm" type="button" variant="error">
-              Delete
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
             <Button
-              type="submit"
-              variant="info"
+              onClick={() => handleDelete()}
+              type="button"
               size="sm"
-              className="w-full sm:w-auto"
-              disabled={isPending}
+              variant="error"
             >
-              Update Sector
-              {isPending && (
-                <LoaderCircle
-                  className="-ms-1 me-2 animate-spin"
-                  size={12}
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-              )}
+              <Trash2 /> Delete
             </Button>
           </DialogClose>
+          <Button
+            type="submit"
+            variant="info"
+            size="sm"
+            className="w-full sm:w-auto"
+            disabled={isPending}
+          >
+            Update Sector
+            {isPending && (
+              <LoaderCircle
+                className="-ms-1 me-2 animate-spin"
+                size={12}
+                strokeWidth={2}
+                aria-hidden="true"
+              />
+            )}
+          </Button>
         </DialogFooter>
       </form>
     </Form>
