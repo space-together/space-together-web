@@ -25,7 +25,10 @@ import { CircleCheck, LoaderCircle, Trash2, X } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
-import { updateEducationAPI } from "@/services/data/api-fetch-data";
+import {
+  deleteEducationAPI,
+  updateEducationAPI,
+} from "@/services/data/api-fetch-data";
 import { toast } from "sonner";
 import UseTheme from "@/context/theme/use-theme";
 import { IoIosWarning } from "react-icons/io";
@@ -141,6 +144,63 @@ const UpdateEducationForm = ({ education }: props) => {
     });
   };
 
+  const handleDelete = () => {
+    setError("");
+    setSuccess("");
+
+    startTransition(async () => {
+      const result = await deleteEducationAPI(education.id);
+      setError(result.error || "");
+      setSuccess(result.success || "");
+      toast.custom((t) => (
+        <div
+          data-theme={theme}
+          className="w-[var(--width)] rounded-lg border border-base-300 bg-base-100 px-4 py-3"
+        >
+          <div className="flex gap-2">
+            <div className="flex grow gap-3">
+              {result.success && (
+                <CircleCheck
+                  className="mt-0.5 shrink-0 text-emerald-500"
+                  size={16}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+              {result.error && (
+                <IoIosWarning
+                  className="mt-0.5 shrink-0 text-error"
+                  size={16}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+              <div className="flex grow justify-between gap-12">
+                <p className="text-sm">
+                  {result.error}
+                  {result.success}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+              onClick={() => toast.dismiss(t)}
+              aria-label="Close banner"
+            >
+              <X
+                size={16}
+                strokeWidth={2}
+                className="opacity-60 transition-opacity group-hover:opacity-100"
+                aria-hidden="true"
+              />
+            </Button>
+          </div>
+        </div>
+      ));
+    });
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3">
@@ -232,8 +292,8 @@ const UpdateEducationForm = ({ education }: props) => {
         </div>
         <DialogFooter className="">
           <DialogClose asChild>
-            <Button type="button" size="sm" variant="error">
-            <Trash2 />  Delete
+            <Button onClick={() => handleDelete()} type="button" size="sm" variant="error">
+              <Trash2 /> Delete
             </Button>
           </DialogClose>
           <Button

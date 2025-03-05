@@ -94,7 +94,7 @@ const theme = UseTheme();
         >
           <div className="flex gap-2">
             <div className="flex grow gap-3">
-              {success && (
+              {result.success && (
                 <CircleCheck
                   className="mt-0.5 shrink-0 text-emerald-500"
                   size={16}
@@ -102,7 +102,7 @@ const theme = UseTheme();
                   aria-hidden="true"
                 />
               )}
-              {error && (
+              {result.error && (
                 <IoIosWarning
                   className="mt-0.5 shrink-0 text-error"
                   size={16}
@@ -112,8 +112,8 @@ const theme = UseTheme();
               )}
               <div className="flex grow justify-between gap-12">
                 <p className="text-sm">
-                  {error}
-                  {success}
+                  {result.error}
+                  {result.success}
                 </p>
               </div>
             </div>
