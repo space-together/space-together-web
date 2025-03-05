@@ -7,13 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sector } from "../../../../../prisma/prisma/generated";
+import { Education, Sector } from "../../../../../prisma/prisma/generated";
+import UpdateSectorForm from "@/components/form/update-sector-form";
 
 interface props {
   sector?: Sector | null;
+  educations?: Education[] | undefined
 }
 
-const SectorDialogDetails = ({ sector }: props) => {
+const SectorDialogDetails = ({ sector, educations }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,6 +37,7 @@ const SectorDialogDetails = ({ sector }: props) => {
         <div className=" w-full flex space-x-4">
           <div className=" w-1/2">
             <h3 className=" text-base font-semibold">update sector</h3>
+            {!!sector && <UpdateSectorForm sector={sector} educations={educations}/>}
           </div>
           <div>
             <h3 className="text-base font-semibold">Sector Details</h3>

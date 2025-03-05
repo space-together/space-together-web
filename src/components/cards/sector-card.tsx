@@ -2,16 +2,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { Dot } from "lucide-react";
 import { Locale } from "@/i18n";
-import { Sector } from "../../../prisma/prisma/generated";
+import { Education, Sector } from "../../../prisma/prisma/generated";
 import SectorDialogDetails from "../site/collection/sector/sector-dialog-details";
 import { TextTooltip } from "@/context/tooltip/text-tooltip";
 
 interface props {
   lang: Locale;
   sector?: Sector | null;
+  educations?: Education[] | undefined
 }
 
-const SectorCard = ({ sector }: props) => {
+const SectorCard = ({ sector , educations}: props) => {
   return (
     <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
@@ -71,7 +72,7 @@ const SectorCard = ({ sector }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-        <SectorDialogDetails sector={sector} />
+        <SectorDialogDetails educations={educations} sector={sector} />
       </div>
     </div>
   );
