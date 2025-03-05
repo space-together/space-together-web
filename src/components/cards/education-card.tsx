@@ -70,7 +70,7 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-       <EducationDialogDetails />
+       <EducationDialogDetails education={education}/>
       </div>
     </div>
   );

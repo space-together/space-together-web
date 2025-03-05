@@ -48,7 +48,7 @@ const ClassSubjectPage = async ({ params }: Props) => {
       </div>
       <div className="space-y-2 mt-4">
         {moduleTeacher.length === 0 ? (
-          <div>There are no subjects in this class</div>
+          <NotFoundPage />
         ) : (
           moduleTeacher.map(({module, subject, user }) => (
             <SubjectCardSmall

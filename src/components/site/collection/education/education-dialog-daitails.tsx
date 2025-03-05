@@ -1,3 +1,4 @@
+import UpdateEducationForm from "@/components/form/update-education-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,8 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Education } from "../../../../../prisma/prisma/generated";
 
-const EducationDialogDetails = () => {
+interface props {
+  education?: Education | null;
+}
+
+const EducationDialogDetails = ({ education }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -18,18 +24,25 @@ const EducationDialogDetails = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[900px]">
         <DialogHeader>
-          <DialogTitle>Education Name</DialogTitle>
+          <DialogTitle>
+            {education?.name ? education.name : "Education name"}
+          </DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            {education?.description
+              ? education.description
+              : "This action cannot be undone. This will permanently delete your account and remove your data from our servers."}
           </DialogDescription>
         </DialogHeader>
-        <div>
-          <div>
-            update education
+        <div className=" w-full flex space-x-4">
+          <div className=" w-1/2">
+            <h3 className=" text-base font-semibold">update education</h3>
+            {!!education &&  <UpdateEducationForm education={education}/>}
           </div>
           <div>
-            hello
+            <h3 className="text-base font-semibold">Education Details</h3>
+            <div>
+              education details information
+            </div>
           </div>
         </div>
       </DialogContent>

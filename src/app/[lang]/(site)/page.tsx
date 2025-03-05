@@ -8,7 +8,13 @@ import { toLowerCase } from "@/utils/functions/characters";
 import { ArrowRight, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import type { Metadata } from "next";
 
+
+export const metadata:Metadata = {
+  title : "Collection - Educations",
+  description: "Collection for educations",
+}
 interface props {
   params: Promise<{ lang: Locale }>;
 }

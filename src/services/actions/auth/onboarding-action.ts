@@ -22,8 +22,13 @@ export const onboardingAction = async (
     return { error: `Invalid role value: ${role}` };
   }
 
-  const cloudinary = await uploadProfilesToCloudinary(image);
   try {
+    let cloudinary: null| string = null
+
+    if(!!image) {
+      cloudinary = await uploadProfilesToCloudinary(image)
+    }
+     
     const user = await db.user.update({
       data: {
         image : cloudinary,
