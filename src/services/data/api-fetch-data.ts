@@ -1,17 +1,18 @@
 import { APIV002 } from '@/env';
-import { ClassRoom, Education } from './../../../prisma/prisma/generated/index.d';
+import { ClassRoom, Education, Sector } from './../../../prisma/prisma/generated/index.d';
 // import { FetchError } from '@/types/fetchErr';
 import { classRoomSchemaType } from '@/utils/schema/classRoomSchema';
 import axios, { AxiosError } from 'axios';
 import { educationSchema, educationSchemaType, educationSchemaTypeUpdate, educationSchemaUpdate } from '@/utils/schema/educationSchema';
+import { sectorSchema, sectorSchemaType } from '@/utils/schema/sectorSchema';
 
-// --------- Educations ---------------------
+// --------- main class ---------------------
 
 /**
  *  Create a class room
  * @param mainClass
  * @returns {object} { create, success } | { error }
- */
+*/
 export async function createMainClassAPI(mainClass: classRoomSchemaType) {
   try {
     const response = await axios.post<ClassRoom>(`${APIV002}/class/main`, mainClass);
@@ -23,6 +24,7 @@ export async function createMainClassAPI(mainClass: classRoomSchemaType) {
     return { error: "An unexpected error occurred" };
   }
 }
+// --------- Educations ---------------------
 
 /**
  *  Get all Education
@@ -102,6 +104,91 @@ export async function deleteEducationAPI(id: string) {
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
       return { error: error.response?.data?.message || "Something went wrong while deleting education" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+// --------- Sector ---------------------
+
+/**
+ *  Get all Sector
+ * @returns {object} { data, success } | { error }
+ */
+export async function getAllSectorAPI() {
+  try {
+    const response = await axios.get<Sector[]>(`${APIV002}/school/sector`);
+    return { data: response.data, success: "sector fetched successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while fetching sector" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+/**
+ *  Create Sector
+ * @param values
+ * @returns {object} { create, success } | { error }
+ */
+export async function createSectorAPI(values: sectorSchemaType) {
+  const validation = sectorSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { name, username, description, logo , education} = validation.data;
+
+  try {
+    const sector = { name, username, description, symbol: !!logo ? logo : null, education };
+    const response = await axios.post<Sector>(`${APIV002}/school/sector`, sector);
+    return { create: response.data, success: "Sector created successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while creating sector" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+/**
+ *  update sector
+ * @param values
+ * @returns {object} { update, success } | { error }
+ */
+export async function updateSectorAPI(values: sectorSchemaType, id : string) {
+  const validation = sectorSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { name, username, description, logo , education} = validation.data;
+  const sector = { name, username, description, symbol: !!logo ? logo : null , education};
+
+  try {
+    const response = await axios.put<Sector>(`${APIV002}/school/sector/${id}`, sector);
+    return { create: response.data, success: "Sector update successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while update Sector" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+/**
+ *  Delete Sector
+ * @param id
+ * @returns {object} { success } | { error }
+ */
+export async function deleteSectorAPI(id: string) {
+  try {
+    await axios.delete(`${APIV002}/school/sector/${id}`);
+    return { success: "Sector deleted successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while deleting Sector" };
     }
     return { error: "An unexpected error occurred" };
   }

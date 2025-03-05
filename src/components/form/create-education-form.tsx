@@ -240,6 +240,7 @@ const theme = UseTheme();
                   Cancel
                 </Button>
               </DialogClose>
+              <DialogClose asChild>
               <Button
                 type="submit"
                 variant="info"
@@ -257,6 +258,7 @@ const theme = UseTheme();
                   />
                 )}
               </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>
