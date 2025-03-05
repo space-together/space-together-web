@@ -4,6 +4,7 @@ import { Dot } from "lucide-react";
 import { Locale } from "@/i18n";
 import { Sector } from "../../../prisma/prisma/generated";
 import SectorDialogDetails from "../site/collection/sector/sector-dialog-details";
+import { TextTooltip } from "@/context/tooltip/text-tooltip";
 
 interface props {
   lang: Locale;
@@ -28,7 +29,15 @@ const SectorCard = ({ sector }: props) => {
             <span className=" text-sm line-clamp-1 flex space-x-1">
               @ {sector?.username ?? "REB"}
             </span>
-            <span><span className=" font-medium">Educ:</span> {sector?.education_id}</span>
+            <TextTooltip
+              trigger={
+                <span className=" cursor-pointer">
+                  <span className=" font-medium">Educ:</span>{" "}
+                  {sector?.education_id}
+                </span>
+              }
+              content={<span>Education</span>}
+            />
           </div>
         </div>
       </div>
