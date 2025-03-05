@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Education } from "../../../../../prisma/prisma/generated";
+import { formatDistanceToNowStrict } from "date-fns";
 
 interface props {
   education?: Education | null;
@@ -36,12 +37,18 @@ const EducationDialogDetails = ({ education }: props) => {
         <div className=" w-full flex space-x-4">
           <div className=" w-1/2">
             <h3 className=" text-base font-semibold">update education</h3>
-            {!!education &&  <UpdateEducationForm education={education}/>}
+            {!!education && <UpdateEducationForm education={education} />}
           </div>
           <div>
             <h3 className="text-base font-semibold">Education Details</h3>
             <div>
-              education details information
+              {!!education?.created_at && (
+                <p>
+                  <span className=" text-myGray">Create at: </span>
+                  {formatDistanceToNowStrict(new Date(education.created_at))}{" "}
+                  ago
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -48,7 +48,6 @@ const SectorCard = ({ sector , educations}: props) => {
           {sector?.description
             ? sector.description
             : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur  error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi"}{" "}
-          cum?
         </p>
       </div>
       <div className=" px-4">
