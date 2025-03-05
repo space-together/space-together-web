@@ -30,8 +30,7 @@ export default function SectorBody({lang} : props) {
         } else {
           setError(getEducation.error);
         }
-      } catch (err) {
-        console.error("API Fetch Error:", err);
+      } catch {
         setError("Failed to fetch Sector data");
       }
     };

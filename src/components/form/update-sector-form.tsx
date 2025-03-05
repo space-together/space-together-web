@@ -6,10 +6,7 @@ import {
 } from "@/components/form/formError";
 import MyImage from "@/components/my-components/myImage";
 import { Button } from "@/components/ui/button";
-import {
-  DialogClose,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -29,19 +26,19 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import UseTheme from "@/context/theme/use-theme";
 import { IoIosWarning } from "react-icons/io";
-import {  createSectorAPI } from "@/services/data/api-fetch-data";
+import { updateSectorAPI } from "@/services/data/api-fetch-data";
 import { Education, Sector } from "../../../prisma/prisma/generated";
 
 interface props {
   educations: Education[] | undefined;
-  sector : Sector
+  sector: Sector;
 }
 
-const UpdateSectorForm =({ educations, sector }: props) => {
-    const [error, setError] = useState<string>("");
+const UpdateSectorForm = ({ educations, sector }: props) => {
+  const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
-const theme = UseTheme();
+  const theme = UseTheme();
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
     fieldChange: (value: string) => void
@@ -73,11 +70,11 @@ const theme = UseTheme();
   const form = useForm<sectorSchemaType>({
     resolver: zodResolver(sectorSchema),
     defaultValues: {
-      name:sector.name ? sector.name : "",
-      username:sector.username ? sector.username : "",
-      education:sector.education_id ? sector.education_id : "",
-      description:sector.description ? sector.description : "",
-      logo:sector.symbol ? sector.symbol : "",
+      name: sector.name ? sector.name : "",
+      username: sector.username ? sector.username : "",
+      education: sector.education_id ? sector.education_id : "",
+      description: sector.description ? sector.description : "",
+      logo: sector.symbol ? sector.symbol : "",
     },
     shouldFocusError: true,
     shouldUnregister: true,
@@ -91,7 +88,7 @@ const theme = UseTheme();
     setSuccess("");
 
     startTransition(async () => {
-      const result = await createSectorAPI(values);
+      const result = await updateSectorAPI(values, sector.id);
       setError(result.error || "");
       setSuccess(result.success || "");
       toast.custom((t) => (
@@ -141,178 +138,172 @@ const theme = UseTheme();
         </div>
       ));
     });
-    if(!error) {
+    if (!error) {
       form.reset();
-    };
+    }
   };
-  
+
   return (
     <Form {...form}>
-    <form
-      onSubmit={form.handleSubmit(handleSubmit)}
-      className="space-y-3"
-    >
-      <div className=" flex space-x-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3">
+        <div className=" flex space-x-4">
+          <FormField
+            control={form.control}
+            name="logo"
+            render={({ field }) => (
+              <FormItem className="flex gap-2 items-center">
+                <FormLabel htmlFor="image" className="flex gap-3 items-center">
+                  <MyImage
+                    src={field.value || "/default.jpg"}
+                    className="size-24 min-h-24 min-w-24 rounded-full"
+                    alt="Profile"
+                  />
+                  <span className="cursor-pointer">Symbol</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handleImage(e, field.onChange)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className=" flex flex-col w-full">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Sector name"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="username"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Username"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="education"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Educations</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex space-x-2"
+                    >
+                      {!!educations &&
+                        educations.map((item) => {
+                          return (
+                            <FormItem
+                              key={item.id}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={item.id} />
+                              </FormControl>
+                              <FormLabel className="font-normal flex gap-2 items-center">
+                                <MyImage
+                                  className="size-5"
+                                  classname=" rounded-full"
+                                  src={
+                                    item.symbol
+                                      ? item.symbol
+                                      : "/icons/education.png"
+                                  }
+                                />
+                                {item.username ? item.username : item.name}
+                              </FormLabel>
+                            </FormItem>
+                          );
+                        })}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
         <FormField
+          name="description"
           control={form.control}
-          name="logo"
           render={({ field }) => (
-            <FormItem className="flex gap-2 items-center">
-              <FormLabel
-                htmlFor="image"
-                className="flex gap-3 items-center"
-              >
-                <MyImage
-                  src={field.value || "/default.jpg"}
-                  className="size-24 min-h-24 min-w-24 rounded-full"
-                  alt="Profile"
-                />
-                <span className="cursor-pointer">Symbol</span>
-              </FormLabel>
+            <FormItem>
+              <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
-                  type="file"
-                  id="image"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => handleImage(e, field.onChange)}
+                <Textarea
+                  {...field}
+                  placeholder="Description"
+                  disabled={isPending}
+                  className=" resize-none"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className=" flex flex-col w-full">
-          <FormField
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Sector name"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="username"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Username"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="education"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Educations</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex space-x-2"
-                  >
-                    {!!educations &&
-                      educations.map((item) => {
-                        return (
-                          <FormItem
-                            key={item.id}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={item.id} />
-                            </FormControl>
-                            <FormLabel className="font-normal flex gap-2 items-center">
-                              <MyImage
-                                className="size-5"
-                                classname=" rounded-full"
-                                src={
-                                  item.symbol
-                                    ? item.symbol
-                                    : "/icons/education.png"
-                                }
-                              />
-                              {item.username ? item.username : item.name}
-                            </FormLabel>
-                          </FormItem>
-                        );
-                      })}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div>
+          <FormMessageError message={error} />
+          <FormMessageSuccess message={success} />
         </div>
-      </div>
-      <FormField
-        name="description"
-        control={form.control}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Description</FormLabel>
-            <FormControl>
-              <Textarea
-                {...field}
-                placeholder="Description"
-                disabled={isPending}
-                className=" resize-none"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <div>
-        <FormMessageError message={error} />
-        <FormMessageSuccess message={success} />
-      </div>
-      <DialogFooter className="px-6 pb-6 sm:justify-end">
-        <DialogClose asChild>
-          <Button size="sm" type="button" variant="error">
-            Delete
-          </Button>
-        </DialogClose>
-        <DialogClose asChild>
-          <Button
-            type="submit"
-            variant="info"
-            size="sm"
-            className="w-full sm:w-auto"
-            disabled={isPending}
-          >
-            Update Sector
-            {isPending && (
-              <LoaderCircle
-                className="-ms-1 me-2 animate-spin"
-                size={12}
-                strokeWidth={2}
-                aria-hidden="true"
-              />
-            )}
-          </Button>
-        </DialogClose>
-      </DialogFooter>
-    </form>
-  </Form>
-  )
-}
+        <DialogFooter className="px-6 pb-6 sm:justify-end">
+          <DialogClose asChild>
+            <Button size="sm" type="button" variant="error">
+              Delete
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button
+              type="submit"
+              variant="info"
+              size="sm"
+              className="w-full sm:w-auto"
+              disabled={isPending}
+            >
+              Update Sector
+              {isPending && (
+                <LoaderCircle
+                  className="-ms-1 me-2 animate-spin"
+                  size={12}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+              )}
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </form>
+    </Form>
+  );
+};
 
-export default UpdateSectorForm
+export default UpdateSectorForm;
