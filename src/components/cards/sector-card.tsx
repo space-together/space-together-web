@@ -1,57 +1,49 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { Dot } from "lucide-react";
-import Link from "next/link";
 import { Locale } from "@/i18n";
-import { Education } from "../../../prisma/prisma/generated";
-import EducationDialogDetails from "../site/collection/education/education-dialog-daitails";
+import { Sector } from "../../../prisma/prisma/generated";
+import SectorDialogDetails from "../site/collection/sector/sector-dialog-details";
 
 interface props {
   lang: Locale;
-  education?: Education | null;
+  sector?: Sector | null;
 }
 
-const EducationCard = ({ lang, education }: props) => {
+const SectorCard = ({ sector }: props) => {
   return (
-    <div className=" happy-card p-0 relative h-auto justify-between">
+    <div className=" happy-card p-0 relative h-auto">
       <div className=" relative">
         <div className=" p-4 flex items-center gap-2">
           <Avatar className=" size-20">
             <AvatarImage
-              src={
-                education?.symbol ? education.symbol : "/images/REB_Logo.png"
-              }
+              src={sector?.symbol ? sector.symbol : "/images/REB_Logo.png"}
             />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" space-x-1">
             <h3 className=" font-medium leading-5 line-clamp-3">
-              {education?.name ?? "Rwanda Education Board"}
+              {sector?.name ?? "Primary"}
             </h3>
-            <Link
-              className=" text-sm line-clamp-1 flex space-x-1"
-              href={`/${lang}/class/${education?.id}`}
-            >
-              <span>@</span>{" "}
-              <span className=" line-clamp-1">
-                {education?.username ?? "REB"}
-              </span>
-            </Link>
+            <span className=" text-sm line-clamp-1 flex space-x-1">
+              @ {sector?.username ?? "REB"}
+            </span>
+            <span><span className=" font-medium">Educ:</span> {sector?.education_id}</span>
           </div>
         </div>
       </div>
       {/* description of main class */}
       <div className="  text-sm line-clamp-2 px-4">
         <p>
-          {education?.description
-            ? education.description
+          {sector?.description
+            ? sector.description
             : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur  error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi"}{" "}
           cum?
         </p>
       </div>
       <div className=" px-4">
         <div className=" flex justify-between">
-          <h5 className=" capitalize font-medium text-myGray">Sector</h5>
+          <h5 className=" capitalize font-medium text-myGray">Trades</h5>
         </div>
         <div className=" grid grid-cols-3 w-full">
           <div className=" flex items-center -space-x-2">
@@ -70,10 +62,10 @@ const EducationCard = ({ lang, education }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-       <EducationDialogDetails education={education}/>
+        <SectorDialogDetails sector={sector} />
       </div>
     </div>
   );
 };
 
-export default EducationCard;
+export default SectorCard;

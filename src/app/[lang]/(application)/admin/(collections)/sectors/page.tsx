@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import MainClassCard from "@/components/cards/main-class-card";
 import CreateSectorDialog from "@/components/site/collection/sector/CreateSectorDialog";
+import SectorBody from "@/components/site/collection/sector/sector-body";
 import { Locale } from "@/i18n";
 import { getAllEducationAPI } from "@/services/data/api-fetch-data";
 import { RedirectContents } from "@/utils/context/redirect-content";
@@ -19,18 +19,13 @@ const SectorsPage = async (props: props) => {
   if (user.role !== "ADMIN")
     return redirect(`${RedirectContents({ lang, role: user.role })}`);
   const getEducation = await getAllEducationAPI();
-
   return (
     <div className=" happy-page space-y-4">
       <div className=" w-full justify-between flex items-center">
         <h2 className=" happy-title-head">Education Sectors </h2>
         <CreateSectorDialog educations={getEducation.data} />
       </div>
-      <div className=" gap-4 grid grid-cols-3">
-        {[...Array(5)].map((_, i) => (
-          <MainClassCard key={i} lang={lang} />
-        ))}
-      </div>
+      <SectorBody lang={lang}/>
     </div>
   );
 };

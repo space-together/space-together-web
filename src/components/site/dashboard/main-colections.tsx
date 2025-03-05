@@ -20,6 +20,7 @@ const MainCollections = ({lang} : props) => {
         <div className=" px-4">
             {/* TODO: add all length  of collection */}
             <MainCollectionCard  name="Educations" link={`/${lang}/admin/educations`} image="/icons/education.png" docs={32}/>
+            <MainCollectionCard  name="Sectors" link={`/${lang}/admin/sectors`} image="/icons/education.png" docs={32}/>
             <MainCollectionCard  name="Main Classes" link={`/${lang}/admin/main-classes`} image="/icons/blackboard.png" docs={7}/>
         </div>
       </div>
