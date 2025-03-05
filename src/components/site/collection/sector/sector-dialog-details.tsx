@@ -39,7 +39,7 @@ const SectorDialogDetails = ({ sector }: props) => {
           <div>
             <h3 className="text-base font-semibold">Sector Details</h3>
             <div>
-              education details information
+              sector details information
             </div>
           </div>
         </div>
