@@ -91,7 +91,7 @@ const HomePage = async (props: props) => {
           {/* still in building */}
           <div className=" mt-2 space-y-2">
             <h3 className=" font-semibold text-xl text-center text-warning">
-              We are still building it 😔😔
+              We are still building it 😁😁
             </h3>
             <p className=" text-center text-myGray">
               you can use it but when we publish your data will lost,

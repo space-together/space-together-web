@@ -15,7 +15,7 @@ import { sectorSchema, sectorSchemaType } from '@/utils/schema/sectorSchema';
 */
 export async function createMainClassAPI(mainClass: classRoomSchemaType) {
   try {
-    const response = await axios.post<ClassRoom>(`${APIV002}/class/main`, mainClass);
+    const response = await axios.post<ClassRoom>(`${APIV002}/classes/room`, mainClass);
     return { create: response.data, success: "Main created successfully" };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
