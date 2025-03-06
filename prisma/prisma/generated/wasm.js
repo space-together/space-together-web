@@ -217,7 +217,7 @@ exports.Prisma.ClassRoomScalarFieldEnum = {
   description: 'description',
   symbol: 'symbol',
   disabled: 'disabled',
-  ClassRoomType: 'ClassRoomType',
+  class_room_type: 'class_room_type',
   sector_id: 'sector_id',
   tradeId: 'tradeId',
   code: 'code',
@@ -442,8 +442,8 @@ exports.Gender = exports.$Enums.Gender = {
 };
 
 exports.ClassRoomType = exports.$Enums.ClassRoomType = {
-  DEFAULT: 'DEFAULT',
-  OTHER: 'OTHER'
+  Default: 'Default',
+  Other: 'Other'
 };
 
 exports.ClassType = exports.$Enums.ClassType = {

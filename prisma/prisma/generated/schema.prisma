@@ -174,22 +174,22 @@ model Trade {
 }
 
 enum ClassRoomType {
-  DEFAULT
-  OTHER
+  Default
+  Other
 }
 
 // class room example primary 1 create but space-together
 model ClassRoom {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  username      String        @unique
-  description   String?
-  symbol        String?
-  disabled      Boolean       @default(false)
-  ClassRoomType ClassRoomType @default(OTHER)
-  sector_id     String?       @db.ObjectId
-  tradeId       String?       @db.ObjectId
-  code          String?       @unique
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  username        String        @unique
+  description     String?
+  symbol          String?
+  disabled        Boolean       @default(false)
+  class_room_type ClassRoomType @default(Other)
+  sector_id       String?       @db.ObjectId
+  tradeId         String?       @db.ObjectId
+  code            String?       @unique
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

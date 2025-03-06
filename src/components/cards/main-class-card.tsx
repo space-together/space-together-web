@@ -8,31 +8,31 @@ import { Button } from "../ui/button";
 
 interface props {
   lang: Locale;
-  getClass?: ClassRoom | null;
+  mainClass?: ClassRoom | null;
 }
 
-const MainClassCard = async ({ lang, getClass }: props) => {
+const MainClassCard = ({ lang, mainClass }: props) => {
   return (
-    <div className=" happy-card p-0 relative h-auto">
+    <div className=" happy-card p-0 relative h-full justify-between">
       <div className=" relative">
         <div className=" p-4 flex items-center gap-2">
           <Avatar className=" size-20">
             <AvatarImage
-              src={getClass?.symbol ? getClass.symbol : "/images/19.jpg"}
+              src={mainClass?.symbol ? mainClass.symbol : "/images/19.jpg"}
             />
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" space-x-1">
             <h3 className=" font-medium leading-5 line-clamp-3">
-              {getClass?.name ?? "Level 5 Software development"}
+              {mainClass?.name ?? "Level 5 Software development"}
             </h3>
             <Link
               className=" text-sm line-clamp-1 flex space-x-1"
-              href={`/${lang}/class/${getClass?.id}`}
+              href={`/${lang}/class/${mainClass?.id}`}
             >
               <span>@</span>{" "}
               <span className=" line-clamp-1">
-                {getClass?.username ?? "L5SOD"}
+                {mainClass?.username ?? "L5SOD"}
               </span>
             </Link>
           </div>
@@ -40,7 +40,9 @@ const MainClassCard = async ({ lang, getClass }: props) => {
       </div>
       {/* description of main class */}
       <div className="  text-sm line-clamp-2 px-4">
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi cum?</p>
+        <p>
+          {mainClass?.description }
+        </p>
       </div>
       <div className=" px-4">
         <div className=" flex justify-between">

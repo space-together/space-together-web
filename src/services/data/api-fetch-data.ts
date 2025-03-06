@@ -1,7 +1,7 @@
 import { APIV002 } from '@/env';
 import { ClassRoom, Education, Sector } from './../../../prisma/prisma/generated/index.d';
 // import { FetchError } from '@/types/fetchErr';
-import { classRoomSchemaType } from '@/utils/schema/classRoomSchema';
+import { classRoomSchema, classRoomSchemaType } from '@/utils/schema/classRoomSchema';
 import axios, { AxiosError } from 'axios';
 import { educationSchema, educationSchemaType, educationSchemaTypeUpdate, educationSchemaUpdate } from '@/utils/schema/educationSchema';
 import { sectorSchema, sectorSchemaType } from '@/utils/schema/sectorSchema';
@@ -24,6 +24,68 @@ export async function createMainClassAPI(mainClass: classRoomSchemaType) {
     return { error: "An unexpected error occurred" };
   }
 }
+
+
+/**
+ *  Get all Main class
+ * @returns {object} { data, success } | { error }
+ */
+export async function getAllMainClassAPI() {
+  try {
+    const response = await axios.get<ClassRoom[]>(`${APIV002}/classes/room`);
+    return { data: response.data, success: "Main class fetched successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while fetching Main class" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+
+/**
+ *  update Main class
+ * @param values
+ * @returns {object} { update, success } | { error }
+ */
+export async function updateMainClassAPI(values: classRoomSchemaType, id : string) {
+  const validation = classRoomSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { name, username, description, symbol } = validation.data;
+  const education = { name, username, description, symbol: !!symbol ? symbol : null };
+
+  try {
+    const response = await axios.put<Education>(`${APIV002}/classes/room/${id}`, education);
+    return { create: response.data, success: "Main class update successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while update Main class" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+/**
+ *  Delete Main class
+ * @param id
+ * @returns {object} { success } | { error }
+ */
+export async function deleteMainClassAPI(id: string) {
+  try {
+    await axios.delete(`${APIV002}/classes/room/${id}`);
+    return { success: "Main class deleted successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while deleting Main class" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
+
+
 // --------- Educations ---------------------
 
 /**

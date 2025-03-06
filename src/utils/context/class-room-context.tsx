@@ -1,1 +1,1 @@
-export const classRoomTypeContext = ["DEFAULT", "OTHER"]
+export const classRoomTypeContext = ["Default", "Other"];

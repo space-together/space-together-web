@@ -1,7 +1,7 @@
 // import CreateClassRoomDialog from '@/components/site/collection/class_room/createClassRoomDialog'
 import { auth } from "@/auth";
-import MainClassCard from "@/components/cards/main-class-card";
 import CreateClassRoomDialog from "@/components/site/collection/class_room/createClassRoomDialog";
+import MainClassesBody from "@/components/site/collection/class_room/main-classes-body";
 import { Locale } from "@/i18n";
 import sectorService from "@/services/data/sector-data";
 import { getAllTrades } from "@/services/data/trade-data";
@@ -20,7 +20,7 @@ const CollectionMainClasses = async (props: props) => {
   }
   if (user.role !== "ADMIN")
     return redirect(`${RedirectContents({ lang, role: user.role })}`);
-  const [ getSectors, getTrades] = await Promise.all([
+  const [getSectors, getTrades] = await Promise.all([
     sectorService.getAllSectors(),
     await getAllTrades(),
   ]);
@@ -31,11 +31,7 @@ const CollectionMainClasses = async (props: props) => {
         <h2 className=" happy-title-head">Main Classes </h2>
         <CreateClassRoomDialog sectors={getSectors} trades={getTrades} />
       </div>
-      <div className=" gap-4 grid grid-cols-3">
-        {[...Array(5)].map((_, i) => (
-          <MainClassCard key={i} lang={lang} />
-        ))}
-      </div>
+      <MainClassesBody lang={lang} />
     </div>
   );
 };
