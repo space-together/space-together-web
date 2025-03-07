@@ -219,7 +219,7 @@ exports.Prisma.ClassRoomScalarFieldEnum = {
   disabled: 'disabled',
   class_room_type: 'class_room_type',
   sector_id: 'sector_id',
-  tradeId: 'tradeId',
+  trade_id: 'trade_id',
   code: 'code',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -307,7 +307,7 @@ exports.Prisma.SubjectScalarFieldEnum = {
   class_id: 'class_id',
   code: 'code',
   sector_id: 'sector_id',
-  tradeId: 'tradeId',
+  trade_id: 'trade_id',
   subjectType: 'subjectType',
   curriculum: 'curriculum',
   copyright: 'copyright',

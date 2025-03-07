@@ -12589,7 +12589,7 @@ export namespace Prisma {
     disabled: boolean | null
     class_room_type: $Enums.ClassRoomType | null
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     code: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -12604,7 +12604,7 @@ export namespace Prisma {
     disabled: boolean | null
     class_room_type: $Enums.ClassRoomType | null
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     code: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -12619,7 +12619,7 @@ export namespace Prisma {
     disabled: number
     class_room_type: number
     sector_id: number
-    tradeId: number
+    trade_id: number
     code: number
     created_at: number
     updated_at: number
@@ -12636,7 +12636,7 @@ export namespace Prisma {
     disabled?: true
     class_room_type?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     code?: true
     created_at?: true
     updated_at?: true
@@ -12651,7 +12651,7 @@ export namespace Prisma {
     disabled?: true
     class_room_type?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     code?: true
     created_at?: true
     updated_at?: true
@@ -12666,7 +12666,7 @@ export namespace Prisma {
     disabled?: true
     class_room_type?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     code?: true
     created_at?: true
     updated_at?: true
@@ -12754,7 +12754,7 @@ export namespace Prisma {
     disabled: boolean
     class_room_type: $Enums.ClassRoomType
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     code: string | null
     created_at: Date
     updated_at: Date
@@ -12786,7 +12786,7 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: boolean
     sector_id?: boolean
-    tradeId?: boolean
+    trade_id?: boolean
     code?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -12808,13 +12808,13 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: boolean
     sector_id?: boolean
-    tradeId?: boolean
+    trade_id?: boolean
     code?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ClassRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "symbol" | "disabled" | "class_room_type" | "sector_id" | "tradeId" | "code" | "created_at" | "updated_at", ExtArgs["result"]["classRoom"]>
+  export type ClassRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "username" | "description" | "symbol" | "disabled" | "class_room_type" | "sector_id" | "trade_id" | "code" | "created_at" | "updated_at", ExtArgs["result"]["classRoom"]>
   export type ClassRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trade?: boolean | ClassRoom$tradeArgs<ExtArgs>
     sector?: boolean | ClassRoom$sectorArgs<ExtArgs>
@@ -12840,7 +12840,7 @@ export namespace Prisma {
       disabled: boolean
       class_room_type: $Enums.ClassRoomType
       sector_id: string | null
-      tradeId: string | null
+      trade_id: string | null
       code: string | null
       created_at: Date
       updated_at: Date
@@ -13248,7 +13248,7 @@ export namespace Prisma {
     readonly disabled: FieldRef<"ClassRoom", 'Boolean'>
     readonly class_room_type: FieldRef<"ClassRoom", 'ClassRoomType'>
     readonly sector_id: FieldRef<"ClassRoom", 'String'>
-    readonly tradeId: FieldRef<"ClassRoom", 'String'>
+    readonly trade_id: FieldRef<"ClassRoom", 'String'>
     readonly code: FieldRef<"ClassRoom", 'String'>
     readonly created_at: FieldRef<"ClassRoom", 'DateTime'>
     readonly updated_at: FieldRef<"ClassRoom", 'DateTime'>
@@ -20388,7 +20388,7 @@ export namespace Prisma {
     class_id: string | null
     code: string | null
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     subjectType: $Enums.SubjectType | null
     curriculum: string | null
     copyright: string | null
@@ -20408,7 +20408,7 @@ export namespace Prisma {
     class_id: string | null
     code: string | null
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     subjectType: $Enums.SubjectType | null
     curriculum: string | null
     copyright: string | null
@@ -20428,7 +20428,7 @@ export namespace Prisma {
     class_id: number
     code: number
     sector_id: number
-    tradeId: number
+    trade_id: number
     subjectType: number
     curriculum: number
     copyright: number
@@ -20458,7 +20458,7 @@ export namespace Prisma {
     class_id?: true
     code?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     subjectType?: true
     curriculum?: true
     copyright?: true
@@ -20478,7 +20478,7 @@ export namespace Prisma {
     class_id?: true
     code?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     subjectType?: true
     curriculum?: true
     copyright?: true
@@ -20498,7 +20498,7 @@ export namespace Prisma {
     class_id?: true
     code?: true
     sector_id?: true
-    tradeId?: true
+    trade_id?: true
     subjectType?: true
     curriculum?: true
     copyright?: true
@@ -20605,7 +20605,7 @@ export namespace Prisma {
     class_id: string | null
     code: string
     sector_id: string | null
-    tradeId: string | null
+    trade_id: string | null
     subjectType: $Enums.SubjectType | null
     curriculum: string | null
     copyright: string | null
@@ -20644,7 +20644,7 @@ export namespace Prisma {
     class_id?: boolean
     code?: boolean
     sector_id?: boolean
-    tradeId?: boolean
+    trade_id?: boolean
     subjectType?: boolean
     curriculum?: boolean
     copyright?: boolean
@@ -20680,7 +20680,7 @@ export namespace Prisma {
     class_id?: boolean
     code?: boolean
     sector_id?: boolean
-    tradeId?: boolean
+    trade_id?: boolean
     subjectType?: boolean
     curriculum?: boolean
     copyright?: boolean
@@ -20693,7 +20693,7 @@ export namespace Prisma {
     teacher_id?: boolean
   }
 
-  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "classRoomId" | "class_id" | "code" | "sector_id" | "tradeId" | "subjectType" | "curriculum" | "copyright" | "learningHours" | "issueDate" | "purpose" | "symbol" | "created_at" | "updated_at" | "teacher_id", ExtArgs["result"]["subject"]>
+  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "classRoomId" | "class_id" | "code" | "sector_id" | "trade_id" | "subjectType" | "curriculum" | "copyright" | "learningHours" | "issueDate" | "purpose" | "symbol" | "created_at" | "updated_at" | "teacher_id", ExtArgs["result"]["subject"]>
   export type SubjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     knowledge?: boolean | Subject$knowledgeArgs<ExtArgs>
     Resource?: boolean | Subject$ResourceArgs<ExtArgs>
@@ -20735,7 +20735,7 @@ export namespace Prisma {
       class_id: string | null
       code: string
       sector_id: string | null
-      tradeId: string | null
+      trade_id: string | null
       subjectType: $Enums.SubjectType | null
       curriculum: string | null
       copyright: string | null
@@ -21157,7 +21157,7 @@ export namespace Prisma {
     readonly class_id: FieldRef<"Subject", 'String'>
     readonly code: FieldRef<"Subject", 'String'>
     readonly sector_id: FieldRef<"Subject", 'String'>
-    readonly tradeId: FieldRef<"Subject", 'String'>
+    readonly trade_id: FieldRef<"Subject", 'String'>
     readonly subjectType: FieldRef<"Subject", 'SubjectType'>
     readonly curriculum: FieldRef<"Subject", 'String'>
     readonly copyright: FieldRef<"Subject", 'String'>
@@ -33248,7 +33248,7 @@ export namespace Prisma {
     disabled: 'disabled',
     class_room_type: 'class_room_type',
     sector_id: 'sector_id',
-    tradeId: 'tradeId',
+    trade_id: 'trade_id',
     code: 'code',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -33357,7 +33357,7 @@ export namespace Prisma {
     class_id: 'class_id',
     code: 'code',
     sector_id: 'sector_id',
-    tradeId: 'tradeId',
+    trade_id: 'trade_id',
     subjectType: 'subjectType',
     curriculum: 'curriculum',
     copyright: 'copyright',
@@ -34405,7 +34405,7 @@ export namespace Prisma {
     disabled?: BoolFilter<"ClassRoom"> | boolean
     class_room_type?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
     sector_id?: StringNullableFilter<"ClassRoom"> | string | null
-    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    trade_id?: StringNullableFilter<"ClassRoom"> | string | null
     code?: StringNullableFilter<"ClassRoom"> | string | null
     created_at?: DateTimeFilter<"ClassRoom"> | Date | string
     updated_at?: DateTimeFilter<"ClassRoom"> | Date | string
@@ -34424,7 +34424,7 @@ export namespace Prisma {
     disabled?: SortOrder
     class_room_type?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     code?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -34447,7 +34447,7 @@ export namespace Prisma {
     disabled?: BoolFilter<"ClassRoom"> | boolean
     class_room_type?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
     sector_id?: StringNullableFilter<"ClassRoom"> | string | null
-    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    trade_id?: StringNullableFilter<"ClassRoom"> | string | null
     created_at?: DateTimeFilter<"ClassRoom"> | Date | string
     updated_at?: DateTimeFilter<"ClassRoom"> | Date | string
     trade?: XOR<TradeNullableScalarRelationFilter, TradeWhereInput> | null
@@ -34465,7 +34465,7 @@ export namespace Prisma {
     disabled?: SortOrder
     class_room_type?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     code?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -34486,7 +34486,7 @@ export namespace Prisma {
     disabled?: BoolWithAggregatesFilter<"ClassRoom"> | boolean
     class_room_type?: EnumClassRoomTypeWithAggregatesFilter<"ClassRoom"> | $Enums.ClassRoomType
     sector_id?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
-    tradeId?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
+    trade_id?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
     code?: StringNullableWithAggregatesFilter<"ClassRoom"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"ClassRoom"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ClassRoom"> | Date | string
@@ -35009,7 +35009,7 @@ export namespace Prisma {
     class_id?: StringNullableFilter<"Subject"> | string | null
     code?: StringFilter<"Subject"> | string
     sector_id?: StringNullableFilter<"Subject"> | string | null
-    tradeId?: StringNullableFilter<"Subject"> | string | null
+    trade_id?: StringNullableFilter<"Subject"> | string | null
     subjectType?: EnumSubjectTypeNullableFilter<"Subject"> | $Enums.SubjectType | null
     curriculum?: StringNullableFilter<"Subject"> | string | null
     copyright?: StringNullableFilter<"Subject"> | string | null
@@ -35042,7 +35042,7 @@ export namespace Prisma {
     class_id?: SortOrder
     code?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     subjectType?: SortOrder
     curriculum?: SortOrder
     copyright?: SortOrder
@@ -35078,7 +35078,7 @@ export namespace Prisma {
     classRoomId?: StringNullableFilter<"Subject"> | string | null
     class_id?: StringNullableFilter<"Subject"> | string | null
     sector_id?: StringNullableFilter<"Subject"> | string | null
-    tradeId?: StringNullableFilter<"Subject"> | string | null
+    trade_id?: StringNullableFilter<"Subject"> | string | null
     subjectType?: EnumSubjectTypeNullableFilter<"Subject"> | $Enums.SubjectType | null
     curriculum?: StringNullableFilter<"Subject"> | string | null
     copyright?: StringNullableFilter<"Subject"> | string | null
@@ -35111,7 +35111,7 @@ export namespace Prisma {
     class_id?: SortOrder
     code?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     subjectType?: SortOrder
     curriculum?: SortOrder
     copyright?: SortOrder
@@ -35139,7 +35139,7 @@ export namespace Prisma {
     class_id?: StringNullableWithAggregatesFilter<"Subject"> | string | null
     code?: StringWithAggregatesFilter<"Subject"> | string
     sector_id?: StringNullableWithAggregatesFilter<"Subject"> | string | null
-    tradeId?: StringNullableWithAggregatesFilter<"Subject"> | string | null
+    trade_id?: StringNullableWithAggregatesFilter<"Subject"> | string | null
     subjectType?: EnumSubjectTypeNullableWithAggregatesFilter<"Subject"> | $Enums.SubjectType | null
     curriculum?: StringNullableWithAggregatesFilter<"Subject"> | string | null
     copyright?: StringNullableWithAggregatesFilter<"Subject"> | string | null
@@ -36575,7 +36575,7 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -36607,7 +36607,7 @@ export namespace Prisma {
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36624,7 +36624,7 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -36650,7 +36650,7 @@ export namespace Prisma {
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37183,7 +37183,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -37215,7 +37215,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -37243,7 +37243,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37274,7 +37274,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37304,7 +37304,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -37322,7 +37322,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37340,7 +37340,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38723,7 +38723,7 @@ export namespace Prisma {
     disabled?: SortOrder
     class_room_type?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     code?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -38738,7 +38738,7 @@ export namespace Prisma {
     disabled?: SortOrder
     class_room_type?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     code?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -38753,7 +38753,7 @@ export namespace Prisma {
     disabled?: SortOrder
     class_room_type?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     code?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -39237,7 +39237,7 @@ export namespace Prisma {
     class_id?: SortOrder
     code?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     subjectType?: SortOrder
     curriculum?: SortOrder
     copyright?: SortOrder
@@ -39261,7 +39261,7 @@ export namespace Prisma {
     class_id?: SortOrder
     code?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     subjectType?: SortOrder
     curriculum?: SortOrder
     copyright?: SortOrder
@@ -39281,7 +39281,7 @@ export namespace Prisma {
     class_id?: SortOrder
     code?: SortOrder
     sector_id?: SortOrder
-    tradeId?: SortOrder
+    trade_id?: SortOrder
     subjectType?: SortOrder
     curriculum?: SortOrder
     copyright?: SortOrder
@@ -43462,7 +43462,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -43599,7 +43599,7 @@ export namespace Prisma {
     disabled?: BoolFilter<"ClassRoom"> | boolean
     class_room_type?: EnumClassRoomTypeFilter<"ClassRoom"> | $Enums.ClassRoomType
     sector_id?: StringNullableFilter<"ClassRoom"> | string | null
-    tradeId?: StringNullableFilter<"ClassRoom"> | string | null
+    trade_id?: StringNullableFilter<"ClassRoom"> | string | null
     code?: StringNullableFilter<"ClassRoom"> | string | null
     created_at?: DateTimeFilter<"ClassRoom"> | Date | string
     updated_at?: DateTimeFilter<"ClassRoom"> | Date | string
@@ -43946,7 +43946,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -43976,7 +43976,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -44124,7 +44124,7 @@ export namespace Prisma {
     class_id?: StringNullableFilter<"Subject"> | string | null
     code?: StringFilter<"Subject"> | string
     sector_id?: StringNullableFilter<"Subject"> | string | null
-    tradeId?: StringNullableFilter<"Subject"> | string | null
+    trade_id?: StringNullableFilter<"Subject"> | string | null
     subjectType?: EnumSubjectTypeNullableFilter<"Subject"> | $Enums.SubjectType | null
     curriculum?: StringNullableFilter<"Subject"> | string | null
     copyright?: StringNullableFilter<"Subject"> | string | null
@@ -44308,7 +44308,7 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -44355,7 +44355,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -44385,7 +44385,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -44709,7 +44709,7 @@ export namespace Prisma {
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45205,7 +45205,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -45236,7 +45236,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46106,7 +46106,7 @@ export namespace Prisma {
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -46519,7 +46519,7 @@ export namespace Prisma {
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46632,7 +46632,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46663,7 +46663,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46722,7 +46722,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46752,7 +46752,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46780,7 +46780,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46811,7 +46811,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46877,7 +46877,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46907,7 +46907,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46962,7 +46962,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -46993,7 +46993,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47036,7 +47036,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47066,7 +47066,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47094,7 +47094,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47125,7 +47125,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47168,7 +47168,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47198,7 +47198,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47226,7 +47226,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47257,7 +47257,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47300,7 +47300,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47330,7 +47330,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47358,7 +47358,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47389,7 +47389,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47432,7 +47432,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47462,7 +47462,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47513,7 +47513,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47544,7 +47544,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47614,7 +47614,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47644,7 +47644,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47718,7 +47718,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47749,7 +47749,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47792,7 +47792,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47822,7 +47822,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47850,7 +47850,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47881,7 +47881,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -47951,7 +47951,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47981,7 +47981,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48093,7 +48093,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -48124,7 +48124,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -48286,7 +48286,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48316,7 +48316,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48863,7 +48863,7 @@ export namespace Prisma {
     symbol?: string | null
     disabled?: boolean
     class_room_type?: $Enums.ClassRoomType
-    tradeId?: string | null
+    trade_id?: string | null
     code?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -48909,7 +48909,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48924,7 +48924,7 @@ export namespace Prisma {
     symbol?: NullableStringFieldUpdateOperationsInput | string | null
     disabled?: BoolFieldUpdateOperationsInput | boolean
     class_room_type?: EnumClassRoomTypeFieldUpdateOperationsInput | $Enums.ClassRoomType
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -49155,7 +49155,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -49236,7 +49236,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49265,7 +49265,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49293,7 +49293,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49330,7 +49330,7 @@ export namespace Prisma {
     classRoomId?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -49430,7 +49430,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49459,7 +49459,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49487,7 +49487,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49602,7 +49602,7 @@ export namespace Prisma {
     class_id?: string | null
     code: string
     sector_id?: string | null
-    tradeId?: string | null
+    trade_id?: string | null
     subjectType?: $Enums.SubjectType | null
     curriculum?: string | null
     copyright?: string | null
@@ -49629,7 +49629,7 @@ export namespace Prisma {
     classRoomId?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49659,7 +49659,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49687,7 +49687,7 @@ export namespace Prisma {
     class_id?: NullableStringFieldUpdateOperationsInput | string | null
     code?: StringFieldUpdateOperationsInput | string
     sector_id?: NullableStringFieldUpdateOperationsInput | string | null
-    tradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    trade_id?: NullableStringFieldUpdateOperationsInput | string | null
     subjectType?: NullableEnumSubjectTypeFieldUpdateOperationsInput | $Enums.SubjectType | null
     curriculum?: NullableStringFieldUpdateOperationsInput | string | null
     copyright?: NullableStringFieldUpdateOperationsInput | string | null

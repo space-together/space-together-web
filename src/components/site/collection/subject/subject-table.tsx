@@ -131,7 +131,7 @@ const AllSubjectTable = ({ subjects }: props) => {
         <DataTable
           columns={columns}
           data={subjects}
-          searchKeys={["code", "name", "sector_id", "tradeId"]}
+          searchKeys={["code", "name", "sector_id", "trade_id"]}
         />
       </div>
     </div>

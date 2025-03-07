@@ -53,6 +53,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
     label: "Main collections",
     items: [
       {
+        title: "Educations",
+        image: "/icons/education.png",
+        url: "/admin/main-classes",
+      },
+      {
         title: "Users",
         icon: LiaUsersSolid,
         url: "/collection/users",

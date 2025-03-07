@@ -189,7 +189,7 @@ const AllClassRoomTable = ({
           searchKeys={[
             "username",
             "name",
-            "tradeId",
+            "trade_id",
             "sector_id",
             "class_room_type",
             "description",

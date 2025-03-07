@@ -41,7 +41,21 @@ export async function getAllMainClassAPI() {
     return { error: "An unexpected error occurred" };
   }
 }
-
+/**
+ *  Get Main class by Id
+ * @returns {object} { data, success } | { error }
+ */
+export async function getMainClassByIdAPI(id : string) {
+  try {
+    const response = await axios.get<ClassRoom>(`${APIV002}/classes/room/${id}`);
+    return { data: response.data, success: "Main class fetched successfully" };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      return { error: error.response?.data?.message || "Something went wrong while fetching Main class" };
+    }
+    return { error: "An unexpected error occurred" };
+  }
+}
 
 /**
  *  update Main class

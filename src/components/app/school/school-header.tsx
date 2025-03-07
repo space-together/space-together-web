@@ -31,7 +31,7 @@ const SchoolHeader = ({ isMySchool, lang, onThePage }: props) => {
             <AvatarFallback>LOGO</AvatarFallback>
           </Avatar>
           <div className=" space-y-1">
-            <h3 className=" font-semibold text-2xl">School name</h3>
+            <h1 className=" happy-title-head">School name</h1>
             <Link href={`/${lang}/school`} className=" link-hover">@ school_username</Link>
             <div>
               <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
