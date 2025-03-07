@@ -42,13 +42,13 @@ const ClassPageDocument = async ({ collectionName, documentId }: props) => {
                 <div className=" flex gap-2">
                   username: <p>{data?.username}</p>
                 </div>
-                <p>{data?.classRoomId}</p>
+                <p>{data?.class_room_id}</p>
                 <p className=" text-sm">{data?.code}</p>
-                <div>{data?.userId} </div>
+                <div>{data?.user_id} </div>
                 <p>{data?.created_at && data.created_at.toString()}</p>
-                {data?.updatedAt && (
+                {data?.updated_at && (
                   <p className=" text-warning">
-                    {formatDate(data?.updatedAt.toString())}
+                    {formatDate(data?.updated_at.toString())}
                   </p>
                 )}
               </div>

@@ -81,10 +81,10 @@ const AllSubjectTable = ({ subjects }: props) => {
       cell: ({ row }) => <span>{row.getValue("code")}</span>,
     },
     {
-      accessorKey: "sectorId",
+      accessorKey: "sector_id",
       header: "Sector",
       cell: ({ row }) => (
-        <span className="text-lowercase">{row.getValue("sectorId")}</span>
+        <span className="text-lowercase">{row.getValue("sector_id")}</span>
       ),
     },
     {
@@ -131,7 +131,7 @@ const AllSubjectTable = ({ subjects }: props) => {
         <DataTable
           columns={columns}
           data={subjects}
-          searchKeys={["code", "name", "sectorId", "tradeId"]}
+          searchKeys={["code", "name", "sector_id", "tradeId"]}
         />
       </div>
     </div>

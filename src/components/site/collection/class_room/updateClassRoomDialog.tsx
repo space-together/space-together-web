@@ -92,9 +92,9 @@ const UpdateClassRoomDialog = ({
       username: classRoom.username ? classRoom.username : "",
       description: classRoom.description ? classRoom.description : "",
       trade: classRoom.tradeId ? classRoom.tradeId : "",
-      sector: classRoom.sectorId ? classRoom.sectorId : "",
-      class_room_type: classRoom.ClassRoomType
-        ? classRoom.ClassRoomType
+      sector: classRoom.sector_id ? classRoom.sector_id : "",
+      class_room_type: classRoom.class_room_type
+        ? classRoom.class_room_type
         : "",
       symbol: classRoom.symbol ? classRoom.symbol : "",
     },

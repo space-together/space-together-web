@@ -77,10 +77,10 @@ const UpdateTradeDialog = ({ sectors, trade }: props) => {
     defaultValues: {
       name: trade.name ? trade.name : "",
       username: trade.username ? trade.username : "",
-      sector: trade.sectorId ? trade.sectorId : "",
+      sector: trade.sector_id ? trade.sector_id : "",
       description: trade.description ? trade.description : "",
       logo: "",
-      class_rooms: trade.limitClasses ? trade.limitClasses : undefined,
+      class_rooms: trade.max_classes ? trade.max_classes : undefined,
     },
     shouldFocusError: true,
     shouldUnregister: true,

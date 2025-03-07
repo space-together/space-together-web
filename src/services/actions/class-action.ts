@@ -8,11 +8,12 @@ import {
   classSchemaType,
   classUpdateSchema,
   classUpdateSchemaType,
+  createClassSchemaType,
 } from "@/utils/schema/classSchema";
 import { auth } from "@/auth";
 import { uploadSymbolToCloudinary } from "../cloudinary-service";
 
-export async function createClassAction(values: classSchemaType) {
+export async function createClassAction(values: classSchemaType |createClassSchemaType) {
   const validation = classSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid values" };
@@ -60,6 +61,40 @@ export async function createClassAction(values: classSchemaType) {
   }
 }
 
+export async function updateClassFormAction(id: string, values: createClassSchemaType) {
+  const validation = classUpdateSchema.safeParse(values);
+  if (!validation.success) {
+    return { error: "Invalid values" };
+  }
+
+  const { name, username, description, symbol } = validation.data;
+
+  try {
+    const cloudinary = await uploadSymbolToCloudinary(symbol);
+    const user = (await auth())?.user;
+    if (!user?.id) {
+      return { error: "To create class you must me login" };
+    }
+
+    const updatedClass = await db.class.update({
+      where: { id },
+      data: {
+        name,
+        username,
+        description,
+        symbol: cloudinary,
+      },
+    });
+
+    return updatedClass
+      ? { success: "Class updated", data: updatedClass }
+      : { error: "Failed to update Class" };
+  } catch (error) {
+    return { error: `Error updating class: [${error}]` };
+  }
+}
+
+
 export async function updateClassAction(values: classUpdateSchemaType, id: string) {
   const validation = classUpdateSchema.safeParse(values);
   if (!validation.success) {
@@ -92,6 +127,7 @@ export async function updateClassAction(values: classUpdateSchemaType, id: strin
     return { error: `Error updating class: [${error}]` };
   }
 }
+
 
 export async function deleteClassAction(id: string) {
   try {

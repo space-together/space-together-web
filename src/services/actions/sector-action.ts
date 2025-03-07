@@ -23,7 +23,7 @@ export const createSectorAction = async (values: sectorSchemaType) => {
       name,
       username,
       description,
-      educationId: education,
+      education_id: education,
     },
   });
 
@@ -57,7 +57,7 @@ export const updateSectorAction = async (
       name,
       username,
       description,
-      educationId: education,
+      education_id: education,
     },
   });
 

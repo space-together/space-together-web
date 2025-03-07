@@ -15,8 +15,9 @@ export const createTradeAction = async (values: tradeSchemaType) => {
         name,
         username,
         description,
-        sectorId: sector,
-        limitClasses: class_rooms,
+        sector_id: sector,
+        max_classes: class_rooms,
+        min_classes: 1,
       },
     });
 
@@ -48,8 +49,9 @@ export const updateTradeAction = async (
         name,
         username,
         description,
-        sectorId: sector,
-        limitClasses: class_rooms,
+        sector_id: sector,
+        max_classes: class_rooms,
+        min_classes : 1,
       },
     });
 

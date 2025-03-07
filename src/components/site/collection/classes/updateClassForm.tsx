@@ -29,7 +29,10 @@ import {
   fetchAllSectorByEducation,
   getAllTradeABySectorPI,
 } from "@/services/data/fetchDataFn";
-import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
+import {
+  createClassSchema,
+  createClassSchemaType,
+} from "@/utils/schema/classSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { ChangeEvent, useState, useTransition } from "react";
@@ -42,7 +45,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MyImage from "@/components/my-components/myImage";
 import { Class, Education } from "../../../../../prisma/prisma/generated";
 import { classTypeContext } from "@/utils/context/class-context";
-import { updateClassAction } from "@/services/actions/class-action";
+import { updateClassFormAction } from "@/services/actions/class-action";
 import { toLowerCase } from "@/utils/functions/characters";
 
 interface props {
@@ -88,18 +91,18 @@ const UpdateClassForm = ({ educations, classModel }: props) => {
     }
   };
 
-  const form = useForm<classSchemaType>({
-    resolver: zodResolver(classSchema),
+  const form = useForm<createClassSchemaType>({
+    resolver: zodResolver(createClassSchema),
     defaultValues: {
       name: classModel.name ? classModel.name : "",
       username: classModel.username ? classModel.username : "",
       description: classModel.description ? classModel.description : "",
       education: "",
       is_public: "",
-      sector: classModel.sectorId ? classModel.sectorId : "",
-      trade: classModel.tradeId ? classModel.tradeId : "",
-      class_room: classModel.classRoomId ? classModel.classRoomId : "",
-      class_teacher: classModel.classTeacher ? classModel.classTeacher : "",
+      sector: classModel.sector_id ? classModel.sector_id : "",
+      trade: classModel.trade_id ? classModel.trade_id : "",
+      class_room: classModel.class_room_id ? classModel.class_room_id : "",
+      class_teacher: classModel.user_id ? classModel.user_id : "",
       image: classModel.symbol ? classModel.symbol : "",
       class_type: classModel.classType ? classModel.classType : "",
     },
@@ -159,12 +162,12 @@ const UpdateClassForm = ({ educations, classModel }: props) => {
     return setClassRoom(get);
   };
 
-  const handleSubmit = (values: classSchemaType) => {
+  const handleSubmit = (values: createClassSchemaType) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
-      const action = await updateClassAction(classModel.id, values);
+      const action = await updateClassFormAction(classModel.id, values);
       if (action.error) {
         setError(action.error);
       }
@@ -279,10 +282,7 @@ const UpdateClassForm = ({ educations, classModel }: props) => {
                     className=" flex space-x-2"
                   >
                     {classTypeContext.map((item, index) => (
-                      <FormItem
-                        key={index}
-                        className=" space-x-3 items-center"
-                      >
+                      <FormItem key={index} className=" space-x-3 items-center">
                         <FormControl>
                           <RadioGroupItem value={item} />
                         </FormControl>

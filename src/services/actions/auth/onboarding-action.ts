@@ -5,7 +5,7 @@ import {
 } from "@/utils/schema/userSchema";
 
 import { db } from "@/lib/db";
-import { UserRole } from "../../../../prisma/prisma/generated";
+import { Gender, UserRole } from "../../../../prisma/prisma/generated";
 import { uploadProfilesToCloudinary } from "@/services/cloudinary-service";
 
 export const onboardingAction = async (
@@ -34,7 +34,7 @@ export const onboardingAction = async (
         image : cloudinary,
         age : new Date(age),
         phone,
-        gender,
+        gender: gender as Gender,
         role: role as UserRole,
       },
       where: { id },

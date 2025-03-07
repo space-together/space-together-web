@@ -30,7 +30,7 @@ import { useForm } from "react-hook-form";
 import UseTheme from "@/context/theme/use-theme";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MyImage from "@/components/my-components/myImage";
-import { classSchema, classSchemaType } from "@/utils/schema/classSchema";
+import { createClassSchema, createClassSchemaType } from "@/utils/schema/classSchema";
 import { createClassAction } from "@/services/actions/class-action";
 import {
   ClassRoom,
@@ -49,10 +49,10 @@ import sectorService from "@/services/data/sector-data";
 
 interface props {
   educations: Education[];
-  sectorsK : Sector[] | null
+  sectorsK: Sector[] | null;
 }
 
-const CreateClassForm = ({ educations , sectorsK}: props) => {
+const CreateClassForm = ({ educations, sectorsK }: props) => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isPending, startTransition] = useTransition();
@@ -90,8 +90,8 @@ const CreateClassForm = ({ educations , sectorsK}: props) => {
     }
   };
 
-  const form = useForm<classSchemaType>({
-    resolver: zodResolver(classSchema),
+  const form = useForm<createClassSchemaType>({
+    resolver: zodResolver(createClassSchema),
     defaultValues: {
       name: "",
       username: "",
@@ -117,8 +117,8 @@ const CreateClassForm = ({ educations , sectorsK}: props) => {
     setTrades(null);
     setClassRoom(null);
     const get = await sectorService.getSectorsByEducationId(id);
-    if (get.length == 0) return  setSectors(null);
-    
+    if (get.length == 0) return setSectors(null);
+
     return setSectors(get);
   };
 
@@ -148,7 +148,7 @@ const CreateClassForm = ({ educations , sectorsK}: props) => {
     return setClassRoom(get);
   };
 
-  const handleSubmit = (values: classSchemaType) => {
+  const handleSubmit = (values: createClassSchemaType) => {
     setError("");
     setSuccess("");
     startTransition(async () => {

@@ -39,7 +39,7 @@ export const createClassRoomAction = async (values: classRoomSchemaType) => {
         username,
         description,
         sector_id: sector,
-        ClassRoomType: class_room_type,
+        class_room_type,
         tradeId: myTrade,
         code: generateCode(),
       },
@@ -82,7 +82,7 @@ export const updateClassRoomAction = async (
         username,
         description,
         sector_id: sector,
-        ClassRoomType: class_room_type,
+        class_room_type,
         tradeId: trade,
       },
     });

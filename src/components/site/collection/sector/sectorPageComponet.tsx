@@ -16,7 +16,7 @@ const SectorPageDocument = async ({ collection }: props) => {
     <CollectionPageStatic collection={collection}>
       <div className=" flex justify-between items-center">
         <h2 className=" happy-title-base">Sector for education</h2>
-        <CreateSectorDialog education={getEducation}/>
+        <CreateSectorDialog educations={getEducation}/>
       </div>
      <AllSectorTable educations={getEducation} collectionName="sector" sectors={getSectors} />
     </CollectionPageStatic>

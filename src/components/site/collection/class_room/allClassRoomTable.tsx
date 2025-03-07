@@ -100,11 +100,11 @@ const AllClassRoomTable = ({
       ),
     },
     {
-      accessorKey: "ClassRoomType",
+      accessorKey: "class_room_type",
       header: "Type",
       cell: ({ row }) => (
         <div className="text-lowercase">
-          {row.getValue("ClassRoomType") || (
+          {row.getValue("class_room_type") || (
             <span className=" text-myGray">N/A</span>
           )}
         </div>
@@ -191,7 +191,7 @@ const AllClassRoomTable = ({
             "name",
             "tradeId",
             "sector_id",
-            "ClassRoomType",
+            "class_room_type",
             "description",
           ]}
           searchPlaceholder="Search: username , name , etc ..."
