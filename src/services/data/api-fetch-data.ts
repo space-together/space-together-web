@@ -68,8 +68,8 @@ export async function updateMainClassAPI(values: classRoomSchemaType, id : strin
     return { error: "Invalid values" };
   }
 
-  const { name, username, description, symbol } = validation.data;
-  const education = { name, username, description, symbol: !!symbol ? symbol : null };
+  const { name, username, description, symbol, sector, trade } = validation.data;
+  const education = { name,sector, trade, username, description, symbol: !!symbol ? symbol : null };
 
   try {
     const response = await axios.put<Education>(`${APIV002}/classes/room/${id}`, education);
@@ -98,7 +98,6 @@ export async function deleteMainClassAPI(id: string) {
     return { error: "An unexpected error occurred" };
   }
 }
-
 
 // --------- Educations ---------------------
 

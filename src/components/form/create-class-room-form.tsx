@@ -37,7 +37,7 @@ import { createMainClassAPI } from "@/services/data/api-fetch-data";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { Sector, Trade } from "../../../prisma/prisma/generated";
 interface props {
-  sectors: Sector[] | null;
+  sectors: Sector[] | undefined;
   trades: Trade[] | null;
 }
 

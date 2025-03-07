@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import CreateClassRoomDialog from "@/components/site/collection/class_room/createClassRoomDialog";
 import MainClassesBody from "@/components/site/collection/class_room/main-classes-body";
 import { Locale } from "@/i18n";
-import sectorService from "@/services/data/sector-data";
+import { getAllSectorAPI } from "@/services/data/api-fetch-data";
 import { getAllTrades } from "@/services/data/trade-data";
 import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation";
@@ -21,15 +21,15 @@ const CollectionMainClasses = async (props: props) => {
   if (user.role !== "ADMIN")
     return redirect(`${RedirectContents({ lang, role: user.role })}`);
   const [getSectors, getTrades] = await Promise.all([
-    sectorService.getAllSectors(),
-    await getAllTrades(),
+    getAllSectorAPI(),
+    getAllTrades(),
   ]);
 
   return (
     <div className=" happy-page space-y-4">
       <div className=" w-full justify-between flex items-center">
         <h2 className=" happy-title-head">Main Classes </h2>
-        <CreateClassRoomDialog sectors={getSectors} trades={getTrades} />
+        <CreateClassRoomDialog sectors={getSectors.data} trades={getTrades} />
       </div>
       <MainClassesBody lang={lang} />
     </div>

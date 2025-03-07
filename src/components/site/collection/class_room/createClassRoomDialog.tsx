@@ -11,12 +11,11 @@ import { BsPlus } from "react-icons/bs";
 import { Sector, Trade } from "../../../../../prisma/prisma/generated";
 import CreateClassRoomForm from "@/components/form/create-class-room-form";
 interface props {
-  sectors: Sector[] | null;
+  sectors: Sector[] | undefined;
   trades: Trade[] | null;
 }
 
 const CreateClassRoomDialog = ({ sectors, trades }: props) => {
-  
   return (
     <Dialog>
       <DialogTrigger asChild>
