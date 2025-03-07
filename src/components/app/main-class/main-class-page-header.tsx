@@ -1,7 +1,7 @@
 import MyImage from "@/components/my-components/myImage";
 import { ClassRoom } from "../../../../prisma/prisma/generated";
 import { TfiWorld } from "react-icons/tfi";
-import { Dot, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface props {
@@ -24,43 +24,38 @@ const MainClassPageHeader = ({ currentMainClass }: props) => {
           <h1 className=" happy-title-head">{currentMainClass.name}</h1>
           <span className=" link-hover">@ {currentMainClass.username}</span>
           {!!currentMainClass.sector_id && (
-            <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
-              <TfiWorld />
-              <span>{currentMainClass.sector_id}</span>
-            </div>
-          )}
-          {!!currentMainClass.sector_id && (
-            <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
-              <TfiWorld />
+            <div className=" flex font-semibold items-center text-sm space-x-2">
+              <TfiWorld /> 
               <span>
-                <span className=" text-myGray">sector</span>:{" "}
+                Sector: {" "}
                 {currentMainClass.sector_id}
               </span>
             </div>
           )}
-          <div className=" flex flex-col space-y-2">
-            {!!currentMainClass.trade_id && (
-              <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
-                <TfiWorld />
-                <span>
-                  <span className=" text-myGray">sector</span>:{" "}
-                  {currentMainClass.sector_id}
-                </span>
-              </div>
-            )}
-            {!!currentMainClass.trade_id && (
-              <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
-                <Dot />
-                <span>
-                  <span className=" text-myGray">Trade</span>:{" "}
-                  {currentMainClass.trade_id}
-                </span>
-              </div>
-            )}
-          </div>
+          {!!currentMainClass.trade_id && (
+            <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
+              <TfiWorld />
+              <span>
+                <span className=" text-myGray">Trade</span>:{" "}
+                {currentMainClass.trade_id}
+              </span>
+            </div>
+          )}
+          {!!currentMainClass.class_room_type && (
+            <div className=" text-sm text-myGray flex space-x-2 font-semibold items-center">
+              <TfiWorld />
+              <span>
+                <span className=" text-myGray">Role</span>:{" "}
+                {currentMainClass.class_room_type}
+              </span>
+            </div>
+          )}
         </div>
       </div>
-      <Button variant="error"><Trash2 />Delete</Button>
+      <Button variant="error">
+        <Trash2 />
+        Delete
+      </Button>
     </div>
   );
 };

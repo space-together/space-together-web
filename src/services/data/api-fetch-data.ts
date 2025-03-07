@@ -68,8 +68,8 @@ export async function updateMainClassAPI(values: classRoomSchemaType, id : strin
     return { error: "Invalid values" };
   }
 
-  const { name, username, description, symbol, sector, trade } = validation.data;
-  const education = { name,sector_id : sector,trade_id: trade, username, description, symbol: !!symbol ? symbol : null };
+  const { name, username, description, symbol, sector, trade ,class_room_type} = validation.data;
+  const education = { name,sector_id : sector,trade_id: trade, class_room_type ,username, description, symbol: !!symbol ? symbol : null };
 
   try {
     const response = await axios.put<Education>(`${APIV002}/classes/room/${id}`, education);
