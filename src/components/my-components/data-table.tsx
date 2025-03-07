@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UseTheme from "@/context/theme/use-theme";
 import { CiViewColumn } from "react-icons/ci";
+import React from "react";
 
 type DataTableProps<T> = {
   data: T[];

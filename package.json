@@ -1,6 +1,6 @@
 {
-  "name": "space-together-admins",
-  "version": "0.1.0",
+  "name": "space-together-web",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev -p 4789 --turbopack",

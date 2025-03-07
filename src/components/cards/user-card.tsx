@@ -41,7 +41,7 @@ const UserCard = ({ lang, user, modules }: props) => {
               <div className=" grid grid-cols-2 gap-2">
                 {modules &&
                   modules.map(async (item) => {
-                    const getSubject = await getSubjectById(item.subjectId);
+                    const getSubject = await getSubjectById(item.subject_id);
                     return (
                       <div key={item.id} className=" flex link-hover">
                         <Dot />

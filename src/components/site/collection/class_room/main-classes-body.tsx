@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {  getAllMainClassAPI } from "@/services/data/api-fetch-data";
-import { ClassRoom,  } from "../../../../../prisma/prisma/generated";
+import { getAllMainClassAPI } from "@/services/data/api-fetch-data";
+import { ClassRoom } from "../../../../../prisma/prisma/generated";
 import { Locale } from "@/i18n";
 import NotFoundItemsPage from "@/components/page/not-found-items-page";
 import MainClassCard from "@/components/cards/main-class-card";
 
 interface props {
-  lang : Locale;
+  lang: Locale;
 }
 
-export default function MainClassesBody({lang} : props) {
+export default function MainClassesBody({ lang }: props) {
   const [mainClass, setMainClass] = useState<ClassRoom[]>([]);
   const [error, setError] = useState("");
 
@@ -21,7 +21,7 @@ export default function MainClassesBody({lang} : props) {
         const response = await getAllMainClassAPI();
         console.log("Fetched Data:", response);
         if (response.data && Array.isArray(response.data)) {
-            setMainClass(response.data);
+          setMainClass(response.data);
         } else {
           setError("Unexpected API response format");
         }
@@ -41,15 +41,13 @@ export default function MainClassesBody({lang} : props) {
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {mainClass.length === 0 ? (
-       <NotFoundItemsPage description={"No educations found, create new ones or refetch."} />
+        <NotFoundItemsPage
+          description={"No main classes found, create new ones or refetch."}
+        />
       ) : (
         <div className=" grid gap-4 grid-cols-3">
           {mainClass.map((item) => (
-           <MainClassCard
-           lang={lang}
-           key={item.id}
-           mainClass={item}
-         />
+            <MainClassCard lang={lang} key={item.id} mainClass={item} />
           ))}
         </div>
       )}

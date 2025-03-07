@@ -397,7 +397,7 @@ exports.Prisma.NoteScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   subject_id: 'subject_id',
-  moduleId: 'moduleId',
+  module_id: 'module_id',
   seenBy: 'seenBy',
   commentsIds: 'commentsIds',
   fileId: 'fileId',
@@ -436,9 +436,9 @@ exports.UserRole = exports.$Enums.UserRole = {
 };
 
 exports.Gender = exports.$Enums.Gender = {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE',
-  OTHER: 'OTHER'
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
 exports.ClassRoomType = exports.$Enums.ClassRoomType = {

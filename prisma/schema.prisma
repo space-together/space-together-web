@@ -501,7 +501,7 @@ model Note {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   user_id     String   @db.ObjectId
   subject_id  String?  @db.ObjectId
-  moduleId    String   @db.ObjectId
+  module_id   String   @db.ObjectId
   seenBy      String[] @db.ObjectId
   commentsIds String[] @db.ObjectId
   fileId      String?
@@ -512,7 +512,7 @@ model Note {
   updated_at DateTime @updatedAt
 
   Subject Subject? @relation(fields: [subject_id], references: [id], onDelete: Cascade)
-  Module  Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  Module  Module?  @relation(fields: [module_id], references: [id], onDelete: Cascade)
 }
 
 // module in class they student example : kinyarwanda,

@@ -22,6 +22,7 @@ export const createNoteAction = async (values: NoteSchemaType, subjectId: string
                 user_id  : user.id,
                 subject_id : subjectId,
                 content,
+                module_id : subjectId,
             },
         });
 

@@ -165,9 +165,9 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const Gender: {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE',
-  OTHER: 'OTHER'
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
 };
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
@@ -30958,7 +30958,7 @@ export namespace Prisma {
     id: string | null
     user_id: string | null
     subject_id: string | null
-    moduleId: string | null
+    module_id: string | null
     fileId: string | null
     content: string | null
     description: string | null
@@ -30970,7 +30970,7 @@ export namespace Prisma {
     id: string | null
     user_id: string | null
     subject_id: string | null
-    moduleId: string | null
+    module_id: string | null
     fileId: string | null
     content: string | null
     description: string | null
@@ -30982,7 +30982,7 @@ export namespace Prisma {
     id: number
     user_id: number
     subject_id: number
-    moduleId: number
+    module_id: number
     seenBy: number
     commentsIds: number
     fileId: number
@@ -30998,7 +30998,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     subject_id?: true
-    moduleId?: true
+    module_id?: true
     fileId?: true
     content?: true
     description?: true
@@ -31010,7 +31010,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     subject_id?: true
-    moduleId?: true
+    module_id?: true
     fileId?: true
     content?: true
     description?: true
@@ -31022,7 +31022,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     subject_id?: true
-    moduleId?: true
+    module_id?: true
     seenBy?: true
     commentsIds?: true
     fileId?: true
@@ -31109,7 +31109,7 @@ export namespace Prisma {
     id: string
     user_id: string
     subject_id: string | null
-    moduleId: string
+    module_id: string
     seenBy: string[]
     commentsIds: string[]
     fileId: string | null
@@ -31140,7 +31140,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     subject_id?: boolean
-    moduleId?: boolean
+    module_id?: boolean
     seenBy?: boolean
     commentsIds?: boolean
     fileId?: boolean
@@ -31158,7 +31158,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     subject_id?: boolean
-    moduleId?: boolean
+    module_id?: boolean
     seenBy?: boolean
     commentsIds?: boolean
     fileId?: boolean
@@ -31168,7 +31168,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "subject_id" | "moduleId" | "seenBy" | "commentsIds" | "fileId" | "content" | "description" | "created_at" | "updated_at", ExtArgs["result"]["note"]>
+  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "subject_id" | "module_id" | "seenBy" | "commentsIds" | "fileId" | "content" | "description" | "created_at" | "updated_at", ExtArgs["result"]["note"]>
   export type NoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Subject?: boolean | Note$SubjectArgs<ExtArgs>
     Module?: boolean | Note$ModuleArgs<ExtArgs>
@@ -31184,7 +31184,7 @@ export namespace Prisma {
       id: string
       user_id: string
       subject_id: string | null
-      moduleId: string
+      module_id: string
       seenBy: string[]
       commentsIds: string[]
       fileId: string | null
@@ -31589,7 +31589,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Note", 'String'>
     readonly user_id: FieldRef<"Note", 'String'>
     readonly subject_id: FieldRef<"Note", 'String'>
-    readonly moduleId: FieldRef<"Note", 'String'>
+    readonly module_id: FieldRef<"Note", 'String'>
     readonly seenBy: FieldRef<"Note", 'String[]'>
     readonly commentsIds: FieldRef<"Note", 'String[]'>
     readonly fileId: FieldRef<"Note", 'String'>
@@ -33477,7 +33477,7 @@ export namespace Prisma {
     id: 'id',
     user_id: 'user_id',
     subject_id: 'subject_id',
-    moduleId: 'moduleId',
+    module_id: 'module_id',
     seenBy: 'seenBy',
     commentsIds: 'commentsIds',
     fileId: 'fileId',
@@ -35670,7 +35670,7 @@ export namespace Prisma {
     id?: StringFilter<"Note"> | string
     user_id?: StringFilter<"Note"> | string
     subject_id?: StringNullableFilter<"Note"> | string | null
-    moduleId?: StringFilter<"Note"> | string
+    module_id?: StringFilter<"Note"> | string
     seenBy?: StringNullableListFilter<"Note">
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableFilter<"Note"> | string | null
@@ -35686,7 +35686,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     subject_id?: SortOrder
-    moduleId?: SortOrder
+    module_id?: SortOrder
     seenBy?: SortOrder
     commentsIds?: SortOrder
     fileId?: SortOrder
@@ -35705,7 +35705,7 @@ export namespace Prisma {
     NOT?: NoteWhereInput | NoteWhereInput[]
     user_id?: StringFilter<"Note"> | string
     subject_id?: StringNullableFilter<"Note"> | string | null
-    moduleId?: StringFilter<"Note"> | string
+    module_id?: StringFilter<"Note"> | string
     seenBy?: StringNullableListFilter<"Note">
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableFilter<"Note"> | string | null
@@ -35721,7 +35721,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     subject_id?: SortOrder
-    moduleId?: SortOrder
+    module_id?: SortOrder
     seenBy?: SortOrder
     commentsIds?: SortOrder
     fileId?: SortOrder
@@ -35741,7 +35741,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Note"> | string
     user_id?: StringWithAggregatesFilter<"Note"> | string
     subject_id?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    moduleId?: StringWithAggregatesFilter<"Note"> | string
+    module_id?: StringWithAggregatesFilter<"Note"> | string
     seenBy?: StringNullableListFilter<"Note">
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableWithAggregatesFilter<"Note"> | string | null
@@ -37847,7 +37847,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     subject_id?: string | null
-    moduleId: string
+    module_id: string
     seenBy?: NoteCreateseenByInput | string[]
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
@@ -37873,7 +37873,7 @@ export namespace Prisma {
   export type NoteUncheckedUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     subject_id?: NullableStringFieldUpdateOperationsInput | string | null
-    moduleId?: StringFieldUpdateOperationsInput | string
+    module_id?: StringFieldUpdateOperationsInput | string
     seenBy?: NoteUpdateseenByInput | string[]
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37887,7 +37887,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     subject_id?: string | null
-    moduleId: string
+    module_id: string
     seenBy?: NoteCreateseenByInput | string[]
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
@@ -37911,7 +37911,7 @@ export namespace Prisma {
   export type NoteUncheckedUpdateManyInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     subject_id?: NullableStringFieldUpdateOperationsInput | string | null
-    moduleId?: StringFieldUpdateOperationsInput | string
+    module_id?: StringFieldUpdateOperationsInput | string
     seenBy?: NoteUpdateseenByInput | string[]
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -39608,7 +39608,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     subject_id?: SortOrder
-    moduleId?: SortOrder
+    module_id?: SortOrder
     seenBy?: SortOrder
     commentsIds?: SortOrder
     fileId?: SortOrder
@@ -39622,7 +39622,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     subject_id?: SortOrder
-    moduleId?: SortOrder
+    module_id?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
     description?: SortOrder
@@ -39634,7 +39634,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     subject_id?: SortOrder
-    moduleId?: SortOrder
+    module_id?: SortOrder
     fileId?: SortOrder
     content?: SortOrder
     description?: SortOrder
@@ -46134,7 +46134,7 @@ export namespace Prisma {
   export type NoteUncheckedCreateWithoutSubjectInput = {
     id?: string
     user_id: string
-    moduleId: string
+    module_id: string
     seenBy?: NoteCreateseenByInput | string[]
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
@@ -46549,7 +46549,7 @@ export namespace Prisma {
     id?: StringFilter<"Note"> | string
     user_id?: StringFilter<"Note"> | string
     subject_id?: StringNullableFilter<"Note"> | string | null
-    moduleId?: StringFilter<"Note"> | string
+    module_id?: StringFilter<"Note"> | string
     seenBy?: StringNullableListFilter<"Note">
     commentsIds?: StringNullableListFilter<"Note">
     fileId?: StringNullableFilter<"Note"> | string | null
@@ -49788,7 +49788,7 @@ export namespace Prisma {
   export type NoteCreateManySubjectInput = {
     id?: string
     user_id: string
-    moduleId: string
+    module_id: string
     seenBy?: NoteCreateseenByInput | string[]
     commentsIds?: NoteCreatecommentsIdsInput | string[]
     fileId?: string | null
@@ -49974,7 +49974,7 @@ export namespace Prisma {
 
   export type NoteUncheckedUpdateWithoutSubjectInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    moduleId?: StringFieldUpdateOperationsInput | string
+    module_id?: StringFieldUpdateOperationsInput | string
     seenBy?: NoteUpdateseenByInput | string[]
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49986,7 +49986,7 @@ export namespace Prisma {
 
   export type NoteUncheckedUpdateManyWithoutSubjectInput = {
     user_id?: StringFieldUpdateOperationsInput | string
-    moduleId?: StringFieldUpdateOperationsInput | string
+    module_id?: StringFieldUpdateOperationsInput | string
     seenBy?: NoteUpdateseenByInput | string[]
     commentsIds?: NoteUpdatecommentsIdsInput | string[]
     fileId?: NullableStringFieldUpdateOperationsInput | string | null

@@ -65,7 +65,7 @@ const MainClassCard = ({ lang, mainClass }: props) => {
       </div>
       <Separator />
       <div className=" p-4">
-        <Link href={`/${lang}/notes/classes/1234`}>
+        <Link href={`/${lang}/admin/main-classes/${mainClass?.id ?  mainClass.id : 123}`}>
           <Button variant={"info"} className=" w-full">
             Join main class
           </Button>
