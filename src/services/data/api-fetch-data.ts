@@ -69,7 +69,7 @@ export async function updateMainClassAPI(values: classRoomSchemaType, id : strin
   }
 
   const { name, username, description, symbol, sector, trade } = validation.data;
-  const education = { name,sector, trade, username, description, symbol: !!symbol ? symbol : null };
+  const education = { name,sector_id : sector,trade_id: trade, username, description, symbol: !!symbol ? symbol : null };
 
   try {
     const response = await axios.put<Education>(`${APIV002}/classes/room/${id}`, education);
