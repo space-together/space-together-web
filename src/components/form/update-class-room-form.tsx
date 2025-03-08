@@ -173,7 +173,7 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
             name="sector"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel>Setors</FormLabel>
+                <FormLabel>Sectors</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -200,6 +200,7 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
               </FormItem>
             )}
           />
+            {trades &&
           <FormField
             control={form.control}
             name="trade"
@@ -212,8 +213,7 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
                     defaultValue={field.value}
                     className="flex flex-col space-y-3"
                   >
-                    {trades &&
-                      trades.map((item) => (
+                      {trades.map((item) => (
                         <FormItem
                           key={item.id}
                           className="flex items-center space-x-3 space-y-0"
@@ -231,7 +231,8 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+            />
+          }
         </div>
         <div>
           <FormField
