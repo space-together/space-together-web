@@ -49,7 +49,7 @@ const MainClassPage = async (props: props) => {
         </div>
         <div className=" w-1/2 space-y-2">
           <h2 className=" happy-title-base">Main class information</h2>
-          <MainClassInformation />
+          <MainClassInformation id={mainClassId}/>
         </div>
       </div>
     </div>

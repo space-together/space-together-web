@@ -1,5 +1,8 @@
 import SubjectCardSmall from '@/components/cards/subject-card-small'
-const MainClassInformationSubjects = () => {
+interface props {
+  mainClassId : string
+}
+const MainClassInformationSubjects = ({mainClassId} : props) => {
   return (
     <div>
       {[...Array(5)].map((_, i) => (

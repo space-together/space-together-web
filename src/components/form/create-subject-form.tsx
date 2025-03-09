@@ -118,7 +118,7 @@ const CreateSubjectForm = ({classId} : props) => {
             </FormItem>
           )}
         />
-        <div className=" w-full">
+        <div className=" w-full space-y-2">
         <FormField
           name="name"
           control={form.control}
