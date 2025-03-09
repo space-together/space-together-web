@@ -132,7 +132,7 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
               name="name"
               control={form.control}
               render={({ field }) => (
-                <FormItem className=" w-full">
+                <FormItem className=" w-full flex flex-col">
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
