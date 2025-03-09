@@ -88,6 +88,7 @@ const CreateSubjectForm = ({classId} : props) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className=" space-y-2">
+        <div className=" flex space-x-4 w-full">
         <FormField
           control={form.control}
           name="symbol"
@@ -108,7 +109,7 @@ const CreateSubjectForm = ({classId} : props) => {
                         id="image"
                       />
                     </FormControl>
-                    <span> Subject symbol </span>
+                    <span> symbol </span>
                   </div>
                 </div>
               </FormLabel>
@@ -117,6 +118,7 @@ const CreateSubjectForm = ({classId} : props) => {
             </FormItem>
           )}
         />
+        <div className=" w-full">
         <FormField
           name="name"
           control={form.control}
@@ -169,6 +171,8 @@ const CreateSubjectForm = ({classId} : props) => {
             </FormItem>
           )}
         />
+        </div>
+        </div>
         <FormField
           name="purpose"
           control={form.control}

@@ -2,7 +2,9 @@ import SubjectCardSmall from '@/components/cards/subject-card-small'
 const MainClassInformationSubjects = () => {
   return (
     <div>
-      <SubjectCardSmall />
+      {[...Array(5)].map((_, i) => (
+        <SubjectCardSmall key={i}/>
+      ))}
     </div>
   )
 }
