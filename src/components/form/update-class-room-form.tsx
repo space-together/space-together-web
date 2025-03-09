@@ -32,6 +32,7 @@ import { toLowerCase } from "@/utils/functions/characters";
 import { updateMainClassAPI } from "@/services/data/api-fetch-data";
 import { handleFormSubmission } from "@/hooks/form-notification";
 import { ClassRoom, Sector, Trade } from "../../../prisma/prisma/generated";
+import { cn } from "@/lib/utils";
 interface props {
   sectors: Sector[] | undefined;
   trades: Trade[] | null;
@@ -189,7 +190,7 @@ const UpdateClassRoomForm = ({ sectors, trades, currentMainClass }: props) => {
                           <FormControl>
                             <RadioGroupItem value={item.id} />
                           </FormControl>
-                          <FormLabel className="font-normal">
+                          <FormLabel className={cn("font-normal" , (item.username === currentMainClass.sector_id || item.name === currentMainClass.sector_id) && "font-semibold")}>
                             {item.username ? item.username : item.name}
                           </FormLabel>
                         </FormItem>
