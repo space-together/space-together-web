@@ -3,8 +3,6 @@ import { AiFillDatabase } from "react-icons/ai";
 import { TfiLayoutGrid3 } from "react-icons/tfi";
 
 import { AiOutlineSetting } from "react-icons/ai";
-import { LiaUsersSolid } from "react-icons/lia";
-import { MdClass } from "react-icons/md";
 import { CiGrid31 } from "react-icons/ci";
 import { Locale } from "@/i18n";
 import { ReactNode } from "react";
@@ -55,27 +53,35 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Educations",
         image: "/icons/education.png",
+        url: "/admin/educations",
+        children : [
+          { title: "sector", url: "/admin/sectors" },
+        ]
+      },
+      {
+        title: "Main classes",
+        image: "/icons/classroom.png",
         url: "/admin/main-classes",
       },
-      {
-        title: "Users",
-        icon: LiaUsersSolid,
-        url: "/collection/users",
-        children: [
-          { title: "Students", url: "/admin/users/students" },
-          { title: "Teachers", url: "/admin/users/teachers" },
-          { title: "Manage Users", url: "/admin/users/crud" },
-        ],
-      },
-      {
-        title: "Classes",
-        icon: MdClass,
-        children: [
-          { title: "All Classes", url: "/admin/classes/all" },
-          { title: "Create Class", url: "/admin/classes/create" },
-          { title: "Manage Classes", url: "/admin/classes/manage" },
-        ],
-      },
+      // {
+      //   title: "Users",
+      //   icon: LiaUsersSolid,
+      //   url: "/collection/users",
+      //   children: [
+      //     { title: "Students", url: "/admin/users/students" },
+      //     { title: "Teachers", url: "/admin/users/teachers" },
+      //     { title: "Manage Users", url: "/admin/users/crud" },
+      //   ],
+      // },
+      // {
+      //   title: "Classes",
+      //   icon: MdClass,
+      //   children: [
+      //     { title: "All Classes", url: "/admin/classes/all" },
+      //     { title: "Create Class", url: "/admin/classes/create" },
+      //     { title: "Manage Classes", url: "/admin/classes/manage" },
+      //   ],
+      // },
     ],
   },
   {

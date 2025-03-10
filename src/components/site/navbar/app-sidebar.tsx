@@ -100,7 +100,9 @@ const SidebarGroupComponent = ({
                         )}
                       </AccordionTrigger>
                       <AccordionContent>
-                        <SidebarMenuSub className=" gap-0">{otherData1}</SidebarMenuSub>
+                        <SidebarMenuSub className=" gap-0">
+                          {otherData1}
+                        </SidebarMenuSub>
                       </AccordionContent>
                     </SidebarMenuItem>
                   </AccordionItem>
@@ -116,10 +118,13 @@ const SidebarGroupComponent = ({
                 <AccordionItem value={item.title}>
                   <SidebarMenuItem>
                     <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0">
-                      <span className="flex items-center gap-2">
+                      <div className="items-center gap-2 flex-1 fle">
                         {item.icon && <item.icon className=" size-6" />}
-                        {item.title}
-                      </span>
+                        {item.image && (
+                          <MyImage className=" size-6" src={item.image} />
+                        )}
+                        <span>{item.title}</span>
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <SidebarMenuSub>
