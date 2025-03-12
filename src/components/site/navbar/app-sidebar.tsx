@@ -117,7 +117,7 @@ const SidebarGroupComponent = ({
               >
                 <AccordionItem value={item.title}>
                   <SidebarMenuItem>
-                    <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0">
+                    <AccordionTrigger className="hover:no-underline btn btn-sm btn-ghost py-0 justify-start items-start">
                       <div className="items-center gap-2 flex-1 fle">
                         {item.icon && <item.icon className=" size-6" />}
                         {item.image && (
