@@ -399,7 +399,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="MALE" />
+                          <RadioGroupItem value="Male" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.male}
@@ -407,7 +407,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="FEMALE" />
+                          <RadioGroupItem value="Female" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.female}
@@ -415,7 +415,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="OTHER" />
+                          <RadioGroupItem value="Other" />
                         </FormControl>
                         <FormLabel className="font-normal">
                           {dictionary.gender.other}

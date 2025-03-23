@@ -1,12 +1,13 @@
 "use client"
 import SubjectCardSmall from '@/components/cards/subject-card-small'
-import { getAllEducationAPI } from '@/services/data/api-fetch-data';
+import { getAllSubjectsByMainClassAPI } from '@/services/data/api-fetch-data';
+import { subjectSchemaType } from '@/utils/schema/subject-schema';
 import { useEffect, useState } from 'react';
 interface props {
   mainClassId : string
 }
 const MainClassInformationSubjects = ({mainClassId} : props) => {
- const [SubjectsData, setSubjectsData] = useState<Subjects[]>([]);
+ const [SubjectsData, setSubjectsData] = useState<subjectSchemaType[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
