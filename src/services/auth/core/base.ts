@@ -13,10 +13,13 @@ export const userSession = z.object({
 })
 export type userSessionType = z.infer<typeof userSession>
 
-export const registerAuth = (data :registerSchemaType ) => {
- const validation = registerSchema.safeParse(data);
+export const registerAuthApi = async (values :registerSchemaType ) => {
+ const validation = registerSchema.safeParse(values);
   if (!validation.success) {
     return { error: "Invalid Register Validation" };
   }
-  apiRequest<registerSchemaType, userSessionType>('post', '/auth/register',data);
+
+ const data = await  apiRequest<registerSchemaType, userSessionType>('post', '/auth/register', validation.data);
+
+  return {success : data.success ,data : data.data , error : data.error};
 }

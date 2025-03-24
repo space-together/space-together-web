@@ -28,7 +28,10 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
 
     // Ensure the correct response type
     const response: AxiosResponse<TResponse> = await axios<TResponse>(config);
-    
+   
+    if (response.status === 400) {
+      return { error: (response.data as { message?: string })?.message || "Error with status code 4000" };
+    }
     return { data: response.data, success: `${method.toUpperCase()} request successful` };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {

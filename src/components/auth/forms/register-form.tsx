@@ -23,13 +23,14 @@ import { Locale } from "@/i18n";
 import { BeatLoader } from "react-spinners";
 import { registerAction } from "@/services/actions/auth/register-actions";
 import { useRouter } from "next/navigation";
+import { registerAuthApi } from "@/services/auth/core/base";
 
 interface props {
   diction: authRegisterFormDiction;
   lang: Locale;
 }
 
-const RegisterForm = ({ diction, lang }: props) => {
+const RegisterForm = ({ diction, }: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(false);
@@ -49,16 +50,16 @@ const router = useRouter();
     setSuccess("");
 
     startTransition(async () => {
-      const register = await registerAction(values);
+      const register = await registerAuthApi(values);
 
-      if (register.error) {
-        setError(register.error);
+      if (register?.error) {
+        setError(register?.error);
       }
 
       if (register.success) {
         setSuccess(register.success);
-        form.reset();
-        return router.push(`${lang}/auth/login`);
+        // form.reset();
+        // return router.push(`${lang}/auth/login`);
       }
     });
   };
