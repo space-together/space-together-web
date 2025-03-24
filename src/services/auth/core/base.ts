@@ -1,17 +1,9 @@
+"use server";
 import apiRequest from "@/services/api-request";
 import { registerSchema, registerSchemaType } from "@/utils/schema/userSchema";
-import z from "zod";
-
-export const userSession = z.object({
-  id: z.string(),
-  user_id : z.string(),
-  token: z.string(),
-  session_token: z.string(),
-  created_at: z.string(),
-  expires_at: z.string(),
-  updated_at: z.string(),
-})
-export type userSessionType = z.infer<typeof userSession>
+import { setCookie } from "./session";
+import { cookies } from "next/headers";
+import { userSessionType } from "@/models/auth/session-model";
 
 export const registerAuthApi = async (values :registerSchemaType ) => {
  const validation = registerSchema.safeParse(values);
@@ -20,6 +12,10 @@ export const registerAuthApi = async (values :registerSchemaType ) => {
   }
 
  const data = await  apiRequest<registerSchemaType, userSessionType>('post', '/auth/register', validation.data);
+ if (!data.data) {
+    return { error: data.error };
+  }
 
+ setCookie(data.data, await cookies());
   return {success : data.success ,data : data.data , error : data.error};
 }

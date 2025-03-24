@@ -16,15 +16,15 @@ const AuthProviders = ({lang} : props) => {
         <p className=" bg-base-100 absolute top-1 px-2">Or continuer with</p>
         <Separator />
       </div>
-      <div className=" mt-3 space-y-2">
-        <Button onClick={() => loginWithProvidesService("google", lang)} variant="outline" className=" w-full">
+      <div className=" flex  w-full space-x-2">
+        <Button onClick={() => loginWithProvidesService("google", lang)} variant="outline" className=" w-1/2">
           <MyImage
             src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
-            className="size-4"
+            className="size-4 "
           />
           Google
         </Button>
-        <Button onClick={() => loginWithProvidesService("github", lang)} variant="outline" className=" w-full">
+        <Button onClick={() => loginWithProvidesService("github", lang)} variant="outline" className=" w-1/2">
           <FaGithub size={18}/>
           Github
         </Button>

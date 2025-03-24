@@ -20,16 +20,9 @@ export const registerSchema = z.object({
     .min(6, {
       message: "Password min characters are 6",
     })
-    .refine(
-      (password) =>
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/.test(
-          password
-        ),
-      {
-        message:
-          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (e.g., MyName1!)",
-      }
-    ),
+    .max(50, {
+      message: "Password max characters are 100",
+    }),
 });
 
 export type registerSchemaType = z.infer<typeof registerSchema>;
