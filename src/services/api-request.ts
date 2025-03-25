@@ -11,7 +11,9 @@ import { APIV002 } from '@/env';
 async function apiRequest<TRequest = unknown, TResponse = unknown>(
   method: 'get' | 'post' | 'put' | 'delete',
   url: string,
-  data?: TRequest
+  data?: TRequest,
+  Authorization ?:string, 
+
 ): Promise<{ data?: TResponse; success?: string; error?: string }> {
   try {
     // Construct request configuration
@@ -22,7 +24,7 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
       headers: {
         'Content-Type': 'application/json',
         // Add authentication token if required
-        // 'Authorization': `Bearer ${yourToken}`,
+        'Authorization': Authorization,
       },
     };
 

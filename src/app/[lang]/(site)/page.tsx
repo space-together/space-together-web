@@ -62,7 +62,7 @@ const HomePage = async (props: props) => {
                 Login
               </Button>
             </Link>
-            <Link href={`/${lang}/auth/login`}>
+            <Link href={`/${lang}/auth/register`}>
               <Button variant="primary" size="sm">
                 Register
               </Button>

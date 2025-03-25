@@ -20,8 +20,7 @@ import { ChangeEvent, useMemo, useState, useTransition } from "react";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
 import { Locale } from "@/i18n";
 import { BeatLoader } from "react-spinners";
-// import { registerAction } from "@/services/actions/auth/register-actions";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { registerAuthApi } from "@/services/auth/core/base";
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
 
@@ -30,13 +29,13 @@ interface props {
   lang: Locale;
 }
 
-const RegisterForm = ({ diction }: props) => {
+const RegisterForm = ({ diction , lang}: props) => {
   const [error, setError] = useState<undefined | string>("");
   const [success, setSuccess] = useState<undefined | string>("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const [password, setPassword] = useState("");
-  // const router = useRouter();
+  const router = useRouter();
   const form = useForm<registerSchemaType>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -59,8 +58,8 @@ const RegisterForm = ({ diction }: props) => {
 
       if (register.success) {
         setSuccess(register.success);
-        // form.reset();
-        // return router.push(`${lang}/auth/login`);
+        form.reset();
+        return router.push(`${lang}/auth/onboarding`);
       }
     });
   };

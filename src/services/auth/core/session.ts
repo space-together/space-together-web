@@ -1,26 +1,26 @@
+import { COOKIE_SESSION_KEY } from "@/env";
 import { userSessionType } from "@/models/auth/session-model"
-const COOKIE_SESSION_KEY = "session-id"
+import apiRequest from "@/services/api-request";
+import { cookies } from 'next/headers';
 
-export type Cookies = {
-    set: (
-        key: string,
-        value: string,
-        options: {
-            secure?: boolean
-            httpOnly?: boolean
-            sameSite?: "strict" | "lax"
-            expires?: number
-        }
-    ) => void
-    get: (key: string) => { name: string; value: string } | undefined
-    delete: (key: string) => void
+export async function setCookie(values: userSessionType) {
+    (await cookies()).set(COOKIE_SESSION_KEY, values.token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        expires: new Date(values.created_at).getTime(), // 1 week
+        maxAge: new Date(values.created_at).getTime(), // 1 week
+    });
 }
 
-export function setCookie(session : userSessionType, cookies: Pick<Cookies, "set">) {
-    cookies.set( COOKIE_SESSION_KEY, session.token, {
-        secure: true,
-        httpOnly: true,
-        sameSite: "lax",
-        expires: new Date(session.created_at).getTime(),
-    })
+export async function getUserFromSession() {
+    const sessionId = (await cookies()).get(COOKIE_SESSION_KEY)?.value;
+    if (sessionId == null) return null;
+
+    return getUserSessionById(sessionId)
+}
+
+async function getUserSessionById(sessionId: string) {
+    const session = await apiRequest<void, userSessionType>("get", "/auth/session", undefined, sessionId);
+    return session?.data ? session.data : null
 }
