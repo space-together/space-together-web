@@ -1,3 +1,4 @@
+"use server"
 import { COOKIE_SESSION_KEY } from "@/env";
 import { userSessionType } from "@/models/auth/session-model"
 import apiRequest from "@/services/api-request";
@@ -23,4 +24,12 @@ export async function getUserFromSession() {
 async function getUserSessionById(sessionId: string) {
     const session = await apiRequest<void, userSessionType>("get", "/auth/session", undefined, sessionId);
     return session?.data ? session.data : null
+}
+
+export async function removerUserSession() {
+    const sessionId = (await cookies()).get(COOKIE_SESSION_KEY)?.value
+    if (sessionId == null) return null
+    const session = await apiRequest<void, userSessionType>("delete", "/auth/session", undefined, sessionId);
+    if (session == null) return null;
+    (await cookies()).delete(COOKIE_SESSION_KEY);
 }

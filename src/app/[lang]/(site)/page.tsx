@@ -1,4 +1,3 @@
-import { auth, signOut } from "@/auth";
 import MyImage from "@/components/my-components/myImage";
 import SiteLogo from "@/components/site/navbar/site-logo";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import type { Metadata } from "next";
 import { getCurrentUser } from "@/services/auth/core/current-user";
+import { logout } from "@/utils/service/logout";
 
 export const metadata: Metadata = {
   title: "Collection - Educations",
@@ -22,8 +22,7 @@ interface props {
 const HomePage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const currentUser = (await auth())?.user;
-  const user = await getCurrentUser({ withFullUser: true });
+  const currentUser = await getCurrentUser({ authUser: true });
   return (
     <div className=" min-h-screen p-4">
       <nav className=" flex justify-between w-full items-center">
@@ -164,7 +163,7 @@ const HomePage = async (props: props) => {
                   <form
                     action={async () => {
                       "use server";
-                      await signOut();
+                      await logout();
                     }}
                   >
                     <Button type="submit" variant="error">

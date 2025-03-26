@@ -19,7 +19,10 @@ import { Button } from "@/components/ui/button";
 import { authLoginFormDiction } from "@/locale/types/authDictionTypes";
 import { BeatLoader } from "react-spinners";
 import { Locale } from "@/i18n";
-import { loginService } from "@/services/actions/auth/login-actions";
+import { loginAuthApi } from "@/services/auth/core/base";
+import { getCurrentUser } from "@/services/auth/core/current-user";
+import { RedirectContents } from "@/utils/context/redirect-content";
+import { redirect } from "next/navigation";
 
 interface props {
   diction: authLoginFormDiction;
@@ -48,12 +51,22 @@ export const LoginForm = ({ diction, lang }: props) => {
     setError("");
     setSuccess("");
 
-    startTransition(() => {
-      loginService(values, lang).then(async (data) => {
-        if (data?.error) {
-          return setError(data.error);
-        }
-      });
+    startTransition(async () => {
+      // loginService(values, lang).then(async (data) => {
+      //   if (data?.error) {
+      //     return setError(data.error);
+      //   }
+      // });
+      const login = await loginAuthApi(values);
+      if (login.error) {
+        return setError(login.error);
+      }
+      if (login.data) {
+        setSuccess("Login Success");
+        const current_user = await getCurrentUser({ authUser: true });
+        if (!current_user) return redirect("/");
+        return redirect(RedirectContents({ lang, role: current_user.role }));
+      }
     });
   };
 

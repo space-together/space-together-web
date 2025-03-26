@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { getUserByEmail } from "./services/data/user";
 import { UserRole } from "../prisma/prisma/generated";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, auth } = NextAuth({
   callbacks: {
     async session({ token, session }) {
       if (!token) return token;

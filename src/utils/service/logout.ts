@@ -1,9 +1,7 @@
-"use server";
-
-import { signOut } from "@/auth";
+import { removerUserSession } from "@/services/auth/core/session";
+import { redirect } from "next/navigation";
 
 export const logout = async () => {
-  await signOut({
-    redirectTo : "/auth/login",
-  });
+  await removerUserSession();
+  redirect("/auth/login");
 };
