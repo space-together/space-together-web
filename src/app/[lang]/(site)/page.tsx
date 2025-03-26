@@ -9,12 +9,12 @@ import { ArrowRight, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import type { Metadata } from "next";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 
-
-export const metadata:Metadata = {
-  title : "Collection - Educations",
+export const metadata: Metadata = {
+  title: "Collection - Educations",
   description: "Collection for educations",
-}
+};
 interface props {
   params: Promise<{ lang: Locale }>;
 }
@@ -23,6 +23,7 @@ const HomePage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const currentUser = (await auth())?.user;
+  const user = await getCurrentUser({ withFullUser: true });
   return (
     <div className=" min-h-screen p-4">
       <nav className=" flex justify-between w-full items-center">
@@ -71,6 +72,7 @@ const HomePage = async (props: props) => {
         )}
       </nav>
       {/* body */}
+      <div></div>
       <div className=" grid place-content-center w-full h-full">
         <div>
           {/* title */}

@@ -1,10 +1,13 @@
 
-import { ClassRoom, Education, Sector, Subject } from './../../../prisma/prisma/generated/index.d';
+import { ClassRoom, Education, Sector, Subject, User } from './../../../prisma/prisma/generated/index.d';
 import { classRoomSchema, classRoomSchemaType } from '@/utils/schema/classRoomSchema';
 import { educationSchema, educationSchemaType, educationSchemaTypeUpdate, educationSchemaUpdate } from '@/utils/schema/educationSchema';
 import { sectorSchema, sectorSchemaType } from '@/utils/schema/sectorSchema';
 import { subjectSchema, subjectSchemaType } from '@/utils/schema/subject-schema';
 import apiRequest from '../api-request';
+
+//------- User --------------
+export const getUserByIdApi = (id : string) => apiRequest<void ,User>('get', `/users/${id}`)
 
 // -------- Main Class API ---------
 export const createMainClassAPI = (mainClass: classRoomSchemaType) => 
