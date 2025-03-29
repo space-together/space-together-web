@@ -29,7 +29,17 @@ async function getUserSessionById(sessionId: string) {
 export async function removerUserSession() {
     const sessionId = (await cookies()).get(COOKIE_SESSION_KEY)?.value
     if (sessionId == null) return null
-    const session = await apiRequest<void, userSessionType>("delete", "/auth/session", undefined, sessionId);
+    const session = await apiRequest<void, userSessionType>("post", "/auth/session/delete", undefined, sessionId);
     if (session == null) return null;
     (await cookies()).delete(COOKIE_SESSION_KEY);
+}
+
+export async function removeUserSessionInClient() {
+    (await cookies()).delete(COOKIE_SESSION_KEY);
+}
+
+export async function updateUserSessionExpires() {
+    const sessionId = (await cookies()).get(COOKIE_SESSION_KEY)?.value
+    if (sessionId == null) return null
+    await apiRequest<void, userSessionType>("post", "/auth/session", undefined, sessionId);
 }

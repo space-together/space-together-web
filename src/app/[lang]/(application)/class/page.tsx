@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
 import ClassCard from "@/components/cards/class-card";
 import PermissionPage from "@/components/page/permission-page";
 import { Locale } from "@/i18n";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { getStudentsByUserId } from "@/services/data/student-data";
 import { redirect } from "next/navigation";
 import { MdClass } from "react-icons/md";
@@ -14,7 +14,7 @@ const ClassIdPage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
 
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true });
   if (!currentUser || !currentUser.id) return redirect(`/${lang}/auth/login`);
   if (currentUser.role !== "STUDENT" && currentUser.role !== "ADMIN") {
     return <PermissionPage />;

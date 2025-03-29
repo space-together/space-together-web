@@ -4,7 +4,7 @@ import { i18n, Locale } from "@/i18n";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { apiAuthPrefix, authRoutes, publicRoutes } from "./router";
-import { getUserFromSession } from "./services/auth/core/session";
+import { getUserFromSession, updateUserSessionExpires } from "./services/auth/core/session";
 // import { RedirectContents } from "./utils/context/redirect-content";
 
 function getLocale(request: NextRequest): Locale {
@@ -89,9 +89,8 @@ async function authMiddleware(req: NextRequest) {
 
 export default async function Middleware(req:NextRequest) {
   const res = (await authMiddleware(req)) ?? NextResponse.next();
-  
+  await updateUserSessionExpires()
   return res;
-  
 }
 
 export const config = {
