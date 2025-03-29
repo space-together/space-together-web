@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { db } from "@/lib/db";
 import { NoteSchema, NoteSchemaType } from "@/utils/schema/note-schema";
 
@@ -13,7 +13,7 @@ export const createNoteAction = async (values: NoteSchemaType, subjectId: string
     }
     const { description, content, file } = validation.data;
     try {
-        const user = (await auth())?.user;
+        const user = await getCurrentUser({ authUser: true })
         if (!user?.id) return {error : "Create account and add notes"};
         const create = await db.note.create({
             data: {
@@ -39,7 +39,7 @@ export const createNoteAction = async (values: NoteSchemaType, subjectId: string
 };
 export const deleteNoteAction = async (noteId: string) => {
     try {
-        const user = (await auth())?.user;
+        const user = await getCurrentUser({ authUser: true })
         if (!user?.id) return { error: "Create account and add notes" };
 
         const note = await db.note.findUnique({
@@ -71,7 +71,7 @@ export const updateNoteAction = async (noteId: string, values: NoteSchemaType) =
     const { description, content, file } = validation.data;
 
     try {
-        const user = (await auth())?.user;
+        const user = await getCurrentUser({ authUser: true })
         if (!user?.id) return { error: "Create account and add notes" };
 
         const note = await db.note.findUnique({

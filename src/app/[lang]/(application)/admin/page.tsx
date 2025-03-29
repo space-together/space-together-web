@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import PageTitle from "@/components/my-components/page-title";
 import CollectionInDatabase from "@/components/site/dashboard/collections/collection-in-database";
 import HeroDashboard from "@/components/site/dashboard/hero-dashboard";
@@ -14,7 +14,7 @@ interface props {
 const Dashboard = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

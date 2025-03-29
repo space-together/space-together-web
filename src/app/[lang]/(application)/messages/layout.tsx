@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import MessagesAside from "@/components/app/messages/messages-aside";
 import { Locale } from "@/i18n";
 import { redirect } from "next/navigation";
@@ -12,7 +12,7 @@ const MessageLayout = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
   const { children } = props;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

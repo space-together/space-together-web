@@ -4,7 +4,7 @@ import { LoginModel, loginModelTypes, registerSchema, registerSchemaType } from 
 import { setCookie } from "./session";
 import { userSessionType } from "@/models/auth/session-model";
 
-export type accountProvide = "Credentials" | "Google" | "Discord";
+export type accountProvider = "Credentials" | "Google" | "Discord";
 
 export const registerAuthApi = async (values: registerSchemaType) => {
   const validation = registerSchema.safeParse(values);
@@ -32,7 +32,7 @@ export const loginAuthApi = async (values: loginModelTypes) => {
     const data = {
       email: validation.data.email,
       password: validation.data.password,
-      provider: "Credentials" as accountProvide
+      provider: "Credentials" as accountProvider
     }
     const login = await apiRequest<typeof data, userSessionType>('post', '/auth/login', data);
     if (!login.data) {

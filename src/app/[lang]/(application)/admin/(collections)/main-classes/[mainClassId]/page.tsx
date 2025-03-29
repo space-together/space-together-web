@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import MainClassInformation from "@/components/app/main-class/main-class-information";
 import MainClassPageHeader from "@/components/app/main-class/main-class-page-header";
 import UpdateClassRoomForm from "@/components/form/update-class-room-form";
@@ -19,7 +19,7 @@ interface props {
 const MainClassPage = async (props: props) => {
   const params = await props.params;
   const { lang, mainClassId } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser) {
     return redirect(`/${lang}/auth/login`);
   }

@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import CreateSectorDialog from "@/components/site/collection/sector/CreateSectorDialog";
 import SectorBody from "@/components/site/collection/sector/sector-body";
 import { Locale } from "@/i18n";
@@ -12,7 +12,7 @@ interface props {
 const SectorsPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

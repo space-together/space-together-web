@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import SettingPrivacyBody from "@/components/app/settings/profile/setting-privacy-body";
 import UserUserDataForm from "@/components/form/update-user-data-form";
 import NotFoundPage from "@/components/page/not-found-page";
@@ -12,7 +12,7 @@ interface props {
 const SettingProfilePage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }

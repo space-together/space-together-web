@@ -64,7 +64,7 @@ import {
 
 interface Props {
   dictionary: authOnboardingFormDiction;
-  user: authUser | undefined;
+  user: authUser | null;
   lang: Locale;
 }
 

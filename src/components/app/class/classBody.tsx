@@ -2,7 +2,7 @@
 import PostCard from "@/components/cards/post-card";
 import { Locale } from "@/i18n";
 import TeacherClassCreateNotes from "../teacher/teacher-class-create-notes";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 
 interface props {
   lang: Locale;
@@ -11,7 +11,7 @@ interface props {
 }
 
 const ClassBody = async ({ lang, isTeacher, classId }: props) => {
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   return (
     <div className="w-full space-y-4">
       {!!user && (

@@ -2,7 +2,7 @@ import PostCard from "@/components/cards/post-card";
 import SearchNotesClass from "@/components/app/class/notes/search-notes-class";
 import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject";
  import { Locale } from "@/i18n";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { redirect } from "next/navigation";
 interface props {
   params: Promise<{ lang: Locale }>;
@@ -11,7 +11,7 @@ interface props {
 const NotesClassIdPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

@@ -52,11 +52,6 @@ export const LoginForm = ({ diction, lang }: props) => {
     setSuccess("");
 
     startTransition(async () => {
-      // loginService(values, lang).then(async (data) => {
-      //   if (data?.error) {
-      //     return setError(data.error);
-      //   }
-      // });
       const login = await loginAuthApi(values);
       if (login.error) {
         return setError(login.error);

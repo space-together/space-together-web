@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { db } from "@/lib/db"; // Add this line to import the db object
 
 import { postSchema, PostSchemaType } from "@/utils/schema/postSchema";
@@ -14,7 +14,7 @@ export const CreatePostAction = async (values: PostSchemaType , classId ?: strin
   const { content } = validation.data;
 
   try {
-    const user = (await auth())?.user;
+    const user = await getCurrentUser({ authUser: true })
     if (!user?.id) {
       return { error: "To create class you must be logged in" };
     }

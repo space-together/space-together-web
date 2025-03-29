@@ -1,10 +1,10 @@
-import { auth } from "@/auth";
 import OtherData1 from "@/components/site/navbar/app-aside-other-data1";
 import AppFooter from "@/components/site/navbar/app-fotter";
 import AppNavbar from "@/components/site/navbar/app-navbar";
 import { AppSidebar } from "@/components/site/navbar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Locale } from "@/i18n";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { getStudentsByUserId } from "@/services/data/student-data";
 import {
   adminSidebarGroups,
@@ -22,7 +22,7 @@ export default async function ApplicationLayout(props: props) {
   const params = await props.params;
   const { lang } = params;
   const { children } = props;
-  const currentUser = (await auth())?.user;
+  const currentUser =  await getCurrentUser({ authUser: true });
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }
@@ -36,12 +36,7 @@ export default async function ApplicationLayout(props: props) {
   return (
     <SidebarProvider className="">
       <AppNavbar
-        user={{
-          ...currentUser,
-          name: currentUser.name ?? "",
-          email: currentUser.email ?? undefined,
-          image: currentUser.image ?? undefined,
-        }}
+        user={currentUser}
         lang={lang}
       />
       <AppSidebar

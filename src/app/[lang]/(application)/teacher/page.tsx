@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import CreateClassDialog from "@/components/app/class/createClassDialog";
 import TeacherHomeBody from "@/components/app/teacher/teacher-home-body";
 import ErrorPage from "@/components/page/error-page";
@@ -20,7 +20,7 @@ interface props {
 const TeacherPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true });
   if (!user?.id) {
     return redirect(`/${lang}/auth/login`);
   }

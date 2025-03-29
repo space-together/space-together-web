@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaBell } from "react-icons/fa6";
 const HeroDashboard = async () => {

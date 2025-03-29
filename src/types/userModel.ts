@@ -70,9 +70,9 @@ export type UserRoleModelNew = {
 };
 
 export type authUser = {
-  name?: string;
-  email?: string;
-  id?: string;
+  name: string;
+  email : string;
+  id: string;
   image?: string;
   role: UserRole;
   username ?: string

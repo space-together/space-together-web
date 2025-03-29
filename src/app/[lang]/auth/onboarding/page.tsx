@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
 import OnboardingForm from "@/components/auth/forms/onboarding-form";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 
 interface Props {
   params: Promise<{ lang: Locale }>;
@@ -11,13 +11,7 @@ const OnboardingPage = async (props: Props) => {
   const { lang } = params;
   const diction = await getDictionary(lang);
 
-
-  const authResult = await auth();
-  const user =
-    authResult && authResult.user && typeof authResult.user.id === "string"
-      ? { ...authResult.user, email: authResult.user.email || "" }
-      : undefined;
-
+  const currentUser = await getCurrentUser({ authUser: true });
   return (
     <div className=" h-screen px-12 flex flex-col items-start pt-4 happy-page gap-2">
       <div className=" space-y-2">
@@ -29,7 +23,7 @@ const OnboardingPage = async (props: Props) => {
       <div className="w-full">
         <OnboardingForm
           lang={lang}
-          user={user}
+          user={currentUser}
           dictionary={diction.auth.onboarding.form}
         />
       </div>

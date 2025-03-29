@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { UpdateClassForm } from "@/components/form/update-class-form";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
@@ -13,7 +13,7 @@ interface Props {
 
 const ClassSettingPage = async ({ params }: Props) => {
   const { lang, classId } = await params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
 
   // Redirect to login if the user is not authenticated
   if (!user) {

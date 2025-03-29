@@ -1,4 +1,4 @@
-import { auth } from '@/auth';
+import { auth } from '@/auth_';
 import { Locale } from '@/i18n';
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -10,7 +10,7 @@ interface Props {
 const NotesTeachersPage = async (props: Props) => {
   const params = await props.params;
   const { lang } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) return redirect(`/${lang}/auth/login`);
 
   return (

@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import SchoolContacts from "@/components/app/school/school-contacts";
 import SchoolHomeAbout from "@/components/app/school/school-home-about";
 import SchoolImages from "@/components/app/school/school-images";
@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 const SchoolAboutPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

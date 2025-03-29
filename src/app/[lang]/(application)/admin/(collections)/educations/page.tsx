@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import CreateEducationDialog from "@/components/site/collection/education/createEducationDialog";
 import EducationBody from "@/components/site/collection/education/education-body";
 import { Locale } from "@/i18n";
@@ -12,7 +12,7 @@ interface props {
 const CollectionEducationPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

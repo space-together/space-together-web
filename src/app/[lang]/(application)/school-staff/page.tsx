@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import StaffDashboardActions from "@/components/app/school-staff/dashboard/staff-dashboard-actions";
 import StaffDashboardPeople from "@/components/app/school-staff/dashboard/staff-dashboard-details";
 import StaffSchoolDashboardRequest from "@/components/app/school-staff/dashboard/staff-dashboard-request";
@@ -13,7 +13,7 @@ interface props {
 const SchoolStaffPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import ClassNavbar from "@/components/app/class/navbar/class-navbar";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
@@ -15,7 +15,7 @@ export default async function ClassIdLayout(props: props) {
   const params = await props.params;
   const { lang, classId } = params;
   const { children } = props;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }

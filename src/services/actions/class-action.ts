@@ -10,7 +10,7 @@ import {
   classUpdateSchemaType,
   createClassSchemaType,
 } from "@/utils/schema/classSchema";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { uploadSymbolToCloudinary } from "../cloudinary-service";
 
 export async function createClassAction(values: classSchemaType |createClassSchemaType) {
@@ -35,7 +35,7 @@ export async function createClassAction(values: classSchemaType |createClassSche
     myUsername = generateUsername(name);
   }
   try {
-    const user = (await auth())?.user;
+    const user = await getCurrentUser({ authUser: true })
     if (!user?.id) {
       return { error: "To create class you must me login" };
     }
@@ -71,7 +71,7 @@ export async function updateClassFormAction(id: string, values: createClassSchem
 
   try {
     const cloudinary = await uploadSymbolToCloudinary(symbol);
-    const user = (await auth())?.user;
+    const user = await getCurrentUser({ authUser: true })
     if (!user?.id) {
       return { error: "To create class you must me login" };
     }
@@ -105,7 +105,7 @@ export async function updateClassAction(values: classUpdateSchemaType, id: strin
 
   try {
     const cloudinary = await uploadSymbolToCloudinary(symbol);
-    const user = (await auth())?.user;
+    const user = await getCurrentUser({ authUser: true })
     if (!user?.id) {
       return { error: "To create class you must me login" };
     }

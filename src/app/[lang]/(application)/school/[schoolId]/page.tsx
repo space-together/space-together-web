@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import SchoolHeader from "@/components/app/school/school-header";
 import { Separator } from "@/components/ui/separator";
 import { Locale } from "@/i18n";
@@ -14,7 +14,7 @@ interface props {
 const SchoolIdPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

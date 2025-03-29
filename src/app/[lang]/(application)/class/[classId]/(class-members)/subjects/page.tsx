@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import SubjectCardSmall from "@/components/cards/subject-card-small";
 import NotFoundPage from "@/components/page/not-found-page";
 import PermissionPage from "@/components/page/permission-page";
@@ -16,7 +16,7 @@ interface Props {
 
 const ClassSubjectPage = async ({ params }: Props) => {
   const { lang, classId } = await params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }

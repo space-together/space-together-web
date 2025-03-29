@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import NotificationCard from "@/components/cards/notification-card";
 import NotificationCardError from "@/components/cards/notification-card-error";
 import { Locale } from "@/i18n";
@@ -16,7 +16,7 @@ interface props {
 const NotificationsPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user?.id) {
     return redirect(`/${lang}/auth/login`);
   }

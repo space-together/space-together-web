@@ -3,7 +3,7 @@
 import { addPersonSchema, addStudentSchemaType, addTeacherInClassSchema, addTeacherInClassSchemaType } from "@/utils/schema/add-person-schema";
 import { getUserByEmail } from "../data/user";
 import { db } from "@/lib/db";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { getClassById } from "../data/class-data";
 import { SendUserRequest } from "../../../prisma/prisma/generated";
 import { getModuleByUserId } from "../data/model-data";

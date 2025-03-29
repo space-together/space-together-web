@@ -2,7 +2,7 @@ import PostCard from "@/components/cards/post-card";
 import SearchNotesClass from "@/components/app/class/notes/search-notes-class";
 import SelectNoteSubject from "@/components/app/class/notes/search-notes-subject";
 import { Locale } from "@/i18n";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { redirect } from "next/navigation";
 import { isUserInClass } from "@/services/data/class-data";
 import PermissionPage from "@/components/page/permission-page";
@@ -13,7 +13,7 @@ interface props {
 const ClassNotesPage = async (props: props) => {
   const params = await props.params;
   const { lang, classId } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }

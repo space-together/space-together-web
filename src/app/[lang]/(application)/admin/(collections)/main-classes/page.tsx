@@ -1,5 +1,5 @@
 // import CreateClassRoomDialog from '@/components/site/collection/class_room/createClassRoomDialog'
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import CreateClassRoomDialog from "@/components/site/collection/class_room/createClassRoomDialog";
 import MainClassesBody from "@/components/site/collection/class_room/main-classes-body";
 import { Locale } from "@/i18n";
@@ -14,7 +14,7 @@ interface props {
 const CollectionMainClasses = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

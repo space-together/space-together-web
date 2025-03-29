@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import SettingHeader from "@/components/app/settings/setting-header";
 import SettingLang from "@/components/app/settings/setting-lang";
 import SettingLinks from "@/components/app/settings/setting-links";
@@ -11,7 +11,7 @@ interface props {
 const SettingPage = async (props: props) => {
   const params = await props.params;
   const { lang } = params;
-  const user = (await auth())?.user;
+  const user = await getCurrentUser({ authUser: true })
   if (!user) {
     return redirect(`/${lang}/auth/login`);
   }

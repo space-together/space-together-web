@@ -1,6 +1,6 @@
 import SearchPeopleClass from "@/components/app/class/people/search-people-class";
 import { Locale } from "@/i18n";
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import { redirect } from "next/navigation";
 import { getTeachersByClassId } from "@/services/data/teacher-data";
 import { getUserById } from "@/services/data/user";
@@ -19,7 +19,7 @@ interface props {
 const ClassPeoplePage = async (props: props) => {
   const params = await props.params;
   const { lang, classId } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) return redirect(`/${lang}/auth/login`);
   const isClassMember = await isUserInClass(currentUser.id, classId);
   if (!isClassMember) return <PermissionPage />;

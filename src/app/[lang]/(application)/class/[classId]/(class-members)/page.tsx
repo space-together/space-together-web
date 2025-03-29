@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getCurrentUser } from "@/services/auth/core/current-user";
 import ClassActivities from "@/components/app/class/classActivities";
 import ClassBody from "@/components/app/class/classBody";
 import ClassHead from "@/components/app/class/classHead";
@@ -16,7 +16,7 @@ interface Props {
 const ClassIdPage = async (props: Props) => {
   const params = await props.params;
   const { lang, classId } = params;
-  const currentUser = (await auth())?.user;
+  const currentUser = await getCurrentUser({ authUser: true })
   if (!currentUser || !currentUser.id) {
     return redirect(`/${lang}/auth/login`);
   }

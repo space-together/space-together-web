@@ -37,8 +37,8 @@ async function _getCurrentUser({
     
     if (authUser) {
       const user: authUser = {
-        name: data.name ?? undefined,
-        email: data.email ?? undefined,
+        name: data.name ?? "",
+        email: data.email ?? "",
         id: data.id,
         role: data.role,
         username: data.username ?? undefined,
