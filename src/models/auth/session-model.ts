@@ -4,6 +4,7 @@ export const userSession = z.object({
   user_id : z.string(),
   token: z.string(),
   session_token: z.string(),
+  redirect : z.boolean(),
   created_at: z.string(),
   expires_at: z.string(),
   updated_at: z.string(),

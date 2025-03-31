@@ -51,3 +51,5 @@ async function _getCurrentUser({
 }
 
 export const getCurrentUser = cache(_getCurrentUser);
+
+// to decode session token 
