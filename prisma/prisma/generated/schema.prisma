@@ -10,9 +10,9 @@ generator client {
 
 enum UserRole {
   STUDENT
-  TEACHER
-  SCHOOLSTAFF
-  ADMIN
+  TEACHER // Teacher , class teacher 
+  SCHOOLSTAFF // director , perfect , accountant , 
+  ADMIN // CEO , Developer,
   PARENT
 }
 
