@@ -1,5 +1,5 @@
 "use server"
-import { COOKIE_SESSION, COOKIE_SESSION_KEY, } from "@/env";
+import { CODE_VERIFIER_COOKIE_KEY, COOKIE_EXPIRATION_SECONDS, COOKIE_SESSION, COOKIE_SESSION_KEY, } from "@/env";
 import { userSessionType } from "@/models/auth/session-model"
 import apiRequest from "@/services/api-request";
 import { cookies } from 'next/headers';
@@ -62,20 +62,20 @@ export async function updateUserSessionExpires() {
 //     })
 // }
 
-// // store verifier code oauth
-// export async function createCodeVerifier(code: string) {
-//     (await cookies()).set(CODE_VERIFIER_COOKIE_KEY, code, {
-//         secure: true,
-//         httpOnly: true,
-//         sameSite: "lax",
-//         expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
-//     })
-// }
+// store verifier code oauth
+export async function createCodeVerifier(code: string) {
+    (await cookies()).set(CODE_VERIFIER_COOKIE_KEY, code, {
+        secure: true,
+        httpOnly: true,
+        sameSite: "lax",
+        expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
+    })
+}
 
 // get verifier code
 
-// export async function getCodeVerifier() {
-//     const codeVerifier = (await cookies()).get(CODE_VERIFIER_COOKIE_KEY)?.value
-//     if (codeVerifier == null) return null
-//     return codeVerifier
-// }
+export async function getCodeVerifier() {
+    const codeVerifier = (await cookies()).get(CODE_VERIFIER_COOKIE_KEY)?.value
+    if (codeVerifier == null) return null
+    return codeVerifier
+}

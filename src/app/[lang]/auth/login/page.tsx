@@ -6,11 +6,12 @@ import Link from "next/link";
 
 interface Props {
   params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ oauthError?: string }>;
 }
 
-const Page = async (props: Props) => {
-  const params = await props.params;
-  const { lang } = params;
+const Page = async ({params, searchParams}: Props) => {
+  const lang = (await params).lang;
+  const oauthError = (await searchParams).oauthError
   const diction = await getDictionary(lang);
 
   return (
@@ -19,7 +20,7 @@ const Page = async (props: Props) => {
         <h1 className=" happy-title-head">{diction.auth.login.page.title}</h1>
       </div>
       <div className=" mt-4 w-full space-y-3">
-        <LoginForm lang={lang} diction={diction.auth.login.form} />
+        <LoginForm oauthError={oauthError} lang={lang} diction={diction.auth.login.form} />
         <p>
           {diction.auth.register.page.paragraph}{" "}
           <Link href={`/${lang}/auth/register`} className=" link link-info">

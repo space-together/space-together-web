@@ -27,10 +27,11 @@ import { redirect } from "next/navigation";
 interface props {
   diction: authLoginFormDiction;
   lang: Locale;
+  oauthError?: string
 }
 
-export const LoginForm = ({ diction, lang }: props) => {
-  const [error, setError] = useState<undefined | string>("");
+export const LoginForm = ({ diction, lang,oauthError }: props) => {
+  const [error, setError] = useState<undefined | string>(oauthError);
   const [success, setSuccess] = useState<undefined | string>("");
   const [seePassword, setSeePassword] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -60,7 +61,7 @@ export const LoginForm = ({ diction, lang }: props) => {
         setSuccess("Login Success");
         const current_user = await getCurrentUser({ authUser: true });
         if (!current_user) return redirect("/");
-        return redirect(RedirectContents({ lang, role: current_user.role }));
+        redirect(RedirectContents({ lang, role: current_user.role }));
       }
     });
   };

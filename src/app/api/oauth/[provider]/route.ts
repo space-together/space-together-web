@@ -2,10 +2,10 @@ import { userSessionType } from "@/models/auth/session-model";
 import apiRequest from "@/services/api-request";
 import { accountProvider } from "@/services/auth/core/base";
 import { getCurrentUser } from "@/services/auth/core/current-user";
-import { setCookie } from "@/services/auth/core/session";
+import { getCodeVerifier, setCookie } from "@/services/auth/core/session";
 import { RedirectContents } from "@/utils/context/redirect-content";
 import { redirect } from "next/navigation"
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 type FetchOauthTokenModel = {
   provider: accountProvider,
@@ -16,7 +16,7 @@ type FetchOauthTokenModel = {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { provider: string } }  // FIXED: Removed Promise<>
+  { params }: { params: { provider: string } }
 ) {
   const { provider: rawProvider } = params;
   const code = request.nextUrl.searchParams.get("code");
@@ -29,23 +29,30 @@ export async function GET(
   }
 
   const provider = rawProvider.charAt(0).toUpperCase() + rawProvider.slice(1);
-  const token: FetchOauthTokenModel = { code, state, provider: provider as accountProvider };
+  
+  const code_verifier = await getCodeVerifier();
 
+  if (!code_verifier) return {error : "Verification token is required"}
+
+  const token: FetchOauthTokenModel = { code, state, provider: provider as accountProvider , code_verifier};
+  
+  console.log("token : ", token)
   try {
     const fetch_code = await apiRequest<FetchOauthTokenModel, userSessionType>("post", "/auth/oauth2/fetch", token);
-    
+
     if (!fetch_code.data) {
-      return redirect(`/auth/login?oauthError=${fetch_code.error}`);  // FIXED: Corrected typo
+      // return redirect(`/auth/login?oauthError=${fetch_code.error}`);
+      return NextResponse.json({ "error": fetch_code.error })
     }
 
     await setCookie(fetch_code.data);
     const current_user = await getCurrentUser({ authUser: true });
 
     return redirect(
-      fetch_code.data.redirect 
-        ? "/auth/onboarding" 
-        : current_user 
-          ? RedirectContents({ lang: "en", role: current_user.role ?? "STUDENT" }) 
+      fetch_code.data.redirect
+        ? "/auth/onboarding"
+        : current_user
+          ? RedirectContents({ lang: "en", role: current_user.role ?? "STUDENT" })
           : "/"
     );
 
@@ -56,3 +63,6 @@ export async function GET(
     );
   }
 }
+
+
+// https://discord.com/oauth2/authorize?client_id=1355320155021774938&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4789%2Fapi%2Foauth%2Fdiscord&scope=identify+email
