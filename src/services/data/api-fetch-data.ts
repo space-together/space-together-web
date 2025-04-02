@@ -16,9 +16,9 @@ export const updateUserByUserSession = async (values: onboardingSchemaTypes, id:
     return { error: "Invalid data" };
   }
   const { image, age, phone, gender, role, } = validation.data;
-  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/session/${id}`, {
+  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/session/67ec65cc82ff22a1ede440f7`, {
     image, age, phone, gender, role: role as UserRole
-  }, session)
+  }, "pVZby46wZk8/frtdY+JWTQLLwbPPezsKvVjaBvkcRqhu17sLdjL5pB20WweGIXkZBngsyZT4SfhJQxTZcTUUgCKBnNPYqnYSjD6Ihfzo4bivPdGx92sFvyNWieVDvF7pIHZNdgldej3qBiUTel9eKp0=")
 };
 
 // -------- Main Class API ---------
