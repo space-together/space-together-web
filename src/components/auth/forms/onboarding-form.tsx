@@ -121,27 +121,22 @@ const OnboardingForm = ({ dictionary, user, lang, }: Props) => {
   const now = today(getLocalTimeZone());
 
   const onSubmit = (value: onboardingSchemaTypes) => {
-    setSuccess("");
-    setError("");
-    console.log(value)
-
+    setSuccess(null);
+    setError(null);
+  
     startTransition(async () => {
       const update = await updateUserByUserSession(value, user?.id, user.user_session);
+  
       if (update.success && update.data) {
         setSuccess(update.success);
         const role = toLowerCase(update.data.role);
-        if (role === "student") {
-          return router.push(`/${lang}/class`);
-        }
-        if (role === "schoolstaff") {
-          return router.push(`/${lang}/school-staff`);
-        }
-        return router.push(`/${lang}/${role}`);
+        router.push(`/${lang}/${role == "Student" ? "class" : role}`);
       } else if (update.error) {
-        setError(update.error);
+        setTimeout(() => setError(update.error), 0);
       }
     });
   };
+  
 
   return (
     <Form {...form}>
