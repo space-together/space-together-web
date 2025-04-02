@@ -24,7 +24,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authOnboardingFormDiction } from "@/locale/types/authDictionTypes";
-import { authUser } from "@/utils/models/userModel";
 import { ChangeEvent, useState, useTransition } from "react";
 import UseTheme from "@/context/theme/use-theme";
 import { FormMessageError, FormMessageSuccess } from "./form-message";
@@ -52,7 +51,6 @@ import {
 import * as RPNInput from "react-phone-number-input";
 import { BeatLoader } from "react-spinners";
 import { Locale } from "@/i18n";
-import { onboardingAction } from "@/services/actions/auth/onboarding-action";
 import { useRouter } from "next/navigation";
 import { toLowerCase } from "@/utils/functions/characters";
 import { userRoleContext } from "@/utils/context/user-context";
@@ -61,16 +59,17 @@ import {
   FlagComponent,
   PhoneInput,
 } from "@/components/form/component-form-need";
-
+import { updateUserByUserSession } from "@/services/data/api-fetch-data";
+import { authUser } from "@/types/userModel";
 interface Props {
   dictionary: authOnboardingFormDiction;
-  user: authUser | null;
+  user: authUser;
   lang: Locale;
 }
 
-const OnboardingForm = ({ dictionary, user, lang }: Props) => {
-  const [error, setError] = useState<undefined | string>("");
-  const [success, setSuccess] = useState<undefined | string>("");
+const OnboardingForm = ({ dictionary, user, lang, }: Props) => {
+  const [error, setError] = useState<undefined |null| string>("");
+  const [success, setSuccess] = useState<undefined| null | string>("");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -124,28 +123,22 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
   const onSubmit = (value: onboardingSchemaTypes) => {
     setSuccess("");
     setError("");
+    console.log(value)
 
     startTransition(async () => {
-      if (user?.id) {
-        const update = await onboardingAction(value, user.id);
-        if (update.error) {
-          setError(update.error);
+      const update = await updateUserByUserSession(value, user?.id, user.user_session);
+      if (update.success && update.data) {
+        setSuccess(update.success);
+        const role = toLowerCase(update.data.role);
+        if (role === "student") {
+          return router.push(`/${lang}/class`);
         }
-
-        if (update.success) {
-          setSuccess(update.success);
-          form.reset();
-          const role = toLowerCase(update.data.role);
-          if (role === "student") {
-            return router.push(`/${lang}/class`);
-          }
-          if (role === "schoolstaff") {
-            return router.push(`/${lang}/school-staff`);
-          }
-          return router.push(`/${lang}/${role}`);
+        if (role === "schoolstaff") {
+          return router.push(`/${lang}/school-staff`);
         }
-      } else {
-        return setError("You must be login to update account!");
+        return router.push(`/${lang}/${role}`);
+      } else if (update.error) {
+        setError(update.error);
       }
     });
   };

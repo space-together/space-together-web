@@ -71,9 +71,11 @@ export type UserRoleModelNew = {
 
 export type authUser = {
   name: string;
-  email : string;
+  email: string;
   id: string;
   image?: string;
   role: UserRole;
-  username ?: string
+  username?: string;
+  token: string;
+  user_session : string;
 };

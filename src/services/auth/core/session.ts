@@ -29,6 +29,12 @@ export async function getUserFromSession() {
     return getUserSessionById(sessionId)
 }
 
+export async function getUserSession() {
+    const userSession = (await cookies()).get(COOKIE_SESSION)?.value
+    if (userSession == null) return null
+    return userSession
+}
+
 async function getUserSessionById(sessionId: string) {
     const session = await apiRequest<void, userSessionType>("get", "/auth/session", undefined, sessionId);
     return session?.data ? session.data : null

@@ -3,8 +3,8 @@ import { CiCircleCheck } from "react-icons/ci";
 import { cn } from '@/lib/utils';
 
 interface Props {
-  message ?: string;
-  className ?: string;
+  message ?: string | null;
+  className ?: string | null;
 }
 
 export const FormMessageError = ({

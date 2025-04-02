@@ -1,4 +1,4 @@
-import { getUserFromSession } from "./session";
+import { getUserFromSession, getUserSession } from "./session";
 import { redirect } from "next/navigation";
 import { getUserByIdApi } from "@/services/data/api-fetch-data";
 import { cache } from "react";
@@ -19,8 +19,8 @@ async function _getCurrentUser({
   authUser = false,
 }: { withFullUser?: boolean; authUser?: boolean; redirectIfNotFound?: boolean }) {
   const session = await getUserFromSession();
-
-  if (!session) {
+const user_session =await getUserSession();
+  if (!session || !user_session) {
     if (redirectIfNotFound) return redirect('/auth/login');
     return null;
   }
@@ -42,6 +42,8 @@ async function _getCurrentUser({
         id: data.id,
         role: data.role,
         username: data.username ?? undefined,
+        token : session.token,
+        user_session 
       };
       return user; // AuthUser object
     }

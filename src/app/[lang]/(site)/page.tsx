@@ -120,6 +120,12 @@ const HomePage = async (props: props) => {
                     </Link>
                     <div className=" flex flex-col space-y-1">
                       <div className=" flex ">
+                        <span className=" text-myGray">id :</span>
+                        <h4 className=" font-medium capitalize">
+                          {currentUser.id}
+                        </h4>
+                      </div>
+                      <div className=" flex ">
                         <span className=" text-myGray">Name :</span>
                         <h4 className=" font-medium capitalize">
                           {currentUser.name}

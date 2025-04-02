@@ -46,12 +46,6 @@ export interface UserModelPut {
   age ?: string; // age
 }
 
-export type authUser = {
-  email: string;
-  id?: string;
-  name?: string | null;
-  image?: string | null;
-};
 
 export interface UserModelDeleteMany {
   users: string[]; // Array of user idisable
