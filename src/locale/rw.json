@@ -70,10 +70,19 @@
       "form": {
         "image": "Ifoto y'umwirondoro",
         "phone": "Numero ya telefone",
-        "age": "Imyaka",
+        "age": {
+          "label" : "Igihe wavukiye",
+          "year" : "Umwaka",
+          "month" : "Ukwezi",
+          "day" : "Umunsi"
+        },
         "username": "Izina ry' umukoresha",
         "role": "Uruhare",
-        "location" : "Aho ubarizwa",
+        "location" : {
+          "label":"Aho ubarizwa",
+          "province" : "Intara",
+          "district" : "Akarere"
+        },
         "bio" : "Uri inde",
         "gender": {
           "label": "Igitsina",

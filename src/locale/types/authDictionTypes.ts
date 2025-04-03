@@ -53,7 +53,12 @@ export type authLoginFormDiction = {
 export type authOnboardingFormDiction = {
   image: string;
   phone: string;
-  age: string;
+  age: {
+    label : string,
+    year : string,
+    month : string,
+    day : string,
+  };
   username: string;
   role: string;
   gender: {
@@ -62,7 +67,11 @@ export type authOnboardingFormDiction = {
     female: string;
     other: string;
   };
-  location : string,
+  location : {
+    label : string,
+    province : string,
+    district : string,
+  },
   bio: string,
   button: string;
 };

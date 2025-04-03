@@ -5,7 +5,7 @@ import {
   onboardingSchemaTypes,
 } from "@/utils/schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -39,6 +39,7 @@ import { updateUserByUserSession } from "@/services/data/api-fetch-data";
 import { authUser } from "@/types/userModel";
 import { CountriesContext } from "@/context/data/country";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 interface Props {
   dictionary: authOnboardingFormDiction;
   user: authUser;
@@ -128,122 +129,128 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-2"
       >
+        {/* image */}
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className={cn("flex gap-2 items-center")}>
+              <FormLabel
+                htmlFor="image"
+                className={cn("flex gap-3 items-center")}
+              >
+                <MyImage
+                  src={field.value ? field.value : user?.image || "/1.jpg"}
+                  className={cn("size-24")}
+                  classname=" card"
+                  alt="Profile"
+                />
+                <span
+                  className={cn("cursor-pointer", !field.value && "text-info")}
+                >
+                  {dictionary.image}
+                </span>
+              </FormLabel>
+              <FormControl>
+                <div className={cn("flex flex-col")}>
+                  <Input
+                    disabled={isPending}
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    placeholder="Add profile photo"
+                    className={cn(
+                      "border-none outline-none bg-transparent hidden"
+                    )}
+                    onChange={(e) => handleImage(e, field.onChange)}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex space-x-2 w-full justify-between">
           {/* Left */}
           <div className=" flex flex-col space-y-2 w-full justify-start">
-            {/* image */}
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem className={cn("flex gap-2 items-center")}>
-                  <FormLabel
-                    htmlFor="image"
-                    className={cn("flex gap-3 items-center")}
-                  >
-                    <MyImage
-                      src={field.value ? field.value : user?.image || "/1.jpg"}
-                      className={cn("size-24")}
-                      classname=" card"
-                      alt="Profile"
-                    />
-                    <span
-                      className={cn(
-                        "cursor-pointer",
-                        !field.value && "text-info"
-                      )}
-                    >
-                      {dictionary.image}
-                    </span>
-                  </FormLabel>
-                  <FormControl>
-                    <div className={cn("flex flex-col")}>
-                      <Input
-                        disabled={isPending}
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        placeholder="Add profile photo"
-                        className={cn(
-                          "border-none outline-none bg-transparent hidden"
-                        )}
-                        onChange={(e) => handleImage(e, field.onChange)}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             {/* age */}
             <FormField
               control={form.control}
               name="age"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{dictionary.age}</FormLabel>
+                <FormItem className=" w-full">
+                  <FormLabel>{dictionary.age.label}</FormLabel>
                   <FormControl>
                     <div className="flex gap-2">
                       {/* Year Select */}
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange({ ...field.value, year: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from(
-                            { length: 100 },
-                            (_, i) => new Date().getFullYear() - i
-                          ).map((year) => (
-                            <SelectItem key={year} value={String(year)}>
-                              {year}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <div className=" flex flex-col space-y-1 w-full">
+                        <Label>{dictionary.age.year}</Label>
+                        <Select
+                          onValueChange={(value) =>
+                            field.onChange({ ...field.value, year: value })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent data-theme={UseTheme()}>
+                            {Array.from(
+                              { length: 100 },
+                              (_, i) => new Date().getFullYear() - i
+                            ).map((year) => (
+                              <SelectItem key={year} value={String(year)}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
 
                       {/* Month Select */}
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange({ ...field.value, month: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Month" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from({ length: 12 }, (_, i) => i + 1).map(
-                            (month) => (
-                              <SelectItem key={month} value={String(month)}>
-                                {month}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectContent>
-                      </Select>
+                      <div className=" flex flex-col space-y-1 w-full">
+                        <Label>{dictionary.age.month}</Label>
+                        <Select
+                          onValueChange={(value) =>
+                            field.onChange({ ...field.value, month: value })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent data-theme={UseTheme()}>
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                              (month) => (
+                                <SelectItem key={month} value={String(month)}>
+                                  {month}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </div>
 
                       {/* Day Select */}
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange({ ...field.value, day: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Day" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from({ length: 31 }, (_, i) => i + 1).map(
-                            (day) => (
-                              <SelectItem key={day} value={String(day)}>
-                                {day}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectContent>
-                      </Select>
+                      <div className=" flex flex-col space-y-1 w-full">
+                        <Label>{dictionary.age.day}</Label>
+                        <Select
+                          onValueChange={(value) =>
+                            field.onChange({ ...field.value, day: value })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Day" />
+                          </SelectTrigger>
+                          <SelectContent data-theme={UseTheme()}>
+                            {Array.from({ length: 31 }, (_, i) => i + 1).map(
+                              (day) => (
+                                <SelectItem key={day} value={String(day)}>
+                                  {day}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -256,7 +263,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>{dictionary.phone}</FormLabel>
                   <FormControl>
                     <Input
                       type="tel"
@@ -304,8 +311,6 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                 </FormItem>
               )}
             />
-          </div>
-          <div className=" justify-start flex flex-col">
             {/* gender */}
             <FormField
               control={form.control}
@@ -349,60 +354,67 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                 </FormItem>
               )}
             />
+          </div>
+          <div className=" justify-start flex flex-col space-y-2 w-full">
             {/* location */}
             <FormField
               control={form.control}
               name="location"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{dictionary.location}</FormLabel>
+                <FormItem className=" w-full">
+                  <FormLabel>{dictionary.location.label}</FormLabel>
                   <FormControl>
                     <div className="flex gap-2">
-                      {/* Province Select */}
-                      <Select
-                        onValueChange={(value) =>
-                          field.onChange({
-                            country: "Rwanda",
-                            province: value,
-                            district: "",
-                          })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Province" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {CountriesContext[0].provinces.map((province) => (
-                            <SelectItem
-                              key={province.name}
-                              value={province.name}
-                            >
-                              {province.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-
-                      {/* District Select */}
-                      <Select
-                        disabled={!field.value?.province}
-                        onValueChange={(value) =>
-                          field.onChange({ ...field.value, district: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="District" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {CountriesContext[0].provinces
-                            .find((p) => p.name === field.value?.province)
-                            ?.districts.map((district) => (
-                              <SelectItem key={district} value={district}>
-                                {district}
+                      <div className=" flex flex-col space-y-1 w-full">
+                        <Label>{dictionary.location.province}</Label>
+                        <Select
+                          onValueChange={(value) =>
+                            field.onChange({
+                              country: "Rwanda",
+                              province: value,
+                              district: "",
+                            })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Province" />
+                          </SelectTrigger>
+                          <SelectContent data-theme={UseTheme()}>
+                            {CountriesContext[0].provinces.map((province) => (
+                              <SelectItem
+                                key={province.name}
+                                value={province.name}
+                              >
+                                {province.name}
                               </SelectItem>
                             ))}
-                        </SelectContent>
-                      </Select>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* District Select */}
+                      <div className="  flex flex-col  space-y-1 w-full">
+                        <Label> {dictionary.location.district}</Label>
+                        <Select
+                          disabled={!field.value?.province}
+                          onValueChange={(value) =>
+                            field.onChange({ ...field.value, district: value })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="District" />
+                          </SelectTrigger>
+                          <SelectContent data-theme={UseTheme()}>
+                            {CountriesContext[0].provinces
+                              .find((p) => p.name === field.value?.province)
+                              ?.districts.map((district) => (
+                                <SelectItem key={district} value={district}>
+                                  {district}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -410,20 +422,19 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
               )}
             />
             {/* bio */}
-            <FormField 
-            name="bio"
-            control={form.control}
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>Bio</FormLabel>
-                <FormControl>
-                  <Textarea {...field} rows={2}/>
-                </FormControl>
-              </FormItem>
-            )}
+            <FormField
+              name="bio"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{dictionary.bio}</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} rows={6} />
+                  </FormControl>
+                </FormItem>
+              )}
             />
           </div>
-          {/* phone number */}
         </div>
         <div className=" mt-2">
           <FormMessageError message={error} />

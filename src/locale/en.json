@@ -70,10 +70,19 @@
       "form": {
         "image": "Profile image",
         "phone": "Phone number",
-        "age": "Age",
+        "age": {
+          "label" : "Date you born",
+          "year" : "Year",
+          "month" : "Month",
+          "day" : "Day"
+        },
+        "location" : {
+          "label" : "Your Location",
+          "province" : "Province",
+          "district" : "District"
+        },
         "username": "Username",
-        "role": "Role",
-        "location" : "Location",
+        "role": "Who you are",
         "bio" : "Bio",
         "gender": {
           "label": "Gender",

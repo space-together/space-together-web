@@ -1,4 +1,5 @@
 import AuthLayoutImage from "@/components/auth/authLayoutImage";
+import AuthLayoutChildren from "@/components/auth/layout-children";
 import AuthSetting from "@/components/auth/nav/authSetting";
 import { Locale } from "@/i18n";
 import { getDictionary } from "@/lib/dictionary";
@@ -21,7 +22,9 @@ const AuthLayout = async (props: Props) => {
       <AuthSetting lang={lang} diction={diction.auth.setting} />
       <div className="flex w-full">
         <AuthLayoutImage diction={diction.auth.leftSide} lang={lang} />
-        <div className=" min-w-[50%]">{children}</div>
+        <AuthLayoutChildren lang={lang}>
+          {children}
+        </AuthLayoutChildren>
       </div>
     </section>
   );
