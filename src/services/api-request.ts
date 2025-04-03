@@ -35,7 +35,7 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
     // Ensure the correct response type
     const response: AxiosResponse<TResponse> = await axios<TResponse>(config);
     
-    return { data: response.data, success: `${method.toUpperCase()} request successful` };
+    return { data: response.data, success: `request successful` };
   } catch (error: unknown) {
     if (error instanceof TypeError) {
       return { error: error.message }; // Returns meaningful type error

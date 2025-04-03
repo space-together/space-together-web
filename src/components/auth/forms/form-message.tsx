@@ -12,7 +12,7 @@ export const FormMessageError = ({
 }: Props) => {
   if(!message) return null;
   return (
-    <div className={cn("bg-error/20 px-1 py-2 rounded-md" , className )}>
+    <div className={cn("bg-error/10 border-l-2 px-1 py-2 border-error" , className )}>
       <div className='flex text-rose-600  text-sm gap-3'>
         <IoIosWarning size={20}/>
         <span>{message}</span>
@@ -26,7 +26,7 @@ export const FormMessageSuccess = ({
 }: Props) => {
   if(!message) return null;
   return (
-    <div className={cn("flex text-success bg-success/20 text-sm gap-3  px-1 py-2 rounded-md" , className)}>
+    <div className={cn("flex text-success bg-success/10 text-sm gap-3 border-l-2 px-1 py-2 border-success" , className)}>
       <CiCircleCheck size={20}/>
       <span>{message}</span>
     </div>

@@ -61,7 +61,9 @@ export const onboardingSchema = z.object({
       message: "Age must be between 3 and 95 years old.",
     }
   ),
-  phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda").optional(),
+  phone: z.string().min(10 , {
+    message : "Minium character are 10"
+  }).regex(/^\d+$/, "Phone number must contain only numbers").optional(),
   role: z.enum(userRoleContext as [string, ...string[]], {
     message: "Role must be one of 'STUDENT', 'TEACHER', or 'SCHOOL STAFF'",
   }),

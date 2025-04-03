@@ -1,4 +1,4 @@
-import { ClassRoom, Education, Sector, Subject, User, UserRole } from './../../../prisma/prisma/generated/index.d';
+import { ClassRoom, Education, Sector, Subject, User } from './../../../prisma/prisma/generated/index.d';
 import { classRoomSchema, classRoomSchemaType } from '@/utils/schema/classRoomSchema';
 import { educationSchema, educationSchemaType, educationSchemaTypeUpdate, educationSchemaUpdate } from '@/utils/schema/educationSchema';
 import { sectorSchema, sectorSchemaType } from '@/utils/schema/sectorSchema';
@@ -15,10 +15,7 @@ export const updateUserByUserSession = async (values: onboardingSchemaTypes, id:
   if (!validation.success) {
     return { error: "Invalid data" };
   }
-  const { image, age, phone, gender, role, } = validation.data;
-  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/${id}`, {
-    image, age, phone, gender, role: role as UserRole
-  }, session)
+  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/${id}`,validation.data, session)
 };
 
 // -------- Main Class API ---------

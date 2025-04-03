@@ -32,13 +32,13 @@ import MyImage from "@/components/my-components/myImage";
 import { cn } from "@/lib/utils";
 import { BeatLoader } from "react-spinners";
 import { Locale } from "@/i18n";
-import { useRouter } from "next/navigation";
-import { toLowerCase } from "@/utils/functions/characters";
 import { updateUserByUserSession } from "@/services/data/api-fetch-data";
 import { authUser } from "@/types/userModel";
 import { CountriesContext } from "@/context/data/country";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import AskIfUserHaveSchoolOrClass from "../dialog/ask-if-user-have-school-class";
+import { UserRole } from "../../../../prisma/prisma/generated";
 interface Props {
   dictionary: authOnboardingFormDiction;
   user: authUser;
@@ -49,7 +49,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
   const [error, setError] = useState<undefined | null | string>("");
   const [success, setSuccess] = useState<undefined | null | string>("");
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const [userRole , setUserRole] = useState<UserRole | null>(null);
 
   const form = useForm<onboardingSchemaTypes>({
     resolver: zodResolver(onboardingSchema),
@@ -105,16 +105,11 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
     setSuccess(null);
     setError(null);
     startTransition(async () => {
-      const update = await updateUserByUserSession(
-        value,
-        user?.id,
-        user.user_session
-      );
+      const update = await updateUserByUserSession(value, user?.id, user.token);
 
       if (update.success && update.data) {
         setSuccess(update.success);
-        const role = toLowerCase(update.data.role);
-        router.push(`/${lang}/${role == "Student" ? "class" : role}`);
+         setUserRole(update.data.role);
       } else if (update.error) {
         setTimeout(() => setError(update.error), 0);
       }
@@ -469,8 +464,9 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
           variant="info"
           className=" w-full"
         >
-          {isPending ? <BeatLoader /> : <span>{dictionary.button}</span>}
+          {dictionary.button} {isPending && <BeatLoader />}
         </Button>
+        {(success && userRole) && <AskIfUserHaveSchoolOrClass isOpen={true} lang={lang} userRole={userRole}/>}
       </form>
     </Form>
   );
