@@ -17,13 +17,11 @@ const AuthLayout = async (props: Props) => {
   const diction = await getDictionary(lang);
 
   return (
-    <section className="">
-      <AuthSetting lang={lang} diction={diction.auth.setting}/>
-      <div className=" items-center justify-between flex min-h-screen w-full">
-        <AuthLayoutImage diction={diction.auth.leftSide} lang={lang}/>
-       <div className=" w-1/2 right-0 absolute">
-        {children}
-       </div>
+    <section className=" w-full">
+      <AuthSetting lang={lang} diction={diction.auth.setting} />
+      <div className="flex w-full">
+        <AuthLayoutImage diction={diction.auth.leftSide} lang={lang} />
+        <div className=" min-w-[50%]">{children}</div>
       </div>
     </section>
   );

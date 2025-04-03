@@ -35,37 +35,44 @@ export const LoginModel = z.object({
 });
 
 export type loginModelTypes = z.infer<typeof LoginModel>;
-
 export const onboardingSchema = z.object({
-  image: z.string(),
-  age: z
-    .date({
-      required_error: "Please select a date.",
-    })
-    .refine(
-      (date) => {
-        const today = new Date();
-        let age = today.getFullYear() - date.getFullYear();
-        const monthDifference = today.getMonth() - date.getMonth();
-        const dayDifference = today.getDate() - date.getDate();
-        if (
-          monthDifference < 0 ||
-          (monthDifference === 0 && dayDifference < 0)
-        ) {
-          age--;
-        }
-        return age >= 3 && age <= 95;
-      },
-      {
-        message: "Age must be between 3 and 95 years old.",
+  image: z.string().optional(),
+  age: z.object({
+    year: z.number().min(1900, "Year must be valid").max(new Date().getFullYear(), "Year cannot be in the future"),
+    month: z.number().min(1, "Month must be between 1 and 12").max(12, "Month must be between 1 and 12"),
+    day: z.number().min(1, "Day must be valid").max(31, "Day must be valid"),
+  }).refine(
+    (data) => {
+      const { year, month, day } = data;
+      const birthDate = new Date(year, month - 1, day);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      const dayDiff = today.getDate() - birthDate.getDate();
+
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
       }
-    ),
-  phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda"),
-  role: z.string().min(1, {
-    message: "Role is required",
+
+      return age >= 3 && age <= 95;
+    },
+    {
+      message: "Age must be between 3 and 95 years old.",
+    }
+  ),
+  phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda").optional(),
+  role: z.enum(["STUDENT", "TEACHER", "SCHOOL STAFF"], {
+    message: "Role must be one of 'STUDENT', 'TEACHER', or 'SCHOOL STAFF'",
   }),
   gender: z.enum(["Male", "Female", "Other"], {
     message: "Gender must be one of 'Male', 'Female', or 'Other'",
   }),
+  location: z.object({
+    country: z.string().optional(),
+    province: z.string().optional(),
+    district: z.string().optional(),
+  }).optional(),
+  bio: z.string().optional(),
 });
+
 export type onboardingSchemaTypes = z.infer<typeof onboardingSchema>;
