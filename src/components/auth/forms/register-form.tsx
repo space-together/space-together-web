@@ -59,7 +59,7 @@ const RegisterForm = ({ diction , lang}: props) => {
       if (register.success) {
         setSuccess(register.success);
         form.reset();
-        return router.push(`/${lang}/auth/onboarding`);
+        router.push(`/${lang}/auth/onboarding`);
       }
     });
   };

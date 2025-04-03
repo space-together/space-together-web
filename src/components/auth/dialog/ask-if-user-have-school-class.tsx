@@ -27,8 +27,8 @@ const AskIfUserHaveSchoolOrClass = ({ isOpen, userRole, lang }: props) => {
   const [isPending, startTransition] = useTransition();
   const handleSchoolStaff = (yes?: boolean) => {
     startTransition(() => {
-      if (yes) return redirect(`/${lang}/school-staff`);
-      return redirect(`${lang}/school-staff/create-school`);
+      if (yes) redirect(`/${lang}/school-staff`);
+      redirect(`/${lang}/school-staff/create-school`);
     });
   };
   // TODO : to make if user is student and teacher

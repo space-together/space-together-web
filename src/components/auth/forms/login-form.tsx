@@ -55,12 +55,12 @@ export const LoginForm = ({ diction, lang,oauthError }: props) => {
     startTransition(async () => {
       const login = await loginAuthApi(values);
       if (login.error) {
-        return setError(login.error);
+        setError(login.error);
       }
       if (login.data) {
         setSuccess("Login Success");
         const current_user = await getCurrentUser({ authUser: true });
-        if (!current_user) return redirect("/");
+        if (!current_user) redirect("/");
         redirect(RedirectContents({ lang, role: current_user.role }));
       }
     });
