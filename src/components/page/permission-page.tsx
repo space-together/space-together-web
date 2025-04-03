@@ -1,11 +1,49 @@
-import React from 'react'
+"use client";
+import MyImage from "../my-components/myImage";
+import { Button } from "../ui/button";
+import { RefreshCcw } from "lucide-react";
+import { BsArrowLeft } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
-const PermissionPage = () => {
-  return (
-    <div>
-      permission page
-    </div>
-  )
+interface props {
+  description?: string;
+}
+
+
+const PermissionPage = ({description} : props) => {
+ const router = useRouter();
+     
+       const handleRefresh = () => {
+         window.location.reload();
+       };
+     
+       const handleGoBack = () => {
+         router.back();
+       };
+   return (
+     <div className="flex w-full justify-center">
+       <div className=" flex flex-col">
+         <MyImage
+           className=" h-80 w-96"
+           classname=" object-contain"
+           src="/png/permission.png"
+         />
+         <div>
+           <div className="text-center">
+             <p className=" ">{description}</p>
+           </div>
+           <div className="flex space-x-2 mt-2 justify-center">
+             <Button size="sm" variant="outline" onClick={handleGoBack}>
+               <BsArrowLeft /> Go back
+             </Button>
+             <Button size="sm" variant="info" onClick={handleRefresh}>
+               Refresh <RefreshCcw size={12} />
+             </Button>
+           </div>
+         </div>
+       </div>
+     </div>
+   );
 }
 
 export default PermissionPage
