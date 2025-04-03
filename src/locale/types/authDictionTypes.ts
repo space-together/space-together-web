@@ -60,7 +60,12 @@ export type authOnboardingFormDiction = {
     day : string,
   };
   username: string;
-  role: string;
+  role: {
+    label : string,
+    teacher : string,
+    student : string,
+    schoolStaff: string,
+  };
   gender: {
     label: string;
     male: string;

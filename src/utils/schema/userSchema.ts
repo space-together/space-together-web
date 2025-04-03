@@ -1,4 +1,5 @@
 import z from "zod";
+import { userRoleContext } from "../context/user-context";
 
 export const registerSchema = z.object({
   name: z
@@ -54,14 +55,14 @@ export const onboardingSchema = z.object({
         age--;
       }
 
-      return age >= 3 && age <= 95;
+      return age >= 2 && age <= 100;
     },
     {
       message: "Age must be between 3 and 95 years old.",
     }
   ),
   phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda").optional(),
-  role: z.enum(["STUDENT", "TEACHER", "SCHOOLSTAFF"], {
+  role: z.enum(userRoleContext as [string, ...string[]], {
     message: "Role must be one of 'STUDENT', 'TEACHER', or 'SCHOOL STAFF'",
   }),
   gender: z.enum(["Male", "Female", "Other"], {

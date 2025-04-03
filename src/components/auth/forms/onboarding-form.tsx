@@ -34,7 +34,6 @@ import { BeatLoader } from "react-spinners";
 import { Locale } from "@/i18n";
 import { useRouter } from "next/navigation";
 import { toLowerCase } from "@/utils/functions/characters";
-import { userRoleContext } from "@/utils/context/user-context";
 import { updateUserByUserSession } from "@/services/data/api-fetch-data";
 import { authUser } from "@/types/userModel";
 import { CountriesContext } from "@/context/data/country";
@@ -193,7 +192,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                           <SelectTrigger>
                             <SelectValue placeholder="Year" />
                           </SelectTrigger>
-                          <SelectContent data-theme={UseTheme()}>
+                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
                             {Array.from(
                               { length: 100 },
                               (_, i) => new Date().getFullYear() - i
@@ -217,7 +216,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                           <SelectTrigger>
                             <SelectValue placeholder="Month" />
                           </SelectTrigger>
-                          <SelectContent data-theme={UseTheme()}>
+                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
                             {Array.from({ length: 12 }, (_, i) => i + 1).map(
                               (month) => (
                                 <SelectItem key={month} value={String(month)}>
@@ -240,7 +239,7 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                           <SelectTrigger>
                             <SelectValue placeholder="Day" />
                           </SelectTrigger>
-                          <SelectContent data-theme={UseTheme()}>
+                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
                             {Array.from({ length: 31 }, (_, i) => i + 1).map(
                               (day) => (
                                 <SelectItem key={day} value={String(day)}>
@@ -279,34 +278,41 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
             <FormField
               control={form.control}
               name="role"
-              disabled={isPending}
               render={({ field }) => (
-                <FormItem className=" w-full">
-                  <FormLabel>{dictionary.role}</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl className=" w-full">
-                      <SelectTrigger className="">
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={UseTheme()}>
-                      {userRoleContext.map((item) => {
-                        const role = toLowerCase(item);
-                        return (
-                          <SelectItem
-                            className=" capitalize"
-                            key={role}
-                            value={item}
-                          >
-                            {role}
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
+                <FormItem className="space-y-3">
+                  <FormLabel>{dictionary.role.label}</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex  space-x-2"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="STUDENT" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {dictionary.role.student}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="TEACHER" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {dictionary.role.teacher}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="SCHOOLSTAFF" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {dictionary.role.schoolStaff}
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

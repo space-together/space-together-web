@@ -77,7 +77,12 @@
           "day" : "Umunsi"
         },
         "username": "Izina ry' umukoresha",
-        "role": "Uruhare",
+           "role": {
+          "label" : "Urinde",
+          "teacher": "Mwarimu",
+          "student": "Umunyeshuri",
+          "schoolStaff": "Umuyobozi wishuri"
+        },
         "location" : {
           "label":"Aho ubarizwa",
           "province" : "Intara",

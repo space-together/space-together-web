@@ -71,19 +71,24 @@
         "image": "Profile image",
         "phone": "Phone number",
         "age": {
-          "label" : "Date you born",
-          "year" : "Year",
-          "month" : "Month",
-          "day" : "Day"
+          "label": "Date you born",
+          "year": "Year",
+          "month": "Month",
+          "day": "Day"
         },
-        "location" : {
-          "label" : "Your Location",
-          "province" : "Province",
-          "district" : "District"
+        "location": {
+          "label": "Your Location",
+          "province": "Province",
+          "district": "District"
         },
         "username": "Username",
-        "role": "Who you are",
-        "bio" : "Bio",
+        "role": {
+          "label" : "Who you are",
+          "teacher": "Teacher",
+          "student": "Student",
+          "schoolStaff": "School Staff"
+        },
+        "bio": "Bio",
         "gender": {
           "label": "Gender",
           "male": "Male",
