@@ -43,6 +43,7 @@ const user_session =await getUserSession();
         role: data.role,
         username: data.username ?? undefined,
         token : session.token,
+        image: data.image ?? undefined,
         user_session 
       };
       return user; // AuthUser object
