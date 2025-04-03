@@ -104,7 +104,6 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
   const onSubmit = (value: onboardingSchemaTypes) => {
     setSuccess(null);
     setError(null);
-
     startTransition(async () => {
       const update = await updateUserByUserSession(
         value,
@@ -186,13 +185,19 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                         <Label>{dictionary.age.year}</Label>
                         <Select
                           onValueChange={(value) =>
-                            field.onChange({ ...field.value, year: value })
+                            field.onChange({
+                              ...(field.value || {}),
+                              year: Number(value),
+                            })
                           }
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Year" />
                           </SelectTrigger>
-                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
+                          <SelectContent
+                            className=" max-h-60"
+                            data-theme={UseTheme()}
+                          >
                             {Array.from(
                               { length: 100 },
                               (_, i) => new Date().getFullYear() - i
@@ -210,13 +215,19 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                         <Label>{dictionary.age.month}</Label>
                         <Select
                           onValueChange={(value) =>
-                            field.onChange({ ...field.value, month: value })
+                            field.onChange({
+                              ...(field.value || {}),
+                              month: Number(value),
+                            })
                           }
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Month" />
                           </SelectTrigger>
-                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
+                          <SelectContent
+                            className=" max-h-60"
+                            data-theme={UseTheme()}
+                          >
                             {Array.from({ length: 12 }, (_, i) => i + 1).map(
                               (month) => (
                                 <SelectItem key={month} value={String(month)}>
@@ -233,13 +244,19 @@ const OnboardingForm = ({ dictionary, user, lang }: Props) => {
                         <Label>{dictionary.age.day}</Label>
                         <Select
                           onValueChange={(value) =>
-                            field.onChange({ ...field.value, day: value })
+                            field.onChange({
+                              ...(field.value || {}),
+                              day: Number(value),
+                            })
                           }
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Day" />
                           </SelectTrigger>
-                          <SelectContent className=" max-h-60" data-theme={UseTheme()}>
+                          <SelectContent
+                            className=" max-h-60"
+                            data-theme={UseTheme()}
+                          >
                             {Array.from({ length: 31 }, (_, i) => i + 1).map(
                               (day) => (
                                 <SelectItem key={day} value={String(day)}>

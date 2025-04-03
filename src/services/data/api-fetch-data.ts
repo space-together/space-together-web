@@ -16,7 +16,7 @@ export const updateUserByUserSession = async (values: onboardingSchemaTypes, id:
     return { error: "Invalid data" };
   }
   const { image, age, phone, gender, role, } = validation.data;
-  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/session/${id}`, {
+  return await apiRequest<onboardingSchemaTypes, User>('put', `/users/${id}`, {
     image, age, phone, gender, role: role as UserRole
   }, session)
 };

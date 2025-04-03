@@ -2,20 +2,25 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { APIV002 } from '@/env';
 
 /**
- * A reusable API request function with strict TypeScript typing
+ * A reusable API request function with strict TypeScript typing and improved error handling.
  * @param method HTTP method ('get' | 'post' | 'put' | 'delete')
  * @param url API endpoint
  * @param data Optional request body
- * @returns Response data or error message
+ * @param Authorization Optional authorization token
+ * @returns Response data or detailed error message
  */
 async function apiRequest<TRequest = unknown, TResponse = unknown>(
   method: 'get' | 'post' | 'put' | 'delete',
   url: string,
   data?: TRequest,
-  Authorization ?:string, 
-
+  Authorization?: string
 ): Promise<{ data?: TResponse; success?: string; error?: string }> {
   try {
+    // Validate that data is an object (if provided)
+    if (data && typeof data !== 'object') {
+      throw new TypeError(`Invalid data type: Expected object, received ${typeof data}`);
+    }
+
     // Construct request configuration
     const config: AxiosRequestConfig = {
       method,
@@ -23,22 +28,25 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
       ...(data && method !== 'get' ? { data } : {}), // Only include `data` if it's not a GET request
       headers: {
         'Content-Type': 'application/json',
-        // Add authentication token if required
-        'Authorization': Authorization,
+        ...(Authorization ? { Authorization } : {}),
       },
     };
 
     // Ensure the correct response type
     const response: AxiosResponse<TResponse> = await axios<TResponse>(config);
-   
-    if (response.status === 400) {
-      return { error: (response.data as { message?: string })?.message || "Error with status code 4000" };
-    }
+    
     return { data: response.data, success: `${method.toUpperCase()} request successful` };
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      return { error: error.response?.data?.message || "Something went wrong" };
+    if (error instanceof TypeError) {
+      return { error: error.message }; // Returns meaningful type error
     }
+
+    if (error instanceof AxiosError) {
+      return {
+        error: error.response?.data?.message || `HTTP Error: ${error.response?.status || 'Unknown Status'}`,
+      };
+    }
+
     return { error: "An unexpected error occurred" };
   }
 }
