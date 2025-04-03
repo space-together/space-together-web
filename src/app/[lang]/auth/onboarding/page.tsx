@@ -22,7 +22,7 @@ const OnboardingPage = async (props: Props) => {
   const currentUser = await getCurrentUser({ authUser: true });
 
   return (
-    <div className=" h-screen px-12 flex flex-col items-start pt-4 happy-page gap-2">
+    <div className=" h-screen px-8 flex flex-col items-start pt-4 happy-page gap-2 w-full">
       <div className=" space-y-2">
         <h1 className=" happy-title-head">
           {diction.auth.onboarding.page.title}

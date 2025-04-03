@@ -12,7 +12,7 @@ const RegisterPage = async (props: Props) => {
   const { lang } = params;
   const diction = await getDictionary(lang);
   return (
-    <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page">
+    <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page w-full">
       <div className="">
         <h1 className=" happy-title-head">
           {diction.auth.register.page.title}

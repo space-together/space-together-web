@@ -61,7 +61,7 @@ export const onboardingSchema = z.object({
     }
   ),
   phone: z.string().regex(/^\+250[0-9]{9}$/, "Invalid phone number for Rwanda").optional(),
-  role: z.enum(["STUDENT", "TEACHER", "SCHOOL STAFF"], {
+  role: z.enum(["STUDENT", "TEACHER", "SCHOOLSTAFF"], {
     message: "Role must be one of 'STUDENT', 'TEACHER', or 'SCHOOL STAFF'",
   }),
   gender: z.enum(["Male", "Female", "Other"], {

@@ -62,5 +62,7 @@ export type authOnboardingFormDiction = {
     female: string;
     other: string;
   };
+  location : string,
+  bio: string,
   button: string;
 };

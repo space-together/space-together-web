@@ -37,7 +37,7 @@ const AuthLayoutImage: React.FC<AuthLayoutImageProps> = ({ lang, diction }) => {
   const isOnboardingPage = pathname === `/${lang}/auth/onboarding`;
   
   return (
-    <div className={cn("w-1/2 h-screen relative", isOnboardingPage && "w-1/3")}>
+    <div className={cn("w-1/2 h-screen relative")}>
       {/* Header */}
       <div className={cn("absolute top-0 z-50 flex w-full justify-between m-2 items-center", theme && "text-white")}>        
         <div className="p-2">

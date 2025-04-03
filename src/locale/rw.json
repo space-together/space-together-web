@@ -73,6 +73,8 @@
         "age": "Imyaka",
         "username": "Izina ry' umukoresha",
         "role": "Uruhare",
+        "location" : "Aho ubarizwa",
+        "bio" : "Uri inde",
         "gender": {
           "label": "Igitsina",
           "male": "Gabo",

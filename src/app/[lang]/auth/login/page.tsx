@@ -15,7 +15,7 @@ const Page = async ({params, searchParams}: Props) => {
   const diction = await getDictionary(lang);
 
   return (
-    <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2">
+    <div className=" h-screen px-16 flex flex-col items-start pt-4 happy-page gap-2 w-full">
       <div className=" space-y-2">
         <h1 className=" happy-title-head">{diction.auth.login.page.title}</h1>
       </div>

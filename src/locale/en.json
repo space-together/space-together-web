@@ -73,6 +73,8 @@
         "age": "Age",
         "username": "Username",
         "role": "Role",
+        "location" : "Location",
+        "bio" : "Bio",
         "gender": {
           "label": "Gender",
           "male": "Male",
