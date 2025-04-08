@@ -1,28 +1,28 @@
 "use client";
 import MyImage from "../my-components/myImage";
 import { Button } from "../ui/button";
-import { RefreshCcw } from "lucide-react";
 import { BsArrowLeft } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import MyLink from "../my-components/my-link";
+import { Locale } from "@/i18n";
+import { RedirectContents } from "@/utils/context/redirect-content";
+import { UserRole } from "../../../prisma/prisma/generated";
 
 interface props {
   description?: string;
+  lang: Locale;
+  role: UserRole;
 }
 
 
-const PermissionPage = ({description} : props) => {
- const router = useRouter();
-     
-       const handleRefresh = () => {
-         window.location.reload();
-       };
-     
+const PermissionPage = ({description , lang , role} : props) => {
+ const router = useRouter();          
        const handleGoBack = () => {
          router.back();
        };
    return (
-     <div className="flex w-full justify-center">
-       <div className=" flex flex-col">
+     <div className="flex w-full justify-center items-center">
+       <div className=" flex flex-col items-center">
          <MyImage
            className=" h-80 w-96"
            classname=" object-contain"
@@ -30,15 +30,15 @@ const PermissionPage = ({description} : props) => {
          />
          <div>
            <div className="text-center">
-             <p className=" ">{description}</p>
-           </div>
-           <div className="flex space-x-2 mt-2 justify-center">
-             <Button size="sm" variant="outline" onClick={handleGoBack}>
+             <p className=" ">{!!description ? description : "Your permission not allowed on this page"}</p>
+             <div className="flex space-x-2 mt-2 justify-center">
+              <MyLink button={{variant : "outline", size : "sm"}} type="button" href={RedirectContents({lang, role})}>
+               <MyImage role="ICON" src="/icons/3d-house.png"/> Go Home
+              </MyLink>
+              <Button size="sm" variant="outline" onClick={() =>handleGoBack()}>
                <BsArrowLeft /> Go back
              </Button>
-             <Button size="sm" variant="info" onClick={handleRefresh}>
-               Refresh <RefreshCcw size={12} />
-             </Button>
+             </div>
            </div>
          </div>
        </div>

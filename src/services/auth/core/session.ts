@@ -49,7 +49,11 @@ export async function removerUserSession() {
 }
 
 export async function removeUserSessionInClient() {
-    (await cookies()).delete(COOKIE_SESSION_KEY);
+    const cooky = await cookies()
+    cooky.delete(COOKIE_SESSION_KEY)
+    cooky.delete(COOKIE_SESSION)
+
+
 }
 
 export async function updateUserSessionExpires() {
