@@ -1,6 +1,6 @@
-import { auth } from '@/auth_';
 import SchoolClasses from '@/components/app/school/school-classese'
 import { Locale } from '@/i18n';
+import { getCurrentUser } from '@/services/auth/core/current-user';
 import { redirect } from 'next/navigation';
 import React from 'react'
 interface props {
