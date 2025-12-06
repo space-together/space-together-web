@@ -187,6 +187,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
             url: "/s-t/classes",
           },
           {
+            title: "Subjects",
+            icon: "/icons/book.png",
+            url: "/s-t/subjects",
+          },
+          {
             title: "Timetable & Schedule",
             icon: "/icons/timetable.png",
             url: "/s-t/timetable",

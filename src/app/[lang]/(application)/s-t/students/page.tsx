@@ -60,8 +60,12 @@ const SchoolStaffStudentPage = async (props: props) => {
         },
       ]}
     >
-      <div className="space-y-4 p-4">
-        <AppPageHeader title="Students" description="Manage school students." />
+      <div className="space-y-4 ">
+        <AppPageHeader
+          total={students_res.data?.total}
+          title="Students"
+          description="Manage school students."
+        />
         <StudentFilter auth={auth} />
         <DisplaySwitcher
           table={

@@ -59,7 +59,7 @@ const SchoolStaffClassesPage = async (props: props) => {
         },
       ]}
     >
-      <div className="max-w-full space-y-4 p-4">
+      <div className="max-w-full space-y-4">
         <AppPageHeader
           title="Classes"
           description="Manage and view all classes in your school."

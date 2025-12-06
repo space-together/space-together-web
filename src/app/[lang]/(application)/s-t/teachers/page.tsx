@@ -52,7 +52,7 @@ const SchoolStaffTeacherPage = async (props: props) => {
         },
       ]}
     >
-      <div className="space-y-4 p-4">
+      <div className="space-y-4">
         <AppPageHeader
           title="Teachers"
           description="Manage school teachers, classes, and subjects."

@@ -134,6 +134,7 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                 type="cycle"
                 src={cls?.image}
                 alt={cls?.name || cls?.username}
+                className=" border-2 border-base-100"
                 isSubClass
               />
               <div className="mt-6 space-x-1">
