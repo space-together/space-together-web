@@ -1,6 +1,7 @@
 import SubjectCard from "@/components/cards/subject-card";
 import CommonEmpty from "@/components/common/common-empty";
 import SubjectDialog from "@/components/page/class/dialog/subject-dialog";
+import AppPageHeader from "@/components/page/common/app-page-header";
 import NotFoundPage from "@/components/page/not-found";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
@@ -51,10 +52,12 @@ const ClassSubjectPage = async (
   return (
     <div className=" flex  flex-col">
       <div className=" flex flex-row justify-between w-full mt-2">
-        <h3 className=" h3">
-          {subjectsRes.data ? subjectsRes.data.data.length : 0} Subjects
-        </h3>
-        <SubjectDialog auth={auth} />
+        <AppPageHeader
+          total={subjectsRes?.data?.total}
+          title="Subjects"
+          description={`All  subjects for ${clsRes.data.name}.`}
+        />
+        <SubjectDialog cls={clsRes.data} auth={auth} />
       </div>
       <Separator />
       {subjectsRes.data && subjectsRes.data.data.length > 0 ? (
@@ -75,7 +78,7 @@ const ClassSubjectPage = async (
           title="Class subjects not found"
           description="They are currently no class subjects found, please create one. If you are an admin, you can create a new class subject."
         >
-          <SubjectDialog auth={auth} />
+          <SubjectDialog cls={clsRes.data} auth={auth} />
         </CommonEmpty>
       )}
     </div>

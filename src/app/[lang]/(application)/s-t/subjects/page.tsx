@@ -1,6 +1,7 @@
 import DisplaySwitcher from "@/components/display/display-switcher";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import AllSubjectsCard from "@/components/page/school-staff/school-subjects/all-subjects-cards";
+import ClassSubjectTable from "@/components/page/school-staff/school-subjects/class-subject-table";
 import SchoolStaffSubjectFilter from "@/components/page/school-staff/school-subjects/school-staff-subjects-filter";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
@@ -49,7 +50,13 @@ const SchoolSubjectsPage = async (props: PageProps<"/[lang]/s-t/subjects">) => {
         />
         <SchoolStaffSubjectFilter auth={auth} />
         <DisplaySwitcher
-          table={<div>bruno</div>}
+          table={
+            <ClassSubjectTable
+              auth={auth}
+              currentSubjects={subjectsRes.data?.data ?? []}
+              lang={lang as Locale}
+            />
+          }
           cards={
             <AllSubjectsCard
               lang={lang as Locale}

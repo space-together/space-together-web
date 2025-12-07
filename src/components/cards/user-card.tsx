@@ -1,3 +1,4 @@
+import type { Locale } from "@/i18n";
 import type { Gender } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import MyAvatar, { type MyAvatarProps } from "../common/image/my-avatar";
@@ -19,6 +20,7 @@ export interface UserSmCardProps {
   onlyName?: boolean;
   avatarProps?: MyAvatarProps;
   nameClassname?: string;
+  lang?: Locale;
 }
 
 export const UserSmCard = ({
