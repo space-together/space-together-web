@@ -33,6 +33,7 @@ export default function AppBreadcrumb() {
 
   if (
     pathname.startsWith(`/${locale}/c`) ||
+    pathname.startsWith(`/${locale}/school`) ||
     pathname.startsWith(`/${locale}/messages`)
   )
     return null;
