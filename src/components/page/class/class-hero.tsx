@@ -1,3 +1,4 @@
+import { UserSmCard } from "@/components/cards/user-card";
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyImage from "@/components/common/myImage";
 import MyLink from "@/components/common/myLink";
@@ -80,20 +81,12 @@ const ClassHero = ({
           </div>
           <div>
             {classTeacher && (
-              <MyLink href="" className="flex items-center gap-2">
-                <MyAvatar
-                  src={classTeacher.image}
-                  alt={classTeacher.name}
-                  size="sm"
-                  type="squircle"
-                />
-                <div className="flex flex-col items-start">
-                  <h4 className="h4 leading-4">{classTeacher.name}</h4>
-                  <span className="text-sm text-base-content/50 ">
-                    Class teacher
-                  </span>
-                </div>
-              </MyLink>
+              <UserSmCard
+                image={classTeacher.image}
+                name={classTeacher.name}
+                role="Class teacher"
+                link={`/${lang}/p/t/${classTeacher._id}`}
+              />
             )}
           </div>
         </div>

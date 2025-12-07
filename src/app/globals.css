@@ -214,6 +214,10 @@
   @apply font-semibold text-3xl;
 }
 
+.h4 {
+  @apply font-semibold text-2xl;
+}
+
 .h5 {
     @apply text-xl font-medium;
 }

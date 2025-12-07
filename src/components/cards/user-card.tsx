@@ -2,7 +2,7 @@ import type { Locale } from "@/i18n";
 import type { Gender } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import MyAvatar, { type MyAvatarProps } from "../common/image/my-avatar";
-import MyLink from "../common/myLink";
+import MyLink, { LoadingIndicatorText } from "../common/myLink";
 
 export interface UserSmCardProps {
   name: string;
@@ -69,9 +69,21 @@ export const UserSmCard = ({
         {link ? <MyLink href={link}>{Image}</MyLink> : Image}
         <div className=" flex flex-col">
           <div className="flex flex-row gap-2 items-center">
-            <p title={name} className={cn(" gap-2 leading-4", nameClassname)}>
-              {name}{" "}
-            </p>
+            {link ? (
+              <MyLink href={link}>
+                <p
+                  title={name}
+                  className={cn(" gap-2 leading-4", nameClassname)}
+                >
+                  <LoadingIndicatorText>{name}</LoadingIndicatorText>
+                </p>
+              </MyLink>
+            ) : (
+              <p title={name} className={cn(" gap-2 leading-4", nameClassname)}>
+                {name}{" "}
+              </p>
+            )}
+
             {gender && (
               <span className=" text-sm text-base-content/50">{gender}</span>
             )}

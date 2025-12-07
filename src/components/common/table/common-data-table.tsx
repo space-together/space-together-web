@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
   pageSize?: number;
   noFooter?: boolean;
   loading?: boolean;
+  className?: string;
 }
 
 export function CommonDataTable<TData, TValue>({
@@ -46,6 +47,7 @@ export function CommonDataTable<TData, TValue>({
   noFooter = true,
   pageSize = 10,
   loading = false,
+  className,
 }: DataTableProps<TData, TValue>) {
   const { open } = useSidebar();
   const internalTable = useReactTable({
@@ -63,6 +65,7 @@ export function CommonDataTable<TData, TValue>({
         className={cn(
           "w-full overflow-x-auto rounded-md border transition-all duration-300",
           open ? "max-w-full" : "max-w-full", // can keep default
+          className,
         )}
         style={{
           maxWidth: open ? `calc(100% - ${SIDEBAR_WIDTH}px)` : "100%",

@@ -102,20 +102,23 @@ const ClassCard = ({
             )}
           </div>
           {cls?.class_teacher && (
-            <div className=" flex gap-2 items-center">
+            <MyLink
+              href={`/${lang}/p/t/${cls.class_teacher_id}`}
+              className=" flex gap-2 items-center"
+            >
               <MyAvatar
                 src={cls?.class_teacher?.image}
                 alt={cls.class_teacher.name}
                 type="squircle"
                 size="2xs"
               />
-              <Tooltip>
-                <TooltipTrigger>
-                  <span className=" ">{cls.class_teacher.name}</span>
-                </TooltipTrigger>
-                <TooltipContent>Class teacher</TooltipContent>
-              </Tooltip>
-            </div>
+              <span
+                title={`Class teacher: ${cls.class_teacher.name}`}
+                className=" "
+              >
+                {cls.class_teacher.name}
+              </span>
+            </MyLink>
           )}
         </div>
         {/* ands and teachers */}

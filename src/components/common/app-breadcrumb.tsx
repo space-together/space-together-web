@@ -31,12 +31,17 @@ export default function AppBreadcrumb() {
   const locale = segments[0];
   const paths = segments.slice(1); // everything after locale
 
-  if (
-    pathname.startsWith(`/${locale}/c`) ||
-    pathname.startsWith(`/${locale}/school`) ||
-    pathname.startsWith(`/${locale}/messages`)
-  )
+  const hiddenPrefixes = [
+    `/${locale}/c`,
+    `/${locale}/p`,
+    `/${locale}/school`,
+    `/${locale}/messages`,
+  ];
+
+  if (hiddenPrefixes.some(prefix => pathname.startsWith(prefix))) {
     return null;
+  }
+
 
   // Build cumulative paths
   const crumbs = paths.map((seg, index) => {
