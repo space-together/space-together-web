@@ -74,7 +74,6 @@ const DeleteSectorDialog = ({ sector, auth }: Props) => {
           "cursor-pointer",
         )}
       >
-        {/** biome-ignore lint/a11y/useValidAriaRole: <explanation> */}
         <MyImage role="ICON" src="/icons/delete.png" />
         <span className="">Delete</span>
         {isPending && (

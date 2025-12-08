@@ -3,7 +3,6 @@
 import NoItemsPage from "@/components/common/pages/no-items-page";
 import CreateTradeDialog from "@/components/page/admin/trades/createTradeDialog";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Item,
   ItemContent,
@@ -39,13 +38,12 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
   }, [currentTrades, sector]);
 
   return (
-    <Card className="w-full">
-      <CardHeader className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-bold">Trades in {sector.name}</h2>
+    <div className="w-full space-y-2">
+      <div className="flex items-center justify-between">
+        <h4 className="h5">Trades in {sector.name}</h4>
         <CreateTradeDialog sector={sector} auth={auth} />
-      </CardHeader>
-
-      <CardContent>
+      </div>
+      <div>
         {displayTrades.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-3 py-10">
             <NoItemsPage
@@ -55,22 +53,25 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
             <CreateTradeDialog sector={sector} auth={auth} />
           </div>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className=" grid grid-cols-2 gap-3">
             {displayTrades.map((trade, i) => {
               const isDisabled = trade.disable === true;
 
               return (
                 <Item
-                  key={`${trade.id || trade._id}-${i}`}
-                  variant="outline"
+                  key={`${trade._id}-${i}`}
+                  variant="base"
                   className="transition-all hover:shadow-sm"
                 >
                   <Link href={`/a/collections/trades/${trade.username}`}>
-                    <ItemContent className="flex flex-col gap-2 p-4">
+                    <ItemContent className="flex flex-col gap-2">
                       {/* Header */}
                       <div className="flex items-center justify-between">
                         <ItemTitle className="text-lg font-semibold">
-                          {trade.name}
+                          {trade.name}{" "}
+                          <span className="text-sm text-base-content/50">
+                            {trade.type}
+                          </span>
                         </ItemTitle>
                         <Badge variant={isDisabled ? "secondary" : "default"}>
                           {isDisabled ? "Disabled" : "Active"}
@@ -81,13 +82,12 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
                       <div className="text-muted-foreground text-sm">
                         @{trade.username}
                       </div>
-
-                      <div>
-                        Type: <span className="font-medium">{trade.type}</span>
-                      </div>
                       {/* Description */}
                       {trade.description && (
-                        <ItemDescription className="text-muted-foreground text-sm">
+                        <ItemDescription
+                          title={trade.description}
+                          className="text-muted-foreground text-sm line-clamp-none"
+                        >
                           {trade.description}
                         </ItemDescription>
                       )}
@@ -133,8 +133,8 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
             })}
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

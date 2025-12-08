@@ -1,3 +1,4 @@
+"use client";
 import UpdateSectorForm from "@/components/page/admin/sector/update-sector-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,10 +22,9 @@ const UpdateSectorDialog = ({ sector, auth, isIcon }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {/** biome-ignore lint/a11y/useValidAriaRole: <explanation> */}
         <Button
           className={cn(
-            "w-full cursor-pointer",
+            "w-fit cursor-pointer",
             isIcon && "tooltip tooltip-top tooltip-warning w-fit",
           )}
           library="daisy"

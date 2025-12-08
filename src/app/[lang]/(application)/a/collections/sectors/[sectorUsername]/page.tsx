@@ -1,7 +1,10 @@
-import SectorInformationCard from "@/components/page/admin/sector/sector-information-card";
+import SectorHeader from "@/components/page/admin/sector/sector-header";
 import SectorTradesCard from "@/components/page/admin/sector/sector-trades-card";
+import AppPageHeader from "@/components/page/common/app-page-header";
 import ErrorPage from "@/components/page/error-page";
 import NotFoundPage from "@/components/page/not-found";
+import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
@@ -22,11 +25,11 @@ export async function generateMetadata({
   };
 }
 
-const SectorUsernamePage = async (props: {
-  params: Promise<{ sectorUsername: string }>;
-}) => {
+const SectorUsernamePage = async (
+  props: PageProps<"/[lang]/a/collections/sectors/[sectorUsername]">,
+) => {
   const params = await props.params;
-  const { sectorUsername } = params;
+  const { sectorUsername, lang } = params;
   const auth = await authContext();
   if (!auth) redirect("/auth/login");
 
@@ -60,15 +63,28 @@ const SectorUsernamePage = async (props: {
         { name: "trade", initialData: tradesRes.data },
       ]}
     >
-      <main className="flex flex-col gap-4 lg:flex-row">
-        <SectorInformationCard auth={auth} sector={sectorRes.data} />
-        <div className="w-full">
+      <main className="flex flex-col gap-4 ">
+        <AppPageHeader title="Sector" description="" />
+        <SectorHeader
+          sector={sectorRes.data}
+          auth={auth}
+          lang={lang as Locale}
+        />
+        <Separator />
+        <main className="w-full flex flex-row gap-4">
           <SectorTradesCard
             sector={sectorRes.data}
             trades={tradesRes.data}
             auth={auth}
           />
-        </div>
+          <div className=" lg:w-1/3">
+            <div>
+              <h4 className=" h5">Education year</h4>
+              {/*add year education*/}
+            </div>
+            <div>Bruno</div>
+          </div>
+        </main>
       </main>
     </RealtimeProvider>
   );

@@ -13,7 +13,7 @@ const baseSectorFields = {
 
   description: z
     .string()
-    .max(200, { message: "Maximum character is 200" })
+    .max(250, { message: "Maximum character is 250" })
     .optional(),
 
   logo: z.string().optional(),
@@ -39,7 +39,7 @@ export type CreateSectorModel = z.infer<typeof createSectorSchema>;
 export const updateSectorSchema = z.object({
   name: z.string().max(50).optional(),
   username: z.string().max(50).optional(),
-  description: z.string().max(200).optional(),
+  description: z.string().max(250).optional(),
   logo: z.string().optional(),
   logo_id: z.string().optional(),
   curriculum: z.tuple([z.number(), z.number()]).optional(),

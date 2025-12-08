@@ -38,6 +38,7 @@ const itemVariants = cva(
         default: "bg-transparent",
         outline: "border-base-300",
         muted: "bg-base-200",
+        base: "bg-base-100",
         ghost: "hover:bg-base-200  duration-100",
       },
       size: {
