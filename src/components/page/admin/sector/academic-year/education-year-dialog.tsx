@@ -1,6 +1,5 @@
 "use client";
 
-import CreateTradeForm from "@/components/page/admin/trades/create-trade-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,36 +8,42 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { EducationYear } from "@/lib/schema/admin/education-year-schema";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import EducationYearForm from "./education-year-form";
 
 interface props {
   auth: AuthContext;
+  year?: EducationYear;
   sector?: SectorModel;
 }
 
-const CreateTradeDialog = ({ auth, sector }: props) => {
+const AcademicYearDialog = ({ auth, year, sector }: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          role="create"
-          type="button"
           library="daisy"
           variant="primary"
           size="sm"
+          role={!year ? "create" : undefined}
         >
-          Add new trade
+          {year ? "Edit" : "Add"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max- max-h-[95vh] overflow-y-auto sm:max-w-4xl">
+      <DialogContent className="max- max-h-[95vh] overflow-y-auto sm:max-w-5xl">
         <DialogHeader>
-          <DialogTitle>Add New trade</DialogTitle>
+          <DialogTitle>
+            {year
+              ? `Edit Education Year ${year.label}`
+              : "Add New Education Year"}
+          </DialogTitle>
         </DialogHeader>
-        <CreateTradeForm auth={auth} sector={sector} />
+        <EducationYearForm sector={sector} auth={auth} year={year} />
       </DialogContent>
     </Dialog>
   );
 };
 
-export default CreateTradeDialog;
+export default AcademicYearDialog;

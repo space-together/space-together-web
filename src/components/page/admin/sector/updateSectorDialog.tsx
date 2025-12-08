@@ -30,7 +30,7 @@ const UpdateSectorDialog = ({ sector, auth, isIcon }: Props) => {
           library="daisy"
           role="update"
           size={"sm"}
-          variant={"warning"}
+          variant={"outline"}
           type="button"
           data-tip={isIcon && " Update sector"}
         >

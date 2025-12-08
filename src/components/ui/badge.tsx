@@ -80,7 +80,7 @@ type UniversalBadgeProps = ShadcnBadgeProps | DaisyBadgeProps;
 // Component
 // --------------
 const Badge = React.forwardRef<HTMLSpanElement, UniversalBadgeProps>(
-  ({ className, asChild = false, library = "shadcn", ...props }, ref) => {
+  ({ className, asChild = false, library = "daisy", ...props }, ref) => {
     const Comp = asChild ? Slot : "span";
 
     const styles =
