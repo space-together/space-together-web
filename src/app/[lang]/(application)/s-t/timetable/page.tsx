@@ -1,3 +1,5 @@
+import AppPageHeader from "@/components/page/common/app-page-header";
+import SchoolTimetableViewer from "@/components/page/school-staff/time-table/school-timetable";
 import type { Locale } from "@/i18n";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { authContext } from "@/lib/utils/auth-context";
@@ -16,7 +18,7 @@ const TimeTablePage = async (props: props) => {
     redirect(`/${lang}/auth/login`);
   }
 
-  const schoolTimetableRes = await Promise.all([
+  const [schoolTimetableRes] = await Promise.all([
     apiRequest<void, SchoolTimetable>(
       "get",
       "/school/timetables/current",
@@ -28,7 +30,18 @@ const TimeTablePage = async (props: props) => {
     ),
   ]);
 
-  return <div>School timetable</div>;
+  return (
+    <div>
+      <div className=" flex flex-col gap-4">
+        <AppPageHeader title="School Timetable" description={""} />
+        {schoolTimetableRes.data ? (
+          <SchoolTimetableViewer timetable={schoolTimetableRes.data} />
+        ) : (
+          <div>Create timetable</div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default TimeTablePage;
