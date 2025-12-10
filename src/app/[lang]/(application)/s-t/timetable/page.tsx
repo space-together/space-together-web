@@ -1,6 +1,7 @@
-import DevelopingPage from "@/components/page/developing-page";
 import type { Locale } from "@/i18n";
+import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { authContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
 import { redirect } from "next/navigation";
 
 interface props {
@@ -15,7 +16,19 @@ const TimeTablePage = async (props: props) => {
     redirect(`/${lang}/auth/login`);
   }
 
-  return <DevelopingPage lang={lang} role={auth.user.role} />;
+  const schoolTimetableRes = await Promise.all([
+    apiRequest<void, SchoolTimetable>(
+      "get",
+      "/school/timetables/current",
+      undefined,
+      {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    ),
+  ]);
+
+  return <div>School timetable</div>;
 };
 
 export default TimeTablePage;

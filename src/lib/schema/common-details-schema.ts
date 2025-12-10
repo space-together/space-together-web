@@ -7,6 +7,7 @@ import {
   ClassTypes,
   ClassworkTypes,
   CommunicationMethods,
+  DaySpecialTypes,
   Departments,
   EducationLevels,
   EmploymentTypes,
@@ -253,6 +254,9 @@ export type SchoolType = z.infer<typeof SchoolTypeSchema>;
 export type AttendanceSystem = z.infer<typeof AttendanceSystemSchema>;
 export type SchoolStaffType = z.infer<typeof SchoolStaffTypeSchema>;
 export type AffiliationType = z.infer<typeof AffiliationTypeSchema>;
+
+export const DaySpecialTypeSchema = z.enum(DaySpecialTypes);
+export type DaySpecialType = z.infer<typeof DaySpecialTypeSchema>;
 
 // teacher
 export const TeacherTypeSchema = z.enum(TeacherTypes);

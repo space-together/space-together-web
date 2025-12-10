@@ -51,7 +51,7 @@ const ClassSubjectPage = async (
 
   return (
     <div className=" flex  flex-col">
-      <div className=" flex flex-row justify-between w-full mt-2">
+      <div className=" flex flex-row justify-between w-full mt-2 items-center">
         <AppPageHeader
           total={subjectsRes?.data?.total}
           title="Subjects"

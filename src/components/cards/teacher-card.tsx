@@ -1,6 +1,6 @@
 "use client";
 import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import SchoolTeacherModifySheet from "@/components/page/school-staff/school-teachers/school-teacher-modify-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,14 @@ const TeacherCard = ({ auth, isSchoolStaff, teacher, lang }: props) => {
         />
         <div className=" px-4 flex flex-col mt-1">
           <div className=" flex justify-between items-center">
-            {teacher?.name && <h5 className=" font-medium">{teacher.name}</h5>}
+            {teacher?.name && (
+              <MyLink
+                href={`/${lang}/p/t/${teacher._id}`}
+                className=" font-medium"
+              >
+                <LoadingIndicatorText>{teacher.name}</LoadingIndicatorText>
+              </MyLink>
+            )}
             <Badge
               library="daisy"
               variant={teacher?.is_active ? "info" : "error"}

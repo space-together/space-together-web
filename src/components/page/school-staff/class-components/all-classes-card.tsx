@@ -1,10 +1,12 @@
 "use client";
 import ClassCard from "@/components/cards/class-card";
+import CommonEmpty from "@/components/common/common-empty";
 import type { Locale } from "@/i18n";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { useEffect, useState } from "react";
+import ClassDialog from "../dialog/class-dialog";
 
 interface props {
   lang: Locale;
@@ -33,6 +35,15 @@ const AllClassesCards = ({
     setDisplayClasses(updated as ClassWithOthers[]);
   }, [initialClasses, realtimeEnabled, classes]);
 
+  if (displayClasses.length <= 0)
+    return (
+      <CommonEmpty
+        title="They is not any classes found, please create one."
+        description="In you school it look they is no classes found, create new classes"
+      >
+        <ClassDialog auth={auth} />
+      </CommonEmpty>
+    );
   return (
     <div className=" grid grid-cols-2 lg:grid-cols-3 gap-4">
       {displayClasses.map((cls) => {

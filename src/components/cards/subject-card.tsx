@@ -124,11 +124,12 @@ const SubjectCard = ({
             <DialogTemplateSubject auth={auth} sub={templateSubject} />
           )}
 
-          {!templateSubject && (
+          {!templateSubject && subject?.teacher && (
             <UserSmCard
               role="Teacher"
               name={subject?.teacher?.name ?? "Teacher name"}
               image={subject?.teacher?.image}
+              link={`/${lang}/p/t/${subject.teacher._id}`}
             />
           )}
         </div>

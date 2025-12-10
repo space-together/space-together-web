@@ -1188,3 +1188,10 @@ export const ClassworkTypes = [
   "Presentation",
   // "Reading",
 ] as const;
+
+export const DaySpecialTypes = [
+  "Normal",
+  "HalfDay",
+  "Holiday",
+  "ExamDay",
+] as const;

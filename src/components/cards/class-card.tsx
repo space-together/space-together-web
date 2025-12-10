@@ -1,7 +1,7 @@
 "use client";
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import ClassModifySheet from "@/components/page/class/class-modify-sheet";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -68,14 +68,15 @@ const ClassCard = ({
             alt={cls?.name}
             className=" border-2 border-base-100"
           />
-          <div className="mt-6 space-x-1 overflow-hidden">
-            <span
-              title={cls?.name}
-              data-tip={cls?.name ?? "Level 5 Software"}
-              className="line-clamp-1 leading-5 font-medium tooltip max-w-52 tooltip-bottom"
-            >
-              {cls?.name ?? "Level 5 Software development"}
-            </span>
+          <div className="space-x-1 h-fit mt-6 relative flex flex-col">
+            <MyLink className="w-fit" href={`/${lang}/c/${cls?.username}`}>
+              <LoadingIndicatorText
+                title={cls?.name}
+                className="line-clamp-1 leading-5 font-medium tooltip max-w-52 tooltip-bottom"
+              >
+                {cls?.name}
+              </LoadingIndicatorText>
+            </MyLink>
             {cls?.username && (
               <Link
                 className="line-clamp-1 flex space-x-1 text-sm max-w-52 overflow-hidden"

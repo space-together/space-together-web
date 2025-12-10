@@ -5,8 +5,8 @@ import z from "zod";
 export const tradeSchema = z.object({
   id: z.string().optional(),
   _id: z.string().optional(),
-  sector_id: z.string().optional().nullable(),
-  trade_id: z.string().optional().nullable(), // self relation
+  sector_id: z.string().optional().nullable(), // REB or TVET and others
+  trade_id: z.string().optional().nullable(), // self relation can be this can be OL or AL (A Level can have other trade example MPC (math physics and chemistry) or MPG) or TVET trade which can be sod
   name: z
     .string()
     .min(1, { message: "Trade name is required" })

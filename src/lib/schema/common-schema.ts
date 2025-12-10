@@ -28,3 +28,7 @@ export interface Paginated<T> {
   total_pages: number;
   current_page: number;
 }
+
+export const HHMM = z
+  .string()
+  .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Time must be HH:MM format");

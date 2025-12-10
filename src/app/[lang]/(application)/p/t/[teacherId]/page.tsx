@@ -1,5 +1,5 @@
 import ErrorPage from "@/components/page/error-page";
-import TeacherProfileHeader from "@/components/profile/teacher/teacher-profile-headder";
+import TeacherProfileHeader from "@/components/profile/teacher/teacher-profile-header";
 import TeacherSubjectTable from "@/components/profile/teacher/teacher-subjects-table";
 import TestCalendar from "@/components/test/test-calendar";
 import { Separator } from "@/components/ui/separator";
