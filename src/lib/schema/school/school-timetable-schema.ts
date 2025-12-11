@@ -17,7 +17,7 @@ export const TimeBlockPartialSchema = TimeBlockSchema.partial();
 export const DailySchoolScheduleSchema = z.object({
   day: WeekdaySchema,
 
-  is_school_day: z.boolean().default(true),
+  is_school_day: z.boolean(),
 
   school_start_time: HHMM,
   school_end_time: HHMM,

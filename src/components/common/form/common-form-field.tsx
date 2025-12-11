@@ -28,6 +28,8 @@ import type { Control, FieldPath, FieldValues } from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
+import type { TimeInputProps } from "./time-input";
+import TimeInput from "./time-input";
 
 interface CommonFormFieldProps<T extends FieldValues> {
   control: Control<T>;
@@ -50,6 +52,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "checkbox"
     | "date"
     | "searchSelect"
+    | "time"
     | "multipleSelect";
   selectOptions?: { value: string; label: string; disable?: boolean }[];
 
@@ -58,6 +61,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
   inputProps?: inputProps;
   avatarProps?: Pick<UploadAvatarProps, "avatarProps">;
   dateProps?: DateStringInputProps;
+  timeProps?: TimeInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -77,6 +81,7 @@ export function CommonFormField<T extends FieldValues>({
   inputProps,
   avatarProps = { avatarProps: { size: "3xl" } },
   dateProps,
+  timeProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -167,6 +172,15 @@ export function CommonFormField<T extends FieldValues>({
                   onChange={field.onChange}
                   disabled={disabled}
                   {...dateProps}
+                />
+              );
+            case "time":
+              return (
+                <TimeInput
+                  value={stringValue}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  {...timeProps}
                 />
               );
 

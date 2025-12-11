@@ -1,3 +1,5 @@
+import { Time } from "@internationalized/date";
+
 /**
  * Format a date string or Date object into a readable string.
  * Example output: "October 8, 2025"
@@ -110,4 +112,16 @@ export function formatToMicroISOString(d: Date) {
   const ms = String(d.getUTCMilliseconds()).padStart(3, "0");
   const micro = ms + "000"; // append three zeros to get microsecond precision
   return `${YYYY}-${MM}-${DD}T${hh}:${mm}:${ss}.${micro}Z`;
+}
+
+// time
+export function stringToTimeValue(str?: string | null) {
+  if (!str) return null;
+  const [h, m] = str.split(":").map(Number);
+  return new Time(h, m); // TimeValue
+}
+
+export function timeValueToString(tv: any): string | null {
+  if (!tv) return null;
+  return `${String(tv.hour).padStart(2, "0")}:${String(tv.minute).padStart(2, "0")}`;
 }
