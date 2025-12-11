@@ -35,7 +35,7 @@ const SchoolTimetableDialog = ({
       <DialogContent className="max- max-h-[95vh] overflow-y-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>
-            {timetable ? `Update timetable` : "Create timetable"}
+            {timetable ? `Update school timetable` : "Create school timetable"}
           </DialogTitle>
         </DialogHeader>
         <SchoolTimetableForm auth={auth} timetable={timetable} />

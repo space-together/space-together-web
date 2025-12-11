@@ -86,7 +86,7 @@ export const SchoolTimetableSchema = z.object({
   _id: z.string().optional(),
 
   school_id: z.string(),
-  academic_year_id: z.string(),
+  academic_year_id: z.string().optional().nullable(),
 
   default_weekly_schedule: z
     .array(DailySchoolScheduleSchema)
