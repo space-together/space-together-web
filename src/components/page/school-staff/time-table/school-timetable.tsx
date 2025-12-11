@@ -2,10 +2,16 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Weekdays } from "@/lib/const/common-details-const";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
+import { cn } from "@/lib/utils"; // Assuming you have a cn utility, otherwise use standard template literals
+import type { AuthContext } from "@/lib/utils/auth-context";
+import { useEffect, useState } from "react";
+import SchoolTimetableDialog from "./school-timetable-dialog";
 
 interface Props {
   timetable: SchoolTimetable;
+  auth: AuthContext;
 }
 
 type TimeItem = {
@@ -13,7 +19,8 @@ type TimeItem = {
   start: string;
   end?: string;
   description?: string;
-  className?: string;
+  className?: string; // Color styling
+  type: "main" | "break" | "activity" | "lunch"; // generic type for styling logic
 };
 
 const toMinutes = (t: string) => {
@@ -21,133 +28,151 @@ const toMinutes = (t: string) => {
   return h * 60 + m;
 };
 
-const SchoolTimetableViewer = ({ timetable }: Props) => {
-  const weekly = timetable.default_weekly_schedule;
+const SchoolTimetableViewer = ({ timetable, auth }: Props) => {
+  const { data } = useRealtimeData<SchoolTimetable>("school_timetable");
+  const [currentTimetable, setCurrentTimetable] = useState(timetable);
 
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const updated = data.find((d) => d._id === timetable._id);
+      if (updated) setCurrentTimetable(updated);
+    }
+  }, [data, timetable._id]);
+
+  const weekly = currentTimetable.default_weekly_schedule;
+
+  // Sort days (Monday -> Friday)
   const sortedWeekly = [...weekly].sort(
     (a, b) => Weekdays.indexOf(a.day) - Weekdays.indexOf(b.day),
   );
 
-  // Collect all unique time events from all days
-  const allEvents = new Set<string>();
-
-  const dayEventsMap: Record<string, TimeItem[]> = {};
-
-  sortedWeekly.forEach((day) => {
-    const events: TimeItem[] = [
-      { label: "School Start", start: day.school_start_time },
-      { label: "Study Start", start: day.study_start_time },
-      { label: "Study End", start: day.study_end_time },
-      { label: "School End", start: day.school_end_time },
-    ];
-
-    if (day.breaks) {
-      day.breaks.forEach((b) =>
-        events.push({
-          label: b.title,
-          start: b.start_time,
-          end: b.end_time,
-          description: b.description,
-          className: "bg-base-content/5",
-        }),
-      );
-    }
-
-    if (day.lunch) {
-      events.push({
-        label: day.lunch.title,
-        start: day.lunch.start_time,
-        end: day.lunch.end_time,
-        description: day.lunch.description,
-        className: "bg-info/15",
-      });
-    }
-
-    if (day.activities) {
-      day.activities.forEach((a) =>
-        events.push({
-          label: a.title,
-          start: a.start_time,
-          end: a.end_time,
-          description: a.description,
-          className: "bg-warning/20",
-        }),
-      );
-    }
-
-    // Sort events within the day
-    events.sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
-
-    dayEventsMap[day.day] = events;
-
-    // Add times to global event list
-    events.forEach((e) => allEvents.add(e.start));
-  });
-
-  // Create a sorted list of all time points across the week
-  const unifiedTimeline = [...allEvents].sort(
-    (a, b) => toMinutes(a) - toMinutes(b),
-  );
-
   return (
-    <Card className=" gap-0">
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Default Weekly Schedule</CardTitle>
+        <div className=" flex flex-row gap-4 items-center">
+          <CardTitle>Default weekly schedule</CardTitle>
+          <SchoolTimetableDialog auth={auth} timetable={currentTimetable} />
+        </div>
       </CardHeader>
 
-      <CardContent className=" p-0">
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            {/* Days as header */}
-            <thead>
-              <tr>
-                <th className="bg-base-300">Time</th>
-                {sortedWeekly.map((day) => (
-                  <th key={day.day} className="bg-base-300 text-center">
-                    {day.day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
+      <CardContent>
+        {/* Grid Layout: One column per Day */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+          {sortedWeekly.map((day) => {
+            // 1. Collect events for this specific day
+            const events: TimeItem[] = [
+              {
+                label: "School Start",
+                start: day.school_start_time,
+                type: "main",
+                className: "border-l-4  bg-primary/5",
+              },
+              {
+                label: "Study Start",
+                start: day.study_start_time,
+                type: "main",
+              },
+              {
+                label: "Study End",
+                start: day.study_end_time,
+                type: "main",
+              },
+              {
+                label: "School End",
+                start: day.school_end_time,
+                type: "main",
+                className: "border-l-4  bg-primary/5",
+              },
+            ];
 
-            <tbody>
-              {unifiedTimeline.map((time, idx) => (
-                <tr key={idx}>
-                  {/* Time column */}
-                  <td className="font-semibold">{time}</td>
+            if (day.breaks) {
+              day.breaks.forEach((b) =>
+                events.push({
+                  label: b.title,
+                  start: b.start_time,
+                  end: b.end_time,
+                  description: b.description,
+                  type: "break",
+                  className: "bg-base-content/10 border ",
+                }),
+              );
+            }
 
-                  {/* Day columns */}
-                  {sortedWeekly.map((day) => {
-                    const event = dayEventsMap[day.day].find(
-                      (e) => e.start === time,
-                    );
+            if (day.lunch) {
+              events.push({
+                label: day.lunch.title,
+                start: day.lunch.start_time,
+                end: day.lunch.end_time,
+                description: day.lunch.description,
+                type: "lunch",
+                className: "bg-base-300/50  border ",
+              });
+            }
 
-                    return (
-                      <td key={day.day} className={event?.className ?? ""}>
-                        {event ? (
-                          <div>
-                            <div className="font-medium">{event.label}</div>
-                            {event.end && (
-                              <div className="text-xs opacity-70">
-                                {event.start} – {event.end}
-                              </div>
-                            )}
-                            {event.description && (
-                              <div className="text-xs opacity-50">
-                                {event.description}
-                              </div>
-                            )}
+            if (day.activities) {
+              day.activities.forEach((a) =>
+                events.push({
+                  label: a.title,
+                  start: a.start_time,
+                  end: a.end_time,
+                  description: a.description,
+                  type: "activity",
+                  className: "bg-info/20 border ",
+                }),
+              );
+            }
+
+            // 2. Sort events by time
+            events.sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
+
+            return (
+              <div key={day.day} className="flex flex-col gap-3 min-w-full">
+                {/* Day Header */}
+                <div className="text-center p-2 bg-muted font-bold uppercase tracking-wide text-sm">
+                  {day.day}
+                </div>
+
+                {/* Events List */}
+                <div className="flex flex-col gap-2">
+                  {events.map((event, idx) => (
+                    <div
+                      key={idx}
+                      className={cn(
+                        "relative p-3 card  border-base-content/40 text-sm shadow-sm transition-all hover:shadow-md",
+                        "bg-card text-card-foreground border",
+                        event.className, // Apply specific color classes
+                      )}
+                    >
+                      {/* Time Badge */}
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
+                          {event.start}
+                        </span>
+                        {event.end && (
+                          <div className=" flex gap-2">
+                            -
+                            <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
+                              {event.end}
+                            </span>
                           </div>
-                        ) : (
-                          ""
                         )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      </div>
+                      {/* Title */}
+                      <div className="font-semibold leading-tight">
+                        {event.label}
+                      </div>
+                      {/* Description */}
+                      {event.description && (
+                        <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                          {event.description}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </CardContent>
     </Card>

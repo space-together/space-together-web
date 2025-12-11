@@ -3,6 +3,7 @@ import AppPageHeader from "@/components/page/common/app-page-header";
 import SchoolTimetableViewer from "@/components/page/school-staff/time-table/school-timetable";
 import SchoolTimetableDialog from "@/components/page/school-staff/time-table/school-timetable-dialog";
 import type { Locale } from "@/i18n";
+import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -28,27 +29,38 @@ const TimeTablePage = async (props: props) => {
       {
         token: auth.token,
         schoolToken: auth.schoolToken,
+        realtime: "school_timetable",
       },
     ),
   ]);
 
   return (
-    <div>
-      <div className=" flex flex-col gap-4">
-        <AppPageHeader title="School Timetable" description={""} />
-        {schoolTimetableRes.data ? (
-          <SchoolTimetableViewer timetable={schoolTimetableRes.data} />
-        ) : (
-          <div>
-            <CommonEmpty
-              title="They haven't created a timetable yet."
-              description="You can create a timetable by clicking the button below."
-            >
-              <SchoolTimetableDialog auth={auth} />
-            </CommonEmpty>
-          </div>
-        )}
-      </div>
+    <div className=" flex flex-col gap-4">
+      <AppPageHeader title="School Timetable" description={""} />
+      {schoolTimetableRes.data ? (
+        <RealtimeProvider<SchoolTimetable>
+          channels={[
+            {
+              name: "school_timetable",
+              initialData: [schoolTimetableRes.data],
+            },
+          ]}
+        >
+          <SchoolTimetableViewer
+            auth={auth}
+            timetable={schoolTimetableRes.data}
+          />
+        </RealtimeProvider>
+      ) : (
+        <div>
+          <CommonEmpty
+            title="They haven't created a timetable yet."
+            description="You can create a timetable by clicking the button below."
+          >
+            <SchoolTimetableDialog auth={auth} />
+          </CommonEmpty>
+        </div>
+      )}
     </div>
   );
 };
