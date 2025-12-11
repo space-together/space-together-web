@@ -1,7 +1,15 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Weekdays } from "@/lib/const/common-details-const";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { cn } from "@/lib/utils"; // Assuming you have a cn utility, otherwise use standard template literals
@@ -23,7 +31,8 @@ type TimeItem = {
   type: "main" | "break" | "activity" | "lunch"; // generic type for styling logic
 };
 
-const toMinutes = (t: string) => {
+const toMinutes = (t?: string) => {
+  if (!t) return Infinity; // if undefined, push to end
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 };
@@ -42,16 +51,41 @@ const SchoolTimetableViewer = ({ timetable, auth }: Props) => {
   const weekly = currentTimetable.default_weekly_schedule;
 
   // Sort days (Monday -> Friday)
-  const sortedWeekly = [...weekly].sort(
-    (a, b) => Weekdays.indexOf(a.day) - Weekdays.indexOf(b.day),
-  );
+  const sortedWeekly = [...weekly].sort((a, b) => {
+    const startA = toMinutes(a.start);
+    const startB = toMinutes(b.start);
+
+    if (startA !== startB) return startA - startB;
+
+    const endA = a.end ? toMinutes(a.end) : Infinity;
+    const endB = b.end ? toMinutes(b.end) : Infinity;
+
+    return endA - endB;
+  });
 
   return (
     <Card className="w-full">
-      <CardHeader>
+      <CardHeader className="flex justify-between items-center">
         <div className=" flex flex-row gap-4 items-center">
           <CardTitle>Default weekly schedule</CardTitle>
           <SchoolTimetableDialog auth={auth} timetable={currentTimetable} />
+        </div>
+        <div>
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Fruits</SelectLabel>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+                <SelectItem value="blueberry">Blueberry</SelectItem>
+                <SelectItem value="grapes">Grapes</SelectItem>
+                <SelectItem value="pineapple">Pineapple</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </CardHeader>
 
