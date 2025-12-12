@@ -1,47 +1,25 @@
 "use client";
-import MyLink from "@/components/common/myLink";
-import type { Locale } from "@/i18n";
-import { usePathname } from "next/navigation";
 
-interface props {
+import NavigationTabs from "@/components/common/navigation-tabs";
+import type { Locale } from "@/i18n";
+
+interface Props {
   lang: Locale;
   classUsername: string;
 }
 
-const ClassNavbar = ({ lang, classUsername }: props) => {
-  const pathname = usePathname();
+const ClassNavbar = ({ lang, classUsername }: Props) => {
   const pages = [
-    "overview",
-    "subjects",
-    "discussion",
-    "classwork",
-    "people",
-    "timetable",
-    "settings",
-  ] as const;
+    { name: "overview", href: `/${lang}/c/${classUsername}` },
+    { name: "subjects", href: `/${lang}/c/${classUsername}/subjects` },
+    { name: "discussion", href: `/${lang}/c/${classUsername}/discussion` },
+    { name: "classwork", href: `/${lang}/c/${classUsername}/classwork` },
+    { name: "people", href: `/${lang}/c/${classUsername}/people` },
+    { name: "timetable", href: `/${lang}/c/${classUsername}/timetable` },
+    { name: "settings", href: `/${lang}/c/${classUsername}/settings` },
+  ];
 
-  return (
-    <nav className="w-full gap-8 flex flex-row flex-wrap border-b border-base-content/50">
-      {pages.map((page) => {
-        const isActive = () => {
-          if (page === "overview" && pathname === `/${lang}/c/${classUsername}`)
-            return true;
-          return pathname.startsWith(`/${lang}/c/${classUsername}/${page}`);
-        };
-        return (
-          <MyLink
-            key={page}
-            loading
-            className={`capitalize py-1 ${isActive() && "border-b-3 border-b-primary"}`}
-            href={`/${lang}/c/${classUsername}/${page === "overview" ? "" : page}`}
-            button={{ variant: "ghost" }}
-          >
-            <span className="capitalize">{page}</span>
-          </MyLink>
-        );
-      })}
-    </nav>
-  );
+  return <NavigationTabs items={pages} />;
 };
 
 export default ClassNavbar;

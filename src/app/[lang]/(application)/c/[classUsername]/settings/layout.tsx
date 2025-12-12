@@ -1,4 +1,4 @@
-import ClassSettingsSidebar from "@/components/page/class/settings/class-settings-sidebar";
+import ClassSettingsNav from "@/components/page/class/settings/class-settings-nav";
 import type { Locale } from "@/i18n";
 
 const ClassLayoutPage = async (
@@ -7,8 +7,8 @@ const ClassLayoutPage = async (
   const params = await props.params;
 
   return (
-    <div className=" flex gap-4 w-full">
-      <ClassSettingsSidebar
+    <div className=" flex-col flex gap-4 w-full">
+      <ClassSettingsNav
         classUsername={params.classUsername}
         lang={params.lang as Locale}
       />

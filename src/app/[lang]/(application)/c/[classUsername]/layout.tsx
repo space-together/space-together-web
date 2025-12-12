@@ -8,7 +8,7 @@ interface props {
 const ClassLayout = async ({ children, params }: props) => {
   const { lang, classUsername } = await params;
   return (
-    <div className=" px-4">
+    <div className="">
       <ClassNavbar classUsername={classUsername} lang={lang} />
       {children}
     </div>

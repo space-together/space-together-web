@@ -1,6 +1,8 @@
 import SubjectCard from "@/components/cards/subject-card";
 import SubjectDialog from "@/components/page/class/dialog/subject-dialog";
 import { Separator } from "@/components/ui/separator";
+import { authContext } from "@/lib/utils/auth-context";
+import { redirect } from "next/navigation";
 
 const ClassSettingsSubjectsPage = async (
   props: PageProps<"/[lang]/c/[classUsername]/settings/subjects">,

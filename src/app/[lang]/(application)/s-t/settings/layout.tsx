@@ -26,7 +26,7 @@ export default async function SchoolSettingLayout({
   }
 
   return (
-    <section className="space-y-4 px-4 py-2">
+    <section className="space-y-4 py-2">
       <SchoolSettingsNav lang={lang as Locale} />
       {children}
     </section>
