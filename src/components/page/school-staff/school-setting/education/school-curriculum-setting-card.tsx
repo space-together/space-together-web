@@ -15,6 +15,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import AddCurriculumInSchoolDialog from "./add-curriculum-in-school-dailog";
 
 interface SchoolCurriculumSettingCardProps {
   auth: AuthContext;
@@ -33,7 +34,10 @@ const SchoolCurriculumSettingCard = ({
       </CardHeader>
       <CardContent className=" flex flex-col gap-4">
         <div className="flex flex-col gap-3">
-          <h4 className="h4">Educations</h4>
+          <div className=" flex items-center justify-between">
+            <h4 className="h4">Educations</h4>
+            <AddCurriculumInSchoolDialog auth={auth} />
+          </div>
           <div className=" flex flex-col gap-2">
             {[...Array(3)].map((_, i) => {
               return (
@@ -56,18 +60,20 @@ const SchoolCurriculumSettingCard = ({
               );
             })}
           </div>
-          <Button
-            variant="outline"
-            library="daisy"
-            className=" w-fit"
-            role="create"
-          >
-            Add Education
-          </Button>
         </div>
 
         <div className="flex flex-col gap-3">
-          <h4 className="h4">Trades</h4>
+          <div className=" flex items-center justify-between">
+            <h4 className="h4">Trades</h4>
+            <Button
+              variant="outline"
+              library="daisy"
+              className=" w-fit"
+              role="create"
+            >
+              Add Trade
+            </Button>
+          </div>
           <div className=" flex flex-col gap-2">
             {[...Array(3)].map((_, i) => {
               return (
@@ -89,14 +95,6 @@ const SchoolCurriculumSettingCard = ({
               );
             })}
           </div>
-          <Button
-            variant="outline"
-            library="daisy"
-            className=" w-fit"
-            role="create"
-          >
-            Add Trade
-          </Button>
         </div>
       </CardContent>
     </Card>
