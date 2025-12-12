@@ -2,13 +2,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
@@ -162,7 +162,7 @@ const SchoolTimetableViewer = ({ timetable, auth }: Props) => {
             return (
               <div key={day.day} className="flex flex-col gap-3 min-w-full">
                 {/* Day Header */}
-                <div className="text-center p-2 bg-muted font-bold uppercase tracking-wide text-sm">
+                <div className="text-center p-2  font-bold uppercase tracking-wide text-sm sticky bg-background/80 backdrop-blur-md z-30  top-0 border-b-base-content/20 border-b">
                   {day.day}
                 </div>
 
