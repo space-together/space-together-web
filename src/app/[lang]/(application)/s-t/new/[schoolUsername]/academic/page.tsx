@@ -15,12 +15,10 @@ import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ schoolUsername: string }>;
-}): Promise<Metadata> {
-  const { schoolUsername } = await params;
+export async function generateMetadata(
+  props: PageProps<"/[lang]/s-t/new/[schoolUsername]/academic">,
+): Promise<Metadata> {
+  const { schoolUsername } = await props.params;
   const auth = await authContext();
   if (!auth) return { title: "user not found", description: "User not login" };
   const school = await apiRequest<void, School>(
@@ -41,11 +39,10 @@ export async function generateMetadata({
     description: `${school.data.description}`,
   };
 }
-interface props {
-  params: Promise<{ lang: Locale; schoolUsername: string }>;
-}
 
-const SchoolAcademicOnboardingPage = async (props: props) => {
+const SchoolAcademicOnboardingPage = async (
+  props: PageProps<"/[lang]/s-t/new/[schoolUsername]/academic">,
+) => {
   const params = await props.params;
   const { lang, schoolUsername } = params;
   const auth = await authContext();
@@ -53,7 +50,12 @@ const SchoolAcademicOnboardingPage = async (props: props) => {
 
   const allowedRoles = ["ADMIN", "SCHOOLSTAFF"];
   if (!auth.user.role || !allowedRoles.includes(auth.user.role))
-    return <PermissionPage lang={lang} role={auth.user.role ?? "STUDENT"} />;
+    return (
+      <PermissionPage
+        lang={lang as Locale}
+        role={auth.user.role ?? "STUDENT"}
+      />
+    );
 
   const school = await apiRequest<void, School>(
     "get",
@@ -64,7 +66,12 @@ const SchoolAcademicOnboardingPage = async (props: props) => {
   if (!school.data) return <NotFoundPage />;
 
   if (school.data.creator_id !== auth.user.id)
-    return <PermissionPage lang={lang} role={auth.user.role ?? "STUDENT"} />;
+    return (
+      <PermissionPage
+        lang={lang as Locale}
+        role={auth.user.role ?? "STUDENT"}
+      />
+    );
   return (
     <div className="mt-4 space-y-2 px-4">
       <Card>

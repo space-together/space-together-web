@@ -1,33 +1,28 @@
 "use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import CheckboxInputSkeleton from "@/components/common/skeletons/checkbox-input-skeleton";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import MultipleSelector from "@/components/ui/multiselect";
+import { Form } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/lib/context/toast/ToastContext";
-import { SectorModel } from "@/lib/schema/admin/sectorSchema";
-import { TradeModule } from "@/lib/schema/admin/tradeSchema";
+import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import {
-  createSchoolAcademic,
+  type createSchoolAcademic,
   createSchoolAcademicSchema,
 } from "@/lib/schema/school/create-school-schema";
-import {
+import type {
   School,
   schoolAcademicResponse,
 } from "@/lib/schema/school/school-schema";
-import { AuthContext } from "@/lib/utils/auth-context";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -42,34 +37,38 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const [sectors, setSectors] = useState<SectorModel[]>([]); // help me after user choose sectors to fetcher all trades which have connection of sectors he choose
-  const [trades, setTrades] = useState<TradeModule[]>([]); // help me after he choose trades it feature add trades which have connection of trades
+  const [sectors, setSectors] = useState<SectorModel[]>([]);
+  const [sectorTrades, setSectorTrades] = useState<
+    Record<string, TradeModule[]>
+  >({});
   const [loadingOptions, setLoadingOptions] = useState(true);
 
   const router = useRouter();
-  // Fetch available sectors and trades
-  useEffect(() => {
-    const fetchOptions = async () => {
-      try {
-        const [sectorRes, tradeRes] = await Promise.all([
-          apiRequest<any, SectorModel[]>("get", "/sectors", undefined, {
-            token: auth.token,
-          }),
-          apiRequest<any, TradeModule[]>("get", "/trades", undefined, {
-            token: auth.token,
-          }),
-        ]);
 
-        if (sectorRes.data)
-          setSectors(sectorRes.data.filter((s) => !s.disable));
-        if (tradeRes.data) setTrades(tradeRes.data.filter((t) => !t.disable));
+  // 1. Load initial sector list
+  useEffect(() => {
+    const loadOptions = async () => {
+      try {
+        const sectorRes = await apiRequest<any, SectorModel[]>(
+          "get",
+          "/sectors",
+          undefined,
+          { token: auth.token },
+        );
+
+        if (sectorRes.data) {
+          const available = sectorRes.data.filter((s) => !s.disable);
+          setSectors(available);
+        }
       } finally {
         setLoadingOptions(false);
       }
     };
-    fetchOptions();
+
+    loadOptions();
   }, [auth.token]);
 
+  // 2. Form Setup
   const form = useForm<createSchoolAcademic>({
     resolver: zodResolver(createSchoolAcademicSchema),
     defaultValues: {
@@ -79,20 +78,72 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
     mode: "onChange",
   });
 
+  // 3. Fetch trades per selected sector (GROUPED)
+  useEffect(() => {
+    const selected = form.watch("sector_ids");
+
+    if (!selected || selected.length === 0) {
+      setSectorTrades({});
+      form.setValue("trade_ids", []);
+      return;
+    }
+
+    const loadTrades = async () => {
+      const groups: Record<string, TradeModule[]> = {};
+
+      for (const sectorId of selected) {
+        const res = await apiRequest<any, TradeModule[]>(
+          "get",
+          `/trades/sector/${sectorId}`,
+          undefined,
+          { token: auth.token },
+        );
+
+        groups[sectorId] = res.data ? res.data.filter((t) => !t.disable) : [];
+      }
+
+      setSectorTrades(groups);
+
+      // Remove selected trade IDs that are not valid anymore
+      const allTrades = Object.values(groups).flat();
+      form.setValue(
+        "trade_ids",
+        form
+          .watch("trade_ids")
+          .filter((id) => allTrades.some((t) => t._id === id)),
+      );
+    };
+
+    loadTrades();
+  }, [form.watch("sector_ids"), auth.token]);
+
+  // 4. Sector UI Items
+  const sectorItems = useMemo(() => {
+    if (!sectors || sectors.length === 0) return {};
+
+    return Object.fromEntries(
+      sectors.map((item) => [
+        item._id,
+        {
+          name: item.name,
+          image: item.logo,
+          description: item.description,
+        },
+      ]),
+    );
+  }, [sectors]);
+
+  // 5. Submit handler
   const handleSubmit = (values: createSchoolAcademic) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
       try {
-        const apiData = {
-          sector_ids: values.sector_ids?.map((item) => item.value) ?? [],
-          trade_ids: values.trade_ids?.map((item) => item.value) ?? [],
-        };
         const response = await apiRequest<
-          typeof apiData,
+          createSchoolAcademic,
           schoolAcademicResponse
-        >("post", `/schools/${school._id || school.id}/academics`, apiData, {
+        >("post", `/schools/${school._id || school.id}/academics`, values, {
           token: auth.token,
         });
 
@@ -105,18 +156,19 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
           });
         } else {
           setSuccess("School academic created successfully!");
+
           showToast({
-            title: "School academic has been created. 🌻",
+            title: "School academic has been created.",
             description: (
               <main className="flex gap-2">
                 <div>
-                  <span>Classes:</span>{" "}
+                  <span>Classes: </span>
                   <span className="font-medium">
                     {response.data.created_classes}
                   </span>
                 </div>
                 <div>
-                  <span>Subject:</span>{" "}
+                  <span>Subjects: </span>
                   <span className="font-medium">
                     {response.data.created_subjects}
                   </span>
@@ -125,6 +177,7 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
             ),
             type: "success",
           });
+
           form.reset();
           router.push(`/s-t/new/${school.username}/administration`);
         }
@@ -134,70 +187,69 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
     });
   };
 
+  // 6. COMPONENT UI
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        {/* Select multiple sectors */}
-        <FormField
-          name="sector_ids"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Curriculum Sectors</FormLabel>
-              {loadingOptions ? (
-                <div className="skeleton h-12 rounded-md" />
-              ) : (
-                <FormControl>
-                  <MultipleSelector
-                    value={field.value}
-                    onChange={field.onChange}
-                    defaultOptions={sectors.map((item) => ({
-                      value: item.id || item._id || "",
-                      label: item.name,
-                      disable: item.disable || false,
-                    }))}
-                    placeholder="e.g REB, TVET"
-                    hidePlaceholderWhenSelected
-                  />
-                </FormControl>
-              )}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {/* SELECT SECTORS */}
+        {loadingOptions ? (
+          <div className=" flex flex-col gap-2">
+            <Label>Educations (Sectors)</Label>
+            <CheckboxInputSkeleton className=" grid-cols-1" />
+          </div>
+        ) : (
+          <CommonFormField
+            control={form.control}
+            name="sector_ids"
+            label="Educations (Sectors)"
+            fieldType="checkbox-input"
+            items={sectorItems}
+            className="grid-cols-1"
+            checkboxInputProps={{
+              showDescription: true,
+              items: sectorItems,
+              className: "items-starts",
+            }}
+          />
+        )}
 
-        {/* Select multiple trades */}
-        <FormField
-          name="trade_ids"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Education Level / Trades</FormLabel>
-              {loadingOptions ? (
-                <div className="skeleton h-12 rounded-md" />
-              ) : (
-                <FormControl>
-                  <MultipleSelector
-                    value={field.value}
-                    onChange={field.onChange}
-                    defaultOptions={trades.map((item) => ({
-                      value: item.id || item._id || "",
-                      label: item.name,
-                      disable: item.disable || false,
-                    }))}
-                    placeholder="e.g Advance Level, Primary, Software development (TVET)"
-                    hidePlaceholderWhenSelected
-                  />
-                </FormControl>
-              )}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {/* GROUPED TRADES PER SECTOR */}
+        {form.watch("sector_ids").map((sectorId) => {
+          const sector = sectors.find((s) => s._id === sectorId);
+          const trades = sectorTrades[sectorId] || [];
+
+          const tradeItems = Object.fromEntries(
+            trades.map((trade) => [
+              trade._id,
+              { name: trade.name, description: trade.description },
+            ]),
+          );
+
+          return (
+            <div key={sectorId} className="mt-4">
+              <h5 className="h5">Trades for {sector?.name}</h5>
+
+              <CommonFormField
+                control={form.control}
+                name="trade_ids"
+                label=""
+                fieldType="checkbox-input"
+                items={tradeItems}
+                className="grid grid-cols-1"
+                checkboxInputProps={{
+                  showDescription: true,
+                  items: tradeItems,
+                  className: "items-starts",
+                }}
+              />
+            </div>
+          );
+        })}
 
         <FormError message={error} />
         <FormSuccess message={success} />
 
+        {/* SUBMIT */}
         {isDialog ? (
           <DialogFooter className="px-6 pb-6 sm:justify-end">
             <DialogClose asChild>
@@ -210,7 +262,6 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
                 type="submit"
                 variant="primary"
                 disabled={isPending}
-                className="w-full sm:w-auto"
                 library="daisy"
                 role={isPending ? "loading" : undefined}
               >
@@ -224,7 +275,6 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
               type="submit"
               variant="primary"
               disabled={isPending}
-              className="w-full sm:w-auto"
               library="daisy"
               role={isPending ? "loading" : undefined}
             >

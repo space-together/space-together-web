@@ -14,7 +14,7 @@ import { useId } from "react";
 
 import type { CommonDetails } from "@/lib/schema/common-details-schema";
 
-interface CheckboxInputProps {
+export interface CheckboxInputProps {
   items: Record<string, CommonDetails>;
   values?: string[]; // multiple selection
   onChange?: (values: string[]) => void;
@@ -87,7 +87,7 @@ export default function CheckboxInput({
                   id={keyId}
                   checked={isChecked}
                   onCheckedChange={() => toggleValue(key)}
-                  className="order-1 after:absolute after:inset-0 top-2 w-fit"
+                  className="order-1 after:absolute after:inset-0 top-2 "
                 />
                 {showTooltip && item.description && !showDescription ? (
                   <Tooltip>

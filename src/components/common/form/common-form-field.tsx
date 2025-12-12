@@ -23,11 +23,13 @@ import DateStringInput, {
 } from "@/components/common/form/date-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import MultipleSelector from "@/components/ui/multiselect";
+import type { CommonDetails } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type { Control, FieldPath, FieldValues } from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
+import CheckboxInput, { type CheckboxInputProps } from "./checkbox-input";
 import type { TimeInputProps } from "./time-input";
 import TimeInput from "./time-input";
 
@@ -50,18 +52,20 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "image"
     | "avatar"
     | "checkbox"
+    | "checkbox-input"
     | "date"
     | "searchSelect"
     | "time"
     | "multipleSelect";
   selectOptions?: { value: string; label: string; disable?: boolean }[];
-
+  items?: Record<string, CommonDetails>;
   // components props
   imageProps?: updateImageProps;
   inputProps?: inputProps;
   avatarProps?: Pick<UploadAvatarProps, "avatarProps">;
   dateProps?: DateStringInputProps;
   timeProps?: TimeInputProps;
+  checkboxInputProps?: CheckboxInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -82,6 +86,8 @@ export function CommonFormField<T extends FieldValues>({
   avatarProps = { avatarProps: { size: "3xl" } },
   dateProps,
   timeProps,
+  items,
+  checkboxInputProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -162,6 +168,20 @@ export function CommonFormField<T extends FieldValues>({
                   disabled={disabled}
                   value={stringValue}
                   className={className}
+                />
+              );
+
+            case "checkbox-input":
+              if (!items) return <div>No items provided</div>;
+              return (
+                <CheckboxInput
+                  showTooltip
+                  items={items}
+                  values={field.value}
+                  onChange={field.onChange}
+                  classname={cn(" grid-cols-3 gap-2", className)}
+                  disabled={disabled}
+                  {...checkboxInputProps}
                 />
               );
 
