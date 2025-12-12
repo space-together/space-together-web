@@ -1,35 +1,32 @@
-import MyImage from "@/components/common/myImage";
 import MyLink from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
 import { redirectContents } from "@/lib/hooks/redirect";
-import type { AuthUserDto } from "@/lib/schema/user/auth-user-schema";
 import { cn } from "@/lib/utils";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import Image from "next/image";
 
 interface props {
   name?: string;
-  user?: AuthUserDto;
+  auth?: AuthContext;
   lang: Locale;
   className?: string;
   notShowName?: boolean;
 }
 
-const AppLogo = ({ name, user, lang, notShowName = false }: props) => {
+const AppLogo = ({ name, auth, lang, notShowName = false }: props) => {
   return (
     <MyLink
-      href={`${user ? redirectContents({ lang, role: user.role || "STUDENT" }) : `/${lang}`}`}
+      href={`${auth ? redirectContents({ lang, role: auth?.user.role || "STUDENT" }) : `/${lang}`}`}
       className="flex items-center gap-2"
     >
-      <MyImage
-        src="/logo.svg"
-        priority
-        className="size-10"
-        classname="  object-contain"
-      />
+      <div className=" relative size-10">
+      <Image src={"/logo.svg"} className=" object-contain" priority loading="eager"alt="Application logo" fill/>
+      </div>
       <div className="flex flex-col">
         {!notShowName && (
           <h2
             className={cn(
-              "logo-font flex flex-row text-start text-base font-semibold",
+              "logo-font flex flex-row text-start text-base font-semibold line-clamp-1",
             )}
           >
             space-together

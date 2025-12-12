@@ -266,6 +266,9 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="md"
+      shape={"circle"}
+      type="button"
+      library="daisy"
       className={cn(className)}
       onClick={(event) => {
         onClick?.(event);
@@ -724,4 +727,3 @@ export {
     SidebarTrigger,
     useSidebar
 };
-

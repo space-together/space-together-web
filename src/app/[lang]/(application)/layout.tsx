@@ -1,10 +1,10 @@
 import AppBreadcrumb from "@/components/common/app-breadcrumb";
 import AppFooter from "@/components/page/application/app-footer";
 import {
-  adminSidebarGroups,
-  schoolStaffSidebarGroups,
-  studentSidebarGroups,
-  teacherSidebarGroups,
+    adminSidebarGroups,
+    schoolStaffSidebarGroups,
+    studentSidebarGroups,
+    teacherSidebarGroups,
 } from "@/components/page/application/aside/app-side-content";
 import { AppSidebar } from "@/components/page/application/aside/app-sidebar";
 import AppNav from "@/components/page/application/navbar/app-nav";
@@ -35,6 +35,7 @@ export default async function ApplicationLayout(props: Props) {
     <SidebarProvider>
       <AppNav auth={auth} lang={lang as Locale} />
       <AppSidebar
+      auth={auth}
         lang={lang as Locale}
         items={
           role === "STUDENT"

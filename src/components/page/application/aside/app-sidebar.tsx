@@ -1,54 +1,61 @@
 "use client";
 
 import MyLink, {
-  LoadingIndicator,
-  LoadingIndicatorText,
+    LoadingIndicator,
+    LoadingIndicatorText,
 } from "@/components/common/myLink";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
 } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import type { Locale } from "@/i18n";
 import { isActivePath } from "@/lib/helpers/link-is-active";
 import { cn } from "@/lib/utils";
+import { AuthContext } from "@/lib/utils/auth-context";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import AppNavLogo from "../navbar/app-nav-logo";
 import type { sidebarGroupsProps } from "./app-side-content";
 
 interface AppSidebarProps {
   items: sidebarGroupsProps[];
   lang: Locale;
+  auth: AuthContext
 }
 
-export function AppSidebar({ items, lang }: AppSidebarProps) {
+export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
   const path = usePathname();
   const { theme } = useTheme();
   return (
-    <Sidebar className="bg-base-100 gap-0 space-y-0 pt-14" collapsible="icon">
+    <Sidebar className="bg-base-100 gap-0 space-y-0" collapsible="icon">
+      <SidebarHeader>
+        <AppNavLogo  lang={lang} auth={auth}/>
+      </SidebarHeader>
       <SidebarContent className="bg-base-100 text-on-primary dark:bg-surface-container dark:text-on-surface gap-0">
         {items.map((group) => (
           <SidebarGroup
             key={group.label ?? group.items[0]?.title ?? Math.random()}
           >
             {group.label && (
-              <SidebarGroupLabel className="ml-2 text-sm font-medium text-gray-500">
+              <SidebarGroupLabel className=" text-sm font-medium text-gray-500">
                 {group.label}
               </SidebarGroupLabel>
             )}
