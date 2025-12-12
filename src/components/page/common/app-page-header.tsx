@@ -1,6 +1,6 @@
 interface props {
   title: string;
-  description: string;
+  description?: string;
   total?: number;
 }
 
@@ -12,7 +12,7 @@ const AppPageHeader = ({ title, description, total }: props) => {
           {total && total <= 0 ? "" : total} {title}
         </h2>
       </div>
-      <p>{description}</p>
+      {description && <p>{description}</p>}
     </div>
   );
 };

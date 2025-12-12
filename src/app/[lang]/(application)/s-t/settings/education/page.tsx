@@ -1,12 +1,12 @@
-import DevelopingPage from "@/components/page/developing-page";
-import type { Locale } from "@/i18n";
+import AppPageHeader from "@/components/page/common/app-page-header";
+import SchoolCurriculumSettingCard from "@/components/page/school-staff/school-setting/education/school-curriculum-setting-card";
+import { Separator } from "@/components/ui/separator";
 import { authContext } from "@/lib/utils/auth-context";
 import { redirect } from "next/navigation";
 
-interface Props {
-  params: Promise<{ lang: Locale; classId: string }>;
-}
-const SchoolSettingEducationSettingsPage = async (props: Props) => {
+const SchoolSettingEducationSettingsPage = async (
+  props: PageProps<"/[lang]/s-t/settings/education">,
+) => {
   const params = await props.params;
   const { lang } = params;
   const auth = await authContext();
@@ -15,7 +15,13 @@ const SchoolSettingEducationSettingsPage = async (props: Props) => {
     return redirect(`/${lang}/auth/login`);
   }
 
-  return <DevelopingPage lang={lang} role={auth.user.role} />;
+  return (
+    <div className="flex flex-col gap-2">
+      <AppPageHeader title="School Education Settings" />
+      <Separator />
+      <SchoolCurriculumSettingCard auth={auth} />
+    </div>
+  );
 };
 
 export default SchoolSettingEducationSettingsPage;
