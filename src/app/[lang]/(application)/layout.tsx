@@ -14,7 +14,6 @@ import type { Locale } from "@/i18n";
 import { authContext } from "@/lib/utils/auth-context";
 import { redirect } from "next/navigation";
 
-
 export default async function ApplicationLayout(props: LayoutProps<"/[lang]">) {
   const params = await props.params;
   const { lang } = params;
@@ -31,7 +30,7 @@ export default async function ApplicationLayout(props: LayoutProps<"/[lang]">) {
     <SidebarProvider>
       <AppNav auth={auth} lang={lang as Locale} />
       <AppSidebar
-      auth={auth}
+        auth={auth}
         lang={lang as Locale}
         items={
           role === "STUDENT"
@@ -43,9 +42,9 @@ export default async function ApplicationLayout(props: LayoutProps<"/[lang]">) {
                 : teacherSidebarGroups
         }
       />
-      <div className="bg-base-200 flex w-full flex-col gap-0">
-        <AppLayoutClientBody lang={ lang as Locale}>
-          <div className=" relative">
+      <div className="bg-base-200 flex w-full flex-col">
+        <AppLayoutClientBody lang={lang as Locale}>
+          <div className=" relative mb-4">
             <AppBreadcrumb />
           </div>
           {children}
