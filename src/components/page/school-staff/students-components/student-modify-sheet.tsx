@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -87,12 +87,11 @@ const StudentModifySheet = ({
             <div className="space-x-1 p-4">
               <div className="flex justify-between">
                 {student?.name && (
-                  <h3
-                    data-tip={student.name ?? "Student name"}
-                    className="line-clamp-1 leading-5 font-medium tooltip text-lg"
-                  >
-                    {student.name}
-                  </h3>
+                  <MyLink href={`/${lang}/p/s/${student._id}`}>
+                    <LoadingIndicatorText className="h5">
+                      {student.name}
+                    </LoadingIndicatorText>
+                  </MyLink>
                 )}
                 <Badge
                   library="daisy"

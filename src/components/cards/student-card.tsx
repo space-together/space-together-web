@@ -1,7 +1,7 @@
 "use client";
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import StudentModifySheet from "@/components/page/school-staff/students-components/student-modify-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import type { Locale } from "@/i18n";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
@@ -50,7 +45,13 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
         />
         <div className=" px-4 flex flex-col mt-1">
           <div className=" flex justify-between items-center">
-            {student?.name && <h5 className=" font-medium">{student.name}</h5>}
+            {student?.name && (
+              <MyLink href={`/${lang}/p/s/${student._id}`}>
+                <LoadingIndicatorText className=" font-medium">
+                  {student.name}
+                </LoadingIndicatorText>
+              </MyLink>
+            )}
             <Badge
               library="daisy"
               variant={student?.is_active ? "info" : "error"}
@@ -65,18 +66,18 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
               className=" link link-hover"
               href={`/${lang}/p/${student?.user?.username}`}
             >
-              @ {student.user.username}
+              <LoadingIndicatorText title={`User: ${student.user.name}`}>
+                @ {student.user.username}
+              </LoadingIndicatorText>
             </MyLink>
           )}
           {student?.registration_number && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className=" text-primary">
-                  {student.registration_number}
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>Student code</TooltipContent>
-            </Tooltip>
+            <span
+              title={`Student code: ${student.registration_number}`}
+              className=" text-primary"
+            >
+              {student.registration_number}
+            </span>
           )}
           {/* student class */}
           {student?.class && (

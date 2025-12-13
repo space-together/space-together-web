@@ -1,4 +1,5 @@
-import ErrorPage from "@/components/page/error-page";
+import AppPageHeader from "@/components/page/common/app-page-header";
+import NotFoundPage from "@/components/page/not-found";
 import TeacherProfileHeader from "@/components/profile/teacher/teacher-profile-header";
 import TeacherSubjectTable from "@/components/profile/teacher/teacher-subjects-table";
 import TestCalendar from "@/components/test/test-calendar";
@@ -12,7 +13,7 @@ import apiRequest from "@/service/api-client";
 import { redirect } from "next/navigation";
 
 const TeacherProfilePage = async (
-  props: PageProps<"/[lang]/p/teacher/[teacherId]">,
+  props: PageProps<"/[lang]/p/t/[teacherId]">,
 ) => {
   const params = await props.params;
   const { teacherId, lang } = params;
@@ -43,12 +44,12 @@ const TeacherProfilePage = async (
   ]);
 
   if (!teacherRes.data) {
-    return <ErrorPage message={teacherRes.message} error={teacherRes.error} />;
+    return <NotFoundPage message={"Teacher not found"} />;
   }
 
   return (
     <div className=" flex flex-col gap-4">
-      <h3 className="h3">Teacher Profile</h3>
+      <AppPageHeader title="Teacher Profile" />
       <TeacherProfileHeader teacher={teacherRes.data} lang={lang as Locale} />
       <Separator />
       <div className=" flex flex-row gap-4">
