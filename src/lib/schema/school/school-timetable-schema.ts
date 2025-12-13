@@ -42,6 +42,8 @@ export const DailySchoolSchedulePartialSchema =
 -----------------------------------*/
 export const TimetableOverrideTypeSchema = z.enum(["Trade", "Sector"]);
 
+export type TimetableOverrideType = z.infer<typeof TimetableOverrideTypeSchema>;
+
 /* --------------------------------
    TimetableOverride
 -----------------------------------*/
@@ -57,6 +59,8 @@ export const TimetableOverrideSchema = z.object({
     .array(DailySchoolScheduleSchema)
     .min(1, "weekly_schedule must contain at least 1 day"),
 });
+
+export type TimetableOverride = z.infer<typeof TimetableOverrideSchema>;
 
 export const TimetableOverridePartialSchema = TimetableOverrideSchema.partial();
 

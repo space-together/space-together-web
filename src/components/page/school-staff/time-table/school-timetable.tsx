@@ -1,25 +1,19 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { cn } from "@/lib/utils"; // Assuming you have a cn utility, otherwise use standard template literals
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { useEffect, useState } from "react";
+import { Activity, useEffect, useState } from "react";
+import SchoolTimetableChooseEducation from "./school-timetable-choose-education";
 import SchoolTimetableDialog from "./school-timetable-dialog";
 
 interface Props {
   timetable: SchoolTimetable;
   auth: AuthContext;
+  school: School;
 }
 
 type TimeItem = {
@@ -37,7 +31,7 @@ const toMinutes = (t?: string) => {
   return h * 60 + m;
 };
 
-const SchoolTimetableViewer = ({ timetable, auth }: Props) => {
+const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
   const { data } = useRealtimeData<SchoolTimetable>("school_timetable");
   const [currentTimetable, setCurrentTimetable] = useState(timetable);
 
@@ -71,21 +65,13 @@ const SchoolTimetableViewer = ({ timetable, auth }: Props) => {
           <SchoolTimetableDialog auth={auth} timetable={currentTimetable} />
         </div>
         <div>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Activity>
+            <SchoolTimetableChooseEducation
+              onChange={() => {}}
+              auth={auth}
+              school={school}
+            />
+          </Activity>
         </div>
       </CardHeader>
 

@@ -1,0 +1,154 @@
+"use client";
+import MyImage from "@/components/common/myImage";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
+import type { School } from "@/lib/schema/school/school-schema";
+import type { TimetableOverrideType } from "@/lib/schema/school/school-timetable-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
+import { ChevronsUpDown } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface SchoolTimetableChooseEducationProps {
+  auth: AuthContext;
+  school: School;
+  // This function will be called when a new value is selected
+  onChange: (choice: SchoolEducationChoice | null) => void;
+}
+
+interface SchoolEducationChoice {
+  id: string;
+  name: string;
+  username: string;
+  type: TimetableOverrideType; // Trade or Sector
+}
+
+const SchoolTimetableChooseEducation = ({
+  auth,
+  school,
+  onChange,
+}: SchoolTimetableChooseEducationProps) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<SchoolEducationChoice | null>(null);
+
+  const [trades, setTrades] = useState<TradeModule[]>([]);
+  const [sectors, setSectors] = useState<SectorModel[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Function to handle setting the new value and calling onChange
+  const handleSelect = (choice: SchoolEducationChoice) => {
+    setValue(choice);
+    setOpen(false); // Close the popover on selection
+    onChange(choice); // <--- Call onChange with the new value
+  };
+
+  useEffect(() => {
+    const fetchEducations = async () => {
+      try {
+        const [tradesRes, sectorsRes] = await Promise.all([
+          apiRequest<{ ids?: string[] }, TradeModule[]>(
+            "post",
+            `/trades/trades/by_ids`,
+            { ids: school.education_level },
+            { token: auth.token },
+          ),
+          apiRequest<{ ids?: string[] }, SectorModel[]>(
+            "post",
+            `/sectors/by-ids`,
+            { ids: school.curriculum },
+            { token: auth.token },
+          ),
+        ]);
+        if (tradesRes.data) {
+          setTrades(tradesRes.data);
+        }
+        if (sectorsRes.data) {
+          setSectors(sectorsRes.data);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEducations();
+  }, [auth.token, school]);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          aria-expanded={open}
+          className="w-[200px] justify-between capitalize"
+        >
+          {value ? value.username : "Education"}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command className="rounded-lg border shadow-md md:min-w-[450px]">
+          <CommandInput placeholder="Search education..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Curriculum">
+              {sectors.map((sector) => (
+                <CommandItem
+                  className="cursor-pointer"
+                  onSelect={() => {
+                    handleSelect({
+                      id: sector._id || sector.id || "",
+                      name: sector.name,
+                      type: "Sector",
+                      username: sector.username,
+                    });
+                  }} // Changed from onClick to onSelect for better Command component integration
+                  key={sector._id}
+                >
+                  {sector.logo && (
+                    <MyImage role="ICON" src={sector.logo} alt={sector.name} />
+                  )}
+                  <span>{sector.username || sector.name}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Education level">
+              {trades.map((trade) => (
+                <CommandItem
+                  className="cursor-pointer"
+                  onSelect={() => {
+                    handleSelect({
+                      id: trade._id || trade.id || "",
+                      name: trade.name,
+                      type: "Trade",
+                      username: trade.username,
+                    });
+                  }} // Changed from onClick to onSelect
+                  key={trade._id}
+                >
+                  <span>{trade.name}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+export default SchoolTimetableChooseEducation;

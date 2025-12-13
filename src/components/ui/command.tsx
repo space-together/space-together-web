@@ -23,7 +23,7 @@ function Command({
       data-slot="command"
       data-theme={theme}
       className={cn(
-        "bg-base-200 flex size-full flex-col overflow-hidden rounded-md",
+        "bg-base-100 flex size-full flex-col overflow-hidden card",
         className,
       )}
       {...props}
@@ -172,6 +172,5 @@ export {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut
+  CommandShortcut,
 };
-

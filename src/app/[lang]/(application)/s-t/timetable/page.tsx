@@ -1,9 +1,11 @@
 import CommonEmpty from "@/components/common/common-empty";
 import AppPageHeader from "@/components/page/common/app-page-header";
+import NotFoundPage from "@/components/page/not-found";
 import SchoolTimetableViewer from "@/components/page/school-staff/time-table/school-timetable";
 import SchoolTimetableDialog from "@/components/page/school-staff/time-table/school-timetable-dialog";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
+import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -21,7 +23,7 @@ const TimeTablePage = async (props: props) => {
     redirect(`/${lang}/auth/login`);
   }
 
-  const [schoolTimetableRes] = await Promise.all([
+  const [schoolTimetableRes, schoolRes] = await Promise.all([
     apiRequest<void, SchoolTimetable>(
       "get",
       `/school/timetables/flied?flied=school_id&value=${auth.school?.id}`,
@@ -32,7 +34,13 @@ const TimeTablePage = async (props: props) => {
         realtime: "school_timetable",
       },
     ),
+    apiRequest<void, School>("get", `/schools/${auth.school?.id}`, undefined, {
+      token: auth.token,
+    }),
   ]);
+
+  if (!schoolRes.data)
+    return <NotFoundPage message=" It looks like the school was not found." />;
 
   return (
     <div className=" flex flex-col gap-4">
@@ -49,6 +57,7 @@ const TimeTablePage = async (props: props) => {
           <SchoolTimetableViewer
             auth={auth}
             timetable={schoolTimetableRes.data}
+            school={schoolRes.data}
           />
         </RealtimeProvider>
       ) : (
