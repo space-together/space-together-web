@@ -56,7 +56,7 @@ export default function SchoolTimetableForm({
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
-
+  // TODO: make get education and add they timetable
   const generateDefaultWeek = () => {
     const days: Weekday[] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
     return days.map((day) => ({
