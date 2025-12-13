@@ -3,12 +3,42 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { School } from "@/lib/schema/school/school-schema";
-import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
-import { cn } from "@/lib/utils"; // Assuming you have a cn utility, otherwise use standard template literals
+import type {
+  DailySchoolScheduleSchema,
+  SchoolTimetable,
+} from "@/lib/schema/school/school-timetable-schema";
+import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { Activity, useEffect, useState } from "react";
-import SchoolTimetableChooseEducation from "./school-timetable-choose-education";
+import { Activity, useEffect, useMemo, useState } from "react";
+import type { z } from "zod";
+
+import SchoolTimetableChooseEducation, {
+  type SchoolTimetableEducationChoice,
+} from "./school-timetable-choose-education";
 import SchoolTimetableDialog from "./school-timetable-dialog";
+
+/* ----------------------------- TYPES ----------------------------- */
+
+type WeeklySchedule = z.infer<typeof DailySchoolScheduleSchema>[];
+
+type TimeItem = {
+  label: string;
+  start: string;
+  end?: string;
+  description?: string;
+  className?: string;
+  type: "main" | "break" | "activity" | "lunch";
+};
+
+/* ----------------------------- HELPERS ----------------------------- */
+
+const toMinutes = (t?: string) => {
+  if (!t) return Infinity;
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+};
+
+/* ----------------------------- COMPONENT ----------------------------- */
 
 interface Props {
   timetable: SchoolTimetable;
@@ -16,184 +46,226 @@ interface Props {
   school: School;
 }
 
-type TimeItem = {
-  label: string;
-  start: string;
-  end?: string;
-  description?: string;
-  className?: string; // Color styling
-  type: "main" | "break" | "activity" | "lunch"; // generic type for styling logic
-};
-
-const toMinutes = (t?: string) => {
-  if (!t) return Infinity; // if undefined, push to end
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-};
-
 const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
   const { data } = useRealtimeData<SchoolTimetable>("school_timetable");
-  const [currentTimetable, setCurrentTimetable] = useState(timetable);
+
+  const [currentTimetable, setCurrentTimetable] =
+    useState<SchoolTimetable>(timetable);
+
+  const [selectedEducation, setSelectedEducation] =
+    useState<SchoolTimetableEducationChoice | null>(null);
+
+  /* ---------------------- REALTIME UPDATE ---------------------- */
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const updated = data.find((d) => d._id === timetable._id);
-      if (updated) setCurrentTimetable(updated);
-    }
+    if (!data?.length) return;
+
+    const updated = data.find((d) => d._id === timetable._id);
+    if (updated) setCurrentTimetable(updated);
   }, [data, timetable._id]);
 
-  const weekly = currentTimetable.default_weekly_schedule;
+  /* ---------------------- OVERRIDE MATCHING ---------------------- */
 
-  // Sort days (Monday -> Friday)
-  const sortedWeekly = [...weekly].sort((a, b) => {
-    const startA = toMinutes(a.start);
-    const startB = toMinutes(b.start);
+  const matchingOverride = useMemo(() => {
+    if (!selectedEducation) return null;
 
-    if (startA !== startB) return startA - startB;
+    return (
+      currentTimetable.overrides?.find(
+        (override) =>
+          override.type === selectedEducation.type &&
+          override.applies_to.includes(selectedEducation.id),
+      ) ?? null
+    );
+  }, [currentTimetable.overrides, selectedEducation]);
 
-    const endA = a.end ? toMinutes(a.end) : Infinity;
-    const endB = b.end ? toMinutes(b.end) : Infinity;
+  /* ---------------------- SCHEDULE DECISION ---------------------- */
 
-    return endA - endB;
-  });
+  const weeklyScheduleToDisplay: WeeklySchedule = useMemo(() => {
+    if (!selectedEducation) {
+      return currentTimetable.default_weekly_schedule;
+    }
+
+    if (matchingOverride) {
+      return matchingOverride.weekly_schedule;
+    }
+
+    return [];
+  }, [
+    currentTimetable.default_weekly_schedule,
+    matchingOverride,
+    selectedEducation,
+  ]);
+
+  /* ---------------------- SORT DAYS ---------------------- */
+
+  const sortedWeekly = useMemo(() => {
+    return [...weeklyScheduleToDisplay].sort((a, b) => {
+      const startA = toMinutes(a.start);
+      const startB = toMinutes(b.start);
+
+      if (startA !== startB) return startA - startB;
+
+      return toMinutes(a.end) - toMinutes(b.end);
+    });
+  }, [weeklyScheduleToDisplay]);
+
+  /* ---------------------- HANDLERS ---------------------- */
+
+  const handleEducationChange = (
+    choice: SchoolTimetableEducationChoice | null,
+  ) => {
+    setSelectedEducation(choice);
+  };
+
+  /* ----------------------------- UI ----------------------------- */
 
   return (
     <Card className="w-full">
       <CardHeader className="flex justify-between items-center">
-        <div className=" flex flex-row gap-4 items-center">
-          <CardTitle>Default weekly schedule</CardTitle>
+        <div className="flex flex-row gap-4 items-center">
+          <CardTitle className="capitalize">
+            {selectedEducation
+              ? matchingOverride
+                ? `${selectedEducation.name} School Timetable`
+                : `${selectedEducation.name} (No Override Timetable)`
+              : "Default weekly schedule School Timetable"}
+          </CardTitle>
+
           <SchoolTimetableDialog auth={auth} timetable={currentTimetable} />
         </div>
-        <div>
-          <Activity>
-            <SchoolTimetableChooseEducation
-              onChange={() => {}}
-              auth={auth}
-              school={school}
-            />
-          </Activity>
-        </div>
+
+        <Activity>
+          <SchoolTimetableChooseEducation
+            onChange={handleEducationChange}
+            auth={auth}
+            school={school}
+          />
+        </Activity>
       </CardHeader>
 
       <CardContent>
-        {/* Grid Layout: One column per Day */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
-          {sortedWeekly.map((day) => {
-            // 1. Collect events for this specific day
-            const events: TimeItem[] = [
-              {
-                label: "School Start",
-                start: day.school_start_time,
-                type: "main",
-                className: "border-l-4  bg-primary/5",
-              },
-              {
-                label: "Study Start",
-                start: day.study_start_time,
-                type: "main",
-              },
-              {
-                label: "Study End",
-                start: day.study_end_time,
-                type: "main",
-              },
-              {
-                label: "School End",
-                start: day.school_end_time,
-                type: "main",
-                className: "border-l-4  bg-primary/5",
-              },
-            ];
+        {/* -------- EMPTY STATE -------- */}
+        {selectedEducation && !matchingOverride ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed rounded-lg">
+            <p className="text-sm font-semibold">
+              No school timetable override found
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              There is no timetable configured for{" "}
+              <span className="font-medium capitalize">
+                {selectedEducation.name}
+              </span>
+              .
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+            {sortedWeekly.map((day) => {
+              const events: TimeItem[] = [
+                {
+                  label: "School Start",
+                  start: day.school_start_time,
+                  type: "main",
+                  className: "border-l-4 bg-primary/5",
+                },
+                {
+                  label: "Study Start",
+                  start: day.study_start_time,
+                  type: "main",
+                },
+                {
+                  label: "Study End",
+                  start: day.study_end_time,
+                  type: "main",
+                },
+                {
+                  label: "School End",
+                  start: day.school_end_time,
+                  type: "main",
+                  className: "border-l-4 bg-primary/5",
+                },
+              ];
 
-            if (day.breaks) {
-              day.breaks.forEach((b) =>
+              day.breaks?.forEach((b) =>
                 events.push({
                   label: b.title,
                   start: b.start_time,
                   end: b.end_time,
                   description: b.description,
                   type: "break",
-                  className: "bg-base-content/10 border ",
+                  className: "bg-base-content/10 border",
                 }),
               );
-            }
 
-            if (day.lunch) {
-              events.push({
-                label: day.lunch.title,
-                start: day.lunch.start_time,
-                end: day.lunch.end_time,
-                description: day.lunch.description,
-                type: "lunch",
-                className: "bg-base-300/50  border ",
-              });
-            }
+              if (day.lunch) {
+                events.push({
+                  label: day.lunch.title,
+                  start: day.lunch.start_time,
+                  end: day.lunch.end_time,
+                  description: day.lunch.description,
+                  type: "lunch",
+                  className: "bg-base-300/50 border",
+                });
+              }
 
-            if (day.activities) {
-              day.activities.forEach((a) =>
+              day.activities?.forEach((a) =>
                 events.push({
                   label: a.title,
                   start: a.start_time,
                   end: a.end_time,
                   description: a.description,
                   type: "activity",
-                  className: "bg-info/20 border ",
+                  className: "bg-info/20 border",
                 }),
               );
-            }
 
-            // 2. Sort events by time
-            events.sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
+              events.sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
 
-            return (
-              <div key={day.day} className="flex flex-col gap-3 min-w-full">
-                {/* Day Header */}
-                <div className="text-center p-2  font-bold uppercase tracking-wide text-sm sticky bg-background/80 backdrop-blur-md z-30  top-0 border-b-base-content/20 border-b">
-                  {day.day}
-                </div>
+              return (
+                <div key={day.day} className="flex flex-col gap-3 min-w-full">
+                  <div className="text-center p-2 font-bold uppercase tracking-wide text-sm sticky bg-background/80 backdrop-blur-md z-30 top-0 border-b">
+                    {day.day}
+                  </div>
 
-                {/* Events List */}
-                <div className="flex flex-col gap-2">
-                  {events.map((event, idx) => (
-                    <div
-                      key={idx}
-                      className={cn(
-                        "relative p-3 card  border-base-content/40 text-sm shadow-sm transition-all hover:shadow-md",
-                        "bg-card text-card-foreground border",
-                        event.className, // Apply specific color classes
-                      )}
-                    >
-                      {/* Time Badge */}
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
-                          {event.start}
-                        </span>
-                        {event.end && (
-                          <div className=" flex gap-2">
-                            -
-                            <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
-                              {event.end}
-                            </span>
+                  <div className="flex flex-col gap-2">
+                    {events.map((event, idx) => (
+                      <div
+                        key={idx}
+                        className={cn(
+                          "relative p-3 card border text-sm shadow-sm transition-all hover:shadow-md",
+                          "bg-card text-card-foreground",
+                          event.className,
+                        )}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
+                            {event.start}
+                          </span>
+                          {event.end && (
+                            <>
+                              -
+                              <span className="font-mono font-bold text-xs bg-base-300 px-1.5 py-0.5 rounded border">
+                                {event.end}
+                              </span>
+                            </>
+                          )}
+                        </div>
+
+                        <div className="font-semibold">{event.label}</div>
+
+                        {event.description && (
+                          <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                            {event.description}
                           </div>
                         )}
                       </div>
-                      {/* Title */}
-                      <div className="font-semibold leading-tight">
-                        {event.label}
-                      </div>
-                      {/* Description */}
-                      {event.description && (
-                        <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                          {event.description}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

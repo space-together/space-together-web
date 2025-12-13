@@ -507,7 +507,7 @@ const CreateMainSubjectForm = ({
             <h3 className="text-lg font-medium">Contributors</h3>
             <Button
               type="button"
-              variant="outline"
+              variant=" "
               size="sm"
               onClick={() => append({ name: "", role: "Reviewer" })}
               disabled={isPending}

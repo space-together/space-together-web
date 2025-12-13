@@ -1,4 +1,5 @@
 "use client";
+
 import MyImage from "@/components/common/myImage";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,24 +20,28 @@ import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { TimetableOverrideType } from "@/lib/schema/school/school-timetable-schema";
+import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { ChevronsUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
+/* ----------------------------- TYPES ----------------------------- */
+
 interface SchoolTimetableChooseEducationProps {
   auth: AuthContext;
   school: School;
-  // This function will be called when a new value is selected
-  onChange: (choice: SchoolEducationChoice | null) => void;
+  onChange: (choice: SchoolTimetableEducationChoice | null) => void;
 }
 
-interface SchoolEducationChoice {
+export interface SchoolTimetableEducationChoice {
   id: string;
   name: string;
   username: string;
-  type: TimetableOverrideType; // Trade or Sector
+  type: TimetableOverrideType;
 }
+
+/* ----------------------------- COMPONENT ----------------------------- */
 
 const SchoolTimetableChooseEducation = ({
   auth,
@@ -44,18 +49,29 @@ const SchoolTimetableChooseEducation = ({
   onChange,
 }: SchoolTimetableChooseEducationProps) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<SchoolEducationChoice | null>(null);
+  const [value, setValue] = useState<SchoolTimetableEducationChoice | null>(
+    null,
+  );
 
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [sectors, setSectors] = useState<SectorModel[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Function to handle setting the new value and calling onChange
-  const handleSelect = (choice: SchoolEducationChoice) => {
+  /* ---------------------- HANDLERS ---------------------- */
+
+  const handleSelect = (choice: SchoolTimetableEducationChoice) => {
     setValue(choice);
-    setOpen(false); // Close the popover on selection
-    onChange(choice); // <--- Call onChange with the new value
+    setOpen(false);
+    onChange(choice);
   };
+
+  const handleSelectDefault = () => {
+    setValue(null);
+    setOpen(false);
+    onChange(null);
+  };
+
+  /* ---------------------- FETCH DATA ---------------------- */
 
   useEffect(() => {
     const fetchEducations = async () => {
@@ -74,18 +90,18 @@ const SchoolTimetableChooseEducation = ({
             { token: auth.token },
           ),
         ]);
-        if (tradesRes.data) {
-          setTrades(tradesRes.data);
-        }
-        if (sectorsRes.data) {
-          setSectors(sectorsRes.data);
-        }
+
+        if (tradesRes.data) setTrades(tradesRes.data);
+        if (sectorsRes.data) setSectors(sectorsRes.data);
       } finally {
         setLoading(false);
       }
     };
+
     fetchEducations();
   }, [auth.token, school]);
+
+  /* ----------------------------- UI ----------------------------- */
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -93,30 +109,51 @@ const SchoolTimetableChooseEducation = ({
         <Button
           variant="outline"
           aria-expanded={open}
-          className="w-[200px] justify-between capitalize"
+          className={cn(
+            "w-[220px] justify-between capitalize",
+            loading && "skeleton skeleton-text",
+          )}
+          title={value ? value.name : "Default timetable"}
         >
-          {value ? value.username : "Education"}
+          {value ? value.username : "Default timetable"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+
+      <PopoverContent className="w-[220px] p-0">
         <Command className="rounded-lg border shadow-md md:min-w-[450px]">
           <CommandInput placeholder="Search education..." />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>
+              {loading ? "Loading..." : "No results found."}
+            </CommandEmpty>
+
+            {/* -------- DEFAULT TIMETABLE -------- */}
+            <CommandGroup heading="School timetable">
+              <CommandItem
+                className="cursor-pointer font-medium"
+                onSelect={handleSelectDefault}
+              >
+                Default school timetable
+              </CommandItem>
+            </CommandGroup>
+
+            <CommandSeparator />
+
+            {/* -------- CURRICULUM / SECTORS -------- */}
             <CommandGroup heading="Curriculum">
               {sectors.map((sector) => (
                 <CommandItem
+                  key={sector._id}
                   className="cursor-pointer"
-                  onSelect={() => {
+                  onSelect={() =>
                     handleSelect({
                       id: sector._id || sector.id || "",
                       name: sector.name,
-                      type: "Sector",
                       username: sector.username,
-                    });
-                  }} // Changed from onClick to onSelect for better Command component integration
-                  key={sector._id}
+                      type: "Sector",
+                    })
+                  }
                 >
                   {sector.logo && (
                     <MyImage role="ICON" src={sector.logo} alt={sector.name} />
@@ -125,22 +162,25 @@ const SchoolTimetableChooseEducation = ({
                 </CommandItem>
               ))}
             </CommandGroup>
+
             <CommandSeparator />
+
+            {/* -------- EDUCATION LEVEL / TRADES -------- */}
             <CommandGroup heading="Education level">
               {trades.map((trade) => (
                 <CommandItem
+                  key={trade._id}
                   className="cursor-pointer"
-                  onSelect={() => {
+                  onSelect={() =>
                     handleSelect({
                       id: trade._id || trade.id || "",
                       name: trade.name,
-                      type: "Trade",
                       username: trade.username,
-                    });
-                  }} // Changed from onClick to onSelect
-                  key={trade._id}
+                      type: "Trade",
+                    })
+                  }
                 >
-                  <span>{trade.name}</span>
+                  <span>{trade.username || trade.name}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
