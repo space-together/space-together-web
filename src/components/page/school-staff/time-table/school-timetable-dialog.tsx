@@ -9,16 +9,19 @@ import {
 } from "@/components/ui/dialog";
 import type { SchoolTimetable } from "@/lib/schema/school/school-timetable-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import type { SchoolTimetableEducationChoice } from "./school-timetable-choose-education";
 import SchoolTimetableForm from "./school-timetable-form";
 
 interface SchoolTimetableDialogProps {
   timetable?: SchoolTimetable;
   auth: AuthContext;
+  choice?: SchoolTimetableEducationChoice | null;
 }
 
 const SchoolTimetableDialog = ({
   auth,
   timetable,
+  choice,
 }: SchoolTimetableDialogProps) => {
   return (
     <Dialog>
@@ -35,7 +38,11 @@ const SchoolTimetableDialog = ({
       <DialogContent className="max- max-h-[95vh] overflow-y-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>
-            {timetable ? `Update school timetable` : "Create school timetable"}
+            {choice
+              ? `Create ${choice.name} school timetable`
+              : timetable
+                ? `Update school timetable`
+                : "Create school timetable"}
           </DialogTitle>
         </DialogHeader>
         <SchoolTimetableForm auth={auth} timetable={timetable} />

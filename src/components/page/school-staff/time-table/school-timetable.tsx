@@ -12,6 +12,7 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 import { Activity, useEffect, useMemo, useState } from "react";
 import type { z } from "zod";
 
+import CommonEmpty from "@/components/common/common-empty";
 import SchoolTimetableChooseEducation, {
   type SchoolTimetableEducationChoice,
 } from "./school-timetable-choose-education";
@@ -131,7 +132,11 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
               : "Default weekly schedule School Timetable"}
           </CardTitle>
 
-          <SchoolTimetableDialog auth={auth} timetable={currentTimetable} />
+          <SchoolTimetableDialog
+            choice={selectedEducation}
+            auth={auth}
+            timetable={currentTimetable}
+          />
         </div>
 
         <Activity>
@@ -146,18 +151,20 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
       <CardContent>
         {/* -------- EMPTY STATE -------- */}
         {selectedEducation && !matchingOverride ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed rounded-lg">
-            <p className="text-sm font-semibold">
-              No school timetable override found
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              There is no timetable configured for{" "}
-              <span className="font-medium capitalize">
-                {selectedEducation.name}
+          <CommonEmpty
+            title="No school timetable override found"
+            description={
+              <span>
+                There is no timetable configured for{" "}
+                <span className="font-medium capitalize">
+                  {selectedEducation.name}
+                </span>
+                .
               </span>
-              .
-            </p>
-          </div>
+            }
+          >
+            <SchoolTimetableDialog choice={selectedEducation} auth={auth} />
+          </CommonEmpty>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
             {sortedWeekly.map((day) => {

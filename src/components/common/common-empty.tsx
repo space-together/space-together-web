@@ -14,7 +14,7 @@ import { ChildrenWrapper } from "./children-wrapper";
 interface Props {
   children?: React.ReactNode;
   title?: string;
-  description?: string;
+  description?: string | React.ReactNode;
   icon?: string;
   auth?: AuthContext;
 }
