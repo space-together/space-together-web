@@ -165,7 +165,11 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
               </span>
             }
           >
-            <SchoolTimetableDialog choice={selectedEducation} auth={auth} />
+            <SchoolTimetableDialog
+              timetable={timetable}
+              choice={selectedEducation}
+              auth={auth}
+            />
           </CommonEmpty>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
@@ -175,7 +179,7 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
                   label: "School Start",
                   start: day.school_start_time,
                   type: "main",
-                  className: "border-l-4 bg-primary/5",
+                  className: "border-l-4 border-primary bg-primary/5",
                 },
                 {
                   label: "Study Start",
@@ -191,7 +195,7 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
                   label: "School End",
                   start: day.school_end_time,
                   type: "main",
-                  className: "border-l-4 bg-primary/5",
+                  className: "border-l-4 border-primary bg-primary/5",
                 },
               ];
 

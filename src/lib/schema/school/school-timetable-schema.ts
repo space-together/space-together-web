@@ -34,6 +34,8 @@ export const DailySchoolScheduleSchema = z.object({
   special_type: DaySpecialTypeSchema,
 });
 
+export type DailySchoolSchedule = z.infer<typeof DailySchoolScheduleSchema>;
+
 export const DailySchoolSchedulePartialSchema =
   DailySchoolScheduleSchema.partial();
 

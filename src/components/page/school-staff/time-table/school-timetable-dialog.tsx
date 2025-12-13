@@ -45,7 +45,11 @@ const SchoolTimetableDialog = ({
                 : "Create school timetable"}
           </DialogTitle>
         </DialogHeader>
-        <SchoolTimetableForm auth={auth} timetable={timetable} />
+        <SchoolTimetableForm
+          auth={auth}
+          timetable={timetable}
+          choice={choice}
+        />
       </DialogContent>
     </Dialog>
   );

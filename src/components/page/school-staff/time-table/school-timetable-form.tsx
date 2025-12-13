@@ -1,7 +1,6 @@
 "use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
@@ -13,6 +12,7 @@ import {
   type SchoolTimetable,
 } from "@/lib/schema/school/school-timetable-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { createOverrideFromDefault } from "@/lib/utils/school-timetable.override.utils";
 import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
@@ -23,10 +23,9 @@ import type { SchoolTimetableEducationChoice } from "./school-timetable-choose-e
 import { DailyScheduleCard } from "./school-timetable-form-components";
 
 /* -------------------------------------------------------------------------- */
-/* Types & Schema                              */
+/* Schema                                                                      */
 /* -------------------------------------------------------------------------- */
 
-// Omit system fields for the form
 export const SchoolTimetableFormSchema = SchoolTimetableSchema.omit({
   id: true,
   _id: true,
@@ -36,113 +35,89 @@ export const SchoolTimetableFormSchema = SchoolTimetableSchema.omit({
 
 export type SchoolTimetableFormType = z.infer<typeof SchoolTimetableFormSchema>;
 
-interface SchoolTimetableFormProps {
+interface Props {
   auth: AuthContext;
   timetable?: SchoolTimetable;
-  // If creating new, you likely pass these as props or hidden fields
-  defaultSchoolId?: string;
   defaultAcademicYearId?: string;
   choice?: SchoolTimetableEducationChoice | null;
 }
 
-const SchoolTimetableForm = ({
+/* -------------------------------------------------------------------------- */
+/* Component                                                                   */
+/* -------------------------------------------------------------------------- */
+
+export default function SchoolTimetableForm({
   auth,
   timetable,
   defaultAcademicYearId,
-}: SchoolTimetableFormProps) => {
+  choice,
+}: Props) {
+  const { showToast } = useToast();
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
 
-  // 1. Generate default week if creating new
   const generateDefaultWeek = () => {
-    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"] as Weekday[]; // Backend only generates Mon–Fri
-
-    return weekdays.map((day) => ({
+    const days: Weekday[] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+    return days.map((day) => ({
       day,
       is_school_day: true,
       school_start_time: "08:30",
       school_end_time: "17:00",
       study_start_time: "09:00",
       study_end_time: "17:00",
-
-      breaks: [
-        {
-          title: "Morning Break",
-          start_time: "10:20",
-          end_time: "10:40",
-          description: "Morning break",
-        },
-        {
-          title: "Afternoon Break",
-          start_time: "15:20",
-          end_time: "15:40",
-          description: "Afternoon break",
-        },
-      ],
-
+      breaks: [],
       lunch: {
         title: "Lunch",
         start_time: "13:00",
         end_time: "14:00",
-        description: "Time for lunch",
       },
-
       activities: [],
       special_type: "Normal",
     }));
   };
 
-  const generateNewDay = (day: Weekday) => ({
-    day,
-    is_school_day: true,
-    school_start_time: "08:30",
-    school_end_time: "17:00",
-    study_start_time: "09:00",
-    study_end_time: "17:00",
-    breaks: [],
-    lunch: {
-      title: "Lunch",
-      start_time: "13:00",
-      end_time: "14:00",
-      description: "",
-    },
-    activities: [],
-    special_type: "Normal",
-  });
-
   const form = useForm<SchoolTimetableFormType>({
     resolver: zodResolver(SchoolTimetableFormSchema),
     defaultValues: {
-      school_id: timetable?.school_id || auth?.school?.id,
+      school_id: timetable?.school_id || auth.school?.id,
       academic_year_id:
         timetable?.academic_year_id || defaultAcademicYearId || null,
-      // @ts-expect-error - Validating complex nested arrays in default values can be tricky with Zod inference
+
       default_weekly_schedule:
         timetable?.default_weekly_schedule || generateDefaultWeek(),
-      overrides: timetable?.overrides || [],
+
+      overrides:
+        timetable?.overrides ??
+        (choice
+          ? [
+              createOverrideFromDefault(
+                timetable?.default_weekly_schedule ?? generateDefaultWeek(),
+                choice,
+              ),
+            ]
+          : []),
+
       events: timetable?.events || [],
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const defaultDays = useFieldArray({
     control: form.control,
     name: "default_weekly_schedule",
   });
 
-  const removeDay = (index: number) => {
-    remove(index);
-  };
+  const overrides = useFieldArray({
+    control: form.control,
+    name: "overrides",
+  });
 
   const onSubmit = (values: SchoolTimetableFormType) => {
     setError(undefined);
     setSuccess(undefined);
-
-    console.log("Submitted values 😘😘:", values);
-
+    console.log("🫡🫡🫡😡😡", values);
     startTransition(async () => {
-      const req = await apiRequest<SchoolTimetableFormType, SchoolTimetable>(
+      const res = await apiRequest<SchoolTimetableFormType, SchoolTimetable>(
         timetable ? "put" : "post",
         timetable
           ? `/school/timetables/${timetable._id}`
@@ -153,11 +128,12 @@ const SchoolTimetableForm = ({
           schoolToken: auth.schoolToken,
         },
       );
-      if (!req.data) {
-        setError(`${req.message}`);
+
+      if (!res.data) {
+        setError(res.message);
         showToast({
           title: "Error",
-          description: `${req.message}`,
+          description: res.message,
           type: "error",
         });
       } else {
@@ -169,79 +145,77 @@ const SchoolTimetableForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* Hidden IDs */}
-        <div className="hidden">
-          <CommonFormField
-            control={form.control}
-            name="school_id"
-            label="School ID"
-          />
-          <CommonFormField
-            control={form.control}
-            name="academic_year_id"
-            label="Year ID"
-          />
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="h6">Weekly Schedule Configuration</h3>
-          <p className="text-sm text-muted-foreground">
-            Configure the standard schedule for each day of the week.
-          </p>
-
-          <Accordion
-            type="single"
-            collapsible
-            className="w-full"
-            defaultValue="Mon"
-          >
-            {fields.map((field, index) => (
+        {/* DEFAULT SCHEDULE */}
+        {!choice && (
+          <Accordion type="single" collapsible>
+            {defaultDays.fields.map((_, i) => (
               <DailyScheduleCard
-                key={field.id}
+                key={i}
                 control={form.control}
-                index={index}
-                dayName={field.day as string}
-                removeDay={removeDay}
+                index={i}
+                dayName={defaultDays.fields[i].day}
+                removeDay={() => defaultDays.remove(i)}
               />
             ))}
           </Accordion>
-          {/* Add Day Button — shown only if < 7 days */}
-          {fields.length < 7 && (
-            <div className="flex justify-end mt-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  const allDays: Weekday[] = [
-                    "Mon",
-                    "Tue",
-                    "Wed",
-                    "Thu",
-                    "Fri",
-                    "Sat",
-                    "Sun",
-                  ];
+        )}
 
-                  const used = fields.map((f) => f.day);
-                  const nextDay = allDays.find((d) => !used.includes(d));
-                  if (!nextDay) return;
+        {/* OVERRIDES */}
+        {choice && (
+          <div className="space-y-6">
+            <h3 className="h6">Overrides ({choice.name}) </h3>
 
-                  append(generateNewDay(nextDay));
-                }}
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Day
-              </Button>
-            </div>
-          )}
-        </div>
+            {overrides.fields.map((override, oi) => (
+              <div key={override.id} className="border p-4 rounded-lg">
+                <Accordion type="single" collapsible>
+                  {form
+                    .getValues(`overrides.${oi}.weekly_schedule`)
+                    .map((day, di) => (
+                      <DailyScheduleCard
+                        key={di}
+                        control={form.control}
+                        index={di}
+                        namePrefix={`overrides.${oi}.weekly_schedule`}
+                        dayName={day.day}
+                      />
+                    ))}
+                </Accordion>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="mt-4"
+                  onClick={() => overrides.remove(oi)}
+                >
+                  Remove Override
+                </Button>
+              </div>
+            ))}
+
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                overrides.append(
+                  createOverrideFromDefault(
+                    form.getValues("default_weekly_schedule"),
+                    choice,
+                  ),
+                )
+              }
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Override
+            </Button>
+          </div>
+        )}
 
         <FormError message={error} />
         <FormSuccess message={success} />
 
-        <DialogFooter className="px-6 pb-6 sm:justify-end">
+        <DialogFooter>
           <DialogClose asChild>
-            <Button type="button" variant="outline" library="daisy">
+            <Button type="button" variant="outline">
               Cancel
             </Button>
           </DialogClose>
@@ -259,6 +233,4 @@ const SchoolTimetableForm = ({
       </form>
     </Form>
   );
-};
-
-export default SchoolTimetableForm;
+}
