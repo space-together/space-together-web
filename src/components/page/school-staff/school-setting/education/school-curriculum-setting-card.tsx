@@ -1,7 +1,6 @@
 import { ItemGroupSkeleton } from "@/components/common/skeletons/item-skeleton";
 import SectorsListItemsByCurriculum from "@/components/page/admin/sector/sectors-list-items";
 import TradesListItemsByTrades from "@/components/page/admin/trades/trades-list-items";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -54,14 +53,6 @@ const SchoolCurriculumSettingCard = ({
         <div className="flex flex-col gap-3">
           <div className=" flex items-center justify-between">
             <h4 className="h4">Trades</h4>
-            <Button
-              variant="outline"
-              library="daisy"
-              className=" w-fit"
-              role="create"
-            >
-              Add Trade
-            </Button>
           </div>
           <div className=" flex flex-col gap-2">
             {school.education_level && (

@@ -42,12 +42,14 @@ const AddCurriculumInSchoolDialog = ({
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Add curriculum</AlertDialogTitle>
+          <AlertDialogTitle>Add education </AlertDialogTitle>
 
           <AlertDialogDescription>
-            Add new school curriculum
+            Add new school education
           </AlertDialogDescription>
         </AlertDialogHeader>
+
+        <div></div>
 
         <div className="mt-2">
           <FormError message={error} />
