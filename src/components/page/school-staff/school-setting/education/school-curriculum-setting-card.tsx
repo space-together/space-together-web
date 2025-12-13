@@ -1,4 +1,6 @@
-import MyImage from "@/components/common/myImage";
+import { ItemGroupSkeleton } from "@/components/common/skeletons/item-skeleton";
+import SectorsListItemsByCurriculum from "@/components/page/admin/sector/sectors-list-items";
+import TradesListItemsByTrades from "@/components/page/admin/trades/trades-list-items";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,22 +9,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from "@/components/ui/item";
+import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { Suspense } from "react";
 import AddCurriculumInSchoolDialog from "./add-curriculum-in-school-dailog";
 
 interface SchoolCurriculumSettingCardProps {
   auth: AuthContext;
+  school: School;
 }
 
 const SchoolCurriculumSettingCard = ({
   auth,
+  school,
 }: SchoolCurriculumSettingCardProps) => {
   return (
     <Card>
@@ -39,26 +38,16 @@ const SchoolCurriculumSettingCard = ({
             <AddCurriculumInSchoolDialog auth={auth} />
           </div>
           <div className=" flex flex-col gap-2">
-            {[...Array(3)].map((_, i) => {
-              return (
-                <Item key={i} variant="outline" className=" flex flex-row ">
-                  <ItemContent className="flex flex-row gap-2">
-                    <MyImage src="/icons/apple.png" className=" size-8" />
-                    <div>
-                      <ItemTitle>Education name</ItemTitle>
-                      <ItemDescription>
-                        A simple item with title and description.
-                      </ItemDescription>
-                    </div>
-                  </ItemContent>
-                  <ItemActions>
-                    <Button variant="outline" size="sm">
-                      Remove
-                    </Button>
-                  </ItemActions>
-                </Item>
-              );
-            })}
+            {school.curriculum && (
+              <Suspense
+                fallback={<ItemGroupSkeleton item={{ showHeader: false }} />}
+              >
+                <SectorsListItemsByCurriculum
+                  auth={auth}
+                  curriculum={school.curriculum}
+                />
+              </Suspense>
+            )}
           </div>
         </div>
 
@@ -75,25 +64,16 @@ const SchoolCurriculumSettingCard = ({
             </Button>
           </div>
           <div className=" flex flex-col gap-2">
-            {[...Array(3)].map((_, i) => {
-              return (
-                <Item key={i} variant="outline" className=" flex flex-row ">
-                  <ItemContent className="flex flex-row gap-2">
-                    <div>
-                      <ItemTitle>Education name</ItemTitle>
-                      <ItemDescription>
-                        A simple item with title and description.
-                      </ItemDescription>
-                    </div>
-                  </ItemContent>
-                  <ItemActions>
-                    <Button variant="outline" size="sm">
-                      Remove
-                    </Button>
-                  </ItemActions>
-                </Item>
-              );
-            })}
+            {school.education_level && (
+              <Suspense
+                fallback={<ItemGroupSkeleton item={{ showHeader: false }} />}
+              >
+                <TradesListItemsByTrades
+                  auth={auth}
+                  trades_ids={school.education_level}
+                />
+              </Suspense>
+            )}
           </div>
         </div>
       </CardContent>
