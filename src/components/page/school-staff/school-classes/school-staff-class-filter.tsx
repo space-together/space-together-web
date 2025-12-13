@@ -1,6 +1,7 @@
 "use client";
 
 import SearchBox from "@/components/common/form/search-box";
+import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
 import ClassDialog from "@/components/page/school-staff/dialog/class-dialog";
@@ -102,7 +103,7 @@ const SchoolStaffClassFilter = ({ auth }: Props) => {
   }, [classType, filter]);
 
   return (
-    <div>
+    <PageFilter>
       <div className="flex justify-between w-full items-center">
         <div className="flex gap-4 items-center">
           <ChangeDisplay />
@@ -151,7 +152,7 @@ const SchoolStaffClassFilter = ({ auth }: Props) => {
       </div>
 
       <Separator />
-    </div>
+    </PageFilter>
   );
 };
 

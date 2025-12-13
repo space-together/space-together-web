@@ -1,5 +1,6 @@
 "use client";
 import SearchBox from "@/components/common/form/search-box";
+import PageFilter from "@/components/common/pages/page-filter";
 import ChangeDisplay from "@/components/display/change-diplay";
 import { Separator } from "@/components/ui/separator";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
@@ -48,7 +49,7 @@ const SchoolStaffSubjectFilter = ({ auth }: SchoolStaffSubjectFilterProps) => {
     }
   }
   return (
-    <div>
+    <PageFilter>
       <div className="flex justify-between w-full items-center">
         <div className="flex gap-4 items-center">
           <ChangeDisplay />
@@ -64,7 +65,7 @@ const SchoolStaffSubjectFilter = ({ auth }: SchoolStaffSubjectFilterProps) => {
         <SubjectDialog auth={auth} />
       </div>
       <Separator />
-    </div>
+    </PageFilter>
   );
 };
 

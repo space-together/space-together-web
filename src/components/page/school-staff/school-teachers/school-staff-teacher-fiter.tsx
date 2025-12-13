@@ -1,6 +1,7 @@
 "use client";
 
 import SearchBox from "@/components/common/form/search-box";
+import PageFilter from "@/components/common/pages/page-filter";
 import ChangeDisplay from "@/components/display/change-diplay";
 import TeacherDialog from "@/components/page/teacher/dialog/teacher-dialog";
 import { Separator } from "@/components/ui/separator";
@@ -45,7 +46,7 @@ const SchoolStaffTeacherFilter = ({ auth }: Props) => {
   }
 
   return (
-    <div>
+    <PageFilter>
       <div className="flex justify-between w-full items-center">
         <div className="flex gap-4 items-center">
           <ChangeDisplay />
@@ -61,7 +62,7 @@ const SchoolStaffTeacherFilter = ({ auth }: Props) => {
         <TeacherDialog auth={auth} isSchool />
       </div>
       <Separator />
-    </div>
+    </PageFilter>
   );
 };
 
