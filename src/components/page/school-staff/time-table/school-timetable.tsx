@@ -139,13 +139,15 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
           />
         </div>
 
-        <Activity>
-          <SchoolTimetableChooseEducation
-            onChange={handleEducationChange}
-            auth={auth}
-            school={school}
-          />
-        </Activity>
+        {(school.curriculum || school.education_level) && (
+          <Activity>
+            <SchoolTimetableChooseEducation
+              onChange={handleEducationChange}
+              auth={auth}
+              school={school}
+            />
+          </Activity>
+        )}
       </CardHeader>
 
       <CardContent>

@@ -19,6 +19,7 @@ import { Plus } from "lucide-react";
 import { useState, useTransition } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
+import type { SchoolTimetableEducationChoice } from "./school-timetable-choose-education";
 import { DailyScheduleCard } from "./school-timetable-form-components";
 
 /* -------------------------------------------------------------------------- */
@@ -41,6 +42,7 @@ interface SchoolTimetableFormProps {
   // If creating new, you likely pass these as props or hidden fields
   defaultSchoolId?: string;
   defaultAcademicYearId?: string;
+  choice?: SchoolTimetableEducationChoice | null;
 }
 
 const SchoolTimetableForm = ({

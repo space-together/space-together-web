@@ -38,7 +38,7 @@ export interface SchoolTimetableEducationChoice {
   id: string;
   name: string;
   username: string;
-  type: TimetableOverrideType;
+  type: TimetableOverrideType; // Trade or Sector
 }
 
 /* ----------------------------- COMPONENT ----------------------------- */
