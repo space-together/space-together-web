@@ -1,35 +1,31 @@
 "use client";
 
-import MyLink, {
-    LoadingIndicator,
-    LoadingIndicatorText,
-} from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubItem,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import type { Locale } from "@/i18n";
 import { isActivePath } from "@/lib/helpers/link-is-active";
 import { cn } from "@/lib/utils";
-import { AuthContext } from "@/lib/utils/auth-context";
-import { useTheme } from "next-themes";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import AppNavLogo from "../navbar/app-nav-logo";
@@ -38,20 +34,28 @@ import type { sidebarGroupsProps } from "./app-side-content";
 interface AppSidebarProps {
   items: sidebarGroupsProps[];
   lang: Locale;
-  auth: AuthContext
+  auth: AuthContext;
 }
 
-export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
+export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
   const path = usePathname();
-  const { theme } = useTheme();
+  const { open } = useSidebar();
+
   return (
-    <Sidebar className="bg-base-100 gap-0 space-y-0" collapsible="icon">
-      <SidebarHeader>
-        <AppNavLogo  lang={lang} auth={auth}/>
+    <Sidebar
+      className={cn(
+        "bg-base-200 gap-0 space-y-0 pl-0 border-l-0 ",
+        open && "border-base-200",
+      )}
+      collapsible="icon"
+    >
+      <SidebarHeader className=" p-0 bg-base-200">
+        <AppNavLogo lang={lang} auth={auth} />
       </SidebarHeader>
-      <SidebarContent className="bg-base-100 text-on-primary dark:bg-surface-container dark:text-on-surface gap-0">
+      <SidebarContent className="bg-base-200 text-on-primary gap-0 pl-0 scrollbar  scrollbar-thumb-base-content/20 scrollbar-track-base-200 hover:scrollbar-thumb-base-content/20 appearance-none  no-scroll-arrows">
         {items.map((group) => (
           <SidebarGroup
+            className="pl-0"
             key={group.label ?? group.items[0]?.title ?? Math.random()}
           >
             {group.label && (
@@ -69,10 +73,15 @@ export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
                         <AccordionItem value={item.url ?? item.title}>
                           <AccordionTrigger
                             className={cn(
-                              buttonVariants({ variant: "ghost" }),
+                              buttonVariants({
+                                variant: "ghost",
+                                library: "daisy",
+                              }),
                               isActivePath(path, item.url, lang) &&
-                                `bg-base-300 ${theme === "dark" && "bg-white/10"}`,
-                              "hover:bg-base-200 w-full justify-between rounded-l-none",
+                                `bg-base-300`,
+                              "hover:bg-base-100 w-full justify-between",
+                              // "[&[data-state=open]>svg]:opacity-0 [&[data-state=open]>svg]:pointer-events-none",
+                              !open && "[&>svg]:hidden",
                             )}
                           >
                             <div className="flex items-center gap-2">
@@ -85,11 +94,12 @@ export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
                                   className="h-5 min-h-5 w-5 min-w-5"
                                 />
                               )}
-                              <span className="text-base-content">
-                                {item.title}
-                              </span>
+                              {open && (
+                                <span className="text-base-content">
+                                  {item.title}
+                                </span>
+                              )}
                             </div>
-                            <LoadingIndicator />
                           </AccordionTrigger>
 
                           <AccordionContent className=" pb-0">
@@ -101,10 +111,11 @@ export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
                                     buttonVariants({
                                       variant: "ghost",
                                       size: "sm",
+                                      library: "daisy",
                                     }),
                                     isActivePath(path, subItem.url, lang) &&
-                                      "bg-base-300",
-                                    "hover:bg-base-200 ml-0  justify-start rounded-l-none",
+                                      "bg-base-content/10",
+                                    " ml-0  justify-start hover:bg-base-100",
                                   )}
                                 >
                                   <MyLink
@@ -135,13 +146,16 @@ export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
                         </AccordionItem>
                       </Accordion>
                     ) : (
-                      <SidebarMenuButton asChild>
+                      <SidebarMenuButton asChild className=" ">
                         <MyLink
                           className={cn(
-                            buttonVariants({ variant: "ghost" }),
+                            buttonVariants({
+                              variant: "ghost",
+                              library: "daisy",
+                            }),
                             isActivePath(path, item.url, lang) &&
-                              `bg-base-300 ${theme === "dark" && "bg-white/10"}`,
-                            "hover:bg-base-200 justify-between rounded-l-none",
+                              `bg-base-content/10`,
+                            "hover:bg-base-100 justify-between rounded-l-none ",
                           )}
                           href={item.url || "/"}
                         >
@@ -170,9 +184,9 @@ export function AppSidebar({ items, lang , auth}: AppSidebarProps) {
         ))}
       </SidebarContent>
 
-      <SidebarFooter className="bg-base-100 text-on-primary dark:bg-surface-container dark:text-on-surface">
-        {/* add theme */}
-      </SidebarFooter>
+      {/*<SidebarFooter className="bg-base-200 text-on-primary dark:bg-surface-container dark:text-on-surface">*/}
+      {/* add theme */}
+      {/*</SidebarFooter>*/}
     </Sidebar>
   );
 }

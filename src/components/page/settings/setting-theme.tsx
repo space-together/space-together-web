@@ -7,7 +7,7 @@ const SettingTheme = () => {
   const themes = [
     "light",
     "cupcake",
-    "acid",
+    "lofi",
     "winter",
     "valentine",
     "dim",

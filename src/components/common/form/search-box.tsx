@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BsSearch } from "react-icons/bs";
 
 interface SearchBoxProps {
   /** Called when the user searches (presses Enter or clicks search button) */
@@ -31,7 +31,7 @@ const SearchBox = ({
   onSearch,
   placeholder = "Search...",
   debounceMs = 400,
-  live = false,
+  live = true,
   loading = false,
   className,
 }: SearchBoxProps) => {
@@ -66,27 +66,27 @@ const SearchBox = ({
   }, [query]);
 
   return (
-    <div className={cn("flex flex-row gap-0", className)}>
+    <div className={cn("relative flex flex-row", className)}>
+      <Button
+        onClick={handleSearch}
+        disabled={loading}
+        variant="ghost"
+        library="daisy"
+        size="sm"
+        role={loading ? "loading" : undefined}
+        className=" absolute top-0.5"
+      >
+        {!loading && <SearchIcon aria-hidden="true" size={16} />}
+        <span className="sr-only">search</span>
+      </Button>
       <Input
         type="text"
+        className=" pl-10"
         placeholder={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        className="rounded-r-none"
       />
-      <Button
-        onClick={handleSearch}
-        disabled={loading}
-        className="rounded-l-none h-9 border border-base-content/50"
-        variant="outline"
-        library="daisy"
-        size="sm"
-        role={loading ? "loading" : undefined}
-      >
-        {!loading && <BsSearch />}
-        <span className="sr-only">search</span>
-      </Button>
     </div>
   );
 };

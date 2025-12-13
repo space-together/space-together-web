@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@toolwind/corner-shape";
+@plugin "tailwind-scrollbar";
 
 @plugin "daisyui" {
   themes:
@@ -8,7 +9,7 @@
     dark --prefersdark,
     cupcake,
     cmyk,
-    acid,
+    lofi,
     winter,
     valentine,
     synthwave,
@@ -228,4 +229,8 @@
 
 .border-sm {
   @apply border-base-content/10 border
+}
+
+.no-scroll-arrows::-webkit-scrollbar-button {
+  display: none;
 }

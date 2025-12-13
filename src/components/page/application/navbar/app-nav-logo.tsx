@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import AppLogo from "./app-logo";
@@ -27,8 +27,8 @@ const AppNavLogo = ({ auth, lang, isNav }: AppNavLogoProps) => {
 
   // When NOT navbar (isNav=false) → depends on sidebar open/close
   return (
-    <div className={cn("flex items-center space-x-2", open && "ml-2")}>
-      <SidebarTrigger className="rounded-full" />
+    <div className={cn("flex items-center space-x-2", open && "ml-2 p-2")}>
+      <SidebarTrigger className={cn("rounded-full", !open && "")} />
 
       {/* logo only shows when sidebar is open */}
       {open && <AppLogo lang={lang} auth={auth} />}
