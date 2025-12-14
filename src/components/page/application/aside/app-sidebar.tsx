@@ -59,7 +59,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
             key={group.label ?? group.items[0]?.title ?? Math.random()}
           >
             {group.label && (
-              <SidebarGroupLabel className=" text-sm font-medium text-gray-500">
+              <SidebarGroupLabel className=" text-sm font-medium text-base-content/50">
                 {group.label}
               </SidebarGroupLabel>
             )}
@@ -146,7 +146,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                         </AccordionItem>
                       </Accordion>
                     ) : (
-                      <SidebarMenuButton asChild className=" ">
+                      <SidebarMenuButton asChild className=" pl-2">
                         <MyLink
                           className={cn(
                             buttonVariants({

@@ -3,7 +3,7 @@ import JoinSchoolPage from "@/components/page/join-school-page";
 import SchoolHomeBody from "@/components/page/school/school-home-body";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import { PaginatedStudents } from "@/lib/schema/relations-schema";
+import type { PaginatedStudents } from "@/lib/schema/relations-schema";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolStaff } from "@/lib/schema/school/school-staff-schema";
 import type { Student } from "@/lib/schema/school/student-schema";
@@ -75,19 +75,8 @@ const SchoolPage = async (props: props) => {
       ),
     ]);
 
-  if (
-    !schoolRes.data
-  ) {
-    return (
-      <ErrorPage
-        message={
-          schoolRes.message
-        }
-        error={
-          schoolRes.error
-        }
-      />
-    );
+  if (!schoolRes.data) {
+    return <ErrorPage message={schoolRes.message} error={schoolRes.error} />;
   }
 
   return (
@@ -99,7 +88,7 @@ const SchoolPage = async (props: props) => {
         { name: "school_staff", initialData: school_staff_res.data ?? [] },
       ]}
     >
-      <div className="space-y-4 px-4">
+      <div className="space-y-4">
         <SchoolHomeBody
           students={students_res.data?.students ?? []}
           teachers={teachers_res.data ?? []}

@@ -63,7 +63,7 @@ const JoinSchoolRequestPage = async (props: props) => {
         },
       ]}
     >
-      <div className="max-w-full space-y-2 p-4">
+      <div className="max-w-full space-y-2">
         <h2 className="title-page">School Join Request</h2>
         <SchoolJoinRequestsTable
           auth={auth}

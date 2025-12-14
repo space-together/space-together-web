@@ -44,7 +44,7 @@ export default async function ApplicationLayout(props: LayoutProps<"/[lang]">) {
       />
       <div className="bg-base-200 flex w-full flex-col">
         <AppLayoutClientBody lang={lang as Locale}>
-          <div className=" relative mb-4">
+          <div className=" relative">
             <AppBreadcrumb />
           </div>
           {children}

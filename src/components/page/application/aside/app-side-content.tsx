@@ -51,6 +51,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
     label: "Settings",
     items: [
       {
+        title: "Messages",
+        icon: "/icons/chat.png",
+        url: "/m",
+      },
+      {
         title: "Settings",
         icon: "/icons/cogwheel.png",
         url: "/setting",
@@ -87,7 +92,7 @@ export const studentSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Messages",
         icon: "/icons/chat.png",
-        url: "/messages",
+        url: "/m",
       },
       {
         title: "Settings",
@@ -120,7 +125,7 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Messages",
         icon: "/icons/chat.png",
-        url: "/messages",
+        url: "/m",
       },
       {
         title: "Settings",
@@ -239,7 +244,7 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
       {
         title: "Messages",
         icon: "/icons/chat.png",
-        url: "/messages",
+        url: "/m",
       },
       {
         title: "Settings",

@@ -35,13 +35,12 @@ export default function AppBreadcrumb() {
     `/${locale}/c`,
     `/${locale}/p`,
     `/${locale}/school`,
-    `/${locale}/messages`,
+    `/${locale}/m`,
   ];
 
-  if (hiddenPrefixes.some(prefix => pathname.startsWith(prefix))) {
+  if (hiddenPrefixes.some((prefix) => pathname.startsWith(prefix))) {
     return null;
   }
-
 
   // Build cumulative paths
   const crumbs = paths.map((seg, index) => {

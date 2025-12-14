@@ -22,7 +22,7 @@ const ConversationNavbar = ({ lang }: props) => {
       </div>
       <div>
         <MyLink
-          href={"/en/messages/student"}
+          href={"/en/m/student"}
           loading
           button={{
             variant: "ghost",
@@ -35,7 +35,7 @@ const ConversationNavbar = ({ lang }: props) => {
           Messages
         </MyLink>
         <MyLink
-          href={"/en/messages/student/files"}
+          href={"/en/m/student/files"}
           loading
           button={{
             variant: "ghost",

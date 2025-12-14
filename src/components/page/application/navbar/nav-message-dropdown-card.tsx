@@ -11,10 +11,7 @@ const NavMessageDropDownCard = () => {
         <AvatarFallback>PR</AvatarFallback>
       </Avatar>
       <div>
-        <Link
-          href={`/messages/students`}
-          className="flex items-center space-x-2"
-        >
+        <Link href={`/m/students`} className="flex items-center space-x-2">
           <h4>Bruno Irakoze</h4>
           <TextTooltip
             content={<span>Teacher</span>}

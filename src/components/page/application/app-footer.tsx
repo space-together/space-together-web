@@ -11,11 +11,11 @@ interface props {
 
 const AppFooter = ({ className, lang }: props) => {
   const pathname = usePathname();
-  if (pathname.startsWith(`/${lang}/messages`)) return null;
+  if (pathname.startsWith(`/${lang}/m`)) return null;
   return (
     <footer
       className={cn(
-        "footer mt-4 footer-center text-base-content p-4 border-t border-t-base-300 bg-base-200 bottom-0",
+        "footer mt-4 footer-center text-base-content p-4 border-t border-t-base-200 bg-base-200 bottom-0",
         className,
       )}
     >

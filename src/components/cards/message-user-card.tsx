@@ -19,7 +19,7 @@ const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
         messageCardType === "group" && "items-center",
       )}
     >
-      <MyLink href={`/${lang}/messages/student`}>
+      <MyLink href={`/${lang}/m/student`}>
         {messageCardType === "direct" ? (
           <MyAvatar size="sm" />
         ) : (
@@ -38,7 +38,7 @@ const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
       </MyLink>
       <div className="w-full gap-0 flex -space-y-0.5 flex-col">
         <Link
-          href={`/${lang}/messages/student`}
+          href={`/${lang}/m/student`}
           className="flex w-full items-center justify-between"
         >
           <h6 className="line-clamp-1 leading-6"> Bahabe Like</h6>
@@ -46,7 +46,7 @@ const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
             2min ago
           </span>
         </Link>
-        <MyLink href={`/${lang}/messages/student`}>
+        <MyLink href={`/${lang}/m/student`}>
           <p
             title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
             className="text-base-content/80 line-clamp-1 text-sm leading-4"

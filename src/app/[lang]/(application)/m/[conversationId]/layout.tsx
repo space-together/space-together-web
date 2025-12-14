@@ -2,7 +2,7 @@ import ConversationNavbar from "@/components/page/messages/conversation-navbar";
 import type { Locale } from "@/i18n";
 
 const ConversationLayout = async (
-  props: LayoutProps<"/[lang]/messages/[conversationId]">,
+  props: LayoutProps<"/[lang]/m/[conversationId]">,
 ) => {
   const params = await props.params;
   return (

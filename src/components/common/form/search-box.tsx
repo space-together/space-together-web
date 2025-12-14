@@ -40,12 +40,10 @@ const SearchBox = ({
     null,
   );
 
-  // 🧠 Trigger search manually
   const handleSearch = async () => {
     await onSearch(query.trim());
   };
 
-  // 🧩 Auto search as user types (optional)
   useEffect(() => {
     if (!live) return;
     if (typingTimeout) clearTimeout(typingTimeout);
@@ -72,6 +70,7 @@ const SearchBox = ({
         disabled={loading}
         variant="ghost"
         library="daisy"
+        shape={"circle"}
         size="sm"
         role={loading ? "loading" : undefined}
         className=" absolute top-0.5"

@@ -5,7 +5,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { Dot } from "lucide-react";
 import Link from "next/link";
 
@@ -43,7 +43,7 @@ export default function UserTooltip({ trigger, lang }: props) {
               <span>L5SOD</span>
             </div>
           </div>
-          <Link href={`/${lang}/messages/student`}>
+          <Link href={`/${lang}/m/student`}>
             <Button
               library="daisy"
               variant="info"

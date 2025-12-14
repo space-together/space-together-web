@@ -1,6 +1,6 @@
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
 import { schoolBackground, schoolImage } from "@/lib/context/images";
 import type { School } from "@/lib/schema/school/school-schema";
@@ -28,17 +28,19 @@ const SchoolHeader = ({ school, auth, lang, onThePage }: props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <MyLink loading href={`/${lang}/school`}>
-            <MyAvatar src={school?.logo} alt={school?.name} size="lg" type="square" classname="  object-contain" />
+            <MyAvatar
+              src={school?.logo}
+              alt={school?.name}
+              size="lg"
+              type="square"
+              classname="  object-contain"
+            />
           </MyLink>
           <div className="space-y-1">
-            <MyLink
-              className="underline-offset-0"
-              loading
-              href={`/${lang}/school`}
-            >
-              <h1 className="basic-title">
-                {school?.name ? school.name : "School name"}
-              </h1>
+            <MyLink className="underline-offset-0" href={`/${lang}/school`}>
+              <LoadingIndicatorText title={school?.name}>
+                <h1 className="basic-title">{school?.name}</h1>
+              </LoadingIndicatorText>
             </MyLink>
             <Link href={`/${lang}/school`} className="link-hover">
               @ {school?.username ? school.username : "school_username"}

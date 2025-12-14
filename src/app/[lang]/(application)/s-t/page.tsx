@@ -63,7 +63,7 @@ const SchoolStaffPage = async (props: props) => {
           },
         ]}
       >
-        <div className="grid h-full min-h-screen w-full place-content-center space-y-4 px-4 py-2">
+        <div className="grid h-full min-h-screen w-full place-content-center space-y-4 py-2">
           <div className="flex flex-col items-center justify-center space-y-2">
             <div className="flex h-full w-full flex-row-reverse items-center justify-center gap-2">
               <MyLink
@@ -122,7 +122,7 @@ const SchoolStaffPage = async (props: props) => {
     ]);
     if (!school.data) return <NotFoundPage />;
     return (
-      <div className="w-full space-y-4 p-4">
+      <div className="w-full space-y-4 ">
         <SchoolHeader auth={auth} school={school.data} onThePage lang={lang} />
         {/* <StaffDashboardDetails
           schoolStaffs={school.data.SchoolStaff}

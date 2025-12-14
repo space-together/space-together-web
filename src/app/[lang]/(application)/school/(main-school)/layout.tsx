@@ -36,7 +36,7 @@ const layout = async (props: props) => {
 
   return (
     <section>
-      <div className="space-y-4 px-4 pb-4">
+      <div className="space-y-4 pb-4">
         <SchoolHeader school={school.data} auth={auth} lang={lang as Locale} />
         <Separator />
         <SchoolHomeNav lang={lang as Locale} />

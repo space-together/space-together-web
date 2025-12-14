@@ -32,7 +32,7 @@ const SchoolHomeBody = ({
     <div className="w-full space-y-4">
       <div className="flex w-full justify-between space-x-4">
         <div className="w-3/5 space-y-4">
-          <SchoolHomePosts lang={lang} />
+          <SchoolHomePosts lang={lang} auth={auth} />
         </div>
         <div className="w-2/5 space-y-4">
           <SchoolHomeAbout school={school} lang={lang} />

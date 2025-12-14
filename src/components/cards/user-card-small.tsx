@@ -87,7 +87,7 @@ const UserCardSmall = ({
       <MyLink
         loading
         className="underline-offset-0"
-        href={`/${lang}/messages/${id}`}
+        href={`/${lang}/m/${id}`}
         type="button"
         button={{ library: "daisy", variant: "info", size: "sm" }}
       >

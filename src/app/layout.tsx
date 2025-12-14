@@ -84,7 +84,7 @@ interface LayoutProps {
 export default async function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning data-theme="cupcake">
-      <body>
+      <body className="">
         <ThemeProvider
           attribute={["data-theme", "class"]}
           defaultTheme="system"
