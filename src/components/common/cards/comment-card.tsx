@@ -1,19 +1,18 @@
-import { Card, CardHeader } from "@/components/ui/card";
 import { UserSmCard } from "@/components/cards/user-card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { FaEllipsisVertical, FaRegHeart } from "react-icons/fa6";
-import { Separator } from "@/components/ui/separator";
 import {
   Item,
   ItemContent,
   ItemFooter,
   ItemHeader,
 } from "@/components/ui/item";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { FaEllipsisVertical, FaRegHeart } from "react-icons/fa6";
 import LikesDialog from "../dialog/likes-dialog";
 
 interface CommentCardProps {

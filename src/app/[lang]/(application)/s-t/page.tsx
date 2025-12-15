@@ -1,5 +1,6 @@
 import MyImage from "@/components/common/myImage";
 import MyLink from "@/components/common/myLink";
+import { DataDetailsCardListSkeleton } from "@/components/common/skeletons/data-details-card-skeleton";
 import JoinSchoolRequestBody from "@/components/page/application/join-school-request/join-school-request-body";
 import NotFoundPage from "@/components/page/not-found";
 import PermissionPage from "@/components/page/permission-page";
@@ -14,6 +15,7 @@ import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const auth = await authContext();
@@ -103,7 +105,16 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
         />
         <div className=" flex gap-4 flex-row">
           <div className=" w-1/2">
-            <StaffDashboardPeople auth={auth} lang={lang as Locale} />
+            <Suspense
+              fallback={
+                <DataDetailsCardListSkeleton
+                  className=" grid-cols-2"
+                  count={4}
+                />
+              }
+            >
+              <StaffDashboardPeople auth={auth} lang={lang as Locale} />
+            </Suspense>
           </div>
           <div className=" w-1/2">school educations</div>
         </div>
