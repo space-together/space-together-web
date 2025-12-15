@@ -3,14 +3,12 @@ import MyLink from "@/components/common/myLink";
 import JoinSchoolRequestBody from "@/components/page/application/join-school-request/join-school-request-body";
 import NotFoundPage from "@/components/page/not-found";
 import PermissionPage from "@/components/page/permission-page";
+import SchoolStaffDashboard from "@/components/page/school-staff/dashboard/school-staff-dashboard-header";
 import JoinSchoolDialog from "@/components/page/school-staff/dialog/join-school-dialog";
-import SchoolHeader from "@/components/page/school/school-header";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import type { School } from "@/lib/schema/school/school-schema";
-import type { Student } from "@/lib/schema/school/student-schema";
-import type { TeacherWithRelations } from "@/lib/schema/school/teacher-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
@@ -92,56 +90,16 @@ const SchoolStaffPage = async (props: props) => {
 
   // page which shown base on user
   if (auth.school) {
-    const [school, classes, students, teachers] = await Promise.all([
+    const [school] = await Promise.all([
       apiRequest<void, School>("get", `/schools/${auth.school.id}`, undefined, {
         token: auth.token,
         schoolToken: auth.schoolToken,
       }),
-      apiRequest<void, TeacherWithRelations[]>(
-        "get",
-        `/school/teachers/with-details`,
-        undefined,
-        { token: auth.token, schoolToken: auth.schoolToken },
-      ),
-      apiRequest<void, Student>(
-        "get",
-        `/school/students/with-details`,
-        undefined,
-        { token: auth.token, schoolToken: auth.schoolToken },
-      ),
-      apiRequest<void, Student>(
-        "get",
-        `/school/students/with-details`,
-        undefined,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-          realtime: "students",
-        },
-      ),
     ]);
     if (!school.data) return <NotFoundPage />;
     return (
       <div className="w-full space-y-4 ">
-        <SchoolHeader auth={auth} school={school.data} onThePage lang={lang} />
-        {/* <StaffDashboardDetails
-          schoolStaffs={school.data.SchoolStaff}
-          teachers={school.data.Teacher}
-          students={school.data.Student}
-          lang={lang}
-        />
-        <div className="flex w-full space-x-4">
-          <SchoolEducationChart />
-          <SchoolStudentAndClassChart classes={classes.data || []} />
-        </div>
-        <div className="flex w-full space-x-4">
-          <JoinSchoolTableWrapper currentSchool={currentSchool} lang={lang} />
-          <ClassActivitiesTable lang={lang} />
-        </div>
-        <div className="flex w-full space-x-4">
-          <StudentDashboardTable students={students.data || []} lang={lang} />
-          <TeachersDashboardTable teachers={teachers.data || []} lang={lang} />
-        </div> */}
+        <SchoolStaffDashboard auth={auth} school={school.data} />
       </div>
     );
   }

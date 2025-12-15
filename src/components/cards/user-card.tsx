@@ -6,7 +6,7 @@ import MyLink, { LoadingIndicatorText } from "../common/myLink";
 
 export interface UserSmCardProps {
   name: string;
-  image?: string;
+  image?: string | null;
   link?: string;
   gender?: Gender | null;
   role?: string;

@@ -2,11 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
-import { type ChangeEvent, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 import { FormError } from "@/components/common/form-message";
-import MyImage from "@/components/common/myImage";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -19,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -29,7 +28,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { schoolMembers, schoolTypes } from "@/lib/const/common-details-const";
-import { schoolLogoImage } from "@/lib/context/images";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -65,37 +63,13 @@ export const BasicInformationForm = ({
     },
   });
 
-  const handleLogoChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    fieldChange: (value: string) => void,
-  ) => {
-    setError("");
-    e.preventDefault();
-    const fileReader = new FileReader();
-
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      if (!file.type.includes("image")) {
-        return setError("Please select an image file for the logo.");
-      }
-      const maxSizeInBytes = 2 * 1024 * 1024; // 2MB limit
-      if (file.size > maxSizeInBytes) {
-        return setError("Logo image size should be less than 2MB.");
-      }
-      fileReader.onload = async (event) => {
-        const imageDataUrl = event.target?.result?.toString() || "";
-        fieldChange(imageDataUrl);
-      };
-      fileReader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = (values: BasicInformationDto) => {
     setError(null);
     startTransition(async () => {
+      console.log("values 🤣🤣", values);
       const res = await apiRequest<BasicInformationDto, School>(
         "put",
-        `/school/${initialData.id || initialData._id}`,
+        `/schools/${initialData._id}`,
         values,
         {
           token: auth.token,
@@ -122,6 +96,7 @@ export const BasicInformationForm = ({
 
   return (
     <Card className="p-6">
+      {initialData._id}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
           <h3 className="mb-4 pb-2 text-xl font-semibold">Basic Information</h3>
@@ -254,63 +229,18 @@ export const BasicInformationForm = ({
                 )}
               />
             </div>
-            <FormField
+            <CommonFormField
               control={form.control}
               name="logo"
-              render={({ field }) => (
-                <FormItem className="mt-4 flex flex-col items-center gap-2">
-                  <FormLabel>School Logo</FormLabel>
-                  <div className="flex flex-col items-center gap-4">
-                    <Label htmlFor="logo-upload" className="cursor-pointer">
-                      <MyImage
-                        src={field.value || schoolLogoImage}
-                        className="border-base-300 size-48 border shadow-sm"
-                        classname="object-contain"
-                        alt="School Logo Preview"
-                      />
-                    </Label>
-                    <FormControl>
-                      <Input
-                        id="logo-upload"
-                        disabled={isPending}
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onClick={(e) => (e.currentTarget.value = "")}
-                        onChange={(e) => handleLogoChange(e, field.onChange)}
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        document.getElementById("logo-upload")?.click()
-                      }
-                      disabled={isPending}
-                    >
-                      {field.value ? "Change Logo" : "Upload Logo"}
-                    </Button>
-                    {field.value && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => field.onChange(undefined)}
-                        disabled={isPending}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        Remove
-                      </Button>
-                    )}
-                  </div>
-                  <FormDescription>
-                    Upload your school’s logo (max 2MB). Preferably square
-                    dimensions for best display.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="School Logo"
+              placeholder="Upload school logo"
+              required
+              disabled={isPending}
+              fieldType="avatar"
+              avatarProps={{
+                avatarProps: { classname: "object-contain", size: "3xl" },
+              }}
+              description="Upload a school logo"
             />
           </div>
           <FormError message={error} />
