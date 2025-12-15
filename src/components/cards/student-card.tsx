@@ -61,16 +61,6 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
             </Badge>
           </div>
 
-          {student?.user?.username && (
-            <MyLink
-              className=" link link-hover"
-              href={`/${lang}/p/${student?.user?.username}`}
-            >
-              <LoadingIndicatorText title={`User: ${student.user.name}`}>
-                @ {student.user.username}
-              </LoadingIndicatorText>
-            </MyLink>
-          )}
           {student?.registration_number && (
             <span
               title={`Student code: ${student.registration_number}`}
@@ -119,17 +109,15 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
               isSchool
             />
           )}
-          {student?.user?.username && (
-            <Button
-              library="daisy"
-              variant={"primary"}
-              className={cn("w-full", isSchoolStaff && "w-fit")}
-              role="page"
-              href={`/${lang}/p/${student.user.username}`}
-            >
-              {"Vue student"}
-            </Button>
-          )}
+          <Button
+            library="daisy"
+            variant={"primary"}
+            className={cn("w-full", isSchoolStaff && "w-fit")}
+            role="page"
+            href={`/${lang}/p/s/${student?._id}`}
+          >
+            {"Vue student"}
+          </Button>
         </CardFooter>
       </CardContent>
     </Card>

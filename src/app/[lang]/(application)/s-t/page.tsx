@@ -4,6 +4,7 @@ import JoinSchoolRequestBody from "@/components/page/application/join-school-req
 import NotFoundPage from "@/components/page/not-found";
 import PermissionPage from "@/components/page/permission-page";
 import SchoolStaffDashboard from "@/components/page/school-staff/dashboard/school-staff-dashboard-header";
+import StaffDashboardPeople from "@/components/page/school-staff/dashboard/staff-dashboard-people";
 import JoinSchoolDialog from "@/components/page/school-staff/dialog/join-school-dialog";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
@@ -13,10 +14,6 @@ import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-
-interface props {
-  params: Promise<{ lang: Locale }>;
-}
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const auth = await authContext();
@@ -30,7 +27,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-const SchoolStaffPage = async (props: props) => {
+const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
   const params = await props.params;
   const { lang } = params;
   const auth = await authContext();
@@ -99,7 +96,17 @@ const SchoolStaffPage = async (props: props) => {
     if (!school.data) return <NotFoundPage />;
     return (
       <div className="w-full space-y-4 ">
-        <SchoolStaffDashboard auth={auth} school={school.data} />
+        <SchoolStaffDashboard
+          lang={lang as Locale}
+          auth={auth}
+          school={school.data}
+        />
+        <div className=" flex gap-4 flex-row">
+          <div className=" w-1/2">
+            <StaffDashboardPeople auth={auth} lang={lang as Locale} />
+          </div>
+          <div className=" w-1/2">school educations</div>
+        </div>
       </div>
     );
   }

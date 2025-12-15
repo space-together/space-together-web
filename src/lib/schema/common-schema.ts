@@ -32,3 +32,9 @@ export interface Paginated<T> {
 export const HHMM = z
   .string()
   .regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Time must be HH:MM format");
+
+export const CountDocSchema = z.object({
+  count: z.number().int(),
+});
+
+export type CountDoc = z.infer<typeof CountDocSchema>;

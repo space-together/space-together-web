@@ -13,6 +13,7 @@ interface LoadingIndicatorTextProps {
   children: React.ReactNode;
   className?: string;
   title?: string;
+  element?: React.ElementType;
 }
 
 export const LoadingIndicatorText = ({

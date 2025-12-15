@@ -87,7 +87,6 @@ const StudentFilter = ({ auth }: Props) => {
             onSearch={(value) => setFilter(value)}
             placeholder="Search student..."
             loading={loading}
-            live={false}
           />
         </div>
 

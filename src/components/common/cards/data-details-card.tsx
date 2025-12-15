@@ -1,11 +1,13 @@
 import MyImage from "@/components/common/myImage";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import MyLink, { LoadingIndicatorText } from "../myLink";
 
 export interface dataDetailsCardProps {
   title: string;
   icon: string;
   size: string | number | undefined;
+  link?: string;
   items?: {
     key: string;
     value: string | number;
@@ -18,6 +20,7 @@ const DataDetailsCard = ({
   icon,
   size,
   items,
+  link,
   ClassNameItems,
 }: dataDetailsCardProps) => {
   return (
@@ -25,7 +28,17 @@ const DataDetailsCard = ({
       <CardHeader className="border-b-0">
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <CardTitle>{title}</CardTitle>
+            <CardTitle>
+              {link ? (
+                <MyLink href={link}>
+                  <LoadingIndicatorText title={title} element={"span"}>
+                    {title}
+                  </LoadingIndicatorText>
+                </MyLink>
+              ) : (
+                title
+              )}
+            </CardTitle>
             <span className="text-2xl font-semibold">{size}</span>
           </div>
           <MyImage
