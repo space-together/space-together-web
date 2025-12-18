@@ -110,9 +110,9 @@ const ClassUsernamePage = async (
         <div className=" w-2/3 flex flex-col gap-4">
           <AddAnnouncementDialog auth={auth} />
           <TeacherSubjectsCard />
-          <AnnouncementCard />
-          <NoteCard />
-          <ClassWorkCard />
+          <AnnouncementCard auth={auth} />
+          <NoteCard auth={auth} />
+          <ClassWorkCard auth={auth} />
         </div>
         <div className=" w-1/3">
           <SmallClassTimeTable />

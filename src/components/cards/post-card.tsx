@@ -1,13 +1,12 @@
 import MyImage from "@/components/common/myImage";
 import { Separator } from "@/components/ui/separator";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { studentsImage } from "@/lib/context/images";
 import { Dot } from "lucide-react";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import PostCardFooter from "./post-card-footer";
 import PostCardHeader from "./post-card-header";
 
 interface props {
@@ -114,7 +113,6 @@ const PostCard = ({ postRole, lang, role }: props) => {
           <Separator />
         </CardContent>
       )}
-      {postRole !== "ACTIVITY" && <PostCardFooter postRole={postRole} />}
     </Card>
   );
 };

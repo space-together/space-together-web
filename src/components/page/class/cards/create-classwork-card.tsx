@@ -1,7 +1,12 @@
 import ClassWorkForm from "@/components/page/class/form/classwork-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { AuthContext } from "@/lib/utils/auth-context";
 
-function CreateClassWorkCard() {
+interface CreateClassWorkCardProps {
+  auth: AuthContext;
+}
+
+function CreateClassWorkCard({ auth }: CreateClassWorkCardProps) {
   return (
     <Card>
       <CardHeader>

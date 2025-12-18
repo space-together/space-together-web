@@ -1,6 +1,7 @@
 import SubjectCard from "@/components/cards/subject-card";
 import SubjectDialog from "@/components/page/class/dialog/subject-dialog";
 import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import { authContext } from "@/lib/utils/auth-context";
 import { redirect } from "next/navigation";
 
@@ -25,7 +26,7 @@ const ClassSettingsSubjectsPage = async (
       <div className=" flex  flex-col">
         <div className=" flex flex-row justify-between w-full mt-2">
           <h3 className=" h3">12 Subjects</h3>
-          <SubjectDialog />
+          <SubjectDialog auth={auth} />
         </div>
         <Separator />
         <main className=" grid grid-cols-1 gap-4 lg:grid-cols-2">

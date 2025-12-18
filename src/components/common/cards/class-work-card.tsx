@@ -1,3 +1,4 @@
+import PostCardFooter from "@/components/cards/post-card-footer";
 import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -7,19 +8,24 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
 import MyLink from "../myLink";
 import FileCard from "./file-card";
-import PostCardFooter from "@/components/cards/post-card-footer";
 
 interface ClassWorkCardProps {
   classWork?: any;
   isCommentOpen?: boolean;
+  auth: AuthContext;
 }
 
-const ClassWorkCard = ({ classWork, isCommentOpen }: ClassWorkCardProps) => {
+const ClassWorkCard = ({
+  classWork,
+  auth,
+  isCommentOpen,
+}: ClassWorkCardProps) => {
   return (
     <Card>
       <CardHeader className="  flex flex-row items-center justify-between">
@@ -54,6 +60,7 @@ const ClassWorkCard = ({ classWork, isCommentOpen }: ClassWorkCardProps) => {
                   }}
                   name="Edit"
                   className="  justify-start"
+                  auth={auth}
                 />
                 <DeleteAnnouncementDialog />
               </div>
@@ -91,6 +98,7 @@ const ClassWorkCard = ({ classWork, isCommentOpen }: ClassWorkCardProps) => {
       <PostCardFooter
         enabledComponents={["comment", "save", "share", "read"]}
         isCommentOpen={isCommentOpen}
+        auth={auth}
       />
     </Card>
   );

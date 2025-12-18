@@ -170,23 +170,29 @@ const SubjectCard = ({
 
         {/* Template Subject → Prerequisite classes */}
         {templateSubject &&
-          templateSubject?.prerequisite_classes?.length > 0 && (
-            <div className=" flex flex-col gap-2">
-              <h5 className="font-medium">Main classes:</h5>
+          (() => {
+            const prereqClasses = templateSubject.prerequisite_classes ?? [];
 
-              {templateSubject?.prerequisite_classes.map((cls) => (
-                <MyLink
-                  key={cls._id || cls.username}
-                  href={`/${lang}/a/collections/main_classes/${cls.username}`}
-                  className=" w-fit"
-                >
-                  <LoadingIndicatorText className=" text-sm">
-                    {cls.name}
-                  </LoadingIndicatorText>
-                </MyLink>
-              ))}
-            </div>
-          )}
+            if (prereqClasses.length === 0) return null;
+
+            return (
+              <div className=" flex flex-col gap-2">
+                <h5 className="font-medium">Main classes:</h5>
+
+                {prereqClasses.map((cls) => (
+                  <MyLink
+                    key={cls._id || cls.username}
+                    href={`/${lang}/a/collections/main_classes/${cls.username}`}
+                    className=" w-fit"
+                  >
+                    <LoadingIndicatorText className=" text-sm">
+                      {cls.name}
+                    </LoadingIndicatorText>
+                  </MyLink>
+                ))}
+              </div>
+            );
+          })()}
       </CardContent>
 
       {/* ----------------------------------------------------

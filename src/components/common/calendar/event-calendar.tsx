@@ -384,7 +384,6 @@ export function EventCalendar({
               events={events}
               onEventCreate={handleEventCreate}
               onEventSelect={handleEventSelect}
-              isClassTimetable={isClassTimetable}
             />
           )}
           {view === "day" && (

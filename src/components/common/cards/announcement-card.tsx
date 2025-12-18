@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
@@ -20,9 +21,14 @@ interface AnnouncementCardProps {
     "_id" | "name" | "username" | "email" | "id" | "role"
   >;
   isCommentOpen?: boolean;
+  auth: AuthContext;
 }
 
-const AnnouncementCard = ({ sender, isCommentOpen }: AnnouncementCardProps) => {
+const AnnouncementCard = ({
+  sender,
+  auth,
+  isCommentOpen,
+}: AnnouncementCardProps) => {
   return (
     <Card
       className={cn(
@@ -52,6 +58,7 @@ const AnnouncementCard = ({ sender, isCommentOpen }: AnnouncementCardProps) => {
                 </Button>
                 <Separator />
                 <AddAnnouncementDialog
+                  auth={auth}
                   button={{
                     library: "daisy",
                     size: "sm",
@@ -80,6 +87,7 @@ const AnnouncementCard = ({ sender, isCommentOpen }: AnnouncementCardProps) => {
       <PostCardFooter
         enabledComponents={["comment", "like", "save", "share"]}
         isCommentOpen={isCommentOpen}
+        auth={auth}
       />
     </Card>
   );

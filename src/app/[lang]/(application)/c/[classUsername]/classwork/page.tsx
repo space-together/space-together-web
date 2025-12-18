@@ -27,7 +27,7 @@ const ClassWorkPage = async (props: ClassWorkPageProps) => {
       <Separator />
       <main className=" grid grid-cols-2 gap-2">
         {[...Array(9)].map((_, i) => {
-          return <ClassWorkCard key={i} />;
+          return <ClassWorkCard key={i} auth={auth} />;
         })}
       </main>
     </div>

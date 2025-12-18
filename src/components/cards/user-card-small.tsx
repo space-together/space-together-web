@@ -16,7 +16,7 @@ interface props {
   id?: string;
   role?: "s-t" | "s" | "t" | "a";
   image?: string;
-  userId: string;
+  userId?: string;
 }
 
 const UserCardSmall = ({

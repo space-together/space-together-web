@@ -5,7 +5,6 @@
 export { CalendarDndProvider, useCalendarDnd } from "./calendar-dnd-context";
 // Constants and utility exports
 export { ClassTimetable } from "./class-timetable";
-export { ClassTimetableWeekView } from "./class-timetable-week-view.tsx";
 export * from "./constants";
 export { DayView } from "./day-view";
 export { DraggableEvent } from "./draggable-event";

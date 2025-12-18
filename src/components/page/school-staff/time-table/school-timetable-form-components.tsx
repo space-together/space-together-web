@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Plus, Trash2 } from "lucide-react";
-import { type Control, useFieldArray, useWatch } from "react-hook-form";
+import { useFieldArray, useWatch, type Control } from "react-hook-form";
 import type { SchoolTimetableFormType } from "./school-timetable-form";
 
 export const TimeBlockList = ({
@@ -18,15 +18,20 @@ export const TimeBlockList = ({
   dayIndex,
   name,
   label,
+  namePrefix,
 }: {
   control: Control<SchoolTimetableFormType>;
   dayIndex: number;
   name: "breaks" | "activities";
   label: string;
+  namePrefix?: string;
 }) => {
+  const basePath = namePrefix
+    ? `${namePrefix}.${dayIndex}.${name}`
+    : `default_weekly_schedule.${dayIndex}.${name}`;
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `default_weekly_schedule.${dayIndex}.${name}`,
+    name: basePath as any,
   });
 
   return (
@@ -57,7 +62,7 @@ export const TimeBlockList = ({
               <div className="md:col-span-4">
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${dayIndex}.${name}.${index}.title`}
+                  name={`${basePath}.${index}.title` as any}
                   label="Title"
                   placeholder="e.g. Recess"
                   required
@@ -66,7 +71,7 @@ export const TimeBlockList = ({
               <div className="md:col-span-3">
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${dayIndex}.${name}.${index}.start_time`}
+                  name={`${basePath}.${index}.start_time` as any}
                   label="Start"
                   fieldType="time"
                   required
@@ -75,7 +80,7 @@ export const TimeBlockList = ({
               <div className="md:col-span-3">
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${dayIndex}.${name}.${index}.end_time`}
+                  name={`${basePath}.${index}.end_time` as any}
                   label="End"
                   fieldType="time"
                   required
@@ -111,16 +116,21 @@ export const DailyScheduleCard = ({
   index,
   dayName,
   removeDay,
+  namePrefix,
 }: {
   control: Control<SchoolTimetableFormType>;
   index: number;
   dayName: string;
-  removeDay: (index: number) => void;
+  removeDay?: (index: number) => void;
+  namePrefix?: string;
 }) => {
+  const basePath = namePrefix
+    ? `${namePrefix}.${index}`
+    : `default_weekly_schedule.${index}`;
   // Watch is_school_day to conditional render fields
   const isSchoolDay = useWatch({
     control,
-    name: `default_weekly_schedule.${index}.is_school_day`,
+    name: `${basePath}.is_school_day` as any,
   });
 
   return (
@@ -140,18 +150,20 @@ export const DailyScheduleCard = ({
         </div>
 
         {/* Remove Day Button */}
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="text-error"
-          onClick={(e) => {
-            e.stopPropagation(); // prevent accordion toggle
-            removeDay(index);
-          }}
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
+        {removeDay && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="text-error"
+            onClick={(e) => {
+              e.stopPropagation(); // prevent accordion toggle
+              removeDay(index);
+            }}
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        )}
       </AccordionTrigger>
 
       <AccordionContent className="pt-2 pb-4 flex flex-col gap-6">
@@ -160,14 +172,14 @@ export const DailyScheduleCard = ({
           <div className="w-full md:w-1/4 pt-2">
             <CommonFormField
               control={control}
-              name={`default_weekly_schedule.${index}.is_school_day`}
+              name={`${basePath}.is_school_day` as any}
               label="Is School Day?"
               fieldType="checkbox"
             />
             <div className="mt-4">
               <CommonFormField
                 control={control}
-                name={`default_weekly_schedule.${index}.special_type`}
+                name={`${basePath}.special_type` as any}
                 label="Day Type"
                 fieldType="select"
                 selectOptions={[
@@ -184,27 +196,27 @@ export const DailyScheduleCard = ({
             <div className="w-full md:w-3/4 grid grid-cols-2 gap-4 border-l pl-0 md:pl-6">
               <CommonFormField
                 control={control}
-                name={`default_weekly_schedule.${index}.school_start_time`}
+                name={`${basePath}.school_start_time` as any}
                 label="School Starts"
                 fieldType="time"
                 required
               />
               <CommonFormField
                 control={control}
-                name={`default_weekly_schedule.${index}.school_end_time`}
+                name={`${basePath}.school_end_time` as any}
                 label="School Ends"
                 fieldType="time"
                 required
               />
               <CommonFormField
                 control={control}
-                name={`default_weekly_schedule.${index}.study_start_time`}
+                name={`${basePath}.study_start_time` as any}
                 label="Study Starts"
                 fieldType="time"
               />
               <CommonFormField
                 control={control}
-                name={`default_weekly_schedule.${index}.study_end_time`}
+                name={`${basePath}.study_end_time` as any}
                 label="Study Ends"
                 fieldType="time"
               />
@@ -223,19 +235,19 @@ export const DailyScheduleCard = ({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${index}.lunch.title`}
+                  name={`${basePath}.lunch.title` as any}
                   label="Title"
                   placeholder="Lunch"
                 />
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${index}.lunch.start_time`}
+                  name={`${basePath}.lunch.start_time` as any}
                   label="Start"
                   fieldType="time"
                 />
                 <CommonFormField
                   control={control}
-                  name={`default_weekly_schedule.${index}.lunch.end_time`}
+                  name={`${basePath}.lunch.end_time` as any}
                   label="End"
                   fieldType="time"
                 />
@@ -250,12 +262,14 @@ export const DailyScheduleCard = ({
               dayIndex={index}
               name="breaks"
               label="Breaks"
+              namePrefix={namePrefix}
             />
             <TimeBlockList
               control={control}
               dayIndex={index}
               name="activities"
               label="Activities"
+              namePrefix={namePrefix}
             />
           </>
         )}

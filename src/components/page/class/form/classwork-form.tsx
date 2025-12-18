@@ -14,8 +14,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { ClassworkTypes } from "@/lib/const/common-details-const";
 import {
-  type ClassWork,
   ClassWorkSchema,
+  type ClassWork,
 } from "@/lib/schema/class/classwork-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
@@ -53,10 +53,11 @@ function ClassWorkForm() {
   const fakeUses = () => {
     return [...Array(10).keys()].map((i) => ({
       id: `user${i}`,
+      _id: `user${i}`,
       name: `User ${i}`,
       image: "/images/3.jpg",
       email: `user${i}@example.com`,
-      gender: "MALE",
+      gender: "MALE" as const,
       username: `user${i}`,
     }));
   };

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
@@ -18,9 +19,10 @@ import FileCard from "./file-card";
 interface NoteCardProps {
   note?: any;
   isCommentOpen?: boolean;
+  auth: AuthContext;
 }
 
-const NoteCard = ({ note, isCommentOpen }: NoteCardProps) => {
+const NoteCard = ({ note, auth, isCommentOpen }: NoteCardProps) => {
   return (
     <Card
       className={cn(
@@ -59,6 +61,7 @@ const NoteCard = ({ note, isCommentOpen }: NoteCardProps) => {
                   }}
                   name="Edit"
                   className="  justify-start"
+                  auth={auth}
                 />
                 <DeleteAnnouncementDialog />
               </div>
@@ -93,6 +96,7 @@ const NoteCard = ({ note, isCommentOpen }: NoteCardProps) => {
       <PostCardFooter
         enabledComponents={["comment", "like", "save", "share", "read"]}
         isCommentOpen={isCommentOpen}
+        auth={auth}
       />
     </Card>
   );

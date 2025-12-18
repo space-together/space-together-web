@@ -1,4 +1,6 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -8,15 +10,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  type Announcement,
   announcementSchema,
+  type Announcement,
 } from "@/lib/schema/announcement-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import MessageInput from "./message-input/message-input";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
 import SignToInput from "./sign-to-input";
 
 const AnnouncementForm = () => {
@@ -38,10 +38,11 @@ const AnnouncementForm = () => {
   const fakeUses = () => {
     return [...Array(10).keys()].map((i) => ({
       id: `user${i}`,
+      _id: `user${i}`,
       name: `User ${i}`,
       image: "/images/3.jpg",
       email: `user${i}@example.com`,
-      gender: "MALE",
+      gender: "MALE" as const,
       username: `user${i}`,
     }));
   };

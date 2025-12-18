@@ -36,7 +36,7 @@ const AuthLayoutContent = ({
           {children}
         </div>
         <div className="mt-8">
-          <AppFooter className="bg-base-200 border-0" />
+          <AppFooter className="bg-base-200 border-0" lang={lang} />
         </div>
       </div>
     </div>

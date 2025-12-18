@@ -1,16 +1,13 @@
 import ClassNavbar from "@/components/page/class/class-navbar";
 import type { Locale } from "@/i18n";
 
-interface props {
-  children: React.ReactNode;
-  params: Promise<{ lang: Locale; classUsername: string }>;
-}
-const ClassLayout = async ({ children, params }: props) => {
-  const { lang, classUsername } = await params;
+
+const ClassLayout = async (props: LayoutProps<"/[lang]/c/[classUsername]">) => {
+  const { lang, classUsername } = await props.params;
   return (
     <div className="">
-      <ClassNavbar classUsername={classUsername} lang={lang} />
-      {children}
+      <ClassNavbar classUsername={classUsername} lang={lang as Locale} />
+      {props.children}
     </div>
   );
 };

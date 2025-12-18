@@ -39,7 +39,7 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
   }
 
   if (auth.user.role !== "SCHOOLSTAFF") {
-    return <PermissionPage lang={lang} role={auth.user.role} />;
+    return <PermissionPage lang={lang as Locale} role={auth.user.role} />;
   }
 
   const join_school_requestsRes = await apiRequest<
@@ -77,7 +77,7 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
           </div>
           {join_school_requestsRes.data && (
             <JoinSchoolRequestBody
-              lang={lang}
+              lang={lang as Locale}
               auth={auth}
               requests={join_school_requestsRes.data}
             />

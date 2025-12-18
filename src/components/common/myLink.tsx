@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import Link, { useLinkStatus } from "next/link";
-import type { UrlObject } from "node:url";
 import {
   Button,
   type DaisyButtonProps,
@@ -48,7 +47,7 @@ export function LoadingIndicator({ className }: props) {
 }
 
 type Props = {
-  href: UrlObject | __next_route_internal_types__.RouteImpl<string>;
+  href: string;
   type?: "button" | "link";
   className?: string;
   children: React.ReactNode;

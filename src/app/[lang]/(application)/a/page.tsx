@@ -18,20 +18,17 @@ export const metadata: Metadata = {
   title: "Admin dashboard | space-together",
   description: "Admin dashboard management application space-together",
 };
-interface props {
-  params: Promise<{ lang: Locale }>;
-}
 
-const AdminDashboardPage = async (props: props) => {
+const AdminDashboardPage = async (props: PageProps<"/[lang]/a">) => {
   const params = await props.params;
   const { lang } = params;
   const auth = await authContext();
   if (!auth?.user) redirect("/auth/login");
   if (auth.user.role !== "ADMIN") {
-    return <PermissionPage lang={lang} role={auth.user.role} />;
+    return <PermissionPage lang={lang as Locale} role={auth.user.role} />;
   }
   const [usersResponse, dbStatusRes] = await Promise.all([
-    apiRequest<void, PaginatedUsers[]>("get", "/users?limit=5", undefined, {
+    apiRequest<void, PaginatedUsers>("get", "/users?limit=5", undefined, {
       token: auth.token,
     }),
     apiRequest<void, DatabaseStats>("get", "/database/status", undefined, {
@@ -62,7 +59,7 @@ const AdminDashboardPage = async (props: props) => {
           </div>
           <div className="lg:w-1/2">
             <UsersCollectionTableDashboard
-              initialUsers={usersResponse?.data?.users}
+              initialUsers={usersResponse?.data?.users ?? []}
               realtimeEnabled
             />
           </div>

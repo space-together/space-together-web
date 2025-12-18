@@ -101,12 +101,12 @@ const SchoolTimetableViewer = ({ timetable, auth, school }: Props) => {
 
   const sortedWeekly = useMemo(() => {
     return [...weeklyScheduleToDisplay].sort((a, b) => {
-      const startA = toMinutes(a.start);
-      const startB = toMinutes(b.start);
+      const startA = toMinutes(a.school_start_time);
+      const startB = toMinutes(b.school_start_time);
 
       if (startA !== startB) return startA - startB;
 
-      return toMinutes(a.end) - toMinutes(b.end);
+      return toMinutes(a.school_end_time) - toMinutes(b.school_end_time);
     });
   }, [weeklyScheduleToDisplay]);
 

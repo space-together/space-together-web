@@ -3,13 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash2 } from "lucide-react";
 import {
-  type Dispatch,
-  type SetStateAction,
   useEffect,
   useState,
   useTransition,
+  type Dispatch,
+  type SetStateAction,
 } from "react";
-import { type Resolver, useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, type Resolver } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -30,15 +30,15 @@ import SelectWithSearch from "@/components/common/select-with-search";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import MultipleSelector from "@/components/ui/multiselect";
 import {
-  subjectAuths,
   SubjectCategories,
   SubjectLevels,
+  subjectAuths,
 } from "@/lib/const/subject-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
 import {
-  type CreateMainSubjectFormData,
   CreateMainSubjectFormSchema,
+  type CreateMainSubjectFormData,
 } from "@/lib/schema/admin/subjects/main-subject-schema/create-main-subject-schema";
 import type { MainSubject } from "@/lib/schema/admin/subjects/main-subject-schema/main-subject-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -506,8 +506,9 @@ const CreateMainSubjectForm = ({
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-medium">Contributors</h3>
             <Button
+              library="daisy"
               type="button"
-              variant=" "
+              variant="primary"
               size="sm"
               onClick={() => append({ name: "", role: "Reviewer" })}
               disabled={isPending}

@@ -20,8 +20,8 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 
 import {
   addOrUpdateClassTeacherSchema,
-  type addOrUpdateClassTeacher,
   type Class,
+  type addOrUpdateClassTeacher,
 } from "@/lib/schema/class/class-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import type {
@@ -55,7 +55,14 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
     const fetchOptions = async () => {
       try {
         const teacherRequest = teacher
-          ? Promise.resolve({ data: { teachers: [] } as Teacher[] })
+          ? Promise.resolve({
+              data: {
+                teachers: [],
+                total: 0,
+                total_pages: 0,
+                current_page: 1,
+              } as PaginatedTeacher,
+            })
           : apiRequest<void, PaginatedTeacher>(
               "get",
               "/school/teachers",

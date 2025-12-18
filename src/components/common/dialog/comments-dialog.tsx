@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { MdOutlineInsertComment } from "react-icons/md";
 import AnnouncementCard from "../cards/announcement-card";
 import CommentCard from "../cards/comment-card";
@@ -16,12 +17,14 @@ interface CommentsDialogProps {
   comments?: any;
   dialogTriggerType?: "icon" | "button";
   name?: string;
+  auth: AuthContext;
   // post ?:
 }
 
 const CommentsDialog = ({
   comments,
   dialogTriggerType,
+  auth,
 }: CommentsDialogProps) => {
   return (
     <Dialog>
@@ -44,7 +47,7 @@ const CommentsDialog = ({
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-5xl flex flex-row gap-4">
         <div className=" w-1/2">
-          <AnnouncementCard isCommentOpen />
+          <AnnouncementCard isCommentOpen auth={auth} />
         </div>
         <div className="w-1/2">
           <DialogHeader>

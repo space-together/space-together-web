@@ -9,6 +9,7 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import type { Weekday } from "@/lib/schema/common-details-schema";
 import {
   SchoolTimetableSchema,
+  type DailySchoolSchedule,
   type SchoolTimetable,
 } from "@/lib/schema/school/school-timetable-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -57,7 +58,7 @@ export default function SchoolTimetableForm({
   const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
   // TODO: make get education and add they timetable
-  const generateDefaultWeek = () => {
+  const generateDefaultWeek = (): DailySchoolSchedule[] => {
     const days: Weekday[] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
     return days.map((day) => ({
       day,
@@ -73,7 +74,7 @@ export default function SchoolTimetableForm({
         end_time: "14:00",
       },
       activities: [],
-      special_type: "Normal",
+      special_type: "Normal" as const,
     }));
   };
 
@@ -168,17 +169,17 @@ export default function SchoolTimetableForm({
             {overrides.fields.map((override, oi) => (
               <div key={override.id} className="border p-4 rounded-lg">
                 <Accordion type="single" collapsible>
-                  {form
-                    .getValues(`overrides.${oi}.weekly_schedule`)
-                    .map((day, di) => (
-                      <DailyScheduleCard
-                        key={di}
-                        control={form.control}
-                        index={di}
-                        namePrefix={`overrides.${oi}.weekly_schedule`}
-                        dayName={day.day}
-                      />
-                    ))}
+                  {(
+                    form.getValues(`overrides.${oi}.weekly_schedule`) ?? []
+                  ).map((day, di) => (
+                    <DailyScheduleCard
+                      key={di}
+                      control={form.control}
+                      index={di}
+                      namePrefix={`overrides.${oi}.weekly_schedule`}
+                      dayName={day.day}
+                    />
+                  ))}
                 </Accordion>
 
                 <Button

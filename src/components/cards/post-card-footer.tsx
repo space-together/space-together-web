@@ -1,22 +1,25 @@
-import { Button } from "../ui/button";
-import { FaRegHeart, FaReadme, FaRegBookmark } from "react-icons/fa6";
-import { CardFooter } from "../ui/card";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
 import { IoMdShare } from "react-icons/io";
-import MyAvatar from "../common/image/my-avatar";
 import CommentsDialog from "../common/dialog/comments-dialog";
 import LikesDialog from "../common/dialog/likes-dialog";
 import ReadDialog from "../common/dialog/read-dialog";
+import MyAvatar from "../common/image/my-avatar";
+import { Button } from "../ui/button";
+import { CardFooter } from "../ui/card";
 
 type components = "like" | "comment" | "save" | "share" | "read";
 
 interface propsPostCardFooter {
   enabledComponents?: components[];
   isCommentOpen?: boolean;
+  auth: AuthContext;
 }
 
 const PostCardFooter = ({
   enabledComponents = ["save", "comment", "like", "share", "read"],
   isCommentOpen,
+  auth,
 }: propsPostCardFooter) => {
   return (
     <CardFooter className=" flex flex-col justify-start items-start [.border-t]:pt-2">
@@ -30,7 +33,7 @@ const PostCardFooter = ({
           )}
           {enabledComponents.includes("read") && <ReadDialog />}
           {!isCommentOpen && enabledComponents.includes("comment") && (
-            <CommentsDialog dialogTriggerType="icon" />
+            <CommentsDialog dialogTriggerType="icon" auth={auth} />
           )}
         </div>
         <div className=" flex items-center">
@@ -62,7 +65,7 @@ const PostCardFooter = ({
           </div>
         )}
         {!isCommentOpen && enabledComponents.includes("comment") && (
-          <CommentsDialog dialogTriggerType="button" />
+          <CommentsDialog dialogTriggerType="button" auth={auth} />
         )}
       </div>
     </CardFooter>
