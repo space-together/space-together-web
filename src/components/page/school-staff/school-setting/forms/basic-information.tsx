@@ -10,21 +10,21 @@ import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { schoolMembers, schoolTypes } from "@/lib/const/common-details-const";
@@ -33,8 +33,8 @@ import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import {
-  type BasicInformationDto,
-  BasicInformationSchema,
+    type BasicInformationDto,
+    BasicInformationSchema,
 } from "./schema/basic-information";
 
 interface BasicInformationFormProps {
@@ -66,7 +66,6 @@ export const BasicInformationForm = ({
   const handleSubmit = (values: BasicInformationDto) => {
     setError(null);
     startTransition(async () => {
-      console.log("values 🤣🤣", values);
       const res = await apiRequest<BasicInformationDto, School>(
         "put",
         `/schools/${initialData._id}`,
@@ -96,7 +95,6 @@ export const BasicInformationForm = ({
 
   return (
     <Card className="p-6">
-      {initialData._id}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
           <h3 className="mb-4 pb-2 text-xl font-semibold">Basic Information</h3>
