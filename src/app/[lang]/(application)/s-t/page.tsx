@@ -42,15 +42,14 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
     return <PermissionPage lang={lang as Locale} role={auth.user.role} />;
   }
 
-  const join_school_requestsRes = await apiRequest<
-    void,
-    JoinSchoolRequestWithRelations[]
-  >("get", `/join-school-requests/my/pending`, undefined, {
-    token: auth.token,
-    schoolToken: auth.schoolToken,
-  });
-
   if (!auth.school) {
+    const join_school_requestsRes = await apiRequest<
+      void,
+      JoinSchoolRequestWithRelations[]
+    >("get", `/join-school-requests/my/pending`, undefined, {
+      token: auth.token,
+      schoolToken: auth.schoolToken,
+    });
     return (
       <RealtimeProvider<JoinSchoolRequestWithRelations>
         channels={[

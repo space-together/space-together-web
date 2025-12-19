@@ -30,6 +30,8 @@ import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
 import CheckboxInput, { type CheckboxInputProps } from "./checkbox-input";
+import type { OTPInputProps } from "./OTP-input";
+import OTPInput from "./OTP-input";
 import type { TimeInputProps } from "./time-input";
 import TimeInput from "./time-input";
 
@@ -56,7 +58,8 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "date"
     | "searchSelect"
     | "time"
-    | "multipleSelect";
+    | "multipleSelect"
+    | "otp-input";
   selectOptions?: { value: string; label: string; disable?: boolean }[];
   items?: Record<string, CommonDetails>;
   // components props
@@ -66,6 +69,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
   dateProps?: DateStringInputProps;
   timeProps?: TimeInputProps;
   checkboxInputProps?: CheckboxInputProps;
+  otpInputProps?: OTPInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -88,6 +92,7 @@ export function CommonFormField<T extends FieldValues>({
   timeProps,
   items,
   checkboxInputProps,
+  otpInputProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -230,6 +235,16 @@ export function CommonFormField<T extends FieldValues>({
                   }))}
                   placeholder={placeholder}
                   disabled={disabled}
+                />
+              );
+            case "otp-input":
+              return (
+                <OTPInput
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  className={className}
+                  {...otpInputProps}
                 />
               );
 

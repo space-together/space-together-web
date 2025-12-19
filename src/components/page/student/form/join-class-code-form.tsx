@@ -1,22 +1,9 @@
 "use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { Form } from "@/components/ui/form";
 import type { JoinSchoolDto } from "@/lib/schema/school/join-school-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
@@ -48,72 +35,23 @@ export default function JoinClassCodeForm() {
     // });
   }
 
-  // Determine the expected length of the school code.
-  // This should ideally come from JoinSchoolSchema or a constant.
-  // For demonstration, assuming a 6-digit code.
-  const codeLength = 5;
-
-  // Helper to render the correct number of InputOTPSlot components
-  const renderOTPSlots = () => {
-    const slots = [];
-    for (let i = 0; i < codeLength; i++) {
-      slots.push(<InputOTPSlot key={i} index={i} />);
-      // Optional: Add a separator between pairs of digits for better readability
-      // if (i < codeLength - 1 && (i + 1) % 2 === 0) {
-      //   slots.push(<InputOTPSeparator key={`sep-${i}`} />);
-      // }
-    }
-    return slots;
-  };
-
   return (
     <Form {...form}>
-      <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <CommonFormField
           control={form.control}
+          fieldType="input"
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="bg-base-200">Username</FormLabel>
-              <FormControl>
-                <Input
-                  disabled={isPending}
-                  placeholder="school username"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                Enter school user name you want to join
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Class username"
+          placeholder="class_username"
         />
 
-        <FormField
+        <CommonFormField
           control={form.control}
+          fieldType="otp-input"
           name="code"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="bg-base-200">class code</FormLabel>
-              <FormControl>
-                <InputOTP
-                  disabled={isPending}
-                  maxLength={codeLength}
-                  {...field}
-                  onChange={(value) => field.onChange(value)}
-                  // The value prop expects the full string value
-                  value={field.value}
-                >
-                  <InputOTPGroup>{renderOTPSlots()}</InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              <FormDescription>
-                Enter the code provided by your Class.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Class code"
+          otpInputProps={{ maxLength: 6 }}
         />
         <div className="mt-2">
           <FormError message={error} />

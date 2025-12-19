@@ -6,7 +6,7 @@ export const JoinSchoolSchema = z.object({
     .min(1, {
       message: "School username is required",
     })
-    .min(50),
+    .max(50),
   code: z
     .string()
     .min(5, {

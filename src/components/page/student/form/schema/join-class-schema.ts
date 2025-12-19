@@ -4,9 +4,9 @@ export const JoinClassSchema = z.object({
   username: z
     .string()
     .min(1, {
-      message: "School username is required",
+      message: "Class username is required",
     })
-    .min(50),
+    .max(50),
   code: z
     .string()
     .min(5, {
