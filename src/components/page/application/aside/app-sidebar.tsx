@@ -43,19 +43,16 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
 
   return (
     <Sidebar
-      className={cn(
-        "bg-base-200 gap-0 space-y-0 pl-0 border-l-0 ",
-        open && "border-base-200",
-      )}
+      className={cn("bg-base-200 gap-0 space-y-0", open && "border-base-200")}
       collapsible="icon"
     >
-      <SidebarHeader className=" p-0 bg-base-200">
+      <SidebarHeader className="  bg-base-200">
         <AppNavLogo lang={lang} auth={auth} />
       </SidebarHeader>
       <SidebarContent className="bg-base-200 text-on-primary gap-0 pl-0 scrollbar  scrollbar-thumb-base-content/20 scrollbar-track-base-200 hover:scrollbar-thumb-base-content/20 appearance-none  no-scroll-arrows">
         {items.map((group) => (
           <SidebarGroup
-            className="pl-0"
+            className=""
             key={group.label ?? group.items[0]?.title ?? Math.random()}
           >
             {group.label && (
@@ -114,7 +111,17 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                                       library: "daisy",
                                     }),
                                     isActivePath(path, subItem.url, lang) &&
-                                      "bg-base-content/10",
+                                      `bg-base-content/10
+                                      before:content-['']
+                                      before:absolute
+                                      before:left-0
+                                      before:top-1/2
+                                      before:-translate-y-1/2
+
+                                      before:h-1/2
+                                      before:w-0.5
+
+                                      before:bg-info`,
                                     " ml-0  justify-start hover:bg-base-100",
                                   )}
                                 >
@@ -154,8 +161,18 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                               library: "daisy",
                             }),
                             isActivePath(path, item.url, lang) &&
-                              `bg-base-content/10`,
-                            "hover:bg-base-100 justify-between rounded-l-none ",
+                              `bg-base-content/10
+                              before:content-['']
+                              before:absolute
+                              before:left-0
+                              before:top-1/2
+                              before:-translate-y-1/2
+
+                              before:h-1/2
+                              before:w-0.5
+
+                              before:bg-info`,
+                            "hover:bg-base-100 justify-between ",
                           )}
                           href={item.url || "/"}
                         >

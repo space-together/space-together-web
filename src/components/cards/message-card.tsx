@@ -19,7 +19,7 @@ const MessageCard = ({ sender, messageCardType = "group" }: props) => {
         <div
           className={cn(
             `chat-bubble before:top-0 before:bottom-auto before:mask-[1px_0px] `,
-            "max-w-full bg-base-100 flex flex-col gap-2 var(--radius-field) rounded-(--radius-field)",
+            "max-w-full bg-base-100 flex flex-col gap-2  rounded-(--radius-field)",
           )}
         >
           <div className=" flex justify-between w-full items-center">

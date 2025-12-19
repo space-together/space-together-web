@@ -11,8 +11,8 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import {
-  type createSchoolAcademic,
   createSchoolAcademicSchema,
+  type createSchoolAcademic,
 } from "@/lib/schema/school/create-school-schema";
 import type {
   School,

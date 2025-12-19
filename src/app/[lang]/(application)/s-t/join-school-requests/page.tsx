@@ -3,6 +3,7 @@ import SchoolJoinRequestsTable from "@/components/page/school-staff/table/school
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Class } from "@/lib/schema/class/class-schema";
+import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -43,7 +44,7 @@ const JoinSchoolRequestPage = async (props: props) => {
         realtime: "join_school_request",
       },
     ),
-    apiRequest<void, Class[]>("get", `/school/classes`, undefined, {
+    apiRequest<void, PaginatedClasses>("get", `/school/classes`, undefined, {
       token: auth.token,
       schoolToken: auth.schoolToken,
       realtime: "class",
@@ -59,17 +60,18 @@ const JoinSchoolRequestPage = async (props: props) => {
         },
         {
           name: "class",
-          initialData: classes_res.data ?? [],
+          initialData: classes_res.data?.classes ?? [],
         },
       ]}
     >
       <div className="max-w-full space-y-2">
         <h2 className="title-page">School Join Request</h2>
+        {/*{classes_res.data}*/}
         <SchoolJoinRequestsTable
           auth={auth}
           requests={requests_res.data ?? []}
           lang={lang}
-          classes={classes_res.data ?? []}
+          classes={classes_res.data?.classes ?? []}
           realtimeEnabled
         />
       </div>

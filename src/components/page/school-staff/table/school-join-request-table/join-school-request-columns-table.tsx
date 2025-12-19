@@ -1,7 +1,7 @@
 "use client";
 
-import MyImage from "@/components/common/myImage";
-import MyLink from "@/components/common/myLink";
+import MyAvatar from "@/components/common/image/my-avatar";
+import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
-import { studentImage, teacherImage } from "@/lib/context/images";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { JoinStatus } from "@/lib/schema/common-details-schema";
 import type {
@@ -72,35 +71,25 @@ export const JoinSchoolRequestColumns = (
         return (
           <div className="flex items-center gap-3">
             {item.invited_user ? (
-              <MyLink loading href={`/${lang}/p/${item.invited_user.username}`}>
-                <MyImage
-                  className="size-12 rounded-full"
-                  role="AVATAR"
-                  src={
-                    item.invited_user.image ||
-                    (item.invited_user.role === "STUDENT"
-                      ? studentImage
-                      : teacherImage)
-                  }
-                  alt={item.invited_user.name ?? undefined}
+              <MyLink href={`/${lang}/p/${item.invited_user.username}`}>
+                <MyAvatar
+                  alt={item.invited_user.name || item.email}
+                  src={item.invited_user.image}
+                  size="sm"
                 />
               </MyLink>
             ) : (
-              <MyImage
-                className="size-12 rounded-full"
-                role="AVATAR"
-                src={item.role === "Student" ? studentImage : teacherImage}
-                alt={item.email ?? undefined}
-              />
+              <MyAvatar alt={item.email} size="sm" />
             )}
             <div className="flex flex-col">
               {item.invited_user && (
                 <MyLink
-                  loading
                   href={`/${lang}/p/${item.invited_user.username}`}
                   className="font-medium"
                 >
-                  <span>{item.invited_user.name}</span>
+                  <LoadingIndicatorText>
+                    {item.invited_user.name}
+                  </LoadingIndicatorText>
                 </MyLink>
               )}
               <span className="text-muted-foreground mt-0.5 text-xs">

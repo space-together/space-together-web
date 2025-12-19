@@ -2,7 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import NextImage from "next/image";
-import { RefObject, SyntheticEvent, useEffect, useState } from "react";
+import {
+  type RefObject,
+  type SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 
 interface MyImageProps {
   src: string;

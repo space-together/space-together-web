@@ -32,6 +32,7 @@ import {
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { Class } from "@/lib/schema/class/class-schema";
+import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import {
   type CreateJoinSchoolRequest,
   CreateJoinSchoolRequestSchema,
@@ -46,14 +47,39 @@ import { ClassCombobox, type ComboboxItem } from "./class-combobox";
 
 interface Props {
   auth: AuthContext;
-  classes: Class[];
 }
 
-export default function SendJoinSchoolRequestForm({ auth, classes }: Props) {
+export default function SendJoinSchoolRequestForm({ auth }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
+
+  const [classes, setClasses] = useState<Class[]>([]);
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiRequest<void, PaginatedClasses>(
+          "get",
+          `/school/classes`,
+          undefined,
+          {
+            token: auth.token,
+            schoolToken: auth.schoolToken,
+            realtime: "class",
+          },
+        );
+
+        if (response.data?.classes) {
+          setClasses(response.data.classes);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchClasses();
+  }, []);
 
   /* ----------------------------- Form Setup ----------------------------- */
   const form = useForm<CreateJoinSchoolRequest>({

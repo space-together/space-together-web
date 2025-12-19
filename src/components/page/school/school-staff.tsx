@@ -1,4 +1,3 @@
-import UserCardSmall from "@/components/cards/user-card-small";
 import type { Locale } from "@/i18n";
 import type { SchoolStaff as SchoolStaffModel } from "@/lib/schema/school/school-staff-schema";
 
@@ -15,7 +14,8 @@ const SchoolStaff = ({ lang, schoolStaff }: props) => {
         <h3 className="font-semibold capitalize">school staff </h3>
       </div>
       <div className="ml-2 space-y-2">
-        {schoolStaff.map((item) => {
+        {}
+        {/*{schoolStaff.map((item) => {
           return (
             <UserCardSmall
               id={item.id || item._id}
@@ -28,7 +28,7 @@ const SchoolStaff = ({ lang, schoolStaff }: props) => {
               image={item.image}
             />
           );
-        })}
+        })}*/}
       </div>
     </div>
   );

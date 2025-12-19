@@ -3,6 +3,7 @@ import JoinSchoolPage from "@/components/page/join-school-page";
 import SchoolHomeBody from "@/components/page/school/school-home-body";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { PaginatedStudents } from "@/lib/schema/relations-schema";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolStaff } from "@/lib/schema/school/school-staff-schema";
@@ -46,7 +47,7 @@ const SchoolPage = async (props: props) => {
         token: auth.token,
         schoolToken: auth.schoolToken,
       }),
-      apiRequest<void, SchoolStaff[]>(
+      apiRequest<void, Paginated<SchoolStaff>>(
         "get",
         "/school/staff?limit=5",
         undefined,
@@ -85,14 +86,17 @@ const SchoolPage = async (props: props) => {
         { name: "school", initialData: [schoolRes.data] },
         { name: "student", initialData: students_res?.data?.students ?? [] },
         { name: "teacher", initialData: teachers_res.data ?? [] },
-        { name: "school_staff", initialData: school_staff_res.data ?? [] },
+        {
+          name: "school_staff",
+          initialData: school_staff_res.data?.data ?? [],
+        },
       ]}
     >
       <div className="space-y-4">
         <SchoolHomeBody
           students={students_res.data?.students ?? []}
           teachers={teachers_res.data ?? []}
-          school_staffs={school_staff_res.data ?? []}
+          school_staffs={school_staff_res.data?.data ?? []}
           auth={auth}
           school={schoolRes.data}
           lang={lang}
