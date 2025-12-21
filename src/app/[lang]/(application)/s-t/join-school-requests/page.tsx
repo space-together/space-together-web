@@ -1,4 +1,6 @@
+import AppPageHeader from "@/components/page/common/app-page-header";
 import JoinSchoolPage from "@/components/page/join-school-page";
+import JoinSchoolRequestByCode from "@/components/page/school-staff/join-school-request/join-school-request-by-code";
 import SchoolJoinRequestsTable from "@/components/page/school-staff/table/school-join-request-table/join-school-request-table";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
@@ -65,7 +67,9 @@ const JoinSchoolRequestPage = async (props: props) => {
       ]}
     >
       <div className="max-w-full space-y-2">
-        <h2 className="title-page">School Join Request</h2>
+        <AppPageHeader title="School Join Request" />
+
+        <JoinSchoolRequestByCode auth={auth}/>
         {/*{classes_res.data}*/}
         <SchoolJoinRequestsTable
           auth={auth}

@@ -1,6 +1,5 @@
-import MyImage from "../../../common/myImage";
-import InputJoinSchoolFormForm from "../../../table/school/join-school-form";
-import { Button } from "../../../ui/button";
+import MyImage from "@/components/common/myImage";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../ui/dialog";
+} from "@/components/ui/dialog";
+import InputJoinSchoolFormForm from "../../../table/school/join-school-form";
 
 const JoinSchoolDialog = () => {
   return (

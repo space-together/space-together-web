@@ -11,20 +11,19 @@ import type { Class } from "@/lib/schema/class/class-schema";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
-  type ColumnFiltersState,
-  getCoreRowModel,
-  getFacetedMinMaxValues,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
+    type ColumnFiltersState,
+    getCoreRowModel,
+    getFacetedMinMaxValues,
+    getFacetedRowModel,
+    getFacetedUniqueValues,
+    getFilteredRowModel,
+    getSortedRowModel,
+    type SortingState,
+    useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import SendJoinSchoolRequest from "../../dialog/send-join-school-request-dialog";
 
-// --- Prisma Schema related types ---
 
 interface SchoolJoinRequestsTableProps {
   requests: JoinSchoolRequestWithRelations[];

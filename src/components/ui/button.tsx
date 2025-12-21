@@ -9,6 +9,7 @@ import Link from "next/link";
 import * as React from "react";
 import { BsTrash3 } from "react-icons/bs";
 import { CiCircleCheck, CiCirclePlus } from "react-icons/ci";
+import { IoCopyOutline } from "react-icons/io5";
 import { LuFileText } from "react-icons/lu";
 import { MdArrowOutward, MdBlockFlipped } from "react-icons/md";
 import { TbMessageCircle } from "react-icons/tb";
@@ -91,6 +92,7 @@ export type ShadcnButtonProps =
     target?: string;
     role?:
       | "create"
+      | "copy"
       | "loading"
       | "update"
       | "block"
@@ -109,6 +111,7 @@ export type DaisyButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   target?: string;
   role?:
     | "create"
+    | "copy"
     | "loading"
     | "update"
     | "block"
@@ -181,6 +184,8 @@ const Button = React.forwardRef<
         return <TbMessageCircle className={iconSizeClass} />;
       case "file":
         return <LuFileText className={iconSizeClass} />;
+      case "copy":
+        return <IoCopyOutline className={iconSizeClass} />;
       default:
         return null;
     }

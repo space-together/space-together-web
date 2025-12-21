@@ -169,7 +169,7 @@ const AuthSetting = ({ lang, diction }: props) => {
               "capitalize",
               buttonVariants({
                 size: "sm",
-                variant: "secondary",
+                variant: "primary",
                 library: "daisy",
               }),
             )}

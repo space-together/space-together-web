@@ -8,6 +8,8 @@ import {
   type JoinSchoolDto,
   JoinSchoolSchema,
 } from "@/lib/schema/school/join-school-schema";
+import { authContext, setAuthCookies } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -19,7 +21,6 @@ export default function InputJoinSchoolFormForm() {
   const form = useForm<JoinSchoolDto>({
     resolver: zodResolver(JoinSchoolSchema),
     defaultValues: {
-      username: "",
       code: "",
     },
   });
@@ -27,14 +28,25 @@ export default function InputJoinSchoolFormForm() {
   function onSubmit(data: JoinSchoolDto) {
     setError(null);
     setSuccess(null);
-    // startTransition(async () => {
-    //   const join = ;
-    //   if (join.data) {
-    //     setSuccess(`To join school successfully! ☺️`);
-    //   } else {
-    //     setError(join.message);
-    //   }
-    // });
+    startTransition(async () => {
+      const auth = await authContext();
+      if (!auth) return;
+
+      const req = await apiRequest<JoinSchoolDto, { school_token: string }>(
+        "post",
+        "/join-school-requests/join-by-code",
+        data,
+        {
+          token: auth.token,
+        },
+      );
+      if (req.data) {
+        setAuthCookies(auth.token, auth.user.id, req.data.school_token);
+        setSuccess(`To join school successfully! ☺️`);
+      } else {
+        setError(req.message);
+      }
+    });
   }
 
   return (
@@ -42,18 +54,10 @@ export default function InputJoinSchoolFormForm() {
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <CommonFormField
           control={form.control}
-          fieldType="input"
-          name="username"
-          label="School username"
-          placeholder="school_username"
-        />
-
-        <CommonFormField
-          control={form.control}
           fieldType="otp-input"
           name="code"
           label="School code"
-          otpInputProps={{ maxLength: 6 }}
+          otpInputProps={{ maxLength: 5 }}
         />
 
         <div className="mt-2">
@@ -62,6 +66,7 @@ export default function InputJoinSchoolFormForm() {
         </div>
         <Button
           disabled={isPending}
+          role={isPending ? "loading" : undefined}
           className="w-full"
           variant={"info"}
           library="daisy"

@@ -1,12 +1,6 @@
 import * as z from "zod";
 
 export const JoinSchoolSchema = z.object({
-  username: z
-    .string()
-    .min(1, {
-      message: "School username is required",
-    })
-    .max(50),
   code: z
     .string()
     .min(5, {
