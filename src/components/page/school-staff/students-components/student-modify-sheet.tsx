@@ -22,7 +22,6 @@ import { splitCamelCase } from "@/lib/helpers/format-text";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { formatReadableDate, formatTimeAgo } from "@/lib/utils/format-date";
 
 interface Props {
   student?: StudentWithRelations;
@@ -162,22 +161,6 @@ const StudentModifySheet = ({
               )}
             </div>
 
-            {/* DATES */}
-            <div className="flex gap-4 justify-end px-4 text-xs opacity-80">
-              <div className="flex gap-2">
-                <span>Created:</span>
-                <span className="font-medium">
-                  {formatReadableDate(student?.created_at)}
-                </span>
-              </div>
-              <div className="flex gap-2">
-                <span>Updated:</span>
-                <span className="font-medium">
-                  {formatTimeAgo(student?.updated_at)}
-                </span>
-              </div>
-            </div>
-
             {/* ACTION BUTTONS */}
             <div className="mt-4 px-4 flex justify-start flex-wrap gap-2">
               <StudentDialog
@@ -203,25 +186,29 @@ const StudentModifySheet = ({
         <Separator />
         {/* ===== MAIN CONTENT ===== */}
         <main className="px-4">
-          <div className=" space-y-4 flex-col flex">
-            <Label>Class</Label>
-            {student?.class && (
-              <MyLink
-                className=" underline-offset-0"
-                href={`/${lang}/c/${student.class.username}`}
-              >
-                <div className=" flex gap-2 items-center">
-                  <MyAvatar
-                    src={student?.class?.image}
-                    isSubClass
-                    alt={student.class.name}
-                    size={"sm"}
-                  />
-                  <span title={student.class.name}>{student.class.name}</span>
-                </div>
-              </MyLink>
-            )}
-          </div>
+          {student.class ? (
+            <div className=" space-y-4 flex-col flex">
+              <Label>Class</Label>
+              {student?.class && (
+                <MyLink
+                  className=" underline-offset-0"
+                  href={`/${lang}/c/${student.class.username}`}
+                >
+                  <div className=" flex gap-2 items-center">
+                    <MyAvatar
+                      src={student?.class?.image}
+                      isSubClass
+                      alt={student.class.name}
+                      size={"sm"}
+                    />
+                    <span title={student.class.name}>{student.class.name}</span>
+                  </div>
+                </MyLink>
+              )}
+            </div>
+          ) : (
+            <div>no class student have</div>
+          )}
         </main>
 
         <SheetFooter className="h-screen">

@@ -143,7 +143,7 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                   data-tip={cls?.name ?? "Level 5 Software"}
                   className="line-clamp-1 leading-5 font-medium tooltip text-lg"
                 >
-                  {cls?.name ?? "Level 5 Software development"}
+                  {cls?.name}
                 </span>
                 {cls?.username && (
                   <MyLink
@@ -151,7 +151,10 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                     href={`/${lang}/c/${cls?.username}`}
                     roleTag="c"
                   >
-                    <span title={cls?.username} className="">
+                    <span
+                      title={`Class username:  ${cls?.username}`}
+                      className=""
+                    >
                       {getInitialsUsername(cls?.name, true)}
                     </span>
                   </MyLink>
@@ -170,6 +173,7 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                   size="xs"
                   src={parentClass.image}
                   alt={parentClass.name}
+                  type="square"
                 />
                 <span title={parentClass.name} className=" line-clamp-1">
                   {parentClass.name}
@@ -257,7 +261,7 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                 <Label className=" ">Sub classes</Label>
                 <CreateManySubClasses auth={auth} cls={cls} />
               </div>
-              <div className=" space-y-2">
+              <div className=" space-y-2 flex flex-col">
                 {subClasses.map((sub) => {
                   return (
                     <MyLink
@@ -271,7 +275,12 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
                       className=" flex justify-between"
                     >
                       <div className=" flex gap-2 items-center">
-                        <MyAvatar src={sub.image} alt={"class"} size="sm" />{" "}
+                        <MyAvatar
+                          src={sub.image}
+                          alt={"class"}
+                          size="sm"
+                          type="square"
+                        />
                         <span title={sub.name} className="line-clamp-1">
                           {sub.name}
                         </span>
@@ -357,10 +366,7 @@ const ClassModifySheet = ({ cls, auth, isTable, lang, isSchool }: props) => {
             </ul>
           </div>
         </main>
-        <SheetFooter className="h-screen">
-          <div className="h-screen" />
-          app footer
-        </SheetFooter>
+        <SheetFooter className="h-screen">app footer</SheetFooter>
       </SheetContent>
     </Sheet>
   );
