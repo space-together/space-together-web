@@ -1,5 +1,5 @@
 import TemplateSubjectCard from "@/components/page/admin/tempate-subject/template-subject-card";
-import ErrorPage from "@/components/page/error-page";
+import NotFoundPage from "@/components/page/not-found";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { TemplateSubjectWithOther } from "@/lib/schema/subject/template-schema";
@@ -28,7 +28,7 @@ const TemplateSubjectPage = async (
   );
 
   if (!subjectRes.data)
-    return <ErrorPage message={subjectRes.message} error={subjectRes.error} />;
+    return <NotFoundPage message={"Template subject not found"} />;
 
   return (
     <RealtimeProvider<TemplateSubjectWithOther>
