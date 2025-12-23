@@ -159,15 +159,9 @@ const LoginForm = ({ lang, oauthError }: props) => {
           disabled={isPending}
           size={"lg"}
           className="w-full"
+          role={isPending ? "loading" : undefined}
         >
-          Login{" "}
-          {isPending && (
-            <div
-              role="status"
-              aria-label="Loading"
-              className={"loading loading-spinner"}
-            />
-          )}
+          Login
         </Button>
       </form>
     </Form>

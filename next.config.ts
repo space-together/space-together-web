@@ -35,6 +35,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "example.com",
       },
+      {
+        protocol: "https",
+        hostname: "www.reb.gov.rw",
+      },
     ],
     qualities: [75, 80, 85],
   },

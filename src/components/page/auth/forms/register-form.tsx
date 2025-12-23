@@ -322,15 +322,9 @@ const RegisterForm = ({ lang }: props) => {
           variant={"info"}
           size={"lg"}
           className="w-full"
+          role={isPending ? "loading" : undefined}
         >
-          Create an account{" "}
-          {isPending && (
-            <div
-              role="status"
-              aria-label="Loading"
-              className={"loading loading-spinner"}
-            />
-          )}
+          Create an account
         </Button>
       </form>
     </Form>
