@@ -1,177 +1,104 @@
 "use client";
-import MyImage from "@/components/common/myImage";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
+import type { School } from "@/lib/schema/school/school-schema";
 import { cn } from "@/lib/utils";
-import { Dot } from "lucide-react";
 import Link from "next/link";
-import { TextTooltip } from "../common/text-tooltip";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { BsBook, BsGlobe, BsPeople } from "react-icons/bs";
+import { FaBookmark, FaSchool } from "react-icons/fa6";
+import MyAvatar from "../common/image/my-avatar";
+import MyLink, { LoadingIndicatorText } from "../common/myLink";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
 interface props {
   lang: Locale;
-  isClassTeacher?: boolean;
-  isStudent?: boolean;
-  className?: string;
+  school: School;
 }
 
-const SchoolCard = ({ lang, className, isClassTeacher, isStudent }: props) => {
+const SchoolCard = ({ lang, school }: props) => {
   return (
-    <div className={cn("basic-card relative h-auto p-0", className)}>
-      <div className="relative">
-        <MyImage
-          src="https://i.pinimg.com/1200x/26/cd/e6/26cde6253b9328baeaa9bf10a7b32427.jpg"
-          className="h-28 w-full"
-          classname=" card rounded-b-none"
-        />
-        <Separator />
-        <div className="absolute -bottom-20 flex items-center gap-2 p-4">
-          <Avatar className="size-20">
-            <AvatarImage src="https://img.freepik.com/free-vector/gradient-school-logo-design-template_23-2149664347.jpg?t=st=1745211049~exp=1745214649~hmac=678f349c9bd7752892a1fe4e786b2071c68c9c58a033d1066eab7663a99d4f4c&w=826" />
-            <AvatarFallback>LOGO</AvatarFallback>
-          </Avatar>
-          <div className="mt-6 space-x-1">
-            <Link href={`/${lang}/school/student`}>
-              <h3 className="font-medium">SOS Technical School</h3>
-            </Link>
-            <Link className="text-sm" href={`/${lang}/school/student`}>
-              @ SOSTS
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="mt-16 p-4">
-        {/* class members */}
-        <div className="flex gap-2">
-          <div className="text-myGray flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className="text-sm">
-              1k32 <TextTooltip content={"Student"} trigger={<span>ST</span>} />
-            </span>
-          </div>
-          <div className="text-myGray flex items-center -space-x-2">
-            <Dot size={32} />
-            <span className="line text-sm">
-              67 <TextTooltip content={"Teacher"} trigger={<span>TEA</span>} />
-            </span>
-          </div>
-          <div className="text-myGray flex items-center -space-x-2">
-            <Dot size={32} />
-            <div className="flex items-center space-x-2 text-sm">
-              <Avatar className="size-4">
-                <AvatarImage src="/images/16.jpg" />
-                <AvatarFallback className="text-sm">LOGO</AvatarFallback>
-              </Avatar>
-              {/* add link of class teacher */}
-              <Link
-                className={cn(
-                  "link-hover line-clamp-1",
-                  isClassTeacher ? "text-myGray" : "",
-                )}
-                href={`/${lang}/profile/1232`}
+    <Card className={cn(" relative")}>
+      <CardHeader className="relative">
+        <div className=" flex items-center gap-2 ">
+          <MyLink href={`/${lang}/a/collections/schools/${school.username}`}>
+            <MyAvatar
+              type="square"
+              className=" rounded-none"
+              classname=" rounded-none"
+              src={school.logo}
+              alt={school.name}
+            />
+          </MyLink>
+          <div className=" flex flex-col">
+            <MyLink href={`/${lang}/a/collections/schools/${school.username}`}>
+              <LoadingIndicatorText
+                element={"h3"}
+                className={"h6 line-clamp-1"}
+                title={school.name}
               >
-                <TextTooltip
-                  content={"Head master"}
-                  trigger={<span>_Happy</span>}
-                />
+                {school.name}
+              </LoadingIndicatorText>
+            </MyLink>
+            <MyLink href={`/${lang}/a/collections/schools/${school.username}`}>
+              <LoadingIndicatorText title={school.username} element={"span"}>
+                @ {school.username}
+              </LoadingIndicatorText>
+            </MyLink>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className=" ">
+        <p className=" line-clamp-2">{school.description}</p>
+        <ul className=" flex flex-wrap gap-4">
+          <li title="School type">
+            {school.website && (
+              <Link
+                className=" flex flex-wrap gap-1 items-center"
+                href={school.website}
+                target="_blank"
+              >
+                <BsGlobe /> <span> Website</span>
               </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-      {!isStudent && (
-        <div className="px-4">
-          <div className="flex justify-between">
-            <h5 className="text-myGray font-medium capitalize">your classes</h5>
-          </div>
-          <div className="grid w-full grid-cols-2">
-            <div className="flex -space-x-2">
-              <Dot size={32} />
-              <div className="flex items-center space-x-2 text-sm">
-                <Avatar className="size-4">
-                  <AvatarImage src="/images/19.jpg" />
-                  <AvatarFallback className="text-sm">LOGO</AvatarFallback>
-                </Avatar>
-                {/* add link of class teacher */}
-                <Link
-                  className={cn(
-                    "link-hover line-clamp-1",
-                    isClassTeacher ? "text-myGray" : "",
-                  )}
-                  href={`/${lang}/class/1232`}
-                >
-                  <TextTooltip
-                    content={"Level 5 Software Development"}
-                    trigger={<span>L5SOD</span>}
-                  />
-                </Link>
-              </div>
-            </div>
-            <div className="flex -space-x-2">
-              <Dot size={32} />
-              <div className="flex items-center space-x-2 text-sm">
-                <Avatar className="size-4">
-                  <AvatarImage src="/images/19.jpg" />
-                  <AvatarFallback className="text-sm">LOGO</AvatarFallback>
-                </Avatar>
-                {/* add link of class teacher */}
-                <Link
-                  className={cn(
-                    "link-hover line-clamp-1",
-                    isClassTeacher ? "text-myGray" : "",
-                  )}
-                  href={`/${lang}/class/1232`}
-                >
-                  <TextTooltip
-                    content={"Level 3 Networking"}
-                    trigger={<span>L3SOD</span>}
-                  />
-                </Link>
-              </div>
-            </div>
-            <div className="flex -space-x-2">
-              <Dot size={32} />
-              <div className="flex items-center space-x-2 text-sm">
-                <Avatar className="size-4">
-                  <AvatarImage src="/images/19.jpg" />
-                  <AvatarFallback className="text-sm">LOGO</AvatarFallback>
-                </Avatar>
-                {/* add link of class teacher */}
-                <Link
-                  className={cn(
-                    "link-hover line-clamp-1",
-                    isClassTeacher ? "text-myGray" : "",
-                  )}
-                  href={`/${lang}/class/1232`}
-                >
-                  <TextTooltip
-                    content={"Level 4 Software Development"}
-                    trigger={<span>L4SOD</span>}
-                  />
-                </Link>
-              </div>
-            </div>
-            <Button type="button" variant="ghost" size="sm">
-              And others 3
-            </Button>
-          </div>
-        </div>
-      )}
-      <Separator />
-      <div className="p-4">
-        {/* TODO: add link of class */}
-        <Link href={`/${lang}/teacher/school/student`}>
-          <Button
-            library="daisy"
-            variant={className ? "info" : isClassTeacher ? "info" : "primary"}
-            className="w-full"
+            )}
+          </li>
+          <li
+            title="School type"
+            className=" flex flex-wrap gap-1 items-center"
           >
-            Join School
-          </Button>
-        </Link>
-      </div>
-    </div>
+            <FaSchool /> <span> {school.school_type}</span>
+          </li>
+          <li title="School students" className=" flex  items-center  gap-1">
+            <span>{school.school_members}</span> <BsPeople />
+          </li>
+          <li title="School educations" className=" flex  items-center  gap-1">
+            <span>{school.education_level?.length}</span> <BsBook />
+          </li>
+          <li title="School classes" className=" flex  items-center  gap-1">
+            <span>{school.classrooms}</span> <FaBookmark />
+          </li>
+        </ul>
+        <CardFooter className=" flex flex-row gap-2">
+          <MyLink
+            href={`/${lang}/a/collections/schools/${school.username}`}
+            button={{
+              variant: "primary",
+              library: "daisy",
+            }}
+          >
+            View school
+          </MyLink>
+          <MyLink
+            href={`/${lang}/school/${school.username}`}
+            button={{
+              variant: "outline",
+              library: "daisy",
+              role: "page",
+            }}
+          >
+            About
+          </MyLink>
+        </CardFooter>
+      </CardContent>
+    </Card>
   );
 };
 

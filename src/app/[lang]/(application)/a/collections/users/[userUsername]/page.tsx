@@ -8,12 +8,10 @@ import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ userUsername: string }>;
-}): Promise<Metadata> {
-  const { userUsername } = await params;
+export async function generateMetadata(
+  props: PageProps<"/[lang]/a/collections/users/[userUsername]">,
+): Promise<Metadata> {
+  const { userUsername } = await props.params;
   const auth = await authContext();
   if (!auth) return { title: "Main Class" };
 
@@ -34,9 +32,9 @@ export async function generateMetadata({
   };
 }
 
-const UserAdminPage = async (props: {
-  params: Promise<{ userUsername: string }>;
-}) => {
+const UserAdminPage = async (
+  props: PageProps<"/[lang]/a/collections/users/[userUsername]">,
+) => {
   const params = await props.params;
   const { userUsername } = params;
 

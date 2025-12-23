@@ -6,6 +6,12 @@ export const mainCollections = [
     icon: "/icons/family.png",
   },
   {
+    name: "schools",
+    href: "/a/collections/schools",
+    label: "Schools",
+    icon: "/icons/school.png",
+  },
+  {
     name: "sectors",
     href: "/a/collections/sectors",
     label: "Sectors",

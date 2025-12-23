@@ -6,7 +6,6 @@ import StudentFilter from "@/components/page/school-staff/students-components/st
 import SchoolStudentTable from "@/components/page/school-staff/table/student-table/table-student-list";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type { Class } from "@/lib/schema/class/class-schema";
 import type {
   PaginatedStudentWithRelations,
   StudentWithRelations,
@@ -52,7 +51,7 @@ const SchoolStaffStudentPage = async (props: props) => {
   ]);
 
   return (
-    <RealtimeProvider<StudentWithRelations | Class>
+    <RealtimeProvider<StudentWithRelations>
       channels={[
         {
           name: "student",

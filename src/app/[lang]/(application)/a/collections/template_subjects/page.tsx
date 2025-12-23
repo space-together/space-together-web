@@ -45,6 +45,7 @@ async function TemplateSubjectsPage(
         <AppPageHeader
           title="Template subjects"
           description="Main subject which is connected to class subjects."
+          total={templateRes.data?.total}
         />
         <FilterTemplateSubject auth={auth} />
 

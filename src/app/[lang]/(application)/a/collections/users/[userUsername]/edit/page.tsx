@@ -2,14 +2,14 @@ import EditUserForm from "@/components/page/admin/users/edit-user-form";
 import ErrorPage from "@/components/page/error-page";
 import NotFoundPage from "@/components/page/not-found";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UserModel } from "@/lib/schema/user/user-schema";
+import type { UserModel } from "@/lib/schema/user/user-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { redirect } from "next/navigation";
 
-const EditUserPage = async (props: {
-  params: Promise<{ userUsername: string }>;
-}) => {
+const EditUserPage = async (
+  props: PageProps<"/[lang]/a/collections/users/[userUsername]/edit">,
+) => {
   const params = await props.params;
   const { userUsername } = params;
 

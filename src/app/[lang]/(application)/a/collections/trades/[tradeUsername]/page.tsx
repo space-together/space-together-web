@@ -13,21 +13,19 @@ import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ tradeUsername: string }>;
-}): Promise<Metadata> {
-  const { tradeUsername } = await params;
+export async function generateMetadata(
+  props: PageProps<"/[lang]/a/collections/trades/[tradeUsername]">,
+): Promise<Metadata> {
+  const { tradeUsername } = await props.params;
   return {
     title: `${tradeUsername} Trade | space-together`,
     description: `Details for trade ${tradeUsername}`,
   };
 }
 
-const TradeUsernamePage = async (props: {
-  params: Promise<{ tradeUsername: string }>;
-}) => {
+const TradeUsernamePage = async (
+  props: PageProps<"/[lang]/a/collections/trades/[tradeUsername]">,
+) => {
   const params = await props.params;
   const { tradeUsername } = params;
   const auth = await authContext();

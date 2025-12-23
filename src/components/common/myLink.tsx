@@ -19,6 +19,7 @@ export const LoadingIndicatorText = ({
   children,
   className,
   title,
+  element = "div",
 }: LoadingIndicatorTextProps) => {
   const { pending } = useLinkStatus();
   return (
