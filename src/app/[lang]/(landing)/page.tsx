@@ -9,15 +9,21 @@ import { toLowerCase } from "@/lib/functions/characters";
 import { redirectContents } from "@/lib/hooks/redirect";
 import { authContext } from "@/lib/utils/auth-context";
 import { ArrowRight } from "lucide-react";
+import { redirect } from "next/navigation";
 
-interface props {
-  params: Promise<{ lang: Locale }>;
-}
-
-const WelcomePage = async (props: props) => {
+const WelcomePage = async (props: PageProps<"/[lang]">) => {
   const [params, auth] = await Promise.all([props.params, authContext()]);
   const { lang } = params;
   const diction = await getDictionary(lang as Locale);
+
+  if (auth) {
+    redirect(
+      redirectContents({
+        lang: lang as Locale,
+        role: auth?.user.role || "STUDENT",
+      }),
+    );
+  }
   return (
     <section className="bg-base-100 flex h-screen w-full justify-between items-center">
       <div className="w-1/2 p-8 relative">
