@@ -4,7 +4,9 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassSchema } from "@/lib/schema/class/class-schema";
+import { type Class, ClassSchema } from "@/lib/schema/class/class-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -20,10 +22,11 @@ export const UpdateClassPublicInfoSchema = ClassSchema.pick({
 export type UpdateClassPublicInfo = z.infer<typeof UpdateClassPublicInfoSchema>;
 
 interface UpdateClassPublicInfoProps {
-  cls?: any;
+  cls: Class;
+  auth: AuthContext;
 }
 
-const UpdateClassPublicInfo = ({ cls }: UpdateClassPublicInfoProps) => {
+const UpdateClassPublicInfo = ({ cls, auth }: UpdateClassPublicInfoProps) => {
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
@@ -31,10 +34,10 @@ const UpdateClassPublicInfo = ({ cls }: UpdateClassPublicInfoProps) => {
   const form = useForm<UpdateClassPublicInfo>({
     resolver: zodResolver(UpdateClassPublicInfoSchema),
     defaultValues: {
-      name: cls?.name,
-      description: cls?.description,
-      capacity: cls?.capacity,
-      image: cls?.image,
+      name: cls?.name || "",
+      description: cls?.description || "",
+      capacity: cls?.capacity || 0,
+      image: cls?.image || undefined,
     },
     mode: "onChange",
     reValidateMode: "onChange",
@@ -43,6 +46,34 @@ const UpdateClassPublicInfo = ({ cls }: UpdateClassPublicInfoProps) => {
   const handleSubmit = (data: UpdateClassPublicInfo) => {
     setError("");
     setSuccess("");
+
+    startTransition(async () => {
+      try {
+        const res = await apiRequest<UpdateClassPublicInfo, Class>(
+          "put",
+          `/school/classes/${cls?._id}`,
+          data,
+          {
+            token: auth?.token,
+            schoolToken: auth?.schoolToken,
+          },
+        );
+
+        if (res.data) {
+          setSuccess("Class public info updated successfully");
+          setTimeout(() => setSuccess(""), 3000);
+        }
+
+        if (!res.data) {
+          setError(`Failed to update class public info: ${res.message}`);
+          setTimeout(() => setError(""), 3000);
+        }
+      } catch (error) {
+        setError(`Failed to update class public info: ${error}`);
+        setTimeout(() => setError(""), 3000);
+      }
+    });
+
     console.log(data);
   };
 
@@ -96,6 +127,9 @@ const UpdateClassPublicInfo = ({ cls }: UpdateClassPublicInfoProps) => {
               disabled={isPending}
               fieldType="avatar"
               description="Upload a class image"
+              avatarProps={{
+                avatarProps: { alt: cls.name || "Class image", size: "3xl" },
+              }}
             />
           </div>
         </div>
@@ -108,7 +142,10 @@ const UpdateClassPublicInfo = ({ cls }: UpdateClassPublicInfoProps) => {
           type="submit"
           role={isPending ? "loading" : undefined}
           variant={"info"}
-          disabled={isPending}
+          disabled={
+            isPending ||
+            (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+          }
           className=" w-fit"
         >
           Update Class

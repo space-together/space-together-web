@@ -138,7 +138,7 @@ export const ClassSchema = z.object({
   username: z.string(),
   code: z.string().optional(),
   image_id: z.string().optional(),
-  image: z.string().optional(),
+  image: z.string().optional().nullable(),
   background_images: z.array(ImageSchema).optional(),
 
   school_id: z.string().optional(),

@@ -16,7 +16,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
   const { lang } = params;
   const diction = await getDictionary(lang as Locale);
 
-  if (auth) {
+  if (auth.user) {
     redirect(
       redirectContents({
         lang: lang as Locale,
@@ -50,7 +50,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
         </div>
         <div className="mt-8 flex items-center justify-center">
           {!auth ? (
-            <AuthButton lang={lang} />
+            <AuthButton lang={lang as Locale} />
           ) : !auth.user.role ? (
             <MyLink
               loading
@@ -66,7 +66,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
                 <div className=" flex space-x-4 items-center">
                   <MyLink
                     href={`${redirectContents({
-                      lang,
+                      lang: lang as Locale,
                       role: auth.user.role,
                     })}`}
                   >
@@ -134,7 +134,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
                   type="button"
                   button={{ variant: "primary", library: "daisy", size: "lg" }}
                   href={redirectContents({
-                    lang,
+                    lang: lang as Locale,
                     role: auth.user.role || "STUDENT",
                   })}
                   className=" "
