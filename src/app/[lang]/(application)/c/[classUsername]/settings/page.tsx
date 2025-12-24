@@ -57,7 +57,7 @@ const ClassSettingPage = async (
           <Separator />
           <Card>
             <CardContent>
-              <ChangeClassUsernameAndCode />
+              <ChangeClassUsernameAndCode auth={auth} cls={clsRes.data} />
             </CardContent>
           </Card>
         </div>

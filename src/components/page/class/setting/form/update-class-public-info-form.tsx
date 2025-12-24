@@ -4,6 +4,7 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { FORM } from "@/lib/env";
 import { type Class, ClassSchema } from "@/lib/schema/class/class-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -61,16 +62,16 @@ const UpdateClassPublicInfo = ({ cls, auth }: UpdateClassPublicInfoProps) => {
 
         if (res.data) {
           setSuccess("Class public info updated successfully");
-          setTimeout(() => setSuccess(""), 3000);
+          setTimeout(() => setSuccess(""), FORM.timeOut);
         }
 
         if (!res.data) {
           setError(`Failed to update class public info: ${res.message}`);
-          setTimeout(() => setError(""), 3000);
+          setTimeout(() => setError(""), FORM.timeOut);
         }
       } catch (error) {
         setError(`Failed to update class public info: ${error}`);
-        setTimeout(() => setError(""), 3000);
+        setTimeout(() => setError(""), FORM.timeOut);
       }
     });
 

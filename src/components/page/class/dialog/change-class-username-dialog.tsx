@@ -13,7 +13,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
+import { FORM } from "@/lib/env";
 import { ClassSchema, type Class } from "@/lib/schema/class/class-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
 import { useState, useTransition } from "react";
@@ -21,7 +24,8 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 interface ChangeClassUsernameDialogProps {
-  cls?: Pick<Class, "_id" | "username">;
+  cls: Pick<Class, "_id" | "username">;
+  auth: AuthContext;
 }
 
 const changeClassUsernameSchema = ClassSchema.pick({
@@ -30,7 +34,10 @@ const changeClassUsernameSchema = ClassSchema.pick({
 
 type ChangeClassUsername = z.infer<typeof changeClassUsernameSchema>;
 
-const ChangeClassUsernameDialog = ({ cls }: ChangeClassUsernameDialogProps) => {
+const ChangeClassUsernameDialog = ({
+  cls,
+  auth,
+}: ChangeClassUsernameDialogProps) => {
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
@@ -46,7 +53,33 @@ const ChangeClassUsernameDialog = ({ cls }: ChangeClassUsernameDialogProps) => {
   const onSubmit = (value: ChangeClassUsername) => {
     setError("");
     setSuccess("");
-    console.log(value);
+    startTransition(async () => {
+      try {
+        const res = await apiRequest<ChangeClassUsername, Class>(
+          "put",
+          `/school/classes/${cls._id}`,
+          value,
+          {
+            token: auth?.token,
+            schoolToken: auth.schoolToken,
+          },
+        );
+        if (res.data) {
+          setSuccess("Class username changed successfully");
+          setTimeout(() => {
+            setSuccess("");
+          }, FORM.timeOut);
+        }
+        if (!res.data) {
+          setError(`Failed to change class username: ${res.message}`);
+          setTimeout(() => {
+            setError("");
+          }, FORM.timeOut);
+        }
+      } catch (error) {
+        setError("Failed to change class username");
+      }
+    });
   };
 
   return (
@@ -59,7 +92,7 @@ const ChangeClassUsernameDialog = ({ cls }: ChangeClassUsernameDialogProps) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Change Class Username</DialogTitle>
-          <Alert variant="destructive">
+          <Alert variant="warning">
             <AlertCircleIcon />
             <AlertTitle className=" line-clamp-none font-normal">
               When you change the class username, all people which and in class
@@ -78,10 +111,13 @@ const ChangeClassUsernameDialog = ({ cls }: ChangeClassUsernameDialogProps) => {
               placeholder="Enter a new username"
               disabled={isPending}
             />
-            <div className=" flex flex-col">
-              <FormError message={error} />
-              <FormSuccess message={success} />
-            </div>
+            {error ||
+              (success && (
+                <div className=" flex flex-col my-2">
+                  <FormError message={error} />
+                  <FormSuccess message={success} />
+                </div>
+              ))}
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant={"outline"} library="daisy" className="w-fit">
@@ -94,6 +130,11 @@ const ChangeClassUsernameDialog = ({ cls }: ChangeClassUsernameDialogProps) => {
                 library="daisy"
                 className="w-fit"
                 variant="info"
+                disabled={
+                  isPending ||
+                  (!form.formState.isDirty &&
+                    !form.formState.isSubmitSuccessful)
+                }
               >
                 Change Username
               </Button>

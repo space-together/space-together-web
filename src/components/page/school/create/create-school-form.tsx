@@ -72,42 +72,6 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
   const router = useRouter();
   const { showToast } = useToast();
 
-  // Local state for sectors & trades
-  // const [sectors, setSectors] = useState<SectorModel[]>([]);
-  // const [trades, setTrades] = useState<TradeModule[]>([]);
-  // const [loadingOptions, setLoadingOptions] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchOptions = async () => {
-  //     try {
-  //       const [sectorsRes, tradesRes] = await Promise.all([
-  //         apiRequest<void, SectorModel[]>("get", "/sectors", undefined, {
-  //           token: auth.token,
-  //         }),
-  //         apiRequest<void, TradeModule[]>("get", "/trades", undefined, {
-  //           token: auth.token,
-  //         }),
-  //       ]);
-
-  //       if (sectorsRes.data) {
-  //         const activeSectors = sectorsRes.data.filter((s) => !s.disable);
-  //         setSectors(activeSectors);
-  //       }
-
-  //       if (tradesRes.data) {
-  //         const filteredTrades = tradesRes.data.filter(
-  //           (t) => !t.disable && !t.trade_id,
-  //         );
-  //         setTrades(filteredTrades);
-  //       }
-  //     } finally {
-  //       setLoadingOptions(false);
-  //     }
-  //   };
-
-  //   fetchOptions();
-  // }, [auth.token]);
-
   const form = useForm<CreateSchool>({
     resolver: zodResolver(CreateSchoolSchema),
     defaultValues: {

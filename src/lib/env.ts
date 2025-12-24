@@ -8,3 +8,8 @@ export const schoolStaffAccessTokenSchool = "schoolStaff-access-token-school";
 export const LIMIT = 9;
 // dates
 export const MIN_YEAR = 1965;
+
+// form
+export const FORM = {
+  timeOut: 5000,
+};

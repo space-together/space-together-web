@@ -4,13 +4,18 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
-  "relative w-full card border border-error px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "relative w-full card border  px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
   {
     variants: {
       variant: {
-        default: "bg-base-100 text-card-foreground",
+        default: "bg-base-100 border-base-content/50",
         destructive:
-          "text-error bg-error/10 [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
+          "text-error bg-error/10 border-error [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
+        warning:
+          "text-warning bg-warning/10 border-warning [&>svg]:text-current *:data-[slot=alert-description]:text-warning/90",
+        success:
+          "text-success bg-success/10 border-success [&>svg]:text-current *:data-[slot=alert-description]:text-success/90",
+        info: "text-info bg-info/10 border-info [&>svg]:text-current *:data-[slot=alert-description]:text-info/90",
       },
     },
     defaultVariants: {
@@ -39,7 +44,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="alert-title"
       className={cn(
-        "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight text-error",
+        "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight",
         className,
       )}
       {...props}
