@@ -45,7 +45,7 @@ const SchoolTeachers = ({ lang, onThePage, auth, teachers }: props) => {
       </div>
       {teachers && (
         <div>
-          {teachers.teachers.map((item) => {
+          {teachers.map((item) => {
             return (
               <UserCardSmall
                 key={item._id || item.id}

@@ -7,9 +7,10 @@ import {
 } from "@/components/ui/toast";
 import { useProgressTimer } from "@/lib/hooks/useProgressTimer";
 import { Next13ProgressBar } from "next13-progressbar";
-import React, {
+import type React from "react";
+import {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,

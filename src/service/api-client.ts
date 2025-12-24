@@ -56,7 +56,7 @@ export interface ApiRequestOptions {
  */
 async function apiRequest<TRequest = unknown, TResponse = unknown>(
   method: HttpMethod,
-  url: string,
+  url: string, //  can be antings
   data?: TRequest,
   options: ApiRequestOptions = {},
 ): Promise<APIResponse<TResponse>> {

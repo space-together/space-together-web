@@ -35,7 +35,7 @@ const SendJoinSchoolRequest = ({ auth, classes }: Props) => {
             Join school request will expires in 7 days
           </DialogDescription>
         </DialogHeader>
-        <SendJoinSchoolRequestForm classes={classes || []} auth={auth} />
+        <SendJoinSchoolRequestForm auth={auth} />
       </DialogContent>
     </Dialog>
   );

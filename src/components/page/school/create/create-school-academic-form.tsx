@@ -108,9 +108,9 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
       const allTrades = Object.values(groups).flat();
       form.setValue(
         "trade_ids",
-        form
-          .watch("trade_ids")
-          .filter((id) => allTrades.some((t) => t._id === id)),
+        (form.watch("trade_ids") || []).filter((id) =>
+          allTrades.some((t) => t._id === id),
+        ),
       );
     };
 
@@ -214,7 +214,7 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
         )}
 
         {/* GROUPED TRADES PER SECTOR */}
-        {form.watch("sector_ids").map((sectorId) => {
+        {(form.watch("sector_ids") ?? []).map((sectorId) => {
           const sector = sectors.find((s) => s._id === sectorId);
           const trades = sectorTrades[sectorId] || [];
 
