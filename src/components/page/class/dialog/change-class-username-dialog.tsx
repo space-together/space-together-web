@@ -52,7 +52,7 @@ const ChangeClassUsernameDialog = ({
     request: {
       method: "put",
       url: `/school/classes/${cls._id}`,
-      auth: {
+      apiRequest: {
         token: auth.token,
         schoolToken: auth.schoolToken,
       },

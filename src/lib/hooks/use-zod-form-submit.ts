@@ -2,7 +2,7 @@
 
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { FORM } from "@/lib/env";
-import apiRequest from "@/service/api-client";
+import apiRequest, { type ApiRequestOptions } from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type FieldValues, type UseFormProps } from "react-hook-form";
@@ -14,13 +14,12 @@ interface UseZodFormSubmitOptions<TForm extends FieldValues, TResult> {
   request: {
     method: "post" | "put" | "patch" | "delete";
     url: string;
-    auth?: {
-      token?: string;
-      schoolToken?: string | null;
-    };
+    apiRequest?: ApiRequestOptions;
   };
-  onSuccessMessage: string;
 
+  transform?: (values: TForm) => unknown;
+
+  onSuccessMessage: string;
   onSuccess?: (data: TResult, values: TForm) => void | Promise<void>;
   onError?: (message: string, values: TForm) => void | Promise<void>;
   onFinally?: () => void;
@@ -70,8 +69,8 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
         const res = await apiRequest<TForm, TResult>(
           options.request.method,
           options.request.url,
-          values,
-          options.request.auth,
+          options.transform ? (options.transform(values) as TForm) : values,
+          options.request.apiRequest,
         );
 
         if (res.data) {

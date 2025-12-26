@@ -4,38 +4,64 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassStudentSettingsSchema } from "@/lib/schema/class/class-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import {
+  type Class,
+  ClassStudentSettingsSchema,
+} from "@/lib/schema/class/class-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import type { z } from "zod";
 
 const ClassStudentPermissionsSchema =
   ClassStudentSettingsSchema.shape.permissions;
 type ClassStudentPermissions = z.infer<typeof ClassStudentPermissionsSchema>;
 
-const ClassStudentPermissionForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+interface ClassStudentPermissionFormProps {
+  cls: Class;
+  auth: AuthContext;
+}
 
-  const form = useForm<ClassStudentPermissions>({
-    resolver: zodResolver(ClassStudentPermissionsSchema),
-    defaultValues: {
-      can_chat: false,
-      can_upload_homework: true,
-      can_comment: true,
-      can_view_all_students: true,
+const ClassStudentPermissionForm = ({
+  cls,
+  auth,
+}: ClassStudentPermissionFormProps) => {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassStudentPermissions,
+    Class
+  >({
+    schema: ClassStudentPermissionsSchema,
+    formOptions: {
+      defaultValues: {
+        can_chat: cls.settings?.students.permissions.can_chat || false,
+        can_upload_homework:
+          cls.settings?.students.permissions.can_upload_homework || true,
+        can_comment: cls.settings?.students.permissions.can_comment || true,
+        can_view_all_students:
+          cls.settings?.students.permissions.can_view_all_students || true,
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    request: {
+      method: "patch",
+      url: `/school/classes/${cls._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    /** 🔑 KEY PART */
+    transform: (values) => ({
+      settings: {
+        students: {
+          permissions: values,
+        },
+      },
+    }),
+
+    onSuccessMessage: "Student permissions updated successfully",
+    toastOnError: true,
   });
 
-  const onSubmit = (values: ClassStudentPermissions) => {
-    setError("");
-    setSuccess("");
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
