@@ -157,7 +157,11 @@ export const ClassSchema = z.object({
   is_active: z.boolean(),
 
   description: z.string().nullable().optional(),
-  capacity: z.number().int().optional(),
+  capacity: z.preprocess(
+    (v) => (v === "" || v === null ? undefined : Number(v)),
+    z.number().int().optional(),
+  ),
+
   subject: z.string().nullable().optional(),
   grade_level: z.string().nullable().optional(),
 

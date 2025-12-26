@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { FORM } from "@/lib/env";
 import { cn } from "@/lib/utils";
 
 export default function ChangeClassCode() {
@@ -22,7 +23,7 @@ export default function ChangeClassCode() {
     if (inputRef.current) {
       navigator.clipboard.writeText(inputRef.current.value);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setTimeout(() => setCopied(false), FORM.timeOut);
     }
   };
 

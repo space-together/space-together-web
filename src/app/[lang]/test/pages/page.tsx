@@ -69,7 +69,7 @@ function TestingPage() {
 
         {/* Default Toast */}
         <Button
-          className="btn-neutral"
+          className="btn-neutral "
           onClick={() =>
             showToast({
               title: "Notification",

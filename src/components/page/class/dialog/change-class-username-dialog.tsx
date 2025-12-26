@@ -13,19 +13,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { FORM } from "@/lib/env";
+import type { Locale } from "@/i18n";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import { ClassSchema, type Class } from "@/lib/schema/class/class-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import type { z } from "zod";
 
 interface ChangeClassUsernameDialogProps {
   cls: Pick<Class, "_id" | "username">;
   auth: AuthContext;
+  lang: Locale;
 }
 
 const changeClassUsernameSchema = ClassSchema.pick({
@@ -37,50 +36,33 @@ type ChangeClassUsername = z.infer<typeof changeClassUsernameSchema>;
 const ChangeClassUsernameDialog = ({
   cls,
   auth,
+  lang,
 }: ChangeClassUsernameDialogProps) => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
-
-  const form = useForm<ChangeClassUsername>({
-    resolver: zodResolver(changeClassUsernameSchema),
-    defaultValues: {
-      username: cls?.username || "",
+  const router = useRouter();
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ChangeClassUsername,
+    Class
+  >({
+    schema: changeClassUsernameSchema,
+    formOptions: {
+      defaultValues: {
+        username: cls?.username || "",
+      },
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/school/classes/${cls._id}`,
+      auth: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "Class username changed successfully 🫡",
+    onSuccess: (res) => {
+      router.push(`/${lang}/c/${res.username}`);
+    },
+    toastOnError: true,
   });
-
-  const onSubmit = (value: ChangeClassUsername) => {
-    setError("");
-    setSuccess("");
-    startTransition(async () => {
-      try {
-        const res = await apiRequest<ChangeClassUsername, Class>(
-          "put",
-          `/school/classes/${cls._id}`,
-          value,
-          {
-            token: auth?.token,
-            schoolToken: auth.schoolToken,
-          },
-        );
-        if (res.data) {
-          setSuccess("Class username changed successfully");
-          setTimeout(() => {
-            setSuccess("");
-          }, FORM.timeOut);
-        }
-        if (!res.data) {
-          setError(`Failed to change class username: ${res.message}`);
-          setTimeout(() => {
-            setError("");
-          }, FORM.timeOut);
-        }
-      } catch (error) {
-        setError("Failed to change class username");
-      }
-    });
-  };
 
   return (
     <Dialog>
@@ -94,15 +76,17 @@ const ChangeClassUsernameDialog = ({
           <DialogTitle>Change Class Username</DialogTitle>
           <Alert variant="warning">
             <AlertCircleIcon />
-            <AlertTitle className=" line-clamp-none font-normal">
-              When you change the class username, all people which and in class
-              will get error to rich class username also link which was have
-              that url of that class not work again.
+            <AlertTitle className="line-clamp-none font-normal">
+              This action will change the class URL. Old links will stop
+              working, and users must use the new link to access the class.
             </AlertTitle>
           </Alert>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className=" flex flex-col gap-4"
+          >
             <CommonFormField
               name="username"
               control={form.control}
@@ -118,6 +102,7 @@ const ChangeClassUsernameDialog = ({
                   <FormSuccess message={success} />
                 </div>
               ))}
+
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant={"outline"} library="daisy" className="w-fit">
