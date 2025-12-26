@@ -7,12 +7,12 @@ const ClassLayoutPage = async (
   const params = await props.params;
 
   return (
-    <div className=" flex-col flex gap-4 w-full px-8">
+    <div className=" flex-col flex gap-4 w-full ">
       <ClassSettingsNav
         classUsername={params.classUsername}
         lang={params.lang as Locale}
       />
-      <div className=" min-h-screen pt-2 w-full ">{props.children}</div>
+      <div className=" min-h-screen pt-2 w-full px-8">{props.children}</div>
     </div>
   );
 };
