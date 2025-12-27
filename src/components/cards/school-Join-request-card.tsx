@@ -2,18 +2,18 @@
 
 import MyAvatar from "@/components/common/image/my-avatar";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type {
-  JoinSchoolRequest,
-  JoinSchoolRequestWithRelations,
+    JoinSchoolRequest,
+    JoinSchoolRequestWithRelations,
 } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import { cn } from "@/lib/utils";
 import { type AuthContext, setAuthCookies } from "@/lib/utils/auth-context";
@@ -22,7 +22,6 @@ import apiRequest from "@/service/api-client";
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { FormError, FormSuccess } from "../common/form-message";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
@@ -129,13 +128,7 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
         </p>
 
         <div className="flex items-center gap-2">
-          <Avatar className="size-8">
-            <AvatarImage
-              src={request.school?.logo || "/images/default-school-logo.jpg"}
-              alt={`${request.school?.name} logo`}
-            />
-            <AvatarFallback>SC</AvatarFallback>
-          </Avatar>
+          <MyAvatar src={request.school?.logo} alt={request.school?.name} size="sm" type="square"/>
 
           <Link
             href={`/${lang}/school/${request.school?.username}`}

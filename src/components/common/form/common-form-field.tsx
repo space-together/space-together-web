@@ -32,6 +32,10 @@ import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
 import CheckboxInput, { type CheckboxInputProps } from "./checkbox-input";
 import type { OTPInputProps } from "./OTP-input";
 import OTPInput from "./OTP-input";
+import type { PhoneInputProps } from "./phone-input";
+import PhoneInput from "./phone-input";
+import type { RadioInputProps } from "./radio-input";
+import RadioInput from "./radio-input";
 import type { TimeInputProps } from "./time-input";
 import TimeInput from "./time-input";
 
@@ -55,11 +59,13 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "avatar"
     | "checkbox"
     | "checkbox-input"
+    | "radio-input"
     | "date"
     | "searchSelect"
     | "time"
     | "multipleSelect"
-    | "otp-input";
+    | "otp-input"
+    | "phone";
   selectOptions?: { value: string; label: string; disable?: boolean }[];
   items?: Record<string, CommonDetails>;
   // components props
@@ -70,6 +76,8 @@ interface CommonFormFieldProps<T extends FieldValues> {
   timeProps?: TimeInputProps;
   checkboxInputProps?: CheckboxInputProps;
   otpInputProps?: OTPInputProps;
+  phoneProps?: Omit<PhoneInputProps, "value" | "onChange">;
+  radioInputProps?: RadioInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -92,7 +100,9 @@ export function CommonFormField<T extends FieldValues>({
   timeProps,
   items,
   checkboxInputProps,
+  radioInputProps,
   otpInputProps,
+  phoneProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -190,6 +200,20 @@ export function CommonFormField<T extends FieldValues>({
                 />
               );
 
+            case "radio-input":
+              if (!items) return <div>No items provided</div>;
+              return (
+                <RadioInput
+                  showTooltip
+                  items={items}
+                  value={field.value}
+                  onChange={field.onChange}
+                  classname={cn(" grid-cols-3 gap-2", className)}
+                  disabled={disabled}
+                  {...radioInputProps}
+                />
+              );
+
             case "date":
               return (
                 <DateStringInput
@@ -245,6 +269,17 @@ export function CommonFormField<T extends FieldValues>({
                   disabled={disabled}
                   className={className}
                   {...otpInputProps}
+                />
+              );
+
+            case "phone":
+              return (
+                <PhoneInput
+                  value={stringValue}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  className={className}
+                  {...phoneProps}
                 />
               );
 

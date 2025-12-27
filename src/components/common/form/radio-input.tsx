@@ -12,7 +12,7 @@ import {
 import type { CommonDetails } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 // ✅ Add value + onChange props
-interface RadioInputProps {
+export interface RadioInputProps {
   items: Record<string, CommonDetails>;
   value?: string;
   onChange?: (value: string) => void;

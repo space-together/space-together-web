@@ -4,8 +4,7 @@ import type { Locale } from "@/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
 import { useState, useTransition } from "react";
-import { Controller, useForm } from "react-hook-form";
-import * as RPNInput from "react-phone-number-input";
+import { useForm } from "react-hook-form";
 
 // Import Shadcn UI Components
 import { Button } from "@/components/ui/button";
@@ -33,11 +32,6 @@ import { Textarea } from "@/components/ui/textarea";
 import UploadImage from "@/components/common/cards/form/upload-image";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import AddressInput from "@/components/common/form/address-input";
-import {
-  CountrySelect,
-  FlagComponent,
-  PhoneInput,
-} from "@/components/common/form/phone-input";
 import MyImage from "@/components/common/myImage";
 import {
   AffiliationTypes,
@@ -58,6 +52,7 @@ import { setAuthCookies, type AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useRouter } from "next/navigation";
 import MultipleSelector from "../../../ui/multiselect";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 
 interface Props {
   lang: Locale;
@@ -340,81 +335,6 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
         <div className="">
           <h3 className="mb-4 text-lg font-medium">Academic Details</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {/* Curriculum */}
-            {/* <FormField
-              control={form.control}
-              name="curriculum"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Curriculum</FormLabel>
-                  {loadingOptions ? (
-                    <div className="skeleton h-12 rounded-md" />
-                  ) : (
-                    <FormControl>
-                      <MultipleSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        defaultOptions={sectors.map((sector) => ({
-                          value: sector.id || sector._id || "",
-                          label: sector.name,
-                          disable: sector.disable || false,
-                        }))}
-                        placeholder={
-                          loadingOptions
-                            ? "loading curriculum..."
-                            : "e.g., REB, TVET"
-                        }
-                        hidePlaceholderWhenSelected
-                        disabled={isPending || loadingOptions}
-                      />
-                    </FormControl>
-                  )}
-                  <FormDescription>
-                    Enter one or more curricula, separated by commas.{" "}
-                    {sectors.length}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
-            {/* Education Level */}
-            {/* <FormField
-              control={form.control}
-              name="education_level"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Education Levels Offered</FormLabel>
-                  {loadingOptions ? (
-                    <div className="skeleton h-12 rounded-md" />
-                  ) : (
-                    <FormControl>
-                      <MultipleSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        defaultOptions={trades.map((trade) => ({
-                          value: trade.id || trade._id || "",
-                          label: trade.name,
-                          disable: trade.disable || false,
-                        }))}
-                        placeholder={
-                          loadingOptions
-                            ? "Loading educationLevel"
-                            : "e.g., Primary, Ordinary Level"
-                        }
-                        hidePlaceholderWhenSelected
-                        disabled={isPending || loadingOptions}
-                      />
-                    </FormControl>
-                  )}
-                  <FormDescription>
-                    Enter levels, separated by commas. {trades.length}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
             {/* Accreditation Number */}
             <FormField
               control={form.control}
@@ -489,36 +409,14 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
 
           {/* Contact Fields */}
           <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <FormField
+            <CommonFormField
+              label="Phone number"
               control={form.control}
               name="contact.phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Controller
-                      name={field.name}
-                      control={form.control}
-                      render={({ field }) => (
-                        <RPNInput.default
-                          {...field}
-                          className="flex rounded-lg border-l-0"
-                          international
-                          flagComponent={FlagComponent}
-                          countrySelectComponent={CountrySelect}
-                          inputComponent={PhoneInput}
-                          defaultCountry="RW"
-                          placeholder="Enter phone number"
-                          onChange={(value) => field.onChange(value ?? "")}
-                          disabled={isPending}
-                        />
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              fieldType="phone"
+              disabled={isPending}
             />
+
             <FormField
               control={form.control}
               name="contact.email"

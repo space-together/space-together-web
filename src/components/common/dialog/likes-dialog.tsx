@@ -1,18 +1,17 @@
-import UserCardSmall from "@/components/cards/user-card-small";
+import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { FaRegHeart } from "react-icons/fa6";
 import MyAvatarGroup from "../image/my-avatar-group";
-import { Label } from "@/components/ui/label";
-import { Span } from "next/dist/trace";
 
 interface LikesDialogProps {
   likes?: any;
@@ -74,12 +73,7 @@ const LikesDialog = ({
         <div className="max-h-[70vh] overflow-y-scroll px-6">
           {[...Array(32)].map((_, i) => {
             return (
-              <UserCardSmall
-                key={i}
-                name="Bruno Rwanda"
-                lang="en"
-                userRole="Teacher"
-              />
+              <UserSmCard key={i} name="Bruno rwanda" image={"/images/1.jpg"} role="Teacher"/>
             );
           })}
         </div>

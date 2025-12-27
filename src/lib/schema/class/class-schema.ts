@@ -10,23 +10,33 @@ import z from "zod";
    CLASS SETTINGS
 -------------------------------------------------------- */
 
+export const ClassStudentPermissionsSchema = z.object({
+  can_chat: z.boolean().optional(),
+  can_upload_homework: z.boolean().optional(),
+  can_comment: z.boolean().optional(),
+  can_view_all_students: z.boolean().optional(),
+});
+
+export type ClassStudentPermissions = z.infer<
+  typeof ClassStudentPermissionsSchema
+>;
+
+export const classStudentClassWorkSchema = z.object({
+  allow_resubmission: z.boolean().optional(),
+  max_late_days: z.string().optional(),
+});
+
+export type ClassStudentClassWork = z.infer<typeof classStudentClassWorkSchema>;
+
 export const ClassStudentSettingsSchema = z.object({
   auto_enroll_subclasses: z.boolean(),
   student_visibility: z.enum(["all", "limited", "none"]),
-  permissions: z.object({
-    can_chat: z.boolean(),
-    can_upload_homework: z.boolean(),
-    can_comment: z.boolean(),
-    can_view_all_students: z.boolean(),
-  }),
+  permissions: ClassStudentPermissionsSchema.optional(),
   attendance_rules: z.object({
-    late_after_minutes: z.number(),
+    late_after_minutes: z.number().optional(),
     required_attendance_percentage: z.number(),
   }),
-  classwork_rules: z.object({
-    allow_resubmission: z.boolean(),
-    max_late_days: z.string(),
-  }),
+  classwork_rules: classStudentClassWorkSchema.optional(),
 });
 
 export type ClassStudentSettings = z.infer<typeof ClassStudentSettingsSchema>;
@@ -64,33 +74,6 @@ export type ClassClassTeacherSettings = z.infer<
   typeof ClassClassTeacherSettingsSchema
 >;
 
-export const ClassSubjectSettingsSchema = z.object({
-  subjects: z.array(
-    z.object({
-      subject_id: z.string(),
-      name: z.string(),
-      code: z.string().nullable().optional(),
-      type: z.enum(["core", "elective"]).default("core"),
-      credit: z.number().default(1),
-      teacher_id: z.string().nullable().optional(),
-    }),
-  ),
-  grading: z.object({
-    max_score: z.number().default(100),
-    pass_mark: z.number().default(40),
-    grade_boundaries: z.object({
-      A: z.number().default(80),
-      B: z.number().default(70),
-      C: z.number().default(60),
-      D: z.number().default(50),
-      E: z.number().default(40),
-      F: z.number().default(0),
-    }),
-  }),
-});
-
-export type ClassSubjectSettings = z.infer<typeof ClassSubjectSettingsSchema>;
-
 export const ClassTimetableSettingsSchema = z.object({
   period_length_minutes: z.number(),
   periods_per_day: z.number(),
@@ -124,7 +107,6 @@ export const ClassSettingsSchema = z.object({
   students: ClassStudentSettingsSchema,
   teachers: ClassTeachersSettingsSchema,
   class_teacher: ClassClassTeacherSettingsSchema,
-  subjects: ClassSubjectSettingsSchema,
   timetable: ClassTimetableSettingsSchema,
 });
 

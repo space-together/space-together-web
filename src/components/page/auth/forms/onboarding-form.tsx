@@ -1,23 +1,9 @@
 "use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import { UploadAvatar } from "@/components/common/form/avatar-upload";
-import {
-  CountrySelect,
-  FlagComponent,
-  PhoneInput,
-} from "@/components/common/form/phone-input";
-import RadioInput from "@/components/common/form/radio-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import {
   GenderDetails,
@@ -35,8 +21,7 @@ import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { Controller, useForm } from "react-hook-form";
-import * as RPNInput from "react-phone-number-input";
+import { useForm } from "react-hook-form";
 interface Props {
   lang: Locale;
   auth: AuthContext;
@@ -113,129 +98,55 @@ const OnboardingForm = ({ lang, auth, dictionary }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-4 "
       >
-        <FormField
+        <CommonFormField
+          label="Your profile picture"
           control={form.control}
           name="image"
-          render={({ field }) => (
-            <FormItem className="row-span-3 flex flex-col space-y-2">
-              <FormLabel>Your profile image</FormLabel>
-              <FormControl>
-                <UploadAvatar
-                  onChange={field.onChange}
-                  disabled={isPending}
-                  value={field.value?.toString() ?? null}
-                  avatarProps={{ size: "2xl", alt: auth.user.name }}
-                />
-                {/* <UploadImage
-                  onChange={field.onChange}
-                  disabled={isPending}
-                  value={field.value?.toString() ?? null}
-                  Classname=" h-54 "
-                  className="h-54 "
-                  description="Drop your profile image here"
-                /> */}
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          fieldType="avatar"
+          disabled={isPending}
+          avatarProps={{ avatarProps: { size: "2xl", alt: auth.user.name } }}
         />
-        <div className=" flex flex-col gap-4">
+
+        <div className=" grid grid-cols-2 gap-4">
           {/* username and phone */}
-          <div className=" flex gap-4 flex-col lg:flex-row">
-            <FormField
-              name="phone"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className=" w-full">
-                  <FormLabel>{dictionary.phone}</FormLabel>
-                  <FormControl>
-                    <Controller
-                      name={field.name}
-                      control={form.control}
-                      render={({ field }) => (
-                        <RPNInput.default
-                          {...field}
-                          className="flex rounded-lg border-l-0"
-                          international
-                          flagComponent={FlagComponent}
-                          countrySelectComponent={CountrySelect}
-                          inputComponent={PhoneInput}
-                          defaultCountry="RW"
-                          placeholder="Enter phone number"
-                          onChange={(value) => field.onChange(value ?? "")}
-                          disabled={isPending}
-                        />
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem className=" w-full">
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      className=""
-                      placeholder={
-                        dictionary.username.placeholder ?? "Enter your username"
-                      }
-                      {...field}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          {/* gender and user role */}
-          <div className=" flex gap-4 flex-col lg:flex-row">
-            <FormField
-              control={form.control}
-              name="gender"
-              render={({ field }) => (
-                <FormItem className=" w-full">
-                  <FormLabel>Gender</FormLabel>
-                  <FormControl>
-                    <RadioInput
-                      items={GenderDetails}
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem className=" w-full">
-                  <FormLabel>Who are you</FormLabel>
-                  <FormControl>
-                    <RadioInput
-                      items={Object.fromEntries(
-                        Object.entries(UserRoleDetails).filter(
-                          ([key]) => key !== "ADMIN",
-                        ),
-                      )}
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <CommonFormField
+            label={dictionary.phone}
+            control={form.control}
+            name="phone"
+            fieldType="phone"
+            disabled={isPending}
+          />
+          <CommonFormField
+            label={dictionary.username}
+            control={form.control}
+            name="username"
+            fieldType="input"
+            type="text"
+            disabled={isPending}
+          />
+
+          <CommonFormField
+            control={form.control}
+            name="gender"
+            label="Gender"
+            fieldType="radio-input"
+            items={GenderDetails}
+            disabled={isPending}
+            className="grid-cols-2"
+          />
+          <CommonFormField
+            control={form.control}
+            name="role"
+            label="Who are you"
+            fieldType="radio-input"
+            items={Object.fromEntries(
+              Object.entries(UserRoleDetails).filter(
+                ([key]) => key !== "ADMIN",
+              ),
+            )}
+            disabled={isPending}
+            className="grid-cols-2"
+          />
         </div>
         <div className=" mt-2">
           <FormError message={error} />

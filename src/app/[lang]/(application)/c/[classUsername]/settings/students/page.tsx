@@ -62,7 +62,7 @@ const ClassSettingsStudentsPage = async (
             <CardTitle>Classwork Submission Rules</CardTitle>
           </CardHeader>
           <CardContent>
-            <ClassClassworkSettingForm />
+            <ClassClassworkSettingForm cls={clsRes.data} auth={auth} />
           </CardContent>
         </Card>
       </div>

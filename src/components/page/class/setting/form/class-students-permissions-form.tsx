@@ -6,15 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
+  ClassStudentPermissionsSchema,
   type Class,
-  ClassStudentSettingsSchema,
+  type ClassStudentPermissions,
 } from "@/lib/schema/class/class-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import type { z } from "zod";
-
-const ClassStudentPermissionsSchema =
-  ClassStudentSettingsSchema.shape.permissions;
-type ClassStudentPermissions = z.infer<typeof ClassStudentPermissionsSchema>;
 
 interface ClassStudentPermissionFormProps {
   cls: Class;
@@ -32,16 +28,16 @@ const ClassStudentPermissionForm = ({
     schema: ClassStudentPermissionsSchema,
     formOptions: {
       defaultValues: {
-        can_chat: cls.settings?.students.permissions.can_chat || false,
+        can_chat: cls.settings?.students?.permissions?.can_chat,
         can_upload_homework:
-          cls.settings?.students.permissions.can_upload_homework || true,
-        can_comment: cls.settings?.students.permissions.can_comment || true,
+          cls.settings?.students?.permissions?.can_upload_homework,
+        can_comment: cls.settings?.students?.permissions?.can_comment,
         can_view_all_students:
-          cls.settings?.students.permissions.can_view_all_students || true,
+          cls.settings?.students?.permissions?.can_view_all_students,
       },
     },
     request: {
-      method: "patch",
+      method: "put",
       url: `/school/classes/${cls._id}`,
       apiRequest: {
         token: auth.token,
@@ -49,7 +45,6 @@ const ClassStudentPermissionForm = ({
       },
     },
 
-    /** 🔑 KEY PART */
     transform: (values) => ({
       settings: {
         students: {
@@ -66,7 +61,7 @@ const ClassStudentPermissionForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex flex-col gap-8"
+        className=" flex flex-col gap-4"
       >
         <div className=" flex flex-col gap-4">
           <CommonFormField
@@ -106,10 +101,13 @@ const ClassStudentPermissionForm = ({
         )}
         <Button
           variant={"info"}
-          disabled={isPending}
           role={isPending ? "loading" : undefined}
           library="daisy"
           className=" w-fit"
+          disabled={
+            isPending ||
+            (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+          }
         >
           Save changes
         </Button>
