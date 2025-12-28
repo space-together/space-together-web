@@ -70,6 +70,7 @@ const ClassStudentPermissionForm = ({
             type="checkbox"
             fieldType="checkbox"
             control={form.control}
+            disabled={isPending}
           />
           <CommonFormField
             label="Can comment"
@@ -77,6 +78,7 @@ const ClassStudentPermissionForm = ({
             type="checkbox"
             fieldType="checkbox"
             control={form.control}
+            disabled={isPending}
           />
           <CommonFormField
             label="Can upload class work"
@@ -84,6 +86,7 @@ const ClassStudentPermissionForm = ({
             type="checkbox"
             fieldType="checkbox"
             control={form.control}
+            disabled={isPending}
           />
           <CommonFormField
             label="Can view all students"
@@ -91,6 +94,7 @@ const ClassStudentPermissionForm = ({
             type="checkbox"
             fieldType="checkbox"
             control={form.control}
+            disabled={isPending}
           />
         </div>
         {(error || success) && (

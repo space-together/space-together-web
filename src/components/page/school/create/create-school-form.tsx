@@ -297,38 +297,38 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
                 label: type,
                 value: type,
               }))}
+              disabled={isPending}
             />
 
             <CommonFormField
               control={form.control}
               name="uniform_required"
               label="Uniform required?"
-              fieldType="radio-input"
-              items={{ true: { name: "Yes" }, false: { name: "No" } }}
+              fieldType="checkbox"
+              disabled={isPending}
             />
-
             <CommonFormField
               control={form.control}
               name="scholarship_available"
               label="Scholarships Available?"
-              fieldType="radio-input"
-              items={{ true: { name: "Yes" }, false: { name: "No" } }}
+              fieldType="checkbox"
+              disabled={isPending}
             />
 
             <CommonFormField
               control={form.control}
               name="library"
               label="Library Available?"
-              fieldType="radio-input"
-              items={{ true: { name: "Yes" }, false: { name: "No" } }}
+              fieldType="checkbox"
+              disabled={isPending}
             />
 
             <CommonFormField
               control={form.control}
               name="online_classes"
               label="Online Classes Offered?"
-              fieldType="radio-input"
-              items={{ true: { name: "Yes" }, false: { name: "No" } }}
+              fieldType="checkbox"
+              disabled={isPending}
             />
 
             <CommonFormField
@@ -339,7 +339,6 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
               selectOptions={schoolLabs}
               placeholder="e.g., Science Lab, Computer Lab"
             />
-
             <CommonFormField
               control={form.control}
               name="sports_extracurricular"
@@ -358,7 +357,10 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
         </div>
 
         <Button
-          disabled={isPending}
+          disabled={
+            isPending ||
+            (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+          }
           type="submit"
           library="daisy"
           variant={"info"}

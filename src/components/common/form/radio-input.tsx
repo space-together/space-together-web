@@ -76,6 +76,7 @@ export default function RadioInput({
                 <RadioGroupItem
                   id={keyId}
                   value={key}
+                  checked={value === key}
                   className="order-1 after:absolute after:inset-0 top-2 w-fit"
                   disabled={disabled}
                 />
