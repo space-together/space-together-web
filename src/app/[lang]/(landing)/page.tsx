@@ -16,7 +16,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
   const { lang } = params;
   const diction = await getDictionary(lang as Locale);
 
-  if (auth.user) {
+  if (auth && auth.user) {
     redirect(
       redirectContents({
         lang: lang as Locale,
@@ -102,7 +102,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
                     </div>
                     <MyLink
                       href={`${redirectContents({
-                        lang,
+                        lang: lang as Locale,
                         role: auth.user.role,
                       })}`}
                       className=" mt-3"
