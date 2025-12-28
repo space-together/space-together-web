@@ -1,18 +1,15 @@
-import UserCardSmall from "@/components/cards/user-card-small";
+import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
-import { FaReadme, FaRegHeart } from "react-icons/fa6";
-import MyAvatarGroup from "../image/my-avatar-group";
-import { Label } from "@/components/ui/label";
-import { Span } from "next/dist/trace";
+import { FaReadme } from "react-icons/fa6";
 
 interface ReadDialogProps {
   reads?: any;
@@ -41,12 +38,7 @@ const ReadDialog = ({ reads, dialogTriggerType = "icon" }: ReadDialogProps) => {
         <div className="max-h-[70vh] overflow-y-scroll px-6">
           {[...Array(32)].map((_, i) => {
             return (
-              <UserCardSmall
-                key={i}
-                name="Bruno Rwanda"
-                lang="en"
-                userRole="Teacher"
-              />
+              <UserSmCard showMessage key={i} name="Bruno Rwanda" lang="en" avatarProps={{size: "xs"}}  role="Teacher" image={"/images/2.jpg"}/>
             );
           })}
         </div>

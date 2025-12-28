@@ -1,4 +1,4 @@
-import { FetchError } from "@/lib/types/fetchErr";
+import type { FetchError } from "@/lib/types/fetchErr";
 
 interface props {
   error?: FetchError;

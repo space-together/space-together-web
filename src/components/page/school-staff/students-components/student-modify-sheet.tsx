@@ -186,22 +186,24 @@ const StudentModifySheet = ({
         <Separator />
         {/* ===== MAIN CONTENT ===== */}
         <main className="px-4">
-          {student.class ? (
+          {student?.class ? (
             <div className=" space-y-4 flex-col flex">
               <Label>Class</Label>
               {student?.class && (
                 <MyLink
                   className=" underline-offset-0"
-                  href={`/${lang}/c/${student.class.username}`}
+                  href={`/${lang}/c/${student?.class?.username}`}
                 >
                   <div className=" flex gap-2 items-center">
                     <MyAvatar
                       src={student?.class?.image}
                       isSubClass
-                      alt={student.class.name}
+                      alt={student?.class?.name}
                       size={"sm"}
                     />
-                    <span title={student.class.name}>{student.class.name}</span>
+                    <span title={student?.class?.name}>
+                      {student?.class?.name}
+                    </span>
                   </div>
                 </MyLink>
               )}

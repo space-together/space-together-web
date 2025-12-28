@@ -1,55 +1,106 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { authContext } from "@/lib/utils/auth-context";
-import { redirect } from "next/navigation";
+import { useToast } from "@/lib/context/toast/ToastContext";
 
-export default async function SchoolCalendar(
-  props: PageProps<"/[lang]/test/pages">,
-) {
-  const params = await props.params;
-  const { lang } = params;
-  const auth = await authContext();
-  if (!auth) {
-    return redirect(`/${lang}/auth/login`);
-  }
+function TestingPage() {
+  const { showToast } = useToast();
+
   return (
-    <div className=" px-4 py-4 space-y-4 min-h-screen grid place-content-center w-full">
-      <Button
-        className="
-        relative
-        before:content-['']
-        before:absolute
-        before:left-0
-        before:top-0
-        before:h-full
-        before:w-[2px]
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4 bg-base-200">
+      <h1 className="text-2xl font-bold mb-6">Toast Gallery</h1>
 
-        before:bg-gradient-to-b
-        before:from-transparent
-        before:via-amber-400
-        before:to-transparent
-      "
-      >
-        Button Testing
-      </Button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {/* Success Toast */}
+        <Button
+          className="btn-success"
+          onClick={() =>
+            showToast({
+              title: "Success!",
+              description: "Your profile has been updated.",
+              type: "success",
+            })
+          }
+        >
+          Success Toast
+        </Button>
 
-      <Button
-        className="
-          relative
+        {/* Error Toast */}
+        <Button
+          className="btn-error"
+          onClick={() =>
+            showToast({
+              title: "Error occurred",
+              description: "Unable to connect to the server.",
+              type: "error",
+            })
+          }
+        >
+          Error Toast
+        </Button>
 
-          before:content-['']
-          before:absolute
-          before:left-0
-          before:top-1/2
-          before:-translate-y-1/2
+        {/* Info Toast */}
+        <Button
+          className="btn-info"
+          onClick={() =>
+            showToast({
+              title: "New Update",
+              description: "Version 2.0 is now available.",
+              type: "info",
+            })
+          }
+        >
+          Info Toast
+        </Button>
 
-          before:h-1/2
-          before:w-0.5
+        {/* Warning Toast */}
+        <Button
+          className="btn-warning"
+          onClick={() =>
+            showToast({
+              title: "Warning",
+              description: "Your subscription expires in 2 days.",
+              type: "warning",
+            })
+          }
+        >
+          Warning Toast
+        </Button>
 
-          before:bg-primary
-        "
-      >
-        Button Testing
-      </Button>
+        {/* Default Toast */}
+        <Button
+          className="btn-neutral "
+          onClick={() =>
+            showToast({
+              title: "Notification",
+              description: "This is a default toast message.",
+              type: "default",
+            })
+          }
+        >
+          Default Toast
+        </Button>
+
+        {/* Toast with Action */}
+        <Button
+          variant="outline"
+          onClick={() =>
+            showToast({
+              title: "Message Deleted",
+              description: "You can still recover this item.",
+              type: "default",
+              action: {
+                label: "Undo",
+                onClick: () => console.log("Undo clicked!"),
+              },
+            })
+          }
+        >
+          Toast with Action
+        </Button>
+      </div>
     </div>
   );
 }
+
+export default TestingPage;

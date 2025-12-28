@@ -4,43 +4,64 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassStudentSettingsSchema } from "@/lib/schema/class/class-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import {
+  ClassStudentPermissionsSchema,
+  type Class,
+  type ClassStudentPermissions,
+} from "@/lib/schema/class/class-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
 
-const ClassStudentPermissionsSchema =
-  ClassStudentSettingsSchema.shape.permissions;
-type ClassStudentPermissions = z.infer<typeof ClassStudentPermissionsSchema>;
+interface ClassStudentPermissionFormProps {
+  cls: Class;
+  auth: AuthContext;
+}
 
-const ClassStudentPermissionForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
-
-  const form = useForm<ClassStudentPermissions>({
-    resolver: zodResolver(ClassStudentPermissionsSchema),
-    defaultValues: {
-      can_chat: false,
-      can_upload_homework: true,
-      can_comment: true,
-      can_view_all_students: true,
+const ClassStudentPermissionForm = ({
+  cls,
+  auth,
+}: ClassStudentPermissionFormProps) => {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassStudentPermissions,
+    Class
+  >({
+    schema: ClassStudentPermissionsSchema,
+    formOptions: {
+      defaultValues: {
+        can_chat: cls.settings?.students?.permissions?.can_chat,
+        can_upload_homework:
+          cls.settings?.students?.permissions?.can_upload_homework,
+        can_comment: cls.settings?.students?.permissions?.can_comment,
+        can_view_all_students:
+          cls.settings?.students?.permissions?.can_view_all_students,
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    request: {
+      method: "put",
+      url: `/school/classes/${cls._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    transform: (values) => ({
+      settings: {
+        students: {
+          permissions: values,
+        },
+      },
+    }),
+
+    onSuccessMessage: "Student permissions updated successfully",
+    toastOnError: true,
   });
 
-  const onSubmit = (values: ClassStudentPermissions) => {
-    setError("");
-    setSuccess("");
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex flex-col gap-8"
+        className=" flex flex-col gap-4"
       >
         <div className=" flex flex-col gap-4">
           <CommonFormField
@@ -80,10 +101,13 @@ const ClassStudentPermissionForm = () => {
         )}
         <Button
           variant={"info"}
-          disabled={isPending}
           role={isPending ? "loading" : undefined}
           library="daisy"
           className=" w-fit"
+          disabled={
+            isPending ||
+            (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+          }
         >
           Save changes
         </Button>

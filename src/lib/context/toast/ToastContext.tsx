@@ -1,22 +1,9 @@
 "use client";
 
-import { CustomToast } from "@/components/common/custom-toast";
-import {
-  ToastProvider as ShadcnToastProvider,
-  ToastViewport,
-} from "@/components/ui/toast";
-import { useProgressTimer } from "@/lib/hooks/useProgressTimer";
 import { Next13ProgressBar } from "next13-progressbar";
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { v4 as uuidv4 } from "uuid"; // npm i uuid
+import type React from "react";
+import { createContext, useCallback, useContext, type ReactNode } from "react";
+import { Toaster, toast } from "sonner";
 
 export type ToastType = "success" | "error" | "warning" | "info" | "default";
 
@@ -26,12 +13,15 @@ export interface ShowToastProps {
   title: ReactNode;
   description?: ReactNode;
   duration?: number;
-  action?: ReactNode;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
 }
 
 interface ToastContextType {
   showToast: (props: ShowToastProps) => void;
-  dismissToast: () => void;
+  dismissToast: (id?: string) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -41,81 +31,82 @@ const DEFAULT_DURATION = 5000;
 export const ToastManager: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [toastProps, setToastProps] = useState<ShowToastProps | null>(null);
-  const [open, setOpen] = useState(false);
-  const [currentDuration, setCurrentDuration] = useState(DEFAULT_DURATION);
+  const showToast = useCallback(
+    ({ title, description, type, duration, id, action }: ShowToastProps) => {
+      const options = {
+        id: id,
+        duration: duration || DEFAULT_DURATION,
+        description: description,
+        action: action,
+      };
 
-  const dismissTimeout = useRef<NodeJS.Timeout | null>(null);
-
-  const handleDismiss = useCallback(() => {
-    setOpen(false);
-    dismissTimeout.current = setTimeout(() => {
-      setToastProps(null);
-    }, 300);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (dismissTimeout.current) {
-        clearTimeout(dismissTimeout.current);
-      }
-    };
-  }, []);
-
-  const { progress, start, pause, resume } = useProgressTimer({
-    duration: currentDuration,
-    onComplete: handleDismiss,
-  });
-
-  const showToast = useCallback((props: ShowToastProps) => {
-    const newDuration = props.duration ?? DEFAULT_DURATION;
-    const id = props.id ?? uuidv4();
-    setCurrentDuration(newDuration); // Ensure duration is updated first
-    setToastProps({ ...props, id, type: props.type || "default" });
-    setOpen(true);
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      start();
-    }
-  }, [open, start]);
-
-  const handleOpenChange = useCallback(
-    (isOpen: boolean) => {
-      if (!isOpen) {
-        handleDismiss();
+      switch (type) {
+        case "success":
+          toast.success(title, options);
+          break;
+        case "error":
+          toast.error(title, options);
+          break;
+        case "warning":
+          toast.warning(title, options);
+          break;
+        case "info":
+          toast.info(title, options);
+          break;
+        default:
+          toast(title, options);
+          break;
       }
     },
-    [handleDismiss],
+    [],
   );
 
+  const dismissToast = useCallback((id?: string) => {
+    if (id) {
+      toast.dismiss(id);
+    } else {
+      toast.dismiss();
+    }
+  }, []);
+
   return (
-    <ToastContext.Provider value={{ showToast, dismissToast: handleDismiss }}>
-      <ShadcnToastProvider swipeDirection="up">
-        {toastProps && (
-          <CustomToast
-            key={toastProps.id}
-            open={open}
-            onOpenChange={handleOpenChange}
-            onPause={pause}
-            onResume={resume}
-            progress={progress}
-            toastDuration={currentDuration}
-            type={toastProps.type || "default"}
-            title={toastProps.title}
-            description={toastProps.description}
-            action={toastProps.action}
-          />
-        )}
-        <ToastViewport className="sm:top-11 sm:right-0" />
-        <Next13ProgressBar
-          height={"2px"}
-          color="#29D"
-          options={{ showSpinner: false }}
-        />
-        {children}
-      </ShadcnToastProvider>
+    <ToastContext.Provider value={{ showToast, dismissToast }}>
+      {children}
+
+      {/* Optimized Sonner Toaster with DaisyUI Colors */}
+      <Toaster
+        position="top-right"
+        expand={false}
+        closeButton
+        toastOptions={{
+          className: "font-sans",
+          descriptionClassName: "!text-sm !text-base-content",
+          classNames: {
+            toast:
+              "group !rounded-[var(--radius-box)] !shadow-2xl !border !bg-base-100  ",
+            title: "text-base font-bold",
+            description: "!text-sm !text-base-content",
+            // Mapping DaisyUI semantic colors and their content counterparts
+            success:
+              "!bg-success/10 backdrop-blur-lg !border-success !text-success ",
+            error: "!bg-error/10 backdrop-blur-lg !border-error !text-error",
+            warning:
+              "!bg-warning/10 backdrop-blur-lg !border-warning !text-warning",
+            info: "!bg-info/10 backdrop-blur-lg !border-info !text-info",
+            default: "!bg-base-100/10 backdrop-blur-lg !text-base-content ",
+            actionButton: "!bg-info !text-info-content",
+            cancelButton: "!bg-ghost",
+            closeButton: "!bg-base-100 !text-base-content !border-base-300",
+          },
+        }}
+      />
+
+      {/* Progress Bar using DaisyUI Primary color variable */}
+      <Next13ProgressBar
+        height="3px"
+        color="oklch(var(--p))"
+        options={{ showSpinner: false }}
+      />
     </ToastContext.Provider>
   );
 };

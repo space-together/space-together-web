@@ -1,15 +1,12 @@
+import MyAvatar from "@/components/common/image/my-avatar";
 import { TextTooltip } from "@/components/common/text-tooltip";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
 const NavMessageDropDownCard = () => {
   return (
     <DropdownMenuItem>
-      <Avatar className="size-10">
-        <AvatarImage src={"/images/14.jpg"} />
-        <AvatarFallback>PR</AvatarFallback>
-      </Avatar>
+      <MyAvatar size="sm" />
       <div>
         <Link href={`/m/students`} className="flex items-center space-x-2">
           <h4>Bruno Irakoze</h4>

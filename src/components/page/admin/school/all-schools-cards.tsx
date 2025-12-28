@@ -4,7 +4,7 @@ import CommonEmpty from "@/components/common/common-empty";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import type { School } from "@/lib/schema/relations-schema";
+import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { useEffect, useState } from "react";
 

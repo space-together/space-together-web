@@ -4,36 +4,56 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassStudentSettingsSchema } from "@/lib/schema/class/class-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import {
+  classStudentClassWorkSchema,
+  type Class,
+  type ClassStudentClassWork,
+} from "@/lib/schema/class/class-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
 
-const ClassClassworkSettingSchema =
-  ClassStudentSettingsSchema.shape.classwork_rules;
-type ClassClassworkSetting = z.infer<typeof ClassClassworkSettingSchema>;
+interface ClassClassworkSettingFormProps {
+  cls: Class;
+  auth: AuthContext;
+}
 
-const ClassClassworkSettingForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending] = useTransition();
-
-  const form = useForm<ClassClassworkSetting>({
-    resolver: zodResolver(ClassClassworkSettingSchema),
-    defaultValues: {
-      allow_resubmission: true,
-      max_late_days: "3",
+const ClassClassworkSettingForm = ({
+  cls,
+  auth,
+}: ClassClassworkSettingFormProps) => {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassStudentClassWork,
+    Class
+  >({
+    schema: classStudentClassWorkSchema,
+    formOptions: {
+      defaultValues: {
+        allow_resubmission:
+          cls.settings?.students?.classwork_rules?.allow_resubmission,
+        max_late_days: cls.settings?.students?.classwork_rules?.max_late_days,
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    request: {
+      method: "put",
+      url: `/school/classes/${cls._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    transform: (values) => ({
+      settings: {
+        students: {
+          classwork_rules: values,
+        },
+      },
+    }),
+
+    onSuccessMessage: "Student permissions updated successfully",
+    toastOnError: true,
   });
 
-  const onSubmit = (values: ClassClassworkSetting) => {
-    setError("");
-    setSuccess("");
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
@@ -73,7 +93,10 @@ const ClassClassworkSettingForm = () => {
 
         <Button
           variant={"info"}
-          disabled={isPending}
+          disabled={
+            isPending ||
+            (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+          }
           role={isPending ? "loading" : undefined}
           library="daisy"
           className=" w-fit"

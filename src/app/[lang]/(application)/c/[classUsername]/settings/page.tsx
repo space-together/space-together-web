@@ -3,6 +3,7 @@ import UpdateClassPublicInfo from "@/components/page/class/setting/form/update-c
 import NotFoundPage from "@/components/page/not-found";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Class } from "@/lib/schema/class/class-schema";
 import { authContext } from "@/lib/utils/auth-context";
@@ -57,7 +58,11 @@ const ClassSettingPage = async (
           <Separator />
           <Card>
             <CardContent>
-              <ChangeClassUsernameAndCode auth={auth} cls={clsRes.data} />
+              <ChangeClassUsernameAndCode
+                lang={lang as Locale}
+                auth={auth}
+                cls={clsRes.data}
+              />
             </CardContent>
           </Card>
         </div>
