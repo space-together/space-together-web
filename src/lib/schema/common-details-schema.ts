@@ -242,6 +242,19 @@ export const ImageSchema = z.object({
 
 export type Image = z.infer<typeof ImageSchema>;
 
+// ------------------ Form ------------------
+
+export const numberSchema = z.preprocess(
+  (v) => (v === "" || v === null ? undefined : Number(v)),
+  z.number().positive().int().optional(),
+);
+
+export const booleanSchema = z.preprocess((v) => {
+  if (v === "true") return true;
+  if (v === "false") return false;
+  return v; // allows undefined / already-boolean values
+}, z.boolean().optional());
+
 // school
 export const SchoolStaffTypeSchema = z.enum(SchoolStaffTypes);
 export const SchoolMemberSchema = z.enum(schoolMembers);

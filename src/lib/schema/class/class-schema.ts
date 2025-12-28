@@ -2,6 +2,7 @@ import {
   ClassLevelSchema,
   ClassTypeSchema,
   ImageSchema,
+  numberSchema,
 } from "@/lib/schema/common-details-schema";
 import { SchoolSchema } from "@/lib/schema/school/school-schema";
 import z from "zod";
@@ -139,10 +140,7 @@ export const ClassSchema = z.object({
   is_active: z.boolean(),
 
   description: z.string().nullable().optional(),
-  capacity: z.preprocess(
-    (v) => (v === "" || v === null ? undefined : Number(v)),
-    z.number().int().optional(),
-  ),
+  capacity: numberSchema,
 
   subject: z.string().nullable().optional(),
   grade_level: z.string().nullable().optional(),

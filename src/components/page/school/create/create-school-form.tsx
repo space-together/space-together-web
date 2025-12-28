@@ -1,38 +1,14 @@
 "use client";
 
 import type { Locale } from "@/i18n";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 // Import Shadcn UI Components
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 
 // Import Custom Components
-import UploadImage from "@/components/common/cards/form/upload-image";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import AddressInput from "@/components/common/form/address-input";
-import MyImage from "@/components/common/myImage";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import {
   AffiliationTypes,
   AttendanceSystems,
@@ -40,19 +16,17 @@ import {
   schoolTypes,
 } from "@/lib/const/common-details-const";
 import {
-  SchoolSportsExtracurricular,
   schoolLabs,
+  SchoolSportsExtracurricular,
 } from "@/lib/context/school.context";
-import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   CreateSchoolSchema,
   type CreateSchool,
 } from "@/lib/schema/school/create-school-schema";
-import { setAuthCookies, type AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
+import type { School } from "@/lib/schema/school/school-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { useRouter } from "next/navigation";
-import MultipleSelector from "../../../ui/multiselect";
-import { CommonFormField } from "@/components/common/form/common-form-field";
 
 interface Props {
   lang: Locale;
@@ -60,127 +34,84 @@ interface Props {
 }
 
 const CreateSchoolForm = ({ lang, auth }: Props) => {
-  const [error, setError] = useState<string | null | undefined>("");
-  const [success, setSuccess] = useState<string | null | undefined>("");
-  const [isPending, startTransition] = useTransition();
-  const { theme } = useTheme();
   const router = useRouter();
-  const { showToast } = useToast();
 
-  const form = useForm<CreateSchool>({
-    resolver: zodResolver(CreateSchoolSchema),
-    defaultValues: {
-      // Core
-      username: "",
-      name: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    CreateSchool,
+    School
+  >({
+    schema: CreateSchoolSchema,
+    formOptions: {
+      defaultValues: {
+        // Core
+        username: "",
+        name: "",
 
-      // Optional visuals and metadata
-      logo: undefined,
-      description: "",
+        // Optional visuals and metadata
+        logo: undefined,
+        description: "",
 
-      // Categorical fields
-      school_type: undefined,
-      // curriculum: undefined,
-      // education_level: undefined,
-      accreditation_number: "",
-      affiliation: undefined,
-      school_members: "Mixed",
+        // Categorical fields
+        school_type: undefined,
+        // curriculum: undefined,
+        // education_level: undefined,
+        accreditation_number: "",
+        affiliation: undefined,
+        school_members: "Mixed",
 
-      // Location and contact
-      address: {
-        street: "",
-        city: "",
-        state: "",
-        postal_code: "",
-        country: "Rwanda",
-        google_map_url: undefined,
+        // Location and contact
+        address: {
+          street: "",
+          city: "",
+          state: "",
+          postal_code: "",
+          country: "Rwanda",
+          google_map_url: undefined,
+        },
+        contact: {
+          phone: "",
+          email: "",
+        },
+        website: undefined,
+        social_media: [],
+
+        // Academic and administrative characteristics
+        student_capacity: undefined,
+        uniform_required: true,
+        attendance_system: "Online",
+        scholarship_available: false,
+
+        // Facilities
+        classrooms: undefined,
+        library: true,
+        labs: [],
+        sports_extracurricular: [],
+        online_classes: true,
       },
-      contact: {
-        phone: "",
-        email: "",
-      },
-      website: undefined,
-      social_media: [],
-
-      // Academic and administrative characteristics
-      student_capacity: undefined,
-      uniform_required: true,
-      attendance_system: "Online",
-      scholarship_available: false,
-
-      // Facilities
-      classrooms: undefined,
-      library: true,
-      labs: [],
-      sports_extracurricular: [],
-      online_classes: true,
     },
-    mode: "onChange",
-  });
-
-  const onSubmit = (values: CreateSchool) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const apiData = {
+    transform: (values) => {
+      return {
         ...values,
         sports_extracurricular:
           values.sports_extracurricular?.map((sport) => sport.value) ?? [],
         labs: values.labs?.map((lab) => lab.value) ?? [],
         creator_id: auth.user.id,
       };
-      const create = await apiRequest<typeof apiData, any>(
-        "post",
-        "/schools",
-        apiData,
-        { token: auth.token },
-      );
-
-      if (!create?.data) {
-        create?.message;
-        showToast({
-          type: "error",
-          title: "Something went wrong to create school",
-          description: create.message,
-        });
-        setError(`message : ${create.message}`);
-      } else {
-        setSuccess("School is registered successful ☺️");
-        showToast({
-          type: "success",
-          title: (
-            <div className="flex space-x-2">
-              <MyImage
-                src={"/logo.svg"}
-                className="size-10"
-                priority
-                classname="  object-contain"
-              />
-              <h3>space-together</h3>
-            </div>
-          ),
-          description: (
-            <div className="flex flex-col">
-              <div className="flex gap-2">
-                {create.data.logo && (
-                  <MyImage
-                    src={create.data.logo}
-                    role="ICON"
-                    priority
-                    loading="lazy"
-                  />
-                )}
-                <h3 className="text-lg">{create.data.name}</h3>
-              </div>
-              <p> Has been created successful 🌻</p>
-            </div>
-          ),
-        });
-        setAuthCookies(auth.token, auth.user.id, create.data.token);
-        router.push(`/${lang}/s-t/new/${create.data.username}/academic`);
-      }
-    });
-  };
+    },
+    request: {
+      method: "post",
+      url: `/schools`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "School is registered successfully",
+    toastOnError: true,
+    onSuccess: (school) => {
+      router.push(`/${lang}/s-t/new/${school.username}/academic`);
+    },
+  });
 
   return (
     <Form {...form}>
@@ -193,141 +124,67 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
           <h3 className="mb-4 text-lg font-medium">Basic Information</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* School Name */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem className="h-fit">
-                  <FormLabel>School Name *</FormLabel>
-                  <FormControl>
-                    <Input
-                      autoFocus
-                      placeholder="e.g., Green Hills Academy"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="School name"
+              required
+              inputProps={{ placeholder: "e.g., My school name" }}
+              disabled={isPending}
             />
 
             {/* School Username */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>School Username *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., greenhills" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Unique identifier for the school.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="School Username"
+              required
+              inputProps={{ placeholder: "e.g., my_school_name" }}
+              disabled={isPending}
             />
-
-            {/* School Type */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="school_type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>School Type</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select school type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={theme}>
-                      {schoolTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>School type of your school</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="School Type"
+              required
+              fieldType="select"
+              selectOptions={schoolTypes.map((type) => ({
+                value: type,
+                label: type,
+              }))}
+              disabled={isPending}
             />
-
-            {/* School Members */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="school_members"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Student Gender</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select student gender" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={theme}>
-                      {schoolMembers.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    Student gender school receive
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="School Members"
+              required
+              fieldType="select"
+              selectOptions={schoolMembers.map((type) => ({
+                value: type,
+                label: type,
+              }))}
+              disabled={isPending}
             />
           </div>
 
-          {/* Logo Upload */}
-          <FormField
-            name="logo"
+          <CommonFormField
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="row-span-3 mt-2 flex flex-col space-y-2">
-                <FormLabel>School Logo</FormLabel>
-                <FormControl>
-                  <UploadImage
-                    onChange={field.onChange}
-                    disabled={isPending}
-                    value={field.value?.toString() ?? null}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            name="logo"
+            label="School Logo"
+            disabled={isPending}
+            fieldType="image"
+            classname="mt-4"
           />
 
-          {/* Description */}
-          <FormField
+          <CommonFormField
             control={form.control}
             name="description"
-            render={({ field }) => (
-              <FormItem className="mt-4">
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us a little bit about the school"
-                    className="min-h-[100px] resize-y"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            fieldType="textarea"
+            label="Description"
+            placeholder="Tell us a little bit about your school"
+            classname="mt-4"
+            className="min-h-[100px] resize-y"
           />
         </div>
 
@@ -336,51 +193,25 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
           <h3 className="mb-4 text-lg font-medium">Academic Details</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* Accreditation Number */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="accreditation_number"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Accreditation Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Optional accreditation number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Accreditation Number"
+              placeholder="Optional accreditation number"
+              fieldType="input"
+              type="number"
             />
 
-            {/* Affiliation */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="affiliation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Affiliation</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select school affiliation" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={theme}>
-                      {AffiliationTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Affiliation"
+              placeholder="Select school affiliation"
+              fieldType="select"
+              selectOptions={AffiliationTypes.map((type) => ({
+                label: type,
+                value: type,
+              }))}
             />
           </div>
         </div>
@@ -389,22 +220,12 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
         <div className="">
           <h3 className="mb-4 text-lg font-medium">Contact & Location</h3>
           {/* Address Fields */}
-          <FormField
+          <CommonFormField
             control={form.control}
             name="address"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Address details</FormLabel>
-                <FormControl>
-                  <AddressInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            fieldType="address"
+            label="Address details"
+            disabled={isPending}
           />
 
           {/* Contact Fields */}
@@ -415,44 +236,29 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
               name="contact.phone"
               fieldType="phone"
               disabled={isPending}
+              placeholder="e.g., +250 7** *** ***"
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="contact.email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email Address</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Official school email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              fieldType="input"
+              label="Email address"
+              type="email"
+              disabled={isPending}
+              placeholder="e.g., school@example.com"
             />
           </div>
 
           {/* Website */}
-          <FormField
+          <CommonFormField
             control={form.control}
             name="website"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Website</FormLabel>
-                <FormControl>
-                  <Input
-                    type="url"
-                    placeholder="https://www.schoolwebsite.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            fieldType="input"
+            label="Website"
+            type="url"
+            placeholder="e.g., https://www.schoolwebsite.com"
+            disabled={isPending}
           />
         </div>
 
@@ -461,282 +267,86 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
           <h3 className="mb-4 text-lg font-medium">Facilities & Operations</h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Student Capacity */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="student_capacity"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Student Capacity</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min="1"
-                      placeholder="Total student capacity"
-                      {...field}
-                      onChange={(e) =>
-                        field.onChange(
-                          parseInt(e.target.value, 10) || undefined,
-                        )
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              fieldType="input"
+              label="Student Capacity"
+              type="number"
+              inputProps={{ min: 1 }}
+              placeholder="Total student capacity"
+              disabled={isPending}
             />
 
-            {/* Classrooms */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="classrooms"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Number of Classrooms</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min="1"
-                      placeholder="Number of classrooms"
-                      {...field}
-                      onChange={(e) =>
-                        field.onChange(
-                          parseInt(e.target.value, 10) || undefined,
-                        )
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Number of classrooms"
+              type="number"
+              inputProps={{ min: 1 }}
+              placeholder="Number of classrooms"
+              disabled={isPending}
             />
 
-            {/* Attendance System */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="attendance_system"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Attendance System</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select attendance system" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={theme}>
-                      {AttendanceSystems.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Attendance system"
+              fieldType="select"
+              selectOptions={AttendanceSystems.map((type) => ({
+                label: type,
+                value: type,
+              }))}
             />
 
-            {/* Uniform Required */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="uniform_required"
-              render={({ field }) => (
-                <FormItem className="space-y-2 pt-2">
-                  <FormLabel>Uniform Required?</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) =>
-                        field.onChange(value === "true")
-                      }
-                      defaultValue={
-                        field.value === undefined
-                          ? undefined
-                          : String(field.value)
-                      }
-                      className="flex space-x-4"
-                    >
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="true" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Yes</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="false" />
-                        </FormControl>
-                        <FormLabel className="font-normal">No</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Uniform required?"
+              fieldType="radio-input"
+              items={{ true: { name: "Yes" }, false: { name: "No" } }}
             />
 
-            {/* Scholarship Available */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="scholarship_available"
-              render={({ field }) => (
-                <FormItem className="space-y-2 pt-2">
-                  <FormLabel>Scholarships Available?</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) =>
-                        field.onChange(value === "true")
-                      }
-                      defaultValue={
-                        field.value === undefined
-                          ? undefined
-                          : String(field.value)
-                      }
-                      className="flex space-x-4"
-                    >
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="true" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Yes</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="false" />
-                        </FormControl>
-                        <FormLabel className="font-normal">No</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Scholarships Available?"
+              fieldType="radio-input"
+              items={{ true: { name: "Yes" }, false: { name: "No" } }}
             />
 
-            {/* Library Available */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="library"
-              render={({ field }) => (
-                <FormItem className="space-y-2 pt-2">
-                  <FormLabel>Library Available?</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) =>
-                        field.onChange(value === "true")
-                      }
-                      defaultValue={
-                        field.value === undefined
-                          ? undefined
-                          : String(field.value)
-                      }
-                      className="flex space-x-4"
-                    >
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="true" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Yes</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="false" />
-                        </FormControl>
-                        <FormLabel className="font-normal">No</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Library Available?"
+              fieldType="radio-input"
+              items={{ true: { name: "Yes" }, false: { name: "No" } }}
             />
 
-            {/* Online Classes */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="online_classes"
-              render={({ field }) => (
-                <FormItem className="h-fit space-y-2 pt-2">
-                  <FormLabel>Online Classes Offered?</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) =>
-                        field.onChange(value === "true")
-                      }
-                      defaultValue={
-                        field.value === undefined
-                          ? undefined
-                          : String(field.value)
-                      }
-                      className="flex space-x-4"
-                    >
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="true" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Yes</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-y-0 space-x-2">
-                        <FormControl>
-                          <RadioGroupItem value="false" />
-                        </FormControl>
-                        <FormLabel className="font-normal">No</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Online Classes Offered?"
+              fieldType="radio-input"
+              items={{ true: { name: "Yes" }, false: { name: "No" } }}
             />
 
-            {/* Labs */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="labs"
-              render={({ field }) => (
-                <FormItem className="h-fit">
-                  <FormLabel>Labs Available</FormLabel>
-                  <FormControl>
-                    <MultipleSelector
-                      value={field.value}
-                      onChange={field.onChange}
-                      defaultOptions={schoolLabs}
-                      placeholder="e.g., Science Lab, Computer Lab"
-                      hidePlaceholderWhenSelected
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Enter lab types, separated by commas.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Labs Available"
+              fieldType="multipleSelect"
+              selectOptions={schoolLabs}
+              placeholder="e.g., Science Lab, Computer Lab"
             />
 
-            {/* Sports & Extracurricular */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="sports_extracurricular"
-              render={({ field }) => (
-                <FormItem className="h-fit">
-                  <FormLabel>Sports & Extracurricular</FormLabel>
-                  <FormControl>
-                    <MultipleSelector
-                      value={field.value}
-                      onChange={field.onChange}
-                      defaultOptions={SchoolSportsExtracurricular}
-                      placeholder="e.g., Football, Debate Club, Music"
-                      hidePlaceholderWhenSelected
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Enter activities, separated by commas.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Sports & Extracurricular"
+              fieldType="multipleSelect"
+              selectOptions={SchoolSportsExtracurricular}
+              placeholder="e.g., Football, Debate Club, Music"
             />
           </div>
         </div>
@@ -753,19 +363,9 @@ const CreateSchoolForm = ({ lang, auth }: Props) => {
           library="daisy"
           variant={"info"}
           className="w-full"
+          role={isPending ? "loading" : undefined}
         >
-          {isPending ? (
-            <>
-              <div
-                role="status"
-                aria-label="Loading"
-                className="loading loading-spinner mr-2 h-4 w-4"
-              />
-              Creating School...
-            </>
-          ) : (
-            "Create School"
-          )}
+          Create school
         </Button>
       </form>
     </Form>

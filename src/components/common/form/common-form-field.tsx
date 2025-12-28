@@ -18,12 +18,15 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+import AddressInput, {
+  type AddressInputProps,
+} from "@/components/common/form/address-input";
 import DateStringInput, {
   type DateStringInputProps,
 } from "@/components/common/form/date-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import MultipleSelector from "@/components/ui/multiselect";
-import type { CommonDetails } from "@/lib/schema/common-details-schema";
+import type { CommonDetails, Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type { Control, FieldPath, FieldValues } from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
@@ -65,8 +68,9 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "time"
     | "multipleSelect"
     | "otp-input"
-    | "phone";
-  selectOptions?: { value: string; label: string; disable?: boolean }[];
+    | "phone"
+    | "address";
+  selectOptions?: Option[];
   items?: Record<string, CommonDetails>;
   // components props
   imageProps?: updateImageProps;
@@ -78,6 +82,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
   otpInputProps?: OTPInputProps;
   phoneProps?: Omit<PhoneInputProps, "value" | "onChange">;
   radioInputProps?: RadioInputProps;
+  addressProps?: AddressInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -103,6 +108,7 @@ export function CommonFormField<T extends FieldValues>({
   radioInputProps,
   otpInputProps,
   phoneProps,
+  addressProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -280,6 +286,17 @@ export function CommonFormField<T extends FieldValues>({
                   disabled={disabled}
                   className={className}
                   {...phoneProps}
+                />
+              );
+
+            case "address":
+              return (
+                <AddressInput
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  className={className}
+                  {...addressProps}
                 />
               );
 

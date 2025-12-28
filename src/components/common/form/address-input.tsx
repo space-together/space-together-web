@@ -14,7 +14,7 @@ import { CountriesContext } from "@/lib/data/locations";
 import type { address } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 
-interface AddressInputProps {
+export interface AddressInputProps {
   value?: address | null;
   onChange?: (value: address | undefined) => void;
   disabled?: boolean;

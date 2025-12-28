@@ -2,7 +2,9 @@ import {
   AddressSchema,
   AffiliationTypeSchema,
   AttendanceSystemSchema,
+  booleanSchema,
   ContactSchema,
+  numberSchema,
   OptionSchema,
   SchoolMemberSchema,
   SchoolTypeSchema,
@@ -35,19 +37,20 @@ export const CreateSchoolSchema = z.object({
   social_media: z.array(SocialMediaSchema).optional(),
 
   // Academic and administrative characteristics
-  student_capacity: z.number().int().positive().optional(),
-  uniform_required: z.boolean().optional(),
+  student_capacity: numberSchema.optional(),
+  uniform_required: booleanSchema.optional(),
+
   attendance_system: AttendanceSystemSchema.optional(),
-  scholarship_available: z.boolean().optional(),
+  scholarship_available: booleanSchema.optional(),
 
   // Facilities
-  classrooms: z.number().int().optional(),
-  library: z.boolean().optional(),
+  classrooms: numberSchema.optional(),
+  library: booleanSchema.optional(),
   labs: z.array(OptionSchema).optional(),
   sports_extracurricular: z.array(OptionSchema).optional(),
-  online_classes: z.boolean().optional(),
+  online_classes: booleanSchema.optional(),
 
-  //   is_active: z.boolean().default(true),
+  //   is_active: booleanSchema.default(true),
 });
 
 export type CreateSchool = z.infer<typeof CreateSchoolSchema>;
