@@ -64,7 +64,7 @@ const OnboardingForm = ({ lang, auth, dictionary }: Props) => {
         router.push(`/${lang}/auth/onboarding/teacher`);
       } else if (res.role === "SCHOOLSTAFF") {
         router.push(`/${lang}/auth/onboarding/staff`);
-      } else {
+      } else if (res.role) {
         router.push(redirectContents({ lang, role: res.role }));
       }
     },
