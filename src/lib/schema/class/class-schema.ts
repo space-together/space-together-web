@@ -35,7 +35,7 @@ export const ClassStudentSettingsSchema = z.object({
   permissions: ClassStudentPermissionsSchema.optional(),
   attendance_rules: z.object({
     late_after_minutes: z.number().optional(),
-    required_attendance_percentage: z.number(),
+    required_attendance_percentage: z.number().optional(),
   }),
   classwork_rules: classStudentClassWorkSchema.optional(),
 });

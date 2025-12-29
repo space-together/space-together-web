@@ -4,10 +4,9 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassClassTeacherSettingsSchema } from "@/lib/schema/class/class-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { Class, ClassClassTeacherSettingsSchema } from "@/lib/schema/class/class-schema";
+import { AuthContext } from "@/lib/utils/auth-context";
 import type { z } from "zod";
 
 const ClassClassTeacherPermissionsSchema =
@@ -16,38 +15,57 @@ type ClassClassTeacherPermissions = z.infer<
   typeof ClassClassTeacherPermissionsSchema
 >;
 
-const ClassClassTeacherPermissionForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+interface ClassClassTeacherPermissionFormProps {
+  cls: Class;
+  auth: AuthContext
+}
 
-  const form = useForm<ClassClassTeacherPermissions>({
-    resolver: zodResolver(ClassClassTeacherPermissionsSchema),
-    defaultValues: {
-      can_edit_class_info: true,
-      can_add_students: true,
-      can_remove_students: true,
-      can_manage_subjects: true,
-      can_manage_timetable: false,
-      can_assign_roles: true,
-      can_send_parent_notifications: true,
-      can_add_teachers: true,
-      can_approve_requests: true,
+const ClassClassTeacherPermissionForm = ({ cls, auth }: ClassClassTeacherPermissionFormProps) => {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassClassTeacherPermissions,
+    Class
+  >({
+    schema: ClassClassTeacherPermissionsSchema,
+    formOptions: {
+      defaultValues: {
+        can_edit_class_info: cls.settings?.class_teacher?.allowed_actions?.can_edit_class_info ?? false,
+        can_add_students: cls.settings?.class_teacher?.allowed_actions?.can_add_students ?? false,
+        can_remove_students: cls.settings?.class_teacher?.allowed_actions?.can_remove_students ?? false,
+        can_manage_subjects: cls.settings?.class_teacher?.allowed_actions?.can_manage_subjects ?? false,
+        can_manage_timetable: cls.settings?.class_teacher?.allowed_actions?.can_manage_timetable ?? false,
+        can_assign_roles: cls.settings?.class_teacher?.allowed_actions?.can_assign_roles ?? false,
+        can_send_parent_notifications: cls.settings?.class_teacher?.allowed_actions?.can_send_parent_notifications ?? false,
+        can_add_teachers: cls.settings?.class_teacher?.allowed_actions?.can_add_teachers ?? false,
+        can_approve_requests: cls.settings?.class_teacher?.allowed_actions?.can_approve_requests ?? false,
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    request: {
+      method: "put",
+      url: `/school/classes/${cls._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    transform: (values) => ({
+      settings: {
+        class_teacher: {
+          allowed_actions: values,
+        },
+      },
+    }),
+
+    onSuccessMessage: "Class teacher allowed actions updated successfully",
+    toastOnError: true,
   });
 
-  const onSubmit = (values: ClassClassTeacherPermissions) => {
-    setError("");
-    setSuccess("");
-    console.log(values);
-  };
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex flex-col gap-8"
+        className=" flex flex-col gap-4"
       >
         <div className=" flex flex-col gap-4">
           <CommonFormField

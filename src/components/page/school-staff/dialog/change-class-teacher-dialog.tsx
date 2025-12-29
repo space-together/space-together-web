@@ -1,14 +1,21 @@
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Class } from "@/lib/schema/class/class-schema";
+import { AuthContext } from "@/lib/utils/auth-context";
 
-const ChangeClassTeacherDialog = () => {
+interface ChangeClassTeacherDialogProps {
+  auth: AuthContext;
+  cls ?: Class;
+}
+
+const ChangeClassTeacherDialog = ({ auth, cls }: ChangeClassTeacherDialogProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>

@@ -4,42 +4,59 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { ClassTeachersSettingsSchema } from "@/lib/schema/class/class-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { Class, ClassTeachersSettingsSchema } from "@/lib/schema/class/class-schema";
+import { AuthContext } from "@/lib/utils/auth-context";
 import type { z } from "zod";
 
 const ClassTeacherPermissionsSchema =
   ClassTeachersSettingsSchema.shape.permissions;
 type ClassTeacherPermissions = z.infer<typeof ClassTeacherPermissionsSchema>;
 
-const ClassTeacherPermissionForm = () => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+interface ClassTeacherPermissionFormProps {
+  cls: Class;
+  auth: AuthContext
+}
 
-  const form = useForm<ClassTeacherPermissions>({
-    resolver: zodResolver(ClassTeacherPermissionsSchema),
-    defaultValues: {
-      can_edit_marks: true,
-      can_take_attendance: true,
-      can_remove_students: true,
+const ClassTeacherPermissionForm = ({ cls, auth }: ClassTeacherPermissionFormProps) => {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassTeacherPermissions,
+    Class
+  >({
+    schema: ClassTeacherPermissionsSchema,
+    formOptions: {
+      defaultValues: {
+        can_edit_marks: cls.settings?.teachers?.permissions?.can_edit_marks ,
+        can_take_attendance: cls.settings?.teachers?.permissions?.can_take_attendance ,
+        can_remove_students: cls.settings?.teachers?.permissions?.can_remove_students ,
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
+    request: {
+      method: "put",
+      url: `/school/classes/${cls._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    transform: (values) => ({
+      settings: {
+        teachers: {
+          permissions: values,
+        },
+      },
+    }),
+
+    onSuccessMessage: "Teacher permissions updated successfully",
+    toastOnError: true,
   });
 
-  const onSubmit = (values: ClassTeacherPermissions) => {
-    setError("");
-    setSuccess("");
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex flex-col gap-8"
+        className=" flex flex-col gap-4"
       >
         <div className=" flex flex-col gap-4">
           <CommonFormField
@@ -57,7 +74,7 @@ const ClassTeacherPermissionForm = () => {
             control={form.control}
           />
           <CommonFormField
-            label="can remove students"
+            label="Can remove students"
             name="can_remove_students"
             type="checkbox"
             fieldType="checkbox"

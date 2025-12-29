@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
-  ClassStudentPermissionsSchema,
-  type Class,
-  type ClassStudentPermissions,
+    ClassStudentPermissionsSchema,
+    type Class,
+    type ClassStudentPermissions,
 } from "@/lib/schema/class/class-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 
@@ -55,9 +55,6 @@ const ClassStudentPermissionForm = ({
 
     onSuccessMessage: "Student permissions updated successfully",
     toastOnError: true,
-    onSuccess: (_data, values) => {
-      console.log("Updated class:", values);
-    },
   });
 
   return (

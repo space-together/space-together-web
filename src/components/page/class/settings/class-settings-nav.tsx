@@ -25,7 +25,7 @@ const ClassSettingsNav = ({ lang, classUsername }: ClassSettingsNavProps) => {
       href: `/${lang}/c/${classUsername}/settings/teachers`,
     },
     {
-      name: "class-teacher",
+      name: "class teacher",
       image: "/icons/teacher.png",
       href: `/${lang}/c/${classUsername}/settings/class-teacher`,
     },
