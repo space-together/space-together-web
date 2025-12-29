@@ -55,6 +55,9 @@ const ClassStudentPermissionForm = ({
 
     onSuccessMessage: "Student permissions updated successfully",
     toastOnError: true,
+    onSuccess: (_data, values) => {
+      console.log("Updated class:", values);
+    },
   });
 
   return (

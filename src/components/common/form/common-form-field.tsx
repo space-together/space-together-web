@@ -208,8 +208,9 @@ export function CommonFormField<T extends FieldValues>({
                 <Checkbox
                   {...field}
                   disabled={disabled}
-                  value={stringValue}
+                  checked={field.value}
                   className={className}
+                  onCheckedChange={field.onChange}
                 />
               );
 
