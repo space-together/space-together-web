@@ -1,8 +1,8 @@
+import MyAvatar from "@/components/common/image/my-avatar";
 import UserTooltip from "@/components/common/user-tooltip";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { userImage } from "@/lib/context/images";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import PostCardHeaderDropdown from "./post-card-header-dropdown";
 
 interface props {
@@ -16,12 +16,7 @@ const PostCardHeader = ({ lang }: props) => {
         <Link href={`/${lang}/profile/user`}>
           <UserTooltip
             lang={lang}
-            trigger={
-              <Avatar className="size-12">
-                <AvatarImage src={userImage} />
-                <AvatarFallback>PR</AvatarFallback>
-              </Avatar>
-            }
+            trigger={<MyAvatar src={userImage} alt={"PR"} size="sm" />}
           />
         </Link>
         <Link href={`/${lang}/profile/user`}>

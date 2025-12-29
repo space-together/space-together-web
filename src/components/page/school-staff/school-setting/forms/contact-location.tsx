@@ -1,270 +1,164 @@
-// Ensure this is at the top of your .tsx file for Next.js App Router client components
 "use client";
 
+import { FormError, FormSuccess } from "@/components/common/form-message";
 import AddSocialMedia, {
   detectSocialMediaPlatform,
 } from "@/components/common/form/add-social-media";
-import AddressInput from "@/components/common/form/address-input";
-import {
-  CountrySelect,
-  FlagComponent,
-  PhoneInput,
-} from "@/components/common/form/phone-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import MyImage from "@/components/common/myImage";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"; // Assume these are shadcn/ui components
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
+
 import { DefaultPlatform } from "@/lib/const/social-media-const";
-import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { PlusCircle } from "lucide-react";
-import type React from "react";
-import { useState, useTransition } from "react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
-import * as RPNInput from "react-phone-number-input";
+import { useFieldArray } from "react-hook-form";
+
 import {
   type ContactLocationDto,
   ContactLocationSchema,
 } from "./schema/contact-location";
 
-interface ContactLocationFormProps {
+interface Props {
   auth: AuthContext;
   initialData?: School;
-  onSuccess?: (data: ContactLocationDto) => void; // Optional: Callback for successful submission
-  onError?: (error: Error) => void; // Optional: Callback for error
 }
 
-export const ContactLocationForm: React.FC<ContactLocationFormProps> = ({
-  auth,
-  initialData,
-}) => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
-  const form = useForm<ContactLocationDto>({
-    resolver: zodResolver(ContactLocationSchema),
-    defaultValues: {
-      address: initialData?.address ?? {
-        street: "",
-        city: "",
-        state: "",
-        postal_code: "",
-        country: "Rwanda",
-        google_map_url: "",
+export const ContactLocationForm = ({ auth, initialData }: Props) => {
+  // -------------------------------------
+  // Form logic (same pattern everywhere)
+  // -------------------------------------
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ContactLocationDto,
+    School
+  >({
+    schema: ContactLocationSchema,
+
+    formOptions: {
+      defaultValues: {
+        address: initialData?.address ?? {
+          street: "",
+          city: "",
+          state: "",
+          postal_code: "",
+          country: "Rwanda",
+          google_map_url: "",
+        },
+        contact: initialData?.contact ?? {
+          phone: "",
+          email: "",
+          whatsapp: "",
+        },
+        website: initialData?.website ?? "",
+        social_media:
+          initialData?.social_media?.map((sm) => ({
+            platform: sm.platform || detectSocialMediaPlatform(sm.url ?? ""),
+            url: sm.url ?? "",
+          })) ?? [],
       },
-      contact: initialData?.contact ?? { phone: "", email: "" },
-      website: initialData?.website ?? "",
-      social_media:
-        initialData?.social_media?.map((sm) => ({
-          platform: sm.platform || detectSocialMediaPlatform(sm.url || ""),
-          url: sm.url || "",
-        })) ?? [],
     },
-    mode: "onChange",
+
+    request: {
+      method: "put",
+      url: `/school/${initialData?.id || initialData?._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    onSuccessMessage: "School contact & location updated successfully",
+
+    toastOnError: true,
   });
 
+  // -------------------------------------
+  // Social media field array
+  // -------------------------------------
   const { fields, append, remove } = useFieldArray({
     name: "social_media",
     control: form.control,
   });
 
-  const handleFormSubmit = async (values: ContactLocationDto) => {
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
-    startTransition(async () => {
-      const res = await apiRequest<ContactLocationDto, School>(
-        "put",
-        `/school/${initialData?.id || initialData?._id}`,
-        values,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-      if (res.data) {
-        showToast({
-          type: "success",
-          title: "To update school basic information success!",
-          description: "You have been update school basic information",
-          duration: 3000,
-        });
-
-        form.reset(res.data, {
-          // Reset form with new values, clears dirty state
-          keepValues: true, // Keeps the current UI values (which should be `result`)
-          keepDirty: false,
-          keepErrors: false,
-          keepTouched: false,
-          keepIsValid: true, // Assume submission makes it valid
-          keepSubmitCount: true,
-        });
-      } else {
-        showToast({
-          type: "error",
-          title: "Some thing went wrong to update school information",
-          description: res.message,
-          duration: 4000,
-        });
-      }
-    });
-  };
-
+  // -------------------------------------
+  // Render
+  // -------------------------------------
   return (
     <Card className="p-6">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleFormSubmit)}
-          className="space-y-8"
-        >
-          <h3 className="mb-6 pb-3 text-2xl font-semibold">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <h3 className="text-2xl font-semibold">
             Update School Contact & Location
           </h3>
 
-          {/* Address Fields */}
-          <FormField
+          {/* Address */}
+          <CommonFormField
             control={form.control}
             name="address"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Address details</FormLabel>
-                <FormControl>
-                  <AddressInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Address Details"
+            fieldType="address"
+            disabled={isPending}
           />
 
-          {/* Contact Fields */}
+          {/* Contact info */}
           <fieldset className="space-y-4 rounded-lg p-4">
-            <legend className="px-1 text-lg font-medium">
-              Contact Information
-            </legend>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
-              <FormField
+            <legend className="text-lg font-medium">Contact Information</legend>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <CommonFormField
                 control={form.control}
                 name="contact.phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Controller
-                        name={field.name}
-                        control={form.control}
-                        render={({ field }) => (
-                          <RPNInput.default
-                            {...field}
-                            className="flex rounded-lg border-l-0"
-                            international
-                            flagComponent={FlagComponent}
-                            countrySelectComponent={CountrySelect}
-                            inputComponent={PhoneInput}
-                            defaultCountry="RW"
-                            placeholder="Enter phone number"
-                            onChange={(value) => field.onChange(value ?? "")}
-                            disabled={isPending}
-                          />
-                        )}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Phone Number"
+                fieldType="phone"
+                disabled={isPending}
               />
-              <FormField
+
+              <CommonFormField
                 control={form.control}
                 name="contact.email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="e.g., info@school.org"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Email Address"
+                type="email"
+                placeholder="info@school.org"
+                disabled={isPending}
               />
-              <FormField
+
+              <CommonFormField
                 control={form.control}
                 name="contact.whatsapp"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex space-x-2">
-                      <MyImage src="/icons/whatsapp.png" role="ICON" />
-                      <span> Whatsapp number</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="+250 7925 3727"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label={
+                  <span className="flex items-center gap-2">
+                    <MyImage src="/icons/whatsapp.png" role="ICON" />
+                    WhatsApp Number
+                  </span>
+                }
+                placeholder="+250 792 000 000"
+                disabled={isPending}
               />
             </div>
           </fieldset>
 
-          {/* Website Field */}
-          <fieldset className="space-y-4 rounded-lg p-4">
-            <legend className="px-1 text-lg font-medium">
-              Online Presence
-            </legend>
-            <FormField
-              control={form.control}
-              name="website"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Website <span className="text-xs">(Optional)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="url"
-                      placeholder="https://www.schoolwebsite.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </fieldset>
+          {/* Website */}
+          <CommonFormField
+            control={form.control}
+            name="website"
+            label="Website"
+            type="url"
+            placeholder="https://www.schoolwebsite.com"
+            disabled={isPending}
+          />
 
-          {/* Social Media Section */}
+          {/* Social media */}
           <fieldset className="space-y-4 rounded-lg p-4">
-            <legend className="mb-1 px-1 text-lg font-medium">
+            <legend className="text-lg font-medium">
               Social Media <span className="text-xs">(Optional)</span>
             </legend>
-            <FormDescription className="text-sm">
-              Add social media links. The platform will be auto-detected, or you
-              can select it manually.
-            </FormDescription>
-            <div className="mt-3 space-y-4">
+
+            <div className="space-y-4">
               {fields.map((item, index) => (
                 <AddSocialMedia<ContactLocationDto>
                   key={item.id ?? index}
@@ -277,73 +171,40 @@ export const ContactLocationForm: React.FC<ContactLocationFormProps> = ({
                 />
               ))}
             </div>
+
             <Button
               type="button"
-              variant="outline" // Standard shadcn variant
-              onClick={
-                () =>
-                  append({
-                    platform: DefaultPlatform,
-                    url: "",
-                    // id: crypto.randomUUID(),
-                  }) // Ensure new item matches SocialMediaLink type
+              variant="outline"
+              onClick={() =>
+                append({
+                  platform: DefaultPlatform,
+                  url: "",
+                })
               }
-              className="gap-2" // For spacing between icon and text
+              className="gap-2"
             >
-              <PlusCircle className="h-4 w-4" /> Add Social Media
+              <PlusCircle className="h-4 w-4" />
+              Add Social Media
             </Button>
           </fieldset>
 
-          {/* Success and Error Message Display */}
-          {successMessage && (
-            <p className="bg-green-100 p-3 text-sm font-medium text-green-600 dark:bg-green-900/30 dark:text-green-400">
-              {successMessage}
-            </p>
-          )}
-          {errorMessage && (
-            <p className="bg-red-100 p-3 text-sm font-medium text-red-600 dark:bg-red-900/30 dark:text-red-400">
-              {errorMessage}
-            </p>
-          )}
+          {/* Messages */}
+          <FormError message={error} />
+          <FormSuccess message={success} />
 
+          {/* Footer */}
           <Button
             type="submit"
-            library={"daisy"}
-            variant={"info"} // Standard shadcn variant, e.g., "default" or "destructive" or "secondary"
-            // disabled={isPending}
+            variant="info"
+            library="daisy"
             disabled={
               isPending ||
               (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
             }
-            className="min-w-[120px]" // Give button a min width for consistent look
+            role={isPending ? "loading" : undefined}
+            className="min-w-[140px]"
           >
-            {isPending ? (
-              <div className="flex items-center justify-center">
-                <svg
-                  className="mr-3 -ml-1 h-5 w-5 animate-spin text-current" // Use text-current for spinner color
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Saving...
-              </div>
-            ) : (
-              "Save Changes"
-            )}
+            Save Changes
           </Button>
         </form>
       </Form>

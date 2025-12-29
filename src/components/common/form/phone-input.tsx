@@ -44,7 +44,7 @@ const CountrySelect = ({ value, onChange, options }: CountrySelectProps) => {
       onValueChange={(v) => onChange(v as RPNInput.Country)}
     >
       <SelectTrigger className="flex w-20 items-center gap-2 border-0 ring-0">
-        <FlagComponent country={value} countryName={value} />
+        <FlagComponent country={value || "RW"} countryName={value || "RW"} />
       </SelectTrigger>
 
       <SelectContent>

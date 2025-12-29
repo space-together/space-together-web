@@ -21,6 +21,9 @@ import { Textarea } from "@/components/ui/textarea";
 import AddressInput, {
   type AddressInputProps,
 } from "@/components/common/form/address-input";
+import AgeInput, {
+  type AgePickerProps,
+} from "@/components/common/form/age-input";
 import DateStringInput, {
   type DateStringInputProps,
 } from "@/components/common/form/date-input";
@@ -28,7 +31,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import MultipleSelector from "@/components/ui/multiselect";
 import type { CommonDetails, Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
-import type { Control, FieldPath, FieldValues } from "react-hook-form";
+import type {
+  Control,
+  ControllerRenderProps,
+  FieldPath,
+  FieldValues,
+} from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
@@ -45,7 +53,7 @@ import TimeInput from "./time-input";
 interface CommonFormFieldProps<T extends FieldValues> {
   control: Control<T>;
   name: FieldPath<T>;
-  label: string;
+  label: string | React.ReactNode;
   placeholder?: string;
   description?: string;
   disabled?: boolean;
@@ -69,7 +77,14 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "multipleSelect"
     | "otp-input"
     | "phone"
-    | "address";
+    | "address"
+    | "age"
+    | "custom";
+  render?: (props: {
+    field: ControllerRenderProps<T, FieldPath<T>>;
+
+    disabled: boolean;
+  }) => React.ReactNode;
   selectOptions?: Option[];
   items?: Record<string, CommonDetails>;
   // components props
@@ -83,6 +98,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
   phoneProps?: Omit<PhoneInputProps, "value" | "onChange">;
   radioInputProps?: RadioInputProps;
   addressProps?: AddressInputProps;
+  ageProps?: AgePickerProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -98,6 +114,7 @@ export function CommonFormField<T extends FieldValues>({
   description,
   className,
   classname,
+  render,
   imageProps,
   inputProps,
   avatarProps = { avatarProps: { size: "3xl" } },
@@ -109,6 +126,7 @@ export function CommonFormField<T extends FieldValues>({
   otpInputProps,
   phoneProps,
   addressProps,
+  ageProps,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -166,7 +184,10 @@ export function CommonFormField<T extends FieldValues>({
                     <SelectTrigger className={className}>
                       <SelectValue
                         placeholder={
-                          placeholder || `Select ${label.toLowerCase()}`
+                          placeholder ||
+                          (typeof label === "string"
+                            ? `Select ${label.toLowerCase()}`
+                            : "Select")
                         }
                       />
                     </SelectTrigger>
@@ -299,6 +320,26 @@ export function CommonFormField<T extends FieldValues>({
                   {...addressProps}
                 />
               );
+            case "age":
+              return (
+                <AgeInput
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  className={className}
+                  {...ageProps}
+                />
+              );
+
+            case "custom":
+              if (!render) {
+                return (
+                  <div className="text-error text-sm">
+                    Custom field requires a render prop
+                  </div>
+                );
+              }
+              return render({ field, disabled });
 
             default:
               return (

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import MyAvatar from "@/components/common/image/my-avatar";
 import { Button } from "@/components/ui/button";
 import {
   HoverCard,
@@ -21,10 +21,7 @@ export default function UserTooltip({ trigger, lang }: props) {
       <HoverCardContent className=" w-72">
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <Avatar className=" size-12">
-              <AvatarImage src="/profiles/b/20.png" />
-              <AvatarFallback>PR</AvatarFallback>
-            </Avatar>
+            <MyAvatar size="sm" src="/profiles/b/20.png" alt="PR" />
             <div>
               <div className="space-y-0.5 flex space-x-2">
                 <h5 className="text-sm font-medium">Keith Kennedy</h5>

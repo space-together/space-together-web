@@ -1,4 +1,4 @@
-import UserCardSmall from "@/components/cards/user-card-small";
+import { UserSmCard } from "@/components/cards/user-card";
 import MyLink from "@/components/common/myLink";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n";
@@ -47,15 +47,13 @@ const SchoolTeachers = ({ lang, onThePage, auth, teachers }: props) => {
         <div>
           {teachers.map((item) => {
             return (
-              <UserCardSmall
+              <UserSmCard
                 key={item._id || item.id}
-                id={item.id}
-                role="t"
                 lang={lang}
-                userRole="TEACHER"
+                role="TEACHER"
                 name={item.name}
                 image={item.image}
-                userId={item.user_id || ""}
+                avatarProps={{ size: "sm" }}
               />
             );
           })}

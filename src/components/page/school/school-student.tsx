@@ -1,4 +1,4 @@
-import UserCardSmall from "@/components/cards/user-card-small";
+import { UserSmCard } from "@/components/cards/user-card";
 import MyLink from "@/components/common/myLink";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n";
@@ -47,13 +47,12 @@ const SchoolStudents = ({ lang, auth, students, onThePage }: props) => {
       <div className="ml-2 space-y-2">
         {students.map((item) => {
           return (
-            <UserCardSmall
+            <UserSmCard
               key={item._id || item.id}
-              id={item._id || item.id}
-              role="s"
               lang={lang}
-              userRole="STUDENT"
-              userId={item.user_id || ""}
+              role="STUDENT"
+              avatarProps={{ size: "sm" }}
+              name={item.name}
             />
           );
         })}

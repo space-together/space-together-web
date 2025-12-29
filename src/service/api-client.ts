@@ -69,7 +69,7 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
 
     const config: AxiosRequestConfig = {
       method,
-      url: `http://192.168.0.104:4646${url}`,
+      url: `http://localhost:4646${url}`,
       headers: {
         "Content-Type": "application/json",
         ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),

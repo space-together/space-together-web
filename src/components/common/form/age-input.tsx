@@ -23,7 +23,7 @@ import {
   Popover,
 } from "react-aria-components";
 
-interface AgePickerProps {
+export interface AgePickerProps {
   // Accepts either a Date, an AgeObj ({year,month,day}), or null/undefined.
   value?: Date | Age | null;
   // Emits either Date | null or AgeObj | undefined depending on `output`.

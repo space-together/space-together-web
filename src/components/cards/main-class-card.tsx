@@ -1,8 +1,8 @@
+import MyAvatar from "@/components/common/image/my-avatar";
 import type { Locale } from "@/i18n";
 import type { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
 import { Dot } from "lucide-react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
@@ -16,10 +16,7 @@ const MainClassCard = ({ lang, mainClass }: props) => {
     <div className="basic-card relative h-full justify-between p-0">
       <div className="relative">
         <div className="flex items-center gap-2 p-4">
-          <Avatar className="size-20">
-            <AvatarImage src={"/images/19.jpg"} />
-            <AvatarFallback>LOGO</AvatarFallback>
-          </Avatar>
+          <MyAvatar src={"/images/19.jpg"} alt={"Main Class Logo"} />
           <div className="space-x-1">
             <h3 className="line-clamp-3 leading-5 font-medium">
               {mainClass?.name ?? "Level 5 Software development"}

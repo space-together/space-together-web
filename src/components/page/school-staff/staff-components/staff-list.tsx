@@ -3,7 +3,7 @@
 import { MoreHorizontal, UserPlus } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import MyAvatar from "@/components/common/image/my-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -86,10 +86,7 @@ export function StaffList({ staffMembers }: StaffListProps) {
               <TableRow key={staff.id}>
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-2">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={staff.avatar} alt={staff.name} />
-                      <AvatarFallback>{staff.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
+                    <MyAvatar src={staff.avatar} alt={staff.name} size="sm" />
                     <div>
                       <div>{staff.name}</div>
                       <div className="text-xs">{staff.email}</div>
