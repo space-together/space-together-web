@@ -2,8 +2,8 @@
 import MyImage from "@/components/common/myImage";
 import AppLogo from "@/components/page/application/navbar/app-logo";
 import type { Locale } from "@/i18n";
+import { useIsMobile } from "@/lib/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { type JSX } from "react";
@@ -16,7 +16,10 @@ interface props {
 
 const AuthLayoutImage = ({ lang, diction }: props) => {
   const pathname = usePathname();
-  const { theme } = useTheme();
+  const isMobile = useIsMobile();
+
+  if (isMobile) return null;
+
   const SentenceBreaker = (sentence: string): JSX.Element => {
     const splitSentence = sentence.split(",").map((part, index) => (
       <React.Fragment key={index}>
@@ -39,7 +42,6 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
       <div
         className={cn(
           "absolute z-50 top-0 items-center m-2 flex justify-between w-full",
-          theme && "text-white",
         )}
       >
         <div className={cn(" p-2")}>
@@ -48,7 +50,6 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         <Link
           className={cn(
             "btn btn-sm group mr-4 z- btn-ghost backdrop-blur-lg bg-white/10",
-            theme === "dark" && "hover:bg-black/30",
           )}
           href={`/${lang}/`}
         >
@@ -62,9 +63,6 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
           alt="Picture of the author"
           className="  h-full w-full"
         />
-        {theme === "dark" && (
-          <div className=" absolute w-full top-0 bg-black/20 z-10 h-screen" />
-        )}
         <div className=" absolute w-full bottom-0 bg-linear-to-t from-black to-transparent h-1/4 z-10">
           <div className=" w-full relative mt-4">
             {pathname === `/${lang}/auth/register` && (

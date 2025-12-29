@@ -1,35 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
-import {
-  CountrySelect,
-  FlagComponent,
-  PhoneInput,
-} from "@/components/common/form/phone-input";
-import RadioInput from "@/components/common/form/radio-input";
-import SelectWithSearch from "@/components/common/select-with-search";
+
 import {
   GenderDetails,
   StudentStatusDetails,
 } from "@/lib/const/common-details-const";
-import { useToast } from "@/lib/context/toast/ToastContext";
+
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import {
@@ -37,9 +19,12 @@ import {
   type Student,
   type StudentBase,
 } from "@/lib/schema/school/student-schema";
+
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import * as RPNInput from "react-phone-number-input";
+
+import { useEffect, useState } from "react";
 
 interface Props {
   auth: AuthContext;
@@ -52,15 +37,18 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
   const [classes, setClasses] = useState<Class[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
 
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
-
+  // -------------------------------------
+  // Fetch classes (only when needed)
+  // -------------------------------------
   useEffect(() => {
-    const fetchOptions = async () => {
+    if (cls) {
+      setLoadingOptions(false);
+      return;
+    }
+
+    const fetchClasses = async () => {
       try {
-        const classRequest = apiRequest<void, PaginatedClasses>(
+        const res = await apiRequest<void, PaginatedClasses>(
           "get",
           "/school/classes",
           undefined,
@@ -70,324 +58,188 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
           },
         );
 
-        const [classesRes] = await Promise.all([
-          cls ? { data: { classes: [] } } : classRequest,
-        ]);
-
-        if (classesRes.data) {
-          // const activeClasses = classesRes.data.filter((c) => !c.is_active);
-          // setClasses(activeClasses);
-          setClasses(classesRes.data.classes);
+        if (res.data) {
+          setClasses(res.data.classes);
         }
       } catch (err) {
-        console.error("Failed to fetch options:", err);
+        console.error("Failed to fetch classes", err);
       } finally {
         setLoadingOptions(false);
       }
     };
 
-    fetchOptions();
+    fetchClasses();
   }, [auth, cls]);
 
   // -------------------------------------
-  // Initialize form
+  // Form logic (same pattern as CreateSchoolForm)
   // -------------------------------------
-  const form = useForm<StudentBase>({
-    resolver: zodResolver(StudentBaseSchema),
-    defaultValues: {
-      name: student?.name ?? undefined,
-      email: student?.email ?? undefined,
-      phone: student?.phone ?? undefined,
-      image: student?.image ?? undefined,
-      gender: student?.gender ?? undefined,
-      date_of_birth: student?.date_of_birth ?? undefined,
-      class_id: student?.class_id ?? undefined,
-      registration_number: student?.registration_number ?? undefined,
-      admission_year:
-        student?.admission_year !== undefined
-          ? String(student.admission_year)
-          : undefined,
-
-      status: student?.status ?? "Active",
-      is_active: student?.is_active ?? true,
-      tags: student?.tags ?? [],
-      creator_id: auth.user.id ?? undefined,
-      school_id: isSchool ? auth?.school?.id : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    StudentBase,
+    Student
+  >({
+    schema: StudentBaseSchema,
+    formOptions: {
+      defaultValues: {
+        name: student?.name ?? "",
+        email: student?.email ?? "",
+        phone: student?.phone ?? "",
+        image: student?.image ?? undefined,
+        gender: student?.gender ?? undefined,
+        date_of_birth: student?.date_of_birth ?? undefined,
+        class_id: student?.class_id ?? undefined,
+        registration_number: student?.registration_number ?? "",
+        admission_year:
+          student?.admission_year !== undefined
+            ? String(student.admission_year)
+            : "",
+        status: student?.status ?? "Active",
+        is_active: student?.is_active ?? true,
+        tags: student?.tags ?? [],
+        creator_id: auth.user.id,
+        school_id: isSchool ? auth.school?.id : undefined,
+      },
     },
-    mode: "onChange",
+
+    transform: (values) => ({
+      ...values,
+      admission_year: values.admission_year
+        ? Number(values.admission_year)
+        : undefined,
+      school_id: isSchool ? auth.school?.id : undefined,
+    }),
+
+    request: {
+      method: student ? "put" : "post",
+      url:
+        student && isSchool
+          ? `/school/students/${student._id || student.id}`
+          : isSchool
+            ? "/school/students"
+            : student
+              ? `/students/${student._id || student.id}`
+              : "/students",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    onSuccessMessage: student
+      ? "Student updated successfully"
+      : "Student created successfully",
+
+    toastOnError: true,
+
+    onSuccess: () => {
+      if (!student) form.reset();
+    },
   });
-
-  // -------------------------------------
-  // Submit handler
-  // -------------------------------------
-  const handleSubmit = (values: StudentBase) => {
-    setError(undefined);
-    setSuccess(undefined);
-    startTransition(async () => {
-      try {
-        const api_data = {
-          ...values,
-          admission_year: Number(values.admission_year),
-          school_id: isSchool ? auth?.school?.id : undefined,
-        };
-        console.log("🤣", api_data);
-        const endpoint =
-          student && isSchool
-            ? `/school/students/${student._id || student.id}`
-            : isSchool
-              ? "/school/students"
-              : student
-                ? `/students/${student._id || student.id}`
-                : "/students";
-
-        const response = await apiRequest<typeof api_data, Student>(
-          student ? "put" : "post",
-          endpoint,
-          api_data,
-          { token: auth.token, schoolToken: auth.schoolToken },
-        );
-
-        if (!response.data) {
-          setError(response.message);
-          showToast({
-            title: "Error",
-            description: response.message,
-            type: "error",
-          });
-          return;
-        }
-
-        const message = student
-          ? "Student updated successfully!"
-          : "Student created successfully!";
-        setSuccess(message);
-        showToast({
-          title: student ? "Student Updated" : "Student Created",
-          description: response.data.name,
-          type: "success",
-        });
-
-        if (!student) form.reset();
-      } catch (err) {
-        setError(
-          `Unexpected error occurred [${String(err)}]. Please try again.`,
-        );
-      }
-    });
-  };
 
   // -------------------------------------
   // Render
   // -------------------------------------
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <div className="flex flex-col lg:flex-row gap-2">
-          {/* Left Column */}
-          <div className="w-full flex flex-col gap-2">
-            {/* Image Upload */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="flex flex-col gap-4 lg:flex-row">
+          {/* Left column */}
+          <div className="flex w-full flex-col gap-4">
             <CommonFormField
               control={form.control}
               name="image"
               fieldType="avatar"
-              label="Profile image"
-              avatarProps={{ avatarProps: { size: "3xl" } }}
+              label="Profile Image"
+              disabled={isPending}
             />
 
-            {/* Name */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter student's full name"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Full Name"
+              required
+              placeholder="Student full name"
+              disabled={isPending}
             />
 
-            {/* Email */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="example@student.com"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Email"
+              type="email"
+              placeholder="example@student.com"
+              disabled={isPending}
             />
 
-            {/* Phone */}
-            <FormField
-              name="phone"
+            <CommonFormField
               control={form.control}
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Controller
-                      name={field.name}
-                      control={form.control}
-                      render={({ field }) => (
-                        <RPNInput.default
-                          {...field}
-                          className="flex rounded-lg border-l-0"
-                          international
-                          flagComponent={FlagComponent}
-                          countrySelectComponent={CountrySelect}
-                          inputComponent={PhoneInput}
-                          defaultCountry="RW"
-                          placeholder="Enter phone number"
-                          onChange={(value) => field.onChange(value ?? "")}
-                          disabled={isPending}
-                        />
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              name="phone"
+              label="Phone Number"
+              fieldType="phone"
+              disabled={isPending}
             />
           </div>
 
-          {/* Right Column */}
-          <div className="w-full flex flex-col gap-2">
-            {/* Gender */}
-            <FormField
+          {/* Right column */}
+          <div className="flex w-full flex-col gap-4">
+            <CommonFormField
               control={form.control}
               name="gender"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Gender</FormLabel>
-                  <FormControl>
-                    <RadioInput
-                      items={GenderDetails}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="grid-cols-3 gap-2"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Gender"
+              fieldType="radio-input"
+              items={GenderDetails}
+              disabled={isPending}
             />
-            <FormField
+
+            <CommonFormField
               control={form.control}
               name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <FormControl>
-                    <RadioInput
-                      items={StudentStatusDetails}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="grid-cols-3 gap-2"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Status"
+              fieldType="radio-input"
+              items={StudentStatusDetails}
+              disabled={isPending}
             />
 
-            {/* Registration Number */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="registration_number"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Registration Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter registration number"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Registration Number"
+              placeholder="Registration number"
+              disabled={isPending}
             />
 
-            {/* Admission Year */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="admission_year"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Admission Year</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      placeholder="Enter admission year"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Admission Year"
+              type="number"
+              placeholder="e.g. 2024"
+              disabled={isPending}
             />
 
             {!cls && (
-              <FormField
-                name="class_id"
+              <CommonFormField
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel> Class</FormLabel>
-                    <SelectWithSearch
-                      options={classes.map((c) => ({
-                        value: String(c.id ?? c._id),
-                        label: c.name,
-                      }))}
-                      value={field.value ?? ""}
-                      onChange={field.onChange}
-                      placeholder={
-                        loadingOptions ? "Loading classes..." : "Select a class"
-                      }
-                      disabled={isPending || loadingOptions}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="class_id"
+                label="Class"
+                fieldType="searchSelect"
+                placeholder={
+                  loadingOptions ? "Loading classes..." : "Select a class"
+                }
+                disabled={isPending || loadingOptions}
+                selectOptions={classes.map((c) => ({
+                  value: String(c.id ?? c._id),
+                  label: c.name,
+                }))}
               />
             )}
 
-            {/* Active */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="is_active"
-              render={({ field }) => (
-                <FormItem className="flex flex-row-reverse justify-start gap-2">
-                  <FormLabel>Active</FormLabel>
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value ?? false}
-                      onCheckedChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Active"
+              fieldType="checkbox"
+              disabled={isPending}
             />
           </div>
         </div>
@@ -403,13 +255,13 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
               Cancel
             </Button>
           </DialogClose>
+
           <Button
             type="submit"
             variant="info"
-            disabled={isPending}
-            className="w-full sm:w-auto"
-            role={isPending ? "loading" : undefined}
             library="daisy"
+            disabled={isPending}
+            role={isPending ? "loading" : undefined}
           >
             {student ? "Update Student" : "Add Student"}
           </Button>

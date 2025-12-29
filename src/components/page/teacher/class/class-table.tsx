@@ -1,14 +1,21 @@
-import { Users } from "lucide-react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import MyAvatar from "@/components/common/image/my-avatar";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+import { Users } from "lucide-react";
 
 interface ClassItem {
-  id: string
-  name: string
-  studentCount: number
-  imageUrl: string
-  isSelected?: boolean
+  id: string;
+  name: string;
+  studentCount: number;
+  imageUrl: string;
+  isSelected?: boolean;
 }
 
 const CLASSES_DATA: ClassItem[] = [
@@ -31,7 +38,7 @@ const CLASSES_DATA: ClassItem[] = [
     studentCount: 89,
     imageUrl: "/images/cc.png",
   },
-]
+];
 
 const ClassesTable = () => {
   return (
@@ -41,8 +48,12 @@ const ClassesTable = () => {
         <Table>
           <TableHeader className="">
             <TableRow className="hover:bg-transparent border-none">
-              <TableHead className="h-10 text-foreground font-normal">Class</TableHead>
-              <TableHead className="h-10 text-right text-foreground font-normal">Students</TableHead>
+              <TableHead className="h-10 text-foreground font-normal">
+                Class
+              </TableHead>
+              <TableHead className="h-10 text-right text-foreground font-normal">
+                Students
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -50,22 +61,20 @@ const ClassesTable = () => {
               <TableRow
                 key={item.id}
                 className={cn(
-                  "group transition-colors border-none hover:bg-muted/50"
+                  "group transition-colors border-none hover:bg-muted/50",
                 )}
               >
                 <TableCell className="py-2">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-12 w-12 border">
-                     <AvatarImage
-                         src={item.imageUrl || "/placeholder.svg"}
-                         alt={item.name}
-                      />
-                         <AvatarFallback >
-                           {item.name?.[0]}
-                         </AvatarFallback>
-                    </Avatar>
+                    <MyAvatar
+                      size="default"
+                      src={item.imageUrl}
+                      alt={item.name}
+                    />
 
-                    <span className="text-sm font-normal text-muted-foreground">{item.name}</span>
+                    <span className="text-sm font-normal text-muted-foreground">
+                      {item.name}
+                    </span>
                   </div>
                 </TableCell>
                 <TableCell className="text-right py-2">
@@ -80,7 +89,7 @@ const ClassesTable = () => {
         </Table>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ClassesTable;

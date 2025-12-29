@@ -26,6 +26,7 @@ const AuthLayoutContent = ({
       className={cn(
         "right-0 absolute px-16 h-full max-h-screen overflow-y-auto w-1/2",
         isOnboarding && "w-2/3",
+        "max-md:w-full px-4",
       )}
     >
       <div className="flex flex-col justify-between min-h-screen">

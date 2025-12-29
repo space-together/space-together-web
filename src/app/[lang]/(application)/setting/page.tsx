@@ -2,9 +2,9 @@ import SettingHeader from "@/components/page/settings/setting-header";
 import SettingLang from "@/components/page/settings/setting-lang";
 import SettingLinks from "@/components/page/settings/setting-links";
 import SettingTheme from "@/components/page/settings/setting-theme";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { authContext } from "@/lib/utils/auth-context";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -33,11 +33,11 @@ const SettingPage = async (props: props) => {
           username: auth.user.username ?? undefined,
         }}
       />
-      <div className="flex w-full space-x-4 px-4">
-        <div className="w-1/2">
+      <div className="flex md:flex-row flex-col w-full gap-4 px-4">
+        <div className="md:w-1/2">
           <SettingTheme />
         </div>
-        <div className="w-1/2 space-y-4">
+        <div className="md:w-1/2 space-y-4">
           <SettingLang lang={lang} />
           <SettingLinks lang={lang} />
         </div>
