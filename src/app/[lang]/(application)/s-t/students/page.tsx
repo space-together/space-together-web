@@ -8,15 +8,11 @@ import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Paginated } from "@/lib/schema/common-schema";
-import type { Student } from "@/lib/schema/student/student-schema";
+import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-
-interface props {
-  params: Promise<{ lang: Locale }>;
-}
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
@@ -25,7 +21,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-const SchoolStaffStudentPage = async (props: props) => {
+const SchoolStaffStudentPage = async (
+  props: PageProps<"/[lang]/s-t/students">,
+) => {
   const params = await props.params;
   const { lang } = params;
   const auth = await authContext();
@@ -37,9 +35,9 @@ const SchoolStaffStudentPage = async (props: props) => {
     return <NotFoundPage message="You need to have school to view this page" />;
 
   const [students_res] = await Promise.all([
-    apiRequest<void, Paginated<Student>>(
+    apiRequest<void, Paginated<StudentWithRelations>>(
       "get",
-      `/school/students?limit=${LIMIT}`,
+      `/school/students/others?limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,
@@ -50,7 +48,7 @@ const SchoolStaffStudentPage = async (props: props) => {
   ]);
 
   return (
-    <RealtimeProvider<Student>
+    <RealtimeProvider<StudentWithRelations>
       channels={[
         {
           name: "student",
@@ -69,14 +67,14 @@ const SchoolStaffStudentPage = async (props: props) => {
           table={
             <SchoolStudentTable
               auth={auth}
-              lang={lang}
+              lang={lang as Locale}
               students={students_res?.data?.data ?? []}
               realtimeEnabled
             />
           }
           cards={
             <AllStudentsCards
-              lang={lang}
+              lang={lang as Locale}
               auth={auth}
               students={students_res?.data?.data ?? []}
             />

@@ -5,7 +5,7 @@ import SchoolStudents from "@/components/page/school/school-student";
 import SchoolTeachers from "@/components/page/school/school-teachers";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type { PaginatedStudents } from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolStaff as SchoolStaffModel } from "@/lib/schema/school/school-staff-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
@@ -65,7 +65,7 @@ const SchoolPeoplePage = async (props: props) => {
           schoolToken: auth.schoolToken,
         },
       ),
-      apiRequest<void, PaginatedStudents>(
+      apiRequest<void, Paginated<Student>>(
         "get",
         "/school/students?limit=5",
         undefined,
@@ -86,7 +86,7 @@ const SchoolPeoplePage = async (props: props) => {
         { name: "school", initialData: [schoolRes.data] },
         {
           name: "student",
-          initialData: students_res.data?.students ?? [],
+          initialData: students_res.data?.data ?? [],
         },
         {
           name: "teacher",
@@ -103,7 +103,7 @@ const SchoolPeoplePage = async (props: props) => {
           <SchoolStaff schoolStaff={school_staff_res.data ?? []} lang={lang} />
           <SchoolStudents
             auth={auth}
-            students={students_res.data?.students ?? []}
+            students={students_res.data?.data ?? []}
             onThePage
             lang={lang}
           />
