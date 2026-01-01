@@ -18,7 +18,7 @@ import {
 import type { Locale } from "@/i18n";
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { ClassWithOthers } from "@/lib/schema/relations-schema";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import type { Subject } from "@/lib/schema/subject/subject-schema";
 import { cn } from "@/lib/utils";

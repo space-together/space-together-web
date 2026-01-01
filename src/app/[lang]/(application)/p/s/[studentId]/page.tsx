@@ -2,7 +2,7 @@ import AppPageHeader from "@/components/page/common/app-page-header";
 import NotFoundPage from "@/components/page/not-found";
 import StudentProfileHeader from "@/components/profile/student/student-profile-header";
 import type { Locale } from "@/i18n";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { redirect } from "next/navigation";

@@ -7,8 +7,8 @@ import SchoolStudentTable from "@/components/page/school-staff/table/student-tab
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import { Paginated } from "@/lib/schema/common-schema";
-import { Student } from "@/lib/schema/school/student-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";

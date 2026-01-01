@@ -2,7 +2,7 @@ import { UserSmCard } from "@/components/cards/user-card";
 import MyLink from "@/components/common/myLink";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import Link from "next/link";
 import { BsPlusCircle } from "react-icons/bs";

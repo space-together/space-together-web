@@ -10,16 +10,17 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { calculateAge } from "@/lib/utils/format-date";
 import { getInitialsUsername } from "@/lib/utils/generate-username";
 
 interface props {
   lang: Locale;
   auth: AuthContext;
   isSchoolStaff?: boolean;
-  student : Student;
+  student: Student;
 }
 
 const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
@@ -31,18 +32,43 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
     <Card className=" p-0">
       <CardHeader className="relative border-b-0">
         <div className=" flex flex-row items-center gap-2">
-        <MyAvatar src={student.image} alt={student.name}  />
+          <MyAvatar src={student.image} alt={student.name} />
           <div>
             <MyLink href={`/${lang}/p/s/${student._id}`}>
-              <LoadingIndicatorText className={"h6 line-clamp-1"} title={student.name} >
+              <LoadingIndicatorText
+                className={"h6 line-clamp-1"}
+                title={student.name}
+              >
                 {student.name}
               </LoadingIndicatorText>
             </MyLink>
             <MyLink href={`/${lang}/p/s/${student._id}`}>
-              <LoadingIndicatorText className={"sm line-clamp-1"} title={student.email} >
+              <LoadingIndicatorText
+                className={"sm line-clamp-1"}
+                title={student.email}
+              >
                 {student.email}
               </LoadingIndicatorText>
             </MyLink>
+          </div>
+        </div>
+        <div>
+          <div className=" mt-2">
+            <div className=" flex flex-row flex-wrap gap-2">
+              {student.gender && (
+                <span title={`Gender: ${student.gender}`} className="sm">
+                  Gender: {student.gender}
+                </span>
+              )}
+              {student.date_of_birth && (
+                <span
+                  title={`Age: ${calculateAge(student.date_of_birth)}`}
+                  className="sm"
+                >
+                  Age: {calculateAge(student.date_of_birth)}
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <div className=" px-4 flex flex-col mt-1">

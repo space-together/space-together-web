@@ -8,8 +8,8 @@ import StudentDialog from "@/components/page/student/dialogs/student-dialog";
 import { Separator } from "@/components/ui/separator";
 import { LIMIT } from "@/lib/env";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import { Paginated } from "@/lib/schema/common-schema";
-import { Student } from "@/lib/schema/school/student-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
@@ -26,8 +26,7 @@ const StudentFilter = ({ auth }: Props) => {
     current_page: 1,
   });
 
-  const { data, addItem, deleteItem } =
-    useRealtimeData<Student>("student");
+  const { data, addItem, deleteItem } = useRealtimeData<Student>("student");
 
   async function fetchStudents(page = 1, filterValue = filter) {
     setLoading(true);

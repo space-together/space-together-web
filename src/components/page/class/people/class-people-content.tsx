@@ -2,7 +2,7 @@
 
 import { UserSmCard } from "@/components/cards/user-card";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import { useEffect, useState } from "react";
 

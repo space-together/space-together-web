@@ -8,17 +8,17 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 
 import {
-    GenderDetails,
-    StudentStatusDetails,
+  GenderDetails,
+  StudentStatusDetails,
 } from "@/lib/const/common-details-const";
 
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import {
-    StudentBaseSchema,
-    type Student,
-    type StudentBase,
-} from "@/lib/schema/school/student-schema";
+  StudentBaseSchema,
+  type Student,
+  type StudentBase,
+} from "@/lib/schema/student/student-schema";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -136,7 +136,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
     },
     onError: (error, value) => {
       console.error(error);
-      console.error("😤😤",value);
+      console.error("😤😤", value);
     },
   });
 
@@ -201,6 +201,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
               label="Status"
               fieldType="radio-input"
               items={StudentStatusDetails}
+              className=" grid-cols-2"
               disabled={isPending}
             />
 

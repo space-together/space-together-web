@@ -1,7 +1,7 @@
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyLink from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import { BsMailbox, BsPerson, BsPhone } from "react-icons/bs";
 
 interface StudentProfileHeaderProps {

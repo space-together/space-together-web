@@ -1,7 +1,7 @@
 import type { Locale } from "@/i18n";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { SchoolStaff as school_staff_t } from "@/lib/schema/school/school-staff-schema";
-import type { Student } from "@/lib/schema/school/student-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import SchoolContacts from "./school-contacts";
