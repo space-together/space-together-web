@@ -10,6 +10,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
+import { Student } from "@/lib/schema/school/student-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { getInitialsUsername } from "@/lib/utils/generate-username";
@@ -38,8 +39,8 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
               </LoadingIndicatorText>
             </MyLink>
             <MyLink href={`/${lang}/p/s/${student._id}`}>
-              <LoadingIndicatorText className={"sm line-clamp-1"} title={student.registration_number} >
-                {student.registration_number}
+              <LoadingIndicatorText className={"sm line-clamp-1"} title={student.email} >
+                {student.email}
               </LoadingIndicatorText>
             </MyLink>
           </div>

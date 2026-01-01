@@ -1,7 +1,6 @@
 "use client";
 
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import TableFilter from "@/components/common/table/table-filter";
 import EmptyStudents from "@/components/page/school-staff/students-components/empty-students";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
@@ -9,15 +8,15 @@ import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
-  type ColumnFiltersState,
-  getCoreRowModel,
-  getFacetedMinMaxValues,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
+    type ColumnFiltersState,
+    getCoreRowModel,
+    getFacetedMinMaxValues,
+    getFacetedRowModel,
+    getFacetedUniqueValues,
+    getFilteredRowModel,
+    getSortedRowModel,
+    type SortingState,
+    useReactTable,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { StudentTableColumns } from "./student-table-columns";
@@ -81,22 +80,9 @@ export default function SchoolStudentTable({
 
   return (
     <Card>
-      <CardHeader className="flex w-full justify-between">
-        <div className="flex items-center justify-between px-4 pt-4 pb-0">
+      <CardHeader className="flex w-full justify-between border-b-0">
           <CardTitle className="">Students</CardTitle>
-        </div>
       </CardHeader>
-      <div className="flex flex-wrap gap-3 border-b px-4 py-2">
-        <div className="w-44">
-          <TableFilter column={table.getColumn("name")!} />
-        </div>
-        <div className="w-32">
-          <TableFilter column={table.getColumn("gender")!} />
-        </div>
-        <div className="w-40">
-          <TableFilter column={table.getColumn("phone")!} />
-        </div>
-      </div>
 
       <CardContent className="p-0">
         <CommonDataTable

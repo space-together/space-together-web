@@ -2,26 +2,26 @@
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import AddressInput from "@/components/common/form/address-input";
 import CheckboxInput from "@/components/common/form/checkbox-input";
-import DateInput from "@/components/common/form/date-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import {
-  CertificationDetails,
-  EducationLevelDetails,
-  LanguageDetails,
+    CertificationDetails,
+    EducationLevelDetails,
+    LanguageDetails,
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
-  StaffBackgroundSchema,
-  type StaffBackground,
+    StaffBackgroundSchema,
+    type StaffBackground,
 } from "@/lib/schema/school-staff/school-staff-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -105,23 +105,10 @@ const StaffBackgroundForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col space-y-4">
-          <FormField
-            control={form.control}
-            name="years_of_experience"
-            render={({ field }) => (
-              <FormItem className="lg:w-1/2 w-full space-y-2">
-                <FormLabel>Years of experience</FormLabel>
-                <FormControl>
-                  <DateInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <CommonFormField name="years_of_experience" control={form.control}
+          label="Years of experience"
+          fieldType="date" classname="lg:w-1/2 w-full"/>
+
           <FormField
             control={form.control}
             name="address"

@@ -1,41 +1,41 @@
 "use client";
 
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input, type inputProps } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 import AddressInput, {
-  type AddressInputProps,
+    type AddressInputProps,
 } from "@/components/common/form/address-input";
 import AgeInput, {
-  type AgePickerProps,
+    type AgeDateInputProps,
 } from "@/components/common/form/age-input";
 import DateStringInput, {
-  type DateStringInputProps,
+    type DateStringInputProps,
 } from "@/components/common/form/date-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import MultipleSelector from "@/components/ui/multiselect";
 import type { CommonDetails, Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type {
-  Control,
-  ControllerRenderProps,
-  FieldPath,
-  FieldValues,
+    Control,
+    ControllerRenderProps,
+    FieldPath,
+    FieldValues,
 } from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
@@ -98,7 +98,7 @@ interface CommonFormFieldProps<T extends FieldValues> {
   phoneProps?: Omit<PhoneInputProps, "value" | "onChange">;
   radioInputProps?: RadioInputProps;
   addressProps?: AddressInputProps;
-  ageProps?: AgePickerProps;
+  ageProps?: AgeDateInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({

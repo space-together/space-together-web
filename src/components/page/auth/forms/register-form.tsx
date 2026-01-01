@@ -3,22 +3,20 @@
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Locale } from "@/i18n";
 
-("@/i18n");
-
 import {
-  type AuthUserDto,
-  type RegisterUser,
-  RegisterUserSchema,
+    type AuthUserDto,
+    type RegisterUser,
+    RegisterUserSchema,
 } from "@/lib/schema/user/auth-user-schema";
 import { setAuthCookies } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -247,27 +245,11 @@ const RegisterForm = ({ lang }: props) => {
                 {/* Only show feedback when password is weak */}
                 {showFeedback && strengthScore < 4 && (
                   <div className="animate-fadeIn">
-                    {/* Strength indicator */}
-                    <div
-                      className="bg-border mt-3 mb-4 h-1 w-full overflow-hidden rounded-full"
-                      role="progressbar"
-                      aria-valuenow={strengthScore}
-                      aria-valuemin={0}
-                      aria-valuemax={4}
-                      aria-label="Password strength"
-                    >
-                      <div
-                        className={`h-full ${getStrengthColor(
-                          strengthScore,
-                        )} transition-all duration-500 ease-out`}
-                        style={{ width: `${(strengthScore / 4) * 100}%` }}
-                      ></div>
-                    </div>
 
                     {/* Password feedback text */}
                     <p
                       id="password-description"
-                      className={`mb-2 text-sm font-medium text-red-600`}
+                      className={`mb-2 text-sm font-medium text-error`}
                     >
                       {getStrengthText(strengthScore)}. Must contain:
                     </p>
@@ -282,7 +264,7 @@ const RegisterForm = ({ lang }: props) => {
                           {req.met ? (
                             <CheckIcon
                               size={16}
-                              className="text-emerald-500"
+                              className="text-success"
                               aria-hidden="true"
                             />
                           ) : (
