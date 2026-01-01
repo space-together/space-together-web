@@ -1,11 +1,10 @@
 "use client";
 
-import { LoadingIndicator } from "@/components/common/myLink";
+import MyLink, { LoadingIndicator } from "@/components/common/myLink";
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Loader2, Pen } from "lucide-react";
-import Link from "next/link";
 import * as React from "react";
 import { BsTrash3 } from "react-icons/bs";
 import { CiCircleCheck, CiCirclePlus } from "react-icons/ci";
@@ -240,11 +239,11 @@ const Button = React.forwardRef<
     };
 
     return (
-      <Link href={href} {...(anchorProps as any)} ref={forwardedRef as any}>
+      <MyLink href={href} {...(anchorProps as any)} ref={forwardedRef as any}>
         {role !== "page" && renderIcon()}
         {children}
         {role === "page" && renderIcon()}
-      </Link>
+      </MyLink>
     );
   }
 

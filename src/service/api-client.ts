@@ -4,7 +4,7 @@ import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 async function safeRevalidate(path: string) {
   try {
     // Use environment variable for base URL if available
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://127.0.0.1:4646";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localehost:4646";
 
     // POST to Next.js revalidation route (if it exists)
     const response = await fetch(`${baseUrl}/api/revalidate`, {

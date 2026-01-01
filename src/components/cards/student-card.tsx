@@ -1,9 +1,7 @@
 "use client";
 import MyAvatar from "@/components/common/image/my-avatar";
-import MyImage from "@/components/common/myImage";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import StudentModifySheet from "@/components/page/school-staff/students-components/student-modify-sheet";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +10,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { getInitialsUsername } from "@/lib/utils/generate-username";
@@ -21,7 +18,7 @@ interface props {
   lang: Locale;
   auth: AuthContext;
   isSchoolStaff?: boolean;
-  student?: StudentWithRelations;
+  student : Student;
 }
 
 const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
@@ -31,44 +28,23 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
 
   return (
     <Card className=" p-0">
-      <CardHeader className="relative p-0 border-b-0">
-        <MyImage
-          src={
-            student?.image
-              ? student.image
-              : student?.gender === "MALE"
-                ? "/images/students/male.jpg"
-                : "/images/students/female.jpg"
-          }
-          className="h-52 w-full  border-b border-base-content/50"
-          classname=" card rounded-b-none"
-        />
-        <div className=" px-4 flex flex-col mt-1">
-          <div className=" flex justify-between items-center">
-            {student?.name && (
-              <MyLink href={`/${lang}/p/s/${student._id}`}>
-                <LoadingIndicatorText className=" font-medium">
-                  {student.name}
-                </LoadingIndicatorText>
-              </MyLink>
-            )}
-            <Badge
-              library="daisy"
-              variant={student?.is_active ? "info" : "error"}
-              size={"sm"}
-            >
-              Active
-            </Badge>
+      <CardHeader className="relative border-b-0">
+        <div className=" flex flex-row items-center gap-2">
+        <MyAvatar src={student.image} alt={student.name}  />
+          <div>
+            <MyLink href={`/${lang}/p/s/${student._id}`}>
+              <LoadingIndicatorText className={"h6 line-clamp-1"} title={student.name} >
+                {student.name}
+              </LoadingIndicatorText>
+            </MyLink>
+            <MyLink href={`/${lang}/p/s/${student._id}`}>
+              <LoadingIndicatorText className={"sm line-clamp-1"} title={student.registration_number} >
+                {student.registration_number}
+              </LoadingIndicatorText>
+            </MyLink>
           </div>
-
-          {student?.registration_number && (
-            <span
-              title={`Student code: ${student.registration_number}`}
-              className=" text-primary"
-            >
-              {student.registration_number}
-            </span>
-          )}
+        </div>
+        <div className=" px-4 flex flex-col mt-1">
           {/* student class */}
           {student?.class && (
             <MyLink
@@ -115,6 +91,7 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
             className={cn("w-full", isSchoolStaff && "w-fit")}
             role="page"
             href={`/${lang}/p/s/${student?._id}`}
+            size="sm"
           >
             {"Vue student"}
           </Button>

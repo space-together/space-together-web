@@ -8,10 +8,8 @@ import StudentDialog from "@/components/page/student/dialogs/student-dialog";
 import { Separator } from "@/components/ui/separator";
 import { LIMIT } from "@/lib/env";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import type {
-  PaginatedStudentWithRelations,
-  StudentWithRelations,
-} from "@/lib/schema/relations-schema";
+import { Paginated } from "@/lib/schema/common-schema";
+import { Student } from "@/lib/schema/school/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
@@ -29,7 +27,7 @@ const StudentFilter = ({ auth }: Props) => {
   });
 
   const { data, addItem, deleteItem } =
-    useRealtimeData<StudentWithRelations>("student");
+    useRealtimeData<Student>("student");
 
   async function fetchStudents(page = 1, filterValue = filter) {
     setLoading(true);
@@ -43,9 +41,9 @@ const StudentFilter = ({ auth }: Props) => {
 
       if (filterValue) params.set("filter", filterValue);
 
-      const res = await apiRequest<void, PaginatedStudentWithRelations>(
+      const res = await apiRequest<void, Paginated<Student>>(
         "get",
-        `/school/students/with-details?${params.toString()}`,
+        `/school/students?${params.toString()}`,
         undefined,
         {
           token: auth.token,
@@ -58,7 +56,7 @@ const StudentFilter = ({ auth }: Props) => {
         // Clear old data
         data.forEach((s) => deleteItem(s.id || s._id || ""));
         // Add new students
-        res.data.students.forEach((s) => addItem(s));
+        res.data.data.forEach((s) => addItem(s));
 
         setPagination({
           total_pages: res.data.total_pages,

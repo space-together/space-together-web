@@ -7,11 +7,11 @@ import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTrigger,
+    Sheet,
+    SheetContent,
+    SheetFooter,
+    SheetHeader,
+    SheetTrigger,
 } from "@/components/ui/sheet";
 
 import StudentDialog from "@/components/page/student/dialogs/student-dialog";
@@ -62,7 +62,7 @@ const StudentModifySheet = ({
             </div>
           </Button>
         ) : (
-          <Button library="daisy" variant={"outline"}>
+          <Button library="daisy" variant={"outline"} size="sm">
             Modify student
           </Button>
         )}

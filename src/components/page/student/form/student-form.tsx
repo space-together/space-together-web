@@ -8,16 +8,16 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 
 import {
-  GenderDetails,
-  StudentStatusDetails,
+    GenderDetails,
+    StudentStatusDetails,
 } from "@/lib/const/common-details-const";
 
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import {
-  StudentBaseSchema,
-  type Student,
-  type StudentBase,
+    StudentBaseSchema,
+    type Student,
+    type StudentBase,
 } from "@/lib/schema/school/student-schema";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
@@ -88,7 +88,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
         gender: student?.gender ?? undefined,
         date_of_birth: student?.date_of_birth ?? undefined,
         class_id: student?.class_id ?? undefined,
-        registration_number: student?.registration_number ?? "",
+        registration_number: student?.registration_number ?? undefined,
         admission_year:
           student?.admission_year !== undefined
             ? String(student.admission_year)
@@ -133,6 +133,10 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
 
     onSuccess: () => {
       if (!student) form.reset();
+    },
+    onError: (error, value) => {
+      console.error(error);
+      console.error("😤😤",value);
     },
   });
 

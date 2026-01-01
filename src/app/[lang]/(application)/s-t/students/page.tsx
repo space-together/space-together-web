@@ -5,11 +5,10 @@ import AllStudentsCards from "@/components/page/school-staff/students-components
 import StudentFilter from "@/components/page/school-staff/students-components/students-fiter";
 import SchoolStudentTable from "@/components/page/school-staff/table/student-table/table-student-list";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type {
-  PaginatedStudentWithRelations,
-  StudentWithRelations,
-} from "@/lib/schema/relations-schema";
+import { Paginated } from "@/lib/schema/common-schema";
+import { Student } from "@/lib/schema/school/student-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
@@ -38,9 +37,9 @@ const SchoolStaffStudentPage = async (props: props) => {
     return <NotFoundPage message="You need to have school to view this page" />;
 
   const [students_res] = await Promise.all([
-    apiRequest<void, PaginatedStudentWithRelations>(
+    apiRequest<void, Paginated<Student>>(
       "get",
-      "/school/students/with-details?limit=9",
+      `/school/students?limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,
@@ -51,11 +50,11 @@ const SchoolStaffStudentPage = async (props: props) => {
   ]);
 
   return (
-    <RealtimeProvider<StudentWithRelations>
+    <RealtimeProvider<Student>
       channels={[
         {
           name: "student",
-          initialData: students_res?.data?.students ?? [],
+          initialData: students_res?.data?.data ?? [],
         },
       ]}
     >
@@ -71,7 +70,7 @@ const SchoolStaffStudentPage = async (props: props) => {
             <SchoolStudentTable
               auth={auth}
               lang={lang}
-              students={students_res?.data?.students ?? []}
+              students={students_res?.data?.data ?? []}
               realtimeEnabled
             />
           }
@@ -79,7 +78,7 @@ const SchoolStaffStudentPage = async (props: props) => {
             <AllStudentsCards
               lang={lang}
               auth={auth}
-              students={students_res?.data?.students ?? []}
+              students={students_res?.data?.data ?? []}
             />
           }
         />
