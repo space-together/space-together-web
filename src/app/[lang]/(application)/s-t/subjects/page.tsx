@@ -48,7 +48,7 @@ const SchoolSubjectsPage = async (props: PageProps<"/[lang]/s-t/subjects">) => {
           title="Subjects"
           description="Manage school subjects."
         />
-        <SchoolStaffSubjectFilter auth={auth} />
+        <SchoolStaffSubjectFilter subjects={subjectsRes.data} auth={auth} />
         <DisplaySwitcher
           table={
             <ClassSubjectTable
