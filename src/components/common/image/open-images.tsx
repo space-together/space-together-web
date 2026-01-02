@@ -77,7 +77,7 @@ export function OpenImages({
       <AlertDialogTrigger asChild>
         {component ? component : <MyImage src={images[currentIndex]} />}
       </AlertDialogTrigger>
-      <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300 bg-black/10 border-none outline-none">
+      <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300  border-none outline-none">
         {/* --- Header Controls --- */}
         <div className="absolute top-0 z-50 left-0 right-0  flex items-center justify-between p-4  to-transparent">
           <div className="flex items-center gap-2">
