@@ -16,6 +16,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { ClassSmCard } from "@/components/cards/class-card";
 import NotFoundImage from "@/components/common/image/not-found-image";
 import { OpenImages } from "@/components/common/image/open-images";
 import type { Locale } from "@/i18n";
@@ -272,31 +273,11 @@ const SchoolTeacherModifySheet = ({
             )}
 
             {teacherClasses.map((cls) => (
-              <div
-                key={cls._id || cls.id}
-                className="flex justify-between items-center w-full"
-              >
-                <div className="flex gap-2 items-center">
-                  <MyAvatar
-                    src={cls.image}
-                    alt={cls.name}
-                    size="sm"
-                    type="square"
-                  />
-                  <div className="flex flex-col">
-                    <span className="font-medium">{cls.name}</span>
-                    <span className="text-sm opacity-70">@{cls.username}</span>
-                  </div>
-                </div>
-                {/* <Button
-                  size={"xs"}
-                  variant={"ghost"}
-                  library="daisy"
-                  type="button"
-                >
-                  Remove
-                </Button> */}
-              </div>
+              <ClassSmCard
+                key={cls._id || teacher?._id}
+                lang={lang}
+                cls={cls}
+              />
             ))}
           </div>
         </main>

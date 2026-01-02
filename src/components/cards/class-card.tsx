@@ -16,6 +16,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import type { Locale } from "@/i18n";
+import type { Class } from "@/lib/schema/class/class-schema";
 import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -189,3 +190,17 @@ const ClassCard = ({
 };
 
 export default ClassCard;
+
+export const ClassSmCard = ({ cls, lang }: { cls: Class; lang: Locale }) => {
+  return (
+    <MyLink
+      className=" underline-offset-0"
+      href={`/${lang}/c/${cls?.username}`}
+    >
+      <div className=" flex gap-2 items-center">
+        <MyAvatar src={cls.image} isSubClass alt={cls.name} size={"sm"} />
+        <span title={cls.name}>{cls.name}</span>
+      </div>
+    </MyLink>
+  );
+};

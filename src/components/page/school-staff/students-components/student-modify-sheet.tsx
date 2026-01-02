@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
@@ -13,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { ClassSmCard } from "@/components/cards/class-card";
 import NotFoundImage from "@/components/common/image/not-found-image";
 import { OpenImages } from "@/components/common/image/open-images";
 import StudentDialog from "@/components/page/student/dialogs/student-dialog";
@@ -29,7 +29,7 @@ interface Props {
   student: StudentWithRelations;
   auth: AuthContext;
   isTable?: boolean;
-  lang?: Locale;
+  lang: Locale;
   isSchool?: boolean;
 }
 
@@ -40,9 +40,6 @@ const StudentModifySheet = ({
   lang,
   isSchool,
 }: Props) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
   return (
     <Sheet isPublic>
       <SheetTrigger asChild>
@@ -187,22 +184,7 @@ const StudentModifySheet = ({
             <div className=" space-y-4 flex-col flex">
               <Label>Class</Label>
               {student?.class && (
-                <MyLink
-                  className=" underline-offset-0"
-                  href={`/${lang}/c/${student?.class?.username}`}
-                >
-                  <div className=" flex gap-2 items-center">
-                    <MyAvatar
-                      src={student?.class?.image}
-                      isSubClass
-                      alt={student?.class?.name}
-                      size={"sm"}
-                    />
-                    <span title={student?.class?.name}>
-                      {student?.class?.name}
-                    </span>
-                  </div>
-                </MyLink>
+                <ClassSmCard lang={lang} cls={student.class} />
               )}
             </div>
           ) : (
