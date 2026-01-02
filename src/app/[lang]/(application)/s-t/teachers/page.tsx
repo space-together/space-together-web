@@ -57,6 +57,7 @@ const SchoolStaffTeacherPage = async (props: props) => {
       <div className="space-y-4">
         <AppPageHeader
           title="Teachers"
+          total={teachers.data?.total}
           description="Manage school teachers, classes, and subjects."
         />
         <SchoolStaffTeacherFilter teachers={teachers.data} auth={auth} />

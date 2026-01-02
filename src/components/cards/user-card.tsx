@@ -1,6 +1,16 @@
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import type { Gender } from "@/lib/schema/common-details-schema";
+import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import { calculateAge } from "@/lib/utils/format-date";
 import MyAvatar, { type MyAvatarProps } from "../common/image/my-avatar";
 import MyLink, { LoadingIndicatorText } from "../common/myLink";
 
@@ -133,5 +143,93 @@ export const UserSmCard = ({
         </div>
       )}
     </div>
+  );
+};
+
+export interface UserCardProps {
+  lang: Locale;
+  auth: AuthContext;
+  user: UserModel;
+  isAdminView?: boolean;
+}
+
+export const UserCard = ({ auth, user, lang, isAdminView }: UserCardProps) => {
+  const canModify = auth.user.role === "ADMIN";
+
+  return (
+    <Card className="p-0">
+      {/* HEADER */}
+      <CardHeader className="border-b-0">
+        <div className="flex items-center gap-2">
+          <MyAvatar src={user.image} alt={user.name} />
+
+          <div className="flex flex-col">
+            <MyLink href={`/${lang}/p/${user.username ?? user._id}`}>
+              <LoadingIndicatorText
+                className="h6 line-clamp-1"
+                title={user.name}
+              >
+                {user.name}
+              </LoadingIndicatorText>
+            </MyLink>
+
+            <LoadingIndicatorText
+              className="sm line-clamp-1"
+              title={user.email}
+            >
+              {user.email}
+            </LoadingIndicatorText>
+          </div>
+        </div>
+
+        {/* META */}
+        <div className="mt-2 flex flex-wrap gap-2">
+          {user.role && <span className="sm">Role: {user.role}</span>}
+
+          {user.gender && <span className="sm">Gender: {user.gender}</span>}
+
+          {user.age && (
+            <span className="sm">Age: {calculateAge(user.age)}</span>
+          )}
+
+          {user.disable && (
+            <span className="sm text-error font-medium">Disabled</span>
+          )}
+        </div>
+      </CardHeader>
+
+      {/* FOOTER */}
+      <CardContent className="p-0 pb-4 flex flex-col justify-between">
+        <CardFooter
+          className={cn(
+            "border-t border-base-content/50",
+            "flex justify-end gap-2",
+          )}
+        >
+          {canModify && (
+            <Button
+              library="daisy"
+              variant="outline"
+              size="sm"
+              role="page"
+              href={`/${lang}/admin/users/${user._id}/edit`}
+            >
+              Edit
+            </Button>
+          )}
+
+          <Button
+            library="daisy"
+            variant="primary"
+            size="sm"
+            className={cn("")}
+            role="page"
+            href={`/${lang}/p/${user.username ?? user._id}`}
+          >
+            View profile
+          </Button>
+        </CardFooter>
+      </CardContent>
+    </Card>
   );
 };
