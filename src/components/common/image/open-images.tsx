@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MyImage from "../myImage";
 
 interface OpenImagesProps {
@@ -29,12 +29,19 @@ export function OpenImages({
   const [zoom, setZoom] = useState(1);
   const [open, setOpen] = useState(isOpen);
 
-  // Reset zoom when image changes
+  /** -------- DRAG STATE -------- */
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const lastOffset = useRef({ x: 0, y: 0 });
+
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  /** Reset zoom & pan on image change */
   useEffect(() => {
     setZoom(1);
+    setOffset({ x: 0, y: 0 });
   }, [currentIndex]);
 
-  // Sync index if initialIndex changes externally
   useEffect(() => {
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
@@ -42,7 +49,7 @@ export function OpenImages({
   const handleNext = useCallback(
     (e?: React.MouseEvent | KeyboardEvent) => {
       e?.stopPropagation();
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      setCurrentIndex((p) => (p + 1) % images.length);
     },
     [images.length],
   );
@@ -50,104 +57,135 @@ export function OpenImages({
   const handlePrev = useCallback(
     (e?: React.MouseEvent | KeyboardEvent) => {
       e?.stopPropagation();
-      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+      setCurrentIndex((p) => (p - 1 + images.length) % images.length);
     },
     [images.length],
   );
 
-  // Handle Keyboard Navigation
+  /** Keyboard */
   useEffect(() => {
     if (!open) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") handleNext(e);
       if (e.key === "ArrowLeft") handlePrev(e);
       if (e.key === "Escape") setOpen(false);
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open, handleNext, handlePrev]);
 
-  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 3));
-  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.5, 1));
+  const handleZoomIn = () => setZoom((p) => Math.min(p + 0.5, 3));
+  const handleZoomOut = () => {
+    setZoom((p) => {
+      const next = Math.max(p - 0.5, 1);
+      if (next === 1) setOffset({ x: 0, y: 0 });
+      return next;
+    });
+  };
+
+  /** -------- DRAG EVENTS -------- */
+  const handleDragStart = (e: React.DragEvent) => {
+    if (zoom === 1) return;
+
+    dragStart.current = { x: e.clientX, y: e.clientY };
+    lastOffset.current = offset;
+
+    // Required to enable dragging in all browsers
+    e.dataTransfer.setDragImage(new Image(), 0, 0);
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    if (zoom === 1 || (e.clientX === 0 && e.clientY === 0)) return;
+
+    const dx = e.clientX - dragStart.current.x;
+    const dy = e.clientY - dragStart.current.y;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+    const maxX = (rect.width * (zoom - 1)) / 2;
+    const maxY = (rect.height * (zoom - 1)) / 2;
+
+    const x = Math.max(-maxX, Math.min(maxX, lastOffset.current.x + dx));
+    const y = Math.max(-maxY, Math.min(maxY, lastOffset.current.y + dy));
+
+    setOffset({ x, y });
+  };
+
+  const handleDragEnd = () => {
+    lastOffset.current = offset;
+  };
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {component ? component : <MyImage src={images[currentIndex]} />}
       </AlertDialogTrigger>
-      <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300  border-none outline-none">
-        {/* --- Header Controls --- */}
-        <div className="absolute top-0 z-50 left-0 right-0  flex items-center justify-between p-4  to-transparent">
-          <div className="flex items-center gap-2">
+
+      <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300 border-none outline-none">
+        {/* Header */}
+        <div className="absolute top-0 z-50 left-0 right-0 flex items-center justify-between p-4">
+          <Button
+            variant="ghost"
+            onClick={() => setOpen(false)}
+            library="daisy"
+            shape="circle"
+          >
+            <X className="w-6 h-6" />
+          </Button>
+
+          <div className="flex gap-2">
             <Button
               variant="ghost"
-              size="sm"
-              className=" z-50"
-              onClick={() => setOpen(false)}
+              onClick={handleZoomIn}
+              disabled={zoom >= 3}
               library="daisy"
               shape="circle"
             >
-              <X className="w-6 h-6" />
-            </Button>
-          </div>
-
-          <div className="flex items-center gap-1 sm:gap-4">
-            <Button
-              variant="ghost"
-              size={"md"}
-              library="daisy"
-              shape={"circle"}
-              onClick={handleZoomIn}
-              disabled={zoom >= 3} // Disabled at max zoom
-            >
-              <ZoomIn className="w-5 h-5" />
+              <ZoomIn />
             </Button>
             <Button
               variant="ghost"
-              size="md"
-              library="daisy"
-              shape={"circle"}
               onClick={handleZoomOut}
-              disabled={zoom <= 1} // Disabled when not zoomed in
+              disabled={zoom <= 1}
+              library="daisy"
+              shape="circle"
             >
-              <ZoomOut className="w-5 h-5" />
+              <ZoomOut />
             </Button>
           </div>
         </div>
 
-        {/* --- Main Image Area --- */}
-        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-          {/* Navigation Arrows (Only if multiple images) */}
+        {/* Image Area */}
+        <div
+          ref={containerRef}
+          className="relative w-full h-full flex items-center justify-center overflow-hidden"
+        >
           {images.length > 1 && (
             <>
-              <div
-                className="absolute left-0 w-16 h-full flex items-center cursor-pointer"
-                onClick={handlePrev}
-              >
+              <div className="absolute left-0 w-16 h-full flex items-center">
                 <Button
                   variant="ghost"
-                  className="bg-base-100 hover:bg-base-content/10 ml-4  z-50"
                   onClick={handlePrev}
                   library="daisy"
                   shape="circle"
-                  size="lg"
+                  size={"lg"}
+                  className="z-50"
                 >
                   <ChevronLeft size={32} />
                 </Button>
               </div>
-              <div
-                className="absolute right-0 w-16 h-full flex items-center  cursor-pointer"
-                onClick={handleNext}
-              >
+              <div className="absolute right-0 w-16 h-full flex items-center">
                 <Button
                   variant="ghost"
-                  className="bg-base-100 hover:bg-base-content/10  z-50"
                   onClick={handleNext}
                   library="daisy"
                   shape="circle"
-                  size="lg"
+                  size={"lg"}
+                  className="z-50"
                 >
                   <ChevronRight size={32} />
                 </Button>
@@ -155,23 +193,31 @@ export function OpenImages({
             </>
           )}
 
-          {/* The Image */}
+          {/* Draggable Image */}
           <div
-            className="transition-transform duration-200 ease-out"
-            style={{ transform: `scale(${zoom})` }}
+            draggable={zoom > 1}
+            onDragStart={handleDragStart}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+            className="transition-transform duration-200 ease-out  active:cursor-grabbing"
+            style={{
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+            }}
           >
             <Image
               src={images[currentIndex]}
-              alt={`Viewed image ${currentIndex + 1}`}
+              alt="Viewed image"
               width={1200}
               height={800}
               className="max-w-full max-h-screen object-contain select-none"
+              draggable={false}
+              contentEditable={false}
               priority
             />
           </div>
         </div>
 
-        {/* --- Footer --- */}
+        {/* Footer */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
           {currentIndex + 1} / {images.length}
         </div>
