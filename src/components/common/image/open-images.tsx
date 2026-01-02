@@ -121,11 +121,13 @@ export function OpenImages({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        {component ? (
-          component
-        ) : (
-          <MyImage className={cn(className)} src={images[currentIndex]} />
-        )}
+        <div className=" cursor-pointer">
+          {component ? (
+            component
+          ) : (
+            <MyImage className={cn(className)} src={images[currentIndex]} />
+          )}
+        </div>
       </AlertDialogTrigger>
 
       <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300 border-none outline-none">

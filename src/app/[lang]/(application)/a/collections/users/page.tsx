@@ -59,6 +59,7 @@ const UserPageCollection = async (
             <UsersTableCollection
               auth={auth}
               users={usersRequest.data?.users ?? []}
+              lang={lang as Locale}
             />
           }
           cards={

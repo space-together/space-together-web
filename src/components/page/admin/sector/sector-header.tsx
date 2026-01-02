@@ -24,10 +24,14 @@ const SectorHeader = ({ sector, auth }: SectorHeaderProps) => {
               classname=" object-contain"
               size="2xl"
               src={sector.logo}
+              alt={sector.name}
+              type="square"
+              className="rounded-none"
             />
           }
         />
       )}
+
       <div className="flex flex-col gap-4">
         <div className=" flex flex-col gap-2">
           <div className="flex items-center gap-2">
