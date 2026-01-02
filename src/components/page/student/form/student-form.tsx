@@ -89,10 +89,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
         date_of_birth: student?.date_of_birth ?? undefined,
         class_id: student?.class_id ?? undefined,
         registration_number: student?.registration_number ?? undefined,
-        admission_year:
-          student?.admission_year !== undefined
-            ? String(student.admission_year)
-            : "",
+        admission_year: student?.admission_year ?? undefined,
         status: student?.status ?? "Active",
         is_active: student?.is_active ?? true,
         tags: student?.tags ?? [],
@@ -134,10 +131,6 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
     onSuccess: () => {
       if (!student) form.reset();
     },
-    onError: (error, value) => {
-      console.error(error);
-      console.error("😤😤", value);
-    },
   });
 
   // -------------------------------------
@@ -145,7 +138,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
   // -------------------------------------
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex flex-col gap-4 lg:flex-row">
           {/* Left column */}
           <div className="flex w-full flex-col gap-4">

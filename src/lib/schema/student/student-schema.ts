@@ -4,6 +4,7 @@ import {
   GenderSchema,
   LanguageSchema,
   LearningChallengeSchema,
+  numberSchema,
   SpecialSupportSchema,
   StudentStatusSchema,
   StudyStyleSchema,
@@ -32,7 +33,7 @@ export const StudentSchema = z.object({
   date_of_birth: AgeSchema.optional(),
 
   registration_number: z.string().optional(),
-  admission_year: z.number().int().optional(),
+  admission_year: numberSchema.optional(),
 
   status: StudentStatusSchema.default("Active"),
   is_active: z.boolean().default(false),

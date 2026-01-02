@@ -23,9 +23,10 @@ import { splitCamelCase } from "@/lib/helpers/format-text";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import AddStudentToClass from "../../student/dialogs/add-student-to-class";
 
 interface Props {
-  student?: StudentWithRelations;
+  student: StudentWithRelations;
   auth: AuthContext;
   isTable?: boolean;
   lang?: Locale;
@@ -205,7 +206,10 @@ const StudentModifySheet = ({
               )}
             </div>
           ) : (
-            <div>no class student have</div>
+            <div className=" space-y-2">
+              <h6 className="text-base-content/50"> No Class Assigned </h6>
+              <AddStudentToClass auth={auth} student={student} />
+            </div>
           )}
         </main>
 

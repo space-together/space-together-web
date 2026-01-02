@@ -10,7 +10,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import type { Student } from "@/lib/schema/student/student-schema";
+import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { calculateAge } from "@/lib/utils/format-date";
@@ -20,7 +20,7 @@ interface props {
   lang: Locale;
   auth: AuthContext;
   isSchoolStaff?: boolean;
-  student: Student;
+  student: StudentWithRelations;
 }
 
 const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
@@ -63,36 +63,24 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
                   Age: {calculateAge(student.date_of_birth)}
                 </span>
               )}
+              {student.class && (
+                <MyLink
+                  href={`/${lang}/c/${student.class.username}`}
+                  className=" flex "
+                >
+                  <LoadingIndicatorText
+                    title={`Class: ${student.class.name}`}
+                    className=" text-sm line-clamp-1 font-medium"
+                  >
+                    Class: {getInitialsUsername(student.class.name, true)}
+                  </LoadingIndicatorText>
+                </MyLink>
+              )}
             </div>
           </div>
         </div>
-        <div className=" px-4 flex flex-col mt-1">
-          {/* student class */}
-          {student?.class && (
-            <MyLink
-              href={`/${lang}/c/${student.class.username}`}
-              className=" flex gap-2 mt-2 items-center"
-            >
-              <MyAvatar
-                src={student.class.image}
-                alt={student.class.name}
-                type="square"
-                size="xs"
-                isSubClass
-              />
-              <span
-                title={student.class.name}
-                className=" text-sm line-clamp-1 "
-              >
-                {getInitialsUsername(student.class.name, true)}
-              </span>
-            </MyLink>
-          )}
-        </div>
       </CardHeader>
       <CardContent className=" p-0 pb-4 flex flex-col justify-between">
-        <div className=" px-4 flex flex-wrap gap-4"></div>
-
         <CardFooter
           className={cn(
             " border-t border-base-content/50 pb- bottom-0",
