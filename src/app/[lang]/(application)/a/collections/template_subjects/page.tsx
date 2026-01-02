@@ -47,7 +47,7 @@ async function TemplateSubjectsPage(
           description="Main subject which is connected to class subjects."
           total={templateRes.data?.total}
         />
-        <FilterTemplateSubject auth={auth} />
+        <FilterTemplateSubject subjects={templateRes.data} auth={auth} />
 
         {templateRes.data && templateRes.data?.data.length >= 0 ? (
           <DisplaySwitcher
