@@ -1,363 +1,159 @@
 "use client";
-import MyImage from "@/components/common/myImage";
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
-import { isString } from "@tiptap/react";
 import {
   ChevronLeft,
   ChevronRight,
-  Download,
-  RotateCw,
+  Maximize2,
+  Tag,
   X,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { FaRotate } from "react-icons/fa6";
+import Image from "next/image";
+import type React from "react";
+import { useEffect, useState } from "react";
+import MyImage from "../myImage";
 
-interface Props {
-  images: string | string[];
-  className?: string;
-  classname?: string;
-  ClassName?: string;
-  open?: boolean; // keep original
-  isAvatar?: boolean;
-  initialIndex?: number; // 👈 NEW
-  onClose?: () => void; // 👈 NEW
+interface OpenImagesProps {
+  images: string[]; // Pass an array of URLs
+  initialIndex?: number; // Which image to start with
+  isOpen?: boolean;
+  onClose?: () => void;
+  component?: React.ReactNode;
 }
 
-const OpenImages = ({
+export function OpenImages({
   images,
-  ClassName,
-  open,
-  className,
-  classname,
-  isAvatar,
   initialIndex = 0,
+  isOpen,
   onClose,
-}: Props) => {
-  const [imageIndex, setImageIndex] = useState<number>(initialIndex);
-  const [zoomLevel, setZoomLevel] = useState(3);
-  const [rotation, setRotation] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isOpen, setIsOpen] = useState(open ?? false);
+  component,
+}: OpenImagesProps) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [zoom, setZoom] = useState(1);
 
-  // sync open with parent
+  // Reset zoom when image changes
   useEffect(() => {
-    if (typeof open === "boolean") {
-      setIsOpen(open);
-    }
-  }, [open]);
+    setZoom(1);
+  }, [currentIndex]);
 
-  // set initial index when provided
+  // Sync index if initialIndex changes externally
   useEffect(() => {
-    if (typeof initialIndex === "number") {
-      setImageIndex(initialIndex);
-    }
+    setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
-  // reset state when closed
-  useEffect(() => {
-    if (!isOpen) {
-      setZoomLevel(3);
-      setRotation(0);
-      setPosition({ x: 0, y: 0 });
-      if (onClose) onClose(); // 👈 notify parent
-    }
-  }, [isOpen, imageIndex, onClose]);
-
-  // keyboard nav
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (!isOpen) return;
-      switch (e.key) {
-        case "ArrowLeft":
-          prevImage();
-          break;
-        case "ArrowRight":
-          nextImage();
-          break;
-        case "Escape":
-          setIsOpen(false);
-          break;
-        case "+":
-        case "=":
-          setZoomLevel((prev) => Math.min(prev + 0.25, 6));
-          break;
-        case "-":
-          setZoomLevel((prev) => Math.max(prev - 0.25, 0.5));
-          break;
-        case "r":
-          setRotation((prev) => (prev + 90) % 360);
-          break;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isOpen],
-  );
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
-
-  const handleDownload = () => {
-    if (!images || (Array.isArray(images) && images.length === 0)) return;
-    const link = document.createElement("a");
-    link.href = Array.isArray(images) ? images[imageIndex] : images;
-    link.download = `image-${Date.now()}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.deltaY < 0) setZoomLevel((prev) => Math.min(prev + 0.1, 6));
-    else setZoomLevel((prev) => Math.max(prev - 0.1, 0.5));
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // const handleMouseDown = (e: React.MouseEvent) => {
-  //   if (zoomLevel <= 1) return;
-  //   setIsDragging(true);
-  //   setPosition({ x: e.clientX - position.x, y: e.clientY - position.y });
-  // };
-
-  // const handleMouseMove = (e: React.MouseEvent) => {
-  //   if (!isDragging || zoomLevel <= 1) return;
-  //   setPosition({ x: e.clientX - position.x, y: e.clientY - position.y });
-  // };
-
-  const handleMouseUp = () => setIsDragging(false);
-
-  // --- Single image case ---
-  if (isString(images)) {
-    return (
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger>
-          <MyImage
-            role={isAvatar ? "AVATAR" : undefined}
-            className={cn("cursor-pointer", className)}
-            classname={classname}
-            src={images}
-            onClick={() => setIsOpen(true)}
-          />
-        </DialogTrigger>
-        <DialogContent className="h-[90vh] overflow-hidden p-0 sm:max-w-3xl">
-          <div className="relative flex h-full w-full items-center justify-center">
-            <MyImage
-              src={images}
-              className="h-full w-full"
-              classname="object-contain"
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  if (images.length === 0) return null;
-
-  // multiple images case
-  const handleOpen = (index: number) => {
-    setIsOpen(true);
-    setImageIndex(index);
-  };
-
-  const initialItemsToShow = 4;
-  const prevImage = () =>
-    setImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  const nextImage = () =>
-    setImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  const resetTransformations = () => {
-    setZoomLevel(3);
-    setRotation(0);
-    setPosition({ x: 0, y: 0 });
-  };
+  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 3));
+  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.5, 1));
 
   return (
-    <div
-      className={cn(
-        "grid grid-cols-2 gap-2",
-        className,
-        initialIndex && "block gap-0",
-      )}
-    >
-      {!initialIndex &&
-        images.slice(0, initialItemsToShow).map((item, index) => {
-          if (
-            index + 1 === initialItemsToShow &&
-            images.length - initialItemsToShow !== 0
-          )
-            return (
-              <div
-                key={index}
-                className={cn("relative h-24 w-full", classname)}
-              >
-                <MyImage
-                  onClick={() => handleOpen(index)}
-                  src={item}
-                  className={cn("h-full w-full cursor-pointer", classname)}
-                  classname="rounded-2xl"
-                />
-                <div
-                  onClick={() => handleOpen(initialItemsToShow - 1)}
-                  className={cn(
-                    "absolute top-0 z-20 grid h-24 w-full cursor-pointer place-content-center rounded-2xl bg-black/50",
-                    classname,
-                  )}
-                >
-                  <span className="text-lg text-white">
-                    + {images.length - initialItemsToShow} more
-                  </span>
-                </div>
-              </div>
-            );
-          return (
-            <MyImage
-              onClick={() => handleOpen(index)}
-              src={item}
-              key={index}
-              className={cn("h-24 w-full cursor-pointer", classname)}
-              classname="rounded-2xl"
-            />
-          );
-        })}
-
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent
-          className="h-[95vh] overflow-hidden p-0 sm:max-w-6xl"
-          onInteractOutside={resetTransformations}
-        >
-          {/* Controls */}
-          <div className="absolute top-4 right-4 z-50 flex flex-row-reverse gap-2">
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogTrigger asChild>
+        {component ? component : <MyImage src={images[currentIndex]} />}
+      </DialogTrigger>
+      <DialogContent className="max-w-[100vw] h-[100dvh] p-0 bg-black/95 border-none outline-none">
+        {/* --- Header Controls --- */}
+        <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/60 to-transparent">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setIsOpen(false)}
+              className="text-white hover:bg-white/20"
+              onClick={onClose}
             >
-              <X className="h-4 w-4" />
+              <X className="w-6 h-6" />
             </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={handleDownload}
-              className="bg-background/80 backdrop-blur-sm"
-            >
-              <Download className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={resetTransformations}
-              className="bg-background/80 backdrop-blur-sm"
-            >
-              <FaRotate />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => setZoomLevel((p) => Math.min(p + 0.25, 6))}
-              className="bg-background/80 backdrop-blur-sm"
-            >
-              <ZoomIn className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => setZoomLevel((p) => Math.max(p - 0.25, 0.5))}
-              className="bg-background/80 backdrop-blur-sm"
-            >
-              <ZoomOut className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => setRotation((p) => (p + 90) % 360)}
-              className="bg-background/80 backdrop-blur-sm"
-            >
-              <RotateCw className="h-4 w-4" />
-            </Button>
+            <div className="bg-blue-600 rounded-full p-1.5 ml-2">
+              <span className="text-white text-xs font-bold">f</span>
+            </div>
           </div>
 
-          {/* Navigation */}
-          <Button
-            onClick={prevImage}
-            variant="ghost"
-            className="bg-background/50 absolute top-1/2 left-2 z-20 backdrop-blur-sm"
-          >
-            <ChevronLeft />
-          </Button>
-          <Button
-            onClick={nextImage}
-            variant="ghost"
-            className="bg-background/50 absolute top-1/2 right-2 z-20 backdrop-blur-sm"
-          >
-            <ChevronRight />
-          </Button>
-
-          {/* Main Image */}
-          <div className="flex h-full flex-col">
-            <div
-              className="relative flex flex-1 items-center justify-center overflow-hidden"
-              onWheel={handleWheel}
-              // onMouseDown={handleMouseDown}
-              // onMouseMove={handleMouseMove}
-              // onMouseUp={handleMouseUp}
-              // onMouseLeave={handleMouseUp}
+          <div className="flex items-center gap-1 sm:gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white"
+              onClick={handleZoomIn}
             >
-              <div
-                style={{
-                  transform: `translate(${position.x}px, ${position.y}px) scale(${zoomLevel}) rotate(${rotation}deg)`,
-                  transition: isDragging ? "none" : "transform 0.2s ease",
-                }}
-                className="will-change-transform"
+              <ZoomIn className="w-5 h-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white"
+              onClick={handleZoomOut}
+            >
+              <ZoomOut className="w-5 h-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-white">
+              <Tag className="w-5 h-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hidden sm:flex"
+            >
+              <Maximize2 className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+
+        {/* --- Main Image Area --- */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          {/* Navigation Arrows (Only if multiple images) */}
+          {images.length > 1 && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 z-50 rounded-full bg-white/10 hover:bg-white/20 text-white w-12 h-12"
+                onClick={handlePrev}
               >
-                <MyImage
-                  src={images[imageIndex]}
-                  className="max-h-full max-w-full"
-                  classname="object-contain"
-                />
-              </div>
+                <ChevronLeft className="w-8 h-8" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-4 z-50 rounded-full bg-white/10 hover:bg-white/20 text-white w-12 h-12"
+                onClick={handleNext}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </Button>
+            </>
+          )}
 
-              {zoomLevel > 1 && (
-                <div className="bg-background/80 absolute bottom-4 left-4 rounded-md px-3 py-1 text-sm backdrop-blur-sm">
-                  Zoom: {Math.round(zoomLevel * 100)}%
-                </div>
-              )}
-            </div>
-
-            <div className="bg-background/80 border-t p-3 backdrop-blur-sm">
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-muted-foreground text-sm">
-                  {imageIndex + 1} of {images.length}
-                </span>
-              </div>
-
-              <div className="flex w-full justify-center gap-2 overflow-x-auto pb-2">
-                {images.map((item, index) => (
-                  <MyImage
-                    onClick={() => {
-                      setImageIndex(index);
-                      resetTransformations();
-                    }}
-                    src={item}
-                    key={index}
-                    className={cn(
-                      "size-8 flex-shrink-0 cursor-pointer rounded-md md:size-14 md:rounded-lg",
-                      imageIndex === index && "border-primary border-2",
-                    )}
-                    classname="rounded-md md:rounded-lg"
-                  />
-                ))}
-              </div>
-            </div>
+          {/* The Image */}
+          <div
+            className="transition-transform duration-200 ease-out"
+            style={{ transform: `scale(${zoom})` }}
+          >
+            <Image
+              src={images[currentIndex]}
+              alt={`Viewed image ${currentIndex + 1}`}
+              width={1200}
+              height={800}
+              className="max-w-full max-h-[90dvh] object-contain select-none"
+              priority
+            />
           </div>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
+        </div>
 
-export default OpenImages;
+        {/* --- Footer (Optional) --- */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+          {currentIndex + 1} / {images.length}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
