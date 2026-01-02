@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { Locale } from "@/i18n";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -27,14 +28,19 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface Props {
   auth: AuthContext;
   realtimeEnabled?: boolean;
+  lang: Locale;
 }
 
-const SectorsTableCollection = ({ auth, realtimeEnabled = false }: Props) => {
+const SectorsTableCollection = ({
+  auth,
+  lang,
+  realtimeEnabled = false,
+}: Props) => {
   const { data: sectors, isConnected } = useRealtimeData<SectorModel>("sector");
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -42,7 +48,7 @@ const SectorsTableCollection = ({ auth, realtimeEnabled = false }: Props) => {
     { id: "name", desc: false },
   ]);
 
-  const columns = getSectorsTableColumns();
+  const columns = useMemo(() => getSectorsTableColumns(lang), [lang]);
 
   const table = useReactTable<SectorModel>({
     data: sectors,

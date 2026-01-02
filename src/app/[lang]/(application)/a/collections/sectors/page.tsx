@@ -1,6 +1,7 @@
 import SectorCollectionDetails from "@/components/page/admin/sector/sector-collection-details";
 import SectorsTableCollection from "@/components/page/admin/sector/sectors-table-collection";
 import ErrorPage from "@/components/page/error-page";
+import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import { authContext } from "@/lib/utils/auth-context";
@@ -13,8 +14,11 @@ export const metadata: Metadata = {
   description: "All sectors in database",
 };
 
-const SectorsPage = async () => {
+const SectorsPage = async (
+  props: PageProps<"/[lang]/a/collections/sectors">,
+) => {
   const auth = await authContext();
+  const { lang } = await props.params;
   if (!auth) redirect("/auth/login");
 
   const request = await apiRequest<void, SectorModel[]>(
@@ -30,7 +34,11 @@ const SectorsPage = async () => {
   return (
     <RealtimeProvider<SectorModel> channel="sector" initialData={request.data}>
       <SectorCollectionDetails initialSectors={request.data} />
-      <SectorsTableCollection realtimeEnabled auth={auth} />
+      <SectorsTableCollection
+        lang={lang as Locale}
+        realtimeEnabled
+        auth={auth}
+      />
     </RealtimeProvider>
   );
 };

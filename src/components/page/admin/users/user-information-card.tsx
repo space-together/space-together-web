@@ -43,7 +43,12 @@ const UserInformation = ({ auth, initialUser }: PropsUser) => {
         <OpenImages
           images={[user.image]}
           component={
-            <MyAvatar src={user.image} size="2xl" classname="object-cover" />
+            <MyAvatar
+              type="squircle"
+              src={user.image}
+              size="2xl"
+              classname="object-cover"
+            />
           }
         />
       )}

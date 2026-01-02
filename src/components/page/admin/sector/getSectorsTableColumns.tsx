@@ -1,13 +1,16 @@
 "use client";
 
 import MyImage from "@/components/common/myImage";
+import type { Locale } from "@/i18n";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import { cn } from "@/lib/utils";
 import { generateEducationIcon } from "@/lib/utils/generate-profile-image";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
-export const getSectorsTableColumns = (): ColumnDef<SectorModel>[] => {
+export const getSectorsTableColumns = (
+  lang: Locale,
+): ColumnDef<SectorModel>[] => {
   return [
     {
       header: "Name",
@@ -15,7 +18,7 @@ export const getSectorsTableColumns = (): ColumnDef<SectorModel>[] => {
       meta: { filterVariant: "text" },
       cell: ({ row }) => (
         <Link
-          href={`/a/collections/sectors/${row.original.username}`}
+          href={`/${lang}/a/collections/sectors/${row.original.username}`}
           className={cn(
             "flex flex-row items-center gap-2",
             row.original.disable ? "text-warning tooltip tooltip-warning" : "",
@@ -37,7 +40,7 @@ export const getSectorsTableColumns = (): ColumnDef<SectorModel>[] => {
       meta: { filterVariant: "text" },
       cell: ({ row }) => (
         <Link
-          href={`/a/collections/sectors/${row.original.username}`}
+          href={`/${lang}/a/collections/sectors/${row.original.username}`}
           className={cn(
             "flex items-center gap-2",
             row.original.disable ? "text-warning tooltip tooltip-warning" : "",
@@ -63,34 +66,6 @@ export const getSectorsTableColumns = (): ColumnDef<SectorModel>[] => {
       accessorKey: "curriculum",
       meta: { filterVariant: "range" },
       cell: ({ row }) => row.original.curriculum?.join(" - ") ?? "N/A",
-    },
-
-    {
-      header: "Created At",
-      accessorKey: "created_at",
-      meta: { filterVariant: "dateRange" },
-      cell: ({ row }) => {
-        return (
-          <div className="space-y-2">
-            <div className="flex flex-row gap-1">
-              <span>Created on:</span>
-              <span>
-                {row.original.created_at
-                  ? new Date(row.original.created_at).toLocaleDateString()
-                  : "-"}
-              </span>
-            </div>
-            <div className="flex flex-row gap-1">
-              <span>update on:</span>
-              <span>
-                {row.original.updated_at
-                  ? new Date(row.original.updated_at).toLocaleDateString()
-                  : "-"}
-              </span>
-            </div>
-          </div>
-        );
-      },
     },
   ];
 };
