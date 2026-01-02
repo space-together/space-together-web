@@ -2,18 +2,19 @@
 import { useState } from "react";
 
 import MyAvatar from "@/components/common/image/my-avatar";
-import MyImage from "@/components/common/myImage";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Sheet,
-    SheetContent,
-    SheetFooter,
-    SheetHeader,
-    SheetTrigger,
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { OpenImages } from "@/components/common/image/open-images";
+import MyImage from "@/components/common/myImage";
 import StudentDialog from "@/components/page/student/dialogs/student-dialog";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -72,16 +73,16 @@ const StudentModifySheet = ({
         {/* ===== HEADER ===== */}
         <SheetHeader className="p-0 relative">
           <div className="relative">
-            <MyImage
-              src={
-                student?.image
-                  ? student.image
-                  : student?.gender === "MALE"
-                    ? "/images/students/male.jpg"
-                    : "/images/students/female.jpg"
-              }
-              className="w-full h-64"
-            />
+            {student?.image ? (
+              <OpenImages className="w-full h-64" images={[student?.image]} />
+            ) : (
+              <MyImage
+                src="/png/image-not-found.png"
+                alt="Default User Image"
+                classname="object-contain"
+                className="w-full h-64 rounded-full"
+              />
+            )}
 
             <div className="space-x-1 p-4">
               <div className="flex justify-between">

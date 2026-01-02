@@ -56,15 +56,10 @@ const StudentCard = ({ auth, isSchoolStaff, student, lang }: props) => {
           <div className=" mt-2">
             <div className=" flex flex-row flex-wrap gap-2">
               {student.gender && (
-                <span title={`Gender: ${student.gender}`} className="sm">
-                  Gender: {student.gender}
-                </span>
+                <span className="sm">Gender: {student.gender}</span>
               )}
               {student.date_of_birth && (
-                <span
-                  title={`Age: ${calculateAge(student.date_of_birth)}`}
-                  className="sm"
-                >
+                <span className="sm">
                   Age: {calculateAge(student.date_of_birth)}
                 </span>
               )}

@@ -6,6 +6,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
@@ -17,6 +18,7 @@ interface OpenImagesProps {
   initialIndex?: number;
   isOpen?: boolean;
   component?: React.ReactNode;
+  className?: string;
 }
 
 export function OpenImages({
@@ -24,6 +26,7 @@ export function OpenImages({
   initialIndex = 0,
   isOpen,
   component,
+  className,
 }: OpenImagesProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [zoom, setZoom] = useState(1);
@@ -122,7 +125,11 @@ export function OpenImages({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        {component ? component : <MyImage src={images[currentIndex]} />}
+        {component ? (
+          component
+        ) : (
+          <MyImage className={cn(className)} src={images[currentIndex]} />
+        )}
       </AlertDialogTrigger>
 
       <AlertDialogContent className="sm:max-w-screen h-screen p-0 bg-base-300 border-none outline-none">
