@@ -1,4 +1,5 @@
 import MyAvatar from "@/components/common/image/my-avatar";
+import { OpenImages } from "@/components/common/image/open-images";
 import type { Locale } from "@/i18n";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -16,7 +17,16 @@ const SectorHeader = ({ sector, auth }: SectorHeaderProps) => {
   return (
     <section className="flex flex-col gap-4 lg:flex-row">
       {sector.logo && (
-        <MyAvatar classname=" object-contain" size="2xl" src={sector.logo} />
+        <OpenImages
+          images={[sector.logo]}
+          component={
+            <MyAvatar
+              classname=" object-contain"
+              size="2xl"
+              src={sector.logo}
+            />
+          }
+        />
       )}
       <div className="flex flex-col gap-4">
         <div className=" flex flex-col gap-2">

@@ -91,7 +91,7 @@ const StudentFilter = ({ auth, students }: Props) => {
     if (!value) {
       // 🔄 Reset to default students (NO FETCH)
       data.forEach((s) => deleteItem(s.id || s._id || ""));
-      students.data.forEach(addItem);
+      students?.data.forEach(addItem);
 
       setPagination({
         total_pages: students?.total_pages || 0,

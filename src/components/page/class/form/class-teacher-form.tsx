@@ -23,12 +23,9 @@ import {
   type Class,
   type addOrUpdateClassTeacher,
 } from "@/lib/schema/class/class-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
-import type {
-  PaginatedTeacher,
-  Teacher,
-  TeacherBase,
-} from "@/lib/schema/school/teacher-schema";
+import type { Teacher, TeacherBase } from "@/lib/schema/school/teacher-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 
@@ -57,13 +54,13 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
         const teacherRequest = teacher
           ? Promise.resolve({
               data: {
-                teachers: [],
+                data: [],
                 total: 0,
                 total_pages: 0,
                 current_page: 1,
-              } as PaginatedTeacher,
+              },
             })
-          : apiRequest<void, PaginatedTeacher>(
+          : apiRequest<void, Paginated<Teacher>>(
               "get",
               "/school/teachers",
               undefined,
@@ -84,14 +81,14 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
         );
 
         const [teachersRes, classesRes] = await Promise.all([
-          teacher ? { data: { teachers: [] } } : teacherRequest,
+          teacher ? { data: { data: [] } } : teacherRequest,
           cls ? { data: { classes: [] } } : classRequest,
         ]);
 
         if (teachersRes.data) {
           // const activeTeachers = teachersRes.data.filter((t) => !t.is_active);
           // setTeachers(activeTeachers);
-          setTeachers(teachersRes.data.teachers);
+          setTeachers(teachersRes.data.data);
         }
 
         if (classesRes.data) {

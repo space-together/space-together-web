@@ -32,7 +32,7 @@ interface Props {
   teacher?: TeacherWithRelations;
   auth: AuthContext;
   isTable?: boolean;
-  lang?: Locale;
+  lang: Locale;
   isSchool?: boolean;
 }
 

@@ -32,14 +32,12 @@ export function OpenImages({
   const [zoom, setZoom] = useState(1);
   const [open, setOpen] = useState(isOpen);
 
-  /** -------- DRAG STATE -------- */
   const containerRef = useRef<HTMLDivElement>(null);
   const dragStart = useRef({ x: 0, y: 0 });
   const lastOffset = useRef({ x: 0, y: 0 });
 
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  /** Reset zoom & pan on image change */
   useEffect(() => {
     setZoom(1);
     setOffset({ x: 0, y: 0 });
@@ -65,7 +63,6 @@ export function OpenImages({
     [images.length],
   );
 
-  /** Keyboard */
   useEffect(() => {
     if (!open) return;
 
@@ -88,15 +85,14 @@ export function OpenImages({
     });
   };
 
-  /** -------- DRAG EVENTS -------- */
   const handleDragStart = (e: React.DragEvent) => {
     if (zoom === 1) return;
 
     dragStart.current = { x: e.clientX, y: e.clientY };
     lastOffset.current = offset;
 
-    // Required to enable dragging in all browsers
-    e.dataTransfer.setDragImage(new Image(), 0, 0);
+    const emptyImage = new window.Image();
+    e.dataTransfer.setDragImage(emptyImage, 0, 0);
   };
 
   const handleDrag = (e: React.DragEvent) => {
@@ -226,7 +222,7 @@ export function OpenImages({
 
         {/* Footer */}
         {images.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-base-content/70 text-sm">
             {currentIndex + 1} / {images.length}
           </div>
         )}

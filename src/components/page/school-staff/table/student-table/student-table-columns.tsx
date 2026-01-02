@@ -49,6 +49,7 @@ export const StudentTableColumns = (
             isTable
             isSchool
             auth={auth}
+            lang={lang}
             student={row.original}
           />
         </div>

@@ -8,11 +8,9 @@ import { SubjectCategories } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { transformTopic } from "@/lib/helpers/subject-topic";
 import type { Class } from "@/lib/schema/class/class-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { PaginatedClasses } from "@/lib/schema/relations-schema";
-import type {
-  PaginatedTeacher,
-  Teacher,
-} from "@/lib/schema/school/teacher-schema";
+import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import {
   ClassSubjectSchema,
   type ClassSubject,
@@ -62,7 +60,7 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
                   current_page: 1,
                 } as PaginatedClasses,
               },
-          apiRequest<void, PaginatedTeacher>(
+          apiRequest<void, Paginated<Teacher>>(
             "get",
             "/school/teachers",
             undefined,
@@ -78,7 +76,7 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
         }
 
         if (teachersRes.data) {
-          setTeachers(teachersRes.data.teachers);
+          setTeachers(teachersRes.data.data);
         }
       } catch (error) {
         showToast({
