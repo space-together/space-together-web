@@ -30,7 +30,7 @@ import z from "zod";
 export const UserModelSchema = z.object({
   // 🔹 Identification & Authentication
   id: z.string().optional(),
-  _id: z.string().optional(),
+  _id: z.string(),
   name: z.string(),
   email: z.string().email(),
   username: z.string().optional(),

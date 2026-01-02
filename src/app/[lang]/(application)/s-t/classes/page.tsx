@@ -5,6 +5,7 @@ import AllClassesCards from "@/components/page/school-staff/class-components/all
 import SchoolStaffClassFilter from "@/components/page/school-staff/school-classes/school-staff-class-filter";
 import ClassesSchoolTable from "@/components/page/school-staff/table/class-table/classes-table";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type {
   ClassWithOthers,
@@ -25,7 +26,9 @@ interface props {
   params: Promise<{ lang: Locale }>;
 }
 
-const SchoolStaffClassesPage = async (props: props) => {
+const SchoolStaffClassesPage = async (
+  props: PageProps<"/[lang]/s-t/classes">,
+) => {
   const params = await props.params;
   const { lang } = params;
   const auth = await authContext();
@@ -35,12 +38,17 @@ const SchoolStaffClassesPage = async (props: props) => {
   }
 
   if (!auth.school)
-    return <PermissionPage lang={lang} role={auth.user.role ?? "STUDENT"} />;
+    return (
+      <PermissionPage
+        lang={lang as Locale}
+        role={auth.user.role ?? "STUDENT"}
+      />
+    );
 
   const [classes] = await Promise.all([
     apiRequest<void, PaginatedClassesWithOthers>(
       "get",
-      `/school/classes/with-others?limit=9`,
+      `/school/classes/with-others?limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,
@@ -61,14 +69,15 @@ const SchoolStaffClassesPage = async (props: props) => {
     >
       <div className="max-w-full space-y-4">
         <AppPageHeader
+          total={classes.data?.total}
           title="Classes"
           description="Manage and view all classes in your school."
         />
-        <SchoolStaffClassFilter auth={auth} />
+        <SchoolStaffClassFilter classes={classes.data} auth={auth} />
         <DisplaySwitcher
           table={
             <ClassesSchoolTable
-              lang={lang}
+              lang={lang as Locale}
               realtimeEnabled
               auth={auth}
               classes={classes.data?.classes ?? []}
@@ -77,7 +86,7 @@ const SchoolStaffClassesPage = async (props: props) => {
           cards={
             <AllClassesCards
               classes={classes.data?.classes ?? []}
-              lang={lang}
+              lang={lang as Locale}
               realtimeEnabled
               auth={auth}
             />

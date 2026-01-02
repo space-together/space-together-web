@@ -116,7 +116,7 @@ export type ClassSettings = z.infer<typeof ClassSettingsSchema>;
 // 🧩 Base Class Schema
 export const ClassSchema = z.object({
   id: z.string().optional(), // ObjectId → string
-  _id: z.string().optional(), // ObjectId → string
+  _id: z.string(), // ObjectId → string
   name: z.string(),
   username: z.string(),
   code: z.string().optional(),

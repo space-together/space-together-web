@@ -14,93 +14,48 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { LIMIT } from "@/lib/env";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type {
   ClassWithOthers,
   PaginatedClassesWithOthers,
 } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   auth: AuthContext;
+  classes?: PaginatedClassesWithOthers;
 }
 
-const SchoolStaffClassFilter = ({ auth }: Props) => {
-  const [loading, setLoading] = useState(false);
+const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
   const [classType, setClassType] = useState<"all" | "main" | "sub">("all");
-  const [filter, setFilter] = useState<string>(""); // ✅ track current search filter
-  const [pagination, setPagination] = useState({
-    total_pages: 1,
-    current_page: 1,
-  });
 
-  const { data, addItem, deleteItem } =
-    useRealtimeData<ClassWithOthers>("class");
-
-  async function fetchClasses(
-    page = 1,
-    filterValue = filter,
-    type = classType,
-  ) {
-    setLoading(true);
-    try {
-      const skip = (page - 1) * LIMIT;
-
-      let endpoint = "";
-      switch (type) {
-        case "main":
-          endpoint = `/school/classes/main-classes/with-details`;
-          break;
-        case "sub":
-          endpoint = `/school/classes/subclasses/with-details`;
-          break;
-        default:
-          endpoint = `/school/classes/with-others`;
-      }
-
-      const params = new URLSearchParams({
-        limit: LIMIT.toString(),
-        skip: skip.toString(),
-      });
-
-      if (filterValue) params.set("filter", filterValue);
-
-      const res = await apiRequest<void, PaginatedClassesWithOthers>(
-        "get",
-        `${endpoint}?${params.toString()}`,
-        undefined,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-          realtime: "class",
-        },
-      );
-
-      if (res?.data) {
-        // clear old data
-        data.forEach((t) => deleteItem(t.id || t._id || ""));
-        // add new data
-        res.data.classes.forEach((t) => addItem(t));
-
-        setPagination({
-          total_pages: res.data.total_pages,
-          current_page: res.data.current_page,
-        });
-      }
-    } catch (err) {
-      console.error("Failed to fetch classes:", err);
-    } finally {
-      setLoading(false);
+  // Determine endpoint based on selected class type
+  const getEndpoint = () => {
+    switch (classType) {
+      case "main":
+        return `/school/classes/main-classes/with-details`;
+      case "sub":
+        return `/school/classes/subclasses/with-details`;
+      default:
+        return `/school/classes/with-others`;
     }
-  }
+  };
 
-  // ✅ Refetch whenever classType or filter changes
-  useEffect(() => {
-    fetchClasses(1);
-  }, [classType, filter]);
+  const { loading, pagination, handleSearch, handlePageChange } =
+    useFilterData<ClassWithOthers>({
+      auth,
+      endpoint: getEndpoint(),
+      initialData: {
+        data: classes?.classes ?? [],
+        total: classes?.total ?? 0,
+        total_pages: classes?.total_pages ?? 1,
+        current_page: classes?.current_page ?? 1,
+      },
+      realtimeKey: "class",
+      // Note: If your hook doesn't automatically refetch when the endpoint prop changes,
+      // you may need to ensure useFilterData has [endpoint] in its useEffect dependency array.
+    });
 
   return (
     <PageFilter>
@@ -109,10 +64,9 @@ const SchoolStaffClassFilter = ({ auth }: Props) => {
           <ChangeDisplay />
 
           <SearchBox
-            onSearch={(value) => setFilter(value)} // ✅ update filter state only
+            onSearch={handleSearch}
             placeholder="Search class..."
             loading={loading}
-            live={true}
           />
 
           <div>
@@ -140,7 +94,7 @@ const SchoolStaffClassFilter = ({ auth }: Props) => {
           <SmartPagination
             totalPages={pagination.total_pages}
             currentPage={pagination.current_page}
-            onPageChange={(page) => fetchClasses(page)}
+            onPageChange={handlePageChange}
             loading={loading}
             maxVisible={7}
             showNextPrev
