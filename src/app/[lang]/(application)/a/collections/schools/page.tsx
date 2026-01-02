@@ -42,7 +42,11 @@ const SchoolsPage = async (
           title={"Schools"}
           description=""
         />
-        <SchoolsFilter lang={params.lang as Locale} auth={auth} />
+        <SchoolsFilter
+          schools={schoolsRes.data}
+          lang={params.lang as Locale}
+          auth={auth}
+        />
         <DisplaySwitcher
           table={<div>school table</div>}
           cards={
