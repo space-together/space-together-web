@@ -225,9 +225,11 @@ export function OpenImages({
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
-          {currentIndex + 1} / {images.length}
-        </div>
+        {images.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+            {currentIndex + 1} / {images.length}
+          </div>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );

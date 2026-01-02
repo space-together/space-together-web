@@ -13,8 +13,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import NotFoundImage from "@/components/common/image/not-found-image";
 import { OpenImages } from "@/components/common/image/open-images";
-import MyImage from "@/components/common/myImage";
 import StudentDialog from "@/components/page/student/dialogs/student-dialog";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -76,12 +76,7 @@ const StudentModifySheet = ({
             {student?.image ? (
               <OpenImages className="w-full h-64" images={[student?.image]} />
             ) : (
-              <MyImage
-                src="/png/image-not-found.png"
-                alt="Default User Image"
-                classname="object-contain"
-                className="w-full h-64 rounded-full"
-              />
+              <NotFoundImage className="w-full h-64" />
             )}
 
             <div className="space-x-1 p-4">

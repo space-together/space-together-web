@@ -62,7 +62,7 @@ const SchoolStaffStudentPage = async (
           title="Students"
           description="Manage school students."
         />
-        <StudentFilter auth={auth} />
+        <StudentFilter auth={auth} students={students_res.data} />
         <DisplaySwitcher
           table={
             <SchoolStudentTable

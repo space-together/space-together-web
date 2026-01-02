@@ -9,70 +9,101 @@ import { Separator } from "@/components/ui/separator";
 import { LIMIT } from "@/lib/env";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { Paginated } from "@/lib/schema/common-schema";
-import type { Student } from "@/lib/schema/student/student-schema";
+import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Props {
   auth: AuthContext;
+  students?: Paginated<StudentWithRelations>;
 }
 
-const StudentFilter = ({ auth }: Props) => {
+const StudentFilter = ({ auth, students }: Props) => {
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState("");
+
+  // 🔹 track if we are still showing default data
+  const isDefault = useRef(true);
+
   const [pagination, setPagination] = useState({
-    total_pages: 1,
-    current_page: 1,
+    total_pages: students?.total_pages || 0,
+    current_page: students?.current_page || 1,
   });
 
-  const { data, addItem, deleteItem } = useRealtimeData<Student>("student");
+  const { data, addItem, deleteItem } =
+    useRealtimeData<StudentWithRelations>("student");
 
-  async function fetchStudents(page = 1, filterValue = filter) {
-    setLoading(true);
-    try {
-      const skip = (page - 1) * LIMIT;
+  // 🔹 Load default students ONLY once
+  useEffect(() => {
+    students?.data.forEach(addItem);
+  }, []);
 
-      const params = new URLSearchParams({
-        limit: LIMIT.toString(),
-        skip: skip.toString(),
+  const fetchStudents = useCallback(
+    async (page: number, filterValue: string) => {
+      setLoading(true);
+      try {
+        const skip = (page - 1) * LIMIT;
+
+        const params = new URLSearchParams({
+          limit: LIMIT.toString(),
+          skip: skip.toString(),
+        });
+
+        if (filterValue) params.set("filter", filterValue);
+
+        const res = await apiRequest<void, Paginated<StudentWithRelations>>(
+          "get",
+          `/school/students/others?${params.toString()}`,
+          undefined,
+          {
+            token: auth.token,
+            schoolToken: auth.schoolToken,
+            realtime: "student",
+          },
+        );
+
+        if (res?.data) {
+          // 🔥 Replace data only on user action
+          data.forEach((s) => deleteItem(s.id || s._id || ""));
+          res.data.data.forEach(addItem);
+
+          setPagination({
+            total_pages: res.data.total_pages,
+            current_page: res.data.current_page,
+          });
+
+          isDefault.current = false;
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [auth, data],
+  );
+
+  // 🔁 Search handler
+  const handleSearch = (value: string) => {
+    setFilter(value);
+
+    if (!value) {
+      // 🔄 Reset to default students (NO FETCH)
+      data.forEach((s) => deleteItem(s.id || s._id || ""));
+      students.data.forEach(addItem);
+
+      setPagination({
+        total_pages: students?.total_pages || 0,
+        current_page: students?.current_page || 1,
       });
 
-      if (filterValue) params.set("filter", filterValue);
-
-      const res = await apiRequest<void, Paginated<Student>>(
-        "get",
-        `/school/students?${params.toString()}`,
-        undefined,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-          realtime: "student",
-        },
-      );
-
-      if (res?.data) {
-        // Clear old data
-        data.forEach((s) => deleteItem(s.id || s._id || ""));
-        // Add new students
-        res.data.data.forEach((s) => addItem(s));
-
-        setPagination({
-          total_pages: res.data.total_pages,
-          current_page: res.data.current_page,
-        });
-      }
-    } catch (err) {
-      console.error("Failed to fetch students:", err);
-    } finally {
-      setLoading(false);
+      isDefault.current = true;
+      return;
     }
-  }
 
-  // 🔁 Refetch whenever filter changes
-  useEffect(() => {
-    fetchStudents(1);
-  }, [filter]);
+    fetchStudents(1, value);
+  };
 
   return (
     <PageFilter>
@@ -81,7 +112,7 @@ const StudentFilter = ({ auth }: Props) => {
           <ChangeDisplay />
 
           <SearchBox
-            onSearch={(value) => setFilter(value)}
+            onSearch={handleSearch}
             placeholder="Search student..."
             loading={loading}
           />
@@ -91,7 +122,7 @@ const StudentFilter = ({ auth }: Props) => {
           <SmartPagination
             totalPages={pagination.total_pages}
             currentPage={pagination.current_page}
-            onPageChange={(page) => fetchStudents(page)}
+            onPageChange={(page) => fetchStudents(page, filter)}
             loading={loading}
             maxVisible={7}
             showNextPrev
