@@ -1,8 +1,8 @@
 "use client";
-import MyImage from "@/components/common/myImage";
+
+import MyAvatar from "@/components/common/image/my-avatar";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import SchoolTeacherModifySheet from "@/components/page/school-staff/school-teachers/school-teacher-modify-sheet";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,126 +10,88 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import type { Locale } from "@/i18n";
 import type { TeacherWithRelations } from "@/lib/schema/school/teacher-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { BsBook } from "react-icons/bs";
-import { MdClass } from "react-icons/md";
 
-interface props {
+interface Props {
   lang: Locale;
   auth: AuthContext;
   isSchoolStaff?: boolean;
-  teacher?: TeacherWithRelations;
+  teacher: TeacherWithRelations;
 }
 
-const TeacherCard = ({ auth, isSchoolStaff, teacher, lang }: props) => {
+const TeacherCard = ({ auth, isSchoolStaff, teacher, lang }: Props) => {
   const canModify =
     (isSchoolStaff && auth.user.role === "SCHOOLSTAFF") ||
     auth.user.role === "ADMIN";
 
   return (
-    <Card className=" p-0">
-      <CardHeader className="relative p-0 border-b-0">
-        <MyImage
-          src={
-            teacher?.image
-              ? teacher.image
-              : teacher?.gender === "MALE"
-                ? "/images/teachers/male-teacher.jpg"
-                : "/images/teachers/female-teacher.jpg"
-          }
-          className="h-52 w-full  border-b border-base-content/50"
-          classname=" card rounded-b-none"
-        />
-        <div className=" px-4 flex flex-col mt-1">
-          <div className=" flex justify-between items-center">
-            {teacher?.name && (
-              <MyLink
-                href={`/${lang}/p/t/${teacher._id}`}
-                className=" font-medium"
+    <Card className="p-0">
+      {/* HEADER */}
+      <CardHeader className="border-b-0">
+        <div className="flex items-center gap-2">
+          <MyAvatar src={teacher.image} alt={teacher.name} />
+
+          <div className="flex flex-col">
+            <MyLink href={`/${lang}/p/t/${teacher._id}`}>
+              <LoadingIndicatorText
+                className="h6 line-clamp-1"
+                title={teacher.name}
               >
-                <LoadingIndicatorText>{teacher.name}</LoadingIndicatorText>
-              </MyLink>
-            )}
-            <Badge
-              library="daisy"
-              variant={teacher?.is_active ? "info" : "error"}
-              size={"sm"}
-            >
-              Active
-            </Badge>
-          </div>
-          {teacher?.user?.username && (
-            <MyLink
-              className=" link link-hover"
-              href={`/${lang}/p/${teacher?.user?.username}`}
-            >
-              @ {teacher.user.username}
+                {teacher.name}
+              </LoadingIndicatorText>
             </MyLink>
-          )}
-          {teacher?.phone && <span>{teacher.phone}</span>}
-        </div>
-      </CardHeader>
-      <CardContent className=" p-0 pb-4 flex flex-col justify-between">
-        <div className=" px-4 flex flex-wrap gap-4">
-          {/* students */}
-          <Tooltip>
-            <TooltipTrigger>
-              <Badge variant={"outline"} library="daisy">
-                <MdClass />{" "}
-                <span>
-                  {teacher?.class_ids ? teacher?.class_ids.length : 0}
-                </span>
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent>Classes</TooltipContent>
-          </Tooltip>
-          {/* subject */}
-          <Tooltip>
-            <TooltipTrigger>
-              <Badge variant={"outline"} library="daisy">
-                <BsBook />{" "}
-                <span>
-                  {teacher?.subject_ids ? teacher?.subject_ids.length : 0}
-                </span>
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent>Subjects</TooltipContent>
-          </Tooltip>
+
+            <LoadingIndicatorText
+              className="sm line-clamp-1"
+              title={teacher.email}
+            >
+              {teacher.email}
+            </LoadingIndicatorText>
+          </div>
         </div>
 
+        {/* META */}
+        <div className="mt-2 flex flex-wrap gap-2">
+          {teacher.gender && (
+            <span className="sm">Gender: {teacher.gender}</span>
+          )}
+
+          {teacher.type && <span className="sm">Type: {teacher.type}</span>}
+
+          <span className="sm">Classes: {teacher.classes?.length ?? 0}</span>
+        </div>
+      </CardHeader>
+
+      {/* FOOTER */}
+      <CardContent className="p-0 pb-4 flex flex-col justify-between">
         <CardFooter
           className={cn(
-            " border-t border-base-content/50 pb- bottom-0",
-            isSchoolStaff && " flex flex-row justify-end gap-2",
+            "border-t border-base-content/50",
+            isSchoolStaff && "flex justify-end gap-2",
           )}
         >
           {canModify && (
-            <SchoolTeacherModifySheet // server side component
+            <SchoolTeacherModifySheet
               lang={lang}
               auth={auth}
               teacher={teacher}
               isSchool
             />
           )}
-          {teacher?.user?.username && (
-            <Button
-              library="daisy"
-              variant={"primary"}
-              className={cn("w-full", isSchoolStaff && "w-fit")}
-              role="page"
-              href={`/${lang}/p/${teacher.user.username}`}
-            >
-              {"Vue teacher"}
-            </Button>
-          )}
+
+          <Button
+            library="daisy"
+            variant="primary"
+            size="sm"
+            className={cn("w-full", isSchoolStaff && "w-fit")}
+            role="page"
+            href={`/${lang}/p/t/${teacher._id}`}
+          >
+            View teacher
+          </Button>
         </CardFooter>
       </CardContent>
     </Card>

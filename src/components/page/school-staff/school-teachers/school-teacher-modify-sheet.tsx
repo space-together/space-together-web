@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 
 import MyAvatar from "@/components/common/image/my-avatar";
-import MyImage from "@/components/common/myImage";
 import MyLink from "@/components/common/myLink";
 import ClassTeacherDialog from "@/components/page/class/dialog/add-class-teacher-dialog";
 import TeacherDialog from "@/components/page/teacher/dialog/teacher-dialog";
@@ -17,6 +16,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import NotFoundImage from "@/components/common/image/not-found-image";
+import { OpenImages } from "@/components/common/image/open-images";
 import type { Locale } from "@/i18n";
 import { splitCamelCase } from "@/lib/helpers/format-text";
 import type { Class } from "@/lib/schema/class/class-schema";
@@ -96,7 +97,7 @@ const SchoolTeacherModifySheet = ({
             </div>
           </Button>
         ) : (
-          <Button library="daisy" variant={"outline"}>
+          <Button library="daisy" size="sm" variant={"outline"}>
             Modify teacher
           </Button>
         )}
@@ -106,17 +107,11 @@ const SchoolTeacherModifySheet = ({
         {/* ===== HEADER ===== */}
         <SheetHeader className="p-0 relative">
           <div className="relative">
-            <MyImage
-              src={
-                teacher?.image
-                  ? teacher.image
-                  : teacher?.gender === "MALE"
-                    ? "/images/teachers/male-teacher.jpg"
-                    : "/images/teachers/female-teacher.jpg"
-              }
-              className="w-full h-64"
-            />
-
+            {teacher?.image ? (
+              <OpenImages className="w-full h-64" images={[teacher?.image]} />
+            ) : (
+              <NotFoundImage className="w-full h-64" />
+            )}
             <div className="space-x-1 p-4">
               <div className="flex justify-between">
                 {teacher?.name && (

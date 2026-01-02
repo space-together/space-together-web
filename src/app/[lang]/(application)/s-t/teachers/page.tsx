@@ -5,7 +5,9 @@ import AllTeachersCards from "@/components/page/school-staff/school-teachers/all
 import SchoolStaffTeacherFilter from "@/components/page/school-staff/school-teachers/school-staff-teacher-fiter";
 import SchoolTeacherTable from "@/components/page/school-staff/table/teacher-table/table-teacher";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { TeacherWithRelations } from "@/lib/schema/school/teacher-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -35,9 +37,9 @@ const SchoolStaffTeacherPage = async (props: props) => {
     return <NotFoundPage message="You need to have school to view this page" />;
 
   const [teachers] = await Promise.all([
-    apiRequest<void, TeacherWithRelations[]>(
+    apiRequest<void, Paginated<TeacherWithRelations>>(
       "get",
-      `/school/teachers/with-relations?limit=9`,
+      `/school/teachers/others?limit=${LIMIT}`,
       undefined,
       { token: auth.token, schoolToken: auth.schoolToken, realtime: "teacher" },
     ),
@@ -48,7 +50,7 @@ const SchoolStaffTeacherPage = async (props: props) => {
       channels={[
         {
           name: "teacher",
-          initialData: teachers.data ?? [],
+          initialData: teachers?.data?.data ?? [],
         },
       ]}
     >
@@ -57,13 +59,14 @@ const SchoolStaffTeacherPage = async (props: props) => {
           title="Teachers"
           description="Manage school teachers, classes, and subjects."
         />
-        <SchoolStaffTeacherFilter auth={auth} />
+        <SchoolStaffTeacherFilter teachers={teachers.data} auth={auth} />
+        {/*{teachers.data.data.length}*/}
         <DisplaySwitcher
           table={
             <SchoolTeacherTable
               auth={auth}
               lang={lang}
-              teachers={teachers.data ?? []}
+              teachers={teachers.data?.data ?? []}
               realtimeEnabled
             />
           }
@@ -71,7 +74,7 @@ const SchoolStaffTeacherPage = async (props: props) => {
             <AllTeachersCards
               lang={lang}
               auth={auth}
-              teachers={teachers.data ?? []}
+              teachers={teachers.data?.data ?? []}
             />
           }
         />
