@@ -1,8 +1,8 @@
 "use client";
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import TableFilter from "@/components/common/table/table-filter";
 import { getUsersTableCollectionColumns } from "@/components/page/admin/users/users_table_collection_columns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Locale } from "@/i18n";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -20,18 +20,20 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface Props {
   users: UserModel[];
   auth: AuthContext;
   realtimeEnabled?: boolean;
+  lang: Locale;
 }
 
 const UsersTableCollection = ({
   users: initialUsers,
   auth,
   realtimeEnabled,
+  lang,
 }: Props) => {
   const { data: currentUsers, isConnected } =
     useRealtimeData<UserModel>("user");
@@ -48,7 +50,10 @@ const UsersTableCollection = ({
     { id: "name", desc: false },
   ]);
 
-  const tableColumns = getUsersTableCollectionColumns();
+  const tableColumns = useMemo(
+    () => getUsersTableCollectionColumns(lang),
+    [lang],
+  );
 
   const table = useReactTable({
     data: displayUsers,
@@ -76,24 +81,6 @@ const UsersTableCollection = ({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex flex-wrap gap-3">
-          <div className="w-44">
-            <TableFilter column={table.getColumn("name")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("username")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("email")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("role")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("phone")!} />
-          </div>
-        </div>
-
         {/* ✅ pass table + data */}
         <CommonDataTable
           table={table}

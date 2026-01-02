@@ -211,10 +211,9 @@ export const UserCard = ({ auth, user, lang, isAdminView }: UserCardProps) => {
               library="daisy"
               variant="outline"
               size="sm"
-              role="page"
-              href={`/${lang}/admin/users/${user._id}/edit`}
+              href={`/${lang}/a/collections/users/${user.username}`}
             >
-              Edit
+              About user
             </Button>
           )}
 
