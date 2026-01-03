@@ -4,6 +4,7 @@ import { CommonDataTable } from "@/components/common/table/common-data-table";
 import { getUsersTableCollectionColumns } from "@/components/page/admin/users/users_table_collection_columns";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Locale } from "@/i18n";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import {
@@ -19,16 +20,18 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface props {
   realtimeEnabled?: boolean;
   initialUsers: UserModel[];
+  lang: Locale;
 }
 
 const UsersCollectionTableDashboard = ({
   realtimeEnabled,
   initialUsers,
+  lang,
 }: props) => {
   const { data: users, isConnected } = useRealtimeData<UserModel>("user");
   const [displayUsers, setDisplayUsers] = useState<UserModel[]>(initialUsers);
@@ -46,7 +49,7 @@ const UsersCollectionTableDashboard = ({
     }
   }, [users, realtimeEnabled, initialUsers]);
 
-  const columns = getUsersTableCollectionColumns();
+  const columns = useMemo(() => getUsersTableCollectionColumns(lang), [lang]);
 
   const table = useReactTable<UserModel>({
     data: displayUsers,

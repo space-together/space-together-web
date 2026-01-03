@@ -61,6 +61,7 @@ const AdminDashboardPage = async (props: PageProps<"/[lang]/a">) => {
             <UsersCollectionTableDashboard
               initialUsers={usersResponse?.data?.users ?? []}
               realtimeEnabled
+              lang={lang as Locale}
             />
           </div>
         </div>
