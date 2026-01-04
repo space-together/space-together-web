@@ -114,7 +114,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                                       `bg-base-content/10
                                       before:content-['']
                                       before:absolute
-                                      before:left-0
+                                      before:-left-1
                                       before:top-1/2
                                       before:-translate-y-1/2
 
@@ -164,7 +164,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                               `bg-base-content/10
                               before:content-['']
                               before:absolute
-                              before:left-0
+                              before:-left-1
                               before:top-1/2
                               before:-translate-y-1/2
 
