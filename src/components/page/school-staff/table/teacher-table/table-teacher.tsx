@@ -5,7 +5,7 @@ import TableFilter from "@/components/common/table/table-filter";
 import EmptyTeachers from "@/components/page/school-staff/school-teachers/empty-teachers";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { TeacherWithRelations } from "@/lib/schema/school/teacher-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
@@ -19,7 +19,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TeacherTableColumns } from "./teacher-table-columns";
 
 interface props {
@@ -35,22 +35,14 @@ export default function SchoolTeacherTable({
   auth,
   realtimeEnabled = true,
 }: props) {
-  const { data: initialTeachers, isConnected } =
-    useRealtimeData<TeacherWithRelations>("teacher");
-  const [displayTeachers, setDisplayTeachers] =
-    useState<TeacherWithRelations[]>(teachers);
+  const displayTeachers = useRealtimeList<TeacherWithRelations>(
+    "teacher",
+    teachers,
+    realtimeEnabled,
+  );
 
-  useEffect(() => {
-    if (realtimeEnabled && initialTeachers) {
-      setDisplayTeachers(initialTeachers as TeacherWithRelations[]);
-    } else if (!realtimeEnabled) {
-      setDisplayTeachers(initialTeachers);
-    }
-  }, [initialTeachers, realtimeEnabled]);
-
-
-      if (displayTeachers.length === 0 && teachers.length === 0)
-      return <EmptyTeachers isSchool auth={auth} />;
+  if (displayTeachers.length === 0 && teachers.length === 0)
+    return <EmptyTeachers isSchool auth={auth} />;
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([
