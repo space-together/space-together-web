@@ -1,9 +1,9 @@
-import SectorCollectionDetails from "@/components/page/admin/sector/sector-collection-details";
 import SectorsTableCollection from "@/components/page/admin/sector/sectors-table-collection";
-import ErrorPage from "@/components/page/error-page";
+import AppPageHeader from "@/components/page/common/app-page-header";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
@@ -21,19 +21,23 @@ const SectorsPage = async (
   const { lang } = await props.params;
   if (!auth) redirect("/auth/login");
 
-  const request = await apiRequest<void, SectorModel[]>(
+  const request = await apiRequest<void, Paginated<SectorModel>>(
     "get",
     "/sectors",
     undefined,
     { token: auth.token, realtime: "sector" },
   );
 
-  if (!request.data)
-    return <ErrorPage message={request.message} error={request.error} />;
-
   return (
-    <RealtimeProvider<SectorModel> channel="sector" initialData={request.data}>
-      <SectorCollectionDetails initialSectors={request.data} />
+    <RealtimeProvider<SectorModel>
+      channel="sector"
+      initialData={request?.data?.data ?? []}
+    >
+      <AppPageHeader
+        total={request?.data?.total}
+        title={"Sectors"}
+        description=""
+      />
       <SectorsTableCollection
         lang={lang as Locale}
         realtimeEnabled
