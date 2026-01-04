@@ -1,80 +1,115 @@
-// import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-// import { Separator } from "../ui/separator";
-// import { Dot } from "lucide-react";
-// import { Locale } from "@/i18n";
-// import { Education, Sector } from "../../../prisma/prisma/generated";
-// import SectorDialogDetails from "../site/collection/sector/sector-dialog-details";
-// import { TextTooltip } from "@/context/tooltip/text-tooltip";
+"use client";
 
-// interface props {
-//   lang: Locale;
-//   sector?: Sector | null;
-//   educations?: Education[] | undefined
-// }
+import type { Locale } from "@/i18n";
+import { cn } from "@/lib/utils";
+import { BsCalendarRange } from "react-icons/bs";
+import { FaLayerGroup, FaLocationDot } from "react-icons/fa6";
 
-// const SectorCard = ({ sector , educations}: props) => {
-//   return (
-//     <div className=" basic-card p-0 relative h-auto">
-//       <div className=" relative">
-//         <div className=" p-4 flex items-center gap-2">
-//           <Avatar className=" size-20">
-//             <AvatarImage
-//               src={sector?.symbol ? sector.symbol : "/images/REB_Logo.png"}
-//             />
-//             <AvatarFallback>LOGO</AvatarFallback>
-//           </Avatar>
-//           <div className=" space-x-1">
-//             <h3 className=" font-medium leading-5 line-clamp-3">
-//               {sector?.name ?? "Primary"}
-//             </h3>
-//             <span className=" text-sm line-clamp-1 flex space-x-1">
-//               @ {sector?.username ?? "REB"}
-//             </span>
-//             <TextTooltip
-//               trigger={
-//                 <span className=" cursor-pointer">
-//                   <span className=" font-medium">Educ:</span>{" "}
-//                   {sector?.education_id}
-//                 </span>
-//               }
-//               content={<span>Education</span>}
-//             />
-//           </div>
-//         </div>
-//       </div>
-//       {/* description of main class */}
-//       <div className="  text-sm line-clamp-2 px-4">
-//         <p>
-//           {sector?.description
-//             ? sector.description
-//             : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur  error itaque neque esse delectus ad dolorum dolores facere, asperiores quaerat dolor maxime ex fugiat suscipit distinctio ut obcaecati sequi"}{" "}
-//         </p>
-//       </div>
-//       <div className=" px-4">
-//         <div className=" flex justify-between">
-//           <h5 className=" capitalize font-medium text-myGray">Trades</h5>
-//         </div>
-//         <div className=" grid grid-cols-3 w-full">
-//           <div className=" flex items-center -space-x-2">
-//             <Dot size={32} />
-//             <span className=" text-sm line">Primary</span>
-//           </div>
-//           <div className=" flex items-center -space-x-2">
-//             <Dot size={32} />
-//             <span className=" text-sm line">O-Level</span>
-//           </div>
-//           <div className=" flex items-center -space-x-2">
-//             <Dot size={32} />
-//             <span className=" text-sm line">A-Level</span>
-//           </div>
-//         </div>
-//       </div>
-//       <Separator />
-//       <div className=" p-4">
-//         <SectorDialogDetails educations={educations} sector={sector} />
-//       </div>
-//     </div>
-//   );
-// };
+import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import MyAvatar from "../common/image/my-avatar";
+import MyLink, { LoadingIndicatorText } from "../common/myLink";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
-// export default SectorCard;
+interface Props {
+  lang: Locale;
+  sector: SectorModel;
+}
+
+const SectorCard = ({ lang, sector }: Props) => {
+  return (
+    <Card className={cn("relative")}>
+      <CardHeader className="relative">
+        <div className="flex items-center gap-2">
+          <MyLink href={`/${lang}/a/collections/sectors/${sector.username}`}>
+            <MyAvatar
+              type="square"
+              className="rounded-none"
+              classname="rounded-none"
+              src={sector.logo}
+              alt={sector.name}
+            />
+          </MyLink>
+
+          <div className="flex flex-col">
+            <MyLink href={`/${lang}/a/collections/sectors/${sector.username}`}>
+              <LoadingIndicatorText
+                element="h3"
+                className="h6 line-clamp-1"
+                title={sector.name}
+              >
+                {sector.name}
+              </LoadingIndicatorText>
+            </MyLink>
+
+            <MyLink href={`/${lang}/a/collections/sectors/${sector.username}`}>
+              <LoadingIndicatorText element="span" title={sector.username}>
+                @ {sector.username}
+              </LoadingIndicatorText>
+            </MyLink>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent>
+        {sector.description && (
+          <p className="line-clamp-2 mb-2">{sector.description}</p>
+        )}
+
+        <ul className="flex flex-wrap gap-4 text-sm">
+          <li
+            title="Sector type"
+            className="flex items-center gap-1 capitalize"
+          >
+            <FaLayerGroup />
+            <span>{sector.type}</span>
+          </li>
+
+          <li title="Country" className="flex items-center gap-1 capitalize">
+            <FaLocationDot />
+            <span>{sector.country}</span>
+          </li>
+
+          {sector.curriculum && (
+            <li title="Curriculum duration" className="flex items-center gap-1">
+              <BsCalendarRange />
+              <span>
+                {sector.curriculum[0]} – {sector.curriculum[1]}
+              </span>
+            </li>
+          )}
+
+          {sector.disable && (
+            <li className="text-error font-medium">Disabled</li>
+          )}
+        </ul>
+
+        <CardFooter className="flex flex-row gap-2 mt-3">
+          <MyLink
+            href={`/${lang}/a/collections/sectors/${sector.username}`}
+            button={{
+              variant: "primary",
+              library: "daisy",
+              size: "sm",
+            }}
+          >
+            View sector
+          </MyLink>
+
+          <MyLink
+            href={`/${lang}/sector/${sector.username}`}
+            button={{
+              variant: "outline",
+              library: "daisy",
+              role: "page",
+              size: "sm",
+            }}
+          >
+            About
+          </MyLink>
+        </CardFooter>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default SectorCard;
