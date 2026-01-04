@@ -82,6 +82,7 @@ const SchoolCard = ({ lang, school }: props) => {
             button={{
               variant: "primary",
               library: "daisy",
+              size: "sm",
             }}
           >
             View school
@@ -92,6 +93,7 @@ const SchoolCard = ({ lang, school }: props) => {
               variant: "outline",
               library: "daisy",
               role: "page",
+              size: "sm",
             }}
           >
             About

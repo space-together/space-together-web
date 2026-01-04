@@ -18,7 +18,7 @@ const SchoolUsernamePage = async (
 
   const schoolRes = await apiRequest<void, School>(
     "get",
-    `/schools/username/${schoolUsername}`,
+    `/schools/match?field=username&value=${schoolUsername}`,
     undefined,
     {
       token: auth.token,
