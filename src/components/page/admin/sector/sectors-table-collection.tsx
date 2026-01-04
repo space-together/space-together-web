@@ -2,8 +2,6 @@
 
 import RealtimeEnabled from "@/components/common/realtime-enabled";
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import TableFilter from "@/components/common/table/table-filter";
-import CreateSectorDialog from "@/components/page/admin/sector/CreateSectorDialog";
 import { getSectorsTableColumns } from "@/components/page/admin/sector/getSectorsTableColumns";
 import {
   Card,
@@ -74,27 +72,9 @@ const SectorsTableCollection = ({
           </CardTitle>
           <CardDescription>All registered education sectors</CardDescription>
         </div>
-
-        <CreateSectorDialog auth={auth} />
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3">
-          <div className="w-44">
-            <TableFilter column={table.getColumn("name")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("username")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("type")!} />
-          </div>
-          <div className="w-36">
-            <TableFilter column={table.getColumn("country")!} />
-          </div>
-        </div>
-
         {/* Data table */}
         <CommonDataTable table={table} columns={columns} data={sectors} />
       </CardContent>

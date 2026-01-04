@@ -52,8 +52,7 @@ export type UpdateSectorModel = z.infer<typeof updateSectorSchema>;
 
 // ----------------- FULL SECTOR (with id + timestamps) -----------------
 export const sectorSchema = z.object({
-  id: z.string(),
-  _id: z.string().optional(),
+  _id: z.string(),
   ...baseSectorFields,
   created_at: z.date().optional(),
   updated_at: z.date().optional(),

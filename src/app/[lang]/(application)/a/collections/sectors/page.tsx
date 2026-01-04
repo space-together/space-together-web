@@ -1,3 +1,4 @@
+import DisplaySwitcher from "@/components/display/display-switcher";
 import SectorsTableCollection from "@/components/page/admin/sector/sectors-table-collection";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import type { Locale } from "@/i18n";
@@ -8,6 +9,7 @@ import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import SectorsFilter from "./_components/sectors_filter";
 
 export const metadata: Metadata = {
   title: "Sectors - collection",
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 const SectorsPage = async (
   props: PageProps<"/[lang]/a/collections/sectors">,
 ) => {
+  const params = await props.params;
   const auth = await authContext();
   const { lang } = await props.params;
   if (!auth) redirect("/auth/login");
@@ -27,7 +30,6 @@ const SectorsPage = async (
     undefined,
     { token: auth.token, realtime: "sector" },
   );
-
   return (
     <RealtimeProvider<SectorModel>
       channel="sector"
@@ -38,10 +40,20 @@ const SectorsPage = async (
         title={"Sectors"}
         description=""
       />
-      <SectorsTableCollection
-        lang={lang as Locale}
-        realtimeEnabled
+      <SectorsFilter
+        sectors={request.data}
+        lang={params.lang as Locale}
         auth={auth}
+      />
+      <DisplaySwitcher
+        table={
+          <SectorsTableCollection
+            lang={lang as Locale}
+            realtimeEnabled
+            auth={auth}
+          />
+        }
+        cards={<div>sector school</div>}
       />
     </RealtimeProvider>
   );
