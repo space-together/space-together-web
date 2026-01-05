@@ -24,10 +24,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
-import { type TradeModule, tradeSchema } from "@/lib/schema/admin/tradeSchema";
+import { type TradeModule } from "@/lib/schema/admin/tradeSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
@@ -80,7 +79,6 @@ const CreateTradeForm = ({ auth, sector }: Props) => {
   }, [auth.token, sector]);
 
   const form = useForm<TradeModule>({
-    resolver: zodResolver(tradeSchema),
     defaultValues: {
       name: "",
       username: "",

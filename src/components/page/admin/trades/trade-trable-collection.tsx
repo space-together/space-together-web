@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
-import type { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
   type ColumnDef,
@@ -24,6 +23,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { useState } from "react";
 import { useState } from "react";
 
 interface Props {

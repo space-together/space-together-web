@@ -1,5 +1,8 @@
 import { sectorSchema } from "@/lib/schema/admin/sectorSchema";
-import { TradeTypeSchema } from "@/lib/schema/common-details-schema";
+import {
+  numberSchema,
+  TradeTypeSchema,
+} from "@/lib/schema/common-details-schema";
 import z from "zod";
 
 export const tradeSchema = z.object({
@@ -16,12 +19,8 @@ export const tradeSchema = z.object({
     .min(1, { message: "Username is required" })
     .max(50, { message: "Maximum character is 50" }),
   description: z.string().max(200).optional().nullable(),
-  class_min: z
-    .number()
-    .min(0, { message: "Class minimum must be 0 or greater" }),
-  class_max: z
-    .number()
-    .min(0, { message: "Class maximum must be 0 or greater" }),
+  class_min: numberSchema,
+  class_max: numberSchema,
   type: TradeTypeSchema,
   disable: z.boolean().optional().nullable(),
   created_at: z.date().optional().nullable(),
@@ -59,3 +58,9 @@ export const tradeWithOthersSchema = z.object({
 });
 
 export type TradeModelWithOthers = z.infer<typeof tradeWithOthersSchema>;
+
+
+
+
+
+
