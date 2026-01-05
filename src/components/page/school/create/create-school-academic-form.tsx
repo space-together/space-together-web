@@ -94,7 +94,7 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
       for (const sectorId of selected) {
         const res = await apiRequest<any, TradeModule[]>(
           "get",
-          `/trades/sector/${sectorId}`,
+          `/trades/match?field=sector_id&value=${sectorId}`,
           undefined,
           { token: auth.token },
         );

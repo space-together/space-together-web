@@ -10,13 +10,12 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatReadableDate } from "@/lib/utils/format-date";
 import { Calendar, Clock, GraduationCap } from "lucide-react";
-import { useEffect, useState } from "react";
 
 interface Props {
   sector: SectorModel;
@@ -25,17 +24,7 @@ interface Props {
 }
 
 const SectorTradesCard = ({ sector, auth, trades }: Props) => {
-  const { data: currentTrades } = useRealtimeData<TradeModule>("trade");
-  const [displayTrades, setDisplayTrades] = useState<TradeModule[]>(trades);
-
-  useEffect(() => {
-    if (currentTrades && currentTrades.length > 0) {
-      const filtered = currentTrades.filter(
-        (t) => t.sector_id === sector.id || t.sector_id === sector._id,
-      );
-      setDisplayTrades(filtered);
-    }
-  }, [currentTrades, sector]);
+  const displayTrades = useRealtimeList<TradeModule>("trade", trades, true);
 
   return (
     <div className="w-full space-y-2">

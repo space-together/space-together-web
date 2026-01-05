@@ -50,9 +50,9 @@ const SectorUsernamePage = async (
     return <ErrorPage message={sectorRes.message} error={sectorRes.error} />;
 
   const [tradesRes, educationYearsRes] = await Promise.all([
-    apiRequest<void, TradeModule[]>(
+    apiRequest<void, Paginated<TradeModule>>(
       "get",
-      `/trades/sector/${sectorRes.data._id || sectorRes.data.username}`,
+      `/trades?field=sector_id&value=${sectorRes.data._id}`,
       undefined,
       { token: auth.token, realtime: "trade" },
     ),
@@ -71,7 +71,7 @@ const SectorUsernamePage = async (
     <RealtimeProvider<SectorModel | TradeModule | EducationYear>
       channels={[
         { name: "sector", initialData: [sectorRes.data] },
-        { name: "trade", initialData: tradesRes.data },
+        { name: "trade", initialData: tradesRes.data.data ?? [] },
         {
           name: "education_year",
           initialData: educationYearsRes?.data?.data ?? [],
@@ -90,7 +90,7 @@ const SectorUsernamePage = async (
           <div className=" lg:w-1/2">
             <SectorTradesCard
               sector={sectorRes.data}
-              trades={tradesRes.data}
+              trades={tradesRes.data.data ?? []}
               auth={auth}
             />
           </div>
