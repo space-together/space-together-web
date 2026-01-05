@@ -1,6 +1,5 @@
 "use client";
 
-import RealtimeEnabled from "@/components/common/realtime-enabled";
 import { CommonDataTable } from "@/components/common/table/common-data-table";
 import { getSectorsTableColumns } from "@/components/page/admin/sector/getSectorsTableColumns";
 import {
@@ -11,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
@@ -32,14 +31,20 @@ interface Props {
   auth: AuthContext;
   realtimeEnabled?: boolean;
   lang: Locale;
+  sectors: SectorModel[];
 }
 
 const SectorsTableCollection = ({
   auth,
+  sectors,
   lang,
   realtimeEnabled = false,
 }: Props) => {
-  const { data: sectors, isConnected } = useRealtimeData<SectorModel>("sector");
+  const displaySectors = useRealtimeList<SectorModel>(
+    "sector",
+    sectors,
+    realtimeEnabled,
+  );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([
@@ -49,7 +54,7 @@ const SectorsTableCollection = ({
   const columns = useMemo(() => getSectorsTableColumns(lang), [lang]);
 
   const table = useReactTable<SectorModel>({
-    data: sectors,
+    data: displaySectors,
     columns: columns as ColumnDef<SectorModel, unknown>[],
     state: { sorting, columnFilters },
     onColumnFiltersChange: setColumnFilters,
@@ -68,7 +73,6 @@ const SectorsTableCollection = ({
         <div className="space-y-2">
           <CardTitle className="flex items-center gap-4">
             <span>Sectors</span>
-            {realtimeEnabled && <RealtimeEnabled isConnected={isConnected} />}
           </CardTitle>
           <CardDescription>All registered education sectors</CardDescription>
         </div>
@@ -76,7 +80,11 @@ const SectorsTableCollection = ({
 
       <CardContent className="space-y-4">
         {/* Data table */}
-        <CommonDataTable table={table} columns={columns} data={sectors} />
+        <CommonDataTable
+          table={table}
+          columns={columns}
+          data={displaySectors}
+        />
       </CardContent>
     </Card>
   );

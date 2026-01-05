@@ -1,3 +1,4 @@
+import AllSectorsCards from "@/app/[lang]/(application)/a/collections/sectors/_components/all-sectors-cards";
 import DisplaySwitcher from "@/components/display/display-switcher";
 import SectorsTableCollection from "@/components/page/admin/sector/sectors-table-collection";
 import AppPageHeader from "@/components/page/common/app-page-header";
@@ -48,12 +49,19 @@ const SectorsPage = async (
       <DisplaySwitcher
         table={
           <SectorsTableCollection
+            sectors={request.data?.data ?? []}
             lang={lang as Locale}
             realtimeEnabled
             auth={auth}
           />
         }
-        cards={<div>sector school</div>}
+        cards={
+          <AllSectorsCards
+            lang={lang as Locale}
+            auth={auth}
+            sectors={request.data?.data ?? []}
+          />
+        }
       />
     </RealtimeProvider>
   );

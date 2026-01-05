@@ -39,10 +39,11 @@ const SectorUsernamePage = async (
 
   const sectorRes = await apiRequest<void, SectorModel>(
     "get",
-    `/sectors/username/${sectorUsername}`,
+    `/sectors/match?field=username&value=${sectorUsername}`,
     undefined,
     { token: auth.token, realtime: "sector" },
   );
+
   if (sectorRes.statusCode === 404)
     return <NotFoundPage message={sectorRes.message} />;
   if (!sectorRes.data)
@@ -51,13 +52,13 @@ const SectorUsernamePage = async (
   const [tradesRes, educationYearsRes] = await Promise.all([
     apiRequest<void, TradeModule[]>(
       "get",
-      `/trades/sector/${sectorRes.data._id || sectorRes.data.id}`,
+      `/trades/sector/${sectorRes.data._id || sectorRes.data.username}`,
       undefined,
       { token: auth.token, realtime: "trade" },
     ),
     apiRequest<void, Paginated<EducationYear>>(
       "get",
-      `/education-years?field=curriculum_id&value=${sectorRes.data._id || sectorRes.data.id}`,
+      `/education-years?field=curriculum_id&value=${sectorRes.data._id || sectorRes.data.username}`,
       undefined,
       { token: auth.token, realtime: "education_year" },
     ),

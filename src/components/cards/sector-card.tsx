@@ -95,7 +95,7 @@ const SectorCard = ({ lang, sector }: Props) => {
             View sector
           </MyLink>
 
-          <MyLink
+          {/* <MyLink
             href={`/${lang}/sector/${sector.username}`}
             button={{
               variant: "outline",
@@ -105,7 +105,7 @@ const SectorCard = ({ lang, sector }: Props) => {
             }}
           >
             About
-          </MyLink>
+          </MyLink> */}
         </CardFooter>
       </CardContent>
     </Card>
