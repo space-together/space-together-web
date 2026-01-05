@@ -22,7 +22,7 @@ const ClassSettingsStudentsPage = async (
   }
   const clsRes = await apiRequest<void, Class>(
     "get",
-    `/school/classes/username/${classUsername}`,
+    `/school/classes/match?field=username&value=${classUsername}`,
     undefined,
     {
       token: auth.token,

@@ -23,7 +23,7 @@ const ClassIdPeoplePage = async (
   const [clsRes] = await Promise.all([
     apiRequest<void, Class>(
       "get",
-      `/school/classes/username/${classUsername}`,
+      `/school/classes/match?field=username&value=${classUsername}`,
       undefined,
       {
         token: auth.token,

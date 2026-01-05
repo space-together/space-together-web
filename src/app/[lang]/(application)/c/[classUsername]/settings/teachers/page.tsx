@@ -4,7 +4,7 @@ import ClassTeacherSettingPageFilter from "@/components/page/class/setting/teach
 import NotFoundPage from "@/components/page/not-found";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Class } from "@/lib/schema/class/class-schema";
+import type { Class } from "@/lib/schema/class/class-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { redirect } from "next/navigation";
@@ -21,7 +21,7 @@ const ClassSettingsTeachersPage = async (
   }
   const clsRes = await apiRequest<void, Class>(
     "get",
-    `/school/classes/username/${classUsername}`,
+    `/school/classes/match?field=username&value=${classUsername}`,
     undefined,
     {
       token: auth.token,
@@ -45,7 +45,7 @@ const ClassSettingsTeachersPage = async (
             <CardTitle>Teacher permissions</CardTitle>
           </CardHeader>
           <CardContent>
-            <ClassTeacherPermissionForm auth={auth} cls={clsRes.data}/>
+            <ClassTeacherPermissionForm auth={auth} cls={clsRes.data} />
           </CardContent>
         </Card>
       </div>
