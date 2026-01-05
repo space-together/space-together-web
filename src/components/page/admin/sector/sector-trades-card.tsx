@@ -1,8 +1,8 @@
 "use client";
 
+import TradeDialog from "@/app/[lang]/(application)/a/collections/trades/_components/trade-dialog";
 import MyLink from "@/components/common/myLink";
 import NoItemsPage from "@/components/common/pages/no-items-page";
-import CreateTradeDialog from "@/components/page/admin/trades/createTradeDialog";
 import { Badge } from "@/components/ui/badge";
 import {
   Item,
@@ -29,8 +29,8 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
   return (
     <div className="w-full space-y-2">
       <div className="flex items-center justify-between">
-        <h4 className="h5">Trades in {sector.name}</h4>
-        <CreateTradeDialog sector={sector} auth={auth} />
+        <h4 className="h5">Trades</h4>
+        <TradeDialog auth={auth} sector={sector} />
       </div>
       <div>
         {displayTrades.length === 0 ? (
@@ -39,7 +39,7 @@ const SectorTradesCard = ({ sector, auth, trades }: Props) => {
               title="No trades found 😥"
               details="Add a new trade to this sector"
             />
-            <CreateTradeDialog sector={sector} auth={auth} />
+            <TradeDialog auth={auth} sector={sector} />
           </div>
         ) : (
           <div className=" grid grid-cols-1 gap-3">

@@ -1,9 +1,9 @@
 "use client";
 
+import TradeDialog from "@/app/[lang]/(application)/a/collections/trades/_components/trade-dialog";
 import MyImage from "@/components/common/myImage";
 import DeleteTradeDialog from "@/components/page/admin/trades/deleteTradeDialog";
 import TradeDisableDialog from "@/components/page/admin/trades/trade-disable-dialog";
-import UpdateTradeDialog from "@/components/page/admin/trades/updateTradeDialog";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
@@ -45,7 +45,7 @@ const TradeInformationCard = ({ trade, auth, main_classes }: PropsTrade) => {
         <div className="flex items-center justify-between">
           <CardTitle>Trade Information</CardTitle>
           <div className="flex items-center gap-3">
-            <UpdateTradeDialog isIcon trade={currentTrade} auth={auth} />
+            <TradeDialog auth={auth} trade={currentTrade} />
             <TradeDisableDialog trade={currentTrade} auth={auth} />
             <DeleteTradeDialog trade={currentTrade} auth={auth} />
           </div>

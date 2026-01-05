@@ -39,11 +39,7 @@ interface props {
 export function LoadingIndicator({ className }: props) {
   const { pending } = useLinkStatus();
   return pending ? (
-    <div
-      role="status"
-      aria-label="Loading"
-      className={cn("loading loading-spinner", className)}
-    />
+    <div role="status" className={cn("loading loading-spinner", className)} />
   ) : null;
 }
 

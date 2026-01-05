@@ -1,10 +1,10 @@
 "use client";
 
+import TradeDialog from "@/app/[lang]/(application)/a/collections/trades/_components/trade-dialog";
 import SearchBox from "@/components/common/form/search-box";
 import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
-import CreateTradeDialog from "@/components/page/admin/trades/createTradeDialog";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
@@ -51,7 +51,7 @@ const TradesFilter = ({ auth, trades }: TradesFilterProps) => {
             variant="outline"
             size="sm"
           />
-          <CreateTradeDialog auth={auth} />
+          <TradeDialog auth={auth} />
         </div>
       </div>
 

@@ -84,6 +84,7 @@ const TradeMainClassesCard = ({ trade, auth, mainClasses }: Props) => {
                         auth={auth}
                         isIcon
                       />
+
                       <Badge
                         variant={cls.disable ? "destructive" : "secondary"}
                       >

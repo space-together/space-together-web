@@ -9,6 +9,7 @@ import { TradeTypes } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import { type TradeModule, tradeSchema } from "@/lib/schema/admin/tradeSchema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
@@ -34,8 +35,7 @@ const tradeBaseSchema = tradeSchema.pick({
 
 type TradeBase = z.infer<typeof tradeBaseSchema>;
 
-const CreateTradeForm = ({ trade, auth, sector }: Props) => {
-  // Local state for sectors & trades
+const TradeForm = ({ trade, auth, sector }: Props) => {
   const [sectors, setSectors] = useState<SectorModel[]>([]);
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
@@ -46,22 +46,27 @@ const CreateTradeForm = ({ trade, auth, sector }: Props) => {
       try {
         const [sectorsRes, tradesRes] = await Promise.all([
           sector
-            ? { data: [] }
-            : apiRequest<any, SectorModel[]>("get", "/sectors", undefined, {
-                token: auth.token,
-              }),
-          apiRequest<any, TradeModule[]>("get", "/trades", undefined, {
+            ? { data: { data: [] } }
+            : apiRequest<any, Paginated<SectorModel>>(
+                "get",
+                "/sectors",
+                undefined,
+                {
+                  token: auth.token,
+                },
+              ),
+          apiRequest<any, Paginated<TradeModule>>("get", "/trades", undefined, {
             token: auth.token,
           }),
         ]);
 
-        if (sectorsRes.data) {
-          const activeSectors = sectorsRes.data.filter((s) => !s.disable);
+        if (sectorsRes.data?.data) {
+          const activeSectors = sectorsRes.data.data.filter((s) => !s.disable);
           setSectors(activeSectors);
         }
 
-        if (tradesRes.data) {
-          const activeTrades = tradesRes.data.filter((t) => !t.disable);
+        if (tradesRes.data?.data) {
+          const activeTrades = tradesRes.data.data.filter((t) => !t.disable);
           setTrades(activeTrades);
         }
       } finally {
@@ -79,15 +84,15 @@ const CreateTradeForm = ({ trade, auth, sector }: Props) => {
     schema: tradeBaseSchema,
     formOptions: {
       defaultValues: {
-        name: "",
-        username: "",
-        description: "",
-        class_min: 0,
-        class_max: 0,
-        type: undefined,
-        disable: false,
-        sector_id: sector ? sector._id : undefined,
-        trade_id: undefined,
+        name: trade?.name ?? "",
+        username: trade?.username ?? "",
+        description: trade?.description ?? "",
+        class_min: trade?.class_min ?? 0,
+        class_max: trade?.class_max ?? 0,
+        type: trade?.type ?? undefined,
+        disable: trade?.disable ?? false,
+        sector_id: trade?.sector_id ?? sector?._id ?? undefined,
+        trade_id: trade?.trade_id ?? undefined,
       },
     },
 
@@ -109,12 +114,17 @@ const CreateTradeForm = ({ trade, auth, sector }: Props) => {
     onSuccess: () => {
       if (!trade) form.reset();
     },
+
+    onError: (error, value) => {
+      console.error("Failed to submit trade form:", error, value);
+    },
   });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {/* Left Side */}
+        sectors= {sectors.length}
         <div className="flex flex-row gap-4">
           <div className="flex w-1/2 flex-col space-y-4">
             {/* Name */}
@@ -221,16 +231,13 @@ const CreateTradeForm = ({ trade, auth, sector }: Props) => {
                 label: t,
                 value: t,
               }))}
-              className="min-h-24 resize-none"
               disabled={isPending}
             />
           </div>
         </div>
-
         {/* Messages */}
         <FormError message={error} />
         <FormSuccess message={success} />
-
         {/* Footer */}
         <DialogFooter className="px-6 pb-6 sm:justify-end">
           <DialogClose asChild>
@@ -256,4 +263,4 @@ const CreateTradeForm = ({ trade, auth, sector }: Props) => {
   );
 };
 
-export default CreateTradeForm;
+export default TradeForm;
