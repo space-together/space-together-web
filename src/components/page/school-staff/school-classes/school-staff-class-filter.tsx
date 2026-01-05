@@ -15,16 +15,14 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
-import type {
-  ClassWithOthers,
-  PaginatedClassesWithOthers,
-} from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
+import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { useState } from "react";
 
 interface Props {
   auth: AuthContext;
-  classes?: PaginatedClassesWithOthers;
+  classes?: Paginated<ClassWithOthers>;
 }
 
 const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
@@ -47,7 +45,7 @@ const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
       auth,
       endpoint: getEndpoint(),
       initialData: {
-        data: classes?.classes ?? [],
+        data: classes?.data ?? [],
         total: classes?.total ?? 0,
         total_pages: classes?.total_pages ?? 1,
         current_page: classes?.current_page ?? 1,

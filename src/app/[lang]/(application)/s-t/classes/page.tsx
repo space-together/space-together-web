@@ -7,10 +7,8 @@ import ClassesSchoolTable from "@/components/page/school-staff/table/class-table
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type {
-  ClassWithOthers,
-  PaginatedClassesWithOthers,
-} from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
+import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
@@ -46,9 +44,9 @@ const SchoolStaffClassesPage = async (
     );
 
   const [classes] = await Promise.all([
-    apiRequest<void, PaginatedClassesWithOthers>(
+    apiRequest<void, Paginated<ClassWithOthers>>(
       "get",
-      `/school/classes/with-others?limit=${LIMIT}`,
+      `/school/classes/others?limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,
@@ -63,7 +61,7 @@ const SchoolStaffClassesPage = async (
       channels={[
         {
           name: "class",
-          initialData: classes.data?.classes ?? [],
+          initialData: classes.data?.data ?? [],
         },
       ]}
     >
@@ -80,12 +78,12 @@ const SchoolStaffClassesPage = async (
               lang={lang as Locale}
               realtimeEnabled
               auth={auth}
-              classes={classes.data?.classes ?? []}
+              classes={classes.data?.data ?? []}
             />
           }
           cards={
             <AllClassesCards
-              classes={classes.data?.classes ?? []}
+              classes={classes.data?.data ?? []}
               lang={lang as Locale}
               realtimeEnabled
               auth={auth}
