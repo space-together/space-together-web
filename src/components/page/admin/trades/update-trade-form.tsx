@@ -215,7 +215,7 @@ const UpdateTradeForm = ({ auth, trade }: Props) => {
                   <FormLabel>Sector</FormLabel>
                   <SelectWithSearch
                     options={sectors.map((s) => ({
-                      value: String(s.id ?? s._id),
+                      value: s._id,
                       label: s.name,
                     }))}
                     value={field.value ?? ""}

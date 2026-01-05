@@ -62,9 +62,7 @@ export default function SectorsTableTest() {
     (newSector) => {
       console.log("📨 Sector created:", newSector);
       setSectors((prev) => {
-        const exists = prev.some(
-          (s) => s._id === newSector.id || s._id === newSector._id,
-        );
+        const exists = prev.some((s) => s._id === newSector._id);
         return exists ? prev : [...prev, newSector];
       });
     },
@@ -188,10 +186,7 @@ export default function SectorsTableTest() {
           </thead>
           <tbody>
             {sectors.map((sector) => (
-              <tr
-                key={sector.id || sector._id}
-                className="hover:bg-base-100/50"
-              >
+              <tr key={sector._id} className="hover:bg-base-100/50">
                 <td className="border-base-content/30 border px-4 py-2">
                   {sector.name}
                 </td>
