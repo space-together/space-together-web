@@ -1,7 +1,6 @@
 "use client";
 
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import CreateTradeDialog from "@/components/page/admin/trades/createTradeDialog";
 import { getTradesTableColumns } from "@/components/page/admin/trades/getTradesTableColumns";
 import {
   Card,
@@ -74,7 +73,6 @@ const TradesTableCollection = ({
           </CardTitle>
           <CardDescription>All registered education trades</CardDescription>
         </div>
-        <CreateTradeDialog auth={auth} />
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Data table */}

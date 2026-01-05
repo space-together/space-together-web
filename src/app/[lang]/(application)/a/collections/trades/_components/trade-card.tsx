@@ -3,11 +3,16 @@
 import type { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { BsLayers, BsPersonLinesFill } from "react-icons/bs";
-import { FaGraduationCap, FaBan } from "react-icons/fa6";
+import { FaBan, FaGraduationCap } from "react-icons/fa6";
 
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { TradeModule } from "@/lib/schema/admin/tradeSchema";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 
 interface Props {
   lang: Locale;
@@ -85,7 +90,7 @@ const TradeCard = ({ lang, trade }: Props) => {
             View trade
           </MyLink>
 
-          <MyLink
+          {/* <MyLink
             href={`/${lang}/trade/${trade.username}`}
             button={{
               variant: "outline",
@@ -95,7 +100,7 @@ const TradeCard = ({ lang, trade }: Props) => {
             }}
           >
             About
-          </MyLink>
+          </MyLink> */}
         </CardFooter>
       </CardContent>
     </Card>
