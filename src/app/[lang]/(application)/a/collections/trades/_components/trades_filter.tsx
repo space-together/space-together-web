@@ -4,27 +4,27 @@ import SearchBox from "@/components/common/form/search-box";
 import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
-import CreateSectorDialog from "@/components/page/admin/sector/CreateSectorDialog";
+import CreateTradeDialog from "@/components/page/admin/trades/createTradeDialog";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
-import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import type { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 
-interface SectorsFilterProps {
+interface TradesFilterProps {
   auth: AuthContext;
   lang: Locale;
-  sectors?: Paginated<SectorModel>;
+  trades?: Paginated<TradeModelWithOthers>;
 }
 
-const SectorsFilter = ({ auth, sectors }: SectorsFilterProps) => {
+const TradesFilter = ({ auth, trades }: TradesFilterProps) => {
   const { loading, pagination, handleSearch, handlePageChange } =
-    useFilterData<SectorModel>({
+    useFilterData<TradeModelWithOthers>({
       auth,
-      initialData: sectors,
-      endpoint: "/sectors",
-      realtimeKey: "sector",
+      initialData: trades,
+      endpoint: "/trades/others",
+      realtimeKey: "trade",
     });
 
   return (
@@ -51,8 +51,7 @@ const SectorsFilter = ({ auth, sectors }: SectorsFilterProps) => {
             variant="outline"
             size="sm"
           />
-
-          <CreateSectorDialog auth={auth} />
+          <CreateTradeDialog auth={auth} />
         </div>
       </div>
 
@@ -61,4 +60,4 @@ const SectorsFilter = ({ auth, sectors }: SectorsFilterProps) => {
   );
 };
 
-export default SectorsFilter;
+export default TradesFilter;
