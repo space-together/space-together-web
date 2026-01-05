@@ -72,7 +72,7 @@ const UpdateSectorForm = ({ auth, sector }: Props) => {
       try {
         const request = await apiRequest<UpdateSectorModel, SectorModel>(
           "put",
-          `/sectors/${sector.id || sector._id}`,
+          `/sectors/${sector._id}`,
           values,
           { token: auth.token },
         );

@@ -89,7 +89,7 @@ const CreateTradeForm = ({ auth, sector }: Props) => {
       class_max: 0,
       type: undefined,
       disable: false,
-      sector_id: sector ? sector._id || sector.id : undefined,
+      sector_id: sector ? sector._id : undefined,
       trade_id: undefined,
     },
     mode: "onChange",
@@ -230,9 +230,9 @@ const CreateTradeForm = ({ auth, sector }: Props) => {
                     <FormLabel>Sector</FormLabel>
                     <SelectWithSearch
                       options={sectors
-                        .filter((s) => s.id || s._id)
+                        .filter((s) => s._id || s.username)
                         .map((s) => ({
-                          value: String(s.id ?? s._id),
+                          value: s._id,
                           label: s.name,
                         }))}
                       value={field.value ?? ""}

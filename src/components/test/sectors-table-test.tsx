@@ -63,10 +63,7 @@ export default function SectorsTableTest() {
       console.log("📨 Sector created:", newSector);
       setSectors((prev) => {
         const exists = prev.some(
-          (s) =>
-            s.id === newSector.id ||
-            s._id === newSector.id ||
-            s._id === newSector._id,
+          (s) => s._id === newSector.id || s._id === newSector._id,
         );
         return exists ? prev : [...prev, newSector];
       });
@@ -75,8 +72,8 @@ export default function SectorsTableTest() {
       console.log("📨 Sector updated:", updatedSector);
       setSectors((prev) =>
         prev.map((sector) => {
-          const sectorId = sector.id || sector._id;
-          const updatedId = updatedSector.id || updatedSector._id;
+          const sectorId = sector._id;
+          const updatedId = updatedSector._id;
           return sectorId === updatedId ? updatedSector : sector;
         }),
       );
@@ -85,7 +82,7 @@ export default function SectorsTableTest() {
       console.log("📨 Sector deleted:", deletedId);
       setSectors((prev) =>
         prev.filter((sector) => {
-          const sectorId = sector.id || sector._id;
+          const sectorId = sector._id;
           return sectorId !== deletedId;
         }),
       );

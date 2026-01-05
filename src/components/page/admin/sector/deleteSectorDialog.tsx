@@ -40,7 +40,7 @@ const DeleteSectorDialog = ({ sector, auth }: Props) => {
     startTransition(async () => {
       const request = await apiRequest(
         "delete",
-        `/sectors/${sector.id || sector._id}`,
+        `/sectors/${sector._id}`,
         undefined,
         { token: auth.token },
       );

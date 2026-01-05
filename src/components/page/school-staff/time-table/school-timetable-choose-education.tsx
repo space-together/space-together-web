@@ -148,7 +148,7 @@ const SchoolTimetableChooseEducation = ({
                   className="cursor-pointer"
                   onSelect={() =>
                     handleSelect({
-                      id: sector._id || sector.id || "",
+                      id: sector._id || "",
                       name: sector.name,
                       username: sector.username,
                       type: "Sector",

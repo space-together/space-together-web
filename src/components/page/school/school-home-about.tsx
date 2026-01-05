@@ -53,7 +53,7 @@ const SchoolHomeAbout = ({
             {sectors &&
               sectors.map((sector) => (
                 <div
-                  key={sector._id || sector.id}
+                  key={sector._id || sector.username}
                   className="flex items-center space-x-2"
                 >
                   <Dot size={28} className="-ml-1" />
