@@ -1,8 +1,12 @@
-import MainClassCollectionDetails from "@/components/page/admin/main-class/main-class-collection-ditails";
+import MainClassesFilter from "@/app/[lang]/(application)/a/collections/main_classes/_components/main-classes-filter";
+import DisplaySwitcher from "@/components/display/display-switcher";
 import MainClassesTableCollection from "@/components/page/admin/main-class/main-class-table-collection";
-import ErrorPage from "@/components/page/error-page";
+import AppPageHeader from "@/components/page/common/app-page-header";
+import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type { mainClassModelWithTrade } from "@/lib/schema/admin/main-classes-schema";
+import type { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
@@ -13,28 +17,41 @@ export const metadata: Metadata = {
   description: "All main classes in database",
 };
 
-const MainClassesPage = async () => {
+const MainClassesPage = async (
+  props: PageProps<"/[lang]/a/collections/main_classes">,
+) => {
   const auth = await authContext();
+  const params = await props.params;
+  const { lang } = params;
+
   if (!auth) redirect("/auth/login");
-  const request = await apiRequest<void, mainClassModelWithTrade[]>(
+  const request = await apiRequest<void, Paginated<MainClassModelWithOthers>>(
     "get",
-    "/main-classes/trade",
+    `/main-classes/others?limit=${LIMIT}`,
     undefined,
     { token: auth.token, realtime: "main_class" },
   );
-  if (!request.data)
-    return <ErrorPage message={request.message} error={request.error} />;
 
   return (
-    <RealtimeProvider<mainClassModelWithTrade>
+    <RealtimeProvider<MainClassModelWithOthers>
       channel="main_class"
-      initialData={request.data}
+      initialData={request.data?.data ?? []}
     >
-      <MainClassCollectionDetails initialClasses={request.data} />
-      <MainClassesTableCollection
-        initialClasses={request.data}
-        realtimeEnabled
-        auth={auth}
+      <AppPageHeader
+        total={request?.data?.total}
+        title={"Users"}
+        description=""
+      />
+      <MainClassesFilter auth={auth} lang={lang as Locale} cls={request.data} />{" "}
+      <DisplaySwitcher
+        table={
+          <MainClassesTableCollection
+            initialClasses={request.data?.data ?? []}
+            realtimeEnabled
+            auth={auth}
+          />
+        }
+        cards={<div>hello</div>}
       />
     </RealtimeProvider>
   );

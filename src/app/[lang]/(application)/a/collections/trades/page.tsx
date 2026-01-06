@@ -3,6 +3,7 @@ import DisplaySwitcher from "@/components/display/display-switcher";
 import TradesTableCollection from "@/components/page/admin/trades/trade-trable-collection";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
 import type { Paginated } from "@/lib/schema/common-schema";
@@ -25,7 +26,7 @@ const TradesPage = async (props: PageProps<"/[lang]/a/collections/trades">) => {
   if (!auth) redirect("/auth/login");
   const request = await apiRequest<void, Paginated<TradeModelWithOthers>>(
     "get",
-    "/trades/others",
+    `/trades/others?limit=${LIMIT}`,
     undefined,
     { token: auth.token, realtime: "trade" },
   );

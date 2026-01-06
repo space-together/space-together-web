@@ -1,7 +1,4 @@
-import {
-  tradeSchema,
-  tradeWithOthersSchema,
-} from "@/lib/schema/admin/tradeSchema";
+import { tradeWithOthersSchema } from "@/lib/schema/admin/tradeSchema";
 import z from "zod";
 
 // ------------------- Base schema for MainClass -------------------
@@ -49,13 +46,4 @@ export const mainClassModelWithOthersSchema = z.object({
 
 export type MainClassModelWithOthers = z.infer<
   typeof mainClassModelWithOthersSchema
->;
-
-export const mainClassModelWithTradeSchema = z.object({
-  ...mainClassSchema.shape,
-  trade: tradeSchema,
-});
-
-export type mainClassModelWithTrade = z.infer<
-  typeof mainClassModelWithTradeSchema
 >;
