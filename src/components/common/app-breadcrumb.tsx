@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
+import { LoadingIndicatorText } from "@/components/common/myLink";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -72,7 +73,9 @@ export default function AppBreadcrumb() {
                   href={crumb.href}
                   className="capitalize font-medium"
                 >
-                  {formatText(crumb.label)}
+                  <LoadingIndicatorText>
+                    {formatText(crumb.label)}
+                  </LoadingIndicatorText>
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
