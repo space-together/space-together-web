@@ -98,7 +98,7 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
 
     request: {
       method: trade ? "put" : "post",
-      url: `/trades/${trade ? trade._id : ""}`,
+      url: `/trades${trade ? `/${trade._id}` : ""}`,
       apiRequest: {
         token: auth.token,
         schoolToken: auth.schoolToken,
@@ -245,7 +245,6 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
               Cancel
             </Button>
           </DialogClose>
-          <DialogClose asChild>
             <Button
               type="submit"
               variant="primary"
@@ -254,9 +253,8 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
               library="daisy"
               role={isPending ? "loading" : undefined}
             >
-              Add Trade
+              {trade ? "Update Trade" : "Add Trade"}
             </Button>
-          </DialogClose>
         </DialogFooter>
       </form>
     </Form>
