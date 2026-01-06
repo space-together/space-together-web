@@ -1,3 +1,4 @@
+import SectorDialog from "@/app/[lang]/(application)/a/collections/sectors/_components/sector-dailog";
 import MyAvatar from "@/components/common/image/my-avatar";
 import { OpenImages } from "@/components/common/image/open-images";
 import type { Locale } from "@/i18n";
@@ -5,7 +6,6 @@ import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatReadableDate } from "@/lib/utils/format-date";
 import DeleteSectorDialog from "./deleteSectorDialog";
-import UpdateSectorDialog from "./updateSectorDialog";
 
 interface SectorHeaderProps {
   sector: SectorModel;
@@ -38,7 +38,7 @@ const SectorHeader = ({ sector, auth }: SectorHeaderProps) => {
             <h4 className="h4">{sector.name}</h4>
             <p className="text-xl font-normal opacity-80">@{sector.username}</p>
             <div className=" flex gap-4 ml-4">
-              <UpdateSectorDialog auth={auth} sector={sector} />
+              <SectorDialog auth={auth} sector={sector} />
               <DeleteSectorDialog auth={auth} sector={sector} />
             </div>
           </div>

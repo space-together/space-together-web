@@ -1,10 +1,10 @@
 "use client";
 
+import SectorDialog from "@/app/[lang]/(application)/a/collections/sectors/_components/sector-dailog";
 import SearchBox from "@/components/common/form/search-box";
 import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
-import CreateSectorDialog from "@/components/page/admin/sector/CreateSectorDialog";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
@@ -51,8 +51,7 @@ const SectorsFilter = ({ auth, sectors }: SectorsFilterProps) => {
             variant="outline"
             size="sm"
           />
-
-          <CreateSectorDialog auth={auth} />
+          <SectorDialog auth={auth} />
         </div>
       </div>
 

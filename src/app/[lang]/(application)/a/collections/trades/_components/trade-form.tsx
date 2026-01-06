@@ -8,12 +8,11 @@ import { Form } from "@/components/ui/form";
 import { TradeTypes } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
-import { type TradeModule, tradeSchema } from "@/lib/schema/admin/tradeSchema";
+import { TradeBase, tradeBaseSchema, type TradeModule } from "@/lib/schema/admin/tradeSchema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
-import type z from "zod";
 
 interface Props {
   auth: AuthContext;
@@ -21,19 +20,7 @@ interface Props {
   trade?: TradeModule;
 }
 
-const tradeBaseSchema = tradeSchema.pick({
-  name: true,
-  username: true,
-  description: true,
-  class_min: true,
-  class_max: true,
-  type: true,
-  disable: true,
-  sector_id: true,
-  trade_id: true,
-});
 
-type TradeBase = z.infer<typeof tradeBaseSchema>;
 
 const TradeForm = ({ trade, auth, sector }: Props) => {
   const [sectors, setSectors] = useState<SectorModel[]>([]);

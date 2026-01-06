@@ -29,21 +29,6 @@ export const tradeSchema = z.object({
 
 export type TradeModule = z.infer<typeof tradeSchema>;
 
-export const updateTradeSchema = z.object({
-  sector_id: z.string().optional().nullable(),
-  trade_id: z.string().optional().nullable(),
-  name: z.string().max(50).optional(),
-  username: z.string().max(50).optional(),
-  description: z.string().max(200).optional().nullable(),
-  class_min: z.number().min(0).optional(),
-  class_max: z.number().min(0).optional(),
-  type: z.enum(["Senior", "Primary", "Level", "Nursing"]).optional(),
-  disable: z.boolean().optional(),
-  updated_at: z.date().optional().nullable(),
-});
-
-export type UpdateTradeModule = z.infer<typeof updateTradeSchema>;
-
 export const tradeWithParentSchema = z.object({
   ...tradeSchema.shape,
   sector: sectorSchema.optional().nullable(),
@@ -60,7 +45,16 @@ export const tradeWithOthersSchema = z.object({
 export type TradeModelWithOthers = z.infer<typeof tradeWithOthersSchema>;
 
 
+export const tradeBaseSchema = tradeSchema.pick({
+  name: true,
+  username: true,
+  description: true,
+  class_min: true,
+  class_max: true,
+  type: true,
+  disable: true,
+  sector_id: true,
+  trade_id: true,
+});
 
-
-
-
+export type TradeBase = z.infer<typeof tradeBaseSchema>;
