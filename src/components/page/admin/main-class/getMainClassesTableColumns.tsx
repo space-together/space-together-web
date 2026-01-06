@@ -1,20 +1,21 @@
 "use client";
 
-import { mainClassModelWithTrade } from "@/lib/schema/admin/main-classes-schema";
+import MyLink from "@/components/common/myLink";
+import { Locale } from "@/i18n";
+import { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
 import { cn } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
 
 export const getMainClassesTableColumns =
-  (): ColumnDef<mainClassModelWithTrade>[] => {
+  (lang: Locale): ColumnDef<MainClassModelWithOthers>[] => {
     return [
       {
         header: "Name",
         accessorKey: "name",
         meta: { filterVariant: "text" },
         cell: ({ row }) => (
-          <Link
-            href={`/a/collections/main_classes/${row.original.username}`}
+          <MyLink
+            href={`/${lang}/a/collections/main_classes/${row.original.username}`}
             className={cn(
               "flex flex-row items-center gap-2",
               row.original.disable
@@ -24,7 +25,7 @@ export const getMainClassesTableColumns =
             data-tip={cn(row.original.disable ? "Disabled Class" : "")}
           >
             <span className="font-medium">{row.original.name}</span>
-          </Link>
+          </MyLink>
         ),
       },
       {
@@ -32,8 +33,8 @@ export const getMainClassesTableColumns =
         accessorKey: "username",
         meta: { filterVariant: "text" },
         cell: ({ row }) => (
-          <Link
-            href={`/a/collections/main_classes/${row.original.username}`}
+          <MyLink
+            href={`/${lang}/a/collections/main_classes/${row.original.username}`}
             className={cn(
               "flex items-center gap-2",
               row.original.disable
@@ -43,7 +44,7 @@ export const getMainClassesTableColumns =
             data-tip={cn(row.original.disable ? "Disabled Class" : "")}
           >
             {row.original.username}
-          </Link>
+          </MyLink>
         ),
       },
       {
@@ -59,11 +60,11 @@ export const getMainClassesTableColumns =
               </span>
             );
           return (
-            <Link
-              href={`/a/collections/trades/${row.original.trade?.username}`}
+            <MyLink
+              href={`/${lang}/a/collections/trades/${row.original.trade?.username}`}
             >
               {row.original.trade?.name}
-            </Link>
+            </MyLink>
           );
         },
       },

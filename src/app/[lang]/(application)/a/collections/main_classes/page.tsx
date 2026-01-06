@@ -1,3 +1,4 @@
+import AllMainClassesCards from "@/app/[lang]/(application)/a/collections/main_classes/_components/all-main-classes-cards";
 import MainClassesFilter from "@/app/[lang]/(application)/a/collections/main_classes/_components/main-classes-filter";
 import DisplaySwitcher from "@/components/display/display-switcher";
 import MainClassesTableCollection from "@/components/page/admin/main-class/main-class-table-collection";
@@ -39,7 +40,7 @@ const MainClassesPage = async (
     >
       <AppPageHeader
         total={request?.data?.total}
-        title={"Users"}
+        title={"Main classes"}
         description=""
       />
       <MainClassesFilter auth={auth} lang={lang as Locale} cls={request.data} />{" "}
@@ -51,7 +52,7 @@ const MainClassesPage = async (
             auth={auth}
           />
         }
-        cards={<div>hello</div>}
+        cards={<AllMainClassesCards classes={request.data?.data ?? []} lang={lang as Locale} auth={auth} />}
       />
     </RealtimeProvider>
   );

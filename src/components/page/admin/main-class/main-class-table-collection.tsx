@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Locale } from "@/i18n";
 import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -25,17 +26,19 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface Props {
   auth: AuthContext;
   initialClasses?: MainClassModelWithOthers[];
   realtimeEnabled?: boolean;
+  lang: Locale
 }
 
 const MainClassesTableCollection = ({
   auth,
   initialClasses = [],
+  lang,
   realtimeEnabled = false,
 }: Props) => {
   const displayClasses = useRealtimeList<MainClassModelWithOthers>(
@@ -49,7 +52,7 @@ const MainClassesTableCollection = ({
     { id: "name", desc: false },
   ]);
 
-  const columns = getMainClassesTableColumns();
+  const columns = useMemo( () => getMainClassesTableColumns(lang), [lang] ) ;
 
   const table = useReactTable<MainClassModelWithOthers>({
     data: displayClasses,
