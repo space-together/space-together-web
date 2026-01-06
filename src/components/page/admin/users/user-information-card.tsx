@@ -11,12 +11,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeItem } from "@/lib/hooks/use-realtime-list";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { calculateAge, formatReadableDate } from "@/lib/utils/format-date";
-import { useEffect, useState } from "react";
 
 interface PropsUser {
   auth: AuthContext;
@@ -24,14 +23,7 @@ interface PropsUser {
 }
 
 const UserInformation = ({ auth, initialUser }: PropsUser) => {
-  const { data } = useRealtimeData<UserModel>("user");
-  const [user, setUser] = useState(initialUser);
-
-  useEffect(() => {
-    if (!data?.length) return;
-    const updated = data.find((u) => u._id === initialUser._id);
-    if (updated) setUser(updated);
-  }, [data, initialUser._id]);
+  const user = useRealtimeItem<UserModel>("user", initialUser);
 
   const birthDate =
     user.age && new Date(user.age.year, user.age.month - 1, user.age.day);

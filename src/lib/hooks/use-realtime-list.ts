@@ -22,3 +22,23 @@ export function useRealtimeList<T extends WithId>(
 
   return displayData;
 }
+
+export function useRealtimeItem<T extends WithId>(
+  channel: string,
+  initialItem: T,
+  realtimeEnabled: boolean = true,
+) {
+  const { data } = useRealtimeData<T>(channel);
+  const [item, setItem] = useState<T>(initialItem);
+
+  useEffect(() => {
+    if (!realtimeEnabled || !data?.length) return;
+
+    const updated = data.find((d) => d._id === initialItem._id);
+    if (updated) {
+      setItem(updated);
+    }
+  }, [data, realtimeEnabled, initialItem._id]);
+
+  return item;
+}

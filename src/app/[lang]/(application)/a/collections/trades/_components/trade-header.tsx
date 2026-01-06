@@ -7,12 +7,11 @@ import MyLink from "@/components/common/myLink";
 import DeleteTradeDialog from "@/components/page/admin/trades/deleteTradeDialog";
 import TradeDisableDialog from "@/components/page/admin/trades/trade-disable-dialog";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeItem } from "@/lib/hooks/use-realtime-list";
 import type { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
 import type { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatReadableDate } from "@/lib/utils/format-date";
-import { useEffect, useState } from "react";
 
 interface TradeHeaderProps {
   trade: TradeModelWithOthers;
@@ -22,14 +21,7 @@ interface TradeHeaderProps {
 }
 
 const TradeHeader = ({ trade, auth, main_classes, lang }: TradeHeaderProps) => {
-  const { data } = useRealtimeData<TradeModelWithOthers>("trade");
-  const [currentTrade, setCurrentTrade] = useState(trade);
-
-  useEffect(() => {
-    if (!data?.length) return;
-    const updated = data.find((t) => t._id === trade._id);
-    if (updated) setCurrentTrade(updated);
-  }, [data, trade._id]);
+  const currentTrade = useRealtimeItem<TradeModelWithOthers>("trade", trade);
 
   return (
     <section className="flex flex-col gap-4 lg:flex-row">

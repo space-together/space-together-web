@@ -1,9 +1,7 @@
 "use client";
-import SectorCard from "@/components/cards/sector-card";
 import type { Locale } from "@/i18n";
 import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
-import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
-import { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
+import type { TradeModelWithOthers } from "@/lib/schema/admin/tradeSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import TradeCard from "./trade-card";
 
