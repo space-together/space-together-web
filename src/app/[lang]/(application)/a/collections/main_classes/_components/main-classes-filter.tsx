@@ -7,7 +7,6 @@ import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
-import { LIMIT } from "@/lib/env";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
@@ -24,7 +23,7 @@ const MainClassesFilter = ({ auth, cls }: MainClassesFilterProps) => {
     useFilterData<MainClassModelWithOthers>({
       auth,
       initialData: cls,
-      endpoint: `/main-classes/others?limit=${LIMIT}`,
+      endpoint: `/main-classes/others`,
       realtimeKey: "main_class",
     });
 

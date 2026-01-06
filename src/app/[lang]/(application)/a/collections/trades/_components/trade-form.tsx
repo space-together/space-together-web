@@ -111,7 +111,6 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {/* Left Side */}
-        sectors= {sectors.length}
         <div className="flex flex-row gap-4">
           <div className="flex w-1/2 flex-col space-y-4">
             {/* Name */}
