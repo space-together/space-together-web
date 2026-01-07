@@ -1,12 +1,12 @@
 "use client";
 
+import MainClassDialog from "@/app/[lang]/(application)/a/collections/main_classes/_components/main-class-dialog";
 import MainClassDisableDialog from "@/components/page/admin/main-class/disable-main-class-dialog";
-import UpdateMainClassDialog from "@/components/page/admin/main-class/update-trade-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
+import type { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
 import { cn } from "@/lib/utils";
-import { AuthContext } from "@/lib/utils/auth-context";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatReadableDate } from "@/lib/utils/format-date";
 import { useEffect, useState } from "react";
 
@@ -33,11 +33,7 @@ const MainClassInformationCard = ({ mainClass, auth }: Props) => {
         <div className="flex items-center justify-between">
           <CardTitle>Main Class</CardTitle>
           <div className="flex items-center">
-            <UpdateMainClassDialog
-              isIcon
-              mainClass={currentClass}
-              auth={auth}
-            />
+            <MainClassDialog mainClass={currentClass} auth={auth} />
             <MainClassDisableDialog
               isIcon
               mainClass={currentClass}

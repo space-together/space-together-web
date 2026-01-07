@@ -8,7 +8,11 @@ import { Form } from "@/components/ui/form";
 import { TradeTypes } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
-import { TradeBase, tradeBaseSchema, type TradeModule } from "@/lib/schema/admin/tradeSchema";
+import {
+  type TradeBase,
+  tradeBaseSchema,
+  type TradeModule,
+} from "@/lib/schema/admin/tradeSchema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -19,8 +23,6 @@ interface Props {
   sector?: SectorModel;
   trade?: TradeModule;
 }
-
-
 
 const TradeForm = ({ trade, auth, sector }: Props) => {
   const [sectors, setSectors] = useState<SectorModel[]>([]);
@@ -231,16 +233,16 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
               Cancel
             </Button>
           </DialogClose>
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={isPending}
-              className="w-full sm:w-auto"
-              library="daisy"
-              role={isPending ? "loading" : undefined}
-            >
-              {trade ? "Update Trade" : "Add Trade"}
-            </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isPending}
+            className="w-full sm:w-auto"
+            library="daisy"
+            role={isPending ? "loading" : undefined}
+          >
+            {trade ? "Update Trade" : "Add Trade"}
+          </Button>
         </DialogFooter>
       </form>
     </Form>

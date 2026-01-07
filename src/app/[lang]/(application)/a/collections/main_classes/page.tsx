@@ -47,12 +47,19 @@ const MainClassesPage = async (
       <DisplaySwitcher
         table={
           <MainClassesTableCollection
+            lang={lang as Locale}
             initialClasses={request.data?.data ?? []}
             realtimeEnabled
             auth={auth}
           />
         }
-        cards={<AllMainClassesCards classes={request.data?.data ?? []} lang={lang as Locale} auth={auth} />}
+        cards={
+          <AllMainClassesCards
+            classes={request.data?.data ?? []}
+            lang={lang as Locale}
+            auth={auth}
+          />
+        }
       />
     </RealtimeProvider>
   );

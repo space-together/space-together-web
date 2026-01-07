@@ -1,8 +1,7 @@
 "use client";
 
+import MainClassDialog from "@/app/[lang]/(application)/a/collections/main_classes/_components/main-class-dialog";
 import NoItemsPage from "@/components/common/pages/no-items-page";
-import CreateMainClassDialog from "@/components/page/admin/main-class/create-main-class-dialog";
-import UpdateMainClassDialog from "@/components/page/admin/main-class/update-trade-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -46,7 +45,7 @@ const TradeMainClassesCard = ({ trade, auth, mainClasses }: Props) => {
     <Card className="w-full">
       <CardHeader className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-bold">Main Classes for {trade.name}</h2>
-        <CreateMainClassDialog trade={trade} auth={auth} />
+        <MainClassDialog trade={trade} auth={auth} />
       </CardHeader>
 
       <CardContent>
@@ -56,7 +55,7 @@ const TradeMainClassesCard = ({ trade, auth, mainClasses }: Props) => {
               title="This trade doesn't have any main classes yet 😥"
               details="Add a new main class for this trade"
             />
-            <CreateMainClassDialog trade={trade} auth={auth} />
+            <MainClassDialog trade={trade} auth={auth} />
           </div>
         ) : (
           <div className="flex flex-col gap-3">
@@ -79,11 +78,7 @@ const TradeMainClassesCard = ({ trade, auth, mainClasses }: Props) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <UpdateMainClassDialog
-                        mainClass={cls}
-                        auth={auth}
-                        isIcon
-                      />
+                      <MainClassDialog mainClass={cls} auth={auth} />
 
                       <Badge
                         variant={cls.disable ? "destructive" : "secondary"}

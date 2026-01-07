@@ -1,5 +1,6 @@
 import { tradeWithOthersSchema } from "@/lib/schema/admin/tradeSchema";
 import z from "zod";
+import { numberSchema } from "../common-details-schema";
 
 // ------------------- Base schema for MainClass -------------------
 export const mainClassSchema = z.object({
@@ -14,7 +15,7 @@ export const mainClassSchema = z.object({
     .min(1, { message: "Username is required" })
     .max(50, { message: "Maximum character is 50" }),
   trade_id: z.string().optional(), // maps to Option<ObjectId>
-  level: z.string().optional(),
+  level: numberSchema.optional(),
   description: z
     .string()
     .max(200, { message: "Maximum character is 200" })

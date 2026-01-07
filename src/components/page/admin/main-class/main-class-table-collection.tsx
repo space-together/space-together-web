@@ -1,7 +1,6 @@
 "use client";
 
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import CreateMainClassDialog from "@/components/page/admin/main-class/create-main-class-dialog";
 import { getMainClassesTableColumns } from "@/components/page/admin/main-class/getMainClassesTableColumns";
 import {
   Card,
@@ -10,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
 import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -32,7 +31,7 @@ interface Props {
   auth: AuthContext;
   initialClasses?: MainClassModelWithOthers[];
   realtimeEnabled?: boolean;
-  lang: Locale
+  lang: Locale;
 }
 
 const MainClassesTableCollection = ({
@@ -52,7 +51,7 @@ const MainClassesTableCollection = ({
     { id: "name", desc: false },
   ]);
 
-  const columns = useMemo( () => getMainClassesTableColumns(lang), [lang] ) ;
+  const columns = useMemo(() => getMainClassesTableColumns(lang), [lang]);
 
   const table = useReactTable<MainClassModelWithOthers>({
     data: displayClasses,
@@ -77,7 +76,6 @@ const MainClassesTableCollection = ({
           </CardTitle>
           <CardDescription>All registered main classes</CardDescription>
         </div>
-        <CreateMainClassDialog auth={auth} />
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Data table */}
