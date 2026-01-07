@@ -20,6 +20,58 @@ export type sidebarGroupsProps = {
   otherData1?: ReactNode[];
 };
 
+// Common sidebar
+export const CommonSidebar: sidebarGroupsProps = {
+  label: "For you",
+  items: [
+    {
+      title: "Message",
+      icon: "/icons/chat.png",
+      url: "/m",
+    },
+    {
+      title: "Settings",
+      icon: "/icons/cogwheel.png",
+      url: "/setting",
+    },
+  ],
+};
+
+// school sidebar
+export type SchoolUserRole = "student" | "teacher" | "staff";
+export const createSchoolSidebar = (
+  role: SchoolUserRole,
+): sidebarGroupsProps => {
+  const dashboardBase: Record<SchoolUserRole, string> = {
+    student: "/s",
+    teacher: "/t",
+    staff: "/s-t",
+  };
+
+  const base = dashboardBase[role];
+
+  return {
+    label: "School space",
+    items: [
+      {
+        title: "Dashboard",
+        icon: "/icons/dashboard.png",
+        url: `${base}`,
+      },
+      {
+        title: "School Overview",
+        icon: "/icons/school.png",
+        url: "/school",
+      },
+      {
+        title: "Calendar",
+        icon: "/icons/attendance/online.png",
+        url: "/school/calendar",
+      },
+    ],
+  };
+};
+
 // Sidebar configurations
 export const adminSidebarGroups: sidebarGroupsProps[] = [
   {
@@ -47,117 +99,36 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
       },
     ],
   },
-  {
-    label: "Settings",
-    items: [
-      {
-        title: "Messages",
-        icon: "/icons/chat.png",
-        url: "/m",
-      },
-      {
-        title: "Settings",
-        icon: "/icons/cogwheel.png",
-        url: "/setting",
-      },
-    ],
-  },
+  CommonSidebar,
 ];
 
 export const studentSidebarGroups: sidebarGroupsProps[] = [
-  {
-    //   label: "Dashboard",
-    items: [
-      {
-        title: "School",
-        icon: "/icons/school.png",
-        url: "/school",
-      },
-      {
-        title: "Class & school",
-        icon: "/icons/blackboard.png",
-        url: "/class",
-        otherData1: true,
-      },
-      {
-        title: "Notes",
-        icon: "/icons/note.png",
-        url: "/notes",
-      },
-    ],
-  },
-  {
-    //   label: "Settings",
-    items: [
-      {
-        title: "Messages",
-        icon: "/icons/chat.png",
-        url: "/m",
-      },
-      {
-        title: "Settings",
-        icon: "/icons/cogwheel.png",
-        url: "/setting",
-      },
-    ],
-  },
+  createSchoolSidebar("student"),
+  CommonSidebar,
 ];
 
 export const teacherSidebarGroups: sidebarGroupsProps[] = [
+  createSchoolSidebar("teacher"),
   {
-    //   label: "Dashboard",
+    label: "Application",
     items: [
       {
-        title: "School",
-        icon: "/icons/school.png",
-        url: "/school",
+        title: "Classes",
+        icon: "/icons/classroom.png",
+        url: "/t/classes",
       },
       {
-        title: "Class & school",
-        icon: "/icons/blackboard.png",
-        url: "/teacher",
+        title: "Lessons",
+        icon: "/icons/book-stack.png",
+        url: "/t/lessons",
       },
     ],
   },
-  {
-    //   label: "Settings",
-    items: [
-      {
-        title: "Messages",
-        icon: "/icons/chat.png",
-        url: "/m",
-      },
-      {
-        title: "Settings",
-        icon: "/icons/cogwheel.png",
-        url: "/setting",
-      },
-    ],
-  },
+  CommonSidebar,
 ];
 
 export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
-  {
-    label: "School Space",
-    items: [
-      {
-        title: "Dashboard",
-        icon: "/icons/dashboard.png",
-        url: "/s-t",
-      },
-      {
-        title: "School Overview",
-        icon: "/icons/school.png",
-        url: "/school",
-      },
-      {
-        title: "Calendar",
-        icon: "/icons/attendance/online.png",
-        url: "/s-t/calendar",
-      },
-    ],
-  },
-
+  createSchoolSidebar("staff"),
   {
     label: "Application",
     items: [
@@ -238,19 +209,5 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
   },
 
   // 👇 USER-LEVEL SECTION
-  {
-    label: "For You",
-    items: [
-      {
-        title: "Messages",
-        icon: "/icons/chat.png",
-        url: "/m",
-      },
-      {
-        title: "Settings",
-        icon: "/icons/cogwheel.png",
-        url: "/setting",
-      },
-    ],
-  },
+  CommonSidebar,
 ];

@@ -66,7 +66,11 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.url ?? item.title}>
                     {item.children ? (
-                      <Accordion type="single" collapsible className="w-full">
+                      <Accordion
+                        type="single"
+                        collapsible
+                        className="w-full px-0"
+                      >
                         <AccordionItem value={item.url ?? item.title}>
                           <AccordionTrigger
                             className={cn(
@@ -79,6 +83,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                               "hover:bg-base-100 w-full justify-between",
                               // "[&[data-state=open]>svg]:opacity-0 [&[data-state=open]>svg]:pointer-events-none",
                               !open && "[&>svg]:hidden",
+                              "pl-2",
                             )}
                           >
                             <div className="flex items-center gap-2">
@@ -99,7 +104,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
                             </div>
                           </AccordionTrigger>
 
-                          <AccordionContent className=" pb-0">
+                          <AccordionContent className=" pb-0 px-0">
                             <SidebarMenuSub>
                               {item.children.map((subItem) => (
                                 <SidebarMenuSubItem
@@ -123,6 +128,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
 
                                       before:bg-info`,
                                     " ml-0  justify-start hover:bg-base-100",
+                                    !open && " pl-1",
                                   )}
                                 >
                                   <MyLink
@@ -173,6 +179,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
 
                               before:bg-info`,
                             "hover:bg-base-100 justify-between ",
+                            !open && " pl-1",
                           )}
                           href={item.url || "/"}
                         >
