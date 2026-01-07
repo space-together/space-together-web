@@ -9,7 +9,7 @@ export const isActivePath = (
 
   const normalizedTarget = lang ? `/${lang}${targetUrl}` : targetUrl;
 
-  const exactMatchRoutes = ["/a/", "/a", "/s-t", "/s-t/"];
+  const exactMatchRoutes = ["/a/", "/a", "/s-t", "/s-t/", "/school"];
 
   const requiresExactMatch = exactMatchRoutes.some(
     (route) => route === targetUrl || `/${lang}${route}` === normalizedTarget,

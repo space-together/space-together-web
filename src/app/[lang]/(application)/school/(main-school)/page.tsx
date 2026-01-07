@@ -56,7 +56,7 @@ const SchoolPage = async (props: props) => {
           schoolToken: auth.schoolToken,
         },
       ),
-      apiRequest<void, Teacher[]>(
+      apiRequest<void, Paginated<Teacher>>(
         "get",
         "/school/teachers?limit=5",
         undefined,
@@ -85,7 +85,7 @@ const SchoolPage = async (props: props) => {
       channels={[
         { name: "school", initialData: [schoolRes.data] },
         { name: "student", initialData: students_res?.data?.data ?? [] },
-        { name: "teacher", initialData: teachers_res.data ?? [] },
+        { name: "teacher", initialData: teachers_res.data?.data ?? [] },
         {
           name: "school_staff",
           initialData: school_staff_res.data?.data ?? [],
@@ -95,7 +95,7 @@ const SchoolPage = async (props: props) => {
       <div className="space-y-4">
         <SchoolHomeBody
           students={students_res.data?.data ?? []}
-          teachers={teachers_res.data ?? []}
+          teachers={teachers_res.data?.data ?? []}
           school_staffs={school_staff_res.data?.data ?? []}
           auth={auth}
           school={schoolRes.data}
