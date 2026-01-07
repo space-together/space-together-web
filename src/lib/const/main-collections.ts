@@ -30,12 +30,6 @@ export const mainCollections = [
     icon: "/icons/classroom.png",
   },
   {
-    name: "main_subjects",
-    href: "/a/collections/main_subjects",
-    label: "Main subjects",
-    icon: "/icons/book-stack.png",
-  },
-  {
     name: "template_subjects",
     href: "/a/collections/template_subjects",
     label: "Template subjects",

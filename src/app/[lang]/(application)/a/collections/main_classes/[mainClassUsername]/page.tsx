@@ -4,45 +4,24 @@ import TemplateSubjectCardContents from "@/components/page/admin/tempate-subject
 import ErrorPage from "@/components/page/error-page";
 import NotFoundPage from "@/components/page/not-found";
 import type { Locale } from "@/i18n";
+import { formatText } from "@/lib/helpers/format-text";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
-import type {
-  MainClassModel,
-  MainClassModelWithOthers,
-} from "@/lib/schema/admin/main-classes-schema";
+import type { MainClassModelWithOthers } from "@/lib/schema/admin/main-classes-schema";
 import type { TemplateSubjectWithOther } from "@/lib/schema/subject/template-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Activity } from "react";
-/**
- * ✅ Dynamic metadata: runs on server before rendering.
- * It fetches the main class and uses its name/username in the <title>.
- */
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ mainClassUsername: string }>;
-}): Promise<Metadata> {
-  const { mainClassUsername } = await params;
-  const auth = await authContext();
-  if (!auth) return { title: "Main Class" };
 
-  const request = await apiRequest<void, MainClassModelWithOthers>(
-    "get",
-    `/main-classes/username/${mainClassUsername}`,
-    undefined,
-    { token: auth.token },
-  );
-
-  if (!request.data) return { title: "Main Class Not Found | Space-Together" };
-
-  const nameOrUsername =
-    request.data.name || request.data.username || "Main Class";
+export async function generateMetadata(
+  props: PageProps<"/[lang]/a/collections/main_classes/[mainClassUsername]">,
+): Promise<Metadata> {
+  const { mainClassUsername } = await props.params;
 
   return {
-    title: `${nameOrUsername} | Main Class`,
-    description: `${request.data.description}, Details for main class ${nameOrUsername}`,
+    title: `${formatText(mainClassUsername)} | Main Class`,
+    description: `${formatText(mainClassUsername)}, Details for main class ${formatText(mainClassUsername)}`,
   };
 }
 
@@ -54,9 +33,9 @@ const MainClassUsernamePage = async (
   const auth = await authContext();
   if (!auth) redirect("/auth/login");
 
-  const request = await apiRequest<void, MainClassModel>(
+  const request = await apiRequest<void, MainClassModelWithOthers>(
     "get",
-    `/main-classes/username/${mainClassUsername}`,
+    `/main-classes/others/match?field=username&value=${mainClassUsername}`,
     undefined,
     { token: auth.token, realtime: "main_class" },
   );
@@ -78,7 +57,7 @@ const MainClassUsernamePage = async (
   );
 
   return (
-    <RealtimeProvider<MainClassModel | TemplateSubjectWithOther>
+    <RealtimeProvider<MainClassModelWithOthers | TemplateSubjectWithOther>
       channels={[
         { name: "main_class", initialData: [request.data] },
         { name: "template_subject", initialData: subjectRes.data ?? [] },
