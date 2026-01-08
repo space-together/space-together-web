@@ -11,6 +11,8 @@ import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import TeacherDashboardAnnouncements from "./_components/teacher-dashboard-announcements";
+import TeacherDashboardClasses from "./_components/teacher-dashboard-classes";
 import TeacherDashboardTimetable from "./_components/teacher-dashboard-timetable";
 import TeacherHeroDashboard from "./_components/teacher-hero";
 
@@ -92,8 +94,15 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
         lang={lang as Locale}
         auth={auth}
       />
-      <div className="space-y-4">
-        <TeacherDashboardTimetable />
+      <TeacherDashboardTimetable />
+      <div className="space-x-4 flex flex-row">
+        <div className="w-2/3">
+          <TeacherDashboardAnnouncements lang={lang as Locale} auth={auth} />
+        </div>
+        <div className="w-1/3 space-y-2">
+          <TeacherDashboardClasses lang={lang as Locale} auth={auth} />
+          <div>hee</div>
+        </div>
       </div>
     </div>
   );
