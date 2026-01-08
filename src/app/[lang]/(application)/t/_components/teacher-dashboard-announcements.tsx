@@ -14,7 +14,7 @@ const TeacherDashboardAnnouncements = ({
   lang,
 }: TeacherDashboardAnnouncementsProps) => {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {[...Array(4)].map((_, index) => (
         <AnnouncementCard auth={auth} key={index} />
       ))}

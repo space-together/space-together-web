@@ -101,7 +101,6 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
         </div>
         <div className="w-1/3 space-y-2">
           <TeacherDashboardClasses lang={lang as Locale} auth={auth} />
-          <div>hee</div>
         </div>
       </div>
     </div>
