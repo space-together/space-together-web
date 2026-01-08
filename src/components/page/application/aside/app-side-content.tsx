@@ -113,11 +113,6 @@ export const teacherSidebarGroups: sidebarGroupsProps[] = [
     label: "Application",
     items: [
       {
-        title: "Classes",
-        icon: "/icons/classroom.png",
-        url: "/t/classes",
-      },
-      {
         title: "Lessons",
         icon: "/icons/book-stack.png",
         url: "/t/lessons",

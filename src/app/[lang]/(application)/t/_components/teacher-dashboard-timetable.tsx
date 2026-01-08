@@ -34,7 +34,7 @@ const TeacherDashboardTimetable = ({
     { time: "16:20 - 17:00", class: "L3 SOD", subject: "Kiny" },
   ];
   return (
-    <Card>
+    <Card className=" gap-0 pb-0">
       <CardHeader className=" flex justify-between items-center">
         <CardTitle>Today timetable</CardTitle>
         <Popover>
@@ -43,12 +43,12 @@ const TeacherDashboardTimetable = ({
               Monday <ChevronDown />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className=" w-fit space-y-1">
+          <PopoverContent className=" w-fit space-y-1 p-2">
             {weekDays.map((day) => (
               <Button
                 size="sm"
                 variant={"ghost"}
-                className=" justify-start"
+                className=" justify-start card"
                 key={day}
               >
                 {day}
@@ -57,9 +57,9 @@ const TeacherDashboardTimetable = ({
           </PopoverContent>
         </Popover>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0">
         <div>
-          <Table>
+          <Table className="overflow-hidden">
             <TableBody>
               {/* Morning Row */}
               <TableRow className="hover:bg-transparent border-b">
@@ -91,8 +91,8 @@ const TeacherDashboardTimetable = ({
               {/* Afternoon/Lunch Row */}
               <TableRow className="hover:bg-transparent">
                 {/* Left Header Cell (Optional or empty to match style) */}
-                <TableCell className="bg-base-content/10 border-r font-bold    text-center p-0 ">
-                  <div className="-rotate-90 whitespace-nowrap uppercase tracking-widest text-xs">
+                <TableCell className="bg-base-content/10 border-r font-bold    text-center p-0 rounded-bl-[var(--radius-box)]  ">
+                  <div className="-rotate-90 whitespace-nowrap uppercase tracking-widest text-xs ">
                     PM
                   </div>
                 </TableCell>
@@ -100,7 +100,7 @@ const TeacherDashboardTimetable = ({
                 {afternoonRow.map((slot, index) => (
                   <TableCell
                     key={index}
-                    className={`border-r  p-3 align-top  ${slot.isBreak ? "bg-primary/10" : ""}`}
+                    className={`border-r p-3 align-top  ${slot.isBreak ? "bg-primary/10" : ""}`}
                   >
                     <div className="text-[11px] font-medium text-base-content/50 mb-3">
                       {slot.time}

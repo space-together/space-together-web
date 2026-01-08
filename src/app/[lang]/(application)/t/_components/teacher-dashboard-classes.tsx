@@ -1,5 +1,4 @@
 import { ClassSmCard } from "@/components/cards/class-card";
-import MyLink from "@/components/common/myLink";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import type { Class } from "@/lib/schema/class/class-schema";
@@ -19,9 +18,7 @@ const TeacherDashboardClasses = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          <MyLink href={`/${lang}/t/classes`}>4 Classes</MyLink>
-        </CardTitle>
+        <CardTitle>4 Classes</CardTitle>
       </CardHeader>
       <CardContent className=" flex flex-col gap-1">
         {[...Array(4)].map((_, index) => (
