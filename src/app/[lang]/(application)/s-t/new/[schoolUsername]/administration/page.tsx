@@ -57,7 +57,7 @@ const AdministrationPage = async (props: props) => {
 
   const school = await apiRequest<void, School>(
     "get",
-    `/schools/username/${schoolUsername}`,
+    `/schools/match?field=username&value=${schoolUsername}`,
     undefined,
     { token: auth.token },
   );

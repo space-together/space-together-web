@@ -23,7 +23,7 @@ export async function generateMetadata(
   if (!auth) return { title: "user not found", description: "User not login" };
   const school = await apiRequest<void, School>(
     "get",
-    `/schools/username/${schoolUsername}`,
+    `/schools/match?field=username&value=${schoolUsername}`,
     undefined,
     { token: auth.token },
   );
@@ -59,7 +59,7 @@ const SchoolAcademicOnboardingPage = async (
 
   const school = await apiRequest<void, School>(
     "get",
-    `/schools/username/${schoolUsername}`,
+    `/schools/match?field=username&value=${schoolUsername}`,
     undefined,
     { token: auth.token },
   );
