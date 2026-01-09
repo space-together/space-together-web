@@ -11,6 +11,8 @@ import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import type { Paginated } from "@/lib/schema/common-schema";
+import { LIMIT } from "@/lib/env";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const auth = await authContext();
@@ -36,9 +38,9 @@ const JoinSchoolRequestPage = async (props: props) => {
   if (!auth.school) return <JoinSchoolPage />;
 
   const [requests_res, classes_res] = await Promise.all([
-    apiRequest<void, JoinSchoolRequestWithRelations[]>(
+    apiRequest<void, Paginated<JoinSchoolRequestWithRelations>>(
       "get",
-      `/join-school-requests/with-relations?school_id=${auth.school.id}`,
+      `/join-school-requests/others?field=school_id&value=${auth.school.id}&limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,
@@ -58,7 +60,7 @@ const JoinSchoolRequestPage = async (props: props) => {
       channels={[
         {
           name: "join_school_request",
-          initialData: requests_res.data ?? [],
+          initialData: requests_res.data?.data ?? [],
         },
         {
           name: "class",
@@ -66,14 +68,13 @@ const JoinSchoolRequestPage = async (props: props) => {
         },
       ]}
     >
-      <div className="max-w-full space-y-2">
+      <div className="max-w-full space-y-4">
         <AppPageHeader title="School Join Request" />
-
         <JoinSchoolRequestByCode auth={auth}/>
         {/*{classes_res.data}*/}
         <SchoolJoinRequestsTable
           auth={auth}
-          requests={requests_res.data ?? []}
+          requests={requests_res.data?.data ?? []}
           lang={lang}
           classes={classes_res.data?.classes ?? []}
           realtimeEnabled

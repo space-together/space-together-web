@@ -19,8 +19,8 @@ const JoinSchoolRequestByCode = async ({
   auth,
 }: JoinSchoolRequestByCodeProps) => {
   const school = await apiRequest<{ fields: string[] }, School>(
-    "post",
-    `/schools/only-fields/${auth.school?.id}`,
+    "get",
+    `/schools/${auth.school?.id}`,
     { fields: ["name", "username", "code"] },
     { token: auth.token },
   );
