@@ -8,7 +8,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -58,10 +57,7 @@ const AddAnnouncementDialog = ({ button, name, className, auth }: props) => {
         )}
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-2xl">
-        <DialogTitle>New announcement in Class name</DialogTitle>
-        <DialogDescription>
-          This is announcement will shown in only this class
-        </DialogDescription>
+        <DialogTitle>New announcement</DialogTitle>
         <AnnouncementForm />
       </DialogContent>
     </Dialog>

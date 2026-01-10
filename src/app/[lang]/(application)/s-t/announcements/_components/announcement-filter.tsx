@@ -1,9 +1,9 @@
 "use client";
+import AddAnnouncementDialog from "@/components/common/dialog/add-announcement-dialog";
 import SearchBox from "@/components/common/form/search-box";
 import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
-import ClassDialog from "@/components/page/school-staff/dialog/class-dialog";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -48,7 +48,16 @@ const AnnouncementFilter = ({ auth, data }: Props) => {
             variant="outline"
             size="sm"
           />
-          <ClassDialog auth={auth} isSchool />
+          <AddAnnouncementDialog
+            auth={auth}
+            button={{
+              role: "create",
+              variant: "primary",
+              library: "daisy",
+              size: "sm",
+            }}
+            name="Add announcement"
+          />
         </div>
       </div>
     </PageFilter>
