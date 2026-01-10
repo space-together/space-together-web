@@ -16,7 +16,7 @@ const WelcomePage = async (props: PageProps<"/[lang]">) => {
   const { lang } = params;
   const diction = await getDictionary(lang as Locale);
 
-  if (auth && auth.user) {
+  if (auth?.user) {
     redirect(
       redirectContents({
         lang: lang as Locale,

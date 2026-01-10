@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
+import { profileRedirects } from "@/lib/hooks/redirect";
+import type { userRole } from "@/lib/schema/common-details-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -34,6 +36,7 @@ const AnnouncementCard = ({
   auth,
   isCommentOpen,
   announcement,
+  lang,
 }: AnnouncementCardProps) => {
   const published = announcement?.published_user;
   return (
@@ -44,6 +47,15 @@ const AnnouncementCard = ({
     >
       <CardHeader className="  flex flex-row items-center justify-between">
         <UserSmCard
+          link={
+            published
+              ? profileRedirects({
+                  lang: lang ?? "en",
+                  role: published?.user_type as userRole,
+                  id: published?._id ?? "",
+                })
+              : undefined
+          }
           role={published?.user_type ?? "-"}
           name={published?.name ?? "Published name"}
           date={

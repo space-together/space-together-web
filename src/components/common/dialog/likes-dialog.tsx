@@ -1,13 +1,13 @@
 import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { FaRegHeart } from "react-icons/fa6";
@@ -70,10 +70,15 @@ const LikesDialog = ({
         <DialogHeader className=" px-6 py-4">
           <DialogTitle>Likes</DialogTitle>
         </DialogHeader>
-        <div className="max-h-[70vh] overflow-y-scroll px-6">
-          {[...Array(32)].map((_, i) => {
+        <div className="max-h-[70vh] overflow-y-scroll px-6 space-y-2">
+          {[...Array(8)].map((_, i) => {
             return (
-              <UserSmCard key={i} name="Bruno rwanda" image={"/images/1.jpg"} role="Teacher"/>
+              <UserSmCard
+                key={i}
+                name="Bruno rwanda"
+                image={"/images/1.jpg"}
+                role="Teacher"
+              />
             );
           })}
         </div>

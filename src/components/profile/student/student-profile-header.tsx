@@ -1,4 +1,5 @@
 import MyAvatar from "@/components/common/image/my-avatar";
+import { OpenImages } from "@/components/common/image/open-images";
 import MyLink from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
 import type { Student } from "@/lib/schema/student/student-schema";
@@ -12,7 +13,16 @@ interface StudentProfileHeaderProps {
 const StudentProfileHeader = ({ student }: StudentProfileHeaderProps) => {
   return (
     <section className="flex items-center gap-4">
-      <MyAvatar size="2xl" src={student?.image} alt={student?.name} />
+      {student?.image ? (
+        <OpenImages
+          images={[student.image]}
+          component={
+            <MyAvatar size="2xl" src={student?.image} alt={student?.name} />
+          }
+        />
+      ) : (
+        <MyAvatar size="2xl" src={student?.image} alt={student?.name} />
+      )}
       <div className=" flex flex-col gap-2 items-start w-full">
         <div className=" flex flex-row justify-between items-center w-full">
           <div className=" flex gap-2 items-center">

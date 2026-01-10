@@ -1,4 +1,5 @@
 import MyAvatar from "@/components/common/image/my-avatar";
+import { OpenImages } from "@/components/common/image/open-images";
 import MyLink from "@/components/common/myLink";
 import type { Locale } from "@/i18n";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
@@ -12,7 +13,17 @@ interface TeacherProfileHeaderProps {
 const TeacherProfileHeader = ({ teacher }: TeacherProfileHeaderProps) => {
   return (
     <section className="flex items-center gap-4">
-      <MyAvatar size="2xl" src={teacher?.image} alt={teacher?.name} />
+      {teacher?.image ? (
+        <OpenImages
+          images={[teacher.image]}
+          component={
+            <MyAvatar size="2xl" src={teacher?.image} alt={teacher?.name} />
+          }
+        />
+      ) : (
+        <MyAvatar size="2xl" src={teacher?.image} alt={teacher?.name} />
+      )}
+
       <div className=" flex flex-col gap-2 items-start w-full">
         <div className=" flex flex-row justify-between items-center w-full">
           <div className=" flex gap-2 items-center">

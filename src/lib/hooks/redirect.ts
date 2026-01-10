@@ -4,9 +4,13 @@ import type { userRole } from "@/lib/schema/common-details-schema";
 type RedirectContentsProps = {
   lang: Locale;
   role: userRole;
+  id: string;
 };
 
-export const redirectContents = ({ lang, role }: RedirectContentsProps) => {
+export const redirectContents = ({
+  lang,
+  role,
+}: Omit<RedirectContentsProps, "id">) => {
   return `/${lang}/${
     role === "STUDENT"
       ? "s"
@@ -16,4 +20,8 @@ export const redirectContents = ({ lang, role }: RedirectContentsProps) => {
           ? "a"
           : "t"
   }`;
+};
+
+export const profileRedirects = ({ lang, role, id }: RedirectContentsProps) => {
+  return `/${lang}/p/${role === "STUDENT" ? "s" : role === "TEACHER" ? "t" : "s-t"}/${id}`;
 };

@@ -1,6 +1,8 @@
 "use client";
 import { UserSmCard } from "@/components/cards/user-card";
 import type { Locale } from "@/i18n";
+import { profileRedirects } from "@/lib/hooks/redirect";
+import type { userRole } from "@/lib/schema/common-details-schema";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { AnnouncementWithRelations } from "../_schema/announcement";
 
@@ -17,7 +19,11 @@ export const AnnouncementTableColumn = (
         return (
           <div className="">
             <UserSmCard
-              link={`/${lang}/p/${published?.user_type === "STUDENT" ? "s" : published?.user_type === "TEACHER" ? "t" : "s-t"}/${published?._id}`}
+              link={profileRedirects({
+                lang,
+                role: published?.user_type as userRole,
+                id: published?._id ?? "",
+              })}
               image={published?.image}
               name={published?.name ?? "Sender name"}
               role={published?.user_type}
