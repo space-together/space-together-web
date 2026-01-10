@@ -20,10 +20,6 @@ export const metadata: Metadata = {
   keywords: "class, management, students, teachers",
 };
 
-interface props {
-  params: Promise<{ lang: Locale }>;
-}
-
 const SchoolStaffClassesPage = async (
   props: PageProps<"/[lang]/s-t/classes">,
 ) => {

@@ -4,7 +4,7 @@ import { CommonDataTable } from "@/components/common/table/common-data-table";
 import { ClassTableColumn } from "@/components/page/school-staff/table/class-table/class-table-column";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
@@ -18,7 +18,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // --- Column Definitions for Classes ---
 
@@ -35,18 +35,11 @@ export default function ClassesTable({
   auth,
   realtimeEnabled = true,
 }: ClassTableProps) {
-  const { data: initialClasses } = useRealtimeData<ClassWithOthers>("class");
-  const [displayClasses, setDisplayClasses] =
-    useState<ClassWithOthers[]>(classes);
-
-  useEffect(() => {
-    const updated = realtimeEnabled
-      ? initialClasses?.length
-        ? initialClasses
-        : classes
-      : classes;
-    setDisplayClasses(updated as ClassWithOthers[]);
-  }, [initialClasses, realtimeEnabled, classes]);
+  const displayClasses = useRealtimeList<ClassWithOthers>(
+    "class",
+    classes,
+    realtimeEnabled,
+  );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([

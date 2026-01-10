@@ -1,3 +1,4 @@
+import type { AnnouncementWithRelations } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import PostCardFooter from "@/components/cards/post-card-footer";
 import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { formatTimeAgo } from "@/lib/utils/format-date";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
@@ -22,13 +25,17 @@ interface AnnouncementCardProps {
   >;
   isCommentOpen?: boolean;
   auth: AuthContext;
+  announcement?: AnnouncementWithRelations;
+  lang?: Locale;
 }
 
 const AnnouncementCard = ({
   sender,
   auth,
   isCommentOpen,
+  announcement,
 }: AnnouncementCardProps) => {
+  const published = announcement?.published_user;
   return (
     <Card
       className={cn(
@@ -36,7 +43,16 @@ const AnnouncementCard = ({
       )}
     >
       <CardHeader className="  flex flex-row items-center justify-between">
-        <UserSmCard role="Teacher" name="Sender name" date="2hrs ago" />
+        <UserSmCard
+          role={published?.user_type ?? "-"}
+          name={published?.name ?? "Published name"}
+          date={
+            announcement?.created_at
+              ? formatTimeAgo(announcement.created_at)
+              : "2hrs ago"
+          }
+          image={published?.image}
+        />
         <div className=" flex items-center gap-1">
           <span className="text-sm text-base-content/50">Announcement</span>
           <Popover>
@@ -76,15 +92,19 @@ const AnnouncementCard = ({
         </div>
       </CardHeader>
       <CardContent>
-        lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        <p className=" line-clamp-4">
+          {announcement?.content ??
+            ` 😁 lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
         velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        mollit anim id est laborum.`}
+        </p>
       </CardContent>
       <PostCardFooter
+        announcement={announcement}
         enabledComponents={["comment", "like", "save", "share"]}
         isCommentOpen={isCommentOpen}
         auth={auth}

@@ -1,42 +1,59 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type DisplayMode = "card" | "table";
-const DISPLAY_KEY = "displayMode";
 
-export function useDisplayMode() {
+export function useDisplayMode(page?: string) {
+  const storageKey = useMemo(
+    () => (page ? `displayMode_${page}` : "displayMode"),
+    [page],
+  );
+
   const [displayMode, setDisplayMode] = useState<DisplayMode>("card");
 
-  // Load saved mode on mount
+  // Load saved mode for this page on mount / page change
   useEffect(() => {
-    const saved = localStorage.getItem(DISPLAY_KEY);
-    if (saved === "table" || saved === "card") {
+    if (typeof window === "undefined") return;
+
+    const saved = localStorage.getItem(storageKey);
+    if (saved === "card" || saved === "table") {
       setDisplayMode(saved);
     }
-  }, []);
+  }, [storageKey]);
 
-  // Handle mode change
-  const changeDisplayMode = useCallback((mode: DisplayMode) => {
-    setDisplayMode(mode);
-    localStorage.setItem(DISPLAY_KEY, mode);
-    // Dispatch a custom event so other components update immediately
-    window.dispatchEvent(new Event("displayModeChange"));
-  }, []);
+  // Change mode + save for this page
+  const changeDisplayMode = useCallback(
+    (mode: DisplayMode) => {
+      setDisplayMode(mode);
+      localStorage.setItem(storageKey, mode);
 
-  // Listen for changes in localStorage or custom events
+      // Notify same-tab listeners
+      window.dispatchEvent(
+        new CustomEvent("displayModeChange", {
+          detail: { key: storageKey },
+        }),
+      );
+    },
+    [storageKey],
+  );
+
+  // Sync across tabs & components
   useEffect(() => {
     const handleStorage = (e: StorageEvent) => {
       if (
-        e.key === DISPLAY_KEY &&
+        e.key === storageKey &&
         (e.newValue === "card" || e.newValue === "table")
       ) {
         setDisplayMode(e.newValue);
       }
     };
 
-    const handleCustom = () => {
-      const saved = localStorage.getItem(DISPLAY_KEY);
+    const handleCustom = (e: Event) => {
+      const event = e as CustomEvent<{ key: string }>;
+      if (event.detail?.key !== storageKey) return;
+
+      const saved = localStorage.getItem(storageKey);
       if (saved === "card" || saved === "table") {
         setDisplayMode(saved);
       }
@@ -49,7 +66,7 @@ export function useDisplayMode() {
       window.removeEventListener("storage", handleStorage);
       window.removeEventListener("displayModeChange", handleCustom);
     };
-  }, []);
+  }, [storageKey]);
 
   return { displayMode, changeDisplayMode };
 }

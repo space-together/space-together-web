@@ -1,4 +1,8 @@
 "use client";
+import {
+  AnnouncementSchema,
+  type Announcement,
+} from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
@@ -9,10 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  announcementSchema,
-  type Announcement,
-} from "@/lib/schema/announcement-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ import SignToInput from "./sign-to-input";
 const AnnouncementForm = () => {
   const [isPending, startTransition] = useTransition();
   const form = useForm<Announcement>({
-    resolver: zodResolver(announcementSchema),
+    resolver: zodResolver(AnnouncementSchema),
     defaultValues: {
       content: "",
       mention: [],

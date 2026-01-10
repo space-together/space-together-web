@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { useDisplayMode } from "@/lib/hooks/use-display-mode";
 import { BsGrid, BsTable } from "react-icons/bs";
 
-const ChangeDisplay = () => {
-  const { displayMode, changeDisplayMode } = useDisplayMode();
+interface props {
+  page?: string;
+}
+
+const ChangeDisplay = ({ page }: props) => {
+  const { displayMode, changeDisplayMode } = useDisplayMode(page);
 
   return (
     <div className="flex">

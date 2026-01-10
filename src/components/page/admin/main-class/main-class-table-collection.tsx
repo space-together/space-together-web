@@ -78,7 +78,6 @@ const MainClassesTableCollection = ({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Data table */}
         <CommonDataTable
           table={table}
           columns={columns}

@@ -37,6 +37,7 @@ export default function AppBreadcrumb() {
     `/${locale}/p`,
     `/${locale}/school`,
     `/${locale}/m`,
+    `/${locale}/s-t`,
   ];
 
   if (hiddenPrefixes.some((prefix) => pathname.startsWith(prefix))) {

@@ -59,7 +59,7 @@ const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
     <PageFilter>
       <div className="flex justify-between w-full items-center">
         <div className="flex gap-4 items-center">
-          <ChangeDisplay />
+          <ChangeDisplay page="school-classes" />
 
           <SearchBox
             onSearch={handleSearch}

@@ -1,4 +1,5 @@
 "use client";
+import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,11 +19,13 @@ interface CommentsDialogProps {
   dialogTriggerType?: "icon" | "button";
   name?: string;
   auth: AuthContext;
+  announcement?: Announcement;
   // post ?:
 }
 
 const CommentsDialog = ({
   comments,
+  announcement,
   dialogTriggerType,
   auth,
 }: CommentsDialogProps) => {
@@ -40,14 +43,18 @@ const CommentsDialog = ({
           </Button>
         ) : (
           <Button title="comments" library="daisy" variant="ghost" size="md">
-            <MdOutlineInsertComment size={28} />
+            <MdOutlineInsertComment size={22} />
             <span className=" sr-only">32 Likes</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-5xl flex flex-row gap-4">
         <div className=" w-1/2">
-          <AnnouncementCard isCommentOpen auth={auth} />
+          <AnnouncementCard
+            isCommentOpen
+            auth={auth}
+            announcement={announcement}
+          />
         </div>
         <div className="w-1/2">
           <DialogHeader>

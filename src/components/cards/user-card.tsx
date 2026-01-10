@@ -20,7 +20,7 @@ export interface UserSmCardProps {
   link?: string;
   gender?: Gender | null;
   role?: string;
-  date?: string;
+  date?: string | null;
   subjects?: string[];
   showMessage?: boolean;
   showModify?: boolean;

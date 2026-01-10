@@ -22,7 +22,7 @@ const AppLayoutClientBody = ({ children, lang }: AppLayoutClientBodyProps) => {
   return (
     <main
       className={cn(
-        "min-h-screen w-full pt-14 px-8 flex flex-col gap-4",
+        "min-h-screen w-full pt-8 px-8 flex flex-col gap-4",
         isOnPage && "px-0 gap-0",
         noGapPath && "gap-0",
       )}

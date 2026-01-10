@@ -3,6 +3,9 @@ import {
   SocialMediaSchema,
 } from "@/lib/schema/common-details-schema";
 import z from "zod";
+import { SchoolStaffSchema } from "./school/school-staff-schema";
+import { TeacherSchema } from "./school/teacher-schema";
+import { StudentSchema } from "./student/student-schema";
 
 // ----------------------commutation---------------------------
 export const SocialAndCommunicationSchema = z.object({
@@ -38,3 +41,20 @@ export const CountDocSchema = z.object({
 });
 
 export type CountDoc = z.infer<typeof CountDocSchema>;
+
+export const RelatedUserSchema = z.discriminatedUnion("user_type", [
+  z.object({
+    ...StudentSchema.shape,
+    user_type: z.literal("STUDENT"),
+  }),
+  z.object({
+    user_type: z.literal("TEACHER"),
+    ...TeacherSchema.shape,
+  }),
+  z.object({
+    ...SchoolStaffSchema.shape,
+    user_type: z.literal("SCHOOLSTAFF"),
+  }),
+]);
+
+export type RelatedUser = z.infer<typeof RelatedUserSchema>;

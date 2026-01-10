@@ -4,7 +4,7 @@ import { CommonDataTable } from "@/components/common/table/common-data-table";
 import TableFilter from "@/components/common/table/table-filter";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { SchoolStaffWithRelations } from "@/lib/schema/school/school-staff-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
@@ -18,7 +18,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { StaffTableColumns } from "./staff-table-columns";
 
 interface props {
@@ -34,19 +34,11 @@ export default function SchoolStaffTable({
   auth,
   realtimeEnabled = false,
 }: props) {
-  const { data: initialStaff, isConnected } =
-    useRealtimeData<SchoolStaffWithRelations>("school_staff");
-  const [displayStaff, setDisplayStaff] =
-    useState<SchoolStaffWithRelations[]>(staffs);
-
-  useEffect(() => {
-    if (realtimeEnabled && initialStaff) {
-      setDisplayStaff(initialStaff as SchoolStaffWithRelations[]);
-    } else if (!realtimeEnabled) {
-      setDisplayStaff(initialStaff);
-    }
-  }, [initialStaff, realtimeEnabled]);
-
+  const displayStaff = useRealtimeList<SchoolStaffWithRelations>(
+    "school_staff",
+    staffs,
+    realtimeEnabled,
+  );
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([
     {

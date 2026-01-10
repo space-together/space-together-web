@@ -4,21 +4,21 @@ import { CommonDataTable } from "@/components/common/table/common-data-table";
 import EmptyStudents from "@/components/page/school-staff/students-components/empty-students";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
-    type ColumnFiltersState,
-    getCoreRowModel,
-    getFacetedMinMaxValues,
-    getFacetedRowModel,
-    getFacetedUniqueValues,
-    getFilteredRowModel,
-    getSortedRowModel,
-    type SortingState,
-    useReactTable,
+  type ColumnFiltersState,
+  getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getSortedRowModel,
+  type SortingState,
+  useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { StudentTableColumns } from "./student-table-columns";
 
 interface props {
@@ -34,18 +34,11 @@ export default function SchoolStudentTable({
   auth,
   realtimeEnabled = false,
 }: props) {
-  const { data: initialStudents, isConnected } =
-    useRealtimeData<StudentWithRelations>("student");
-  const [displayStudents, setDisplayStudents] =
-    useState<StudentWithRelations[]>(students);
-
-  useEffect(() => {
-    if (realtimeEnabled && initialStudents) {
-      setDisplayStudents(initialStudents as StudentWithRelations[]);
-    } else if (!realtimeEnabled) {
-      setDisplayStudents(initialStudents);
-    }
-  }, [initialStudents, realtimeEnabled]);
+  const displayStudents = useRealtimeList<StudentWithRelations>(
+    "student",
+    students,
+    realtimeEnabled,
+  );
 
   if (displayStudents.length === 0)
     return <EmptyStudents isSchool auth={auth} />;
@@ -81,7 +74,7 @@ export default function SchoolStudentTable({
   return (
     <Card>
       <CardHeader className="flex w-full justify-between border-b-0">
-          <CardTitle className="">Students</CardTitle>
+        <CardTitle className="">Students</CardTitle>
       </CardHeader>
 
       <CardContent className="p-0">
