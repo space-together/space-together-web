@@ -52,7 +52,7 @@ export default function AppBreadcrumb() {
   });
 
   return (
-    <Breadcrumb className=" mt-4">
+    <Breadcrumb className=" mt-8">
       <BreadcrumbList>
         <BreadcrumbItem>
           {/* <BreadcrumbLink href={`/${locale}`}>

@@ -96,7 +96,7 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
     ]);
     if (!school.data) return <NotFoundPage />;
     return (
-      <div className="w-full space-y-4 ">
+      <div className="w-full space-y-4 mt-4">
         <SchoolStaffDashboard
           lang={lang as Locale}
           auth={auth}

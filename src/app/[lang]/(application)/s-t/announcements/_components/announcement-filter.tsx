@@ -34,7 +34,7 @@ const AnnouncementFilter = ({ auth, data, lang }: Props) => {
         <ChangeDisplay page="announcements" />
         <SearchBox
           onSearch={handleSearch}
-          placeholder="Search class..."
+          placeholder="Search announcement..."
           loading={loading}
         />
       </div>

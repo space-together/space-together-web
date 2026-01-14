@@ -1,3 +1,5 @@
+import CommonEmpty from "@/components/common/common-empty";
+import AddAnnouncementDialog from "@/components/common/dialog/add-announcement-dialog";
 import DisplaySwitcher from "@/components/display/display-switcher";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import { Separator } from "@/components/ui/separator";
@@ -48,23 +50,42 @@ const AnnouncementsPage = async (
           data={announcements?.data}
         />
         <Separator />
-        <DisplaySwitcher
-          page="announcements"
-          table={
-            <AnnouncementTable
+        {announcements?.data?.data?.length === 0 ? (
+          <CommonEmpty
+            title="They are no announcements, create new!"
+            description="Create a new announcement to share important information with your school."
+            icon="/icons/announcement.png"
+          >
+            <AddAnnouncementDialog
+              button={{
+                variant: "primary",
+                library: "daisy",
+                role: "create",
+              }}
+              name="Create announcement"
               auth={auth}
               lang={lang as Locale}
-              data={announcements?.data?.data ?? []}
             />
-          }
-          cards={
-            <AllAnnouncementsCards
-              auth={auth}
-              lang={lang as Locale}
-              data={announcements?.data?.data ?? []}
-            />
-          }
-        />
+          </CommonEmpty>
+        ) : (
+          <DisplaySwitcher
+            page="announcements"
+            table={
+              <AnnouncementTable
+                auth={auth}
+                lang={lang as Locale}
+                data={announcements?.data?.data ?? []}
+              />
+            }
+            cards={
+              <AllAnnouncementsCards
+                auth={auth}
+                lang={lang as Locale}
+                data={announcements?.data?.data ?? []}
+              />
+            }
+          />
+        )}
       </div>
     </RealtimeProvider>
   );
