@@ -26,6 +26,7 @@ export interface UserSmCardProps {
   showModify?: boolean;
   className?: string;
   classname?: string;
+  classRole?: string;
   onlyImage?: boolean;
   onlyName?: boolean;
   avatarProps?: MyAvatarProps;
@@ -47,6 +48,7 @@ export const UserSmCard = ({
   classname,
   onlyImage,
   onlyName,
+  classRole,
   nameClassname,
   avatarProps = {
     size: "sm",
@@ -104,7 +106,9 @@ export const UserSmCard = ({
           </div>
           <div className="flex flex-row gap-2 items-center">
             {role && (
-              <span className=" text-sm text-base-content/50">{role}</span>
+              <span className={cn(" text-sm text-base-content/50", classRole)}>
+                {role}
+              </span>
             )}
             {subjects && (
               <div className=" text-sm flex flex-row  gap-2text-base-content/50">

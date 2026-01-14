@@ -123,6 +123,28 @@ const AnnouncementCard = ({
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
         )}
+        {announcement?.mentioned_users && (
+          <div className="px-4 mt-2 flex flex-wrap gap-2">
+            <h6 className="sm">Mention:</h6>
+            {announcement?.mentioned_users?.map((user) => (
+              <UserSmCard
+                key={user._id}
+                name={user.name}
+                image={user.image}
+                avatarProps={{ size: "2xs" }}
+                nameClassname="text-xs"
+                role={user.user_type}
+                classRole={cn("text-xs")}
+                link={profileRedirects({
+                  lang,
+                  id: user._id || user.id || "",
+                  role:
+                    user.user_type === "USER" ? "SCHOOLSTAFF" : user.user_type,
+                })}
+              />
+            ))}
+          </div>
+        )}
         <PostCardFooter
           announcement={announcement}
           enabledComponents={["comment", "like", "save", "share"]}
