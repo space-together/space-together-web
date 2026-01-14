@@ -2,33 +2,34 @@
 
 import { cn } from "@/lib/utils";
 import Link, { useLinkStatus } from "next/link";
+import type React from "react";
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 import {
   Button,
   type DaisyButtonProps,
   type ShadcnButtonProps,
 } from "../ui/button";
 
-interface LoadingIndicatorTextProps {
+type LoadingIndicatorTextProps<T extends ElementType> = {
+  element?: T;
   children: React.ReactNode;
-  className?: string;
-  title?: string;
-  element?: React.ElementType;
-}
+} & ComponentPropsWithoutRef<T>;
 
-export const LoadingIndicatorText = ({
+export const LoadingIndicatorText = <T extends ElementType = "div">({
   children,
   className,
-  title,
-  element = "div",
-}: LoadingIndicatorTextProps) => {
+  element,
+  ...props
+}: LoadingIndicatorTextProps<T>) => {
   const { pending } = useLinkStatus();
+  const Component = element || "div";
   return (
-    <div
-      title={title}
+    <Component
+      {...props}
       className={cn(className, pending && "skeleton skeleton-text")}
     >
       {children}
-    </div>
+    </Component>
   );
 };
 

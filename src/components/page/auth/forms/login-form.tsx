@@ -56,13 +56,13 @@ const LoginForm = ({ lang, oauthError }: props) => {
         values,
       );
       if (login.data) {
-        if (login.data.accessToken) {
+        if (login.data.access_token) {
           await setAuthCookies(
-            login.data.accessToken,
+            login.data.access_token,
             login.data.id,
-            login.data.schoolAccessToken,
+            login.data.school_access_token,
           );
-          setSuccess(`Welcome back ${login.data.name} ☺️`);
+          setSuccess(`Welcome back ${login.data.name} ☺️ ${login.data.role}`);
           if (login.data.role) {
             router.push(redirectContents({ lang, role: login.data.role }));
           }

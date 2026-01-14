@@ -81,12 +81,13 @@ export const UserSmCard = ({
           <div className="flex flex-row gap-2 items-center">
             {link ? (
               <MyLink href={link}>
-                <p
+                <LoadingIndicatorText
+                  element="span"
                   title={name}
                   className={cn(" gap-2 leading-4", nameClassname)}
                 >
-                  <LoadingIndicatorText>{name}</LoadingIndicatorText>
-                </p>
+                  {name}
+                </LoadingIndicatorText>
               </MyLink>
             ) : (
               <p title={name} className={cn(" gap-2 leading-4", nameClassname)}>
@@ -153,7 +154,7 @@ export interface UserCardProps {
   isAdminView?: boolean;
 }
 
-export const UserCard = ({ auth, user, lang, isAdminView }: UserCardProps) => {
+export const UserCard = ({ auth, user, lang }: UserCardProps) => {
   const canModify = auth.user.role === "ADMIN";
 
   return (

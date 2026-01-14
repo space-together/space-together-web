@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
@@ -19,12 +20,14 @@ interface ClassWorkCardProps {
   classWork?: any;
   isCommentOpen?: boolean;
   auth: AuthContext;
+  lang: Locale;
 }
 
 const ClassWorkCard = ({
   classWork,
   auth,
   isCommentOpen,
+  lang,
 }: ClassWorkCardProps) => {
   return (
     <Card>
@@ -61,6 +64,7 @@ const ClassWorkCard = ({
                   name="Edit"
                   className="  justify-start"
                   auth={auth}
+                  lang={lang}
                 />
                 <DeleteAnnouncementDialog />
               </div>

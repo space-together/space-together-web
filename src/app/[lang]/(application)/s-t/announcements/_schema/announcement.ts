@@ -18,7 +18,7 @@ export const PublishedSchema = z.object({
 export type Published = z.infer<typeof PublishedSchema>;
 
 export const AnnouncementSchema = z.object({
-  _id: z.string().optional(),
+  _id: z.string(),
 
   content: z.string().min(1),
 
@@ -26,7 +26,7 @@ export const AnnouncementSchema = z.object({
 
   published: PublishedSchema,
 
-  class_id: z.string().optional(),
+  classes_ids: z.array(z.string()).optional(),
 
   created_at: z.coerce.date().optional(),
   updated_at: z.coerce.date().optional(),
@@ -41,9 +41,19 @@ export const AnnouncementWithRelationsSchema = z.object({
 
   mentioned_users: z.array(RelatedUserSchema).optional(),
 
-  class: ClassSchema.optional(),
+  classes: ClassSchema.optional(),
 });
 
 export type AnnouncementWithRelations = z.infer<
   typeof AnnouncementWithRelationsSchema
 >;
+
+export const AnnouncementBaseSchema = AnnouncementSchema.pick({
+  content: true,
+  mention: true,
+  classes_ids: true,
+}).extend({
+  published: PublishedSchema.optional(), // override to optional
+});
+
+export type AnnouncementBase = z.infer<typeof AnnouncementBaseSchema>;

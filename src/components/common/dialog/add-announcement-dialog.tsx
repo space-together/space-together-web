@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { CgAttachment } from "react-icons/cg";
@@ -21,9 +22,16 @@ interface props {
   button?: ShadcnButtonProps | DaisyButtonProps;
   name?: string;
   auth: AuthContext;
+  lang: Locale;
 }
 
-const AddAnnouncementDialog = ({ button, name, className, auth }: props) => {
+const AddAnnouncementDialog = ({
+  button,
+  name,
+  className,
+  auth,
+  lang,
+}: props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -58,7 +66,7 @@ const AddAnnouncementDialog = ({ button, name, className, auth }: props) => {
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-2xl">
         <DialogTitle>New announcement</DialogTitle>
-        <AnnouncementForm />
+        <AnnouncementForm auth={auth} lang={lang} />
       </DialogContent>
     </Dialog>
   );

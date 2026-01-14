@@ -6,6 +6,7 @@ import z from "zod";
 import { SchoolStaffSchema } from "./school/school-staff-schema";
 import { TeacherSchema } from "./school/teacher-schema";
 import { StudentSchema } from "./student/student-schema";
+import { UserModelSchema } from "./user/user-schema";
 
 // ----------------------commutation---------------------------
 export const SocialAndCommunicationSchema = z.object({
@@ -54,6 +55,10 @@ export const RelatedUserSchema = z.discriminatedUnion("user_type", [
   z.object({
     ...SchoolStaffSchema.shape,
     user_type: z.literal("SCHOOLSTAFF"),
+  }),
+  z.object({
+    ...UserModelSchema.shape,
+    user_type: z.literal("USER"),
   }),
 ]);
 

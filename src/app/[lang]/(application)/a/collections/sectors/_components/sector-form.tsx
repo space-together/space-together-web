@@ -56,10 +56,6 @@ const SectorForm = ({ auth, sector }: Props) => {
     onSuccess: () => {
       if (!sector) form.reset();
     },
-
-    onError: (err, values) => {
-      console.error("Sector form error:", err, values);
-    },
   });
 
   return (

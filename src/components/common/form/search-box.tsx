@@ -7,15 +7,10 @@ import { SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface SearchBoxProps {
-  /** Called when the user searches (presses Enter or clicks search button) */
   onSearch: (query: string) => void | Promise<void>;
-  /** Optional placeholder text */
   placeholder?: string;
-  /** Optional debounce time for live search (in ms) */
   debounceMs?: number;
-  /** Whether to auto-search as user types */
   live?: boolean;
-  /** Whether search is loading */
   loading?: boolean;
   className?: string;
 }
@@ -53,14 +48,12 @@ const SearchBox = ({
     }, debounceMs);
 
     setTypingTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
     if (query.trim() === "") {
       onSearch("");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return (

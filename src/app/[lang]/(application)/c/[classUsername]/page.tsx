@@ -108,11 +108,11 @@ const ClassUsernamePage = async (
       <Separator className=" mt-4 mb-4" />
       <main className=" flex gap-4 w-full">
         <div className=" w-2/3 flex flex-col gap-4">
-          <AddAnnouncementDialog auth={auth} />
+          <AddAnnouncementDialog auth={auth} lang={params.lang as Locale} />
           <TeacherSubjectsCard />
           <AnnouncementCard auth={auth} />
           <NoteCard auth={auth} />
-          <ClassWorkCard auth={auth} />
+          <ClassWorkCard auth={auth} lang={params.lang as Locale} />
         </div>
         <div className=" w-1/3">
           <SmallClassTimeTable />

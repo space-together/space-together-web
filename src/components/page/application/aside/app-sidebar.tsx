@@ -49,7 +49,7 @@ export function AppSidebar({ items, lang, auth }: AppSidebarProps) {
       <SidebarHeader className="  bg-base-200">
         <AppNavLogo lang={lang} auth={auth} />
       </SidebarHeader>
-      <SidebarContent className="bg-base-200 text-on-primary gap-0 pl-0 scrollbar  scrollbar-thumb-base-content/20 scrollbar-track-base-200 hover:scrollbar-thumb-base-content/20 appearance-none  no-scroll-arrows">
+      <SidebarContent className="bg-base-200 text-on-primary gap-0 pl-0 ">
         {items.map((group) => (
           <SidebarGroup
             className=""

@@ -1,3 +1,4 @@
+import { UserRoleDetails } from "@/lib/const/common-details-const";
 import {
   GenderSchema,
   userRoleSchema,
@@ -15,8 +16,8 @@ export const AuthUserSchema = z.object({
   current_school_id: z.string().nullable().optional(),
   gender: GenderSchema.nullable().optional(),
   bio: z.string().max(500).nullable().optional(),
-  accessToken: z.string().optional(),
-  schoolAccessToken: z.string().optional(),
+  access_token: z.string().optional(),
+  school_access_token: z.string().optional(),
   disable: z.boolean().nullable().optional(),
   exp: z.number(),
   iat: z.number(),

@@ -1,54 +1,59 @@
 "use client";
 
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input, type inputProps } from "@/components/ui/input";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 import AddressInput, {
-    type AddressInputProps,
+  type AddressInputProps,
 } from "@/components/common/form/address-input";
 import AgeInput, {
-    type AgeDateInputProps,
+  type AgeDateInputProps,
 } from "@/components/common/form/age-input";
 import DateStringInput, {
-    type DateStringInputProps,
+  type DateStringInputProps,
 } from "@/components/common/form/date-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import MultipleSelector from "@/components/ui/multiselect";
 import type { CommonDetails, Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type {
-    Control,
-    ControllerRenderProps,
-    FieldPath,
-    FieldValues,
+  Control,
+  ControllerRenderProps,
+  FieldPath,
+  FieldValues,
 } from "react-hook-form";
 import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
 import CheckboxInput, { type CheckboxInputProps } from "./checkbox-input";
+import MessageInput, {
+  type MessageInputProps,
+} from "./message-input/message-input";
 import type { OTPInputProps } from "./OTP-input";
 import OTPInput from "./OTP-input";
 import type { PhoneInputProps } from "./phone-input";
 import PhoneInput from "./phone-input";
 import type { RadioInputProps } from "./radio-input";
 import RadioInput from "./radio-input";
+import type { SignToInputProps } from "./sign-to-input";
 import type { TimeInputProps } from "./time-input";
 import TimeInput from "./time-input";
+import SignToInput from "./sign-to-input";
 
 interface CommonFormFieldProps<T extends FieldValues> {
   control: Control<T>;
@@ -79,7 +84,9 @@ interface CommonFormFieldProps<T extends FieldValues> {
     | "phone"
     | "address"
     | "age"
-    | "custom";
+    | "custom"
+    | "message"
+    | "sign-to";
   render?: (props: {
     field: ControllerRenderProps<T, FieldPath<T>>;
 
@@ -99,6 +106,8 @@ interface CommonFormFieldProps<T extends FieldValues> {
   radioInputProps?: RadioInputProps;
   addressProps?: AddressInputProps;
   ageProps?: AgeDateInputProps;
+  messageInputProps?: MessageInputProps;
+  signToInput?: SignToInputProps;
 }
 
 export function CommonFormField<T extends FieldValues>({
@@ -127,6 +136,8 @@ export function CommonFormField<T extends FieldValues>({
   phoneProps,
   addressProps,
   ageProps,
+  messageInputProps,
+  signToInput,
 }: CommonFormFieldProps<T>) {
   return (
     <FormField
@@ -341,6 +352,28 @@ export function CommonFormField<T extends FieldValues>({
                 );
               }
               return render({ field, disabled });
+
+            case "message":
+              return (
+                <MessageInput
+                  disabled={disabled}
+                  onChange={field.onChange}
+                  value={field.value}
+                  placeholder={placeholder}
+                  {...messageInputProps}
+                />
+              );
+
+            case "sign-to":
+              return (
+                <SignToInput
+                  disabled={disabled}
+                  onChange={field.onChange as (value: any[]) => void}
+                  value={field.value}
+                  placeholder={placeholder}
+                  {...signToInput}
+                />
+              );
 
             default:
               return (

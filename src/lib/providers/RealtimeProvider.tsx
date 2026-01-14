@@ -26,17 +26,17 @@ function realtimeReducer<T extends WithId>(
       return { ...state, [action.channel]: action.payload };
     case "add": {
       const newItem = action.payload;
-      const id = newItem.id || newItem._id;
-      if (current.some((i) => (i.id || i._id) === id)) return state;
+      const id = newItem._id || newItem.id;
+      if (current.some((i) => (i._id || i.id) === id)) return state;
       return { ...state, [action.channel]: [...current, newItem] };
     }
     case "update": {
       const item = action.payload;
-      const id = item.id || item._id;
+      const id = item._id || item.id;
       return {
         ...state,
         [action.channel]: current.map((i) =>
-          (i.id || i._id) === id ? item : i,
+          (i._id || i.id) === id ? item : i,
         ),
       };
     }
@@ -44,7 +44,7 @@ function realtimeReducer<T extends WithId>(
       const id = action.payload;
       return {
         ...state,
-        [action.channel]: current.filter((i) => (i.id || i._id) !== id),
+        [action.channel]: current.filter((i) => (i._id || i.id) !== id),
       };
     }
     default:

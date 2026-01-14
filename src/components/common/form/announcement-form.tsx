@@ -1,92 +1,125 @@
 "use client";
 import {
-  AnnouncementSchema,
+  AnnouncementBaseSchema,
   type Announcement,
+  type AnnouncementBase,
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
+import { AllFormErrors } from "@/components/test/form-testing";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import MessageInput from "./message-input/message-input";
-import SignToInput from "./sign-to-input";
+import { Form } from "@/components/ui/form";
+import type { Locale } from "@/i18n";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeImproved } from "@/lib/hooks/useRealtimeImproved";
+import type { Paginated } from "@/lib/schema/common-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
+import { useEffect, useState } from "react";
+import { FormError, FormSuccess } from "../form-message";
+import { CommonFormField } from "./common-form-field";
 
-const AnnouncementForm = () => {
-  const [isPending, startTransition] = useTransition();
-  const form = useForm<Announcement>({
-    resolver: zodResolver(AnnouncementSchema),
-    defaultValues: {
-      content: "",
-      mention: [],
+interface Props {
+  auth: AuthContext;
+  announcement?: Announcement;
+  lang: Locale;
+}
+
+const AnnouncementForm = ({ auth, announcement }: Props) => {
+  const [students, setStudents] = useState<Student[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const students = await apiRequest<void, Paginated<Student>>(
+        "get",
+        `/school/students?limit=${LIMIT`,
+        undefined,
+        { token: auth.token, schoolToken: auth.schoolToken },
+      );
+      if (students.data) {
+        setStudents(students.data.data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    AnnouncementBase,
+    Announcement
+  >({
+    schema: AnnouncementBaseSchema,
+
+    formOptions: {
+      defaultValues: {
+        published: announcement?.published ?? {
+          id: auth.school?.member?._id || auth.user.id,
+          role: auth.user.role
+            ? auth.user.role
+            : auth.school?.member?.user_type === "USER"
+              ? "SCHOOLSTAFF"
+              : auth.school?.member?.user_type,
+        },
+        content: announcement?.content ?? undefined,
+        classes_ids: announcement?.classes_ids ?? [],
+        mention: announcement?.mention ?? [],
+      },
     },
-    mode: "onChange",
-    reValidateMode: "onChange",
-  });
-  const onSubmit = (data: Announcement) => {
-    startTransition(() => {
-      console.log(data);
-    });
-  };
-  const fakeUses = () => {
-    return [...Array(10).keys()].map((i) => ({
-      id: `user${i}`,
-      _id: `user${i}`,
-      name: `User ${i}`,
-      image: "/images/3.jpg",
-      email: `user${i}@example.com`,
-      gender: "MALE" as const,
-      username: `user${i}`,
-    }));
-  };
-  return (
+
+    request: {
+      method: announcement ? "put" : "post",
+      url: `/school/announcements${announcement ? `/${announcement._id}` : ""}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+
+    onSuccessMessage: announcement
+      ? "Announcement updated successfully"
+      : "Announcement created successfully",
+
+    toastOnError
+  : true,
+
+    onSuccess: (data) =>
+  useRealtimeImproved("announcement", data);
+  if (!announcement) form.reset();
+  ,
+
+    onError: (err, values) =>
+  console.error("Ann form error:", err, values);
+  ,
+};
+)
+
+return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-4">
-        <FormField
+        <CommonFormField
           control={form.control}
           name="mention"
-          render={({ field }) => (
-            <FormItem className=" space-y-2">
-              <FormLabel>Announcement</FormLabel>
-              <FormControl>
-                <SignToInput
-                  title="Announce to"
-                  disabled={isPending}
-                  name="All students"
-                  onChange={field.onChange}
-                  users={fakeUses()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="All students"
+          fieldType="sign-to"
+          placeholder="Search students..."
+          signToInput={{
+            name: "All students",
+            title: "Announce to students",
+          }}
         />
-        <FormField
+        <CommonFormField
           control={form.control}
+          label="Announcement"
           name="content"
-          render={({ field }) => (
-            <FormItem className=" space-y-2">
-              <FormLabel>Announcement</FormLabel>
-              <FormControl>
-                <MessageInput
-                  disabled={isPending}
-                  enabledTools={["emoji", "files", "metion", "toolbar"]}
-                  onChange={field.onChange}
-                  value={field.value}
-                  placeholder=" Add announcement..."
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Add announcement..."
+          fieldType="message"
+          messageInputProps={{
+            enabledTools: ["emoji", "files", "metion", "toolbar"],
+          }}
         />
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <AllFormErrors errors={form.formState.errors} />
         <DialogFooter>
           <DialogClose asChild>
             <Button
@@ -98,23 +131,26 @@ const AnnouncementForm = () => {
               Cancel
             </Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button
-              type="button"
-              variant="info"
-              disabled={isPending}
-              className="w-full sm:w-auto"
-              role={isPending ? "loading" : undefined}
-              size={"sm"}
-              library="daisy"
-            >
-              Add announcement
-            </Button>
-          </DialogClose>
+          {/*<DialogClose asChild>
+          </DialogClose>*/}
+          <Button
+            type="button"
+            variant="info"
+            disabled={
+              isPending ||
+              (!form.formState.isDirty && !form.formState.isSubmitSuccessful)
+            }
+            className="w-full sm:w-auto"
+            role={isPending ? "loading" : undefined}
+            size={"sm"}
+            library="daisy"
+          >
+            Add announcement
+          </Button>
         </DialogFooter>
       </form>
     </Form>
   );
-};
+}
 
 export default AnnouncementForm;

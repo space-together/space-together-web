@@ -19,6 +19,7 @@ import { formatTimeAgo } from "@/lib/utils/format-date";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
+import MessageDisplay from "../form/message-input/message-display";
 
 interface AnnouncementCardProps {
   sender?: Pick<
@@ -28,7 +29,7 @@ interface AnnouncementCardProps {
   isCommentOpen?: boolean;
   auth: AuthContext;
   announcement?: AnnouncementWithRelations;
-  lang?: Locale;
+  lang: Locale;
 }
 
 const AnnouncementCard = ({
@@ -42,7 +43,8 @@ const AnnouncementCard = ({
   return (
     <Card
       className={cn(
-        isCommentOpen && "border-none border-0 shadow-none p-0 pt-0 pb-0",
+        isCommentOpen &&
+          "border-none border-0 shadow-none p-0 pt-0 pb-0 h-full",
       )}
     >
       <CardHeader className="  flex flex-row items-center justify-between">
@@ -86,6 +88,7 @@ const AnnouncementCard = ({
                 </Button>
                 <Separator />
                 <AddAnnouncementDialog
+                  lang={lang}
                   auth={auth}
                   button={{
                     library: "daisy",
@@ -103,24 +106,30 @@ const AnnouncementCard = ({
           </Popover>
         </div>
       </CardHeader>
-      <CardContent>
-        <p className=" line-clamp-4">
-          {announcement?.content ??
-            ` 😁 lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`}
-        </p>
+      <CardContent className="flex flex-col justify-between h-full px-0">
+        {announcement?.content ? (
+          <MessageDisplay
+            className={cn("px-4", !isCommentOpen && " max-h-54 ")}
+            content={announcement.content}
+          />
+        ) : (
+          <p className={cn(!isCommentOpen && " line-clamp-4 px-4")}>
+            lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        )}
+        <PostCardFooter
+          announcement={announcement}
+          enabledComponents={["comment", "like", "save", "share"]}
+          isCommentOpen={isCommentOpen}
+          auth={auth}
+        />
       </CardContent>
-      <PostCardFooter
-        announcement={announcement}
-        enabledComponents={["comment", "like", "save", "share"]}
-        isCommentOpen={isCommentOpen}
-        auth={auth}
-      />
     </Card>
   );
 };

@@ -45,13 +45,12 @@ export async function willExpireSoon(
 export async function authContext(): Promise<AuthContext | null> {
   const cooky = await cookies();
   const token = cooky.get(TOKEN_KEY)?.value;
-  const schoolToken = cooky.get(SCHOOL_TOKEN_KEY)?.value;
+  const schoolTokenFromCookie = cooky.get(SCHOOL_TOKEN_KEY)?.value;
 
-  // ❌ No user token
   if (!token) return null;
 
   try {
-    // --- Decode user token
+    // 🔐 Decode user JWT
     const decodedUser = jwtDecode<UserJwtClaims>(token);
 
     if (await isTokenExpired(decodedUser.exp)) {
@@ -59,14 +58,29 @@ export async function authContext(): Promise<AuthContext | null> {
       return null;
     }
 
+    // ✅ Validate new schema
     const parsed = AuthUserSchema.safeParse(decodedUser.user);
+
     if (!parsed.success) {
-      console.error("❌ Invalid user schema in token", parsed.error);
+      const fieldErrors = parsed.error.flatten().fieldErrors;
+
+      Object.entries(fieldErrors).forEach(([field, messages]) => {
+        console.error(`❌ ${field}: ${messages?.join(", ")}`);
+      });
+
       return null;
     }
 
-    // --- Decode optional school token
+    const user = parsed.data;
+
+    // 🔁 School token priority:
+    // 1. user.school_access_token
+    // 2. cookie SCHOOL_TOKEN_KEY
+    const schoolToken =
+      user.school_access_token ?? schoolTokenFromCookie ?? null;
+
     let school: SchoolJwtClaims | null = null;
+
     if (schoolToken) {
       try {
         const decodedSchool = jwtDecode<SchoolJwtClaims>(schoolToken);
@@ -80,12 +94,11 @@ export async function authContext(): Promise<AuthContext | null> {
       }
     }
 
-    // ✅ Return combined result (user is guaranteed non-null)
     return {
-      user: parsed.data,
+      user,
       school,
-      token,
-      schoolToken: schoolToken ?? null,
+      token: user.access_token || token,
+      schoolToken,
     };
   } catch (err) {
     console.error("❌ Failed to decode JWT:", err);

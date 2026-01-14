@@ -42,7 +42,11 @@ const AnnouncementsPage = async (
     >
       <div>
         <AppPageHeader title="Announcements" />
-        <AnnouncementFilter auth={auth} data={announcements?.data} />
+        <AnnouncementFilter
+          lang={lang as Locale}
+          auth={auth}
+          data={announcements?.data}
+        />
         <Separator />
         <DisplaySwitcher
           page="announcements"

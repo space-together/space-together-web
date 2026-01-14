@@ -2,6 +2,7 @@
 
 import { useRealtimeImproved } from "@/lib/hooks/useRealtimeImproved";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ export default function SectorsTableTest() {
         setError(null);
         setDebugInfo("Starting to fetch sectors...");
 
-        const response = await apiRequest<void, SectorModel[]>(
+        const response = await apiRequest<void, Paginated<SectorModel>>(
           "get",
           "/sectors",
           undefined,
@@ -30,8 +31,10 @@ export default function SectorsTableTest() {
         );
 
         if (response.data) {
-          setSectors(response.data);
-          setDebugInfo(`Successfully fetched ${response.data.length} sectors`);
+          setSectors(response.data.data);
+          setDebugInfo(
+            `Successfully fetched ${response.data.data.length} sectors`,
+          );
         } else if (response.error) {
           setError(response.error);
           setDebugInfo(`Error: ${response.error}`);

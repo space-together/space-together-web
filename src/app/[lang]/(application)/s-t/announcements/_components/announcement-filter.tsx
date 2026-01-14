@@ -4,6 +4,7 @@ import SearchBox from "@/components/common/form/search-box";
 import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
+import type { Locale } from "@/i18n";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -11,9 +12,10 @@ import type { AnnouncementWithRelations } from "../_schema/announcement";
 
 interface Props {
   auth: AuthContext;
+  lang: Locale;
   data?: Paginated<AnnouncementWithRelations>;
 }
-const AnnouncementFilter = ({ auth, data }: Props) => {
+const AnnouncementFilter = ({ auth, data, lang }: Props) => {
   const { loading, pagination, handleSearch, handlePageChange } =
     useFilterData<AnnouncementWithRelations>({
       auth,
@@ -56,6 +58,7 @@ const AnnouncementFilter = ({ auth, data }: Props) => {
               library: "daisy",
               size: "sm",
             }}
+            lang={lang}
             name="Add announcement"
           />
         </div>

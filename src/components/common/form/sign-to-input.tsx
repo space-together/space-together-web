@@ -1,32 +1,29 @@
 "use client";
-import type React from "react";
-import { useMemo, useState } from "react";
 import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-  DialogClose,
-  DialogFooter,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import type { UserModel } from "@/lib/schema/user/user-schema";
+import type { Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
+import type React from "react";
+import { useMemo, useState } from "react";
 import MyAvatarGroup from "../image/my-avatar-group";
 import NoItemsPage from "../pages/no-items-page";
+import SearchBox from "./search-box";
 
-interface SignToInputProps {
-  onChange: (
-    value: Pick<
-      UserModel,
-      "_id" | "id" | "email" | "name" | "image" | "gender" | "age" | "username"
-    >[],
-  ) => void;
+interface PickUserProps extends Option {
+  image?: string;
+}
+export interface SignToInputProps {
+  onChange?: (value: PickUserProps[]) => void;
   title?: string;
   description?: string;
   className?: string;
@@ -34,10 +31,9 @@ interface SignToInputProps {
   open?: boolean;
   name?: string;
   disabled?: boolean;
-  users?: Pick<
-    UserModel,
-    "_id" | "id" | "email" | "name" | "image" | "gender" | "age" | "username"
-  >[];
+  users?: PickUserProps[];
+  value?: PickUserProps[];
+  placeholder?: string;
 }
 
 const SignToInput = ({
@@ -48,13 +44,13 @@ const SignToInput = ({
   className,
   title,
   description,
-  users = [], // Default to empty array
+  users = [],
+  placeholder,
 }: SignToInputProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isInternalOpen, setIsInternalOpen] = useState(open || false);
 
-  // 1. Filter Users based on Search
   const filteredUsers = useMemo(() => {
     if (!searchQuery) return users;
     const lowerQuery = searchQuery.toLowerCase();
@@ -66,58 +62,47 @@ const SignToInput = ({
     );
   }, [users, searchQuery]);
 
-  // 2. Derive Selected User Objects for the Trigger/OnChange
   const selectedUsers = useMemo(() => {
-    return users.filter((u) => selectedIds.has(u._id || u.id || ""));
+    return users.filter((u) => selectedIds.has(u.id));
   }, [users, selectedIds]);
 
-  // 3. Handle Individual Toggle
-  const toggleUser = (userId: string) => {
+  const toggleUser = (value: string) => {
     const newSet = new Set(selectedIds);
-    if (newSet.has(userId)) {
-      newSet.delete(userId);
+    if (newSet.has(value)) {
+      newSet.delete(value);
     } else {
-      newSet.add(userId);
+      newSet.add(value);
     }
     setSelectedIds(newSet);
   };
 
-  // 4. Handle "Select All" (Applies to currently filtered view)
   const handleSelectAll = () => {
     const newSet = new Set(selectedIds);
-    const allFilteredSelected = filteredUsers.every((u) =>
-      newSet.has(u._id || u.id || ""),
-    );
+    const allFilteredSelected = filteredUsers.every((u) => newSet.has(u.value));
 
     if (allFilteredSelected) {
-      // Deselect all currently filtered
-      filteredUsers.forEach((u) => newSet.delete(u._id || u.id || ""));
+      filteredUsers.forEach((u) => newSet.delete(u.value));
     } else {
-      // Select all currently filtered
-      filteredUsers.forEach((u) => newSet.add(u._id || u.id || ""));
+      filteredUsers.forEach((u) => newSet.add(u.value));
     }
     setSelectedIds(newSet);
   };
 
-  // 5. Determine State of "Select All" Checkbox
   const isAllSelected =
     filteredUsers.length > 0 &&
-    filteredUsers.every((u) => selectedIds.has(u._id || u.id || ""));
+    filteredUsers.every((u) => selectedIds.has(u.id));
 
-  // 6. Sync with parent onChange when Dialog closes (or you can do it realtime)
   const handleDone = () => {
-    onChange(selectedUsers);
+    onChange?.(selectedUsers);
     setIsInternalOpen(false);
   };
 
   return (
     <Dialog open={isInternalOpen} onOpenChange={setIsInternalOpen}>
       <DialogTrigger asChild disabled={disabled} className=" w-fit">
-        {/* Logic: If users are selected, show AvatarGroup, else show Button */}
         <div className="cursor-pointer inline-block">
           {selectedUsers.length > 0 && selectedUsers.length !== users.length ? (
-            // Display the Avatar Group
-            <div className="flex items-center gap-2 p-1 border-sm card  flex-row w-fit">
+            <div className="flex items-center gap-1 p-2 border-sm card  flex-row w-fit">
               <MyAvatarGroup
                 items={selectedUsers.map((user) => ({
                   src: user.image,
@@ -149,10 +134,9 @@ const SignToInput = ({
         <div className="grid gap-4 py-4">
           {/* Search Input */}
           <div>
-            <Input
-              placeholder="Search name, username..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+            <SearchBox
+              onSearch={(q) => setSearchQuery(q)}
+              placeholder={placeholder}
             />
           </div>
 
@@ -172,7 +156,7 @@ const SignToInput = ({
           </div>
 
           {/* User List */}
-          <div className="flex flex-col gap-2 pr-1 w-full">
+          <div className="flex flex-col pr-1 w-full">
             {filteredUsers.length === 0 ? (
               <div className="text-center text-sm text-muted-foreground py-4">
                 <NoItemsPage
@@ -182,22 +166,20 @@ const SignToInput = ({
               </div>
             ) : (
               filteredUsers.map((user) => {
-                const uid = user._id || user.id || "";
                 return (
                   <div
-                    key={uid}
+                    key={user.value}
                     className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
-                    onClick={() => toggleUser(uid)}
+                    onClick={() => toggleUser(user.value)}
                   >
                     <Checkbox
-                      checked={selectedIds.has(uid)}
-                      onCheckedChange={() => toggleUser(uid)}
+                      checked={selectedIds.has(user.value)}
+                      onCheckedChange={() => toggleUser(user.value)}
                     />
                     <div className="pointer-events-none">
                       <UserSmCard
-                        name={user.name || "Unknown"}
+                        name={user.label || "Unknown"}
                         image={user.image || ""}
-                        gender={user.gender || "MALE"}
                       />
                     </div>
                   </div>

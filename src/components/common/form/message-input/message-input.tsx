@@ -40,7 +40,7 @@ import {
 
 export type EditorTool = "emoji" | "toolbar" | "metion" | "files" | "send";
 
-interface MessageInputProps {
+export interface MessageInputProps {
   value?: string;
   onChange?: (value: string) => void;
   onSend?: () => void;
@@ -336,7 +336,7 @@ export default function MessageInput({
   return (
     <div
       className={cn(
-        "flex w-full flex-col border-sm bg-base-100 transition-all focus-within:ring-1 focus-within:ring-primary/20 relative card",
+        "flex w-full flex-col border-sm bg-base-100 transition-all focus-within:ring-1 focus-within:ring-primary/20 relative card overflow-y-auto max-h-96",
         className,
       )}
     >
@@ -411,6 +411,8 @@ export default function MessageInput({
                 <DialogFooter className="flex justify-end gap-2">
                   <DialogClose>
                     <Button
+                      type="button"
+                      library="daisy"
                       variant="outline"
                       size="sm"
                       onClick={() => setShowLinkDialog(false)}
@@ -418,7 +420,12 @@ export default function MessageInput({
                       Cancel
                     </Button>
                   </DialogClose>
-                  <Button size="sm" onClick={confirmLink}>
+                  <Button
+                    type="button"
+                    library="daisy"
+                    size="sm"
+                    onClick={confirmLink}
+                  >
                     Insert
                   </Button>
                 </DialogFooter>
@@ -443,7 +450,7 @@ export default function MessageInput({
 
       <div
         className={cn(
-          "relative flex-1 min-h-[80px] max-h-[400px] overflow-y-auto cursor-text p-3",
+          "relative flex-1 min-h-20 max-h-[400px] overflow-y-auto cursor-text p-3",
           classname,
         )}
         onClick={() => editorRef.current?.focus()}
@@ -521,7 +528,9 @@ export default function MessageInput({
           {enabledTools.includes("toolbar") && (
             <Button
               variant="ghost"
+              type="button"
               size="sm"
+              library="daisy"
               className={cn(
                 "h-8 px-2  font-medium transition-colors hover:bg-muted",
                 showToolbar && "bg-accent",
@@ -539,7 +548,9 @@ export default function MessageInput({
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="icon"
+                    type="button"
+                    size="sm"
+                    library="daisy"
                     className={cn(
                       "h-8 w-8 text-muted-foreground",
                       showUserPicker && "bg-accent text-accent-foreground",
@@ -570,9 +581,9 @@ export default function MessageInput({
                             className={cn(
                               "absolute bottom-0 right-0 w-2.5 h-2.5 border-2 border-background rounded-full",
                               user.status === "online"
-                                ? "bg-green-500"
+                                ? "bg-success"
                                 : user.status === "busy"
-                                  ? "bg-red-500"
+                                  ? "bg-error"
                                   : "bg-gray-400",
                             )}
                           />
@@ -593,6 +604,7 @@ export default function MessageInput({
 
         {enabledTools.includes("send") && (
           <Button
+            type="button"
             onClick={onSend}
             variant={value ? "primary" : "ghost"}
             aria-label="Send message"

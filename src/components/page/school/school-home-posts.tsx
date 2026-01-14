@@ -15,7 +15,7 @@ interface props {
 const SchoolHomePosts = ({ lang, isOnSchoolPost, className, auth }: props) => {
   return (
     <div className="space-y-2 w-full">
-      {!isOnSchoolPost && <AddAnnouncementDialog auth={auth} />}
+      {!isOnSchoolPost && <AddAnnouncementDialog lang={lang} auth={auth} />}
       <div className=" space-y-2">
         {!isOnSchoolPost && (
           <div className=" space-x-1 flex items-center">
