@@ -6,6 +6,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
+import { formatUserRole } from "@/lib/functions/characters";
 import type { Gender } from "@/lib/schema/common-details-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
@@ -106,8 +107,8 @@ export const UserSmCard = ({
           </div>
           <div className="flex flex-row gap-2 items-center">
             {role && (
-              <span className={cn(" text-sm text-base-content/50", classRole)}>
-                {role}
+              <span title={formatUserRole(role)} className={cn(" text-sm text-base-content/50", classRole)}>
+                {formatUserRole(role)}
               </span>
             )}
             {subjects && (

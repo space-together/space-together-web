@@ -1,9 +1,10 @@
 // import bcrypt from "bcryptjs";
 import validator from "validator";
+import type { userRole } from "../schema/common-details-schema";
 
 // Utility function for validating a name
 export function isValidName(name: string): Promise<string> {
-  const nameRegex = /^[a-zA-Z\s\-'\.,]*$/;
+  const nameRegex = /^[a-zA-Z\s\-'.,]*$/;
 
   if (nameRegex.test(name)) {
     const wordCount = name.trim().split(/\s+/).length;
@@ -140,3 +141,32 @@ export function isDateString(date: string): boolean {
 export function toLowerCase(str: string) {
   return str.toLowerCase();
 }
+
+/**
+ * A robust function to turn "SCREAMING_SNAKE_CASE"
+ * into "Normal Human Readable Names"
+ */
+export const formatUserRole = (role: string): string => {
+  if (!role) return "";
+
+  // 1. Handle specific manual overrides/exceptions
+  const exceptions: Record<string, string> = {
+    STUDENT: "Student",
+    ADMIN: "Admin",
+    TEACHER: "Teacher",
+    SCHOOLSTAFF: "School Staff",
+  };
+
+  if (exceptions[role]) {
+    return exceptions[role];
+  }
+
+  // 2. Dynamic formatting for everything else:
+  // Converts "TEACHER_ASSISTANT" -> "Teacher Assistant"
+  return role
+    .toLowerCase()
+    .replace(/_/g, " ") // Replace underscores with spaces
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};

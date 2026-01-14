@@ -115,7 +115,7 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
               <StaffDashboardPeople auth={auth} lang={lang as Locale} />
             </Suspense>
           </div>
-          <div className=" w-1/2">school educations</div>
+          <div className=" w-1/2">school educations: user </div>
         </div>
       </div>
     );
