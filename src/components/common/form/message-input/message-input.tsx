@@ -7,36 +7,36 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover";
 import {
-  AtSign,
-  Bold,
-  Check,
-  Italic,
-  Link as LinkIcon,
-  List,
-  ListOrdered,
-  Plus,
-  SendHorizontal,
-  Smile,
-  Strikethrough,
-  Type,
-  Underline as UnderlineIcon,
+    Bold,
+    Check,
+    Italic,
+    Link as LinkIcon,
+    List,
+    ListOrdered,
+    Plus,
+    SendHorizontal,
+    Smile,
+    Strikethrough,
+    Type,
+    Underline as UnderlineIcon
 } from "lucide-react";
+import { FiAtSign } from "react-icons/fi";
 
 export type EditorTool = "emoji" | "toolbar" | "metion" | "files" | "send";
 
@@ -557,8 +557,9 @@ export default function MessageInput({
                     )}
                     onClick={() => setShowUserPicker((s) => !s)}
                     aria-expanded={showUserPicker}
+                    title="Sign at"
                   >
-                    <AtSign size={18} />
+                    <FiAtSign size={18} />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent>

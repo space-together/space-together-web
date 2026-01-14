@@ -14,14 +14,15 @@ import {
 import type { Option } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MyAvatarGroup from "../image/my-avatar-group";
 import NoItemsPage from "../pages/no-items-page";
 import SearchBox from "./search-box";
 
-interface PickUserProps extends Option {
+export interface PickUserProps extends Option {
   image?: string;
 }
+
 export interface SignToInputProps {
   onChange?: (value: PickUserProps[]) => void;
   title?: string;
@@ -34,10 +35,12 @@ export interface SignToInputProps {
   users?: PickUserProps[];
   value?: PickUserProps[];
   placeholder?: string;
+  onSearch?: (query: string) => Promise<void>;
 }
 
 const SignToInput = ({
   onChange,
+  onSearch,
   disabled,
   name,
   open,
@@ -50,20 +53,26 @@ const SignToInput = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isInternalOpen, setIsInternalOpen] = useState(open || false);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const filteredUsers = useMemo(() => {
-    if (!searchQuery) return users;
-    const lowerQuery = searchQuery.toLowerCase();
-    return users.filter(
-      (u) =>
-        u.name?.toLowerCase().includes(lowerQuery) ||
-        u.username?.toLowerCase().includes(lowerQuery) ||
-        u.email?.toLowerCase().includes(lowerQuery),
-    );
-  }, [users, searchQuery]);
+  // Debounced Search Effect
+  useEffect(() => {
+    const handler = setTimeout(async () => {
+      if (onSearch) {
+        setIsSearching(true);
+        await onSearch(searchQuery);
+        setIsSearching(false);
+      }
+    }, 400); // Wait 400ms after user stops typing
+
+    return () => clearTimeout(handler);
+  }, [searchQuery, onSearch]);
+
+  // We no longer filter locally. 'users' prop is now the filtered list from backend.
+  const filteredUsers = users;
 
   const selectedUsers = useMemo(() => {
-    return users.filter((u) => selectedIds.has(u.id));
+    return users.filter((u) => selectedIds.has(u.value));
   }, [users, selectedIds]);
 
   const toggleUser = (value: string) => {
@@ -76,22 +85,6 @@ const SignToInput = ({
     setSelectedIds(newSet);
   };
 
-  const handleSelectAll = () => {
-    const newSet = new Set(selectedIds);
-    const allFilteredSelected = filteredUsers.every((u) => newSet.has(u.value));
-
-    if (allFilteredSelected) {
-      filteredUsers.forEach((u) => newSet.delete(u.value));
-    } else {
-      filteredUsers.forEach((u) => newSet.add(u.value));
-    }
-    setSelectedIds(newSet);
-  };
-
-  const isAllSelected =
-    filteredUsers.length > 0 &&
-    filteredUsers.every((u) => selectedIds.has(u.id));
-
   const handleDone = () => {
     onChange?.(selectedUsers);
     setIsInternalOpen(false);
@@ -101,12 +94,12 @@ const SignToInput = ({
     <Dialog open={isInternalOpen} onOpenChange={setIsInternalOpen}>
       <DialogTrigger asChild disabled={disabled} className=" w-fit">
         <div className="cursor-pointer inline-block">
-          {selectedUsers.length > 0 && selectedUsers.length !== users.length ? (
-            <div className="flex items-center gap-1 p-2 border-sm card  flex-row w-fit">
+          {selectedUsers.length > 0 ? (
+            <div className="flex items-center gap-1 p-2 border rounded-md flex-row w-fit">
               <MyAvatarGroup
                 items={selectedUsers.map((user) => ({
                   src: user.image,
-                  alt: user.name,
+                  alt: user.label,
                 }))}
                 size="sm"
                 limit={5}
@@ -132,7 +125,6 @@ const SignToInput = ({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          {/* Search Input */}
           <div>
             <SearchBox
               onSearch={(q) => setSearchQuery(q)}
@@ -140,64 +132,45 @@ const SignToInput = ({
             />
           </div>
 
-          {/* All Students Checkbox */}
-          <div className="flex gap-2 items-center pb-2 border-b">
-            <Checkbox
-              checked={isAllSelected}
-              onCheckedChange={handleSelectAll}
-              id="select-all"
-            />
-            <label
-              htmlFor="select-all"
-              className="text-sm font-medium cursor-pointer"
-            >
-              Select All ({filteredUsers.length})
-            </label>
-          </div>
-
-          {/* User List */}
-          <div className="flex flex-col pr-1 w-full">
-            {filteredUsers.length === 0 ? (
+          <div className="flex flex-col pr-1 w-full max-h-[300px] overflow-y-auto">
+            {filteredUsers.length === 0 && !isSearching ? (
               <div className="text-center text-sm text-muted-foreground py-4">
                 <NoItemsPage
-                  imageClassName="  w-48 h-27"
+                  imageClassName="w-48 h-27"
                   title="No users found."
                 />
               </div>
             ) : (
-              filteredUsers.map((user) => {
-                return (
-                  <div
-                    key={user.value}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
-                    onClick={() => toggleUser(user.value)}
-                  >
-                    <Checkbox
-                      checked={selectedIds.has(user.value)}
-                      onCheckedChange={() => toggleUser(user.value)}
+              filteredUsers.map((user) => (
+                <div
+                  key={user.value}
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                  onClick={() => toggleUser(user.value)}
+                >
+                  <Checkbox
+                    checked={selectedIds.has(user.value)}
+                    onCheckedChange={() => toggleUser(user.value)}
+                  />
+                  <div className="pointer-events-none">
+                    <UserSmCard
+                      name={user.label || "Unknown"}
+                      image={user.image || ""}
                     />
-                    <div className="pointer-events-none">
-                      <UserSmCard
-                        name={user.label || "Unknown"}
-                        image={user.image || ""}
-                      />
-                    </div>
                   </div>
-                );
-              })
+                </div>
+              ))
             )}
           </div>
         </div>
 
-        <DialogFooter className=" ">
-          {/* Use custom click handler to trigger onChange */}
+        <DialogFooter>
           <Button
             type="button"
             variant={"info"}
             library="daisy"
             onClick={handleDone}
           >
-            Done ({selectedUsers.length})
+            Done ({selectedIds.size})
           </Button>
         </DialogFooter>
       </DialogContent>

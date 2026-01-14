@@ -13,7 +13,6 @@ import {
 } from "@/lib/const/common-details-const";
 
 import type { Class } from "@/lib/schema/class/class-schema";
-import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import {
   StudentBaseSchema,
   type Student,
@@ -24,6 +23,7 @@ import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 
+import type { Paginated } from "@/lib/schema/common-schema";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -48,7 +48,7 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
 
     const fetchClasses = async () => {
       try {
-        const res = await apiRequest<void, PaginatedClasses>(
+        const res = await apiRequest<void, Paginated<Class>>(
           "get",
           "/school/classes",
           undefined,
@@ -58,8 +58,8 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
           },
         );
 
-        if (res.data) {
-          setClasses(res.data.classes);
+        if (res?.data?.data) {
+          setClasses(res?.data?.data);
         }
       } catch (err) {
         console.error("Failed to fetch classes", err);

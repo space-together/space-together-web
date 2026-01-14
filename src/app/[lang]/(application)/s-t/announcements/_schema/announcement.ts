@@ -4,7 +4,7 @@ import { RelatedUserSchema } from "@/lib/schema/common-schema";
 import { z } from "zod";
 
 export const MentionSchema = z.object({
-  _id: z.string(),
+  id: z.string(),
   role: userRoleSchema,
 });
 
