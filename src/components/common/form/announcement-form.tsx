@@ -4,7 +4,6 @@ import {
   type Announcement,
   type AnnouncementBase,
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
-import { AllFormErrors } from "@/components/test/form-testing";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
@@ -184,7 +183,6 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
 
         <FormError message={error} />
         <FormSuccess message={success} />
-        <AllFormErrors errors={form.formState.errors} />
 
         <DialogFooter>
           <DialogClose asChild>

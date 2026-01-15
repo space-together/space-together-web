@@ -1,12 +1,13 @@
 import { ClassSchema } from "@/lib/schema/class/class-schema";
-import { userRoleSchema } from "@/lib/schema/common-details-schema";
 import { ActorRefSchema, RelatedUserSchema } from "@/lib/schema/common-schema";
 import { z } from "zod";
 
 export const AnnouncementSchema = z.object({
   _id: z.string(),
 
-  content: z.string().min(1),
+  content: z.string().min(1, {
+    message: "Content is required",
+  }),
 
   mention: z.array(ActorRefSchema).optional(),
 

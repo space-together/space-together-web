@@ -1,11 +1,11 @@
-import { OpenImages } from "@/components/common/image/open-images";
+import MessageInput from "@/components/common/form/message-input/message-input";
 
 function TestingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4 bg-base-100">
-      <OpenImages
-        images={["/images/1.jpg", "/images/2.jpg", "/images/3.jpg"]}
-      />
+      <div className=" mt-80 w-96">
+        <MessageInput />
+      </div>
     </div>
   );
 }

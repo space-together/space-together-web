@@ -51,7 +51,7 @@ const CommentsDialog = ({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-5xl flex flex-row gap-4">
+      <DialogContent className="max-h-[95vh] h-[95vh] overflow-y-auto overflow-visible sm:max-w-5xl flex flex-row gap-4">
         <div className=" w-1/2">
           <AnnouncementCard
             isCommentOpen
