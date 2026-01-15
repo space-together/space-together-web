@@ -3,7 +3,6 @@ import {
   AnnouncementBaseSchema,
   type Announcement,
   type AnnouncementBase,
-  type Mention,
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { AllFormErrors } from "@/components/test/form-testing";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,7 @@ import { Form } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
-import type { Paginated } from "@/lib/schema/common-schema";
+import type { ActorRef, Paginated } from "@/lib/schema/common-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -113,7 +112,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
   });
 
   const handleMentionChangeStudents = (value: PickUserProps[]) => {
-    const mentions: Mention[] = value.map((user) => ({
+    const mentions: ActorRef[] = value.map((user) => ({
       id: user.value,
       role: "STUDENT",
     }));
@@ -122,7 +121,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
   };
 
   const handleMentionChangeTeachers = (value: PickUserProps[]) => {
-    const mentions: Mention[] = value.map((user) => ({
+    const mentions: ActorRef[] = value.map((user) => ({
       id: user.value,
       role: "TEACHER",
     }));

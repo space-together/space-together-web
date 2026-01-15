@@ -18,7 +18,7 @@ import { redirect } from "next/navigation";
 export const generateMetadata = async (
   props: PageProps<"/[lang]/c/[classUsername]">,
 ): Promise<Metadata> => {
-  const params = await props.params;
+  const { lang, classUsername } = await props.params;
 
   return {
     title: "Class not found",
@@ -108,10 +108,10 @@ const ClassUsernamePage = async (
       <Separator className=" mt-4 mb-4" />
       <main className=" flex gap-4 w-full">
         <div className=" w-2/3 flex flex-col gap-4">
-          <AddAnnouncementDialog auth={auth} lang={params.lang as Locale} />
+          <AddAnnouncementDialog auth={auth} lang={lang as Locale} />
           <TeacherSubjectsCard />
-          <AnnouncementCard auth={auth} />
-          <NoteCard auth={auth} />
+          <AnnouncementCard auth={auth} lang={lang as Locale} />
+          <NoteCard auth={auth} lang={lang as Locale} />
           <ClassWorkCard auth={auth} lang={params.lang as Locale} />
         </div>
         <div className=" w-1/3">

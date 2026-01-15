@@ -32,7 +32,7 @@ import {
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { Class } from "@/lib/schema/class/class-schema";
-import type { PaginatedClasses } from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import {
   type CreateJoinSchoolRequest,
   CreateJoinSchoolRequestSchema,
@@ -60,7 +60,7 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await apiRequest<void, PaginatedClasses>(
+        const response = await apiRequest<void, Paginated<Class>>(
           "get",
           `/school/classes`,
           undefined,
@@ -71,8 +71,8 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
           },
         );
 
-        if (response.data?.classes) {
-          setClasses(response.data.classes);
+        if (response.data?.data) {
+          setClasses(response.data.data);
         }
       } catch (error) {
         console.error(error);

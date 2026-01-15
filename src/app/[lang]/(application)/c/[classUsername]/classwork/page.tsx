@@ -5,13 +5,11 @@ import type { Locale } from "@/i18n";
 import { authContext } from "@/lib/utils/auth-context";
 import { redirect } from "next/navigation";
 
-interface ClassWorkPageProps {
-  params: Promise<{ lang: Locale; classId: string }>;
-}
-
-const ClassWorkPage = async (props: ClassWorkPageProps) => {
+const ClassWorkPage = async (
+  props: PageProps<"/[lang]/c/[classUsername]/classwork">,
+) => {
   const params = await props.params;
-  const { lang, classId } = params;
+  const { lang, classUsername } = params;
   const [auth] = await Promise.all([authContext()]);
 
   if (!auth) {
@@ -27,7 +25,7 @@ const ClassWorkPage = async (props: ClassWorkPageProps) => {
       <Separator />
       <main className=" grid grid-cols-2 gap-2">
         {[...Array(9)].map((_, i) => {
-          return <ClassWorkCard key={i} auth={auth} />;
+          return <ClassWorkCard lang={lang as Locale} key={i} auth={auth} />;
         })}
       </main>
     </div>

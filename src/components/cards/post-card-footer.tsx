@@ -1,4 +1,5 @@
 import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
+import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
 import { IoMdShare } from "react-icons/io";
@@ -16,6 +17,7 @@ interface propsPostCardFooter {
   isCommentOpen?: boolean;
   auth: AuthContext;
   announcement?: Announcement;
+  lang: Locale;
 }
 
 const PostCardFooter = ({
@@ -23,6 +25,7 @@ const PostCardFooter = ({
   isCommentOpen,
   auth,
   announcement,
+  lang,
 }: propsPostCardFooter) => {
   return (
     <CardFooter className=" flex flex-col justify-start items-start [.border-t]:pt-2">
@@ -40,6 +43,7 @@ const PostCardFooter = ({
               announcement={announcement}
               dialogTriggerType="icon"
               auth={auth}
+              lang={lang}
             />
           )}
         </div>
@@ -76,6 +80,7 @@ const PostCardFooter = ({
             announcement={announcement}
             dialogTriggerType="button"
             auth={auth}
+            lang={lang}
           />
         )}
       </div>

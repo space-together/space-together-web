@@ -3,16 +3,15 @@ import JoinSchoolPage from "@/components/page/join-school-page";
 import JoinSchoolRequestByCode from "@/components/page/school-staff/join-school-request/join-school-request-by-code";
 import SchoolJoinRequestsTable from "@/components/page/school-staff/table/school-join-request-table/join-school-request-table";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Class } from "@/lib/schema/class/class-schema";
-import type { PaginatedClasses } from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import type { Paginated } from "@/lib/schema/common-schema";
-import { LIMIT } from "@/lib/env";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const auth = await authContext();
@@ -48,7 +47,7 @@ const JoinSchoolRequestPage = async (props: props) => {
         realtime: "join_school_request",
       },
     ),
-    apiRequest<void, PaginatedClasses>("get", `/school/classes`, undefined, {
+    apiRequest<void, Paginated<Class>>("get", `/school/classes`, undefined, {
       token: auth.token,
       schoolToken: auth.schoolToken,
       realtime: "class",
@@ -64,19 +63,19 @@ const JoinSchoolRequestPage = async (props: props) => {
         },
         {
           name: "class",
-          initialData: classes_res.data?.classes ?? [],
+          initialData: classes_res.data?.data ?? [],
         },
       ]}
     >
       <div className="max-w-full space-y-4">
         <AppPageHeader title="School Join Request" />
-        <JoinSchoolRequestByCode auth={auth}/>
+        <JoinSchoolRequestByCode auth={auth} />
         {/*{classes_res.data}*/}
         <SchoolJoinRequestsTable
           auth={auth}
           requests={requests_res.data?.data ?? []}
           lang={lang}
-          classes={classes_res.data?.classes ?? []}
+          classes={classes_res.data?.data ?? []}
           realtimeEnabled
         />
       </div>

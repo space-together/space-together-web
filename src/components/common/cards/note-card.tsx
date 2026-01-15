@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import type { Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { FaEllipsisVertical } from "react-icons/fa6";
@@ -20,9 +21,10 @@ interface NoteCardProps {
   note?: any;
   isCommentOpen?: boolean;
   auth: AuthContext;
+  lang: Locale;
 }
 
-const NoteCard = ({ note, auth, isCommentOpen }: NoteCardProps) => {
+const NoteCard = ({ note, auth, isCommentOpen, lang }: NoteCardProps) => {
   return (
     <Card
       className={cn(
@@ -59,6 +61,7 @@ const NoteCard = ({ note, auth, isCommentOpen }: NoteCardProps) => {
                     className: " justify-start ",
                     variant: "ghost",
                   }}
+                  lang={lang}
                   name="Edit"
                   className="  justify-start"
                   auth={auth}
@@ -97,6 +100,7 @@ const NoteCard = ({ note, auth, isCommentOpen }: NoteCardProps) => {
         enabledComponents={["comment", "like", "save", "share", "read"]}
         isCommentOpen={isCommentOpen}
         auth={auth}
+        lang={lang}
       />
     </Card>
   );

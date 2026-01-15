@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import {
-    GenderDetails,
-    UserRoleDetails,
+  GenderDetails,
+  UserRoleDetails,
 } from "@/lib/const/common-details-const";
 import { redirectContents } from "@/lib/hooks/redirect";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
@@ -54,8 +54,8 @@ const OnboardingForm = ({ lang, auth, dictionary }: Props) => {
     toastOnError: true,
     onSuccessMessage: "Your basic info profile updated ☺️",
     onSuccess: async (res) => {
-      if (res.accessToken) {
-        await setAuthCookies(res.accessToken, res.id, res.schoolAccessToken);
+      if (res.access_token) {
+        await setAuthCookies(res.access_token, res.id, res.school_access_token);
       }
 
       if (res.role === "STUDENT") {

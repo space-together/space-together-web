@@ -9,7 +9,6 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import { transformTopic } from "@/lib/helpers/subject-topic";
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
-import type { PaginatedClasses } from "@/lib/schema/relations-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import {
   ClassSubjectSchema,
@@ -43,7 +42,7 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
       try {
         const [classesRes, teachersRes] = await Promise.all([
           !cls
-            ? apiRequest<void, PaginatedClasses>(
+            ? apiRequest<void, Paginated<Class>>(
                 "get",
                 "/school/classes",
                 undefined,
@@ -54,11 +53,11 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
               )
             : {
                 data: {
-                  classes: [],
+                  data: [],
                   total: 0,
                   total_pages: 0,
                   current_page: 1,
-                } as PaginatedClasses,
+                },
               },
           apiRequest<void, Paginated<Teacher>>(
             "get",
@@ -72,7 +71,7 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
         ]);
 
         if (classesRes.data) {
-          setClasses(classesRes.data.classes);
+          setClasses(classesRes.data.data);
         }
 
         if (teachersRes.data) {

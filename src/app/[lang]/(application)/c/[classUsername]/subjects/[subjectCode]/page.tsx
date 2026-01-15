@@ -66,7 +66,9 @@ const SubjectIdClassPage = async (
           {/*all classwork*/}
           <div className=" flex flex-col gap-2 mt-2">
             {[...Array(3)].map((_, t) => {
-              return <ClassWorkCard key={t} auth={auth} />;
+              return (
+                <ClassWorkCard key={t} auth={auth} lang={lang as Locale} />
+              );
             })}
           </div>
           <MyLink
@@ -100,7 +102,7 @@ const SubjectIdClassPage = async (
         <Separator />
         <div className=" flex flex-col gap-2 mt-2">
           {[...Array(3)].map((_, index) => (
-            <NoteCard key={index} auth={auth} />
+            <NoteCard key={index} auth={auth} lang={lang as Locale} />
           ))}
           <MyLink
             href=""

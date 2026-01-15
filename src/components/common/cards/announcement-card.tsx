@@ -146,6 +146,7 @@ const AnnouncementCard = ({
           </div>
         )}
         <PostCardFooter
+          lang={lang}
           announcement={announcement}
           enabledComponents={["comment", "like", "save", "share"]}
           isCommentOpen={isCommentOpen}

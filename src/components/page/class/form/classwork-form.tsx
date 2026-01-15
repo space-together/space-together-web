@@ -49,18 +49,6 @@ function ClassWorkForm() {
       console.log(data);
     });
   };
-
-  const fakeUses = () => {
-    return [...Array(10).keys()].map((i) => ({
-      id: `user${i}`,
-      _id: `user${i}`,
-      name: `User ${i}`,
-      image: "/images/3.jpg",
-      email: `user${i}@example.com`,
-      gender: "MALE" as const,
-      username: `user${i}`,
-    }));
-  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -131,7 +119,7 @@ function ClassWorkForm() {
                       disabled={isPending}
                       name="All students"
                       onChange={field.onChange}
-                      users={fakeUses()}
+                      users={[]}
                     />
                   </FormControl>
                   <FormMessage />

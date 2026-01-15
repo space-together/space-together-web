@@ -100,6 +100,7 @@ const ClassWorkCard = ({
         <FileCard />
       </CardContent>
       <PostCardFooter
+        lang={lang}
         enabledComponents={["comment", "save", "share", "read"]}
         isCommentOpen={isCommentOpen}
         auth={auth}

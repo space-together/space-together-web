@@ -3,20 +3,20 @@
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Locale } from "@/i18n";
 
 import {
-    type AuthUserDto,
-    type RegisterUser,
-    RegisterUserSchema,
+  type AuthUserDto,
+  type RegisterUser,
+  RegisterUserSchema,
 } from "@/lib/schema/user/auth-user-schema";
 import { setAuthCookies } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -94,8 +94,8 @@ const RegisterForm = ({ lang }: props) => {
         values,
       );
       if (create.data) {
-        if (create.data.accessToken) {
-          await setAuthCookies(create.data.accessToken, create.data.id);
+        if (create.data.access_token) {
+          await setAuthCookies(create.data.access_token, create.data.id);
           setSuccess("Account created successful! ☺️");
           router.push(`/${lang}/auth/onboarding`);
         }
@@ -245,7 +245,6 @@ const RegisterForm = ({ lang }: props) => {
                 {/* Only show feedback when password is weak */}
                 {showFeedback && strengthScore < 4 && (
                   <div className="animate-fadeIn">
-
                     {/* Password feedback text */}
                     <p
                       id="password-description"

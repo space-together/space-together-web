@@ -1,6 +1,7 @@
 import {
   CommunicationMethodSchema,
   SocialMediaSchema,
+  userRoleSchema,
 } from "@/lib/schema/common-details-schema";
 import z from "zod";
 import { SchoolStaffSchema } from "./school/school-staff-schema";
@@ -63,3 +64,10 @@ export const RelatedUserSchema = z.discriminatedUnion("user_type", [
 ]);
 
 export type RelatedUser = z.infer<typeof RelatedUserSchema>;
+
+export const ActorRefSchema = z.object({
+  id: z.string(),
+  role: userRoleSchema,
+});
+
+export type ActorRef = z.infer<typeof ActorRefSchema>;

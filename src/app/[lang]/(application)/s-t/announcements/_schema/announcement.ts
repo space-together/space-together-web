@@ -1,30 +1,16 @@
 import { ClassSchema } from "@/lib/schema/class/class-schema";
 import { userRoleSchema } from "@/lib/schema/common-details-schema";
-import { RelatedUserSchema } from "@/lib/schema/common-schema";
+import { ActorRefSchema, RelatedUserSchema } from "@/lib/schema/common-schema";
 import { z } from "zod";
-
-export const MentionSchema = z.object({
-  id: z.string(),
-  role: userRoleSchema,
-});
-
-export type Mention = z.infer<typeof MentionSchema>;
-
-export const PublishedSchema = z.object({
-  id: z.string(),
-  role: userRoleSchema,
-});
-
-export type Published = z.infer<typeof PublishedSchema>;
 
 export const AnnouncementSchema = z.object({
   _id: z.string(),
 
   content: z.string().min(1),
 
-  mention: z.array(MentionSchema).optional(),
+  mention: z.array(ActorRefSchema).optional(),
 
-  published: PublishedSchema,
+  published: ActorRefSchema,
 
   classes_ids: z.array(z.string()).optional(),
 
@@ -53,7 +39,7 @@ export const AnnouncementBaseSchema = AnnouncementSchema.pick({
   mention: true,
   classes_ids: true,
 }).extend({
-  published: PublishedSchema.optional(), // override to optional
+  published: ActorRefSchema.optional(), // override to optional
 });
 
 export type AnnouncementBase = z.infer<typeof AnnouncementBaseSchema>;

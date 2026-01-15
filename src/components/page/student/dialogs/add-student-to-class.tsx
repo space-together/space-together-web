@@ -12,7 +12,7 @@ import {
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { Class } from "@/lib/schema/class/class-schema";
-import type { PaginatedClasses } from "@/lib/schema/relations-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -38,7 +38,7 @@ const AddStudentToClass = ({ student, auth }: AddStudentToClassProps) => {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const res = await apiRequest<void, PaginatedClasses>(
+        const res = await apiRequest<void, Paginated<Class>>(
           "get",
           "/school/classes",
           undefined,
@@ -49,7 +49,7 @@ const AddStudentToClass = ({ student, auth }: AddStudentToClassProps) => {
         );
 
         if (res.data) {
-          setClasses(res.data.classes);
+          setClasses(res.data.data);
         }
       } catch (err) {
         console.error("Failed to fetch classes", err);

@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { MdOutlineInsertComment } from "react-icons/md";
 import AnnouncementCard from "../cards/announcement-card";
@@ -20,6 +21,7 @@ interface CommentsDialogProps {
   name?: string;
   auth: AuthContext;
   announcement?: Announcement;
+  lang: Locale;
   // post ?:
 }
 
@@ -28,6 +30,7 @@ const CommentsDialog = ({
   announcement,
   dialogTriggerType,
   auth,
+  lang,
 }: CommentsDialogProps) => {
   return (
     <Dialog>
@@ -54,6 +57,7 @@ const CommentsDialog = ({
             isCommentOpen
             auth={auth}
             announcement={announcement}
+            lang={lang}
           />
         </div>
         <div className="w-1/2">

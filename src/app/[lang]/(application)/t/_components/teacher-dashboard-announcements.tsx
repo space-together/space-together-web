@@ -16,7 +16,7 @@ const TeacherDashboardAnnouncements = ({
   return (
     <div className="flex flex-col gap-2">
       {[...Array(4)].map((_, index) => (
-        <AnnouncementCard auth={auth} key={index} />
+        <AnnouncementCard auth={auth} key={index} lang={lang} />
       ))}
     </div>
   );
