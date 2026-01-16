@@ -5,13 +5,13 @@ export type EditorTool = "emoji" | "toolbar" | "metion" | "files" | "send";
 export interface MessageInputProps {
   value?: string;
   onChange?: (value: string) => void;
-  onSend?: () => void;
   disabled?: boolean;
   className?: string;
   placeholder?: string;
   enabledTools?: EditorTool[];
   mentionableUsers?: PickUserProps[];
   classname?: string;
+  onSend?: () => void;
 }
 
 export interface ToolbarButtonProps {

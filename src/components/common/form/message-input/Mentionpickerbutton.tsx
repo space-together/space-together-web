@@ -7,6 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { FiAtSign } from "react-icons/fi";
+import MyAvatar from "../../image/my-avatar";
 import type { PickUserProps } from "../sign-to-input";
 
 interface MentionPickerButtonProps {
@@ -54,12 +55,8 @@ export const MentionPickerButton = ({
                 className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground text-left transition-colors group"
                 onClick={() => onSelectUser(user.label)}
               >
-                <div className="relative">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
-                    {user.label.substring(0, 2).toUpperCase()}
-                  </div>
-                </div>
-                <span className="flex-1 font-medium">{user.name}</span>
+                <MyAvatar size="2xs" alt={user.name} src={user?.image} />
+                <span className="flex-1 font-medium">{user.label}</span>
                 <Check
                   size={14}
                   className="invisible group-hover:visible text-primary"

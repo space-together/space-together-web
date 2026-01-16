@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Plus, Send, Type } from "lucide-react";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 import { EmojiPickerButton } from "./Emojipickerbutton";
 import { LinkDialog } from "./Linkdialog";
 import { MentionPickerButton } from "./Mentionpickerbutton";
@@ -24,12 +24,28 @@ import {
 export default function MessageInput({
   value = "",
   onChange,
-  onSend,
   disabled = false,
   className,
   placeholder = "Message #general",
   enabledTools = ["toolbar", "emoji", "files", "metion", "send"],
-  mentionableUsers = [],
+  onSend,
+  mentionableUsers = [
+    {
+      value: "user1",
+      label: "John Doe",
+      image: "/images/1.jpg",
+    },
+    {
+      value: "user2",
+      label: "Jane Doe",
+      image: "/images/2.jpg",
+    },
+    {
+      value: "user3",
+      label: "Alice Smith",
+      image: "/images/3.jpg",
+    },
+  ],
   classname,
 }: MessageInputProps) {
   const [showToolbar, setShowToolbar] = useState(false);
@@ -81,8 +97,25 @@ export default function MessageInput({
     if (!emoji) return;
 
     editorRef.current?.focus();
+
+    const selection = window.getSelection();
+    if (savedRange && selection) {
+      selection.removeAllRanges();
+      selection.addRange(savedRange);
+    }
+
     executeCommand("insertText", emoji);
+
+    // Clear the saved range and close picker
+    setSavedRange(null);
     setShowEmojiPicker(false);
+  };
+
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      setSavedRange(selection.getRangeAt(0));
+    }
   };
 
   const handleOpenLinkDialog = (): void => {
@@ -131,36 +164,60 @@ export default function MessageInput({
     handleEditorInput();
   };
 
+  const handleSend = () => {
+    if (disabled || !value.trim()) return;
+
+    onSend?.();
+
+    // Clear the editor after sending
+    if (editorRef.current) {
+      editorRef.current.innerHTML = "";
+      onChange?.("");
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent): void => {
-    const { inList, isOrdered, isUnordered } = isInList();
+    const { inList } = isInList();
 
-    if (e.key === "Enter" && inList) {
-      const li = getCurrentListItem();
-
-      if (li && li.textContent?.trim() === "") {
+    // 1. Handle Enter Key
+    if (e.key === "Enter") {
+      // SCENARIO A: Ctrl + Enter ALWAYS sends, regardless of being in a list
+      if (e.ctrlKey || e.metaKey) {
         e.preventDefault();
-        executeDocumentCommand("insertParagraph");
-        executeDocumentCommand("outdent");
-        updateActiveStyles();
+        handleSend();
         return;
       }
-      return;
+
+      // SCENARIO B: Normal Enter (No Shift, No Ctrl)
+      if (!e.shiftKey) {
+        if (inList) {
+          const li = getCurrentListItem();
+          // If user presses Enter on an empty list item, exit the list
+          if (li && li.textContent?.trim() === "") {
+            e.preventDefault();
+            executeDocumentCommand("insertParagraph");
+            executeDocumentCommand("outdent");
+            updateActiveStyles();
+            return;
+          }
+          // Otherwise, let the browser handle creating a new <li> naturally
+        } else {
+          // Not in a list, normal Enter sends the message
+          e.preventDefault();
+          handleSend();
+        }
+      }
+      // If Shift + Enter, let the browser handle the newline naturally
     }
 
+    // 2. Handle Backspace (Existing list logic)
     if (e.key === "Backspace" && inList) {
       const li = getCurrentListItem();
-
       if (li && li.textContent === "") {
         e.preventDefault();
         executeDocumentCommand("outdent");
         updateActiveStyles();
-        return;
       }
-    }
-
-    if (e.key === "Enter" && !e.shiftKey && !inList) {
-      e.preventDefault();
-      onSend?.();
     }
   };
 
@@ -190,7 +247,7 @@ export default function MessageInput({
   return (
     <div
       className={cn(
-        "flex w-full flex-col border-sm bg-base-100 transition-all focus-within:ring-1 focus-within:ring-primary/20 relative card overflow-y-auto overflow-visible max-h-96",
+        "flex w-full flex-col border-sm bg-base-100 transition-all focus-within:ring-1 focus-within:ring-base-content/50 relative card overflow-y-auto overflow-visible max-h-96",
         className,
       )}
     >
@@ -225,12 +282,18 @@ export default function MessageInput({
           ref={editorRef}
           contentEditable={!disabled}
           onInput={handleEditorInput}
-          onKeyUp={updateActiveStyles}
-          onMouseUp={updateActiveStyles}
+          onKeyUp={() => {
+            updateActiveStyles();
+            saveSelection();
+          }}
+          onMouseUp={() => {
+            updateActiveStyles();
+            saveSelection();
+          }}
           onKeyDown={handleKeyDown}
           role="textbox"
           aria-multiline="true"
-          className="outline-none prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:my-2 [&_li]:pl-1 whitespace-pre-wrap break-words"
+          className="outline-none prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:my-2 [&_li]:pl-1 whitespace-pre-wrap break-words text-base-content"
         />
       </div>
 
@@ -287,7 +350,7 @@ export default function MessageInput({
         {enabledTools.includes("send") && (
           <Button
             type="button"
-            onClick={onSend}
+            onClick={handleSend}
             variant={value ? "primary" : "ghost"}
             aria-label="Send message"
             library="daisy"

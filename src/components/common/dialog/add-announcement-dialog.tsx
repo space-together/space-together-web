@@ -64,7 +64,7 @@ const AddAnnouncementDialog = ({
           </div>
         )}
       </DialogTrigger>
-      <DialogContent className="max-h-[95vh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="max-h-[95vh] overflow-y-auto overflow-visible sm:max-w-2xl">
         <DialogTitle>New announcement</DialogTitle>
         <AnnouncementForm auth={auth} lang={lang} />
       </DialogContent>
