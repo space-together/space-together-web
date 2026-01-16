@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
+import { useState } from "react";
 import { MdOutlineInsertComment } from "react-icons/md";
 import AnnouncementCard from "../cards/announcement-card";
 import CommentCard from "../cards/comment-card";
@@ -32,6 +34,18 @@ const CommentsDialog = ({
   auth,
   lang,
 }: CommentsDialogProps) => {
+  const [newComment, setNewComment] = useState("");
+
+  const handleCommentSubmit = async () => {
+    if (!newComment) return;
+    try {
+      const res = await apiRequest("post");
+      setNewComment("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -72,6 +86,8 @@ const CommentsDialog = ({
           <MessageInput
             placeholder="Add comment..."
             enabledTools={["emoji", "metion", "toolbar", "send"]}
+            onChange={(val) => setNewComment(val)}
+            onSend={handleCommentSubmit}
           />
         </div>
       </DialogContent>

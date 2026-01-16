@@ -1,18 +1,14 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 
-// ✅ New: helper for safe revalidation
+// ✅ Helper for safe revalidation
 async function safeRevalidate(path: string) {
   try {
-    // Use environment variable for base URL if available
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localehost:4646";
-
-    // POST to Next.js revalidation route (if it exists)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:4646";
     const response = await fetch(`${baseUrl}/api/revalidate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ path }),
     });
-
     if (!response.ok) {
       console.warn(
         `⚠️ Revalidation failed for ${path}: ${response.status} ${response.statusText}`,
@@ -21,7 +17,6 @@ async function safeRevalidate(path: string) {
       console.log(`✅ Successfully revalidated path: ${path}`);
     }
   } catch (error) {
-    // Fail silently to avoid breaking server logic
     console.warn(
       `⚠️ Skipping revalidation for ${path}: ${String(error)} (safe fallback)`,
     );
@@ -35,6 +30,7 @@ export interface APIResponse<T = unknown> {
   message?: string;
   error?: string;
   statusCode?: number;
+  isLoading: boolean;
   realtime?: {
     enabled: boolean;
     entityType?: string;
@@ -44,7 +40,6 @@ export interface APIResponse<T = unknown> {
 export interface ApiRequestOptions {
   token?: string;
   role?: string;
-
   realtime?: boolean | string;
   onRealtimeEvent?: (event: any) => void;
   revalidatePath?: string | string[];
@@ -52,14 +47,18 @@ export interface ApiRequestOptions {
 }
 
 /**
- * Reusable API request function with safe revalidation support
+ * Reusable API request function with loading state and safe revalidation support
  */
 async function apiRequest<TRequest = unknown, TResponse = unknown>(
   method: HttpMethod,
-  url: string, //  can be antings
+  url: string,
   data?: TRequest,
   options: ApiRequestOptions = {},
 ): Promise<APIResponse<TResponse>> {
+  let result: APIResponse<TResponse> = {
+    isLoading: true,
+  };
+
   try {
     if (data && typeof data !== "object" && data !== undefined) {
       throw new TypeError(
@@ -73,7 +72,7 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
       headers: {
         "Content-Type": "application/json",
         ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),
-        ...(options.schoolToken ? { "School-Token": options.schoolToken } : {}), // ✅ ADD THIS LINE
+        ...(options.schoolToken ? { "School-Token": options.schoolToken } : {}),
         ...(options.role ? { role: options.role } : {}),
       },
       ...(method !== "get" && data ? { data } : {}),
@@ -81,13 +80,14 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
 
     const response: AxiosResponse<TResponse> = await axios<TResponse>(config);
 
-    const result: APIResponse<TResponse> = {
+    result = {
+      ...result,
       data: response.data,
       message: "Request successful",
       statusCode: response.status,
+      isLoading: false,
     };
 
-    // Add real-time info if enabled
     if (options.realtime) {
       result.realtime = {
         enabled: true,
@@ -96,7 +96,6 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
       };
     }
 
-    // ✅ Auto revalidate if required
     if (
       options.revalidatePath &&
       ["post", "put", "patch", "delete"].includes(method)
@@ -104,7 +103,6 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
       const paths = Array.isArray(options.revalidatePath)
         ? options.revalidatePath
         : [options.revalidatePath];
-
       for (const path of paths) {
         await safeRevalidate(path);
       }
@@ -112,8 +110,16 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
 
     return result;
   } catch (error: unknown) {
+    // 3. Handle errors and set loading to false
+    const errorResult: APIResponse<TResponse> = {
+      isLoading: false,
+      statusCode: 500,
+      message: "An error occurred",
+    };
+
     if (error instanceof TypeError) {
       return {
+        ...errorResult,
         error: error.message,
         message: "Type Error",
         statusCode: 400,
@@ -123,6 +129,7 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
     if (axios.isAxiosError(error)) {
       const res = error.response;
       return {
+        ...errorResult,
         error: res?.data?.error || res?.statusText || "Axios Error",
         message: res?.data?.message || "Something went wrong",
         statusCode: res?.status || 500,
@@ -130,9 +137,9 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
     }
 
     return {
+      ...errorResult,
       error: "Unknown error",
-      message: `${error}` || "An unexpected error occurred",
-      statusCode: 500,
+      message: String(error) || "An unexpected error occurred",
     };
   }
 }
