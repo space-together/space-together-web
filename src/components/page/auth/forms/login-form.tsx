@@ -62,7 +62,7 @@ const LoginForm = ({ lang, oauthError }: props) => {
             login.data.id,
             login.data.school_access_token,
           );
-          setSuccess(`Welcome back ${login.data.name} ☺️ ${login.data.role}`);
+          setSuccess(`Welcome back ${login.data.name} `);
           if (login.data.role) {
             router.push(redirectContents({ lang, role: login.data.role }));
           }
