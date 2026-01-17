@@ -8,62 +8,147 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Locale } from "@/i18n";
+import { useToast } from "@/lib/context/toast/ToastContext";
+import { LIMIT } from "@/lib/env";
+import type {
+  Comment,
+  CommentBase,
+  CommentWithRelations,
+} from "@/lib/schema/comment/comment";
+import type { CountDoc, Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { useState } from "react";
+import apiRequest, { type APIResponse } from "@/service/api-client";
+import { useEffect, useState } from "react";
 import { MdOutlineInsertComment } from "react-icons/md";
 import AnnouncementCard from "../cards/announcement-card";
 import CommentCard from "../cards/comment-card";
 import MessageInput from "../form/message-input/message-input";
+import CommentCardSkeleton from "../skeletons/comment-skeleton";
 
 interface CommentsDialogProps {
-  comments?: any;
   dialogTriggerType?: "icon" | "button";
   name?: string;
   auth: AuthContext;
   announcement?: Announcement;
   lang: Locale;
-  // post ?:
 }
 
 const CommentsDialog = ({
-  comments,
   announcement,
   dialogTriggerType,
   auth,
   lang,
 }: CommentsDialogProps) => {
   const [newComment, setNewComment] = useState("");
+  const { showToast } = useToast();
+
+  const [commentState, setCommentState] = useState<
+    APIResponse<Paginated<CommentWithRelations>>
+  >({
+    isLoading: false,
+    data: undefined,
+  });
+
+  const [totalComments, setTotalComments] = useState<APIResponse<CountDoc>>({
+    isLoading: false,
+    data: undefined,
+  });
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      setCommentState((prev) => ({ ...prev, isLoading: true }));
+
+      const [comments, total] = await Promise.all([
+        apiRequest<void, Paginated<CommentWithRelations>>(
+          "get",
+          `/school/comments/others?field=target_post_id&value=${announcement?._id}&limit=${LIMIT}`,
+          undefined,
+          { token: auth.token, schoolToken: auth.schoolToken },
+        ),
+        apiRequest<void, CountDoc>(
+          "get",
+          `/school/comments/count?field=target_post_id&value=${announcement?._id}`,
+          undefined,
+          { token: auth.token, schoolToken: auth.schoolToken },
+        ),
+      ]);
+
+      setCommentState(comments);
+      setTotalComments(total);
+    };
+
+    fetchComments();
+  }, [announcement]);
 
   const handleCommentSubmit = async () => {
-    if (!newComment) return;
-    try {
-      const res = await apiRequest("post");
-      setNewComment("");
-    } catch (error) {
-      console.error(error);
+    if (!newComment.trim()) return;
+    const res = await apiRequest<CommentBase, Comment>(
+      "post",
+      "/school/comments",
+      {
+        content: newComment,
+        author: {
+          id: auth.school?.member?._id || auth.user.id,
+          role: auth.school?.member?.user_type
+            ? auth.school.member.user_type === "USER"
+              ? "SCHOOLSTAFF"
+              : auth.school.member.user_type
+            : auth.user.role || "STUDENT",
+        },
+        target_post_id: announcement?._id ?? "",
+        parent_comment_id: undefined,
+      },
+      {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    );
+    if (res.data) {
+      showToast({
+        title: "Success",
+        description: "Comment posted successfully",
+        type: "success",
+      });
+    } else {
+      showToast({
+        title: "Error",
+        description: res.message,
+        type: "error",
+      });
     }
+    setNewComment("");
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {dialogTriggerType === "button" ? (
-          <Button
-            variant={"ghost"}
-            type="button"
-            className=" w-fit"
-            size={"sm"}
-          >
-            14 View all comments
-          </Button>
-        ) : (
-          <Button title="comments" library="daisy" variant="ghost" size="md">
-            <MdOutlineInsertComment size={22} />
-            <span className=" sr-only">32 Likes</span>
-          </Button>
-        )}
+        <div>
+          {dialogTriggerType === "button" &&
+            totalComments.data?.count !== 0 && (
+              <Button
+                variant={"ghost"}
+                type="button"
+                className=" w-fit"
+                size={"sm"}
+              >
+                {totalComments.isLoading ? (
+                  <Skeleton className=" h-6 w-10" />
+                ) : (
+                  <span>{totalComments.data?.count} comments</span>
+                )}
+              </Button>
+            )}
+          {dialogTriggerType === "icon" && (
+            <Button title="comments" library="daisy" variant="ghost" size="md">
+              <MdOutlineInsertComment size={22} />
+              <span className=" sr-only">
+                {totalComments.data?.count} comments
+              </span>
+            </Button>
+          )}
+        </div>
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] h-[95vh] overflow-y-auto overflow-visible sm:max-w-5xl flex flex-row gap-4">
         <div className=" w-1/2">
@@ -74,20 +159,40 @@ const CommentsDialog = ({
             lang={lang}
           />
         </div>
-        <div className="w-1/2">
-          <DialogHeader>
-            <DialogTitle>12 Comments</DialogTitle>
-          </DialogHeader>
-          <div className="max-h-[63vh] overflow-y-scroll ">
-            {[...Array(8)].map((_, i) => {
-              return <CommentCard key={i} />;
-            })}
+        <div className="w-1/2 flex flex-col justify-between relative">
+          <div>
+            <DialogHeader>
+              <DialogTitle>12 Comments</DialogTitle>
+            </DialogHeader>
+            <div className="max-h-[63vh] overflow-y-scroll ">
+              {commentState.isLoading ? (
+                <div className="flex flex-col gap-2">
+                  {[...Array(3)].map((_, index) => (
+                    <CommentCardSkeleton key={index} />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  {commentState?.data?.data.map((comment) => (
+                    <CommentCard
+                      key={comment._id}
+                      comment={comment}
+                      lang={lang}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className="min-h-20" />
+            </div>
           </div>
           <MessageInput
             placeholder="Add comment..."
             enabledTools={["emoji", "metion", "toolbar", "send"]}
+            value={newComment}
             onChange={(val) => setNewComment(val)}
             onSend={handleCommentSubmit}
+            className=" absolute bottom-3 w-full  max-h-50 z-40"
+            classname=" min-h-10"
           />
         </div>
       </DialogContent>

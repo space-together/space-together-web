@@ -1,12 +1,12 @@
 import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { Activity } from "react";
 import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
 import { IoMdShare } from "react-icons/io";
 import CommentsDialog from "../common/dialog/comments-dialog";
 import LikesDialog from "../common/dialog/likes-dialog";
 import ReadDialog from "../common/dialog/read-dialog";
-import MyAvatar from "../common/image/my-avatar";
 import { Button } from "../ui/button";
 import { CardFooter } from "../ui/card";
 
@@ -56,32 +56,21 @@ const PostCardFooter = ({
           </Button>
         </div>
       </div>
-      <div className="   space-y-2">
+      <div className="   gap-2 flex flex-col">
         {enabledComponents.includes("like") && (
-          <LikesDialog dialogTriggerType="groupUsers" />
+          <Activity>
+            <LikesDialog dialogTriggerType="groupUsers" />
+          </Activity>
         )}
         {!isCommentOpen && enabledComponents.includes("comment") && (
-          <div className=" flex gap-2">
-            <MyAvatar size="xs" />
-            <div>
-              <div className=" flex flex-row items-center gap-2">
-                <h6 className=" font-medium">Sender comment</h6>
-                <span className=" text-xs">1 hour ago</span>
-              </div>
-              <p className=" text-sm line-3">
-                lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam, voluptatum.
-              </p>
-            </div>
-          </div>
-        )}
-        {!isCommentOpen && enabledComponents.includes("comment") && (
-          <CommentsDialog
-            announcement={announcement}
-            dialogTriggerType="button"
-            auth={auth}
-            lang={lang}
-          />
+          <Activity>
+            <CommentsDialog
+              announcement={announcement}
+              dialogTriggerType="button"
+              auth={auth}
+              lang={lang}
+            />
+          </Activity>
         )}
       </div>
     </CardFooter>

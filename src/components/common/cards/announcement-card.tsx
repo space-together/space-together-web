@@ -18,6 +18,7 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatTimeAgo } from "@/lib/utils/format-date";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
+import AnnouncementDialogMetion from "../dialog/announcement-dialog-metion";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
 import MessageDisplay from "../form/message-input/message-display";
 
@@ -61,9 +62,9 @@ const AnnouncementCard = ({
           role={published?.user_type ?? "-"}
           name={published?.name ?? "Published name"}
           date={
-            announcement?.created_at
-              ? formatTimeAgo(announcement.created_at)
-              : "2hrs ago"
+            announcement?.updated_at
+              ? formatTimeAgo(announcement.updated_at)
+              : "-"
           }
           image={published?.image}
         />
@@ -124,30 +125,13 @@ const AnnouncementCard = ({
           </p>
         )}
         <div className=" gap-2 flex flex-col">
-          {announcement?.mentioned_users && (
-            <div className="px-4 mt-2 flex flex-wrap gap-2">
-              <h6 className="sm">Mention:</h6>
-              {announcement?.mentioned_users?.map((user) => (
-                <UserSmCard
-                  key={user._id}
-                  name={user.name}
-                  image={user.image}
-                  avatarProps={{ size: "2xs" }}
-                  nameClassname="text-xs"
-                  role={user.user_type}
-                  classRole={cn("text-xs")}
-                  link={profileRedirects({
-                    lang,
-                    id: user._id || user.id || "",
-                    role:
-                      user.user_type === "USER"
-                        ? "SCHOOLSTAFF"
-                        : user.user_type,
-                  })}
-                />
-              ))}
-            </div>
-          )}
+          {announcement?.mentioned_users &&
+            announcement.mentioned_users.length > 0 && (
+              <AnnouncementDialogMetion
+                lang={lang}
+                metion={announcement.mentioned_users}
+              />
+            )}
           <PostCardFooter
             lang={lang}
             announcement={announcement}

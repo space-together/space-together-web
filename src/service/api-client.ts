@@ -110,7 +110,6 @@ async function apiRequest<TRequest = unknown, TResponse = unknown>(
 
     return result;
   } catch (error: unknown) {
-    // 3. Handle errors and set loading to false
     const errorResult: APIResponse<TResponse> = {
       isLoading: false,
       statusCode: 500,
