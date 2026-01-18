@@ -58,6 +58,8 @@ const TradeUsernamePage = async (
         { name: "trade", initialData: [tradeRes.data] },
         { name: "main_class", initialData: mainClassRes?.data?.data ?? [] },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <main className="flex flex-col gap-4">
         <TradeHeader

@@ -30,7 +30,12 @@ const SchoolUsernamePage = async (
     return <NotFoundPage message={`This ${schoolUsername} those not found`} />;
 
   return (
-    <RealtimeProvider<School> channel="school" initialData={[schoolRes.data]}>
+    <RealtimeProvider<School>
+      channel="school"
+      initialData={[schoolRes.data]}
+      context="global"
+      authToken={auth.token}
+    >
       <AppPageHeader title="School over view" />
       <AdminSchoolHero
         auth={auth}

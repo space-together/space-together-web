@@ -3,7 +3,8 @@
 import { useRealtimeImproved } from "@/lib/hooks/useRealtimeImproved";
 import type { WithId } from "@/lib/mode/with-id";
 import { cn } from "@/lib/utils";
-import { createContext, useContext, useReducer } from "react";
+import { realtimeClient } from "@/service/realtime-client";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 type ChannelName = string;
 
@@ -55,8 +56,10 @@ function realtimeReducer<T extends WithId>(
 type ChannelConfig<T extends WithId> = {
   name: ChannelName;
   initialData: T[];
-  enabled?: boolean; // ✅ allow disabling realtime for this channel
+  enabled?: boolean;
 };
+
+type ConnectionContext = "school" | "global";
 
 type RealtimeContextType<T extends WithId> = {
   state: RealtimeState<T>;
@@ -76,12 +79,18 @@ type RealtimeProviderProps<T extends WithId> =
       className?: string;
       children: React.ReactNode;
       enabled?: boolean;
+      context?: ConnectionContext;
+      authToken: string;
+      schoolToken?: string | null;
     }
   | {
       /** Multi-channel mode */
       channels: ChannelConfig<T>[];
       className?: string;
       children: React.ReactNode;
+      context?: ConnectionContext;
+      authToken: string;
+      schoolToken?: string | null;
     };
 
 export function RealtimeProvider<T extends WithId>(
@@ -98,7 +107,8 @@ export function RealtimeProvider<T extends WithId>(
         ]
       : props.channels;
 
-  const { className, children } = props;
+  const { className, children, authToken, schoolToken } = props;
+  const context = props.context || (schoolToken ? "school" : "global");
 
   const initialState = Object.fromEntries(
     channels.map((c) => [c.name, c.initialData]),
@@ -107,10 +117,21 @@ export function RealtimeProvider<T extends WithId>(
   const [state, dispatch] = useReducer(realtimeReducer<T>, initialState);
   const connectionMap: Record<string, boolean> = {};
 
+  // Set connection context when component mounts or auth changes
+  useEffect(() => {
+    console.log("🔧 Setting realtime context:", {
+      context,
+      hasSchoolToken: !!schoolToken,
+      hasAuthToken: !!authToken,
+    });
+
+    realtimeClient.setContext(context, authToken, schoolToken);
+  }, [context, authToken, schoolToken]);
+
   channels.forEach(({ name, enabled = true }) => {
     if (!enabled) {
       connectionMap[name] = false;
-      return; // ✅ skip realtime hook
+      return;
     }
 
     const { isConnected } = useRealtimeImproved<T>(
@@ -146,10 +167,9 @@ export function RealtimeProvider<T extends WithId>(
   );
 }
 
-// ✅ Updated hook: now supports optional `enabled` param
 export function useRealtimeData<T extends WithId>(
   channel: string,
-  enabled: boolean = true, // default true
+  enabled: boolean = true,
 ) {
   const ctx = useContext(RealtimeContext);
   if (!ctx) throw new Error("useRealtimeData must be inside RealtimeProvider");

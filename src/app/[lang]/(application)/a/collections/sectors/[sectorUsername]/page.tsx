@@ -77,6 +77,8 @@ const SectorUsernamePage = async (
           initialData: educationYearsRes?.data?.data ?? [],
         },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <main className="flex flex-col gap-4 ">
         <AppPageHeader title="Sector" description="" />

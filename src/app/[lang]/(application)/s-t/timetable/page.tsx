@@ -53,6 +53,9 @@ const TimeTablePage = async (props: props) => {
               initialData: [schoolTimetableRes.data],
             },
           ]}
+          context="school"
+          authToken={auth.token}
+          schoolToken={auth.schoolToken}
         >
           <SchoolTimetableViewer
             auth={auth}

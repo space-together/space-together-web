@@ -35,6 +35,8 @@ const TradesPage = async (props: PageProps<"/[lang]/a/collections/trades">) => {
     <RealtimeProvider<TradeModelWithOthers>
       channel="trade"
       initialData={request?.data?.data ?? []}
+      context="global"
+      authToken={auth.token}
     >
       <AppPageHeader
         total={request?.data?.total}

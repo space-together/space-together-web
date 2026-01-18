@@ -34,6 +34,8 @@ const TemplateSubjectPage = async (
     <RealtimeProvider<TemplateSubjectWithOther>
       channel="template_subject"
       initialData={[subjectRes.data]}
+      context="global"
+      authToken={auth.token}
     >
       <div className=" flex gap-4 mt-2">
         <main className=" w-3/5 space-y-2 ">

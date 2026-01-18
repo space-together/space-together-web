@@ -5,10 +5,14 @@ interface RealtimeEvent {
   entity_id?: string;
   data: any;
   timestamp: string;
+  school_id?: string;
+  target_user_id?: string;
 }
 
 type EventCallback = (event: RealtimeEvent) => void;
 type EventUnsubscribe = () => void;
+
+type ConnectionContext = "school" | "global";
 
 class RealtimeClient {
   private eventSource: EventSource | null = null;
@@ -19,12 +23,13 @@ class RealtimeClient {
   private isBrowser: boolean;
   private isConnecting = false;
   private reconnectTimeout: NodeJS.Timeout | null = null;
+  private connectionContext: ConnectionContext = "global";
+  private authToken: string | null = null;
+  private schoolToken: string | null = null;
 
-  // Add connection state tracking
   private connectionState: "disconnected" | "connecting" | "connected" =
     "disconnected";
 
-  // Connection limiting
   private static MAX_CONCURRENT_CONNECTIONS = 3;
   private static activeConnections = 0;
 
@@ -32,12 +37,64 @@ class RealtimeClient {
     this.baseUrl = baseUrl;
     this.isBrowser = typeof window !== "undefined";
 
-    // Add beforeunload handler to clean up connections
     if (this.isBrowser) {
       window.addEventListener("beforeunload", () => {
         this.cleanup();
       });
     }
+  }
+
+  /**
+   * Set connection context (school or global)
+   */
+  setContext(
+    context: ConnectionContext,
+    authToken: string,
+    schoolToken?: string,
+  ) {
+    const contextChanged = this.connectionContext !== context;
+    const tokenChanged =
+      this.authToken !== authToken || this.schoolToken !== schoolToken;
+
+    this.connectionContext = context;
+    this.authToken = authToken;
+    this.schoolToken = schoolToken || null;
+
+    console.log(`🔧 Context set to: ${context}`, {
+      hasSchoolToken: !!schoolToken,
+      contextChanged,
+      tokenChanged,
+    });
+
+    // Reconnect if context or tokens changed
+    if ((contextChanged || tokenChanged) && this.isConnected()) {
+      console.log("🔄 Context/token changed, reconnecting...");
+      this.refresh();
+    }
+  }
+
+  /**
+   * Get the appropriate SSE endpoint based on context
+   */
+  private getEndpoint(): string {
+    if (this.connectionContext === "school") {
+      return `${this.baseUrl}/school/events/stream`;
+    }
+    return `${this.baseUrl}/events/stream`;
+  }
+
+  /**
+   * Get headers for EventSource connection
+   */
+  private getConnectionUrl(): string {
+    const endpoint = this.getEndpoint();
+
+    // For school context, we need to add tokens as query params or use withCredentials
+    // Note: EventSource doesn't support custom headers directly
+    // You may need to pass tokens via URL params if your backend supports it
+    // Or ensure cookies are properly set
+
+    return endpoint;
   }
 
   async connect(): Promise<void> {
@@ -46,21 +103,24 @@ class RealtimeClient {
     }
 
     if (this.isConnecting) {
-      console.log("🔄 useRealtime: Already connecting, skipping...");
+      console.log("🔄 Already connecting, skipping...");
       return;
     }
 
     if (this.connectionState === "connected") {
-      console.log("🔄 useRealtime: Already connected, skipping...");
+      console.log("🔄 Already connected, skipping...");
       return;
     }
 
-    // Check connection limits
     if (
       RealtimeClient.activeConnections >=
       RealtimeClient.MAX_CONCURRENT_CONNECTIONS
     ) {
       throw new Error("Too many concurrent real-time connections");
+    }
+
+    if (!this.authToken) {
+      throw new Error("Authentication token required for realtime connection");
     }
 
     this.isConnecting = true;
@@ -69,19 +129,22 @@ class RealtimeClient {
 
     return new Promise((resolve, reject) => {
       try {
-        // Clean up any existing connection first
         this.cleanup();
 
-        console.log("🔄 useRealtime: Creating new EventSource connection");
-        this.eventSource = new EventSource(`${this.baseUrl}/events/stream`);
+        const endpoint = this.getConnectionUrl();
+        console.log(`🔄 Creating EventSource connection to: ${endpoint}`);
+
+        // Create EventSource with credentials
+        this.eventSource = new EventSource(endpoint, {
+          withCredentials: true,
+        });
 
         const onOpen = () => {
-          console.log("✅ useRealtime: Connected to real-time event stream");
+          console.log(`✅ Connected to ${this.connectionContext} event stream`);
           this.connectionState = "connected";
           this.isConnecting = false;
           this.reconnectAttempts = 0;
 
-          // Remove event listeners to prevent memory leaks
           this.eventSource!.removeEventListener("open", onOpen);
           this.eventSource!.removeEventListener("error", onError);
 
@@ -89,7 +152,10 @@ class RealtimeClient {
         };
 
         const onError = (error: Event) => {
-          console.error("❌ useRealtime: EventSource connection error:", error);
+          console.error(
+            `❌ EventSource connection error (${this.connectionContext}):`,
+            error,
+          );
           this.isConnecting = false;
           this.connectionState = "disconnected";
           RealtimeClient.activeConnections = Math.max(
@@ -97,7 +163,6 @@ class RealtimeClient {
             RealtimeClient.activeConnections - 1,
           );
 
-          // Remove event listeners
           this.eventSource!.removeEventListener("open", onOpen);
           this.eventSource!.removeEventListener("error", onError);
 
@@ -117,10 +182,9 @@ class RealtimeClient {
           }
         };
 
-        // Set a connection timeout
         const timeoutId = setTimeout(() => {
           if (this.isConnecting) {
-            console.error("❌ useRealtime: Connection timeout");
+            console.error("❌ Connection timeout");
             this.isConnecting = false;
             this.connectionState = "disconnected";
             RealtimeClient.activeConnections = Math.max(
@@ -133,7 +197,6 @@ class RealtimeClient {
           }
         }, 10000);
 
-        // Cleanup timeout on success
         this.eventSource.addEventListener(
           "open",
           () => {
@@ -153,9 +216,6 @@ class RealtimeClient {
     });
   }
 
-  /**
-   * Improved subscribe method with connection pooling
-   */
   subscribe(entityType: string, callback: EventCallback): EventUnsubscribe {
     if (!this.callbacks.has(entityType)) {
       this.callbacks.set(entityType, []);
@@ -163,25 +223,22 @@ class RealtimeClient {
 
     const callbacks = this.callbacks.get(entityType)!;
 
-    // Check if callback already exists to prevent duplicates
     if (callbacks.includes(callback)) {
-      console.warn("🔄 useRealtime: Callback already subscribed, skipping...");
+      console.warn("🔄 Callback already subscribed, skipping...");
       return () => this.unsubscribe(entityType, callback);
     }
 
     callbacks.push(callback);
 
     console.log(
-      `✅ Subscribed to ${entityType}, total callbacks: ${callbacks.length}, total entities: ${this.callbacks.size}`,
+      `✅ Subscribed to ${entityType} (${this.connectionContext}), total callbacks: ${callbacks.length}`,
     );
 
-    // Auto-connect if not connected, but only if we have callbacks
     if (this.isBrowser && !this.eventSource && this.shouldConnect()) {
-      // Use setTimeout to avoid immediate connection during render
       setTimeout(() => {
         if (this.shouldConnect()) {
           this.connect().catch((error) => {
-            console.warn("🔄 useRealtime: Auto-connect failed:", error);
+            console.warn("🔄 Auto-connect failed:", error);
           });
         }
       }, 500);
@@ -203,17 +260,15 @@ class RealtimeClient {
       if (index > -1) {
         callbacks.splice(index, 1);
         console.log(
-          `🔄 useRealtime: Unsubscribed from ${entityType}, remaining callbacks: ${callbacks.length}`,
+          `🔄 Unsubscribed from ${entityType}, remaining callbacks: ${callbacks.length}`,
         );
 
-        // If no more callbacks for this entity type, remove the entry
         if (callbacks.length === 0) {
           this.callbacks.delete(entityType);
         }
       }
     }
 
-    // Disconnect if no more subscribers
     if (this.callbacks.size === 0) {
       setTimeout(() => {
         if (this.callbacks.size === 0) {
@@ -227,12 +282,11 @@ class RealtimeClient {
     const callbacks = this.callbacks.get(entityType);
     if (callbacks) {
       console.log(
-        `🔄 useRealtime: Unsubscribing all callbacks for ${entityType}, count: ${callbacks.length}`,
+        `🔄 Unsubscribing all callbacks for ${entityType}, count: ${callbacks.length}`,
       );
     }
     this.callbacks.delete(entityType);
 
-    // Disconnect if no more subscribers
     if (this.callbacks.size === 0) {
       setTimeout(() => {
         if (this.callbacks.size === 0) {
@@ -242,31 +296,26 @@ class RealtimeClient {
     }
   }
 
-  /**
-   * Determine if we should attempt connection - FIXED
-   */
   private shouldConnect(): boolean {
     const hasSubscribers = this.callbacks.size > 0;
     const notConnected = !this.isConnected() && !this.isConnecting;
-    const shouldConnect = hasSubscribers && notConnected;
+    const hasAuth = !!this.authToken;
+    const shouldConnect = hasSubscribers && notConnected && hasAuth;
 
     console.log(
-      `🔌 Connection check: subscribers=${hasSubscribers}, connected=${this.isConnected()}, connecting=${this.isConnecting} => shouldConnect=${shouldConnect}`,
+      `🔌 Connection check: subscribers=${hasSubscribers}, connected=${this.isConnected()}, connecting=${this.isConnecting}, hasAuth=${hasAuth} => shouldConnect=${shouldConnect}`,
     );
 
     return shouldConnect;
   }
 
-  /**
-   * Handle incoming events - ADDED BETTER LOGGING
-   */
   private handleEvent(event: RealtimeEvent) {
     console.log(
-      `📨 Incoming event: ${event.entity_type}::${event.event_type}`,
+      `📨 Incoming event (${this.connectionContext}): ${event.entity_type}::${event.event_type}`,
       {
         entity_id: event.entity_id,
-        data_type: typeof event.data,
-        has_data: !!event.data,
+        school_id: event.school_id,
+        target_user_id: event.target_user_id,
       },
     );
 
@@ -297,21 +346,18 @@ class RealtimeClient {
 
   private handleReconnection() {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.error(
-        "🔔 useRealtime: Max reconnection attempts reached, giving up",
-      );
+      console.error("🔔 Max reconnection attempts reached, giving up");
       this.reconnectAttempts = 0;
       return;
     }
 
     this.reconnectAttempts++;
-    const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
+    const delay = Math.min(1000 * 2 ** this.reconnectAttempts, 30000);
 
     console.log(
-      `🔄 useRealtime: Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`,
+      `🔄 Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`,
     );
 
-    // Clear any existing timeout
     if (this.reconnectTimeout) {
       clearTimeout(this.reconnectTimeout);
     }
@@ -319,19 +365,17 @@ class RealtimeClient {
     this.reconnectTimeout = setTimeout(() => {
       if (this.shouldConnect()) {
         this.connect().catch((error) => {
-          console.warn("🔄 useRealtime: Reconnection attempt failed:", error);
+          console.warn("🔄 Reconnection attempt failed:", error);
         });
       } else {
-        console.log(
-          "🔄 useRealtime: No need to reconnect, no active subscribers",
-        );
+        console.log("🔄 No need to reconnect, no active subscribers");
         this.reconnectAttempts = 0;
       }
     }, delay);
   }
 
   private cleanup() {
-    console.log("🔄 useRealtime: Cleaning up resources");
+    console.log("🔄 Cleaning up resources");
 
     if (this.reconnectTimeout) {
       clearTimeout(this.reconnectTimeout);
@@ -348,21 +392,16 @@ class RealtimeClient {
   }
 
   disconnect() {
-    console.log("🔄 useRealtime: Manual disconnect called");
+    console.log("🔄 Manual disconnect called");
     this.cleanup();
     this.reconnectAttempts = 0;
 
-    // Update connection count
     if (RealtimeClient.activeConnections > 0) {
       RealtimeClient.activeConnections--;
     }
   }
 
-  /**
-   * Check if connected (SSR-safe) - FIXED
-   */
   isConnected(): boolean {
-    // Always return false during SSR
     if (!this.isBrowser) {
       return false;
     }
@@ -378,6 +417,9 @@ class RealtimeClient {
       isConnected: this.isConnected(),
       isConnecting: this.isConnecting,
       connectionState: this.connectionState,
+      connectionContext: this.connectionContext,
+      hasAuth: !!this.authToken,
+      hasSchoolToken: !!this.schoolToken,
       reconnectAttempts: this.reconnectAttempts,
       activeSubscribers: this.callbacks.size,
       totalCallbacks: Array.from(this.callbacks.values()).reduce(
@@ -389,10 +431,9 @@ class RealtimeClient {
   }
 
   async refresh(): Promise<void> {
-    console.log("🔄 useRealtime: Refreshing connection");
+    console.log("🔄 Refreshing connection");
     this.disconnect();
 
-    // Small delay before reconnecting
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     if (this.shouldConnect()) {
@@ -402,6 +443,10 @@ class RealtimeClient {
 
   getSubscribedEntities(): string[] {
     return Array.from(this.callbacks.keys());
+  }
+
+  getContext(): ConnectionContext {
+    return this.connectionContext;
   }
 }
 

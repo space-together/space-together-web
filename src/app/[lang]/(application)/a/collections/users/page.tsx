@@ -48,6 +48,8 @@ const UserPageCollection = async (
       channels={[
         { name: "user", initialData: usersRequest?.data?.users ?? [] },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <div className="happy-page space-y-4">
         {statsRequest.data && (

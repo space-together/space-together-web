@@ -54,6 +54,8 @@ const UserAdminPage = async (
   return (
     <RealtimeProvider<UserModel>
       channels={[{ name: "user", initialData: [userRes.data] }]}
+      context="global"
+      authToken={auth.token}
     >
       <main>
         <UserInformation auth={auth} initialUser={userRes.data} />

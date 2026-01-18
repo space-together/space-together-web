@@ -35,6 +35,8 @@ const SchoolsPage = async (
           initialData: schoolsRes?.data?.data ?? [],
         },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <div>
         <AppPageHeader

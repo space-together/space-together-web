@@ -62,6 +62,8 @@ const MainClassUsernamePage = async (
         { name: "main_class", initialData: [request.data] },
         { name: "template_subject", initialData: subjectRes.data ?? [] },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <main className="flex flex-col gap-4 lg:flex-row">
         <MainClassInformationCard mainClass={request.data} auth={auth} />

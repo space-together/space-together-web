@@ -60,6 +60,9 @@ const SchoolStaffClassesPage = async (
           initialData: classes.data?.data ?? [],
         },
       ]}
+      context="school"
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="max-w-full space-y-4">
         <AppPageHeader

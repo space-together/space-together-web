@@ -35,6 +35,8 @@ const SectorsPage = async (
     <RealtimeProvider<SectorModel>
       channel="sector"
       initialData={request?.data?.data ?? []}
+      context="global"
+      authToken={auth.token}
     >
       <AppPageHeader
         total={request?.data?.total}

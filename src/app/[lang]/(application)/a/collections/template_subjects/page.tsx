@@ -40,6 +40,8 @@ async function TemplateSubjectsPage(
           initialData: templateRes?.data?.data ?? [],
         },
       ]}
+      context="global"
+      authToken={auth.token}
     >
       <div className=" flex flex-col gap-2">
         <AppPageHeader

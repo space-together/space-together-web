@@ -41,6 +41,9 @@ const AnnouncementsPage = async (
           initialData: announcements.data?.data ?? [],
         },
       ]}
+      context="school"
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div>
         <AppPageHeader title="Announcements" />

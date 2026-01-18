@@ -58,6 +58,9 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
             initialData: join_school_requestsRes.data ?? [],
           },
         ]}
+        context="school"
+        authToken={auth.token}
+        schoolToken={auth.schoolToken}
       >
         <div className="grid h-full min-h-screen w-full place-content-center space-y-4 py-2">
           <div className="flex flex-col items-center justify-center space-y-2">

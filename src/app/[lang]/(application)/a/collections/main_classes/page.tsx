@@ -37,6 +37,8 @@ const MainClassesPage = async (
     <RealtimeProvider<MainClassModelWithOthers>
       channel="main_class"
       initialData={request.data?.data ?? []}
+      context="global"
+      authToken={auth.token}
     >
       <AppPageHeader
         total={request?.data?.total}

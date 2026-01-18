@@ -53,6 +53,9 @@ const SchoolStaffTeacherPage = async (props: props) => {
           initialData: teachers?.data?.data ?? [],
         },
       ]}
+      context="school"
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="space-y-4">
         <AppPageHeader
