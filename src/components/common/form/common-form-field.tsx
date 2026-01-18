@@ -41,9 +41,8 @@ import UploadImage, { type updateImageProps } from "../cards/form/upload-image";
 import SelectWithSearch from "../select-with-search";
 import { UploadAvatar, type UploadAvatarProps } from "./avatar-upload";
 import CheckboxInput, { type CheckboxInputProps } from "./checkbox-input";
-import MessageInput, {
-  type MessageInputProps,
-} from "./message-input/message-input";
+import MessageInput from "./message-input/message-input";
+import type { MessageInputProps } from "./message-input/types";
 import type { OTPInputProps } from "./OTP-input";
 import OTPInput from "./OTP-input";
 import type { PhoneInputProps } from "./phone-input";
@@ -51,9 +50,9 @@ import PhoneInput from "./phone-input";
 import type { RadioInputProps } from "./radio-input";
 import RadioInput from "./radio-input";
 import type { SignToInputProps } from "./sign-to-input";
+import SignToInput from "./sign-to-input";
 import type { TimeInputProps } from "./time-input";
 import TimeInput from "./time-input";
-import SignToInput from "./sign-to-input";
 
 interface CommonFormFieldProps<T extends FieldValues> {
   control: Control<T>;
