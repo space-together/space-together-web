@@ -82,43 +82,98 @@ const CommentsDialog = ({
     fetchComments();
   }, [announcement]);
 
+  // In CommentsDialog component
+
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) return;
-    const res = await apiRequest<CommentBase, Comment>(
-      "post",
-      "/school/comments",
-      {
-        content: newComment,
-        author: {
-          id: auth.school?.member?._id || auth.user.id,
-          role: auth.school?.member?.user_type
-            ? auth.school.member.user_type === "USER"
-              ? "SCHOOLSTAFF"
-              : auth.school.member.user_type
-            : auth.user.role || "STUDENT",
+
+    try {
+      const res = await apiRequest<CommentBase, Comment>(
+        "post",
+        "/school/comments",
+        {
+          content: newComment,
+          author: {
+            id: auth.school?.member?._id ?? auth.user.id,
+            role:
+              auth.school?.member?.user_type === "USER"
+                ? "SCHOOLSTAFF"
+                : (auth.school?.member?.user_type ??
+                  auth.user.role ??
+                  "STUDENT"),
+          },
+          target_post_id: announcement?._id ?? "",
+          parent_comment_id: undefined,
         },
-        target_post_id: announcement?._id ?? "",
-        parent_comment_id: undefined,
-      },
-      {
-        token: auth.token,
-        schoolToken: auth.schoolToken,
-      },
-    );
-    if (res.data) {
-      showToast({
-        title: "Success",
-        description: "Comment posted successfully",
-        type: "success",
+        {
+          token: auth.token,
+          schoolToken: auth.schoolToken,
+        },
+      );
+
+      if (!res.data) {
+        return showToast({
+          title: "Error",
+          description: res.message,
+          type: "error",
+        });
+      }
+
+      const newCommentData: CommentWithRelations = {
+        ...res.data,
+        author_user: auth?.school?.member ?? undefined,
+      };
+
+      setCommentState((prev) => {
+        if (!prev.data) {
+          return {
+            ...prev,
+            data: {
+              data: [newCommentData],
+              total: 1,
+              total_pages: 1,
+              current_page: 1,
+            },
+          };
+        }
+
+        // Only prepend if user is on first page
+        if (prev.data.current_page !== 1) {
+          return {
+            ...prev,
+            data: {
+              ...prev.data,
+              total: prev.data.total + 1,
+            },
+          };
+        }
+
+        return {
+          ...prev,
+          data: {
+            ...prev.data,
+            data: [newCommentData, ...prev.data.data],
+            total: prev.data.total + 1,
+          },
+        };
       });
-    } else {
+
+      setTotalComments((prev) => ({
+        ...prev,
+        data: {
+          count: (prev.data?.count ?? 0) + 1,
+        },
+      }));
+
+      setNewComment("");
+    } catch (error) {
       showToast({
         title: "Error",
-        description: res.message,
+        description:
+          error instanceof Error ? error.message : "Failed to post comment",
         type: "error",
       });
     }
-    setNewComment("");
   };
 
   return (

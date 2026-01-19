@@ -49,7 +49,6 @@ const CommentCard = ({ comment, lang }: CommentCardProps) => {
             image={published?.image}
           />
           <div className=" flex items-center gap-1">
-            <span className="text-sm text-base-content/50">2 hrs ago</span>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
