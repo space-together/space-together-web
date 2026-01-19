@@ -231,12 +231,12 @@ const CommentsDialog = ({
         <div className="w-1/2 flex flex-col justify-between relative">
           <div>
             <DialogHeader>
-              <DialogTitle>{totalComments.data?.count} Comments</DialogTitle>
+               <DialogTitle>{totalComments.data?.count !== 0 ? totalComments.data?.count : null} Comments</DialogTitle>
             </DialogHeader>
             <div className="max-h-[63vh] overflow-y-scroll ">
               {commentState.isLoading || totalComments.isLoading ? (
                 <div className="flex flex-col gap-2">
-                  {[...Array(LIMIT)].map((_, index) => (
+                  {[...Array(6)].map((_, index) => (
                     <CommentCardSkeleton key={index} />
                   ))}
                 </div>
@@ -247,24 +247,16 @@ const CommentsDialog = ({
                     ...(commentState?.data?.data ?? []).filter(
                       (c) => !localComments.some((lc) => lc._id === c._id),
                     ),
-                  ].map((comment) => (
+                  ].map((comment, i) => (
                     <CommentCard
-                      key={comment._id}
+                      key={`${i}-${comment._id}`}
                       comment={comment}
                       lang={lang}
                     />
                   ))}
                 </div>
               )}
-
-              {isLoadingMore ? (
-                <div className="flex flex-col gap-2">
-                  {[...Array(LIMIT)].map((_, index) => (
-                    <CommentCardSkeleton key={index} />
-                  ))}
-                </div>
-              ) : (
-                totalComments?.data?.count &&
+              {totalComments?.data?.count &&
                 totalComments.data.count >
                   (commentState?.data?.data.length ?? 0) && (
                   <Button
@@ -273,13 +265,11 @@ const CommentsDialog = ({
                     onClick={handleLoadMore}
                     disabled={isLoadingMore}
                   >
-                    View others (
-                    {totalComments.data.count -
+                   {isLoadingMore ?"Loading..." : `View others (${totalComments.data.count -
                       (commentState.data?.data.length ?? 0)}
-                    )
+                    )`}
                   </Button>
-                )
-              )}
+                )}
 
               <div className="min-h-20" />
             </div>
