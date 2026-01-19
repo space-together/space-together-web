@@ -125,7 +125,7 @@ export function RealtimeProvider<T extends WithId>(
       hasAuthToken: !!authToken,
     });
 
-    realtimeClient.setContext(context, authToken, schoolToken);
+    realtimeClient.setContext(context, authToken, schoolToken || undefined);
   }, [context, authToken, schoolToken]);
 
   channels.forEach(({ name, enabled = true }) => {

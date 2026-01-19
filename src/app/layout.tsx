@@ -61,14 +61,6 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Space Together – School Management System",
-    description:
-      "Learn anywhere, communicate easily, and manage your school with modern tools.",
-    images: ["/og-image.png"],
-    creator: "@space_together", // optional
-  },
   category: "Education",
   formatDetection: {
     email: true,

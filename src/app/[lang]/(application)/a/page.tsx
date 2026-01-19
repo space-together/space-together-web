@@ -49,6 +49,8 @@ const AdminDashboardPage = async (props: PageProps<"/[lang]/a">) => {
       channels={[
         { name: "user", initialData: usersResponse?.data?.users ?? [] },
       ]}
+            context="global"
+      authToken={auth.token}
     >
       <div className="space-y-4">
         <AdminUserData auth={auth} />

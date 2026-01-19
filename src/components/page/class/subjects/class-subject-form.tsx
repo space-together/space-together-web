@@ -1,6 +1,7 @@
 "use client";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
+import { TopicsInput } from "@/components/common/form/topics-input";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
@@ -19,7 +20,7 @@ import apiRequest from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { TopicsInput } from "../../admin/subjects/topics-input";
+
 
 interface ClassSubjectFormProps {
   sub?: ClassSubject;

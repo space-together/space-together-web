@@ -41,6 +41,9 @@ const SchoolSubjectsPage = async (props: PageProps<"/[lang]/s-t/subjects">) => {
           initialData: subjectsRes.data?.data ?? [],
         },
       ]}
+      context="global"
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className=" flex  flex-col space-y-2">
         <AppPageHeader

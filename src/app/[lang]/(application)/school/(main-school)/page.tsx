@@ -91,6 +91,8 @@ const SchoolPage = async (props: props) => {
           initialData: school_staff_res.data?.data ?? [],
         },
       ]}
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="space-y-4">
         <SchoolHomeBody

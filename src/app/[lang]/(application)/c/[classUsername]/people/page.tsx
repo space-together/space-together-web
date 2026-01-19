@@ -70,6 +70,8 @@ const ClassIdPeoplePage = async (
           initialData: studentsRes.data ?? [],
         },
       ]}
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="flex flex-col w-full space-y-4">
         <div className=" flex flex-col gap-2 w-full mt-2">

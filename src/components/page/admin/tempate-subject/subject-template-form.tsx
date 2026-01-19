@@ -2,7 +2,7 @@
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
-import { TopicsInput } from "@/components/page/admin/subjects/topics-input";
+import { TopicsInput } from "@/components/common/form/topics-input";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
@@ -11,8 +11,8 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import { transformTopic } from "@/lib/helpers/subject-topic";
 import type { MainClassModel } from "@/lib/schema/admin/main-classes-schema";
 import {
-  type TemplateSubject,
   TemplateSubjectSchema,
+  type TemplateSubject,
 } from "@/lib/schema/subject/template-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";

@@ -1,4 +1,3 @@
-import { MainSubjectSchema } from "@/lib/schema/admin/subjects/main-subject-schema/main-subject-schema";
 import { ClassSchema } from "@/lib/schema/class/class-schema";
 import { SubjectCategorySchema } from "@/lib/schema/common-details-schema";
 import { TeacherSchema } from "@/lib/schema/school/teacher-schema";
@@ -64,7 +63,6 @@ export const SubjectWithRelationsSchema = z.object({
   ...SubjectSchema.shape,
   class: ClassSchema.optional().nullable(),
   class_teacher: TeacherSchema.optional().nullable(),
-  main_subject: MainSubjectSchema.optional().nullable(),
 });
 
 export type SubjectWithRelations = z.infer<typeof SubjectWithRelationsSchema>;

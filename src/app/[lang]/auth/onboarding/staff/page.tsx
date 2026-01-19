@@ -41,6 +41,8 @@ const StaffPage = async (props: Props) => {
   return (
     <RealtimeProvider<UserModel>
       channels={[{ name: "user", initialData: [userRes.data] }]}
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div>
         <AuthOnboardingStaffContent

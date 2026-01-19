@@ -49,6 +49,8 @@ const StudentPage = async (props: props) => {
             : [],
         },
       ]}
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="grid h-full min-h-screen w-full place-content-center space-y-4 px-4 py-2">
         <div className="flex space-x-4">

@@ -36,7 +36,8 @@ const ClassSettingPage = async (
     return <NotFoundPage message={`This ${classUsername} those not found`} />;
 
   return (
-    <RealtimeProvider<Class> channel="school" initialData={[clsRes.data]}>
+    <RealtimeProvider<Class> channel="school" initialData={[clsRes.data]} authToken={auth.token}
+      schoolToken={auth.schoolToken}>
       <div className=" w-full flex flex-col gap-4">
         <div>
           <h3 className=" h3">General Settings</h3>

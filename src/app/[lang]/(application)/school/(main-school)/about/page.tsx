@@ -71,6 +71,8 @@ const SchoolAboutPage = async (props: props) => {
           initialData: sectors_res.data ? sectors_res.data : [],
         },
       ]}
+      authToken={auth.token}
+      schoolToken={auth.schoolToken}
     >
       <div className="flex min-h-screen space-x-4 px-4">
         <div className="w-1/2 space-y-4">

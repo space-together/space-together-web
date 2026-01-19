@@ -17,13 +17,13 @@ interface Props {
 }
 
 const StudentFilter = ({ auth, students }: Props) => {
-  // 🔹 Use the custom hook to handle search, pagination, and data syncing
   const { loading, pagination, handleSearch, handlePageChange } =
     useFilterData<StudentWithRelations>({
       auth,
       initialData: students,
       endpoint: "/school/students/others",
       realtimeKey: "student",
+
     });
 
   return (
