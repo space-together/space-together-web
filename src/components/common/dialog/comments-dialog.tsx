@@ -43,6 +43,11 @@ const CommentsDialog = ({
 }: CommentsDialogProps) => {
   const [newComment, setNewComment] = useState("");
   const { showToast } = useToast();
+  const [page, setPage] = useState(1);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [localComments, setLocalComments] = useState<CommentWithRelations[]>(
+    [],
+  );
 
   const [commentState, setCommentState] = useState<
     APIResponse<Paginated<CommentWithRelations>>
@@ -57,19 +62,22 @@ const CommentsDialog = ({
   });
 
   useEffect(() => {
+    if (!announcement?._id) return;
+
     const fetchComments = async () => {
       setCommentState((prev) => ({ ...prev, isLoading: true }));
+      setPage(1);
 
       const [comments, total] = await Promise.all([
         apiRequest<void, Paginated<CommentWithRelations>>(
           "get",
-          `/school/comments/others?field=target_post_id&value=${announcement?._id}&limit=${LIMIT}`,
+          `/school/comments/others?field=target_post_id&value=${announcement._id}&limit=${LIMIT}&page=1`,
           undefined,
           { token: auth.token, schoolToken: auth.schoolToken },
         ),
         apiRequest<void, CountDoc>(
           "get",
-          `/school/comments/count?field=target_post_id&value=${announcement?._id}`,
+          `/school/comments/count?field=target_post_id&value=${announcement._id}`,
           undefined,
           { token: auth.token, schoolToken: auth.schoolToken },
         ),
@@ -80,9 +88,45 @@ const CommentsDialog = ({
     };
 
     fetchComments();
-  }, [announcement]);
+  }, [announcement?._id]);
 
-  // In CommentsDialog component
+  const handleLoadMore = async () => {
+    if (!commentState.data) return;
+    if (isLoadingMore) return;
+
+    const nextPage = page + 1;
+
+    if (nextPage > commentState.data.total_pages) return;
+
+    setIsLoadingMore(true);
+
+    const res = await apiRequest<void, Paginated<CommentWithRelations>>(
+      "get",
+      `/school/comments/others?field=target_post_id&value=${announcement?._id}&limit=${LIMIT}&page=${nextPage}`,
+      undefined,
+      { token: auth.token, schoolToken: auth.schoolToken },
+    );
+
+    if (res.data) {
+      const newData = res.data;
+      setCommentState((prev) => {
+        if (!prev.data) return prev;
+
+        return {
+          ...prev,
+          data: {
+            ...prev.data,
+            current_page: newData.current_page,
+            data: [...prev.data.data, ...newData.data], // 👈 APPEND
+          },
+        };
+      });
+
+      setPage(nextPage);
+    }
+
+    setIsLoadingMore(false);
+  };
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) return;
@@ -112,63 +156,33 @@ const CommentsDialog = ({
       );
 
       if (!res.data) {
-        return showToast({
+        showToast({
           title: "Error",
           description: res.message,
           type: "error",
         });
+        return;
       }
 
       const newCommentData: CommentWithRelations = {
         ...res.data,
-        author_user: auth?.school?.member ?? undefined,
+        author_user: auth.school?.member,
       };
 
-      setCommentState((prev) => {
-        if (!prev.data) {
-          return {
-            ...prev,
-            data: {
-              data: [newCommentData],
-              total: 1,
-              total_pages: 1,
-              current_page: 1,
-            },
-          };
-        }
-
-        // Only prepend if user is on first page
-        if (prev.data.current_page !== 1) {
-          return {
-            ...prev,
-            data: {
-              ...prev.data,
-              total: prev.data.total + 1,
-            },
-          };
-        }
-
-        return {
-          ...prev,
-          data: {
-            ...prev.data,
-            data: [newCommentData, ...prev.data.data],
-            total: prev.data.total + 1,
-          },
-        };
-      });
+      setLocalComments((prev) => [
+        newCommentData,
+        ...prev.filter((c) => c._id !== newCommentData._id),
+      ]);
 
       setTotalComments((prev) => ({
         ...prev,
-        data: {
-          count: (prev.data?.count ?? 0) + 1,
-        },
+        data: { count: (prev.data?.count ?? 0) + 1 },
       }));
 
       setNewComment("");
     } catch (error) {
       showToast({
-        title: "Error",
+        title: "Failed to post comment",
         description:
           error instanceof Error ? error.message : "Failed to post comment",
         type: "error",
@@ -189,7 +203,7 @@ const CommentsDialog = ({
                 size={"sm"}
               >
                 {totalComments.isLoading ? (
-                  <Skeleton className=" h-6 w-10" />
+                  <Skeleton className=" h-6 w-12" />
                 ) : (
                   <span>{totalComments.data?.count} comments</span>
                 )}
@@ -217,18 +231,23 @@ const CommentsDialog = ({
         <div className="w-1/2 flex flex-col justify-between relative">
           <div>
             <DialogHeader>
-              <DialogTitle>12 Comments</DialogTitle>
+              <DialogTitle>{totalComments.data?.count} Comments</DialogTitle>
             </DialogHeader>
             <div className="max-h-[63vh] overflow-y-scroll ">
-              {commentState.isLoading ? (
+              {commentState.isLoading || totalComments.isLoading ? (
                 <div className="flex flex-col gap-2">
-                  {[...Array(3)].map((_, index) => (
+                  {[...Array(LIMIT)].map((_, index) => (
                     <CommentCardSkeleton key={index} />
                   ))}
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
-                  {commentState?.data?.data.map((comment) => (
+                  {[
+                    ...localComments,
+                    ...(commentState?.data?.data ?? []).filter(
+                      (c) => !localComments.some((lc) => lc._id === c._id),
+                    ),
+                  ].map((comment) => (
                     <CommentCard
                       key={comment._id}
                       comment={comment}
@@ -237,6 +256,31 @@ const CommentsDialog = ({
                   ))}
                 </div>
               )}
+
+              {isLoadingMore ? (
+                <div className="flex flex-col gap-2">
+                  {[...Array(LIMIT)].map((_, index) => (
+                    <CommentCardSkeleton key={index} />
+                  ))}
+                </div>
+              ) : (
+                totalComments?.data?.count &&
+                totalComments.data.count >
+                  (commentState?.data?.data.length ?? 0) && (
+                  <Button
+                    size="sm"
+                    className="w-full"
+                    onClick={handleLoadMore}
+                    disabled={isLoadingMore}
+                  >
+                    View others (
+                    {totalComments.data.count -
+                      (commentState.data?.data.length ?? 0)}
+                    )
+                  </Button>
+                )
+              )}
+
               <div className="min-h-20" />
             </div>
           </div>
