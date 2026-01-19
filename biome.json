@@ -39,7 +39,8 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noAssignInExpressions": "off",
-        "useIterableCallbackReturn": "info"
+        "useIterableCallbackReturn": "info",
+        "noAsyncPromiseExecutor": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"

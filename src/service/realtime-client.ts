@@ -1,4 +1,4 @@
-// realtime-client.ts
+// realtime-client-fetch.ts
 interface RealtimeEvent {
   event_type: string;
   entity_type: string;
@@ -11,11 +11,10 @@ interface RealtimeEvent {
 
 type EventCallback = (event: RealtimeEvent) => void;
 type EventUnsubscribe = () => void;
-
 type ConnectionContext = "school" | "global";
 
 class RealtimeClient {
-  private eventSource: EventSource | null = null;
+  private abortController: AbortController | null = null;
   private callbacks: Map<string, EventCallback[]> = new Map();
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 3;
@@ -44,9 +43,6 @@ class RealtimeClient {
     }
   }
 
-  /**
-   * Set connection context (school or global)
-   */
   setContext(
     context: ConnectionContext,
     authToken: string,
@@ -66,16 +62,12 @@ class RealtimeClient {
       tokenChanged,
     });
 
-    // Reconnect if context or tokens changed
     if ((contextChanged || tokenChanged) && this.isConnected()) {
       console.log("🔄 Context/token changed, reconnecting...");
       this.refresh();
     }
   }
 
-  /**
-   * Get the appropriate SSE endpoint based on context
-   */
   private getEndpoint(): string {
     if (this.connectionContext === "school") {
       return `${this.baseUrl}/school/events/stream`;
@@ -83,23 +75,9 @@ class RealtimeClient {
     return `${this.baseUrl}/events/stream`;
   }
 
-  /**
-   * Get headers for EventSource connection
-   */
-  private getConnectionUrl(): string {
-    const endpoint = this.getEndpoint();
-
-    // For school context, we need to add tokens as query params or use withCredentials
-    // Note: EventSource doesn't support custom headers directly
-    // You may need to pass tokens via URL params if your backend supports it
-    // Or ensure cookies are properly set
-
-    return endpoint;
-  }
-
   async connect(): Promise<void> {
     if (!this.isBrowser) {
-      throw new Error("EventSource not available in SSR");
+      throw new Error("Fetch API not available in SSR");
     }
 
     if (this.isConnecting) {
@@ -123,87 +101,97 @@ class RealtimeClient {
       throw new Error("Authentication token required for realtime connection");
     }
 
+    if (this.connectionContext === "school" && !this.schoolToken) {
+      throw new Error("School token required for school context");
+    }
+
     this.isConnecting = true;
     this.connectionState = "connecting";
     RealtimeClient.activeConnections++;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
         this.cleanup();
 
-        const endpoint = this.getConnectionUrl();
-        console.log(`🔄 Creating EventSource connection to: ${endpoint}`);
+        const endpoint = this.getEndpoint();
+        console.log(`🔄 Creating Fetch SSE connection to: ${endpoint}`);
 
-        // Create EventSource with credentials
-        this.eventSource = new EventSource(endpoint, {
-          withCredentials: true,
+        this.abortController = new AbortController();
+
+        // Build headers just like your axios config
+        const headers: HeadersInit = {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          Accept: "text/event-stream",
+        };
+
+        // Add Authorization header
+        if (this.authToken) {
+          headers["Authorization"] = `Bearer ${this.authToken}`;
+        }
+
+        // Add School-Token header for school context
+        if (this.connectionContext === "school" && this.schoolToken) {
+          headers["School-Token"] = this.schoolToken;
+        }
+
+        console.log("📤 Sending SSE request with headers:", {
+          hasAuth: !!headers["Authorization"],
+          hasSchoolToken: !!headers["School-Token"],
         });
 
-        const onOpen = () => {
-          console.log(`✅ Connected to ${this.connectionContext} event stream`);
-          this.connectionState = "connected";
-          this.isConnecting = false;
-          this.reconnectAttempts = 0;
+        const response = await fetch(endpoint, {
+          method: "GET",
+          headers,
+          signal: this.abortController.signal,
+          credentials: "include", // Send cookies
+        });
 
-          this.eventSource!.removeEventListener("open", onOpen);
-          this.eventSource!.removeEventListener("error", onError);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
 
-          resolve();
-        };
+        if (!response.body) {
+          throw new Error("Response body is null");
+        }
 
-        const onError = (error: Event) => {
-          console.error(
-            `❌ EventSource connection error (${this.connectionContext}):`,
-            error,
-          );
-          this.isConnecting = false;
-          this.connectionState = "disconnected";
-          RealtimeClient.activeConnections = Math.max(
-            0,
-            RealtimeClient.activeConnections - 1,
-          );
+        console.log(`✅ Connected to ${this.connectionContext} event stream`);
+        this.connectionState = "connected";
+        this.isConnecting = false;
+        this.reconnectAttempts = 0;
+        resolve();
 
-          this.eventSource!.removeEventListener("open", onOpen);
-          this.eventSource!.removeEventListener("error", onError);
+        // Process SSE stream
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
 
-          this.handleReconnection();
-          reject(error);
-        };
+        while (true) {
+          const { done, value } = await reader.read();
 
-        this.eventSource.addEventListener("open", onOpen);
-        this.eventSource.addEventListener("error", onError);
-
-        this.eventSource.onmessage = (event) => {
-          try {
-            const data: RealtimeEvent = JSON.parse(event.data);
-            this.handleEvent(data);
-          } catch (error) {
-            console.error("Error parsing real-time event:", error);
-          }
-        };
-
-        const timeoutId = setTimeout(() => {
-          if (this.isConnecting) {
-            console.error("❌ Connection timeout");
-            this.isConnecting = false;
+          if (done) {
+            console.log("🔌 SSE stream ended");
             this.connectionState = "disconnected";
-            RealtimeClient.activeConnections = Math.max(
-              0,
-              RealtimeClient.activeConnections - 1,
-            );
-
-            this.cleanup();
-            reject(new Error("Connection timeout"));
+            this.handleReconnection();
+            break;
           }
-        }, 10000);
 
-        this.eventSource.addEventListener(
-          "open",
-          () => {
-            clearTimeout(timeoutId);
-          },
-          { once: true },
-        );
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6);
+              try {
+                const event: RealtimeEvent = JSON.parse(data);
+                this.handleEvent(event);
+              } catch (error) {
+                console.error("Error parsing SSE data:", error, data);
+              }
+            }
+          }
+        }
       } catch (error) {
         this.isConnecting = false;
         this.connectionState = "disconnected";
@@ -211,7 +199,14 @@ class RealtimeClient {
           0,
           RealtimeClient.activeConnections - 1,
         );
-        reject(error);
+
+        if (error instanceof Error && error.name === "AbortError") {
+          console.log("🔄 Connection aborted");
+        } else {
+          console.error("❌ SSE connection error:", error);
+          this.handleReconnection();
+          reject(error);
+        }
       }
     });
   }
@@ -234,7 +229,7 @@ class RealtimeClient {
       `✅ Subscribed to ${entityType} (${this.connectionContext}), total callbacks: ${callbacks.length}`,
     );
 
-    if (this.isBrowser && !this.eventSource && this.shouldConnect()) {
+    if (this.isBrowser && !this.abortController && this.shouldConnect()) {
       setTimeout(() => {
         if (this.shouldConnect()) {
           this.connect().catch((error) => {
@@ -300,11 +295,10 @@ class RealtimeClient {
     const hasSubscribers = this.callbacks.size > 0;
     const notConnected = !this.isConnected() && !this.isConnecting;
     const hasAuth = !!this.authToken;
-    const shouldConnect = hasSubscribers && notConnected && hasAuth;
-
-    console.log(
-      `🔌 Connection check: subscribers=${hasSubscribers}, connected=${this.isConnected()}, connecting=${this.isConnecting}, hasAuth=${hasAuth} => shouldConnect=${shouldConnect}`,
-    );
+    const hasRequiredTokens =
+      this.connectionContext === "school" ? !!this.schoolToken : true;
+    const shouldConnect =
+      hasSubscribers && notConnected && hasAuth && hasRequiredTokens;
 
     return shouldConnect;
   }
@@ -319,7 +313,6 @@ class RealtimeClient {
       },
     );
 
-    // Call all global callbacks
     const globalCallbacks = this.callbacks.get("*") || [];
     globalCallbacks.forEach((callback) => {
       try {
@@ -329,12 +322,7 @@ class RealtimeClient {
       }
     });
 
-    // Call entity-specific callbacks
     const entityCallbacks = this.callbacks.get(event.entity_type) || [];
-    console.log(
-      `📢 Delivering to ${globalCallbacks.length} global and ${entityCallbacks.length} entity callbacks`,
-    );
-
     entityCallbacks.forEach((callback) => {
       try {
         callback(event);
@@ -382,9 +370,9 @@ class RealtimeClient {
       this.reconnectTimeout = null;
     }
 
-    if (this.eventSource) {
-      this.eventSource.close();
-      this.eventSource = null;
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
     }
 
     this.isConnecting = false;
@@ -406,10 +394,7 @@ class RealtimeClient {
       return false;
     }
 
-    const isOpen = this.eventSource?.readyState === EventSource.OPEN;
-    const isConnected = this.connectionState === "connected" && isOpen;
-
-    return isConnected;
+    return this.connectionState === "connected";
   }
 
   getConnectionStatus() {
@@ -450,10 +435,8 @@ class RealtimeClient {
   }
 }
 
-// Create a singleton instance
 export const realtimeClient = new RealtimeClient();
 
-// Export for debugging
 if (typeof window !== "undefined") {
   (window as any).realtimeClient = realtimeClient;
 }
