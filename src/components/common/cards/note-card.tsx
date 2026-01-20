@@ -66,7 +66,6 @@ const NoteCard = ({ note, auth, isCommentOpen, lang }: NoteCardProps) => {
                   className="  justify-start"
                   auth={auth}
                 />
-                <DeleteAnnouncementDialog />
               </div>
             </PopoverContent>
           </Popover>

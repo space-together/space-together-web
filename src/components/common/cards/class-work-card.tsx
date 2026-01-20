@@ -66,7 +66,6 @@ const ClassWorkCard = ({
                   auth={auth}
                   lang={lang}
                 />
-                <DeleteAnnouncementDialog />
               </div>
             </PopoverContent>
           </Popover>
