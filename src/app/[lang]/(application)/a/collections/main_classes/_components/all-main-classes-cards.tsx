@@ -12,7 +12,11 @@ interface props {
   realtimeEnabled?: boolean;
 }
 
-const AllMainClassesCards = ({ lang, classes, realtimeEnabled = true }: props) => {
+const AllMainClassesCards = ({
+  lang,
+  classes,
+  realtimeEnabled = true,
+}: props) => {
   const displayMainClasses = useRealtimeList<MainClassModelWithOthers>(
     "main_class",
     classes,
