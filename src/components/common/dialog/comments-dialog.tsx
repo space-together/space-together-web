@@ -17,7 +17,7 @@ import type {
   CommentBase,
   CommentWithRelations,
 } from "@/lib/schema/comment/comment";
-import type { CountDoc, Paginated } from "@/lib/schema/common-schema";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest, { type APIResponse } from "@/service/api-client";
 import { useEffect, useState } from "react";
@@ -56,11 +56,6 @@ const CommentsDialog = ({
     data: undefined,
   });
 
-  const [totalComments, setTotalComments] = useState<APIResponse<CountDoc>>({
-    isLoading: false,
-    data: undefined,
-  });
-
   useEffect(() => {
     if (!announcement?._id) return;
 
@@ -68,23 +63,16 @@ const CommentsDialog = ({
       setCommentState((prev) => ({ ...prev, isLoading: true }));
       setPage(1);
 
-      const [comments, total] = await Promise.all([
+      const [comments] = await Promise.all([
         apiRequest<void, Paginated<CommentWithRelations>>(
           "get",
           `/school/comments/others?field=target_post_id&value=${announcement._id}&limit=${LIMIT}&page=1`,
           undefined,
           { token: auth.token, schoolToken: auth.schoolToken },
         ),
-        apiRequest<void, CountDoc>(
-          "get",
-          `/school/comments/count?field=target_post_id&value=${announcement._id}`,
-          undefined,
-          { token: auth.token, schoolToken: auth.schoolToken },
-        ),
       ]);
 
       setCommentState(comments);
-      setTotalComments(total);
     };
 
     fetchComments();
@@ -117,7 +105,7 @@ const CommentsDialog = ({
           data: {
             ...prev.data,
             current_page: newData.current_page,
-            data: [...prev.data.data, ...newData.data], // 👈 APPEND
+            data: [...prev.data.data, ...newData.data],
           },
         };
       });
@@ -174,10 +162,17 @@ const CommentsDialog = ({
         ...prev.filter((c) => c._id !== newCommentData._id),
       ]);
 
-      setTotalComments((prev) => ({
-        ...prev,
-        data: { count: (prev.data?.count ?? 0) + 1 },
-      }));
+      setCommentState((prev) => {
+        if (!prev.data) return prev;
+
+        return {
+          ...prev,
+          data: {
+            ...prev.data,
+            total: prev.data.total + 1,
+          },
+        };
+      });
 
       setNewComment("");
     } catch (error) {
@@ -194,26 +189,25 @@ const CommentsDialog = ({
     <Dialog>
       <DialogTrigger asChild>
         <div>
-          {dialogTriggerType === "button" &&
-            totalComments.data?.count !== 0 && (
-              <Button
-                variant={"ghost"}
-                type="button"
-                className=" w-fit"
-                size={"sm"}
-              >
-                {totalComments.isLoading ? (
-                  <Skeleton className=" h-6 w-12" />
-                ) : (
-                  <span>{totalComments.data?.count} comments</span>
-                )}
-              </Button>
-            )}
+          {dialogTriggerType === "button" && commentState.data?.total !== 0 && (
+            <Button
+              variant={"ghost"}
+              type="button"
+              className=" w-fit"
+              size={"sm"}
+            >
+              {commentState.isLoading ? (
+                <Skeleton className=" h-6 w-16" />
+              ) : (
+                <span>{commentState.data?.total} comments</span>
+              )}
+            </Button>
+          )}
           {dialogTriggerType === "icon" && (
             <Button title="comments" library="daisy" variant="ghost" size="md">
               <MdOutlineInsertComment size={22} />
               <span className=" sr-only">
-                {totalComments.data?.count} comments
+                {commentState.data?.total} comments
               </span>
             </Button>
           )}
@@ -231,10 +225,15 @@ const CommentsDialog = ({
         <div className="w-1/2 flex flex-col justify-between relative">
           <div>
             <DialogHeader>
-               <DialogTitle>{totalComments.data?.count !== 0 ? totalComments.data?.count : null} Comments</DialogTitle>
+              <DialogTitle>
+                {commentState.data?.total !== 0
+                  ? commentState.data?.total
+                  : null}{" "}
+                Comments
+              </DialogTitle>
             </DialogHeader>
             <div className="max-h-[63vh] overflow-y-scroll ">
-              {commentState.isLoading || totalComments.isLoading ? (
+              {commentState.isLoading || commentState.isLoading ? (
                 <div className="flex flex-col gap-2">
                   {[...Array(6)].map((_, index) => (
                     <CommentCardSkeleton key={index} />
@@ -256,8 +255,8 @@ const CommentsDialog = ({
                   ))}
                 </div>
               )}
-              {totalComments?.data?.count &&
-                totalComments.data.count >
+              {commentState?.data?.total &&
+                commentState.data.total >
                   (commentState?.data?.data.length ?? 0) && (
                   <Button
                     size="sm"
@@ -265,8 +264,12 @@ const CommentsDialog = ({
                     onClick={handleLoadMore}
                     disabled={isLoadingMore}
                   >
-                   {isLoadingMore ?"Loading..." : `View others (${totalComments.data.count -
-                      (commentState.data?.data.length ?? 0)}
+                    {isLoadingMore
+                      ? "Loading..."
+                      : `View others (${
+                          commentState.data.total -
+                          (commentState.data?.data.length ?? 0)
+                        }
                     )`}
                   </Button>
                 )}
