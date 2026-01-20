@@ -1,8 +1,10 @@
 "use client";
 import {
+  AnnouncementBase,
   AnnouncementBaseSchema,
-  type Announcement,
-  type AnnouncementBase,
+
+  AnnouncementWithRelations,
+  type Announcement
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
@@ -10,6 +12,7 @@ import { Form } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { ActorRef, Paginated } from "@/lib/schema/common-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import type { Student } from "@/lib/schema/student/student-schema";
@@ -29,6 +32,9 @@ interface Props {
 const AnnouncementForm = ({ auth, announcement }: Props) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
+
+  // ✅ Get realtime context to manually add items
+  const { addItem, updateItem } = useRealtimeData<AnnouncementWithRelations>("announcement");
 
   // Memoized fetch function to prevent unnecessary re-renders
   const fetchStudents = useCallback(
@@ -105,8 +111,15 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
     },
     onSuccessMessage: announcement ? "Updated!" : "Created!",
     toastOnError: true,
-    onSuccess: () => {
-      if (!announcement) form.reset();
+    onSuccess: (data) => {
+      // ✅ Immediately add/update in realtime list WITHOUT waiting for SSE
+      if (announcement) {
+        // Update existing announcement
+        updateItem(data as AnnouncementWithRelations);
+      } else {
+        addItem(data as AnnouncementWithRelations);
+        form.reset();
+      }
     },
   });
 

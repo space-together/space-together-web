@@ -1,3 +1,4 @@
+import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,14 +10,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { AuthContext } from "@/lib/utils/auth-context";
 
 interface DeleteAnnouncementDialogProps {
-  announcement?: any;
+  announcement: Announcement;
+  auth: AuthContext;
 }
 
 const DeleteAnnouncementDialog = ({
   announcement,
+  auth,
 }: DeleteAnnouncementDialogProps) => {
+  const handleDelete = async () => {};
   return (
     <Dialog>
       <DialogTrigger>

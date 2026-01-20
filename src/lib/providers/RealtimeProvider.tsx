@@ -25,22 +25,51 @@ function realtimeReducer<T extends WithId>(
   switch (action.type) {
     case "set":
       return { ...state, [action.channel]: action.payload };
+
     case "add": {
       const newItem = action.payload;
       const id = newItem._id || newItem.id;
       if (current.some((i) => (i._id || i.id) === id)) return state;
-      return { ...state, [action.channel]: [...current, newItem] };
+
+      const updated = [...current, newItem].sort((a, b) => {
+        const dateA =
+          "updated_at" in a && a.updated_at
+            ? new Date(a.updated_at as Date | string).getTime()
+            : 0;
+        const dateB =
+          "updated_at" in b && b.updated_at
+            ? new Date(b.updated_at as Date | string).getTime()
+            : 0;
+        return dateB - dateA; // Newest first (descending)
+      });
+
+      return { ...state, [action.channel]: updated };
     }
+
     case "update": {
       const item = action.payload;
       const id = item._id || item.id;
+
+      const updated = current
+        .map((i) => ((i._id || i.id) === id ? item : i))
+        .sort((a, b) => {
+          const dateA =
+            "updated_at" in a && a.updated_at
+              ? new Date(a.updated_at as Date | string).getTime()
+              : 0;
+          const dateB =
+            "updated_at" in b && b.updated_at
+              ? new Date(b.updated_at as Date | string).getTime()
+              : 0;
+          return dateB - dateA;
+        });
+
       return {
         ...state,
-        [action.channel]: current.map((i) =>
-          (i._id || i.id) === id ? item : i,
-        ),
+        [action.channel]: updated,
       };
     }
+
     case "delete": {
       const id = action.payload;
       return {

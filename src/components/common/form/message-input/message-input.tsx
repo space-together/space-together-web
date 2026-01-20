@@ -182,10 +182,12 @@ export default function MessageInput({
     // 1. Handle Enter Key
     if (e.key === "Enter") {
       // SCENARIO A: Ctrl + Enter ALWAYS sends, regardless of being in a list
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        handleSend();
-        return;
+      if (onSend) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          handleSend();
+          return;
+        }
       }
 
       // SCENARIO B: Normal Enter (No Shift, No Ctrl)

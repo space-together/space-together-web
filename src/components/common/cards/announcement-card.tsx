@@ -101,7 +101,12 @@ const AnnouncementCard = ({
                   name="Edit"
                   className="  justify-start"
                 />
-                <DeleteAnnouncementDialog />
+                {announcement && (
+                  <DeleteAnnouncementDialog
+                    announcement={announcement}
+                    auth={auth}
+                  />
+                )}
               </div>
             </PopoverContent>
           </Popover>

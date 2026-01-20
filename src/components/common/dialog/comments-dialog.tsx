@@ -185,6 +185,11 @@ const CommentsDialog = ({
     }
   };
 
+  const visibleCount =
+    localComments.length + (commentState.data?.data.length ?? 0);
+
+  const remainingCount = (commentState.data?.total ?? 0) - visibleCount;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -255,24 +260,18 @@ const CommentsDialog = ({
                   ))}
                 </div>
               )}
-              {commentState?.data?.total &&
-                commentState.data.total >
-                  (commentState?.data?.data.length ?? 0) && (
-                  <Button
-                    size="sm"
-                    className="w-full"
-                    onClick={handleLoadMore}
-                    disabled={isLoadingMore}
-                  >
-                    {isLoadingMore
-                      ? "Loading..."
-                      : `View others (${
-                          commentState.data.total -
-                          (commentState.data?.data.length ?? 0)
-                        }
-                    )`}
-                  </Button>
-                )}
+              {remainingCount > 0 && (
+                <Button
+                  size="sm"
+                  className="w-full"
+                  onClick={handleLoadMore}
+                  disabled={isLoadingMore}
+                >
+                  {isLoadingMore
+                    ? "Loading..."
+                    : `View others (${remainingCount})`}
+                </Button>
+              )}
 
               <div className="min-h-20" />
             </div>
