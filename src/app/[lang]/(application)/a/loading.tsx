@@ -1,6 +1,4 @@
-import React from "react";
-
-const page = () => {
+const Page = () => {
   return (
     <div className=" w-full pr-2 mt-2">
       <div className=" justify-between flex w-full">
@@ -57,7 +55,7 @@ const page = () => {
       </div>
       {/* request */}
       <div className=" mt-4 flex gap-4">
-        <div className=" w-2/3 skeleton h-[28rem] happy-card" />
+        <div className=" w-2/3 skeleton h-112 happy-card" />
         <div className=" w-1/3 h-full space-y-4">
           {[...Array(2)].map((_, i) => (
             <div className="  w-full skeleton h-52 happy-card" key={i} />
@@ -68,4 +66,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
