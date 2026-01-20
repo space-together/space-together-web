@@ -5,7 +5,10 @@ import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
-import { Class, ClassClassTeacherSettingsSchema } from "@/lib/schema/class/class-schema";
+import {
+  Class,
+  ClassClassTeacherSettingsSchema,
+} from "@/lib/schema/class/class-schema";
 import { AuthContext } from "@/lib/utils/auth-context";
 import type { z } from "zod";
 
@@ -17,10 +20,13 @@ type ClassClassTeacherPermissions = z.infer<
 
 interface ClassClassTeacherPermissionFormProps {
   cls: Class;
-  auth: AuthContext
+  auth: AuthContext;
 }
 
-const ClassClassTeacherPermissionForm = ({ cls, auth }: ClassClassTeacherPermissionFormProps) => {
+const ClassClassTeacherPermissionForm = ({
+  cls,
+  auth,
+}: ClassClassTeacherPermissionFormProps) => {
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
     ClassClassTeacherPermissions,
     Class
@@ -28,15 +34,33 @@ const ClassClassTeacherPermissionForm = ({ cls, auth }: ClassClassTeacherPermiss
     schema: ClassClassTeacherPermissionsSchema,
     formOptions: {
       defaultValues: {
-        can_edit_class_info: cls.settings?.class_teacher?.allowed_actions?.can_edit_class_info ?? false,
-        can_add_students: cls.settings?.class_teacher?.allowed_actions?.can_add_students ?? false,
-        can_remove_students: cls.settings?.class_teacher?.allowed_actions?.can_remove_students ?? false,
-        can_manage_subjects: cls.settings?.class_teacher?.allowed_actions?.can_manage_subjects ?? false,
-        can_manage_timetable: cls.settings?.class_teacher?.allowed_actions?.can_manage_timetable ?? false,
-        can_assign_roles: cls.settings?.class_teacher?.allowed_actions?.can_assign_roles ?? false,
-        can_send_parent_notifications: cls.settings?.class_teacher?.allowed_actions?.can_send_parent_notifications ?? false,
-        can_add_teachers: cls.settings?.class_teacher?.allowed_actions?.can_add_teachers ?? false,
-        can_approve_requests: cls.settings?.class_teacher?.allowed_actions?.can_approve_requests ?? false,
+        can_edit_class_info:
+          cls.settings?.class_teacher?.allowed_actions?.can_edit_class_info ??
+          false,
+        can_add_students:
+          cls.settings?.class_teacher?.allowed_actions?.can_add_students ??
+          false,
+        can_remove_students:
+          cls.settings?.class_teacher?.allowed_actions?.can_remove_students ??
+          false,
+        can_manage_subjects:
+          cls.settings?.class_teacher?.allowed_actions?.can_manage_subjects ??
+          false,
+        can_manage_timetable:
+          cls.settings?.class_teacher?.allowed_actions?.can_manage_timetable ??
+          false,
+        can_assign_roles:
+          cls.settings?.class_teacher?.allowed_actions?.can_assign_roles ??
+          false,
+        can_send_parent_notifications:
+          cls.settings?.class_teacher?.allowed_actions
+            ?.can_send_parent_notifications ?? false,
+        can_add_teachers:
+          cls.settings?.class_teacher?.allowed_actions?.can_add_teachers ??
+          false,
+        can_approve_requests:
+          cls.settings?.class_teacher?.allowed_actions?.can_approve_requests ??
+          false,
       },
     },
     request: {
@@ -59,7 +83,6 @@ const ClassClassTeacherPermissionForm = ({ cls, auth }: ClassClassTeacherPermiss
     onSuccessMessage: "Class teacher allowed actions updated successfully",
     toastOnError: true,
   });
-
 
   return (
     <Form {...form}>

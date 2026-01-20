@@ -1,13 +1,13 @@
-import { ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface TimetableSlot {
-  time: string
-  subject?: string
-  extra?: string
-  isBreak?: boolean
-  breakLabel?: string
+  time: string;
+  subject?: string;
+  extra?: string;
+  isBreak?: boolean;
+  breakLabel?: string;
 }
 
 const schedule: TimetableSlot[] = [
@@ -23,7 +23,7 @@ const schedule: TimetableSlot[] = [
   { time: "15:20 - 15:40", isBreak: true, breakLabel: "Break" },
   { time: "15:40 - 16:20", subject: "L3 SOD", extra: "Kiny" },
   { time: "16:20 - 17:00", subject: "L3 SOD", extra: "Kiny" },
-]
+];
 
 const TeacherTimetable = () => {
   return (
@@ -31,10 +31,11 @@ const TeacherTimetable = () => {
       <div className="flex items-center justify-between py-3">
         <h1 className="text-[20px] font-normal  ">Teacher timetable</h1>
         <div className="flex items-center gap-1 cursor-pointer">
-          <Button size={"sm"} library="daisy" variant="info">Monday <ChevronDown className="h-4 w-4 stroke-[1.5]" /></Button>  
+          <Button size={"sm"} library="daisy" variant="info">
+            Monday <ChevronDown className="h-4 w-4 stroke-[1.5]" />
+          </Button>
         </div>
       </div>
-
 
       <div className="grid grid-cols-6 ">
         {schedule.map((slot, index) => (
@@ -45,25 +46,31 @@ const TeacherTimetable = () => {
               slot.isBreak ? " bg-black   " : " ",
             )}
           >
-            
-            <div className="text-xl text-white font-normal leading-none">{slot.time}</div>
+            <div className="text-xl text-white font-normal leading-none">
+              {slot.time}
+            </div>
 
-            
             {slot.isBreak ? (
               <div className="flex items-center justify-center flex-1 ">
-                <div className="text-xl text-gray-300 font-normal">{slot.breakLabel}</div>
+                <div className="text-xl text-gray-300 font-normal">
+                  {slot.breakLabel}
+                </div>
               </div>
             ) : (
               <div className="flex  items-end justify-between w-full">
-                <div className="text-xl text-gray-300 font-normal">{slot.subject}</div>
-                <div className="text-xl text-gray-300 font-normal">{slot.extra}</div>
+                <div className="text-xl text-gray-300 font-normal">
+                  {slot.subject}
+                </div>
+                <div className="text-xl text-gray-300 font-normal">
+                  {slot.extra}
+                </div>
               </div>
             )}
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TeacherTimetable;

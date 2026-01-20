@@ -23,7 +23,6 @@ const StudentFilter = ({ auth, students }: Props) => {
       initialData: students,
       endpoint: "/school/students/others",
       realtimeKey: "student",
-
     });
 
   return (

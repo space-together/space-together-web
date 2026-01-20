@@ -52,7 +52,7 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
           },
         ]}
         authToken={auth.token}
-      schoolToken={auth.schoolToken}
+        schoolToken={auth.schoolToken}
       >
         <div className="grid h-full min-h-screen w-full place-content-center space-y-4 px-4 py-2">
           <JoinSchoolDialog />

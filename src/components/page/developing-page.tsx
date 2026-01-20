@@ -36,7 +36,7 @@ const DevelopingPage = ({ lang, role }: props) => {
                 loading
                 button={{ library: "daisy", variant: "default" }}
                 type="button"
-                href={redirectContents({ lang, role : role ?? "STUDENT" })}
+                href={redirectContents({ lang, role: role ?? "STUDENT" })}
               >
                 <MyImage role="ICON" src="/icons/3d-house.png" /> Go Home
               </MyLink>

@@ -37,7 +37,7 @@ interface WeekViewProps {
   events: CalendarEvent[];
   onEventSelect: (event: CalendarEvent) => void;
   onEventCreate: (startTime: Date) => void;
-  isClassTimetable ?: boolean;
+  isClassTimetable?: boolean;
 }
 
 interface PositionedEvent {

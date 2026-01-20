@@ -6,22 +6,22 @@ import { CommonFormField } from "@/components/common/form/common-form-field";
 import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import {
-    CertificationDetails,
-    EducationLevelDetails,
-    LanguageDetails,
+  CertificationDetails,
+  EducationLevelDetails,
+  LanguageDetails,
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
-    StaffBackgroundSchema,
-    type StaffBackground,
+  StaffBackgroundSchema,
+  type StaffBackground,
 } from "@/lib/schema/school-staff/school-staff-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -105,9 +105,13 @@ const StaffBackgroundForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col space-y-4">
-          <CommonFormField name="years_of_experience" control={form.control}
-          label="Years of experience"
-          fieldType="date" classname="lg:w-1/2 w-full"/>
+          <CommonFormField
+            name="years_of_experience"
+            control={form.control}
+            label="Years of experience"
+            fieldType="date"
+            classname="lg:w-1/2 w-full"
+          />
 
           <FormField
             control={form.control}

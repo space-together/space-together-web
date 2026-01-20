@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import NavMessageDropDownCard from "./nav-message-dropdown-card";
 
-
 const NavMessageDropDown = () => {
   return (
     <DropdownMenu>

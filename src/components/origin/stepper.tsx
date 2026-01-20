@@ -51,10 +51,7 @@ export default function StepperComponent() {
           </StepperItem>
         ))}
       </Stepper>
-      <p
-        className="text-muted-foreground mt-2 text-xs"
-        aria-live="polite"
-      >
+      <p className="text-muted-foreground mt-2 text-xs" aria-live="polite">
         Stepper with titles and descriptions
       </p>
     </div>

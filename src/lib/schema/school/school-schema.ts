@@ -9,7 +9,6 @@ import {
 } from "@/lib/schema/common-details-schema";
 import { z } from "zod";
 
-
 export const SchoolAcademicCreation = z.object({
   totalClasses: z.number(),
   totalModule: z.number(),

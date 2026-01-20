@@ -2,18 +2,18 @@
 
 import MyAvatar from "@/components/common/image/my-avatar";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type {
-    JoinSchoolRequest,
-    JoinSchoolRequestWithRelations,
+  JoinSchoolRequest,
+  JoinSchoolRequestWithRelations,
 } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import { cn } from "@/lib/utils";
 import { type AuthContext, setAuthCookies } from "@/lib/utils/auth-context";
@@ -128,7 +128,12 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
         </p>
 
         <div className="flex items-center gap-2">
-          <MyAvatar src={request.school?.logo} alt={request.school?.name} size="sm" type="square"/>
+          <MyAvatar
+            src={request.school?.logo}
+            alt={request.school?.name}
+            size="sm"
+            type="square"
+          />
 
           <Link
             href={`/${lang}/school/${request.school?.username}`}

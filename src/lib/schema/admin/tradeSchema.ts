@@ -44,7 +44,6 @@ export const tradeWithOthersSchema = z.object({
 
 export type TradeModelWithOthers = z.infer<typeof tradeWithOthersSchema>;
 
-
 export const tradeBaseSchema = tradeSchema.pick({
   name: true,
   username: true,

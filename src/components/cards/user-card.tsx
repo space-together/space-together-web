@@ -107,7 +107,10 @@ export const UserSmCard = ({
           </div>
           <div className="flex flex-row gap-2 items-center">
             {role && (
-              <span title={formatUserRole(role)} className={cn(" text-sm text-base-content/50", classRole)}>
+              <span
+                title={formatUserRole(role)}
+                className={cn(" text-sm text-base-content/50", classRole)}
+              >
                 {formatUserRole(role)}
               </span>
             )}

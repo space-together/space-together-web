@@ -30,7 +30,7 @@ interface Props {
 
 const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
   const { addItem, updateItem } = useRealtimeData<Teacher>("teacher");
-  
+
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
     TeacherBase,
     Teacher
@@ -53,8 +53,6 @@ const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
         school_id: isSchool ? auth.school?.id : undefined,
       },
     },
-
-
 
     transform: (values) => ({
       ...values,

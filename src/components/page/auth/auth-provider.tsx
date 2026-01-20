@@ -12,11 +12,21 @@ const AuthProviders = () => {
         <Separator />
       </div>
       <div className=" flex  w-full space-x-2">
-        <Button size={"lg"} variant="outline" library="daisy" className=" w-1/2 border">
+        <Button
+          size={"lg"}
+          variant="outline"
+          library="daisy"
+          className=" w-1/2 border"
+        >
           <MyImage src="/icons/google.png" className="size-4 " />
           Google
         </Button>
-        <Button size={"lg"} variant="outline" library="daisy" className=" w-1/2 border">
+        <Button
+          size={"lg"}
+          variant="outline"
+          library="daisy"
+          className=" w-1/2 border"
+        >
           <MyImage src="/icons/facebook.png" className="size-4 " />
           Facebook
         </Button>

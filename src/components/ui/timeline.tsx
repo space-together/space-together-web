@@ -206,6 +206,5 @@ export {
   TimelineIndicator,
   TimelineItem,
   TimelineSeparator,
-  TimelineTitle
+  TimelineTitle,
 };
-

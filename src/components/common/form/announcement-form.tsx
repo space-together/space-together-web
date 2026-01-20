@@ -3,7 +3,7 @@ import {
   AnnouncementBase,
   AnnouncementBaseSchema,
   AnnouncementWithRelations,
-  type Announcement
+  type Announcement,
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
@@ -33,7 +33,8 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
 
   // ✅ Get realtime context to manually add items
-  const { addItem, updateItem } = useRealtimeData<AnnouncementWithRelations>("announcement");
+  const { addItem, updateItem } =
+    useRealtimeData<AnnouncementWithRelations>("announcement");
 
   // Memoized fetch function to prevent unnecessary re-renders
   const fetchStudents = useCallback(
@@ -78,7 +79,6 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
     },
     [auth.token, auth.schoolToken],
   );
-
 
   useEffect(() => {
     fetchTeachers("");

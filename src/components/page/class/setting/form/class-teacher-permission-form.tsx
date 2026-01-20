@@ -5,7 +5,10 @@ import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
-import { Class, ClassTeachersSettingsSchema } from "@/lib/schema/class/class-schema";
+import {
+  Class,
+  ClassTeachersSettingsSchema,
+} from "@/lib/schema/class/class-schema";
 import { AuthContext } from "@/lib/utils/auth-context";
 import type { z } from "zod";
 
@@ -15,10 +18,13 @@ type ClassTeacherPermissions = z.infer<typeof ClassTeacherPermissionsSchema>;
 
 interface ClassTeacherPermissionFormProps {
   cls: Class;
-  auth: AuthContext
+  auth: AuthContext;
 }
 
-const ClassTeacherPermissionForm = ({ cls, auth }: ClassTeacherPermissionFormProps) => {
+const ClassTeacherPermissionForm = ({
+  cls,
+  auth,
+}: ClassTeacherPermissionFormProps) => {
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
     ClassTeacherPermissions,
     Class
@@ -26,9 +32,11 @@ const ClassTeacherPermissionForm = ({ cls, auth }: ClassTeacherPermissionFormPro
     schema: ClassTeacherPermissionsSchema,
     formOptions: {
       defaultValues: {
-        can_edit_marks: cls.settings?.teachers?.permissions?.can_edit_marks ,
-        can_take_attendance: cls.settings?.teachers?.permissions?.can_take_attendance ,
-        can_remove_students: cls.settings?.teachers?.permissions?.can_remove_students ,
+        can_edit_marks: cls.settings?.teachers?.permissions?.can_edit_marks,
+        can_take_attendance:
+          cls.settings?.teachers?.permissions?.can_take_attendance,
+        can_remove_students:
+          cls.settings?.teachers?.permissions?.can_remove_students,
       },
     },
     request: {

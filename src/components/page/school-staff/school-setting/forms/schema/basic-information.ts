@@ -1,4 +1,7 @@
-import { SchoolMemberSchema, SchoolTypeSchema } from "@/lib/schema/common-details-schema";
+import {
+  SchoolMemberSchema,
+  SchoolTypeSchema,
+} from "@/lib/schema/common-details-schema";
 import z from "zod";
 
 export const BasicInformationSchema = z.object({

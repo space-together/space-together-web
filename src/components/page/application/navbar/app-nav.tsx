@@ -16,7 +16,7 @@ const AppNav = async ({ lang, auth }: AppNavProps) => {
   return (
     <AppNavClient>
       <nav className="border-base-300 pl-0 bg-base-100  z-50 flex h-14 max-h-14 w-full justify-between border-b p-2 shadow-sm">
-          <AppNavLogo isNav  lang={lang} auth={auth}/>
+        <AppNavLogo isNav lang={lang} auth={auth} />
         <div className="mr-4 flex items-center gap-2">
           {/* <NavMessageDropDown lang={lang}/> */}
           <div className="btn btn-circle btn-ghost">

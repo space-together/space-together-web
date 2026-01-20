@@ -1,6 +1,9 @@
 "use client";
 
-import { EndHour, StartHour } from "@/components/page/class/class-timetable/constants";
+import {
+  EndHour,
+  StartHour,
+} from "@/components/page/class/class-timetable/constants";
 import { endOfWeek, isSameDay, isWithinInterval, startOfWeek } from "date-fns";
 import { useEffect, useState } from "react";
 

@@ -20,7 +20,14 @@ const AppLogo = ({ name, auth, lang, notShowName = false }: props) => {
       className="flex items-center gap-2"
     >
       <div className=" relative size-10">
-      <Image src={"/logo.svg"} className=" object-contain" priority loading="eager"alt="Application logo" fill/>
+        <Image
+          src={"/logo.svg"}
+          className=" object-contain"
+          priority
+          loading="eager"
+          alt="Application logo"
+          fill
+        />
       </div>
       <div className="flex flex-col">
         {!notShowName && (

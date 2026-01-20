@@ -1,13 +1,13 @@
 import { UserSmCard } from "@/components/cards/user-card";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaReadme } from "react-icons/fa6";
 
@@ -38,7 +38,15 @@ const ReadDialog = ({ reads, dialogTriggerType = "icon" }: ReadDialogProps) => {
         <div className="max-h-[70vh] overflow-y-scroll px-6">
           {[...Array(32)].map((_, i) => {
             return (
-              <UserSmCard showMessage key={i} name="Bruno Rwanda" lang="en" avatarProps={{size: "xs"}}  role="Teacher" image={"/images/2.jpg"}/>
+              <UserSmCard
+                showMessage
+                key={i}
+                name="Bruno Rwanda"
+                lang="en"
+                avatarProps={{ size: "xs" }}
+                role="Teacher"
+                image={"/images/2.jpg"}
+              />
             );
           })}
         </div>

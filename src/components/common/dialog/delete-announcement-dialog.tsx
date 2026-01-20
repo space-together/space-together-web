@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import MessageDisplay from "@/components/common/form/message-input/message-display";
 import { Button } from "@/components/ui/button";
