@@ -2,7 +2,6 @@
 import {
   AnnouncementBase,
   AnnouncementBaseSchema,
-
   AnnouncementWithRelations,
   type Announcement
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
@@ -80,7 +79,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
     [auth.token, auth.schoolToken],
   );
 
-  // Initial load
+
   useEffect(() => {
     fetchTeachers("");
   }, [fetchTeachers]);
@@ -112,9 +111,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
     onSuccessMessage: announcement ? "Updated!" : "Created!",
     toastOnError: true,
     onSuccess: (data) => {
-      // ✅ Immediately add/update in realtime list WITHOUT waiting for SSE
       if (announcement) {
-        // Update existing announcement
         updateItem(data as AnnouncementWithRelations);
       } else {
         addItem(data as AnnouncementWithRelations);

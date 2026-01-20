@@ -20,6 +20,7 @@ import {
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 
 interface Props {
   auth: AuthContext;
@@ -28,9 +29,8 @@ interface Props {
 }
 
 const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
-  // -------------------------------------
-  // Form logic (same as StudentForm)
-  // -------------------------------------
+  const { addItem, updateItem } = useRealtimeData<Teacher>("teacher");
+  
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
     TeacherBase,
     Teacher
@@ -53,6 +53,8 @@ const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
         school_id: isSchool ? auth.school?.id : undefined,
       },
     },
+
+
 
     transform: (values) => ({
       ...values,
@@ -81,8 +83,13 @@ const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
 
     toastOnError: true,
 
-    onSuccess: () => {
-      if (!teacher) form.reset();
+    onSuccess: (data) => {
+      if (teacher) {
+        updateItem(data as Teacher);
+      } else {
+        addItem(data as Teacher);
+        form.reset();
+      }
     },
   });
 
