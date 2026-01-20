@@ -9,9 +9,10 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import {
-  type MainClassModel,
   mainClassSchema,
+  type MainClassModel,
 } from "@/lib/schema/admin/main-classes-schema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import type { Paginated } from "@/lib/schema/common-schema";
@@ -20,13 +21,14 @@ import apiRequest from "@/service/api-client";
 
 interface Props {
   auth: AuthContext;
-  trade?: TradeModule; // parent trade (optional)
-  mainClass?: MainClassModel; // edit mode
+  trade?: TradeModule;
+  mainClass?: MainClassModel;
 }
 
 const MainClassForm = ({ auth, trade, mainClass }: Props) => {
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
+  const { addItem, updateItem } = useRealtimeData<MainClassModel>("main_class");
 
   useEffect(() => {
     const fetchTrades = async () => {
@@ -83,8 +85,13 @@ const MainClassForm = ({ auth, trade, mainClass }: Props) => {
 
     toastOnError: true,
 
-    onSuccess: () => {
-      if (!mainClass) form.reset();
+    onSuccess: (data) => {
+      if (mainClass) {
+        updateItem(data);
+      } else {
+        addItem(data);
+        form.reset();
+      }
     },
 
     onError: (err, values) => {

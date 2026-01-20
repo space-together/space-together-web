@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import {
   sectorBaseSchema,
   type SectorBase,
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const SectorForm = ({ auth, sector }: Props) => {
+  const { addItem, updateItem } = useRealtimeData<SectorModel>("sector");
+
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
     SectorBase,
     SectorModel
@@ -53,8 +56,13 @@ const SectorForm = ({ auth, sector }: Props) => {
 
     toastOnError: true,
 
-    onSuccess: () => {
-      if (!sector) form.reset();
+    onSuccess: (data) => {
+      if (sector) {
+        updateItem(data);
+      } else {
+        addItem(data);
+        form.reset();
+      }
     },
   });
 

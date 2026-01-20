@@ -7,6 +7,7 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { TradeTypes } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import {
   type TradeBase,
@@ -28,6 +29,7 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
   const [sectors, setSectors] = useState<SectorModel[]>([]);
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
+  const { addItem, updateItem } = useRealtimeData<TradeModule>("trade");
 
   // Fetch options when component mounts
   useEffect(() => {
@@ -100,9 +102,14 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
 
     toastOnError: true,
 
-    onSuccess: () => {
-      if (!trade) form.reset();
-    },
+    onSuccess: (data) => {
+         if (trade) {
+           updateItem(data as TradeModule);
+         } else {
+           addItem(data as TradeModule);
+           form.reset();
+         }
+       },
 
     onError: (error, value) => {
       console.error("Failed to submit trade form:", error, value);

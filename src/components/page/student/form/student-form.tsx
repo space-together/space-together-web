@@ -23,6 +23,7 @@ import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { Paginated } from "@/lib/schema/common-schema";
 import { useEffect, useState } from "react";
 
@@ -36,10 +37,8 @@ interface Props {
 const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
   const [classes, setClasses] = useState<Class[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
+  const { addItem, updateItem } = useRealtimeData<Student>("student");
 
-  // -------------------------------------
-  // Fetch classes (only when needed)
-  // -------------------------------------
   useEffect(() => {
     if (cls) {
       setLoadingOptions(false);
@@ -127,9 +126,13 @@ const StudentForm = ({ auth, student, isSchool, cls }: Props) => {
       : "Student created successfully",
 
     toastOnError: true,
-
-    onSuccess: () => {
-      if (!student) form.reset();
+    onSuccess: (data) => {
+      if (student) {
+        updateItem(data as Student);
+      } else {
+        addItem(data as Student);
+        form.reset();
+      }
     },
   });
 

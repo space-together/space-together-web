@@ -1,4 +1,5 @@
 "use client";
+
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { TopicsInput } from "@/components/common/form/topics-input";
@@ -8,6 +9,8 @@ import { Form } from "@/components/ui/form";
 import { SubjectCategories } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { transformTopic } from "@/lib/helpers/subject-topic";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
@@ -17,28 +20,26 @@ import {
 } from "@/lib/schema/subject/class-subject-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
-interface ClassSubjectFormProps {
-  sub?: ClassSubject;
+interface Props {
+  sub?: ClassSubject; // update mode if exists
   cls?: Class;
   auth: AuthContext;
 }
 
-const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+const ClassSubjectForm = ({ sub, cls, auth }: Props) => {
   const { showToast } = useToast();
+  const { addItem, updateItem } =
+    useRealtimeData<ClassSubject>("class_subject");
 
+  /* ------------------ OPTIONS STATE ------------------ */
   const [classes, setClasses] = useState<Class[]>([]);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
 
   useEffect(() => {
-    const fetchMainClasses = async () => {
+    const fetchOptions = async () => {
       try {
         const [classesRes, teachersRes] = await Promise.all([
           !cls
@@ -46,41 +47,23 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
                 "get",
                 "/school/classes",
                 undefined,
-                {
-                  token: auth.token,
-                  schoolToken: auth.schoolToken,
-                },
+                { token: auth.token, schoolToken: auth.schoolToken },
               )
-            : {
-                data: {
-                  data: [],
-                  total: 0,
-                  total_pages: 0,
-                  current_page: 1,
-                },
-              },
+            : null,
           apiRequest<void, Paginated<Teacher>>(
             "get",
             "/school/teachers",
             undefined,
-            {
-              token: auth.token,
-              schoolToken: auth.schoolToken,
-            },
+            { token: auth.token, schoolToken: auth.schoolToken },
           ),
         ]);
 
-        if (classesRes.data) {
-          setClasses(classesRes.data.data);
-        }
-
-        if (teachersRes.data) {
-          setTeachers(teachersRes.data.data);
-        }
-      } catch (error) {
+        if (classesRes?.data) setClasses(classesRes.data.data);
+        if (teachersRes?.data) setTeachers(teachersRes.data.data);
+      } catch (err) {
         showToast({
-          title: "Error to get class or class subjects",
-          description: `"Failed to fetch main classes:", ${error}`,
+          title: "Failed to load options",
+          description: String(err),
           type: "error",
         });
       } finally {
@@ -88,65 +71,65 @@ const ClassSubjectForm = ({ sub, cls, auth }: ClassSubjectFormProps) => {
       }
     };
 
-    fetchMainClasses();
-  }, [auth.token, showToast, classes]);
+    fetchOptions();
+  }, [auth.token, auth.schoolToken, cls, showToast]);
 
-  const form = useForm<ClassSubject>({
-    resolver: zodResolver(ClassSubjectSchema),
-    defaultValues: {
-      name: sub?.name || "",
-      description: sub?.description || "",
-      teacher_id: sub?.teacher_id || "",
-      class_id: sub?.class_id || "",
-      code: sub?.code || "",
-      credits: sub?.credits || 0,
-      topics: sub?.topics || [],
+  /* ------------------ FORM LOGIC ------------------ */
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassSubject,
+    ClassSubject
+  >({
+    schema: ClassSubjectSchema,
+
+    formOptions: {
+      defaultValues: {
+        name: sub?.name ?? "",
+        description: sub?.description ?? "",
+        teacher_id: sub?.teacher_id ?? "",
+        class_id: sub?.class_id ?? "",
+        code: sub?.code ?? "",
+        credits: sub?.credits ?? 0,
+        estimated_hours: sub?.estimated_hours ?? 60,
+        category: sub?.category ?? undefined,
+        topics: sub?.topics ?? [],
+      },
+    },
+
+    request: {
+      method: sub ? "put" : "post",
+      url: sub
+        ? `/school/class-subjects/${sub._id || sub.id}`
+        : "/school/class-subjects",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    transform: (values) => ({
+      ...values,
+      class_id: cls?._id ?? values.class_id,
+      credits: values.credits ? Number(values.credits) : undefined,
+      estimated_hours: Number(values.estimated_hours),
+      topics: values.topics?.map(transformTopic),
+    }),
+
+    onSuccessMessage: sub
+      ? "Subject updated successfully"
+      : "Subject created successfully",
+
+    toastOnError: true,
+
+    onSuccess: (data) => {
+      if (sub) {
+        updateItem(data);
+      } else {
+        addItem(data);
+        form.reset();
+      }
     },
   });
 
-  const onSubmit = (values: ClassSubject) => {
-    setError("");
-    setSuccess("");
-
-    startTransition(async () => {
-      const apiData = {
-        ...values,
-
-        class_id: cls?._id ? cls._id : values.class_id,
-
-        estimated_hours: Number(values.estimated_hours),
-        credits: values.credits ? Number(values.credits) : undefined,
-
-        topics: values.topics?.map(transformTopic),
-      };
-
-      const res = await apiRequest<typeof apiData, ClassSubject>(
-        sub ? "put" : "post",
-        sub
-          ? `/school/class-subjects/${sub._id || sub.id}`
-          : "/school/class-subjects",
-        apiData,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-
-      if (!res.data) {
-        setError(res.message);
-        showToast({
-          title: "Error",
-          description: res.message,
-          type: "error",
-        });
-      } else {
-        form.reset();
-        setSuccess(
-          sub ? "Subject updated successfully" : "Subject created successfully",
-        );
-      }
-    });
-  };
+  /* ------------------ UI ------------------ */
 
   return (
     <Form {...form}>

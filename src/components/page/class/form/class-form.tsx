@@ -20,6 +20,7 @@ import {
 import type { AuthContext } from "@/lib/utils/auth-context";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
 
 interface Props {
   auth: AuthContext;
@@ -32,6 +33,7 @@ const ClassForm = ({ auth, trade, cls, isSchool }: Props) => {
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [loadingTrades, setLoadingTrades] = useState(true);
 
+  const { addItem, updateItem } = useRealtimeData<Class>("class");
   // -------------------------------------
   // Fetch trades (only when needed)
   // -------------------------------------
@@ -107,8 +109,13 @@ const ClassForm = ({ auth, trade, cls, isSchool }: Props) => {
 
     toastOnError: true,
 
-    onSuccess: () => {
-      if (!cls) form.reset();
+    onSuccess: (data) => {
+      if (cls) {
+        updateItem(data as Class);
+      } else {
+        addItem(data as Class);
+        form.reset();
+      }
     },
   });
 
