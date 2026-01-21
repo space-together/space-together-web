@@ -2,7 +2,7 @@ import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Activity } from "react";
-import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
+import { FaRegBookmark } from "react-icons/fa6";
 import { IoMdShare } from "react-icons/io";
 import CommentsDialog from "../common/dialog/comments-dialog";
 import LikesDialog from "../common/dialog/likes-dialog";
@@ -27,15 +27,13 @@ const PostCardFooter = ({
   announcement,
   lang,
 }: propsPostCardFooter) => {
+  const target_id = announcement?._id;
   return (
     <CardFooter className=" flex flex-col justify-start items-start [.border-t]:pt-2">
       <div className="flex justify-between py-2 w-full">
         <div className=" flex items-center">
-          {enabledComponents.includes("like") && (
-            <Button title="Like" library="daisy" variant="ghost" size="md">
-              <FaRegHeart size={20} />
-              <span className=" sr-only">43 Likes</span>
-            </Button>
+          {enabledComponents.includes("like") && target_id && (
+            <LikesDialog auth={auth} likeButton target_id={target_id} />
           )}
           {enabledComponents.includes("read") && <ReadDialog />}
           {!isCommentOpen && enabledComponents.includes("comment") && (
@@ -59,7 +57,13 @@ const PostCardFooter = ({
       <div className="   gap-2 flex flex-col">
         {enabledComponents.includes("like") && (
           <Activity>
-            <LikesDialog dialogTriggerType="groupUsers" />
+            {target_id && (
+              <LikesDialog
+                auth={auth}
+                dialogTriggerType="groupUsers"
+                target_id={target_id}
+              />
+            )}
           </Activity>
         )}
         {!isCommentOpen && enabledComponents.includes("comment") && (

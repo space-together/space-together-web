@@ -17,6 +17,7 @@ import { profileRedirects } from "@/lib/hooks/redirect";
 import type { CommentWithRelations } from "@/lib/schema/comment/comment";
 import type { userRole } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatTimeAgo } from "@/lib/utils/format-date";
 import { FaEllipsisVertical, FaRegHeart } from "react-icons/fa6";
 import LikesDialog from "../dialog/likes-dialog";
@@ -25,9 +26,10 @@ import MessageDisplay from "../form/message-input/message-display";
 interface CommentCardProps {
   comment?: CommentWithRelations;
   lang: Locale;
+  auth: AuthContext;
 }
 
-const CommentCard = ({ comment, lang }: CommentCardProps) => {
+const CommentCard = ({ comment, lang, auth }: CommentCardProps) => {
   const published = comment?.author_user;
   return (
     <Item className=" flex flex-col gap-2 items-start">
@@ -110,11 +112,17 @@ const CommentCard = ({ comment, lang }: CommentCardProps) => {
           >
             <FaRegHeart size={16} />
           </Button>
-          {/*GPT can you help me when user click on reply it will add that comment in setReply*/}
           <Button size="sm" library="daisy" variant={"ghost"}>
             Reply
           </Button>
-          <LikesDialog dialogTriggerType="text" dialogTriggerSize={"sm"} />
+          {comment?._id && (
+            <LikesDialog
+              target_id={comment._id}
+              auth={auth}
+              dialogTriggerType="text"
+              dialogTriggerSize={"sm"}
+            />
+          )}
           <Button size="sm" library="daisy" variant={"ghost"}>
             View all replies (2)
           </Button>

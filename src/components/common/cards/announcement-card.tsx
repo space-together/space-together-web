@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
 import { profileRedirects } from "@/lib/hooks/redirect";
 import type { userRole } from "@/lib/schema/common-details-schema";
-import type { UserModel } from "@/lib/schema/user/user-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatTimeAgo } from "@/lib/utils/format-date";
@@ -23,10 +22,6 @@ import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
 import MessageDisplay from "../form/message-input/message-display";
 
 interface AnnouncementCardProps {
-  sender?: Pick<
-    UserModel,
-    "_id" | "name" | "username" | "email" | "id" | "role"
-  >;
   isCommentOpen?: boolean;
   auth: AuthContext;
   announcement?: AnnouncementWithRelations;
@@ -34,7 +29,6 @@ interface AnnouncementCardProps {
 }
 
 const AnnouncementCard = ({
-  sender,
   auth,
   isCommentOpen,
   announcement,

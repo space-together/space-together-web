@@ -253,6 +253,7 @@ const CommentsDialog = ({
                     ),
                   ].map((comment, i) => (
                     <CommentCard
+                      auth={auth}
                       key={`${i}-${comment._id}`}
                       comment={comment}
                       lang={lang}
