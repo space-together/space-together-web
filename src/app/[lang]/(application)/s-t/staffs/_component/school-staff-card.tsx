@@ -13,6 +13,7 @@ import type { Locale } from "@/i18n";
 import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import SchoolStaffModifySheet from "./school-staff-modify-sheet";
 
 interface Props {
   lang: Locale;
@@ -31,10 +32,10 @@ const SchoolStaffCard = ({ auth, isSchoolStaff, staff, lang }: Props) => {
       {/* HEADER */}
       <CardHeader className="border-b-0">
         <div className="flex items-center gap-2">
-          <MyAvatar alt={staff.name} />
+          <MyAvatar src={staff.image} alt={staff.name} />
 
           <div className="flex flex-col">
-            <MyLink href={`/${lang}/p/staff/${staff._id}`}>
+            <MyLink href={`/${lang}/p/s-t/${staff._id}`}>
               <LoadingIndicatorText
                 className="h6 line-clamp-1"
                 title={staff.name}
@@ -79,14 +80,14 @@ const SchoolStaffCard = ({ auth, isSchoolStaff, staff, lang }: Props) => {
             isSchoolStaff && "flex justify-end gap-2",
           )}
         >
-          {/*{canModify && (
+          {canModify && (
             <SchoolStaffModifySheet
               lang={lang}
               auth={auth}
               staff={staff}
               isSchool
             />
-          )}*/}
+          )}
 
           <Button
             library="daisy"
@@ -94,7 +95,7 @@ const SchoolStaffCard = ({ auth, isSchoolStaff, staff, lang }: Props) => {
             size="sm"
             className={cn("w-full", isSchoolStaff && "w-fit")}
             role="page"
-            href={`/${lang}/p/staff/${staff._id}`}
+            href={`/${lang}/p/s-t/${staff._id}`}
           >
             View staff
           </Button>

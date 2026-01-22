@@ -74,11 +74,8 @@ const SchoolStaffForm = ({ auth, staff, isSchool = true }: Props) => {
 
     toastOnError: true,
 
-    onError: (message, value) => {
-      console.log("😥😥🙃", value);
-    },
-
-    onSuccess: (data) => {
+    onSuccess: (data, value) => {
+      console.log("😡😡", value);
       if (staff) {
         updateItem(data as SchoolStaff);
       } else {

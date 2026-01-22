@@ -4,6 +4,7 @@ import JoinSchoolDialog from "@/components/page/school-staff/dialog/join-school-
 import JoinClassDialog from "@/components/page/student/dialogs/join-class-dialog";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
@@ -28,7 +29,7 @@ const StudentPage = async (props: props) => {
 
   const join_school_requestsRes = await apiRequest<
     void,
-    JoinSchoolRequestWithRelations[]
+    Paginated<JoinSchoolRequestWithRelations>
   >("get", `/join-school-requests/my/pending`, undefined, {
     token: auth.token,
     schoolToken: auth.schoolToken,
@@ -44,9 +45,7 @@ const StudentPage = async (props: props) => {
       channels={[
         {
           name: "join_school_request",
-          initialData: join_school_requestsRes.data
-            ? join_school_requestsRes.data
-            : [],
+          initialData: join_school_requestsRes.data?.data ?? [],
         },
       ]}
       authToken={auth.token}
@@ -61,7 +60,7 @@ const StudentPage = async (props: props) => {
           <JoinSchoolRequestBody
             lang={lang}
             auth={auth}
-            requests={join_school_requestsRes.data}
+            requests={join_school_requestsRes.data.data ?? []}
             realtimeEnabled={true}
           />
         )}

@@ -4,6 +4,7 @@ import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema"
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatReadableDate } from "@/lib/utils/format-date";
 import type { ColumnDef } from "@tanstack/react-table";
+import SchoolStaffModifySheet from "./school-staff-modify-sheet";
 
 export const SchoolStaffTableColumns = (
   lang: Locale,
@@ -42,14 +43,13 @@ export const SchoolStaffTableColumns = (
       header: "Staff",
       accessorKey: "name",
       cell: ({ row }) => (
-        // <SchoolStaffModifySheet
-        //   auth={auth}
-        //   lang={lang}
-        //   staff={row.original}
-        //   isSchool
-        //   isTable
-        // />
-        <div>{row.original.name}</div>
+        <SchoolStaffModifySheet
+          auth={auth}
+          lang={lang}
+          staff={row.original}
+          isSchool
+          isTable
+        />
       ),
       meta: {
         filterVariant: "text",
