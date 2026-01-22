@@ -52,6 +52,7 @@ const SchoolStaffs = async (props: PageProps<"/[lang]/s-t/staffs">) => {
         />
         <SchoolStaffFilter auth={auth} staffs={schoolStaffsRes.data} />
         <DisplaySwitcher
+          page="school-staff"
           table={
             <SchoolStaffTable
               auth={auth}

@@ -9,6 +9,7 @@ import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import SchoolStaffDialog from "./school-staff-dialog";
 
 interface Props {
   auth: AuthContext;
@@ -28,7 +29,7 @@ const SchoolStaffFilter = ({ auth, staffs }: Props) => {
     <PageFilter>
       <div className="flex justify-between w-full items-center">
         <div className="flex gap-4 items-center">
-          <ChangeDisplay />
+          <ChangeDisplay page="school-staff" />
 
           <SearchBox
             onSearch={handleSearch}
@@ -48,6 +49,7 @@ const SchoolStaffFilter = ({ auth, staffs }: Props) => {
             variant="outline"
             size="sm"
           />
+          <SchoolStaffDialog auth={auth} />
         </div>
       </div>
 

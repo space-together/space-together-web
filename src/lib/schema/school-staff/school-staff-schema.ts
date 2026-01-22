@@ -37,6 +37,8 @@ export const SchoolStaffBaseSchema = SchoolStaffSchema.pick({
   type: true,
   image: true,
   is_active: true,
+  school_id: true,
+  creator_id: true,
 });
 
 export type SchoolStaffBase = z.infer<typeof SchoolStaffBaseSchema>;

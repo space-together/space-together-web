@@ -4,13 +4,13 @@ import MyAvatar from "@/components/common/image/my-avatar";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
-import { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
+import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 
