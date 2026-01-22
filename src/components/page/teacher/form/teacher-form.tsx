@@ -19,8 +19,8 @@ import {
 } from "@/lib/schema/school/teacher-schema";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
-import type { AuthContext } from "@/lib/utils/auth-context";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import type { AuthContext } from "@/lib/utils/auth-context";
 
 interface Props {
   auth: AuthContext;
@@ -91,9 +91,6 @@ const TeacherForm = ({ auth, teacher, isSchool }: Props) => {
     },
   });
 
-  // -------------------------------------
-  // Render
-  // -------------------------------------
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

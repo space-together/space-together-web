@@ -1,11 +1,11 @@
 "use client";
 
 import { CommonDataTable } from "@/components/common/table/common-data-table";
-import TableFilter from "@/components/common/table/table-filter";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import EmptyStudents from "@/components/page/school-staff/students-components/empty-students";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import { useRealtimeList } from "@/lib/hooks/use-realtime-list";
-import type { SchoolStaffWithRelations } from "@/lib/schema/school/school-staff-schema";
+import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import {
   type ColumnFiltersState,
@@ -19,26 +19,30 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { StaffTableColumns } from "./staff-table-columns";
+import { SchoolStaffTableColumns } from "./school-staff-table-columns";
 
 interface props {
-  staffs: SchoolStaffWithRelations[];
+  schoolStaffs: SchoolStaff[];
   lang: Locale;
   auth: AuthContext;
   realtimeEnabled?: boolean;
 }
 
 export default function SchoolStaffTable({
-  staffs,
+  schoolStaffs,
   lang,
   auth,
   realtimeEnabled = false,
 }: props) {
-  const displayStaff = useRealtimeList<SchoolStaffWithRelations>(
+  const displaySchoolStaffs = useRealtimeList<SchoolStaff>(
     "school_staff",
-    staffs,
+    schoolStaffs,
     realtimeEnabled,
   );
+
+  if (displaySchoolStaffs.length === 0)
+    return <EmptyStudents isSchool auth={auth} />;
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([
     {
@@ -47,11 +51,13 @@ export default function SchoolStaffTable({
     },
   ]);
 
-  const data = useMemo(() => staffs, [staffs]); // Memoize data
-  const tableColumns = useMemo(() => StaffTableColumns(lang), [lang]); // Memoize columns
+  const tableColumns = useMemo(
+    () => SchoolStaffTableColumns(lang, auth),
+    [lang],
+  ); // Memoize columns
 
   const table = useReactTable({
-    data: data,
+    data: displaySchoolStaffs,
     columns: tableColumns,
     state: {
       sorting,
@@ -65,41 +71,20 @@ export default function SchoolStaffTable({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     onSortingChange: setSorting,
-    enableSortingRemoval: false, // Keep or change as needed
-    // Add meta data if needed for filters accessing table instance
-    // meta: {
-    //    getUniqueClassNames: () => { ... calculate unique class names from 'students' ... }
-    // }
+    enableSortingRemoval: false,
   });
-
-  // Make sure the 'colSpan' in the empty state matches the new number of columns
-  const numberOfColumns = table.getAllColumns().length;
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between px-4 pt-4 pb-0">
-        <h3 className="title-page">Staffs</h3>
+      <CardHeader className="flex w-full justify-between border-b-0">
+        <CardTitle className="">School Staff</CardTitle>
       </CardHeader>
-      <div className="flex flex-wrap gap-3 border-b px-4 py-2">
-        <div className="w-44">
-          <TableFilter column={table.getColumn("name")!} />
-        </div>
-        <div className="w-32">
-          <TableFilter column={table.getColumn("gender")!} />
-        </div>
-        <div className="w-40">
-          <TableFilter column={table.getColumn("phone")!} />
-        </div>
-        <div className="w-36">
-          <TableFilter column={table.getColumn("createAt")!} />
-        </div>
-      </div>
 
       <CardContent className="p-0">
         <CommonDataTable
           table={table}
           columns={tableColumns}
-          data={displayStaff}
+          data={displaySchoolStaffs}
         />
       </CardContent>
     </Card>
