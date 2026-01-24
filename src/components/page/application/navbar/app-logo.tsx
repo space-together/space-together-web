@@ -39,7 +39,7 @@ const AppLogo = ({ name, auth, lang, notShowName = false }: props) => {
             space-together
           </h2>
         )}
-        <span className="my-sm-text">{name}</span>
+        {name && <span className="my-sm-text">{name}</span>}
       </div>
     </MyLink>
   );

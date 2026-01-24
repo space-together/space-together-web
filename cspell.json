@@ -3,6 +3,7 @@
     "<MyLink\n                    key={i}\n                    href=\"\"\n                    button={{\n                      role: \"create\",\n                      variant: \"outline\",\n                      size: \"sm\",\n                      library: \"daisy\",\n                    }}\n                  >\n                    New notes\n                  </MyLink>\n                  <MyLink\n                    href=\"\"\n                    button={{\n                      role: \"create\",\n                      variant: \"outline\",\n                      size: \"sm\",\n                      library: \"daisy\",\n                    }}\n                  >\n                    New class work\n                  </MyLink>",
     "lucide",
     "metion",
-    "SCHOOLSTAFF"
+    "SCHOOLSTAFF",
+    "rounded-[var(--radius-box)]"
   ]
 }
