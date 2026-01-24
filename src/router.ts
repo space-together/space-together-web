@@ -3,7 +3,13 @@
  * @type {string[]}
  */
 
-export const publicRoutes = ["/", "/home"];
+export const publicRoutes = [
+  "/",
+  "/home",
+  "/features",
+  "/solutions",
+  "/systems",
+];
 
 /**
  * An Array of routes that are accessible for authentication

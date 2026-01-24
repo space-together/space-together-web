@@ -115,11 +115,13 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
       <NavigationMenuList className="gap-2">
         <NavigationMenuItem>
           <NavigationMenuTrigger>Features</NavigationMenuTrigger>
-          <NavigationMenuContent className="p-0 flex flex-row bg-base-100">
-            <div className="grid grid-cols-3 gap-0  min-w-150 w-fit p-6 pr-0">
+          <NavigationMenuContent className="p-0 flex flex-row bg-base-100  ">
+            <div className="grid grid-cols-3 gap-4  w-fit p-6 pr-0 min-w-140">
               {features.map((group) => (
                 <div key={group.title} className="flex flex-col gap-3">
-                  <Label className="text-sm font-semibold">{group.title}</Label>
+                  <Label className="text-sm font-semibold opacity-80">
+                    {group.title}
+                  </Label>
                   <div className="flex flex-col gap-2">
                     {group.items.map((item) => (
                       <MyLink
