@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { SchoolStaff } from "@/lib/schema/school/school-staff-schema";
+import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import { AssignRoleDialog } from "./assign-role-dialog";
 
 interface StaffOverviewProps {

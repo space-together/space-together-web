@@ -1,5 +1,5 @@
 import type { Locale } from "@/i18n";
-import type { SchoolStaff as SchoolStaffModel } from "@/lib/schema/school/school-staff-schema";
+import type { SchoolStaff as SchoolStaffModel } from "@/lib/schema/school-staff/school-staff-schema";
 
 interface props {
   lang: Locale;

@@ -2,6 +2,7 @@ import DisplaySwitcher from "@/components/display/display-switcher";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import NotFoundPage from "@/components/page/not-found";
 import type { Locale } from "@/i18n";
+import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
@@ -24,7 +25,7 @@ const SchoolStaffs = async (props: PageProps<"/[lang]/s-t/staffs">) => {
 
   const schoolStaffsRes = await apiRequest<void, Paginated<SchoolStaff>>(
     "get",
-    "/school/school-staff",
+    `/school/school-staff?limit=${LIMIT}`,
     undefined,
     {
       token: auth.token,

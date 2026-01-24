@@ -69,14 +69,6 @@ const RegisterForm = ({ lang }: props) => {
     return strength.filter((req) => req.met).length;
   }, [strength]);
 
-  const getStrengthColor = (score: number) => {
-    if (score === 0) return "bg-border";
-    if (score <= 1) return "bg-red-500";
-    if (score <= 2) return "bg-orange-500";
-    if (score === 3) return "bg-amber-500";
-    return "bg-emerald-500";
-  };
-
   const getStrengthText = (score: number) => {
     if (score === 0) return "Enter a password";
     if (score <= 2) return "Weak password";
@@ -98,6 +90,8 @@ const RegisterForm = ({ lang }: props) => {
           await setAuthCookies(create.data.access_token, create.data.id);
           setSuccess("Account created successful! ☺️");
           router.push(`/${lang}/auth/onboarding`);
+        } else {
+          setError("Something went wrong");
         }
       } else if (create.message) {
         setError(create.message);

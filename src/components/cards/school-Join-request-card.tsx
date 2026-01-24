@@ -24,6 +24,7 @@ import { useState, useTransition } from "react";
 import { FormError, FormSuccess } from "../common/form-message";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { UserSmCard } from "./user-card";
 
 interface Props {
   lang: Locale;
@@ -107,6 +108,12 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
     >
       <CardHeader>
         <div className="flex items-center gap-3">
+          {request.sender && (
+            <UserSmCard
+              image={request.sender?.image}
+              name={request.sender?.name}
+            />
+          )}
           <MyAvatar src={request.sender?.image} alt={request.sender?.name} />
           <div className="truncate">
             <CardTitle className="text-base font-semibold">
@@ -158,7 +165,7 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
       <CardFooter className="flex gap-3">
         <Button
           type="button"
-          variant="secondary"
+          variant="primary"
           className="flex-1"
           disabled={isPending}
           library="daisy"

@@ -57,17 +57,6 @@ export type UpdateRequestExpiration = z.infer<
   typeof UpdateRequestExpirationSchema
 >;
 
-// ----------- BULK RESPOND -----------
-
-export const BulkRespondRequestSchema = z.object({
-  request_ids: z.array(z.string()),
-  status: JoinStatusEnumSchema,
-  responded_by: z.string().optional().nullable(),
-  responded_at: z.string().datetime().optional().nullable(),
-});
-
-export type BulkRespondRequest = z.infer<typeof BulkRespondRequestSchema>;
-
 // ----------- WITH RELATIONS -----------
 
 export const JoinSchoolRequestWithRelationsSchema = z.object({

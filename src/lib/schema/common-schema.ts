@@ -4,12 +4,11 @@ import {
   userRoleSchema,
 } from "@/lib/schema/common-details-schema";
 import z from "zod";
-import { SchoolStaffSchema } from "./school/school-staff-schema";
 import { TeacherSchema } from "./school/teacher-schema";
 import { StudentSchema } from "./student/student-schema";
 import { UserModelSchema } from "./user/user-schema";
+import { SchoolStaffSchema } from "./school-staff/school-staff-schema";
 
-// ----------------------commutation---------------------------
 export const SocialAndCommunicationSchema = z.object({
   social_media: z.array(SocialMediaSchema).optional(),
   preferred_communication_method: z.array(CommunicationMethodSchema).optional(),

@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { SchoolStaff } from "@/lib/schema/school/school-staff-schema";
+import type { SchoolStaff } from "@/lib/schema/school-staff/school-staff-schema";
 import type React from "react";
 
 interface AssignRoleDialogProps {
