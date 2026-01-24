@@ -52,7 +52,7 @@ const AnnouncementDialogMetion = ({
               role={user.user_type}
               link={profileRedirects({
                 lang,
-                id: user._id || user.id || "",
+                id: user._id || "",
                 role:
                   user.user_type === "USER" ? "SCHOOLSTAFF" : user.user_type,
               })}
