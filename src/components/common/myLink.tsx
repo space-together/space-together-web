@@ -53,6 +53,7 @@ type Props = {
   loading?: boolean;
   classname?: string;
   roleTag?: string; // "cls", "s", "su", etc
+  onClick?: () => void;
 };
 
 const MyLink = ({
@@ -64,10 +65,11 @@ const MyLink = ({
   classname,
   loading = false,
   roleTag,
+  onClick,
 }: Props) => {
   if (type === "button" || button) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} className={className} onClick={onClick}>
         <Button {...button} className={cn(classname)}>
           {loading ? (
             <LoadingIndicatorText className=" flex flex-row items-center gap-2">
@@ -97,6 +99,7 @@ const MyLink = ({
     <Link
       href={href}
       className={cn(loading && "skeleton skeleton-text", className || "")}
+      onClick={onClick}
     >
       {loading ? (
         <LoadingIndicatorText className=" flex flex-row items-center gap-2">
