@@ -8,24 +8,24 @@ export const metadata: Metadata = {
   title: "Sign in",
   description: "Login in an account on space together",
 };
-interface props {
-  params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{ oauthError?: string }>;
-}
 
-const LoginPage = async (props: props) => {
+const LoginPage = async (props: PageProps<"/[lang]/auth/login">) => {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const oauthError = searchParams.oauthError;
+  const { oauthError, callbackUrl } = searchParams;
   const { lang } = params;
-  const diction = await getDictionary(lang);
+  const diction = await getDictionary(lang as Locale);
   return (
     <div className=" h-screen flex flex-col items-start pt-4 happy-page gap-2 w-full">
       <div className=" space-y-2">
         <h1 className=" happy-title-head">Login</h1>
       </div>
       <div className=" mt-4 w-full space-y-3">
-        <LoginForm oauthError={oauthError} lang={lang} />
+        <LoginForm
+          oauthError={oauthError as string}
+          lang={lang as Locale}
+          callbackUrl={callbackUrl as string}
+        />
         <p>
           {diction.auth.register.page.paragraph}{" "}
           <MyLink href={`/${lang}/auth/register`} className=" link link-info">

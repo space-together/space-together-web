@@ -28,9 +28,10 @@ import { useForm } from "react-hook-form";
 interface props {
   lang: Locale;
   oauthError?: string;
+  callbackUrl?: string;
 }
 
-const LoginForm = ({ lang, oauthError }: props) => {
+const LoginForm = ({ lang, oauthError, callbackUrl }: props) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<undefined | null | string>(oauthError);
@@ -63,7 +64,9 @@ const LoginForm = ({ lang, oauthError }: props) => {
             login.data.school_access_token,
           );
           setSuccess(`Welcome back ${login.data.name} `);
-          if (login.data.role) {
+          if (callbackUrl) {
+            router.push(callbackUrl);
+          } else if (login.data.role) {
             router.push(redirectContents({ lang, role: login.data.role }));
           }
         }

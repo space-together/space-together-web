@@ -148,13 +148,13 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
                 </p>
               </div>
               <MyLink
-                href="/resources/why-space-together"
+                href={`/${lang}/resources/why-space-together`}
                 className=" text-sm  hover:text-primary"
               >
                 Why space-together?
               </MyLink>
               <MyLink
-                href="/accessibility"
+                href={`/${lang}/accessibility`}
                 className=" text-sm  hover:text-primary"
               >
                 Accessibility

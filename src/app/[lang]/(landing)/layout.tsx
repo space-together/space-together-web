@@ -7,7 +7,7 @@ const LandingLayout = async (props: LayoutProps<"/[lang]">) => {
   const { lang } = await props.params;
   const auth = await authContext();
   return (
-    <div className=" bg-base-200">
+    <div className=" bg-base-200 min-h-screen">
       <LandingNav auth={auth} lang={lang as Locale} />
       {children}
     </div>
