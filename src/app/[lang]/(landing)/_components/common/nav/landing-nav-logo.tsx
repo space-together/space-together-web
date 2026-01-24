@@ -21,9 +21,7 @@ const LandingNavLogo = ({ auth, lang }: LandingNavLogoProps) => {
           fill
         />
       </div>
-      <h2 className=" flex flex-row text-start text-lg font-semibold line-clamp-1">
-        space-together
-      </h2>
+      <h2 className="sr-only">space-together</h2>
     </MyLink>
   );
 };

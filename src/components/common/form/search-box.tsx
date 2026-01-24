@@ -13,6 +13,7 @@ interface SearchBoxProps {
   live?: boolean;
   loading?: boolean;
   className?: string;
+  autoFocus?: boolean;
 }
 
 /**
@@ -29,6 +30,7 @@ const SearchBox = ({
   live = true,
   loading = false,
   className,
+  autoFocus = false,
 }: SearchBoxProps) => {
   const [query, setQuery] = useState("");
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
@@ -76,6 +78,7 @@ const SearchBox = ({
         className=" pl-10"
         placeholder={placeholder}
         value={query}
+        autoFocus={autoFocus}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
       />

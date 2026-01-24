@@ -49,6 +49,26 @@ const LadingNavSearchDialog = ({ lang, auth }: LadingNavSearchDialogProps) => {
     }
   }, []);
 
+  // Add this useEffect hook after your existing useEffect for loading search history
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check for Ctrl+K (Windows/Linux) or Cmd+K (Mac)
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault(); // Prevent browser's default search
+        setIsOpen((state) => !state);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []); // Empty dependency array - only set up once
+
   // Save to localStorage whenever history changes
   const saveToHistory = (page: PageItem) => {
     try {
@@ -139,13 +159,19 @@ const LadingNavSearchDialog = ({ lang, auth }: LadingNavSearchDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" library="daisy">
+        <Button
+          variant="outline"
+          size="sm"
+          library="daisy"
+          title="Search ⌘ + K"
+        >
           <SearchIcon aria-hidden="true" size={16} />
+          <span className="sr-only">Search</span>
         </Button>
       </DialogTrigger>
       <DialogContent hideClose className="sm:max-w-2xl max-h-[95vh] min-h-80">
         <div className="flex flex-col gap-4">
-          <SearchBox onSearch={handleSearch} />
+          <SearchBox autoFocus onSearch={handleSearch} />
 
           <div className="flex flex-col gap-4 overflow-y-auto max-h-[calc(95vh-120px)]">
             {showEmptyState ? (
