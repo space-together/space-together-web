@@ -103,13 +103,13 @@ const TradeForm = ({ trade, auth, sector }: Props) => {
     toastOnError: true,
 
     onSuccess: (data) => {
-         if (trade) {
-           updateItem(data as TradeModule);
-         } else {
-           addItem(data as TradeModule);
-           form.reset();
-         }
-       },
+      if (trade) {
+        updateItem(data as TradeModule);
+      } else {
+        addItem(data as TradeModule);
+        form.reset();
+      }
+    },
 
     onError: (error, value) => {
       console.error("Failed to submit trade form:", error, value);
