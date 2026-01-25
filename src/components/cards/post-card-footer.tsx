@@ -60,6 +60,7 @@ const PostCardFooter = ({
             {target_id && (
               <LikesDialog
                 auth={auth}
+                lang={lang}
                 dialogTriggerType="groupUsers"
                 target_id={target_id}
               />

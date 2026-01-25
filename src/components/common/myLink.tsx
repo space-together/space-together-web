@@ -44,15 +44,14 @@ export function LoadingIndicator({ className }: props) {
   ) : null;
 }
 
-type Props = {
+type MyLinkProps = {
   href: string;
+  children: React.ReactNode;
   type?: "button" | "link";
   className?: string;
-  children: React.ReactNode;
   button?: ShadcnButtonProps | DaisyButtonProps;
   loading?: boolean;
-  classname?: string;
-  roleTag?: string; // "cls", "s", "su", etc
+  roleTag?: string;
 };
 
 const MyLink = ({
@@ -61,33 +60,30 @@ const MyLink = ({
   className = "",
   children,
   button,
-  classname,
   loading = false,
   roleTag,
-}: Props) => {
-  if (type === "button" || button) {
+}: MyLinkProps) => {
+  const renderContent = () => {
+    const contentWrapper = loading ? LoadingIndicatorText : "div";
+    const WrapperComponent = contentWrapper;
+
+    return (
+      <WrapperComponent className="flex flex-row items-center gap-2">
+        {roleTag && (
+          <span className="text-base-content/50 text-sm">{roleTag}/ </span>
+        )}
+        {children}
+      </WrapperComponent>
+    );
+  };
+
+  const isButtonType = type === "button" || button;
+
+  if (isButtonType) {
     return (
       <Link href={href} className={className}>
-        <Button {...button} className={cn(classname)}>
-          {loading ? (
-            <LoadingIndicatorText className=" flex flex-row items-center gap-2">
-              {roleTag && (
-                <span className={"text-base-content/50 text-sm"}>
-                  {roleTag}/{" "}
-                </span>
-              )}
-              {children}
-            </LoadingIndicatorText>
-          ) : (
-            <div className=" flex flex-row items-center gap-2">
-              {roleTag && (
-                <span className={"text-base-content/50 text-sm"}>
-                  {roleTag}/{" "}
-                </span>
-              )}
-              {children}
-            </div>
-          )}
+        <Button {...button} className={className}>
+          {renderContent()}
         </Button>
       </Link>
     );
@@ -96,23 +92,9 @@ const MyLink = ({
   return (
     <Link
       href={href}
-      className={cn(loading && "skeleton skeleton-text", className || "")}
+      className={cn(loading && "skeleton skeleton-text", className)}
     >
-      {loading ? (
-        <LoadingIndicatorText className=" flex flex-row items-center gap-2">
-          {roleTag && (
-            <span className={"text-base-content/50 text-sm"}>{roleTag}/ </span>
-          )}
-          {children} {loading}
-        </LoadingIndicatorText>
-      ) : (
-        <div className=" flex flex-row items-center gap-2">
-          {roleTag && (
-            <span className={"text-base-content/50 text-sm"}>{roleTag}/ </span>
-          )}
-          {children} {loading}
-        </div>
-      )}
+      {renderContent()}
     </Link>
   );
 };
