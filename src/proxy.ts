@@ -42,6 +42,32 @@ function extractLocaleFromPath(pathname: string): Locale | null {
   return null;
 }
 
+// Helper function to check if a path matches a route (including nested paths)
+function isRouteMatch(
+  pathname: string,
+  route: string,
+  locale: Locale,
+): boolean {
+  const pathWithoutLocale = pathname.startsWith(`/${locale}`)
+    ? pathname.slice(`/${locale}`.length)
+    : pathname;
+
+  // Exact match
+  if (pathWithoutLocale === route || pathname === route) {
+    return true;
+  }
+
+  // Check if pathname starts with route (for nested routes)
+  // e.g., "/systems/students" should match "/systems"
+  const normalizedPath = pathWithoutLocale || "/";
+  const normalizedRoute = route === "/" ? "/" : route;
+
+  return (
+    normalizedPath === normalizedRoute ||
+    normalizedPath.startsWith(`${normalizedRoute}/`)
+  );
+}
+
 export async function proxy(req: NextRequest) {
   const url = new URL(req.url);
   const pathname = url.pathname;
@@ -70,35 +96,36 @@ export async function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (
-    publicRoutes.some(
-      (route) =>
-        pathname === route ||
-        pathname === `/${detectedLocale}${route}` ||
-        pathname === `/${detectedLocale}`,
-    ) ||
-    authRoutes.some(
-      (route) =>
-        pathname === route ||
-        pathname === `/${detectedLocale}${route}` ||
-        pathname === `/${detectedLocale}`,
-    )
-  ) {
+  const isPublicRoute = publicRoutes.some((route) =>
+    isRouteMatch(pathname, route, detectedLocale),
+  );
+
+  const isAuthRoute = authRoutes.some((route) =>
+    isRouteMatch(pathname, route, detectedLocale),
+  );
+
+  const isPublicOrAuth = isPublicRoute || isAuthRoute;
+
+  if (isPublicOrAuth) {
     if (!pathname.startsWith(`/${detectedLocale}`)) {
       const localePath =
         pathname === "/"
           ? `/${detectedLocale}`
-          : `/${detectedLocale}${
-              pathname.startsWith("/") ? pathname : `/${pathname}`
-            }`;
+          : `/${detectedLocale}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
+
       return NextResponse.redirect(new URL(localePath, url.origin));
     }
+
     return NextResponse.next();
   }
 
   if (!isLoggedIn) {
     if (!pathname.startsWith(`/${detectedLocale}/auth/login`)) {
       const redirectUrl = new URL(`/${detectedLocale}/auth/login`, url.origin);
+
+      // Add the original page as a search parameter
+      redirectUrl.searchParams.set("callbackUrl", pathname);
+
       return NextResponse.redirect(redirectUrl);
     }
     return NextResponse.next();

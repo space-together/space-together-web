@@ -17,6 +17,7 @@ import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import DashboardAnnouncements from "./_components/dashboard/dashboard-announcements";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const auth = await authContext();
@@ -107,19 +108,21 @@ const SchoolStaffPage = async (props: PageProps<"/[lang]/s-t">) => {
           school={school.data}
         />
         <div className=" flex gap-4 flex-row">
-          <div className=" w-1/2">
+          <div className=" w-2/3">
             <Suspense
               fallback={
                 <DataDetailsCardListSkeleton
-                  className=" grid-cols-2"
-                  count={4}
+                  className=" grid-cols-3"
+                  count={6}
                 />
               }
             >
               <StaffDashboardPeople auth={auth} lang={lang as Locale} />
             </Suspense>
           </div>
-          <div className=" w-1/2">school educations: user </div>
+          <div className=" w-1/3">
+            <DashboardAnnouncements auth={auth} lang={lang as Locale} />
+          </div>
         </div>
       </div>
     );

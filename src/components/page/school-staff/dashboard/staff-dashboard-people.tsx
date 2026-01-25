@@ -32,8 +32,8 @@ const StaffDashboardPeople = async ({
     totalTeachersFemale,
     // staffs
     totalStaff,
-    totalStaffMale,
-    totalStaffFemale,
+    totalClasses,
+    totalClassSubjects,
   ] = await Promise.all([
     apiRequest<void, CountDoc>("get", "/school/students/count", undefined, {
       token: auth.token,
@@ -81,22 +81,18 @@ const StaffDashboardPeople = async ({
       },
     ),
     // staffs
-    apiRequest<void, CountDoc>("get", "/school/staff/count", undefined, {
+    apiRequest<void, CountDoc>("get", "/school/school-staff/count", undefined, {
+      token: auth.token,
+      schoolToken: auth.schoolToken,
+    }),
+
+    apiRequest<void, CountDoc>("get", "/school/classes/count", undefined, {
       token: auth.token,
       schoolToken: auth.schoolToken,
     }),
     apiRequest<void, CountDoc>(
       "get",
-      "/school/staff/count?field=gender&&value=MALE",
-      undefined,
-      {
-        token: auth.token,
-        schoolToken: auth.schoolToken,
-      },
-    ),
-    apiRequest<void, CountDoc>(
-      "get",
-      "/school/staff/count?field=gender&&value=FEMALE",
+      "/school/class-subjects/count",
       undefined,
       {
         token: auth.token,
@@ -146,18 +142,26 @@ const StaffDashboardPeople = async ({
       link: `/${lang}/s-t/staffs`,
       size: totalStaff?.data?.count ?? 0,
       icon: "/icons/staff.png",
-      items: [
-        { key: "Male", value: totalStaffMale?.data?.count ?? 0 },
-        {
-          key: "Female",
-          value: totalStaffFemale?.data?.count ?? 0,
-        },
-      ],
+      items: [],
+    },
+    {
+      title: "Classes",
+      link: `/${lang}/s-t/classes`,
+      size: totalClasses?.data?.count ?? 0,
+      icon: "/icons/classroom.png",
+      items: [],
+    },
+    {
+      title: "Class Subjects",
+      link: `/${lang}/s-t/subjects`,
+      size: totalClassSubjects?.data?.count ?? 0,
+      icon: "/icons/book.png",
+      items: [],
     },
   ];
 
   return (
-    <main className="grid w-full grid-cols-2 gap-4">
+    <main className="grid w-full grid-cols-3 gap-4">
       <Card className="pb-0">
         <CardHeader className=" border-b-0">
           <div className=" flex flex-row justify-between">
