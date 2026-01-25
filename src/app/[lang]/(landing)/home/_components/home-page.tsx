@@ -7,9 +7,13 @@ interface HomePageComponentProps {
 }
 
 const HomePageComponent = ({ auth, lang }: HomePageComponentProps) => {
-  return <div className="min-h-screen">Hello home
-
-    <div className= "size-80 bg-mute"></div>  </div>;
+  return (
+    <div className="min-h-screen">
+      <div className="min-h-screen"></div>
+      Hello home Rw
+      <div className="min-h-screen"></div>
+    </div>
+  );
 };
 
 export default HomePageComponent;

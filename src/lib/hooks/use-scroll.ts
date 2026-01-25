@@ -51,3 +51,24 @@ export function useScrollDirection(offset: number = 0) {
 
   return isVisible;
 }
+
+export function useScrollPast(height: number = 100): boolean {
+  const [isPast, setIsPast] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    setIsPast(window.scrollY > height);
+
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      setIsPast(currentScroll > height);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [height]);
+
+  return isPast;
+}

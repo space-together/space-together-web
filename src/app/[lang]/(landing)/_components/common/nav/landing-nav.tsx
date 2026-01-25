@@ -1,4 +1,8 @@
+"use client";
+import AppNavClient from "@/components/page/application/navbar/app-nav-client";
 import type { Locale } from "@/i18n";
+import { useScrollPast } from "@/lib/hooks/use-scroll";
+import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import LandingNavAuthButtons from "./landing-nav-auth-buttons";
 import LandingNavList from "./landing-nav-list";
@@ -11,17 +15,25 @@ interface LandingNavProps {
 }
 
 const LandingNav = ({ auth, lang }: LandingNavProps) => {
+  const scrollPast = useScrollPast(100);
   return (
-    <nav className=" px-4 py-2 flex flex-row items-center justify-between">
-      <div className="flex flex-row items-center gap-4">
-        <LandingNavLogo auth={auth} lang={lang} />
-        <LandingNavList auth={auth} lang={lang} />
-      </div>
-      <div className=" flex flex-row items-center gap-4">
-        <LadingNavSearchDialog auth={auth} lang={lang} />
-        <LandingNavAuthButtons auth={auth} lang={lang} />
-      </div>
-    </nav>
+    <AppNavClient>
+      <nav
+        className={cn(
+          "w-full px-4 py-2 flex flex-row items-center justify-between",
+          scrollPast ? "bg-base-100 shadow-md" : "bg-transparent",
+        )}
+      >
+        <div className="flex flex-row items-center gap-4">
+          <LandingNavLogo auth={auth} lang={lang} />
+          <LandingNavList auth={auth} lang={lang} />
+        </div>
+        <div className=" flex flex-row items-center gap-4">
+          <LadingNavSearchDialog auth={auth} lang={lang} />
+          <LandingNavAuthButtons auth={auth} lang={lang} />
+        </div>
+      </nav>
+    </AppNavClient>
   );
 };
 
