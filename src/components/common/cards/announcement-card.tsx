@@ -66,7 +66,6 @@ const AnnouncementCard = ({
           image={published?.image}
         />
         <div className=" flex items-center gap-1">
-          <span className="text-sm text-base-content/50">Announcement</span>
           <Popover>
             <PopoverTrigger asChild>
               <Button library="daisy" variant="ghost" size={"sm"} type="button">
@@ -97,6 +96,7 @@ const AnnouncementCard = ({
                   }}
                   name="Edit"
                   className="  justify-start"
+                  announcement={announcement}
                 />
                 {announcement && (
                   <DeleteAnnouncementDialog

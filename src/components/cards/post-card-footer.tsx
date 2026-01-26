@@ -1,4 +1,4 @@
-import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
+import type { AnnouncementWithRelations } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Activity } from "react";
@@ -16,7 +16,7 @@ interface propsPostCardFooter {
   enabledComponents?: components[];
   isCommentOpen?: boolean;
   auth: AuthContext;
-  announcement?: Announcement;
+  announcement?: AnnouncementWithRelations;
   lang: Locale;
 }
 
