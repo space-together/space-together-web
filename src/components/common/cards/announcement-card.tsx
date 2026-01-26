@@ -15,10 +15,13 @@ import type { userRole } from "@/lib/schema/common-details-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatTimeAgo } from "@/lib/utils/format-date";
+import { Activity } from "react";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import AddAnnouncementDialog from "../dialog/add-announcement-dialog";
 import AnnouncementDialogMetion from "../dialog/announcement-dialog-metion";
+import CommentsDialog from "../dialog/comments-dialog";
 import DeleteAnnouncementDialog from "../dialog/delete-announcement-dialog";
+import LikesDialog from "../dialog/likes-dialog";
 import MessageDisplay from "../form/message-input/message-display";
 
 interface AnnouncementCardProps {
@@ -145,3 +148,59 @@ const AnnouncementCard = ({
 };
 
 export default AnnouncementCard;
+
+export const AnnouncementDashboardCard = ({
+  auth,
+  announcement,
+  lang,
+}: AnnouncementCardProps) => {
+  const published = announcement?.published_user;
+  return (
+    <div>
+      <div className="  flex flex-col gap-1">
+        <UserSmCard
+          link={
+            published
+              ? profileRedirects({
+                  lang: lang ?? "en",
+                  role: published?.user_type as userRole,
+                  id: published?._id ?? "",
+                })
+              : undefined
+          }
+          role={published?.user_type ?? "-"}
+          avatarProps={{ size: "xs" }}
+          nameClassname="text-sm"
+          name={published?.name ?? "Published name"}
+          date={
+            announcement?.updated_at
+              ? formatTimeAgo(announcement.updated_at)
+              : "-"
+          }
+          image={published?.image}
+        />
+        {announcement?.content && (
+          <MessageDisplay content={announcement?.content} />
+        )}
+      </div>
+      <Activity>
+        {announcement && (
+          <footer className="flex items-center justify-start">
+            <LikesDialog
+              auth={auth}
+              lang={lang}
+              target_id={announcement._id}
+              likeButton
+            />
+            <CommentsDialog
+              announcement={announcement}
+              auth={auth}
+              lang={lang}
+              dialogTriggerType="icon"
+            />
+          </footer>
+        )}
+      </Activity>
+    </div>
+  );
+};

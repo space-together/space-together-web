@@ -4,6 +4,7 @@ import { UserSmCard } from "@/components/cards/user-card";
 import AnnouncementDialogMetion from "@/components/common/dialog/announcement-dialog-metion";
 import CommentsDialog from "@/components/common/dialog/comments-dialog";
 import LikesDialog from "@/components/common/dialog/likes-dialog";
+import MessageDisplay from "@/components/common/form/message-input/message-display";
 import type { Locale } from "@/i18n";
 import { profileRedirects } from "@/lib/hooks/redirect";
 import type { userRole } from "@/lib/schema/common-details-schema";
@@ -68,9 +69,7 @@ export const AnnouncementTableColumn = (
 
             {/* Content preview */}
             {announcement?.content ? (
-              <p className="text-sm line-clamp-3 text-base-content/80">
-                {announcement.content}
-              </p>
+              <MessageDisplay content={announcement.content} />
             ) : (
               <p className="text-sm italic opacity-60">
                 No announcement content

@@ -33,7 +33,12 @@ const PostCardFooter = ({
       <div className="flex justify-between py-2 w-full">
         <div className=" flex items-center">
           {enabledComponents.includes("like") && target_id && (
-            <LikesDialog auth={auth} likeButton target_id={target_id} />
+            <LikesDialog
+              lang={lang}
+              auth={auth}
+              likeButton
+              target_id={target_id}
+            />
           )}
           {enabledComponents.includes("read") && <ReadDialog />}
           {!isCommentOpen && enabledComponents.includes("comment") && (

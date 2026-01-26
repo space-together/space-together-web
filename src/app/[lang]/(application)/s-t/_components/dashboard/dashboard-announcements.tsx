@@ -1,3 +1,4 @@
+import { AnnouncementDashboardCard } from "@/components/common/cards/announcement-card";
 import AddAnnouncementDialog from "@/components/common/dialog/add-announcement-dialog";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,7 +21,7 @@ const DashboardAnnouncements = async ({
   const announcements = await apiRequest<
     void,
     Paginated<AnnouncementWithRelations>
-  >("get", `/school/announcements?limit=5`, undefined, {
+  >("get", `/school/announcements/others?limit=5`, undefined, {
     token: auth.token,
     schoolToken: auth.schoolToken,
   });
@@ -55,8 +56,24 @@ const DashboardAnnouncements = async ({
             name="New"
           />
         </CardHeader>
-        <CardContent>
-          <p>Welcome to Space Together! We are excited to have you on board.</p>
+        <CardContent className=" flex flex-col gap-3">
+          {announcements.data?.data.map((announcement) => (
+            <AnnouncementDashboardCard
+              key={announcement._id}
+              auth={auth}
+              isCommentOpen={false}
+              announcement={announcement}
+              lang={lang}
+            />
+          ))}
+          <MyLink
+            href={`/${lang}/s-t/announcements`}
+            className={" text-center flex items-center justify-center text-sm"}
+          >
+            <LoadingIndicatorText>
+              View all announements ({announcements.data?.total})
+            </LoadingIndicatorText>
+          </MyLink>
         </CardContent>
       </Card>
     </RealtimeProvider>
