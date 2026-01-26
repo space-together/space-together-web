@@ -21,7 +21,7 @@ const LandingNav = ({ auth, lang }: LandingNavProps) => {
       <nav
         className={cn(
           "w-full px-4 py-2 flex flex-row items-center justify-between",
-          scrollPast ? "bg-base-100 shadow-md" : "bg-transparent",
+          scrollPast ? "bg-base-100 shadow-md py-1" : "bg-transparent",
         )}
       >
         <div className="flex flex-row items-center gap-4">

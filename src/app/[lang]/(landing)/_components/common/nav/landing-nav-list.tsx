@@ -166,7 +166,7 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
         {/* SOLUTIONS */}
         <NavigationMenuItem>
           <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
-          <NavigationMenuContent className="bg-base-100 min-w-150 w-fit p-6 grid grid-cols-2  gap-6">
+          <NavigationMenuContent className="bg-base-100 w-140 min-w-140 p-6 grid grid-cols-2  gap-6">
             {solutions.map((item) => (
               <MyLink
                 key={item.label}
@@ -187,7 +187,7 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
         {/* SYSTEMS */}
         <NavigationMenuItem>
           <NavigationMenuTrigger>Systems</NavigationMenuTrigger>
-          <NavigationMenuContent className="bg-base-100 min-w-150 w-fit p-6 grid grid-cols-2  gap-4">
+          <NavigationMenuContent className="bg-base-100 w-140 min-w-140 p-6 grid grid-cols-2  gap-4">
             {systems.map((item) => (
               <MyLink
                 key={item.label}
