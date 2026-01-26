@@ -63,10 +63,7 @@ export function AssignRoleDialog({
                 </SelectTrigger>
                 <SelectContent>
                   {staffMembers.map((staff) => (
-                    <SelectItem
-                      key={staff.id}
-                      value={staff.id || staff._id || ""}
-                    >
+                    <SelectItem key={staff._id} value={staff._id || ""}>
                       {staff.name}
                     </SelectItem>
                   ))}

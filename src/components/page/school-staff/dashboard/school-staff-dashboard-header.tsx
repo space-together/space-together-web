@@ -41,7 +41,7 @@ const SchoolStaffDashboard = ({
             name={auth.school.member.name}
             link={profileRedirects({
               lang,
-              id: auth.school.member._id || auth.school.member.id || "",
+              id: auth.school.member._id || "",
               role:
                 auth.school.member.user_type === "USER"
                   ? "SCHOOLSTAFF"

@@ -51,6 +51,7 @@ type MyLinkProps = {
   className?: string;
   button?: ShadcnButtonProps | DaisyButtonProps;
   loading?: boolean;
+  classname?: string;
   roleTag?: string;
 };
 
@@ -62,6 +63,7 @@ const MyLink = ({
   button,
   loading = false,
   roleTag,
+  classname,
 }: MyLinkProps) => {
   const renderContent = () => {
     const contentWrapper = loading ? LoadingIndicatorText : "div";
