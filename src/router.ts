@@ -11,7 +11,7 @@ export const publicRoutes = [
   "/systems",
   "/resources",
   "/accessibility",
-  "enterprise",
+  "/enterprise",
   "/pricing",
 ];
 
