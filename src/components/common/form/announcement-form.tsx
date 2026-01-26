@@ -1,9 +1,9 @@
 "use client";
 import {
-  AnnouncementBase,
-  AnnouncementBaseSchema,
-  AnnouncementWithRelations,
   type Announcement,
+  type AnnouncementBase,
+  AnnouncementBaseSchema,
+  type AnnouncementWithRelations,
 } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
@@ -17,14 +17,14 @@ import type { Teacher } from "@/lib/schema/school/teacher-schema";
 import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FormError, FormSuccess } from "../form-message";
 import { CommonFormField } from "./common-form-field";
 import type { PickUserProps } from "./sign-to-input";
 
 interface Props {
   auth: AuthContext;
-  announcement?: Announcement;
+  announcement?: AnnouncementWithRelations;
   lang: Locale;
 }
 
@@ -35,6 +35,29 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
   // ✅ Get realtime context to manually add items
   const { addItem, updateItem } =
     useRealtimeData<AnnouncementWithRelations>("announcement");
+
+  // Extract existing mentions from announcement
+  const existingStudentMentions = useMemo(() => {
+    if (!announcement?.mentioned_users) return [];
+    return announcement.mentioned_users
+      .filter((user) => user.user_type === "STUDENT")
+      .map((user) => ({
+        value: user._id || user.id || "",
+        label: user.name,
+        image: user.image,
+      }));
+  }, [announcement]);
+
+  const existingTeacherMentions = useMemo(() => {
+    if (!announcement?.mentioned_users) return [];
+    return announcement.mentioned_users
+      .filter((user) => user.user_type === "TEACHER")
+      .map((user) => ({
+        value: user._id || user.id || "",
+        label: user.name,
+        image: user.image,
+      }));
+  }, [announcement]);
 
   // Memoized fetch function to prevent unnecessary re-renders
   const fetchStudents = useCallback(
@@ -121,21 +144,41 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
   });
 
   const handleMentionChangeStudents = (value: PickUserProps[]) => {
-    const mentions: ActorRef[] = value.map((user) => ({
+    const currentMentions = form.getValues("mention") || [];
+
+    // Remove all student mentions
+    const nonStudentMentions = currentMentions.filter(
+      (mention) => mention.role !== "STUDENT",
+    );
+
+    // Add new student mentions
+    const studentMentions: ActorRef[] = value.map((user) => ({
       id: user.value,
       role: "STUDENT",
     }));
 
-    form.setValue("mention", mentions);
+    form.setValue("mention", [...nonStudentMentions, ...studentMentions], {
+      shouldDirty: true,
+    });
   };
 
   const handleMentionChangeTeachers = (value: PickUserProps[]) => {
-    const mentions: ActorRef[] = value.map((user) => ({
+    const currentMentions = form.getValues("mention") || [];
+
+    // Remove all teacher mentions
+    const nonTeacherMentions = currentMentions.filter(
+      (mention) => mention.role !== "TEACHER",
+    );
+
+    // Add new teacher mentions
+    const teacherMentions: ActorRef[] = value.map((user) => ({
       id: user.value,
       role: "TEACHER",
     }));
 
-    form.setValue("mention", mentions);
+    form.setValue("mention", [...nonTeacherMentions, ...teacherMentions], {
+      shouldDirty: true,
+    });
   };
 
   return (
@@ -158,6 +201,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
                 label: student.name,
                 image: student.image,
               })),
+              defaultValue: existingStudentMentions,
             }}
           />
           <CommonFormField
@@ -176,6 +220,7 @@ const AnnouncementForm = ({ auth, announcement }: Props) => {
                 label: teacher.name,
                 image: teacher.image,
               })),
+              defaultValue: existingTeacherMentions,
             }}
           />
         </div>

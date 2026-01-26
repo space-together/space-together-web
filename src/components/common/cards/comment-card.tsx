@@ -118,6 +118,7 @@ const CommentCard = ({ comment, lang, auth }: CommentCardProps) => {
           {comment?._id && (
             <LikesDialog
               target_id={comment._id}
+              lang={lang}
               auth={auth}
               dialogTriggerType="text"
               dialogTriggerSize={"sm"}

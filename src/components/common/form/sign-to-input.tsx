@@ -34,6 +34,7 @@ export interface SignToInputProps {
   disabled?: boolean;
   users?: PickUserProps[];
   value?: PickUserProps[];
+  defaultValue?: PickUserProps[];
   placeholder?: string;
   onSearch?: (query: string) => Promise<void>;
 }
@@ -48,14 +49,22 @@ const SignToInput = ({
   title,
   description,
   users = [],
+  defaultValue = [],
   placeholder,
 }: SignToInputProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => {
+    return new Set(defaultValue.map((user) => user.value));
+  });
   const [isInternalOpen, setIsInternalOpen] = useState(open || false);
   const [isSearching, setIsSearching] = useState(false);
 
-  // Debounced Search Effect
+  useEffect(() => {
+    if (defaultValue.length > 0) {
+      setSelectedIds(new Set(defaultValue.map((user) => user.value)));
+    }
+  }, [defaultValue]);
+
   useEffect(() => {
     const handler = setTimeout(async () => {
       if (onSearch) {
@@ -68,12 +77,19 @@ const SignToInput = ({
     return () => clearTimeout(handler);
   }, [searchQuery, onSearch]);
 
-  // We no longer filter locally. 'users' prop is now the filtered list from backend.
   const filteredUsers = users;
 
   const selectedUsers = useMemo(() => {
-    return users.filter((u) => selectedIds.has(u.value));
-  }, [users, selectedIds]);
+    const allUsers = [...users];
+
+    defaultValue.forEach((defaultUser) => {
+      if (!allUsers.some((u) => u.value === defaultUser.value)) {
+        allUsers.push(defaultUser);
+      }
+    });
+
+    return allUsers.filter((u) => selectedIds.has(u.value));
+  }, [users, selectedIds, defaultValue]);
 
   const toggleUser = (value: string) => {
     const newSet = new Set(selectedIds);
@@ -101,7 +117,7 @@ const SignToInput = ({
                   src: user.image,
                   alt: user.label,
                 }))}
-                size="sm"
+                size="xs"
                 limit={5}
                 type="cycle"
                 className=" w-fit"

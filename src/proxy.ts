@@ -43,21 +43,25 @@ function extractLocaleFromPath(pathname: string): Locale | null {
 }
 
 // Helper function to check if a path matches a route (including nested paths)
-function isRouteMatch(pathname: string, route: string, locale: Locale): boolean {
+function isRouteMatch(
+  pathname: string,
+  route: string,
+  locale: Locale,
+): boolean {
   const pathWithoutLocale = pathname.startsWith(`/${locale}`)
     ? pathname.slice(`/${locale}`.length)
     : pathname;
-  
+
   // Exact match
   if (pathWithoutLocale === route || pathname === route) {
     return true;
   }
-  
+
   // Check if pathname starts with route (for nested routes)
   // e.g., "/systems/students" should match "/systems"
   const normalizedPath = pathWithoutLocale || "/";
   const normalizedRoute = route === "/" ? "/" : route;
-  
+
   return (
     normalizedPath === normalizedRoute ||
     normalizedPath.startsWith(`${normalizedRoute}/`)
@@ -93,11 +97,11 @@ export async function proxy(req: NextRequest) {
   }
 
   const isPublicRoute = publicRoutes.some((route) =>
-    isRouteMatch(pathname, route, detectedLocale)
+    isRouteMatch(pathname, route, detectedLocale),
   );
 
   const isAuthRoute = authRoutes.some((route) =>
-    isRouteMatch(pathname, route, detectedLocale)
+    isRouteMatch(pathname, route, detectedLocale),
   );
 
   const isPublicOrAuth = isPublicRoute || isAuthRoute;
@@ -118,10 +122,10 @@ export async function proxy(req: NextRequest) {
   if (!isLoggedIn) {
     if (!pathname.startsWith(`/${detectedLocale}/auth/login`)) {
       const redirectUrl = new URL(`/${detectedLocale}/auth/login`, url.origin);
-      
+
       // Add the original page as a search parameter
-      redirectUrl.searchParams.set('callbackUrl', pathname);
-      
+      redirectUrl.searchParams.set("callbackUrl", pathname);
+
       return NextResponse.redirect(redirectUrl);
     }
     return NextResponse.next();

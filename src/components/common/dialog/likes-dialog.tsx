@@ -16,8 +16,11 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 
+import type { Locale } from "@/i18n";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { LIMIT } from "@/lib/env";
+import { profileRedirects } from "@/lib/hooks/redirect";
+import type { userRole } from "@/lib/schema/common-details-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { Like, LikeBase, LikeWithRelations } from "@/lib/schema/like/like";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -33,6 +36,7 @@ interface LikesDialogProps {
   dialogTriggerType?: "icon" | "groupUsers" | "text";
   likeButton?: boolean;
   className?: string;
+  lang: Locale;
 }
 
 const LikesDialog = ({
@@ -42,6 +46,7 @@ const LikesDialog = ({
   auth,
   likeButton = false,
   className,
+  lang,
 }: LikesDialogProps) => {
   const [isLiked, setIsLiked] = useState<LikeWithRelations | undefined>(
     undefined,
@@ -421,6 +426,15 @@ const LikesDialog = ({
                   name={like?.author_user?.name || "Unknown User"}
                   image={like?.author_user?.image}
                   role={like?.author_user?.user_type}
+                  link={
+                    like?.author_user
+                      ? profileRedirects({
+                          lang,
+                          role: like?.author_user.user_type as userRole,
+                          id: like?.author_user._id || "",
+                        })
+                      : undefined
+                  }
                 />
               ))}
             </div>

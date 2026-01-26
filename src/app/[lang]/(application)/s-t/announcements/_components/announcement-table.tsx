@@ -15,7 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { AnnouncementWithRelations } from "../_schema/announcement";
 import { AnnouncementTableColumn } from "./announcement-table-column";
 
@@ -33,7 +33,7 @@ const AnnouncementTable = ({ lang, data, auth }: Props) => {
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const columns = useMemo(() => AnnouncementTableColumn(lang), [lang]);
+  const columns = AnnouncementTableColumn(lang, auth);
 
   const table = useReactTable<AnnouncementWithRelations>({
     data: displayAnnouncement,

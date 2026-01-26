@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n";
 const ClassLayout = async (props: LayoutProps<"/[lang]/c/[classUsername]">) => {
   const { lang, classUsername } = await props.params;
   return (
-    <div className="">
+    <div className="pt-6">
       <ClassNavbar classUsername={classUsername} lang={lang as Locale} />
       {props.children}
     </div>

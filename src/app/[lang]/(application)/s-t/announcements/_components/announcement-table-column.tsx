@@ -2,15 +2,20 @@
 
 import { UserSmCard } from "@/components/cards/user-card";
 import AnnouncementDialogMetion from "@/components/common/dialog/announcement-dialog-metion";
+import CommentsDialog from "@/components/common/dialog/comments-dialog";
+import LikesDialog from "@/components/common/dialog/likes-dialog";
+import MessageDisplay from "@/components/common/form/message-input/message-display";
 import type { Locale } from "@/i18n";
 import { profileRedirects } from "@/lib/hooks/redirect";
 import type { userRole } from "@/lib/schema/common-details-schema";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { formatTimeAgo } from "@/lib/utils/format-date";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { AnnouncementWithRelations } from "../_schema/announcement";
 
 export const AnnouncementTableColumn = (
   lang: Locale,
+  auth: AuthContext,
 ): ColumnDef<AnnouncementWithRelations>[] => {
   return [
     {
@@ -43,20 +48,28 @@ export const AnnouncementTableColumn = (
                     : undefined
                 }
               />
-              {announcement?.mentioned_users &&
-                announcement.mentioned_users.length > 0 && (
-                  <AnnouncementDialogMetion
+              <div className="flex flex-row gap-2">
+                {announcement?.mentioned_users &&
+                  announcement.mentioned_users.length > 0 && (
+                    <AnnouncementDialogMetion
+                      lang={lang}
+                      metion={announcement.mentioned_users}
+                    />
+                  )}
+                <div className="flex flex-row gap-2 items-center">
+                  <LikesDialog
+                    auth={auth}
                     lang={lang}
-                    metion={announcement.mentioned_users}
+                    target_id={row.original._id}
+                    dialogTriggerType="groupUsers"
                   />
-                )}
+                </div>
+              </div>
             </div>
 
             {/* Content preview */}
             {announcement?.content ? (
-              <p className="text-sm line-clamp-3 text-base-content/80">
-                {announcement.content}
-              </p>
+              <MessageDisplay content={announcement.content} />
             ) : (
               <p className="text-sm italic opacity-60">
                 No announcement content
@@ -64,10 +77,24 @@ export const AnnouncementTableColumn = (
             )}
 
             {/* Meta row */}
-            <div className="flex gap-3 text-xs opacity-60">
-              {announcement?.mentioned_users?.length ? (
-                <span>Mentions: {announcement.mentioned_users.length}</span>
-              ) : null}
+            <div className="flex flex-row gap-2 items-center">
+              <LikesDialog
+                auth={auth}
+                lang={lang}
+                target_id={row.original._id}
+                likeButton
+              />
+              <CommentsDialog
+                announcement={row.original}
+                auth={auth}
+                lang={lang}
+                dialogTriggerType="icon"
+              />
+              <div className="flex gap-3 text-xs opacity-60">
+                {announcement?.mentioned_users?.length ? (
+                  <span>Mentions: {announcement.mentioned_users.length}</span>
+                ) : null}
+              </div>
             </div>
           </div>
         );

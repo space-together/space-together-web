@@ -1,4 +1,4 @@
-import type { Announcement } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
+import type { AnnouncementWithRelations } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Activity } from "react";
@@ -16,7 +16,7 @@ interface propsPostCardFooter {
   enabledComponents?: components[];
   isCommentOpen?: boolean;
   auth: AuthContext;
-  announcement?: Announcement;
+  announcement?: AnnouncementWithRelations;
   lang: Locale;
 }
 
@@ -33,7 +33,12 @@ const PostCardFooter = ({
       <div className="flex justify-between py-2 w-full">
         <div className=" flex items-center">
           {enabledComponents.includes("like") && target_id && (
-            <LikesDialog auth={auth} likeButton target_id={target_id} />
+            <LikesDialog
+              lang={lang}
+              auth={auth}
+              likeButton
+              target_id={target_id}
+            />
           )}
           {enabledComponents.includes("read") && <ReadDialog />}
           {!isCommentOpen && enabledComponents.includes("comment") && (
@@ -60,6 +65,7 @@ const PostCardFooter = ({
             {target_id && (
               <LikesDialog
                 auth={auth}
+                lang={lang}
                 dialogTriggerType="groupUsers"
                 target_id={target_id}
               />

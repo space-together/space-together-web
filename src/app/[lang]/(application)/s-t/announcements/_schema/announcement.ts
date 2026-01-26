@@ -25,9 +25,7 @@ export const AnnouncementWithRelationsSchema = z.object({
   ...AnnouncementSchema.shape,
 
   published_user: RelatedUserSchema.optional(),
-
   mentioned_users: z.array(RelatedUserSchema).optional(),
-
   classes: ClassSchema.optional(),
 });
 

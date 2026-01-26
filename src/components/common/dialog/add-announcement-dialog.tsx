@@ -1,3 +1,4 @@
+import type { AnnouncementWithRelations } from "@/app/[lang]/(application)/s-t/announcements/_schema/announcement";
 import AnnouncementForm from "@/components/common/form/announcement-form";
 import MyAvatar from "@/components/common/image/my-avatar";
 import {
@@ -23,6 +24,7 @@ interface props {
   name?: string;
   auth: AuthContext;
   lang: Locale;
+  announcement?: AnnouncementWithRelations;
 }
 
 const AddAnnouncementDialog = ({
@@ -31,6 +33,7 @@ const AddAnnouncementDialog = ({
   className,
   auth,
   lang,
+  announcement,
 }: props) => {
   return (
     <Dialog>
@@ -65,8 +68,8 @@ const AddAnnouncementDialog = ({
         )}
       </DialogTrigger>
       <DialogContent className="max-h-[95vh] overflow-y-auto overflow-visible sm:max-w-2xl">
-        <DialogTitle>New announcement</DialogTitle>
-        <AnnouncementForm auth={auth} lang={lang} />
+        <DialogTitle>{announcement ? "Edit" : "New"} Announcement</DialogTitle>
+        <AnnouncementForm auth={auth} lang={lang} announcement={announcement} />
       </DialogContent>
     </Dialog>
   );
