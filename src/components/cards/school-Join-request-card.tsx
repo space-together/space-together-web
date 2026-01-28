@@ -4,10 +4,8 @@ import MyAvatar from "@/components/common/image/my-avatar";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import { useToast } from "@/lib/context/toast/ToastContext";
@@ -112,19 +110,9 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
             <UserSmCard
               image={request.sender?.image}
               name={request.sender?.name}
+              role={request.sender?.role}
             />
           )}
-          <MyAvatar src={request.sender?.image} alt={request.sender?.name} />
-          <div className="truncate">
-            <CardTitle className="text-base font-semibold">
-              {request.sender?.name}
-            </CardTitle>
-            {request.sender?.email && (
-              <CardDescription className="text-muted-foreground truncate text-sm">
-                {request.sender?.email}
-              </CardDescription>
-            )}
-          </div>
         </div>
       </CardHeader>
 

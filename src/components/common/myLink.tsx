@@ -53,6 +53,7 @@ type MyLinkProps = {
   loading?: boolean;
   classname?: string;
   roleTag?: string;
+  onClick?: () => void;
 };
 
 const MyLink = ({
@@ -63,6 +64,7 @@ const MyLink = ({
   button,
   loading = false,
   roleTag,
+  onClick,
   classname,
 }: MyLinkProps) => {
   const renderContent = () => {
@@ -83,7 +85,7 @@ const MyLink = ({
 
   if (isButtonType) {
     return (
-      <Link href={href} className={className}>
+      <Link onClick={onClick} href={href} className={className}>
         <Button {...button} className={className}>
           {renderContent()}
         </Button>
@@ -95,6 +97,7 @@ const MyLink = ({
     <Link
       href={href}
       className={cn(loading && "skeleton skeleton-text", className)}
+      onClick={onClick}
     >
       {renderContent()}
     </Link>

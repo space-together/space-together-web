@@ -5,20 +5,11 @@ import PageFilter from "@/components/common/pages/page-filter";
 import SmartPagination from "@/components/common/smart-pagination";
 import ChangeDisplay from "@/components/display/change-diplay";
 import ClassDialog from "@/components/page/school-staff/dialog/class-dialog";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useFilterData } from "@/lib/hooks/use-filter-data";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { ClassWithOthers } from "@/lib/schema/relations-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { useState } from "react";
 
 interface Props {
   auth: AuthContext;
@@ -26,24 +17,10 @@ interface Props {
 }
 
 const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
-  const [classType, setClassType] = useState<"all" | "main" | "sub">("all");
-
-  // Determine endpoint based on selected class type
-  const getEndpoint = () => {
-    switch (classType) {
-      case "main":
-        return `/school/classes/main-classes/with-details`;
-      case "sub":
-        return `/school/classes/subclasses/with-details`;
-      default:
-        return `/school/classes/with-others`;
-    }
-  };
-
   const { loading, pagination, handleSearch, handlePageChange } =
     useFilterData<ClassWithOthers>({
       auth,
-      endpoint: getEndpoint(),
+      endpoint: "/school/classes/others",
       initialData: {
         data: classes?.data ?? [],
         total: classes?.total ?? 0,
@@ -66,26 +43,6 @@ const SchoolStaffClassFilter = ({ auth, classes }: Props) => {
             placeholder="Search class..."
             loading={loading}
           />
-
-          <div>
-            <Select
-              value={classType}
-              onValueChange={(value: "all" | "main" | "sub") =>
-                setClassType(value)
-              }
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select class type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="all">All classes</SelectItem>
-                  <SelectItem value="main">Main classes</SelectItem>
-                  <SelectItem value="sub">Sub classes</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
 
         <div className="flex gap-4 items-center">
