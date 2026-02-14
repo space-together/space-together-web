@@ -29,23 +29,7 @@ export default function MessageInput({
   placeholder = "Message #general",
   enabledTools = ["toolbar", "emoji", "files", "metion", "send"],
   onSend,
-  mentionableUsers = [
-    {
-      value: "user1",
-      label: "John Doe",
-      image: "/images/1.jpg",
-    },
-    {
-      value: "user2",
-      label: "Jane Doe",
-      image: "/images/2.jpg",
-    },
-    {
-      value: "user3",
-      label: "Alice Smith",
-      image: "/images/3.jpg",
-    },
-  ],
+  mentionableUsers = [],
   classname,
 }: MessageInputProps) {
   const [showToolbar, setShowToolbar] = useState(false);
