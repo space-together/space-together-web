@@ -16,6 +16,8 @@ export const redirectContents = ({
       ? "s"
       : role === "SCHOOLSTAFF"
         ? "s-t"
+        : role === "PARENT"
+        ? "pr"
         : role === "ADMIN"
           ? "a"
           : "t"

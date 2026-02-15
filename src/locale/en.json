@@ -234,5 +234,77 @@
       "atRisk": "At-Risk Students",
       "trends": "Performance Trends"
     }
+  },
+  "parent": {
+    "dashboard": {
+      "title": "Parent Dashboard",
+      "description": "View your children's academic progress",
+      "totalChildren": "Total Children",
+      "children": "Children",
+      "child": "Child",
+      "yourChildren": "Your Children",
+      "latestAnnouncements": "Latest Announcements",
+      "viewAll": "View All"
+    },
+    "attendance": {
+      "title": "Attendance",
+      "description": "View attendance records and statistics",
+      "attendanceRate": "Attendance Rate",
+      "overview": "Attendance Overview",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "excused": "Excused",
+      "recentRecords": "Recent Attendance Records",
+      "date": "Date",
+      "status": "Status",
+      "remarks": "Remarks"
+    },
+    "results": {
+      "title": "Results",
+      "description": "View academic performance and grades",
+      "gpa": "GPA",
+      "rank": "Rank",
+      "exam": "Exam",
+      "subjectResults": "Subject Results",
+      "subject": "Subject",
+      "marks": "Marks",
+      "grade": "Grade",
+      "remarks": "Remarks",
+      "teacherRemarks": "Teacher Remarks"
+    },
+    "finance": {
+      "title": "Finance",
+      "description": "View fee balance and payment history",
+      "totalRequired": "Total Required",
+      "amountPaid": "Amount Paid",
+      "outstandingBalance": "Outstanding Balance",
+      "paymentHistory": "Payment History",
+      "date": "Date",
+      "amount": "Amount",
+      "method": "Method",
+      "reference": "Reference",
+      "status": {
+        "paid": "Paid",
+        "partial": "Partial",
+        "pending": "Pending"
+      }
+    },
+    "announcements": {
+      "title": "Announcements",
+      "description": "View all school announcements",
+      "noAnnouncements": "No announcements available",
+      "priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      }
+    },
+    "common": {
+      "className": "Class",
+      "attendancePercentage": "Attendance",
+      "outstandingFees": "Outstanding Fees",
+      "quickLinks": "Quick Links"
+    }
   }
 }

@@ -206,3 +206,22 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
   // 👇 USER-LEVEL SECTION
   CommonSidebar,
 ];
+
+export const parentSidebarGroups: sidebarGroupsProps[] = [
+  {
+    label: "Parent Portal",
+    items: [
+      {
+        title: "Dashboard",
+        icon: "/icons/dashboard.png",
+        url: "/pr",
+      },
+      {
+        title: "Announcements",
+        icon: "/icons/announcement.png",
+        url: "/pr/announcements",
+      },
+    ],
+  },
+  CommonSidebar,
+];
