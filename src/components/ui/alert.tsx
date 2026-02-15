@@ -7,15 +7,20 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
+        default: "bg-base-100 border-base-content/50",
         destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+          "text-error bg-error/10 border-error [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
+        warning:
+          "text-warning bg-warning/10 border-warning [&>svg]:text-current *:data-[slot=alert-description]:text-warning/90",
+        success:
+          "text-success bg-success/10 border-success [&>svg]:text-current *:data-[slot=alert-description]:text-success/90",
+        info: "text-info bg-info/10 border-info [&>svg]:text-current *:data-[slot=alert-description]:text-info/90",
       },
     },
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 const Alert = React.forwardRef<
