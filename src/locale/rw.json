@@ -98,5 +98,141 @@
         "button": "Tangira"
       }
     }
+  },
+  "academics": {
+    "common": {
+      "gpa": "Amanota rusange",
+      "rank": "Umwanya",
+      "promotion": "Kuzamurwa",
+      "exam": "Ikizamini",
+      "assessment": "Isuzuma",
+      "transcript": "Raporo y'amanota",
+      "pass": "Yatsinze",
+      "fail": "Yananiwe",
+      "grade": "Amanota",
+      "score": "Amanota",
+      "percentage": "Ijanisha",
+      "average": "Impuzandengo",
+      "total": "Yose",
+      "weight": "Uburemere",
+      "remarks": "Ibitekerezo",
+      "status": "Uko bimeze",
+      "actions": "Ibikorwa"
+    },
+    "exam": {
+      "title": "Ibizamini",
+      "create": "Shiraho ikizamini",
+      "edit": "Hindura ikizamini",
+      "delete": "Siba ikizamini",
+      "publish": "Tangaza ikizamini",
+      "archive": "Bika ikizamini",
+      "name": "Izina ry'ikizamini",
+      "description": "Ibisobanuro",
+      "type": "Ubwoko bw'ikizamini",
+      "startDate": "Itariki yo gutangira",
+      "endDate": "Itariki yo kurangiza",
+      "class": "Icyiciro",
+      "term": "Igihembwe",
+      "types": {
+        "Continuous": "Isuzuma rikomeza",
+        "Midterm": "Ikizamini cyo hagati",
+        "Final": "Ikizamini cya nyuma",
+        "Quiz": "Quiz",
+        "Assignment": "Umukoro"
+      },
+      "statuses": {
+        "Draft": "Inyandiko",
+        "Published": "Yatangajwe",
+        "InProgress": "Kiri gukorwa",
+        "Completed": "Byarangiye",
+        "Archived": "Byabitswe"
+      }
+    },
+    "assessment": {
+      "title": "Ibyiciro by'isuzuma",
+      "create": "Shiraho icyiciro",
+      "edit": "Hindura icyiciro",
+      "delete": "Siba icyiciro",
+      "name": "Izina ry'icyiciro",
+      "code": "Kode",
+      "weight": "Uburemere (%)",
+      "subject": "Isomo",
+      "totalWeight": "Uburemere bwose",
+      "weightExceeded": "Uburemere bwose bwarenze 100%"
+    },
+    "grading": {
+      "title": "Uburyo bwo gutanga amanota",
+      "create": "Shiraho uburyo",
+      "edit": "Hindura uburyo",
+      "activate": "Koresha uburyo",
+      "name": "Izina ry'uburyo",
+      "type": "Ubwoko bw'amanota",
+      "boundaries": "Imipaka y'amanota",
+      "minScore": "Amanota make",
+      "maxScore": "Amanota menshi",
+      "gpaValue": "Agaciro ka GPA",
+      "types": {
+        "Letter": "Inyuguti",
+        "Percentage": "Ijanisha",
+        "Competency": "Ubushobozi"
+      }
+    },
+    "scores": {
+      "title": "Kwinjiza amanota",
+      "enterScores": "Injiza amanota",
+      "bulkEntry": "Injiza byinshi",
+      "student": "Umunyeshuri",
+      "score": "Amanota",
+      "maxScore": "Amanota menshi",
+      "save": "Bika amanota",
+      "saved": "Amanota yabitswe neza",
+      "error": "Byanze kubika amanota"
+    },
+    "results": {
+      "title": "Ibisubizo",
+      "termPerformance": "Imikorere y'igihembwe",
+      "subjectBreakdown": "Ibisobanuro by'amasomo",
+      "progressChart": "Igishushanyo cy'iterambere",
+      "downloadReport": "Kuramo raporo",
+      "viewTranscript": "Reba raporo y'amanota",
+      "calculate": "Kubara ibisubizo",
+      "calculated": "Ibisubizo byabawe neza"
+    },
+    "report": {
+      "title": "Raporo y'amanota",
+      "generate": "Kora raporo",
+      "studentInfo": "Amakuru y'umunyeshuri",
+      "academicPerformance": "Imikorere y'amasomo",
+      "attendance": "Incamake y'ibitabiriye",
+      "teacherRemarks": "Ibitekerezo by'umwarimu",
+      "classTeacherComment": "Icyo umwarimu w'icyiciro avuga",
+      "principalComment": "Icyo umuyobozi avuga",
+      "totalDays": "Iminsi yose",
+      "daysPresent": "Iminsi yaje",
+      "daysAbsent": "Iminsi yibuze",
+      "attendancePercentage": "Ijanisha y'ibitabiriye"
+    },
+    "transcript": {
+      "title": "Raporo y'amanota rusange",
+      "generate": "Kora raporo",
+      "cumulativeGPA": "GPA rusange",
+      "yearlyPerformance": "Imikorere y'umwaka",
+      "finalStatus": "Uko bimeze nyuma",
+      "statuses": {
+        "Promoted": "Yazamuwe",
+        "Repeated": "Yasubiwe",
+        "Graduated": "Yarangije",
+        "Left": "Yavuye"
+      }
+    },
+    "analytics": {
+      "title": "Isesengura",
+      "classRanking": "Imyanya y'icyiciro",
+      "passRate": "Ijanisha y'abatsinze",
+      "distribution": "Ikwirakwizwa ry'amanota",
+      "topStudents": "Abanyeshuri ba mbere",
+      "atRisk": "Abanyeshuri bafite ikibazo",
+      "trends": "Imyumvire y'imikorere"
+    }
   }
 }

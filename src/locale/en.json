@@ -98,5 +98,141 @@
         "button": "Get start"
       }
     }
+  },
+  "academics": {
+    "common": {
+      "gpa": "GPA",
+      "rank": "Rank",
+      "promotion": "Promotion",
+      "exam": "Exam",
+      "assessment": "Assessment",
+      "transcript": "Transcript",
+      "pass": "Pass",
+      "fail": "Fail",
+      "grade": "Grade",
+      "score": "Score",
+      "percentage": "Percentage",
+      "average": "Average",
+      "total": "Total",
+      "weight": "Weight",
+      "remarks": "Remarks",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "exam": {
+      "title": "Exams",
+      "create": "Create Exam",
+      "edit": "Edit Exam",
+      "delete": "Delete Exam",
+      "publish": "Publish Exam",
+      "archive": "Archive Exam",
+      "name": "Exam Name",
+      "description": "Description",
+      "type": "Exam Type",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "class": "Class",
+      "term": "Term",
+      "types": {
+        "Continuous": "Continuous Assessment",
+        "Midterm": "Midterm Exam",
+        "Final": "Final Exam",
+        "Quiz": "Quiz",
+        "Assignment": "Assignment"
+      },
+      "statuses": {
+        "Draft": "Draft",
+        "Published": "Published",
+        "InProgress": "In Progress",
+        "Completed": "Completed",
+        "Archived": "Archived"
+      }
+    },
+    "assessment": {
+      "title": "Assessment Categories",
+      "create": "Create Category",
+      "edit": "Edit Category",
+      "delete": "Delete Category",
+      "name": "Category Name",
+      "code": "Code",
+      "weight": "Weight (%)",
+      "subject": "Subject",
+      "totalWeight": "Total Weight",
+      "weightExceeded": "Total weight exceeds 100%"
+    },
+    "grading": {
+      "title": "Grading Scales",
+      "create": "Create Scale",
+      "edit": "Edit Scale",
+      "activate": "Activate Scale",
+      "name": "Scale Name",
+      "type": "Grading Type",
+      "boundaries": "Grade Boundaries",
+      "minScore": "Min Score",
+      "maxScore": "Max Score",
+      "gpaValue": "GPA Value",
+      "types": {
+        "Letter": "Letter Grade",
+        "Percentage": "Percentage",
+        "Competency": "Competency-based"
+      }
+    },
+    "scores": {
+      "title": "Score Entry",
+      "enterScores": "Enter Scores",
+      "bulkEntry": "Bulk Entry",
+      "student": "Student",
+      "score": "Score",
+      "maxScore": "Max Score",
+      "save": "Save Scores",
+      "saved": "Scores saved successfully",
+      "error": "Failed to save scores"
+    },
+    "results": {
+      "title": "Results",
+      "termPerformance": "Term Performance",
+      "subjectBreakdown": "Subject Breakdown",
+      "progressChart": "Progress Chart",
+      "downloadReport": "Download Report",
+      "viewTranscript": "View Transcript",
+      "calculate": "Calculate Results",
+      "calculated": "Results calculated successfully"
+    },
+    "report": {
+      "title": "Report Card",
+      "generate": "Generate Report",
+      "studentInfo": "Student Information",
+      "academicPerformance": "Academic Performance",
+      "attendance": "Attendance Summary",
+      "teacherRemarks": "Teacher Remarks",
+      "classTeacherComment": "Class Teacher Comment",
+      "principalComment": "Principal Comment",
+      "totalDays": "Total Days",
+      "daysPresent": "Days Present",
+      "daysAbsent": "Days Absent",
+      "attendancePercentage": "Attendance %"
+    },
+    "transcript": {
+      "title": "Academic Transcript",
+      "generate": "Generate Transcript",
+      "cumulativeGPA": "Cumulative GPA",
+      "yearlyPerformance": "Yearly Performance",
+      "finalStatus": "Final Status",
+      "statuses": {
+        "Promoted": "Promoted",
+        "Repeated": "Repeated",
+        "Graduated": "Graduated",
+        "Left": "Left"
+      }
+    },
+    "analytics": {
+      "title": "Analytics",
+      "classRanking": "Class Ranking",
+      "passRate": "Pass Rate",
+      "distribution": "Score Distribution",
+      "topStudents": "Top Students",
+      "atRisk": "At-Risk Students",
+      "trends": "Performance Trends"
+    }
   }
 }
