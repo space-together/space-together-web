@@ -1,20 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import ExamDialog from "@/components/page/admin/academics/dialogs/exam-dialog";
+import ExamsTable from "@/components/page/admin/academics/tables/exams-table";
 import { useExams } from "@/lib/hooks/academics/useExams";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { Plus } from "lucide-react";
 import { useState } from "react";
-import ExamDialog from "../dialogs/exam-dialog";
-import ExamsTable from "../tables/exams-table";
 
 interface ExamsTabProps {
   auth: AuthContext;
 }
 
 export default function ExamsTab({ auth }: ExamsTabProps) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedExam, setSelectedExam] = useState<string | undefined>();
   const [filters, setFilters] = useState({
     page: 1,
     limit: 10,
@@ -26,22 +22,6 @@ export default function ExamsTab({ auth }: ExamsTabProps) {
     auth.schoolToken || undefined,
   );
 
-  const handleEdit = (examId: string) => {
-    setSelectedExam(examId);
-    setIsDialogOpen(true);
-  };
-
-  const handleCreate = () => {
-    setSelectedExam(undefined);
-    setIsDialogOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsDialogOpen(false);
-    setSelectedExam(undefined);
-    mutate();
-  };
-
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -51,26 +31,16 @@ export default function ExamsTab({ auth }: ExamsTabProps) {
             Manage exams and assessment periods
           </p>
         </div>
-        <Button onClick={handleCreate}>
-          <Plus className="mr-2 h-4 w-4" />
-          Create Exam
-        </Button>
+        <ExamDialog auth={auth} onSuccess={mutate} />
       </div>
 
       <ExamsTable
         exams={exams}
         isLoading={isLoading}
-        onEdit={handleEdit}
         onRefresh={mutate}
-        auth={auth}
-      />
-
-      <ExamDialog
-        open={isDialogOpen}
-        onClose={handleClose}
-        examId={selectedExam}
-        auth={auth}
-      />
+        auth={auth} onEdit={function (examId: string): void {
+          throw new Error("Function not implemented.");
+        } }      />
     </div>
   );
 }

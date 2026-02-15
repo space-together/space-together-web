@@ -13,12 +13,20 @@ interface AcademicsManagementProps {
 
 export default function AcademicsManagement({ auth }: AcademicsManagementProps) {
   return (
-    <Tabs defaultValue="exams" className="w-full">
-      <TabsList className="grid w-full grid-cols-4">
-        <TabsTrigger value="exams">Exams</TabsTrigger>
-        <TabsTrigger value="assessments">Assessment Categories</TabsTrigger>
-        <TabsTrigger value="grading">Grading Scales</TabsTrigger>
-        <TabsTrigger value="results">Results & Reports</TabsTrigger>
+    <Tabs defaultValue="exams" className="w-full" library="daisy">
+      <TabsList variant="bordered" className="mb-6">
+        <TabsTrigger value="exams" library="daisy">
+          Exams
+        </TabsTrigger>
+        <TabsTrigger value="assessments" library="daisy">
+          Assessment Categories
+        </TabsTrigger>
+        <TabsTrigger value="grading" library="daisy">
+          Grading Scales
+        </TabsTrigger>
+        <TabsTrigger value="results" library="daisy">
+          Results & Reports
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="exams" className="mt-6">
