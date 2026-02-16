@@ -146,6 +146,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
             icon: "/icons/staff.png",
             url: "/s-t/staffs",
           },
+          {
+            title: "Parents",
+            icon: "/icons/parents.png",
+            url: "/s-t/parens",
+          },
         ],
       },
       {
