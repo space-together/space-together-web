@@ -97,6 +97,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
           icon: col.icon,
         })),
       },
+      {
+        title: "Roles & Permissions",
+        icon: "/icons/cogwheel.png",
+        url: "/a/roles",
+      },
     ],
   },
   CommonSidebar,
@@ -205,6 +210,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/settings.png",
         url: "/s-t/settings",
       },
+      {
+        title: "Roles",
+        icon: "/icons/cogwheel.png",
+        url: "/s-t/roles",
+      },
     ],
   },
 
@@ -222,11 +232,13 @@ export const parentSidebarGroups: sidebarGroupsProps[] = [
         url: "/pr",
       },
       {
+        title: "My Children",
+        icon: "/icons/student.png",
+        url: "/p/children",
+      }, {
         title: "Announcements",
         icon: "/icons/announcement.png",
         url: "/pr/announcements",
-      },
-    ],
-  },
-  CommonSidebar,
+      },],},
+        CommonSidebar,
 ];
