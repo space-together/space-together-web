@@ -93,6 +93,16 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/database.png",
       },
       {
+        title: "Backups",
+        url: "/a/backups",
+        icon: "/icons/database.png",
+      },
+      {
+        title: "Recyle bin",
+        url: "/a/recycle-bin",
+        icon: "/icons/database.png",
+      },
+      {
         title: "Collections",
         icon: "/icons/data-collection.png",
         url: "/a/collections",
@@ -224,6 +234,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
         title: "Roles",
         icon: "/icons/cogwheel.png",
         url: "/s-t/roles",
+      },
+      {
+        title: "Backup",
+        icon: "/icons/cogwheel.png",
+        url: "/s-t/backup",
       },
     ],
   },
