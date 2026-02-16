@@ -88,6 +88,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/database.png",
       },
       {
+        title: "Audit logs",
+        url: "/a/audit-logs",
+        icon: "/icons/database.png",
+      },
+      {
         title: "Collections",
         icon: "/icons/data-collection.png",
         url: "/a/collections",
@@ -202,6 +207,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
             title: "Join School Requests",
             icon: "/icons/request.png",
             url: "/s-t/join-school-requests",
+          },
+          {
+            title: "Audit logs",
+            icon: "/icons/request.png",
+            url: "/s-t/audit-logs",
           },
         ],
       },
