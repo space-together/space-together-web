@@ -21,7 +21,7 @@ const ParentBaseSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
   image: z.string().optional(),
-  gender: z.enum(["MALE", "FEMALE"]).optional(),
+  gender: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
   relationship: z.string().optional(),
   occupation: z.string().optional(),
   national_id: z.string().optional(),
@@ -189,7 +189,7 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
               name="gender"
               label="Gender"
               fieldType="radio-input"
-              items={GenderDetails.filter((g) => g.value !== "OTHER")}
+              items={GenderDetails}
               disabled={isPending}
             />
 
@@ -197,9 +197,12 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
               control={form.control}
               name="relationship"
               label="Relationship"
-              fieldType="radio-input"
-              items={Relationships}
-              className="grid-cols-2"
+              fieldType="select"
+              placeholder="Select relationship"
+              selectOptions={Relationships.map((r) => ({
+                value: r,
+                label: r.replace(/([A-Z])/g, " $1").trim(),
+              }))}
               disabled={isPending}
             />
 
@@ -215,7 +218,7 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
               control={form.control}
               name="student_ids"
               label="Connected Students"
-              fieldType="multiSelect"
+              fieldType="multipleSelect"
               placeholder={
                 loadingOptions ? "Loading students..." : "Select students"
               }

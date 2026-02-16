@@ -1,6 +1,7 @@
 import { mainClassSchema } from "@/lib/schema/admin/main-classes-schema";
 import { tradeSchema } from "@/lib/schema/admin/tradeSchema";
 import { ClassSchema } from "@/lib/schema/class/class-schema";
+import { ParentSchema } from "@/lib/schema/parent/parent-schema";
 import { SchoolSchema } from "@/lib/schema/school/school-schema";
 import { TeacherSchema } from "@/lib/schema/school/teacher-schema";
 import { StudentSchema } from "@/lib/schema/student/student-schema";
