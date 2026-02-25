@@ -8,7 +8,7 @@ import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
 import type { Paginated } from "@/lib/schema/common-schema";
-import { ParentWithRelations } from "@/lib/schema/relations-schema";
+import type { ParentWithRelations } from "@/lib/schema/relations-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import type { Metadata } from "next";

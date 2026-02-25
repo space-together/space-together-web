@@ -1,5 +1,5 @@
+import CommonEmpty from "@/components/common/common-empty";
 import ParentDialog from "@/components/page/parent/dialogs/parent-dialog";
-import Empty from "@/components/ui/empty";
 import type { AuthContext } from "@/lib/utils/auth-context";
 
 interface Props {
@@ -9,12 +9,12 @@ interface Props {
 
 const EmptyParents = ({ isSchool, auth }: Props) => {
   return (
-    <Empty
+    <CommonEmpty
       title="No parents found"
       description="Get started by adding your first parent."
-      icon="/png/no-items.png"
-      action={isSchool ? <ParentDialog auth={auth} isSchool /> : undefined}
-    />
+    >
+      {isSchool ? <ParentDialog auth={auth} isSchool /> : undefined}
+    </CommonEmpty>
   );
 };
 

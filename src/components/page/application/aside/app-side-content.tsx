@@ -260,10 +260,13 @@ export const parentSidebarGroups: sidebarGroupsProps[] = [
         title: "My Children",
         icon: "/icons/student.png",
         url: "/p/children",
-      }, {
+      },
+      {
         title: "Announcements",
         icon: "/icons/announcement.png",
         url: "/pr/announcements",
-      },],},
-        CommonSidebar,
+      },
+    ],
+  },
+  CommonSidebar,
 ];
