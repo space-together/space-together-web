@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import { GenderDetails, Relationships } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
+import { GenderSchema } from "@/lib/schema/common-details-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import type { Parent } from "@/lib/schema/parent/parent-schema";
 import type { StudentWithRelations } from "@/lib/schema/relations-schema";
@@ -21,7 +22,7 @@ const ParentBaseSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
   image: z.string().optional(),
-  gender: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
+  gender: GenderSchema.optional(),
   relationship: z.string().optional(),
   occupation: z.string().optional(),
   national_id: z.string().optional(),
@@ -117,6 +118,10 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
       : "Parent created successfully",
 
     toastOnError: true,
+    onError: (error, data) => {
+      console.log("Parents 🫡:", data);
+      console.error(error);
+    },
     onSuccess: (data) => {
       if (parent) {
         updateItem(data as Parent);

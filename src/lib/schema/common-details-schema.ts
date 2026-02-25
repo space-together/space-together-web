@@ -17,6 +17,7 @@ import {
   JoinStatusEnums,
   languages,
   LearningChallenges,
+  ParentStatuses,
   ProfessionalGoals,
   Relationships,
   schoolMembers,
@@ -384,3 +385,7 @@ export type ClassLevel = z.infer<typeof ClassLevelSchema>;
 // classwork
 export const ClassworkTypeSchema = z.enum(ClassworkTypes);
 export type ClassworkType = z.infer<typeof ClassworkTypeSchema>;
+
+// parents
+export const ParentStatusSchema = z.enum(ParentStatuses);
+export type ParentStatus = z.infer<typeof ParentStatusSchema>;
