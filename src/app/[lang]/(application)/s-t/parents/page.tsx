@@ -37,7 +37,7 @@ const SchoolStaffParentPage = async (
   const [parents_res] = await Promise.all([
     apiRequest<void, Paginated<ParentWithRelations>>(
       "get",
-      `/school/parents?limit=${LIMIT}`,
+      `/school/parents/others?limit=${LIMIT}`,
       undefined,
       {
         token: auth.token,

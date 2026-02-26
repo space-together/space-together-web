@@ -1203,4 +1203,4 @@ export const DaySpecialTypes = [
 ] as const;
 
 // Parents
-export const ParentStatuses = ["Active", "Inactive"];
+export const ParentStatuses = ["Active", "Inactive"] as const;

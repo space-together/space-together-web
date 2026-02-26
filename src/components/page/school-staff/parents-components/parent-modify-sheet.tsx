@@ -19,9 +19,13 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import type { Locale } from "@/i18n";
 import { splitCamelCase } from "@/lib/helpers/format-text";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { ParentWithRelations } from "@/lib/schema/relations-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
+import { useEffect, useState } from "react";
 
 interface Props {
   parent: ParentWithRelations;
@@ -39,6 +43,39 @@ const ParentModifySheet = ({
   isSchool,
 }: Props) => {
   const studentCount = parent.student_ids?.length || 0;
+  const [students, setStudents] = useState<Student[]>([]);
+  const [loadingOptions, setLoadingOptions] = useState(true);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      if (studentCount > 0) {
+        const params = new URLSearchParams();
+        parent.student_ids?.forEach((id) =>
+          params.append("by_ids", String(id)),
+        );
+        try {
+          const res = await apiRequest<void, Paginated<Student>>(
+            "get",
+            `/school/students?${params.toString()}`,
+            undefined,
+            {
+              token: auth.token,
+              schoolToken: auth.schoolToken,
+            },
+          );
+          if (res?.data?.data) {
+            setStudents(res.data.data);
+          }
+        } catch (err) {
+          console.error("Failed to fetch students by IDs", err);
+        } finally {
+          setLoadingOptions(false);
+        }
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   return (
     <Sheet isPublic>

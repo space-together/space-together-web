@@ -2,37 +2,23 @@
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
+import { FormGlobalError } from "@/components/common/form/form-error";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { GenderDetails, Relationships } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import { useRealtimeData } from "@/lib/providers/RealtimeProvider";
-import { GenderSchema } from "@/lib/schema/common-details-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
-import type { Parent } from "@/lib/schema/parent/parent-schema";
-import type { StudentWithRelations } from "@/lib/schema/relations-schema";
+import {
+  ParentBaseSchema,
+  type Parent,
+  type ParentBase,
+} from "@/lib/schema/parent/parent-schema";
+import type { Student } from "@/lib/schema/student/student-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
-import { z } from "zod";
-import { ParentStatusSchema } from "../../../../lib/schema/common-details-schema";
-
-const ParentBaseSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
-  image: z.string().optional(),
-  gender: GenderSchema.optional(),
-  relationship: z.string().optional(),
-  occupation: z.string().optional(),
-  national_id: z.string().optional(),
-  student_ids: z.array(z.string()).optional(),
-  status: ParentStatusSchema.optional(),
-  is_active: z.boolean().default(true),
-});
-
-type ParentBase = z.infer<typeof ParentBaseSchema>;
 
 interface Props {
   auth: AuthContext;
@@ -41,16 +27,47 @@ interface Props {
 }
 
 const ParentForm = ({ auth, parent, isSchool }: Props) => {
-  const [students, setStudents] = useState<StudentWithRelations[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
   const { addItem, updateItem } = useRealtimeData<Parent>("parent");
+  const [studentIds, setStudentIds] = useState<string[]>(
+    () => parent?.student_ids?.map(String) ?? [],
+  );
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      if (studentIds.length > 0) {
+        const params = new URLSearchParams();
+        studentIds.forEach((id) => params.append("by_ids", id));
+        try {
+          const res = await apiRequest<void, Paginated<Student>>(
+            "get",
+            `/school/students?${params.toString()}`,
+            undefined,
+            {
+              token: auth.token,
+              schoolToken: auth.schoolToken,
+            },
+          );
+
+          if (res?.data?.data) {
+            setStudents(res.data.data);
+          }
+        } catch (err) {
+          console.error("Failed to fetch students by IDs", err);
+        }
+      }
+    };
+
+    fetchStudents();
+  }, [auth, parent?.student_ids]);
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await apiRequest<void, Paginated<StudentWithRelations>>(
+        const res = await apiRequest<void, Paginated<Student>>(
           "get",
-          "/school/students/others",
+          "/school/students",
           undefined,
           {
             token: auth.token,
@@ -86,8 +103,8 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
         relationship: parent?.relationship ?? undefined,
         occupation: parent?.occupation ?? undefined,
         national_id: parent?.national_id ?? undefined,
-        student_ids: parent?.student_ids ?? [],
-        status: parent?.status ?? "ACTIVE",
+        student_ids: [],
+        status: parent?.status ?? "Active",
         is_active: parent?.is_active ?? true,
       },
     },
@@ -95,18 +112,18 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
     transform: (values) => ({
       ...values,
       school_id: isSchool ? auth.school?.id : undefined,
-      user_id: auth.user.id,
+      student_ids: values.student_ids?.map((s) => s.value) ?? [],
     }),
 
     request: {
       method: parent ? "put" : "post",
       url:
         parent && isSchool
-          ? `/school/parents/${parent._id || parent.id}`
+          ? `/school/parents/${parent._id}`
           : isSchool
             ? "/school/parents"
             : parent
-              ? `/parents/${parent._id || parent.id}`
+              ? `/parents/${parent._id}`
               : "/parents",
       apiRequest: {
         token: auth.token,
@@ -120,7 +137,6 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
 
     toastOnError: true,
     onError: (error, data) => {
-      console.log("Parents 🫡:", data);
       console.error(error);
     },
     onSuccess: (data) => {
@@ -220,7 +236,7 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
               disabled={isPending}
             />
 
-            {students.length > 0 ? (
+            {students.length > 0 && !loadingOptions ? (
               <CommonFormField
                 control={form.control}
                 name="student_ids"
@@ -233,8 +249,8 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
                 selectOptions={studentOptions}
               />
             ) : (
-              <div className="rounded-md bg-yellow-50 p-4">
-                <div className="flex">
+              <div className="card bg-warning text-warning-content p-4">
+                <div className="flex flex-col">
                   <strong className="mr-1">No students available.</strong>
                   {isSchool && (
                     <span>Please add students in the in school</span>
@@ -252,7 +268,7 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
             />
           </div>
         </div>
-
+        <FormGlobalError errors={form.formState.errors} />
         {/* Messages */}
         <FormError message={error} />
         <FormSuccess message={success} />

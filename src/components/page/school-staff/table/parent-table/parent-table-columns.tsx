@@ -118,7 +118,7 @@ export const ParentTableColumns = (
     },
 
     {
-      header: "Connected Students",
+      header: "Students",
       accessorKey: "student_ids",
       cell: ({ row }) => {
         const count = row.original.student_ids?.length || 0;

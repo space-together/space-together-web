@@ -1,9 +1,13 @@
 import { z } from "zod";
-import { GenderSchema, RelationshipSchema } from "../common-details-schema";
+import {
+  GenderSchema,
+  OptionSchema,
+  ParentStatusSchema,
+  RelationshipSchema,
+} from "../common-details-schema";
 
 export const ParentSchema = z.object({
-  id: z.string(),
-  _id: z.string().optional(),
+  _id: z.string(),
   user_id: z.string(),
   school_id: z.string(),
   student_ids: z.array(z.string()),
@@ -16,11 +20,24 @@ export const ParentSchema = z.object({
   relationship: RelationshipSchema.optional().nullable(),
   occupation: z.string().optional().nullable(),
   national_id: z.string().optional().nullable(),
-  status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
+  status: ParentStatusSchema.optional(),
   is_active: z.boolean(),
   created_at: z.string().or(z.date()),
   updated_at: z.string().or(z.date()),
 });
+
+export const ParentBaseSchema = ParentSchema.omit({
+  _id: true,
+  created_at: true,
+  updated_at: true,
+  student_ids: true,
+  school_id: true,
+  user_id: true,
+}).extend({
+  student_ids: z.array(OptionSchema).optional(),
+});
+
+export type ParentBase = z.infer<typeof ParentBaseSchema>;
 
 export const ChildSummarySchema = z.object({
   student_id: z.string(),
@@ -37,13 +54,15 @@ export const ChildSummarySchema = z.object({
 export const ParentDashboardSchema = z.object({
   total_children: z.number(),
   children: z.array(ChildSummarySchema),
-  latest_announcements: z.array(z.object({
-    id: z.string(),
-    title: z.string(),
-    content: z.string(),
-    created_at: z.string().or(z.date()),
-    priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional().nullable(),
-  })),
+  latest_announcements: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      content: z.string(),
+      created_at: z.string().or(z.date()),
+      priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional().nullable(),
+    }),
+  ),
 });
 
 export const AttendanceRecordSchema = z.object({

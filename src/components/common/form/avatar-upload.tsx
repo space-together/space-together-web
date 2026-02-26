@@ -118,7 +118,7 @@ export function UploadAvatar({
               className="relative cursor-pointer"
               onClick={() => setPopoverOpen((prev) => !prev)}
             >
-              <MyAvatar src={value || undefined} {...avatarProps} />
+              <MyAvatar alt={"P H"}  src={value || undefined} {...avatarProps} />
 
               <Button
                 type="button"
