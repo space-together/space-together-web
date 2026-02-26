@@ -1,19 +1,18 @@
 "use client";
-import MyAvatar from "@/components/common/image/my-avatar";
-import { LoadingIndicatorText } from "@/components/common/myLink";
 import ParentModifySheet from "@/components/page/school-staff/parents-components/parent-modify-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
 } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import type { ParentWithRelations } from "@/lib/schema/relations-schema";
 import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { UserSmCard } from "./user-card";
 
 interface props {
   lang: Locale;
@@ -32,30 +31,21 @@ const ParentCard = ({ auth, isSchoolStaff, parent, lang }: props) => {
   return (
     <Card className=" p-0">
       <CardHeader className="relative border-b-0">
-        <div className=" flex flex-row items-center gap-2">
-          <MyAvatar src={parent.image} alt={parent.name} />
-          <div>
-            <LoadingIndicatorText
-              className={"h6 line-clamp-1"}
-              title={parent.name}
-            >
-              {parent.name}
-            </LoadingIndicatorText>
-            <LoadingIndicatorText
-              className={"sm line-clamp-1"}
-              title={parent.email}
-            >
-              {parent.email}
-            </LoadingIndicatorText>
-          </div>
-        </div>
+        <UserSmCard
+          name={parent.name}
+          image={parent.image}
+          role={parent.phone || parent.email || undefined}
+        />
+
         <div>
           <div className=" mt-2">
             <div className=" flex flex-row flex-wrap gap-2">
               {parent.relationship && (
                 <span className="sm">Relationship: {parent.relationship}</span>
               )}
-              {parent.phone && <span className="sm">Phone: {parent.phone}</span>}
+              {parent.phone && (
+                <span className="sm">Phone: {parent.phone}</span>
+              )}
               <Badge variant={studentCount > 0 ? "default" : "outline"}>
                 {studentCount} {studentCount === 1 ? "student" : "students"}
               </Badge>

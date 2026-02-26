@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { UserSmCard } from "@/components/cards/user-card";
 import NotFoundImage from "@/components/common/image/not-found-image";
 import { OpenImages } from "@/components/common/image/open-images";
 import ParentDialog from "@/components/page/parent/dialogs/parent-dialog";
@@ -233,31 +234,23 @@ const ParentModifySheet = ({
             <Label>Connected Students</Label>
             {studentCount > 0 ? (
               <div className="space-y-2">
+                <div className="flex items-center justify-end">
+
                 <Badge variant="default">
                   {studentCount} {studentCount === 1 ? "student" : "students"}{" "}
                   connected
                 </Badge>
+                </div>
                 {parent?.students && parent.students.length > 0 && (
                   <div className="grid gap-2">
                     {parent.students.map((student) => (
-                      <div
-                        key={student.id || student._id}
-                        className="flex items-center gap-2 p-2 border rounded"
-                      >
-                        <MyAvatar
-                          src={student.image}
-                          alt={student.name}
-                          size="sm"
-                        />
-                        <div className="flex flex-col">
-                          <span className="font-medium">{student.name}</span>
-                          {student.email && (
-                            <span className="text-sm text-muted-foreground">
-                              {student.email}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                      <UserSmCard
+                        link={`/${lang}/p/s/${student._id}`}
+                        name={student.name}
+                        role={student.email}
+                        key={student._id || student.id}
+                        image={student.image}
+                      />
                     ))}
                   </div>
                 )}
