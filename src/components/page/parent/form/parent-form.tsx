@@ -16,6 +16,7 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { ParentStatusSchema } from "../../../../lib/schema/common-details-schema";
 
 const ParentBaseSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -27,7 +28,7 @@ const ParentBaseSchema = z.object({
   occupation: z.string().optional(),
   national_id: z.string().optional(),
   student_ids: z.array(z.string()).optional(),
-  status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
+  status: ParentStatusSchema.optional(),
   is_active: z.boolean().default(true),
 });
 
@@ -133,7 +134,7 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
   });
 
   const studentOptions = students.map((s) => ({
-    value: String(s.id ?? s._id),
+    value: String(s._id),
     label: s.name,
   }));
 
@@ -219,17 +220,28 @@ const ParentForm = ({ auth, parent, isSchool }: Props) => {
               disabled={isPending}
             />
 
-            <CommonFormField
-              control={form.control}
-              name="student_ids"
-              label="Connected Students"
-              fieldType="multipleSelect"
-              placeholder={
-                loadingOptions ? "Loading students..." : "Select students"
-              }
-              disabled={isPending || loadingOptions}
-              selectOptions={studentOptions}
-            />
+            {students.length > 0 ? (
+              <CommonFormField
+                control={form.control}
+                name="student_ids"
+                label="Connected Students"
+                fieldType="multipleSelect"
+                placeholder={
+                  loadingOptions ? "Loading students..." : "Select students"
+                }
+                disabled={isPending || loadingOptions}
+                selectOptions={studentOptions}
+              />
+            ) : (
+              <div className="rounded-md bg-yellow-50 p-4">
+                <div className="flex">
+                  <strong className="mr-1">No students available.</strong>
+                  {isSchool && (
+                    <span>Please add students in the in school</span>
+                  )}
+                </div>
+              </div>
+            )}
 
             <CommonFormField
               control={form.control}
