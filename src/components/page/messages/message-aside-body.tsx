@@ -1,29 +1,43 @@
 "use client";
 // MessageAsideBody.tsx
-// ---------------------
-// Renders the grouped and direct message conversation entries inside the
-// sidebar.  Each `MessageUserCard` is clickable and navigates to the
-// corresponding conversation (`/${lang}/m/[conversationId]`).
-//
-// The backend must provide a payload containing conversation metadata
-// (id, last message, timestamp, participants) which will eventually drive the
-// props of `MessageUserCard`.  A websocket event should update this list when
-// conversations or recent messages change.
+// Real conversation list with data from backend
 
 import MessageUserCard from "@/components/cards/message-user-card";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Locale } from "@/i18n";
+import { useConversationsList } from "@/lib/hooks/useConversationsList";
 
 interface Props {
   lang: Locale;
 }
 
 const MessageAsideBody = ({ lang }: Props) => {
+  const { conversations, isLoading, error } = useConversationsList();
+
+  if (isLoading) {
+    return (
+      <div className="p-4 text-center">
+        <div className="loading loading-spinner loading-md"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 text-center text-error">
+        <p className="text-sm">Failed to load conversations</p>
+      </div>
+    );
+  }
+
+  const groupConversations = conversations.filter((c) => c.is_group);
+  const directConversations = conversations.filter((c) => !c.is_group);
+
   return (
     <div className="p-2">
       <Accordion
@@ -33,20 +47,45 @@ const MessageAsideBody = ({ lang }: Props) => {
       >
         <AccordionItem value="group">
           <AccordionTrigger className=" font-normal text-sm py-2">
-            Groups
+            Groups ({groupConversations.length})
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-0 text-balance pb-0 pt-0">
-            <MessageUserCard messageCardType="group" lang={lang} />
-            <MessageUserCard messageCardType="group" lang={lang} />
+            {groupConversations.length === 0 ? (
+              <p className="text-sm text-base-content/60 p-2">No groups</p>
+            ) : (
+              groupConversations.map((conv) => (
+                <MessageUserCard
+                  key={conv._id}
+                  messageCardType="group"
+                  lang={lang}
+                  conversationId={conv._id}
+                  name={conv.name || "Group Chat"}
+                  lastMessage={conv.last_message_preview}
+                  unreadCount={conv.unread_count}
+                />
+              ))
+            )}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="direct">
           <AccordionTrigger className=" font-normal text-sm  py-2">
-            Direct messages
+            Direct messages ({directConversations.length})
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-0 text-balance pb-0">
-            <MessageUserCard lang={lang} />
-            <MessageUserCard lang={lang} />
+            {directConversations.length === 0 ? (
+              <p className="text-sm text-base-content/60 p-2">No direct messages</p>
+            ) : (
+              directConversations.map((conv) => (
+                <MessageUserCard
+                  key={conv._id}
+                  lang={lang}
+                  conversationId={conv._id}
+                  name={conv.participants[0]?.full_name || "Unknown"}
+                  lastMessage={conv.last_message_preview}
+                  unreadCount={conv.unread_count}
+                />
+              ))
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>

@@ -11,6 +11,7 @@ import { LuMessageCircle } from "react-icons/lu";
 const MessagesPage = () => {
   return (
     <div className=" w-full h-screen grid place-content-center">
+      {/* Add dialog for make new conversation */}
       <Button library={"daisy"} variant="info">
         <LuMessageCircle />
         Start conversation

@@ -1,14 +1,6 @@
 // MessageCard.tsx
 // ---------------
-// Visual representation of a single chat message within a conversation.  The
-// card can be rendered on the left (other participant) or right (current user)
-// depending on the `sender` prop.  Additional props allow switching between
-// group and direct message styles, and rendering different types (text, image,
-// icon, etc.).
-//
-// The content of the message should come from the API / websocket payload.  If
-// you plan to support file attachments, links, or mentions, those are rendered
-// inside the `<p>` element or via dedicated components.
+// Visual representation of a single chat message within a conversation.
 
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyAvatarGroup from "@/components/common/image/my-avatar-group";
@@ -20,10 +12,46 @@ import { IoChevronDownOutline } from "react-icons/io5";
 interface props {
   sender?: boolean;
   messageCardType?: "group" | "direct";
-  messageType?: "icon" | "image";
+  messageType?: "TEXT" | "FILE";
+  senderName?: string;
+  content?: string;
+  timestamp?: string;
+  fileUrl?: string;
+  readBy?: string[];
 }
 
-const MessageCard = ({ sender, messageCardType = "group" }: props) => {
+const MessageCard = ({
+  sender,
+  messageCardType = "group",
+  messageType = "TEXT",
+  senderName = "Unknown",
+  content = "",
+  timestamp,
+  fileUrl,
+  readBy = [],
+}: props) => {
+  const formatTime = (isoString?: string) => {
+    if (!isoString) return "";
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
+
+  const renderContent = () => {
+    if (messageType === "FILE" && fileUrl) {
+      return (
+        <a
+          href={fileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline flex items-center gap-2"
+        >
+          📎 {content || "File attachment"}
+        </a>
+      );
+    }
+    return <p className="text-base-content/95 whitespace-pre-wrap">{content}</p>;
+  };
+
   if (messageCardType === "group") {
     return (
       <div className={cn("chat", "chat-start", " w-full max-w-full")}>
@@ -36,16 +64,11 @@ const MessageCard = ({ sender, messageCardType = "group" }: props) => {
         >
           <div className=" flex justify-between w-full items-center">
             <div className=" flex flex-row gap-2 items-center">
-              <h6 className=" font-medium ">Sender name</h6>
-              <time className="text-xs opacity-50">12:45</time>
+              <h6 className=" font-medium ">{senderName}</h6>
+              <time className="text-xs opacity-50">{formatTime(timestamp)}</time>
             </div>
           </div>
-          <p className=" text-base-content/95">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-            molestias facilis iste totam et qui sunt voluptatem tempora unde
-            voluptate. Omnis dolorem nobis dolore dolorum earum illum, tempore
-            cumque ullam!
-          </p>
+          {renderContent()}
 
           <div className="  flex justify-between items-center">
             <div>
@@ -64,15 +87,17 @@ const MessageCard = ({ sender, messageCardType = "group" }: props) => {
                 className="items-center"
                 library="daisy"
               >
-                Replay
+                Reply
               </Button>
             </div>
-            <div className=" flex items-center gap-2">
-              <span className=" text-base-content/50 text-sm">Seen by:</span>
-              <div title="Seen by: Bruno Rwanda, King DODO" className=" ">
-                {<MyAvatarGroup size="2xs" items={[{}, {}, {}, {}]} />}
+            {readBy.length > 0 && (
+              <div className=" flex items-center gap-2">
+                <span className=" text-base-content/50 text-sm">Seen by:</span>
+                <div title={`Seen by ${readBy.length} people`} className=" ">
+                  {<MyAvatarGroup size="2xs" items={readBy.slice(0, 4).map(() => ({}))} />}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -81,10 +106,9 @@ const MessageCard = ({ sender, messageCardType = "group" }: props) => {
   return (
     <div className={cn("chat group", sender ? "chat-end" : "chat-start")}>
       <div className="chat-bubble items-center bg-base-100  before:top-0 before:bottom-auto before:mask-[1px_0px] rounded-(--radius-field)">
-        <p className="text-base-content/95">You were the Chosen One!</p>
+        {renderContent()}
 
         <div className="  flex justify-between items-center">
-          {/* GPT can you help me when use hover on group it shown */}
           <div className="group-hover:opacity-100 opacity-0 duration-200 ">
             <Button
               variant={"ghost"}
@@ -101,11 +125,11 @@ const MessageCard = ({ sender, messageCardType = "group" }: props) => {
               className="items-center"
               library="daisy"
             >
-              Replay
+              Reply
             </Button>
           </div>
           <div className=" flex items-center  gap-2">
-            <time className="text-xs opacity-50">12:45</time>
+            <time className="text-xs opacity-50">{formatTime(timestamp)}</time>
             {sender && <CheckCheck size={16} />}
           </div>
         </div>

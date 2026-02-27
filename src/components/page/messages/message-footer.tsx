@@ -1,20 +1,47 @@
 "use client";
 // MessageFooter.tsx
 // ------------------
-// Persistent footer component rendered at the bottom of a conversation page.
-// Hosts `MessageInput` which handles rich text entry, mentions, emoji, and file
-// attachments.  `onSend` should dispatch the new message to the backend via
-// POST and/or websocket.  The backend is expected to broadcast the message to
-// other participants over the realtime channel.
+// Persistent footer component with message input and send logic.
+// Handles encryption before sending messages.
 
 import MessageInput from "@/components/common/form/message-input/message-input";
+import { useSendMessage } from "@/lib/hooks/useSendMessage";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 
 const MessageFooter = () => {
+  const params = useParams();
+  const conversationId = params.conversationId as string;
+  const [content, setContent] = useState("");
+
+  const { sendMessage, isSending } = useSendMessage(conversationId);
+
+  const handleSend = async () => {
+    if (!content.trim() || isSending) return;
+
+    // Strip HTML tags for plaintext
+    const plainText = content.replace(/<[^>]*>/g, "").trim();
+    if (!plainText) return;
+
+    try {
+      await sendMessage(plainText, "TEXT");
+      setContent(""); // Clear input after successful send
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      // Error handling is done in the hook
+    }
+  };
+
   return (
-    <div className=" px-2">
+    <div className="px-2">
       <MessageInput
-        classname=" min-h-10 "
+        value={content}
+        onChange={setContent}
+        onSend={handleSend}
+        disabled={isSending}
+        classname="min-h-10"
         className="rounded-b-none border-b-0"
+        placeholder="Type a message..."
       />
     </div>
   );
