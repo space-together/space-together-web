@@ -1,4 +1,10 @@
 "use client";
+// MessageAsideNavbar.tsx
+// -----------------------
+// Header bar at the top of the messages sidebar.  Contains the title and an
+// action button (`FiEdit`) to create a new conversation.  The sidebar utility
+// allows the panel to collapse on mobile.
+
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useEffect } from "react";

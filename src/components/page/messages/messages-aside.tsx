@@ -1,3 +1,16 @@
+// MessagesAside.tsx
+// ------------------
+// Sidebar container for the messaging feature. Rendered on every page under the
+// `/[lang]/m` route.  Holds the conversation list and navigation controls.
+//
+// **Usage:** Imported by `src/app/[lang]/(application)/m/layout.tsx` and displayed
+// alongside the main conversation content.  The backend should supply a list of
+// conversations (via REST or websocket) that populate `MessageUserCard` entries.
+//
+// This component itself is stateless; data is passed down to `MessageAsideBody`.
+// Real‑time updates are expected to come from a WebSocket channel managed by
+// `RealtimeProvider` (see docs/MESSAGING_IMPLEMENTATION.md).
+
 import type { Locale } from "@/i18n";
 import MessageAsideBody from "./message-aside-body";
 import MessagesAsideNavbar from "./message-aside-navbar";

@@ -1,4 +1,15 @@
 "use client";
+// MessageAsideBody.tsx
+// ---------------------
+// Renders the grouped and direct message conversation entries inside the
+// sidebar.  Each `MessageUserCard` is clickable and navigates to the
+// corresponding conversation (`/${lang}/m/[conversationId]`).
+//
+// The backend must provide a payload containing conversation metadata
+// (id, last message, timestamp, participants) which will eventually drive the
+// props of `MessageUserCard`.  A websocket event should update this list when
+// conversations or recent messages change.
+
 import MessageUserCard from "@/components/cards/message-user-card";
 import {
   Accordion,

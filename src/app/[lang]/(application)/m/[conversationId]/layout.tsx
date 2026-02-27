@@ -1,3 +1,8 @@
+// Conversation layout: applied when a specific conversation is opened
+// (`/m/[conversationId]`).  It renders a navbar with participant info and
+// lets the back end know what conversation ID to subscribe to for real‑time
+// updates (via websocket).
+
 import ConversationNavbar from "@/components/page/messages/conversation-navbar";
 import type { Locale } from "@/i18n";
 

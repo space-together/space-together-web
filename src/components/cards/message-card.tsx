@@ -1,3 +1,15 @@
+// MessageCard.tsx
+// ---------------
+// Visual representation of a single chat message within a conversation.  The
+// card can be rendered on the left (other participant) or right (current user)
+// depending on the `sender` prop.  Additional props allow switching between
+// group and direct message styles, and rendering different types (text, image,
+// icon, etc.).
+//
+// The content of the message should come from the API / websocket payload.  If
+// you plan to support file attachments, links, or mentions, those are rendered
+// inside the `<p>` element or via dedicated components.
+
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyAvatarGroup from "@/components/common/image/my-avatar-group";
 import { Button } from "@/components/ui/button";

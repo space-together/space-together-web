@@ -1,4 +1,11 @@
 "use client";
+// ConversationNavbar.tsx
+// -----------------------
+// Shows the current conversation partner(s) and navigation tabs (Messages,
+// Files).  The backend should supply participant info (name, role, avatar)
+// when responding to the conversation metadata API.  Navbar links use `/m`
+// prefix to stay inside the messaging section.
+
 import MyAvatar from "@/components/common/image/my-avatar";
 import MyLink from "@/components/common/myLink";
 import type { Locale } from "@/i18n";

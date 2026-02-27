@@ -1,4 +1,12 @@
 "use client";
+// MessageInput.tsx
+// ----------------
+// Rich text editor used in the message footer for composing new messages.
+// Supports emoji, mentions, links, lists, and keyboard shortcuts.  The
+// component emits content as HTML via the `onChange` callback and sends using
+// the `onSend` prop.  It is intentionally framework‑agnostic with respect to
+// transport; the parent should wire `onSend` to either an HTTP API call or a
+// websocket emit operation.
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
