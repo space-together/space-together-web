@@ -17,11 +17,22 @@ export async function searchUsersAction(
     throw new Error("Unauthorized - Please log in");
   }
 
+  if (!auth.school?.id) {
+    throw new Error("No school context available");
+  }
+
   try {
-    // Adjust the endpoint based on your backend API
-    const url = query
-      ? `${API_BASE}/users/search?q=${encodeURIComponent(query)}&limit=${limit}`
-      : `${API_BASE}/users?limit=${limit}`;
+    // Use the School Member Search API
+    const params = new URLSearchParams({
+      limit: limit.toString(),
+      skip: "0",
+    });
+
+    if (query.trim()) {
+      params.append("filter", query.trim());
+    }
+
+    const url = `${API_BASE}/schools/${auth.school.id}/search/members?${params.toString()}`;
 
     const response = await fetch(url, {
       method: "GET",
@@ -41,7 +52,7 @@ export async function searchUsersAction(
     }
 
     const data = await response.json();
-    return data.users || data || [];
+    return data.data || [];
   } catch (error) {
     console.error("Error searching users:", error);
     throw error;
