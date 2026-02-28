@@ -2,22 +2,15 @@
 // users.actions.ts
 // Server actions for fetching users
 
+import type { RelatedUser } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
-export interface UserSearchResult {
-  _id: string;
-  username: string;
-  full_name: string;
-  avatar?: string;
-  role?: string;
-}
-
 export async function searchUsersAction(
   query: string = "",
   limit: number = 20
-): Promise<UserSearchResult[]> {
+): Promise<RelatedUser[]> {
   const auth = await authContext();
 
   if (!auth) {

@@ -1,6 +1,6 @@
 "use client";
 // StartConversationDialog.tsx
-// Dialog for creating new conversations
+// Dialog for creating new conversations matching backend API
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { searchUsersAction, type UserSearchResult } from "@/lib/messaging/users.actions";
+import { searchUsersAction } from "@/lib/messaging/users.actions";
+import type { RelatedUser } from "@/lib/schema/common-schema";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LuMessageCircle, LuSearch, LuX } from "react-icons/lu";
@@ -25,6 +26,20 @@ interface StartConversationDialogProps {
   children?: React.ReactNode;
 }
 
+// Helper to get display name from RelatedUser
+function getUserDisplayName(user: RelatedUser): string {
+  if (user.user_type === "STUDENT" || user.user_type === "TEACHER" || 
+      user.user_type === "SCHOOLSTAFF" || user.user_type === "USER") {
+    return user.name || "Unknown";
+  }
+  return "Unknown";
+}
+
+// Helper to get user ID
+function getUserId(user: RelatedUser): string {
+  return user._id || "";
+}
+
 export function StartConversationDialog({ children }: StartConversationDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -32,13 +47,13 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
   
   // Form state
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedUsers, setSelectedUsers] = useState<UserSearchResult[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<RelatedUser[]>([]);
   const [isGroup, setIsGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [initialMessage, setInitialMessage] = useState("");
   
   // User search
-  const [availableUsers, setAvailableUsers] = useState<UserSearchResult[]>([]);
+  const [availableUsers, setAvailableUsers] = useState<RelatedUser[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   // Fetch users when search query changes
@@ -54,7 +69,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
         const users = await searchUsersAction(searchQuery, 10);
         // Filter out already selected users
         const filtered = users.filter(
-          (user) => !selectedUsers.find((u) => u._id === user._id)
+          (user) => !selectedUsers.find((u) => getUserId(u) === getUserId(user))
         );
         setAvailableUsers(filtered);
       } catch (error) {
@@ -71,7 +86,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
   const filteredUsers = availableUsers;
 
-  const handleSelectUser = (user: UserSearchResult) => {
+  const handleSelectUser = (user: RelatedUser) => {
     setSelectedUsers([...selectedUsers, user]);
     setSearchQuery("");
     
@@ -82,7 +97,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
   };
 
   const handleRemoveUser = (userId: string) => {
-    const newSelected = selectedUsers.filter((u) => u._id !== userId);
+    const newSelected = selectedUsers.filter((u) => getUserId(u) !== userId);
     setSelectedUsers(newSelected);
     
     // Disable group mode if only 1 user left
@@ -116,7 +131,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
       const { storeConversationKey } = await import("@/lib/crypto/keyStorage");
 
       // Get public keys for selected users
-      const userIds = selectedUsers.map((u) => u._id);
+      const userIds = selectedUsers.map(getUserId);
       const publicKeysResponse = await getUserPublicKeysAction(userIds);
 
       // Generate symmetric key for conversation
@@ -125,6 +140,9 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
       // Encrypt key for each participant
       const encrypted_keys = await Promise.all(
         publicKeysResponse.public_keys.map(async (item: any) => {
+          const user = selectedUsers.find((u) => getUserId(u) === item.user_id);
+          if (!user) throw new Error(`User not found: ${item.user_id}`);
+
           const encrypted_key = await encryptConversationKey(
             symmetricKey,
             item.public_key
@@ -132,6 +150,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
           return {
             user_id: item.user_id,
+            user_role: user.user_type,
             encrypted_key,
           };
         })
@@ -139,7 +158,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
       // Create conversation via server action
       const response = await createConversationAction({
-        participants: userIds,
+        participants: selectedUsers,
         is_group: isGroup,
         name: isGroup ? groupName : undefined,
         encrypted_keys,
@@ -200,13 +219,13 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
             <div className="flex flex-wrap gap-2">
               {selectedUsers.map((user) => (
                 <div
-                  key={user._id}
+                  key={getUserId(user)}
                   className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
                 >
-                  <span>{user.full_name}</span>
+                  <span>{getUserDisplayName(user)}</span>
                   <button
                     type="button"
-                    onClick={() => handleRemoveUser(user._id)}
+                    onClick={() => handleRemoveUser(getUserId(user))}
                     className="hover:bg-primary/20 rounded-full p-0.5"
                   >
                     <LuX className="w-3 h-3" />
@@ -247,18 +266,18 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                 ) : (
                   filteredUsers.map((user) => (
                     <button
-                      key={user._id}
+                      key={getUserId(user)}
                       type="button"
                       onClick={() => handleSelectUser(user)}
                       className="w-full p-3 hover:bg-accent text-left flex items-center gap-3"
                     >
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        {user.full_name.charAt(0).toUpperCase()}
+                        {getUserDisplayName(user).charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="font-medium text-sm">{user.full_name}</div>
+                        <div className="font-medium text-sm">{getUserDisplayName(user)}</div>
                         <div className="text-xs text-muted-foreground">
-                          @{user.username}
+                          .{user.user_type}
                         </div>
                       </div>
                     </button>

@@ -1,19 +1,27 @@
 "use server";
 // create-conversation.actions.ts
-// Server action for creating conversations
+// Server action for creating conversations matching backend API
 
+import type { userRole } from "@/lib/schema/common-details-schema";
+import type { RelatedUser } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
-export interface CreateConversationInput {
-  participants: string[];
-  is_group: boolean;
-  name?: string;
-  encrypted_keys: Array<{ user_id: string; encrypted_key: string }>;
+export interface EncryptedKeyForUser {
+  user_id: string;
+  user_role: userRole;
+  encrypted_key: string;
 }
 
-export async function createConversationAction(payload: CreateConversationInput) {
+export interface CreateConversationPayload {
+  participants: RelatedUser[];
+  is_group: boolean;
+  name?: string;
+  encrypted_keys: EncryptedKeyForUser[];
+}
+
+export async function createConversationAction(payload: CreateConversationPayload) {
   const auth = await authContext();
 
   if (!auth) {
@@ -21,7 +29,7 @@ export async function createConversationAction(payload: CreateConversationInput)
   }
 
   try {
-    const response = await fetch(`${API_BASE}/m/conversations`, {
+    const response = await fetch(`${API_BASE}/conversations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
