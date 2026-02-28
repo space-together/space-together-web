@@ -1,6 +1,7 @@
 // useConversations.ts
 // Hook for fetching and managing conversations list
 
+import { getAuthHeaders } from "@/lib/utils/client-auth";
 import useSWR from "swr";
 import type { Conversation } from "./types";
 
@@ -14,10 +15,13 @@ interface ConversationsResponse {
 }
 
 async function fetcher(url: string): Promise<ConversationsResponse> {
+  const authHeaders = getAuthHeaders();
+  
   const res = await fetch(url, {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
+      ...authHeaders,
     },
   });
 

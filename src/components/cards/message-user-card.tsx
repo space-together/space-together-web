@@ -24,9 +24,20 @@ import Link from "next/link";
 interface props {
   lang: Locale;
   messageCardType?: "group" | "direct";
+  conversationId: string;
+  name: string;
+  lastMessage?: string;
+  unreadCount?: number;
 }
 
-const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
+const MessageUserCard = ({ 
+  lang, 
+  messageCardType = "direct",
+  conversationId,
+  name,
+  lastMessage,
+  unreadCount = 0
+}: props) => {
   return (
     <div
       className={cn(
@@ -34,7 +45,7 @@ const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
         messageCardType === "group" && "items-center",
       )}
     >
-      <MyLink href={`/${lang}/m/student`}>
+      <MyLink href={`/${lang}/m/${conversationId}`}>
         {messageCardType === "direct" ? (
           <MyAvatar size="sm" />
         ) : (
@@ -53,20 +64,20 @@ const MessageUserCard = ({ lang, messageCardType = "direct" }: props) => {
       </MyLink>
       <div className="w-full gap-0 flex -space-y-0.5 flex-col">
         <Link
-          href={`/${lang}/m/student`}
+          href={`/${lang}/m/${conversationId}`}
           className="flex w-full items-center justify-between"
         >
-          <h6 className="line-clamp-1 leading-6"> Bahabe Like</h6>
-          <span className="text-base-content/50 text-xs font-medium">
-            2min ago
-          </span>
+          <h6 className="line-clamp-1 leading-6">{name}</h6>
+          {unreadCount > 0 && (
+            <span className="badge badge-primary badge-sm">{unreadCount}</span>
+          )}
         </Link>
-        <MyLink href={`/${lang}/m/student`}>
+        <MyLink href={`/${lang}/m/${conversationId}`}>
           <p
-            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            title={lastMessage || "No messages yet"}
             className="text-base-content/80 line-clamp-1 text-sm leading-4"
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            {lastMessage || "No messages yet"}
           </p>
         </MyLink>
       </div>

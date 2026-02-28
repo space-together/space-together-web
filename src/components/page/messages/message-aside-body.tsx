@@ -4,10 +4,10 @@
 
 import MessageUserCard from "@/components/cards/message-user-card";
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Locale } from "@/i18n";
 import { useConversationsList } from "@/lib/hooks/useConversationsList";
@@ -30,7 +30,14 @@ const MessageAsideBody = ({ lang }: Props) => {
   if (error) {
     return (
       <div className="p-4 text-center text-error">
-        <p className="text-sm">Failed to load conversations</p>
+        <p className="text-sm font-semibold">Failed to load conversations</p>
+        <p className="text-xs mt-2">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="btn btn-sm btn-primary mt-4"
+        >
+          Reload Page
+        </button>
       </div>
     );
   }

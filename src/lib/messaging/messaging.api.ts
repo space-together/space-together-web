@@ -1,6 +1,8 @@
 // messaging.api.ts
 // REST API client for messaging endpoints
 
+import { getAuthHeaders } from "@/lib/utils/client-auth";
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
 export interface ApiError {
@@ -21,17 +23,30 @@ class MessagingApiError extends Error {
 }
 
 async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const authHeaders = getAuthHeaders();
+  
   const response = await fetch(url, {
     ...options,
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
+      ...authHeaders,
       ...options.headers,
     },
   });
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
+    
+    // Enhanced error message for 401 Unauthorized
+    if (response.status === 401) {
+      throw new MessagingApiError(
+        response.status,
+        "Unauthorized - Please log in again",
+        errorData.code
+      );
+    }
+    
     throw new MessagingApiError(
       response.status,
       errorData.message || `Request failed with status ${response.status}`,

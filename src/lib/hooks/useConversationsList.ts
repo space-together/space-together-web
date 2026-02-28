@@ -3,7 +3,7 @@
 
 import { realtimeClient } from "@/service/realtime-client";
 import { useEffect, useState } from "react";
-import { getConversations } from "../messaging/messaging.api";
+import { getConversationsAction } from "../messaging/conversations.actions";
 
 interface Conversation {
   _id: string;
@@ -52,7 +52,7 @@ export function useConversationsList() {
       setIsLoading(true);
       setError(null);
 
-      const response = await getConversations(1, 50);
+      const response = await getConversationsAction(1, 50);
       setConversations(response.conversations || []);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load conversations";

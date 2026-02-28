@@ -5,17 +5,12 @@
 // message-related screens, so backend links and socket namespaces should be
 // organized accordingly (e.g. `/m/conversations`, `namespace /m`).
 
-import { Button } from "@/components/ui/button";
-import { LuMessageCircle } from "react-icons/lu";
+import { StartConversationDialog } from "@/components/page/messages/start-conversation-dialog";
 
 const MessagesPage = () => {
   return (
-    <div className=" w-full h-screen grid place-content-center">
-      {/* Add dialog for make new conversation */}
-      <Button library={"daisy"} variant="info">
-        <LuMessageCircle />
-        Start conversation
-      </Button>
+    <div className="w-full h-screen grid place-content-center">
+      <StartConversationDialog />
     </div>
   );
 };
