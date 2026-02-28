@@ -129,6 +129,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
         "@/lib/crypto/encryptConversationKey"
       );
       const { storeConversationKey } = await import("@/lib/crypto/keyStorage");
+      const { relatedUserToActorRef } = await import("@/lib/messaging/user-helpers");
 
       // Get public keys for selected users
       const userIds = selectedUsers.map(getUserId);
@@ -156,9 +157,12 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
         })
       );
 
+      // Convert RelatedUser[] to ActorRef[]
+      const participants = selectedUsers.map(relatedUserToActorRef);
+
       // Create conversation via server action
       const response = await createConversationAction({
-        participants: selectedUsers,
+        participants,  // Now sending ActorRef[]
         is_group: isGroup,
         name: isGroup ? groupName : undefined,
         encrypted_keys,

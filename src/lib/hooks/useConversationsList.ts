@@ -4,25 +4,10 @@
 import { realtimeClient } from "@/service/realtime-client";
 import { useEffect, useState } from "react";
 import { getConversationsAction } from "../messaging/conversations.actions";
-
-interface Conversation {
-  _id: string;
-  participants: Array<{
-    user_id: string;
-    username: string;
-    full_name: string;
-    avatar?: string;
-  }>;
-  is_group: boolean;
-  name?: string;
-  last_message_preview?: string;
-  unread_count: number;
-  created_at: string;
-  updated_at: string;
-}
+import type { ConversationWithRelations } from "../messaging/types";
 
 export function useConversationsList() {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [conversations, setConversations] = useState<ConversationWithRelations[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +38,7 @@ export function useConversationsList() {
       setError(null);
 
       const response = await getConversationsAction(1, 50);
-      setConversations(response.conversations || []);
+      setConversations(response.data || []);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load conversations";
       setError(errorMessage);

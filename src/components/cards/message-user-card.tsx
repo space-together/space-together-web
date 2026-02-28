@@ -26,6 +26,7 @@ interface props {
   messageCardType?: "group" | "direct";
   conversationId: string;
   name: string;
+  profilePicture?: string;
   lastMessage?: string;
   unreadCount?: number;
 }
@@ -35,6 +36,7 @@ const MessageUserCard = ({
   messageCardType = "direct",
   conversationId,
   name,
+  profilePicture,
   lastMessage,
   unreadCount = 0
 }: props) => {
@@ -47,7 +49,7 @@ const MessageUserCard = ({
     >
       <MyLink href={`/${lang}/m/${conversationId}`}>
         {messageCardType === "direct" ? (
-          <MyAvatar size="sm" />
+          <MyAvatar size="sm" src={profilePicture} />
         ) : (
           <div>
             <MyAvatarGroup

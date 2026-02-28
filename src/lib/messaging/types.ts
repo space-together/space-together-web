@@ -1,50 +1,57 @@
 // types.ts
-// Type definitions for messaging system
+// Type definitions for messaging system matching backend API
 
+import type { ActorRef, RelatedUser } from "@/lib/schema/common-schema";
+
+// Base conversation structure (as stored in DB)
 export interface Conversation {
   _id: string;
-  participants: Participant[];
+  school_id?: string;
+  participants: ActorRef[];  // Simple id + role references
   is_group: boolean;
   name?: string;
-  last_message?: Message;
-  unread_count?: number;
+  encryption_key_version: number;
   created_at: string;
   updated_at: string;
 }
 
-export interface Participant {
-  user_id: string;
-  username: string;
-  full_name: string;
-  avatar?: string;
-  joined_at: string;
+// Conversation with populated user data (from API responses)
+export interface ConversationWithRelations extends Conversation {
+  participants_users: RelatedUser[];  // Populated user data
+  last_message_preview?: string;
+  unread_count?: number;
 }
 
+// Base message structure (as stored in DB)
 export interface Message {
   _id: string;
+  school_id?: string;
   conversation_id: string;
-  sender_id: string;
-  sender_username: string;
-  sender_full_name: string;
+  sender: ActorRef;  // Simple id + role reference
   encrypted_payload: string;
   nonce: string;
   key_version: number;
-  message_type: "TEXT" | "FILE";
+  message_type: "TEXT" | "FILE" | "SYSTEM";
   file_url?: string;
   file_public_id?: string;
+  read_by: RelatedUser[];
   client_message_id: string;
-  created_at: string;
-  updated_at: string;
   deleted_at?: string;
-  read_by?: string[];
+  created_at: string;
 }
 
-export interface DecryptedMessage extends Omit<Message, "encrypted_payload"> {
+// Message with populated sender data (from API responses)
+export interface MessageWithRelations extends Message {
+  sender_user?: RelatedUser;  // Populated user data
+}
+
+export interface DecryptedMessage extends Omit<MessageWithRelations, "encrypted_payload"> {
   content: string;
 }
 
+// Payload for creating conversations
 export interface CreateConversationPayload {
-  participants: string[];
+  participants: ActorRef[];  // Send simple references
   is_group: boolean;
   name?: string;
   encrypted_keys: EncryptedKey[];
@@ -52,6 +59,7 @@ export interface CreateConversationPayload {
 
 export interface EncryptedKey {
   user_id: string;
+  user_role: string;
   encrypted_key: string;
 }
 

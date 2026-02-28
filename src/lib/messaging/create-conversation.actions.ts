@@ -2,20 +2,19 @@
 // create-conversation.actions.ts
 // Server action for creating conversations matching backend API
 
-import type { userRole } from "@/lib/schema/common-details-schema";
-import type { RelatedUser } from "@/lib/schema/common-schema";
+import type { ActorRef } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
 export interface EncryptedKeyForUser {
   user_id: string;
-  user_role: userRole;
+  user_role: string;
   encrypted_key: string;
 }
 
 export interface CreateConversationPayload {
-  participants: RelatedUser[];
+  participants: ActorRef[];  // Changed to ActorRef[]
   is_group: boolean;
   name?: string;
   encrypted_keys: EncryptedKeyForUser[];

@@ -2,6 +2,15 @@
 // Client-side utility to get auth tokens from cookies
 
 import { SCHOOL_TOKEN_KEY, TOKEN_KEY } from "@/lib/env";
+import { jwtDecode } from "jwt-decode";
+
+interface UserJwtClaims {
+  user: {
+    _id: string;
+    [key: string]: any;
+  };
+  exp: number;
+}
 
 /**
  * Get a cookie value by name (client-side only)
@@ -31,6 +40,22 @@ export function getAccessToken(): string | null {
  */
 export function getSchoolToken(): string | null {
   return getCookie(SCHOOL_TOKEN_KEY);
+}
+
+/**
+ * Get current user ID from JWT token
+ */
+export function getCurrentUserId(): string | null {
+  try {
+    const token = getAccessToken();
+    if (!token) return null;
+    
+    const decoded = jwtDecode<UserJwtClaims>(token);
+    return decoded.user._id || null;
+  } catch (error) {
+    console.error("Failed to decode user token:", error);
+    return null;
+  }
 }
 
 /**

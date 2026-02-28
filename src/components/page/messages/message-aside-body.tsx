@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/accordion";
 import type { Locale } from "@/i18n";
 import { useConversationsList } from "@/lib/hooks/useConversationsList";
+import { getOtherParticipant } from "@/lib/messaging/user-helpers";
+import { getCurrentUserId } from "@/lib/utils/client-auth";
 
 interface Props {
   lang: Locale;
@@ -18,6 +20,7 @@ interface Props {
 
 const MessageAsideBody = ({ lang }: Props) => {
   const { conversations, isLoading, error } = useConversationsList();
+  const currentUserId = getCurrentUserId() || "";
 
   if (isLoading) {
     return (
@@ -68,7 +71,7 @@ const MessageAsideBody = ({ lang }: Props) => {
                   conversationId={conv._id}
                   name={conv.name || "Group Chat"}
                   lastMessage={conv.last_message_preview}
-                  unreadCount={conv.unread_count}
+                  unreadCount={conv.unread_count || 0}
                 />
               ))
             )}
@@ -82,16 +85,26 @@ const MessageAsideBody = ({ lang }: Props) => {
             {directConversations.length === 0 ? (
               <p className="text-sm text-base-content/60 p-2">No direct messages</p>
             ) : (
-              directConversations.map((conv) => (
-                <MessageUserCard
-                  key={conv._id}
-                  lang={lang}
-                  conversationId={conv._id}
-                  name={conv.participants[0]?.full_name || "Unknown"}
-                  lastMessage={conv.last_message_preview}
-                  unreadCount={conv.unread_count}
-                />
-              ))
+              directConversations.map((conv) => {
+                // Get the other participant's data
+                const otherUser = getOtherParticipant(
+                  conv.participants,
+                  conv.participants_users,
+                  currentUserId
+                );
+
+                return (
+                  <MessageUserCard
+                    key={conv._id}
+                    lang={lang}
+                    conversationId={conv._id}
+                    name={otherUser?.fullName || "Unknown"}
+                    profilePicture={otherUser?.profilePicture}
+                    lastMessage={conv.last_message_preview}
+                    unreadCount={conv.unread_count || 0}
+                  />
+                );
+              })
             )}
           </AccordionContent>
         </AccordionItem>

@@ -3,12 +3,12 @@
 
 import { getAuthHeaders } from "@/lib/utils/client-auth";
 import useSWR from "swr";
-import type { Conversation } from "./types";
+import type { ConversationWithRelations } from "./types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
 interface ConversationsResponse {
-  conversations: Conversation[];
+  data: ConversationWithRelations[];
   total: number;
   page: number;
   limit: number;
@@ -43,7 +43,7 @@ export function useConversations(page: number = 1, limit: number = 20) {
   );
 
   return {
-    conversations: data?.conversations || [],
+    conversations: data?.data || [],
     total: data?.total || 0,
     page: data?.page || 1,
     limit: data?.limit || limit,
