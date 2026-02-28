@@ -102,7 +102,7 @@ const SchoolJoinRequestCard = ({ lang, request, className, auth }: Props) => {
 
   return (
     <Card
-      className={cn("w-80 shadow-md transition-all hover:shadow-lg", className)}
+      className={cn("", className)}
     >
       <CardHeader>
         <div className="flex items-center gap-3">
