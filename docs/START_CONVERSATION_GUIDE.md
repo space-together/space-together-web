@@ -97,7 +97,7 @@ Response:
 
 ### 2. Get Public Keys
 ```
-GET /m/users/public-keys?user_ids=id1,id2,id3
+GET /m-users/public-keys?user_ids=id1,id2,id3
 
 Headers:
 - Authorization: Bearer {token}

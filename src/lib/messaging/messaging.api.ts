@@ -115,6 +115,6 @@ export async function markConversationAsRead(conversationId: string) {
 
 export async function getUserPublicKeys(userIds: string[]) {
   return fetchWithAuth(
-    `${API_BASE}/m/users/public-keys?user_ids=${userIds.join(",")}`
+    `${API_BASE}/m-users/public-keys?user_ids=${userIds.join(",")}`
   );
 }

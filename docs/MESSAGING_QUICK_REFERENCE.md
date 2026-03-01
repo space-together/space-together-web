@@ -68,7 +68,7 @@ GET  /m-conversations/:id/messages?page=1&limit=50
 POST /m-conversations/:id/messages
 
 // Users
-GET  /m/users/public-keys?user_ids=user1,user2
+GET  /m-users/public-keys?user_ids=user1,user2
 ```
 
 ### WebSocket

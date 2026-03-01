@@ -24,7 +24,7 @@ Creates a new conversation with specified participants and encrypted keys for ea
 
 ### Authentication
 - **Required**: Yes
-- **Headers**: 
+- **Headers**:
   - `Authorization: Bearer {token}`
   - `School-Token: {school_token}` (optional, for school context)
 
@@ -197,7 +197,7 @@ interface EncryptedKeyForUser {
        created_at: DateTime,
        updated_at: DateTime,
    }
-   
+
    // Store encrypted keys in separate collection
    struct ConversationKey {
        _id: ObjectId,
@@ -221,14 +221,14 @@ interface EncryptedKeyForUser {
 
 ### Endpoint
 ```
-GET /m/users/public-keys
+GET /m-users/public-keys
 ```
 
 Retrieves the public encryption keys for specified users. Used to encrypt the conversation symmetric key for each participant.
 
 ### Authentication
 - **Required**: Yes
-- **Headers**: 
+- **Headers**:
   - `Authorization: Bearer {token}`
   - `School-Token: {school_token}` (optional)
 
@@ -241,7 +241,7 @@ Retrieves the public encryption keys for specified users. Used to encrypt the co
 ### Request Example
 
 ```bash
-GET /m/users/public-keys?user_ids=507f1f77bcf86cd799439011,507f1f77bcf86cd799439012,507f1f77bcf86cd799439013
+GET /m-users/public-keys?user_ids=507f1f77bcf86cd799439011,507f1f77bcf86cd799439012,507f1f77bcf86cd799439013
 ```
 
 ### Response
@@ -336,7 +336,7 @@ interface PublicKeyInfo {
 2. **Key Generation**:
    - Users should generate their RSA key pair on first login
    - Private key stays on client device (never sent to server)
-   - Public key is uploaded to server via `POST /m/users/public-key`
+   - Public key is uploaded to server via `POST /m-users/public-key`
 
 3. **Security Considerations**:
    - Public keys are not sensitive, but access should still be authenticated
@@ -365,14 +365,14 @@ The messaging system uses hybrid encryption:
 Client generates RSA key pair
 ├─ Private key stored locally (IndexedDB/localStorage)
 └─ Public key sent to server
-    └─ POST /m/users/public-key
+    └─ POST /m-users/public-key
 ```
 
 #### Step 2: Creating a Conversation
 ```
 1. Client generates random AES-256 symmetric key
 2. Client requests public keys for all participants
-   └─ GET /m/users/public-keys?user_ids=...
+   └─ GET /m-users/public-keys?user_ids=...
 3. Client encrypts symmetric key with each participant's public key
 4. Client sends conversation creation request
    └─ POST /conversations
@@ -531,7 +531,7 @@ Returns the encrypted symmetric key for the authenticated user.
 ### Upload User Public Key
 
 ```
-POST /m/users/public-key
+POST /m-users/public-key
 ```
 
 Uploads or updates the user's public encryption key.

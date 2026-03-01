@@ -62,7 +62,7 @@ export async function getUserPublicKeysAction(userIds: string[]) {
 
   try {
     const response = await fetch(
-      `${API_BASE}/m/users/public-keys?user_ids=${userIds.join(",")}`,
+      `${API_BASE}/m-users/public-keys?user_ids=${userIds.join(",")}`,
       {
         method: "GET",
         headers: {
