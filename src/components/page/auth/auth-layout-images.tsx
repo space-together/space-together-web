@@ -1,10 +1,10 @@
 "use client";
 import MyImage from "@/components/common/myImage";
+import MyLink from "@/components/common/myLink";
 import AppLogo from "@/components/page/application/navbar/app-logo";
 import type { Locale } from "@/i18n";
 import { useIsMobile } from "@/lib/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { type JSX } from "react";
 import { GrLinkNext } from "react-icons/gr";
@@ -29,7 +29,7 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
     ));
 
     return (
-      <p className=" font-semibold text-2xl text-white text-center">
+      <p className=" font-semibold text-2xl text-base-content text-center">
         {splitSentence}
       </p>
     );
@@ -38,24 +38,24 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
   const isOnboarding = new RegExp(`^/${lang}/auth/onboarding`).test(pathname);
 
   return (
-    <div className={cn("w-1/2 h-screen fixed", isOnboarding && " w-1/3")}>
+    <div className={cn("w-1/2 h-screen sticky", isOnboarding && " w-1/3")}>
       <div
         className={cn(
-          "absolute z-50 top-0 items-center m-2 flex justify-between w-full",
+          "absolute z-50 top-0 items-center m-2 flex justify-between w-full ",
         )}
       >
         <div className={cn(" p-2")}>
           <AppLogo lang={lang} />
         </div>
-        <Link
+        <MyLink
           className={cn(
-            "btn btn-sm group mr-4 z- btn-ghost backdrop-blur-lg bg-white/10",
+            "btn btn-sm group mr-4 z- btn-ghost backdrop-blur-lg bg-white/10 hidden",
           )}
           href={`/${lang}/`}
         >
           {diction.goBack}
           <GrLinkNext className="group/toHome duration-300 group-hover:scale-x-125" />
-        </Link>
+        </MyLink>
       </div>
       <div className=" w-full h-full relative flex flex-col justify-between  pt-16">
         <div className=" justify-center items-center flex">

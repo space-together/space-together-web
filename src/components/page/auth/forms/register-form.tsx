@@ -129,7 +129,7 @@ const RegisterForm = ({ lang }: Props) => {
                 <div className="group relative">
                   <Input
                     id="password"
-                    className={`base h-12 text-lg transition-all duration-300 ${
+                    className={`base text-lg transition-all duration-300 ${
                       showFeedback && strengthScore < 4 && password.length > 0
                         ? "border-red-500 focus-visible:ring-red-500"
                         : "border-border"

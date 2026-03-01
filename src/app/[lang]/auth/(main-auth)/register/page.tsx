@@ -18,7 +18,7 @@ const RegisterPage = async (props: props) => {
   const { lang } = params;
   const diction = await getDictionary(lang);
   return (
-    <div className=" h-screen flex flex-col items-start pt-4  gap-2">
+    <div className=" min-h-screen flex flex-col items-start pt-4  gap-2">
       <div className=" w-full space-y-8 ">
         <MyLink href={`/${lang}/auth/login`} className="flex gap-2 justify-end">
           <p>{diction.auth.register.page.paragraph}</p>
