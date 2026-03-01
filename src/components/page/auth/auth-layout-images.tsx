@@ -68,6 +68,13 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
         </div>
         <div className="  h-1/4 z-10">
           <div className=" w-full relative mt-4">
+            {pathname === `/${lang}/auth/login` && (
+              <div>
+                <div className=" ">
+                  {SentenceBreaker("Welcome back")}
+                </div>
+              </div>
+            )}
             {pathname === `/${lang}/auth/register` && (
               <div className=" ">
                 {SentenceBreaker(diction.spaceTogether)}
