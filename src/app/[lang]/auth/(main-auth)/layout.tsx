@@ -4,7 +4,7 @@ interface props {
 const MainAuthLayout = ({ children }: props) => {
   return (
     <main className="">
-      <div>{children}</div>
+        {children}
     </main>
   );
 };

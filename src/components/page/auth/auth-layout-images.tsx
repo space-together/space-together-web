@@ -57,13 +57,16 @@ const AuthLayoutImage = ({ lang, diction }: props) => {
           <GrLinkNext className="group/toHome duration-300 group-hover:scale-x-125" />
         </Link>
       </div>
-      <div className=" w-full h-full relative">
+      <div className=" w-full h-full relative flex flex-col justify-between  pt-16">
+        <div className=" justify-center items-center flex">
+
         <MyImage
-          src={cn("/images/2.jpg")}
-          alt="Picture of the author"
-          className="  h-full w-full"
+          src={cn("/png/book-and-pen.png")}
+          alt="Book and Pen"
+          className="size-80"
         />
-        <div className=" absolute w-full bottom-0 bg-linear-to-t from-black to-transparent h-1/4 z-10">
+        </div>
+        <div className="  h-1/4 z-10">
           <div className=" w-full relative mt-4">
             {pathname === `/${lang}/auth/register` && (
               <div className=" ">
