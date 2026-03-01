@@ -18,7 +18,7 @@ const OnboardingPage = async (props: Props) => {
   if (!auth) redirect("/auth/login");
   const diction = await getDictionary(lang);
   return (
-    <div className=" ">
+    <div className=" p-4">
       <h1 className="title-page">Complete Your Profile {auth.user.name}</h1>
       <div className="mt-4">
         <OnboardingForm
