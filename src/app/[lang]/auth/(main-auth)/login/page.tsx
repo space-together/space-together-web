@@ -21,18 +21,24 @@ const LoginPage = async (props: props) => {
   const diction = await getDictionary(lang);
   return (
     <div className=" h-screen flex flex-col items-start pt-4 happy-page gap-2 w-full">
-      <div className=" space-y-2">
+      <div className=" space-y-2 w-full flex flex-col">
+        <MyLink href={`/${lang}/auth/register`}  className="flex justify-end">
+          {diction.auth.register.page.paragraph}{" "}
+          <span className=" link">
+            {diction.auth.login.page.login}
+          </span>
+        </MyLink>
         <h1 className=" happy-title-head">Login</h1>
+        <AuthProviders />
       </div>
       <div className=" mt-4 w-full space-y-3">
         <LoginForm oauthError={oauthError} lang={lang} />
-        <p>
+        <MyLink href={`/${lang}/auth/register`}  className="flex ">
           {diction.auth.register.page.paragraph}{" "}
-          <MyLink href={`/${lang}/auth/register`} className=" link link-info">
+          <span className=" link">
             {diction.auth.login.page.login}
-          </MyLink>
-        </p>
-        <AuthProviders />
+          </span>
+        </MyLink>
       </div>
     </div>
   );
