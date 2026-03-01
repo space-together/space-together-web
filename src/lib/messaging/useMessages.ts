@@ -26,7 +26,7 @@ export function useMessages({ conversationId, enabled = true }: UseMessagesOptio
       setError(null);
 
       const res = await fetch(
-        `${API_BASE}/m/conversations/${conversationId}/messages`,
+        `${API_BASE}/m-conversations/${conversationId}/messages`,
         {
           credentials: "include",
           headers: {

@@ -22,10 +22,10 @@ navbar, body, and footer as necessary.
 
 The backend should expose REST endpoints for obtaining:
 
-1. List of conversations for the current user (`GET /m/conversations`).
-2. Single conversation metadata (`GET /m/conversations/:id`).
-3. Message list for conversation (`GET /m/conversations/:id/messages`).
-4. File list (`GET /m/conversations/:id/files`).
+1. List of conversations for the current user (`GET /m-conversations`).
+2. Single conversation metadata (`GET /m-conversations/:id`).
+3. Message list for conversation (`GET /m-conversations/:id/messages`).
+4. File list (`GET /m-conversations/:id/files`).
 5. Endpoints to post new messages, create conversations, upload files, etc.
 
 Additionally, a real‑time transport (WebSocket or similar) must be available
@@ -80,7 +80,7 @@ backend contract.
    corresponding `MessageUserCard` in the sidebar.
 3. **Sending messages**: the `MessageInput` component calls an `onSend`
    callback. The parent should emit the message over the websocket (or POST to
-   `/m/conversations/:id/messages`), and the backend should broadcast the new
+   `/m-conversations/:id/messages`), and the backend should broadcast the new
    message back to all subscribers, including the sender.
 
 _Side note:_ the current input component returns HTML strings; the backend must

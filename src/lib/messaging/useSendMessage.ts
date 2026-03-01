@@ -61,7 +61,7 @@ export function useSendMessage({
 
       // Send to server
       const res = await fetch(
-        `${API_BASE}/m/conversations/${conversationId}/messages`,
+        `${API_BASE}/m-conversations/${conversationId}/messages`,
         {
           method: "POST",
           credentials: "include",

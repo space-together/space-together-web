@@ -227,13 +227,13 @@ Manages conversation list with:
 ### 🔄 Ready for Backend
 The frontend is ready and waiting for these backend endpoints:
 
-1. `GET /m/conversations` - List conversations
-2. `GET /m/conversations/:id/messages` - Get messages
-3. `POST /m/conversations/:id/messages` - Send message
-4. `GET /m/conversations/:id/key` - Get conversation key
-5. `POST /m/conversations/:id/read` - Mark as read
+1. `GET /m-conversations` - List conversations
+2. `GET /m-conversations/:id/messages` - Get messages
+3. `POST /m-conversations/:id/messages` - Send message
+4. `GET /m-conversations/:id/key` - Get conversation key
+5. `POST /m-conversations/:id/read` - Mark as read
 6. `GET /m/users/public-keys` - Get public keys
-7. `POST /m/conversations` - Create conversation
+7. `POST /m-conversations` - Create conversation
 8. WebSocket: `ws://localhost:4646/m/ws/:conversationId`
 
 ### 📝 TODO (User Key Management)

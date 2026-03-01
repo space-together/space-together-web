@@ -57,7 +57,7 @@ export async function createConversation({
     }
 
     // Send to server
-    const res = await fetch(`${API_BASE}/m/conversations`, {
+    const res = await fetch(`${API_BASE}/m-conversations`, {
       method: "POST",
       credentials: "include",
       headers: {

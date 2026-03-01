@@ -41,7 +41,7 @@ export default function OTPInput({
         maxLength={maxLength}
         disabled={disabled}
         containerClassName={cn(
-          "flex gap-2",
+          "flex gap-2 w-fit",
           disabled && "opacity-50 pointer-events-none",
         )}
         render={({ slots }) => (

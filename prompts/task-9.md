@@ -1,12 +1,12 @@
-# Secure Messaging Logic 
+# Secure Messaging Logic
 Before writing any code:
 
 1. Read the Messaging API examples carefully.
 2. Follow existing frontend structure:
 
    * `/[lang]/m/layout.tsx`
-   * `/[lang]/m/page.tsx` 
-   * `/[lang]/m/[conversationId]/page.tsx` 
+   * `/[lang]/m/page.tsx`
+   * `/[lang]/m/[conversationId]/page.tsx`
    * `/[lang]/m/[conversationId]/files/page.tsx`
    * `MessageConversationPage`
    * `ConversationBody`
@@ -60,23 +60,23 @@ Implement:
 
 ### getConversations(page, limit)
 
-GET `/m/conversations`
+GET `/m-conversations`
 
 ### getConversationMessages(conversationId, page, limit)
 
-GET `/m/conversations/{id}/messages`
+GET `/m-conversations/{id}/messages`
 
 ### createConversation(payload)
 
-POST `/m/conversations`
+POST `/m-conversations`
 
 ### sendMessage(conversationId, payload)
 
-POST `/m/conversations/{id}/messages`
+POST `/m-conversations/{id}/messages`
 
 ### getConversationKey(conversationId)
 
-GET `/m/conversations/{id}/key`
+GET `/m-conversations/{id}/key`
 
 All requests:
 
@@ -221,7 +221,7 @@ Inside `MessageInput` onSend:
 
 1. Generate UUID v4 as `client_message_id`
 2. Encrypt message using symmetric key
-3. POST to `/m/conversations/{id}/messages`
+3. POST to `/m-conversations/{id}/messages`
 4. Optimistically render message
 5. If API fails:
 
@@ -258,7 +258,7 @@ After decrypting messages:
 Send:
 
 ```
-POST /m/conversations/{id}/read
+POST /m-conversations/{id}/read
 ```
 
 Or emit socket event.
@@ -319,7 +319,7 @@ On scroll top:
 
 Load next page:
 
-GET `/m/conversations/{id}/messages?page=2`
+GET `/m-conversations/{id}/messages?page=2`
 
 Decrypt only new batch.
 

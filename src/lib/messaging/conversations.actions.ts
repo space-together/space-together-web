@@ -8,14 +8,14 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
 export async function getConversationsAction(page: number = 1, limit: number = 50) {
   const auth = await authContext();
-  
+
   if (!auth) {
     throw new Error("Unauthorized - Please log in");
   }
 
   try {
     const response = await fetch(
-      `${API_BASE}/m/conversations?page=${page}&limit=${limit}`,
+      `${API_BASE}/m-conversations?page=${page}&limit=${limit}`,
       {
         method: "GET",
         headers: {

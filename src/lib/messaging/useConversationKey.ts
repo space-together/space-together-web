@@ -44,7 +44,7 @@ export function useConversationKey({
 
         // Fetch encrypted key from server
         const res = await fetch(
-          `${API_BASE}/m/conversations/${conversationId}/key`,
+          `${API_BASE}/m-conversations/${conversationId}/key`,
           {
             credentials: "include",
             headers: {

@@ -16,7 +16,7 @@ interface ConversationsResponse {
 
 async function fetcher(url: string): Promise<ConversationsResponse> {
   const authHeaders = getAuthHeaders();
-  
+
   const res = await fetch(url, {
     credentials: "include",
     headers: {
@@ -34,7 +34,7 @@ async function fetcher(url: string): Promise<ConversationsResponse> {
 
 export function useConversations(page: number = 1, limit: number = 20) {
   const { data, error, isLoading, mutate } = useSWR<ConversationsResponse>(
-    `${API_BASE}/m/conversations?page=${page}&limit=${limit}`,
+    `${API_BASE}/m-conversations?page=${page}&limit=${limit}`,
     fetcher,
     {
       revalidateOnFocus: false,

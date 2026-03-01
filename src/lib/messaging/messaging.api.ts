@@ -24,7 +24,7 @@ class MessagingApiError extends Error {
 
 async function fetchWithAuth(url: string, options: RequestInit = {}) {
   const authHeaders = getAuthHeaders();
-  
+
   const response = await fetch(url, {
     ...options,
     credentials: "include",
@@ -37,7 +37,7 @@ async function fetchWithAuth(url: string, options: RequestInit = {}) {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    
+
     // Enhanced error message for 401 Unauthorized
     if (response.status === 401) {
       throw new MessagingApiError(
@@ -46,7 +46,7 @@ async function fetchWithAuth(url: string, options: RequestInit = {}) {
         errorData.code
       );
     }
-    
+
     throw new MessagingApiError(
       response.status,
       errorData.message || `Request failed with status ${response.status}`,
@@ -59,7 +59,7 @@ async function fetchWithAuth(url: string, options: RequestInit = {}) {
 
 export async function getConversations(page: number = 1, limit: number = 20) {
   return fetchWithAuth(
-    `${API_BASE}/m/conversations?page=${page}&limit=${limit}`
+    `${API_BASE}/m-conversations?page=${page}&limit=${limit}`
   );
 }
 
@@ -69,7 +69,7 @@ export async function getConversationMessages(
   limit: number = 50
 ) {
   return fetchWithAuth(
-    `${API_BASE}/m/conversations/${conversationId}/messages?page=${page}&limit=${limit}`
+    `${API_BASE}/m-conversations/${conversationId}/messages?page=${page}&limit=${limit}`
   );
 }
 
@@ -79,7 +79,7 @@ export async function createConversation(payload: {
   name?: string;
   encrypted_keys: Array<{ user_id: string; encrypted_key: string }>;
 }) {
-  return fetchWithAuth(`${API_BASE}/m/conversations`, {
+  return fetchWithAuth(`${API_BASE}/m-conversations`, {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -97,18 +97,18 @@ export async function sendMessage(
     client_message_id: string;
   }
 ) {
-  return fetchWithAuth(`${API_BASE}/m/conversations/${conversationId}/messages`, {
+  return fetchWithAuth(`${API_BASE}/m-conversations/${conversationId}/messages`, {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
 export async function getConversationKey(conversationId: string) {
-  return fetchWithAuth(`${API_BASE}/m/conversations/${conversationId}/key`);
+  return fetchWithAuth(`${API_BASE}/m-conversations/${conversationId}/key`);
 }
 
 export async function markConversationAsRead(conversationId: string) {
-  return fetchWithAuth(`${API_BASE}/m/conversations/${conversationId}/read`, {
+  return fetchWithAuth(`${API_BASE}/m-conversations/${conversationId}/read`, {
     method: "POST",
   });
 }

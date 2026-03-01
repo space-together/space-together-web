@@ -116,7 +116,7 @@ Response:
 
 ### 3. Create Conversation
 ```
-POST /m/conversations
+POST /m-conversations
 
 Headers:
 - Authorization: Bearer {token}

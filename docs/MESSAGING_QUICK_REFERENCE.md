@@ -58,14 +58,14 @@ Updated Components:
 ### REST Endpoints
 ```typescript
 // Conversations
-GET  /m/conversations?page=1&limit=20
-POST /m/conversations
-GET  /m/conversations/:id/key
-POST /m/conversations/:id/read
+GET  /m-conversations?page=1&limit=20
+POST /m-conversations
+GET  /m-conversations/:id/key
+POST /m-conversations/:id/read
 
 // Messages
-GET  /m/conversations/:id/messages?page=1&limit=50
-POST /m/conversations/:id/messages
+GET  /m-conversations/:id/messages?page=1&limit=50
+POST /m-conversations/:id/messages
 
 // Users
 GET  /m/users/public-keys?user_ids=user1,user2
@@ -175,7 +175,7 @@ Encrypt with AES-GCM
       ↓
 Generate UUID + nonce
       ↓
-POST to /m/conversations/:id/messages
+POST to /m-conversations/:id/messages
       ↓
 Server stores encrypted
       ↓
