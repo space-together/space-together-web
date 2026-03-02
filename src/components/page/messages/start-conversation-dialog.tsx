@@ -1,4 +1,5 @@
 "use client";
+import { UserSmCard } from "@/components/cards/user-card";
 // StartConversationDialog.tsx
 // Dialog for creating new conversations matching backend API
 
@@ -28,7 +29,7 @@ interface StartConversationDialogProps {
 
 // Helper to get display name from RelatedUser
 function getUserDisplayName(user: RelatedUser): string {
-  if (user.user_type === "STUDENT" || user.user_type === "TEACHER" || 
+  if (user.user_type === "STUDENT" || user.user_type === "TEACHER" ||
       user.user_type === "SCHOOLSTAFF" || user.user_type === "USER") {
     return user.name || "Unknown";
   }
@@ -44,14 +45,14 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Form state
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<RelatedUser[]>([]);
   const [isGroup, setIsGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [initialMessage, setInitialMessage] = useState("");
-  
+
   // User search
   const [availableUsers, setAvailableUsers] = useState<RelatedUser[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -89,7 +90,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
   const handleSelectUser = (user: RelatedUser) => {
     setSelectedUsers([...selectedUsers, user]);
     setSearchQuery("");
-    
+
     // Auto-enable group mode if more than 1 user
     if (selectedUsers.length >= 1) {
       setIsGroup(true);
@@ -99,7 +100,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
   const handleRemoveUser = (userId: string) => {
     const newSelected = selectedUsers.filter((u) => getUserId(u) !== userId);
     setSelectedUsers(newSelected);
-    
+
     // Disable group mode if only 1 user left
     if (newSelected.length <= 1) {
       setIsGroup(false);
@@ -226,11 +227,11 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                   key={getUserId(user)}
                   className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
                 >
-                  <span>{getUserDisplayName(user)}</span>
+                  <UserSmCard name={getUserDisplayName(user)}  image={user.image} role={user.user_type} nameClassname="text-base-content"/>
                   <button
                     type="button"
                     onClick={() => handleRemoveUser(getUserId(user))}
-                    className="hover:bg-primary/20 rounded-full p-0.5"
+                    className="hover:bg-primary/20 rounded-full p-0.5 cursor-point"
                   >
                     <LuX className="w-3 h-3" />
                   </button>
@@ -240,9 +241,9 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
           )}
 
           {/* User Search */}
-          <div className="space-y-2">
+          <div className="space-y-2 flex flex-col">
             <Label htmlFor="search">Search people</Label>
-            <div className="relative">
+            <div className="relative ">
               <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 id="search"
@@ -252,7 +253,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                 className="pl-9"
               />
             </div>
-            
+
             {/* Search Results */}
             {searchQuery && (
               <div className="border rounded-md max-h-48 overflow-y-auto">
@@ -268,24 +269,12 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                       : "No users found"}
                   </div>
                 ) : (
-                  filteredUsers.map((user) => (
-                    <button
-                      key={getUserId(user)}
-                      type="button"
-                      onClick={() => handleSelectUser(user)}
-                      className="w-full p-3 hover:bg-accent text-left flex items-center gap-3"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        {getUserDisplayName(user).charAt(0).toUpperCase()}
-                      </div>
-                      <div>
-                        <div className="font-medium text-sm">{getUserDisplayName(user)}</div>
-                        <div className="text-xs text-muted-foreground">
-                          .{user.user_type}
-                        </div>
-                      </div>
-                    </button>
-                  ))
+                  <div className=" space-y-2">
+                      {filteredUsers.map((user) => (
+                        <UserSmCard key={getUserId(user)} name={getUserDisplayName(user)} image={user.image} role={user.user_type}
+                        onClick={() =>handleSelectUser(user)} className="cursor-pointer w-fit" />
+                      ))}
+                  </div>
                 )}
               </div>
             )}
@@ -293,7 +282,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
           {/* Group Name (if multiple users) */}
           {isGroup && (
-            <div className="space-y-2">
+            <div className="space-y-2  flex flex-col">
               <Label htmlFor="groupName">Group name</Label>
               <Input
                 id="groupName"
@@ -305,7 +294,7 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
           )}
 
           {/* Initial Message (Optional) */}
-          <div className="space-y-2">
+          <div className="space-y-2  flex flex-col">
             <Label htmlFor="message">Initial message (optional)</Label>
             <Textarea
               id="message"
@@ -333,6 +322,9 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
             type="button"
             onClick={handleCreateConversation}
             disabled={isLoading || selectedUsers.length === 0}
+            variant="primary"
+            library="daisy"
+            role={isLoading ? "loading" : undefined}
           >
             {isLoading ? "Creating..." : "Start conversation"}
           </Button>

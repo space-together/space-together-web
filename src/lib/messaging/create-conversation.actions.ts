@@ -55,7 +55,6 @@ export async function createConversationAction(payload: CreateConversationPayloa
 
 export async function getUserPublicKeysAction(userIds: string[]) {
   const auth = await authContext();
-
   if (!auth) {
     throw new Error("Unauthorized - Please log in");
   }
@@ -81,7 +80,33 @@ export async function getUserPublicKeysAction(userIds: string[]) {
       );
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    // Check if some keys are missing
+    if (data.missing_user_ids && data.missing_user_ids.length > 0) {
+      console.warn(
+        `Missing public keys for users: ${data.missing_user_ids.join(", ")}`
+      );
+
+      // Option 1: Throw error to prevent conversation creation
+      throw new Error(
+        `Cannot create encrypted conversation: ${data.missing_user_ids.length} user(s) haven't set up encryption yet. ` +
+        `Please ask them to enable encryption in their settings.`
+      );
+
+      // Option 2: Return partial data and let caller decide
+      // return {
+      //   publicKeys: data.public_keys,
+      //   missingUserIds: data.missing_user_ids,
+      //   hasAllKeys: false
+      // };
+    }
+
+    return {
+      publicKeys: data.public_keys,
+      missingUserIds: [],
+      hasAllKeys: true
+    };
   } catch (error) {
     console.error("Error getting public keys:", error);
     throw error;

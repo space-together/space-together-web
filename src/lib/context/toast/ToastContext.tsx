@@ -77,9 +77,10 @@ export const ToastManager: React.FC<{ children: ReactNode }> = ({
       <Toaster
         position="top-right"
         expand={false}
+
         closeButton
         toastOptions={{
-          className: "font-sans",
+          className: "font-sans items-start",
           descriptionClassName: "!text-sm !text-base-content",
           classNames: {
             toast:

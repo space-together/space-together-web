@@ -30,6 +30,7 @@ export interface UserSmCardProps {
   classRole?: string;
   onlyImage?: boolean;
   onlyName?: boolean;
+  onClick?: () => void;
   avatarProps?: MyAvatarProps;
   nameClassname?: string;
   lang?: Locale;
@@ -54,12 +55,13 @@ export const UserSmCard = ({
   avatarProps = {
     size: "sm",
   },
+  onClick
 }: UserSmCardProps) => {
   const Image = <MyAvatar {...avatarProps} src={image} alt={name} />;
 
   if (onlyName) {
     return (
-      <div className={cn(className)}>
+      <div onClick={onClick} className={cn(className)}>
         <p title={name} className={cn(" gap-2 leading-4", nameClassname)}>
           {name}
         </p>
@@ -68,11 +70,12 @@ export const UserSmCard = ({
   }
 
   if (onlyImage) {
-    return <div className={cn(className)}>{Image}</div>;
+    return <div onClick={onClick} className={cn(className)}>{Image}</div>;
   }
 
   return (
     <div
+      onClick={onClick}
       className={cn(
         showMessage && " flex flex-row justify-between items-center",
         className,
