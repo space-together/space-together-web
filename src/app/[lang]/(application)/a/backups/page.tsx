@@ -4,7 +4,7 @@ import NotFoundPage from "@/components/page/not-found";
 import PermissionPage from "@/components/page/permission-page";
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
-import { SchoolBackup } from "@/lib/schema/backup-schema";
+import type { SchoolBackup } from "@/lib/schema/backup-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";

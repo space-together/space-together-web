@@ -41,7 +41,7 @@ const AdminRolesPage = async (props: PageProps<"/[lang]/a/roles">) => {
   const [roles_res] = await Promise.all([
     apiRequest<void, Paginated<Role>>(
       "get",
-      `/roles?limit=${LIMIT}&school_id=${auth.school.id}`,
+      `/schools/roles?limit=${LIMIT}&school_id=${auth.school.id}`,
       undefined,
       {
         token: auth.token,

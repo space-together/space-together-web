@@ -103,6 +103,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/database.png",
       },
       {
+        title: "Academics",
+        url: "/a/academics",
+        icon: "/icons/database.png",
+      },
+      {
         title: "Collections",
         icon: "/icons/data-collection.png",
         url: "/a/collections",

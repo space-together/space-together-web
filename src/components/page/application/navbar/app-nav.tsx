@@ -1,4 +1,5 @@
 import MyImage from "@/components/common/myImage";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Locale } from "@/i18n";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Suspense } from "react";
@@ -23,7 +24,7 @@ const AppNav = async ({ lang, auth }: AppNavProps) => {
             <MyImage className="size-6" src="/icons/bell.png" />
           </div>
           <NavMessageDropDown />
-          <Suspense fallback={<div className="skeleton size-8" />}>
+          <Suspense fallback={<Skeleton className="size-8" />}>
             <NavProfileDropDown auth={auth} />
           </Suspense>
         </div>
