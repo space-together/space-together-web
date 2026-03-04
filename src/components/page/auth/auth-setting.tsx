@@ -119,7 +119,7 @@ const AuthSetting = ({ lang, diction }: props) => {
             </div>
           </div>
           {/* theme */}
-          <div className="">
+          <div className=" flex flex-col gap-2">
             <div className=" flex gap-2 items-center">
               <BsPalette />
               <h4 className=" happy-title-base text-base">

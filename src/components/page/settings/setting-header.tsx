@@ -1,7 +1,10 @@
+"use client";
 import MyImage from "@/components/common/myImage";
+import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n";
 import { toLowerCase } from "@/lib/functions/characters";
 import type { AuthUserDto } from "@/lib/schema/user/auth-user-schema";
+import { logout } from "@/lib/utils/auth-context";
 import Link from "next/link";
 
 interface props {
@@ -10,7 +13,7 @@ interface props {
 }
 const SettingHeader = ({ user, lang }: props) => {
   return (
-    <div className="m-4 flex justify-between">
+    <div className="m-4 flex justify-between flex-col md:flex-row items-center">
       <div className="flex items-center gap-2">
         <MyImage
           role="AVATAR"
@@ -45,7 +48,13 @@ const SettingHeader = ({ user, lang }: props) => {
           <Link href={`/${lang}/settings/profile`}></Link>
         </div>
       </div>
-      <div>{/* TODO: add links which explain about user activities */}</div>
+      <div>
+        <div>
+          <Button onClick={() => logout()} library="daisy" variant={"outline"}>
+            Logout
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
