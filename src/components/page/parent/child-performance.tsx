@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useReports } from "@/lib/hooks/academics/useReports";
+import { useStudentReports } from "@/lib/hooks/academics/useReports";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Award, BookOpen, Calendar, TrendingUp } from "lucide-react";
 
@@ -14,7 +14,7 @@ interface ChildPerformanceProps {
 }
 
 export default function ChildPerformance({ studentId, auth }: ChildPerformanceProps) {
-  const { reports, isLoading } = useReports(
+  const { reports, isLoading } = useStudentReports(
     studentId,
     auth.token,
     auth.schoolToken || undefined,

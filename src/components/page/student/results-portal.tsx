@@ -4,8 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useReports } from "@/lib/hooks/academics/useReports";
-import { useTranscripts } from "@/lib/hooks/academics/useTranscripts";
+import { useStudentReports } from "@/lib/hooks/academics/useReports";
+import { useStudentTranscript } from "@/lib/hooks/academics/useTranscripts";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { Award, Download, FileText, TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -16,13 +16,13 @@ interface ResultsPortalProps {
 }
 
 export default function ResultsPortal({ studentId, auth }: ResultsPortalProps) {
-  const { reports, isLoading: reportsLoading } = useReports(
+  const { reports, isLoading: reportsLoading } = useStudentReports(
     studentId,
     auth.token,
     auth.schoolToken || undefined,
   );
 
-  const { transcript, isLoading: transcriptLoading } = useTranscripts(
+  const { transcript, isLoading: transcriptLoading } = useStudentTranscript(
     studentId,
     auth.token,
     auth.schoolToken || undefined,
