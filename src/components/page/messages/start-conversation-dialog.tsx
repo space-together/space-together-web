@@ -29,8 +29,12 @@ interface StartConversationDialogProps {
 
 // Helper to get display name from RelatedUser
 function getUserDisplayName(user: RelatedUser): string {
-  if (user.user_type === "STUDENT" || user.user_type === "TEACHER" ||
-      user.user_type === "SCHOOLSTAFF" || user.user_type === "USER") {
+  if (
+    user.user_type === "STUDENT" ||
+    user.user_type === "TEACHER" ||
+    user.user_type === "SCHOOLSTAFF" ||
+    user.user_type === "USER"
+  ) {
     return user.name || "Unknown";
   }
   return "Unknown";
@@ -41,7 +45,9 @@ function getUserId(user: RelatedUser): string {
   return user._id || "";
 }
 
-export function StartConversationDialog({ children }: StartConversationDialogProps) {
+export function StartConversationDialog({
+  children,
+}: StartConversationDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +76,8 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
         const users = await searchUsersAction(searchQuery, 10);
         // Filter out already selected users
         const filtered = users.filter(
-          (user) => !selectedUsers.find((u) => getUserId(u) === getUserId(user))
+          (user) =>
+            !selectedUsers.find((u) => getUserId(u) === getUserId(user)),
         );
         setAvailableUsers(filtered);
       } catch (error) {
@@ -122,15 +129,18 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
     try {
       // Import the server actions
-      const { createConversationAction, getUserPublicKeysAction } = await import(
-        "@/lib/messaging/create-conversation.actions"
+      const { createConversationAction, getUserPublicKeysAction } =
+        await import("@/lib/messaging/create-conversation.actions");
+      const { generateConversationKey } = await import(
+        "@/lib/crypto/generateKey"
       );
-      const { generateConversationKey } = await import("@/lib/crypto/generateKey");
       const { encryptConversationKey } = await import(
         "@/lib/crypto/encryptConversationKey"
       );
       const { storeConversationKey } = await import("@/lib/crypto/keyStorage");
-      const { relatedUserToActorRef } = await import("@/lib/messaging/user-helpers");
+      const { relatedUserToActorRef } = await import(
+        "@/lib/messaging/user-helpers"
+      );
 
       // Get public keys for selected users
       const userIds = selectedUsers.map(getUserId);
@@ -141,13 +151,13 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
 
       // Encrypt key for each participant
       const encrypted_keys = await Promise.all(
-        publicKeysResponse.public_keys.map(async (item: any) => {
+        publicKeysResponse.publicKeys.map(async (item: any) => {
           const user = selectedUsers.find((u) => getUserId(u) === item.user_id);
           if (!user) throw new Error(`User not found: ${item.user_id}`);
 
           const encrypted_key = await encryptConversationKey(
             symmetricKey,
-            item.public_key
+            item.public_key,
           );
 
           return {
@@ -155,21 +165,19 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
             user_role: user.user_type,
             encrypted_key,
           };
-        })
+        }),
       );
 
       // Convert RelatedUser[] to ActorRef[]
       const participants = selectedUsers.map(relatedUserToActorRef);
 
       // Create conversation via server action
-      const response = await createConversationAction({
-        participants,  // Now sending ActorRef[]
+      const conversation = await createConversationAction({
+        participants, // Now sending ActorRef[]
         is_group: isGroup,
         name: isGroup ? groupName : undefined,
         encrypted_keys,
       });
-
-      const conversation = response.conversation;
 
       // Store symmetric key locally
       await storeConversationKey(conversation._id, symmetricKey, 1);
@@ -185,7 +193,9 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
     } catch (error) {
       console.error("Failed to create conversation:", error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to create conversation"
+        error instanceof Error
+          ? error.message
+          : "Failed to create conversation",
       );
     } finally {
       setIsLoading(false);
@@ -227,7 +237,12 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                   key={getUserId(user)}
                   className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
                 >
-                  <UserSmCard name={getUserDisplayName(user)}  image={user.image} role={user.user_type} nameClassname="text-base-content"/>
+                  <UserSmCard
+                    name={getUserDisplayName(user)}
+                    image={user.image}
+                    role={user.user_type}
+                    nameClassname="text-base-content"
+                  />
                   <button
                     type="button"
                     onClick={() => handleRemoveUser(getUserId(user))}
@@ -270,10 +285,16 @@ export function StartConversationDialog({ children }: StartConversationDialogPro
                   </div>
                 ) : (
                   <div className=" space-y-2">
-                      {filteredUsers.map((user) => (
-                        <UserSmCard key={getUserId(user)} name={getUserDisplayName(user)} image={user.image} role={user.user_type}
-                        onClick={() =>handleSelectUser(user)} className="cursor-pointer w-fit" />
-                      ))}
+                    {filteredUsers.map((user) => (
+                      <UserSmCard
+                        key={getUserId(user)}
+                        name={getUserDisplayName(user)}
+                        image={user.image}
+                        role={user.user_type}
+                        onClick={() => handleSelectUser(user)}
+                        className="cursor-pointer w-fit"
+                      />
+                    ))}
                   </div>
                 )}
               </div>

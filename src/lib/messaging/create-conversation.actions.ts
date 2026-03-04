@@ -4,6 +4,8 @@
 
 import type { ActorRef } from "@/lib/schema/common-schema";
 import { authContext } from "@/lib/utils/auth-context";
+import apiRequest from "@/service/api-client";
+import { Conversation } from "./types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
@@ -28,25 +30,31 @@ export async function createConversationAction(payload: CreateConversationPayloa
   }
 
   try {
-    const response = await fetch(`${API_BASE}/conversations`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.token}`,
-        ...(auth.schoolToken ? { "School-Token": auth.schoolToken } : {}),
-      },
-      body: JSON.stringify(payload),
-      cache: "no-store",
+    const response = await apiRequest<CreateConversationPayload, Conversation>("post", "/m-conversations", payload, {
+      token: auth.token,
+      schoolToken: auth.schoolToken
     });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+    // const response = await fetch(`${API_BASE}/m-conversations`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${auth.token}`,
+    //     ...(auth.schoolToken ? { "School-Token": auth.schoolToken } : {}),
+    //   },
+    //   body: JSON.stringify(payload),
+    //   cache: "no-store",
+    // });
+
+    if (!response.data) {
+      console.log("Conversation error 😥:",response)
+      console.log("Payload 😁:",payload)
       throw new Error(
-        errorData.message || `Failed to create conversation: ${response.status}`
+        response.message || `Failed to create conversation: ${response.statusCode}`
       );
     }
 
-    return await response.json();
+    return response.data;
   } catch (error) {
     console.error("Error creating conversation:", error);
     throw error;

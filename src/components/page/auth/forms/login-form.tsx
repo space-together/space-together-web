@@ -9,9 +9,9 @@ import type { Locale } from "@/i18n";
 import { redirectContents } from "@/lib/hooks/redirect";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
-    type AuthUserDto,
-    type LoginUserDto,
-    LoginUserSchema,
+  type AuthUserDto,
+  type LoginUserDto,
+  LoginUserSchema,
 } from "@/lib/schema/user/auth-user-schema";
 import { setAuthCookies } from "@/lib/utils/auth-context";
 import { ChevronRight, EyeIcon, EyeOffIcon } from "lucide-react";
@@ -29,36 +29,34 @@ const LoginForm = ({ lang, oauthError }: Props) => {
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
-  const { form, onSubmit, error, success, isPending, resetMessages } = useZodFormSubmit<
-    LoginUserDto,
-    AuthUserDto
-  >({
-    schema: LoginUserSchema,
-    formOptions: {
-      defaultValues: {
-        email: "",
-        password: "",
+  const { form, onSubmit, error, success, isPending, resetMessages } =
+    useZodFormSubmit<LoginUserDto, AuthUserDto>({
+      schema: LoginUserSchema,
+      formOptions: {
+        defaultValues: {
+          email: "",
+          password: "",
+        },
       },
-    },
-    request: {
-      method: "post",
-      url: "/login",
-    },
-    onSuccessMessage: "Welcome back!",
-    onSuccess: async (data) => {
-      if (data.access_token) {
-        await setAuthCookies(
-          data.access_token,
-          data.id,
-          data.school_access_token,
-        );
+      request: {
+        method: "post",
+        url: "/login",
+      },
+      onSuccessMessage: "Welcome back!",
+      onSuccess: async (data) => {
+        if (data.access_token) {
+          await setAuthCookies(
+            data.access_token,
+            data.id,
+            data.school_access_token,
+          );
 
-        if (data.role) {
-          router.push(redirectContents({ lang, role: data.role }));
+          if (data.role) {
+            router.push(redirectContents({ lang, role: data.role }));
+          }
         }
-      }
-    },
-  });
+      },
+    });
 
   // Handle OAuth error if passed via props
   useEffect(() => {
@@ -74,9 +72,9 @@ const LoginForm = ({ lang, oauthError }: Props) => {
         <CommonFormField
           control={form.control}
           name="email"
-          label="Email Address"
-          placeholder="example@email.com"
-          type="email"
+          label="Email or username"
+          placeholder="email or username"
+          type="text"
           disabled={isPending}
           required
         />
