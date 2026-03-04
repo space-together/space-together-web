@@ -1,5 +1,6 @@
 import AddressCard from "@/components/cards/address-card";
 import MyAvatar from "@/components/common/image/my-avatar";
+import { OpenImages } from "@/components/common/image/open-images";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
@@ -19,14 +20,30 @@ const AdminSchoolHero = ({ school, lang, auth }: AdminSchoolHeroProps) => {
   return (
     <section className="flex flex-col items-start gap-4">
       <div className=" flex flex-row items-start gap-2">
-        <MyAvatar
-          className=" rounded-none"
-          classname=" rounded-none"
-          type="square"
-          size="2xl"
-          src={school?.logo}
-          alt={school.name}
-        />
+        {school?.logo ? (
+          <OpenImages
+            images={[school?.logo]}
+            component={
+              <MyAvatar
+                className=" rounded-none"
+                classname=" rounded-none"
+                type="square"
+                size="2xl"
+                src={school?.logo}
+                alt={school.name}
+              />
+            }
+          />
+        ) : (
+          <MyAvatar
+            className=" rounded-none"
+            classname=" rounded-none"
+            type="square"
+            size="2xl"
+            src={school?.logo}
+            alt={school.name}
+          />
+        )}
         <div className=" flex flex-col">
           <h4 className="h4">{school.name}</h4>
           <MyLink href={`/${lang}/a/collections/schools/${school.username}`}>
