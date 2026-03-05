@@ -25,7 +25,7 @@ const AppNav = async ({ lang, auth }: AppNavProps) => {
           </div>
           <NavMessageDropDown />
           <Suspense fallback={<Skeleton className="size-8" />}>
-            <NavProfileDropDown auth={auth} />
+            <NavProfileDropDown auth={auth} lang={lang} />
           </Suspense>
         </div>
       </nav>
