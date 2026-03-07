@@ -88,6 +88,26 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/database.png",
       },
       {
+        title: "Audit logs",
+        url: "/a/audit-logs",
+        icon: "/icons/database.png",
+      },
+      {
+        title: "Backups",
+        url: "/a/backups",
+        icon: "/icons/database.png",
+      },
+      {
+        title: "Recyle bin",
+        url: "/a/recycle-bin",
+        icon: "/icons/database.png",
+      },
+      {
+        title: "Academics",
+        url: "/a/academics",
+        icon: "/icons/database.png",
+      },
+      {
         title: "Collections",
         icon: "/icons/data-collection.png",
         url: "/a/collections",
@@ -96,6 +116,11 @@ export const adminSidebarGroups: sidebarGroupsProps[] = [
           url: col.href,
           icon: col.icon,
         })),
+      },
+      {
+        title: "Roles & Permissions",
+        icon: "/icons/cogwheel.png",
+        url: "/a/roles",
       },
     ],
   },
@@ -146,6 +171,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
             icon: "/icons/staff.png",
             url: "/s-t/staffs",
           },
+          {
+            title: "Parents",
+            icon: "/icons/parents.png",
+            url: "/s-t/parents",
+          },
         ],
       },
       {
@@ -193,6 +223,11 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
             icon: "/icons/request.png",
             url: "/s-t/join-school-requests",
           },
+          {
+            title: "Audit logs",
+            icon: "/icons/request.png",
+            url: "/s-t/audit-logs",
+          },
         ],
       },
       {
@@ -200,9 +235,43 @@ export const schoolStaffSidebarGroups: sidebarGroupsProps[] = [
         icon: "/icons/settings.png",
         url: "/s-t/settings",
       },
+      {
+        title: "Roles",
+        icon: "/icons/cogwheel.png",
+        url: "/s-t/roles",
+      },
+      {
+        title: "Backup",
+        icon: "/icons/cogwheel.png",
+        url: "/s-t/backup",
+      },
     ],
   },
 
   // 👇 USER-LEVEL SECTION
+  CommonSidebar,
+];
+
+export const parentSidebarGroups: sidebarGroupsProps[] = [
+  {
+    label: "Parent Portal",
+    items: [
+      {
+        title: "Dashboard",
+        icon: "/icons/dashboard.png",
+        url: "/pr",
+      },
+      {
+        title: "My Children",
+        icon: "/icons/student.png",
+        url: "/p/children",
+      },
+      {
+        title: "Announcements",
+        icon: "/icons/announcement.png",
+        url: "/pr/announcements",
+      },
+    ],
+  },
   CommonSidebar,
 ];

@@ -14,6 +14,7 @@ export const AuthUserSchema = z.object({
   phone: z.string().nullable().optional(),
   role: userRoleSchema.optional(),
   current_school_id: z.string().nullable().optional(),
+  current_school_user_id: z.string().nullable().optional(),
   gender: GenderSchema.nullable().optional(),
   bio: z.string().max(500).nullable().optional(),
   access_token: z.string().optional(),
@@ -36,7 +37,9 @@ export const RegisterUserSchema = z.object({
 export type RegisterUser = z.infer<typeof RegisterUserSchema>;
 
 export const LoginUserSchema = z.object({
-  email: z.string().email(),
+  email: z.string().min(1, {
+    message: "Email or username is required",
+  }),
   password: z.string().min(1, {
     message: "Password is required",
   }),

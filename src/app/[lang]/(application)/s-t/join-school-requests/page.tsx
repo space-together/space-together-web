@@ -1,6 +1,9 @@
+import DisplaySwitcher from "@/components/display/display-switcher";
 import AppPageHeader from "@/components/page/common/app-page-header";
 import JoinSchoolPage from "@/components/page/join-school-page";
+import AllJoinSchoolRequestsCards from "@/components/page/school-staff/join-school-request/all-join-school-requests-cards";
 import JoinSchoolRequestByCode from "@/components/page/school-staff/join-school-request/join-school-request-by-code";
+import JoinSchoolRequestFilter from "@/components/page/school-staff/join-school-request/join-school-request-filter";
 import SchoolJoinRequestsTable from "@/components/page/school-staff/table/school-join-request-table/join-school-request-table";
 import type { Locale } from "@/i18n";
 import { LIMIT } from "@/lib/env";
@@ -68,17 +71,39 @@ const JoinSchoolRequestPage = async (props: props) => {
       ]}
       authToken={auth.token}
       schoolToken={auth.schoolToken}
+      context="school"
     >
       <div className="max-w-full space-y-4">
-        <AppPageHeader title="School Join Request" />
+        <AppPageHeader
+          total={requests_res.data?.total}
+          title="School Join Requests"
+          description="Manage school join requests."
+        />
         <JoinSchoolRequestByCode auth={auth} />
-        {/*{classes_res.data}*/}
-        <SchoolJoinRequestsTable
+        <JoinSchoolRequestFilter
           auth={auth}
-          requests={requests_res.data?.data ?? []}
-          lang={lang}
+          requests={requests_res.data}
           classes={classes_res.data?.data ?? []}
-          realtimeEnabled
+          lang={lang}
+        />
+        <DisplaySwitcher
+          table={
+            <SchoolJoinRequestsTable
+              auth={auth}
+              requests={requests_res.data?.data ?? []}
+              lang={lang}
+              classes={classes_res.data?.data ?? []}
+              realtimeEnabled
+            />
+          }
+          cards={
+            <AllJoinSchoolRequestsCards
+              lang={lang}
+              auth={auth}
+              requests={requests_res.data?.data ?? []}
+              realtimeEnabled
+            />
+          }
         />
       </div>
     </RealtimeProvider>

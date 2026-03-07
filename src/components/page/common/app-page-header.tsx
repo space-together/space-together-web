@@ -2,10 +2,12 @@ interface props {
   title: string;
   description?: string;
   total?: number;
+  action?: React.ReactNode
 }
 
-const AppPageHeader = ({ title, description, total }: props) => {
+const AppPageHeader = ({ title, description, total, action }: props) => {
   return (
+    <header className="flex flex-row justify-between items-center"> 
     <div>
       <div className=" flex flex-row gap-1">
         <h2 className="h3">
@@ -14,6 +16,8 @@ const AppPageHeader = ({ title, description, total }: props) => {
       </div>
       {description && <p>{description}</p>}
     </div>
+    <div> {action}</div>
+    </header>
   );
 };
 

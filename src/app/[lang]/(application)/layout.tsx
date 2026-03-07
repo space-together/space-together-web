@@ -2,10 +2,11 @@ import AppBreadcrumb from "@/components/common/app-breadcrumb";
 import AppFooter from "@/components/page/application/app-footer";
 import AppLayoutClientBody from "@/components/page/application/app-layout-client-body";
 import {
-  adminSidebarGroups,
-  schoolStaffSidebarGroups,
-  studentSidebarGroups,
-  teacherSidebarGroups,
+    adminSidebarGroups,
+    parentSidebarGroups,
+    schoolStaffSidebarGroups,
+    studentSidebarGroups,
+    teacherSidebarGroups,
 } from "@/components/page/application/aside/app-side-content";
 import { AppSidebar } from "@/components/page/application/aside/app-sidebar";
 import AppNav from "@/components/page/application/navbar/app-nav";
@@ -39,7 +40,9 @@ export default async function ApplicationLayout(props: LayoutProps<"/[lang]">) {
               ? schoolStaffSidebarGroups
               : role === "ADMIN"
                 ? adminSidebarGroups
-                : teacherSidebarGroups
+                : role === "PARENT"
+                  ? parentSidebarGroups
+                  : teacherSidebarGroups
         }
       />
       <div className="bg-base-200 flex w-full flex-col">

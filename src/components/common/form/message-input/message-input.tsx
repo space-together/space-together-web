@@ -1,4 +1,12 @@
 "use client";
+// MessageInput.tsx
+// ----------------
+// Rich text editor used in the message footer for composing new messages.
+// Supports emoji, mentions, links, lists, and keyboard shortcuts.  The
+// component emits content as HTML via the `onChange` callback and sends using
+// the `onSend` prop.  It is intentionally framework‑agnostic with respect to
+// transport; the parent should wire `onSend` to either an HTTP API call or a
+// websocket emit operation.
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,23 +37,7 @@ export default function MessageInput({
   placeholder = "Message #general",
   enabledTools = ["toolbar", "emoji", "files", "metion", "send"],
   onSend,
-  mentionableUsers = [
-    {
-      value: "user1",
-      label: "John Doe",
-      image: "/images/1.jpg",
-    },
-    {
-      value: "user2",
-      label: "Jane Doe",
-      image: "/images/2.jpg",
-    },
-    {
-      value: "user3",
-      label: "Alice Smith",
-      image: "/images/3.jpg",
-    },
-  ],
+  mentionableUsers = [],
   classname,
 }: MessageInputProps) {
   const [showToolbar, setShowToolbar] = useState(false);

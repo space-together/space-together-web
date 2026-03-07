@@ -48,7 +48,7 @@ export const shadcnVariants = cva(
   },
 );
 
-const daisyVariants = cva("btn", {
+export const daisyVariants = cva("btn", {
   variants: {
     variant: {
       primary: "btn-primary border-none",

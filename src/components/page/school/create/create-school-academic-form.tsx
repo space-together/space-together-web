@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
+import { Paginated } from "@/lib/schema/common-schema";
 import {
   createSchoolAcademicSchema,
   type createSchoolAcademic,
@@ -49,15 +50,15 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
   useEffect(() => {
     const loadOptions = async () => {
       try {
-        const sectorRes = await apiRequest<any, SectorModel[]>(
+        const sectorRes = await apiRequest<any, Paginated<SectorModel>>(
           "get",
           "/sectors",
           undefined,
           { token: auth.token },
         );
 
-        if (sectorRes.data) {
-          const available = sectorRes.data.filter((s) => !s.disable);
+        if (sectorRes?.data?.data) {
+          const available = sectorRes?.data.data.filter((s) => !s.disable);
           setSectors(available);
         }
       } finally {
@@ -92,14 +93,14 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
       const groups: Record<string, TradeModule[]> = {};
 
       for (const sectorId of selected) {
-        const res = await apiRequest<any, TradeModule[]>(
+        const res = await apiRequest<any, Paginated<TradeModule>>(
           "get",
-          `/trades/match?field=sector_id&value=${sectorId}`,
+          `/trades?field=sector_id&value=${sectorId}`,
           undefined,
           { token: auth.token },
         );
 
-        groups[sectorId] = res.data ? res.data.filter((t) => !t.disable) : [];
+        groups[sectorId] = res.data?.data ? res.data.data.filter((t) => !t.disable) : [];
       }
 
       setSectorTrades(groups);
@@ -261,7 +262,7 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
               <Button
                 type="submit"
                 variant="primary"
-                disabled={isPending}
+                disabled={isPending || !form.formState.isDirty}
                 library="daisy"
                 role={isPending ? "loading" : undefined}
               >
@@ -274,7 +275,7 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
             <Button
               type="submit"
               variant="primary"
-              disabled={isPending}
+              disabled={isPending || !form.formState.isDirty}
               library="daisy"
               role={isPending ? "loading" : undefined}
             >

@@ -1,7 +1,6 @@
-import AddressCard from "@/components/cards/address-card";
 import MyAvatar from "@/components/common/image/my-avatar";
+import { OpenImages } from "@/components/common/image/open-images";
 import MyLink, { LoadingIndicatorText } from "@/components/common/myLink";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Locale } from "@/i18n";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -18,15 +17,31 @@ interface AdminSchoolHeroProps {
 const AdminSchoolHero = ({ school, lang, auth }: AdminSchoolHeroProps) => {
   return (
     <section className="flex flex-col items-start gap-4">
-      <div className=" flex flex-row items-start gap-2">
-        <MyAvatar
-          className=" rounded-none"
-          classname=" rounded-none"
-          type="square"
-          size="2xl"
-          src={school?.logo}
-          alt={school.name}
-        />
+      <div className=" flex flex-row items-start gap-4">
+        {school?.logo ? (
+          <OpenImages
+            images={[school?.logo]}
+            component={
+              <MyAvatar
+                className=" rounded-none"
+                classname=" rounded-none"
+                type="square"
+                size="2xl"
+                src={school?.logo}
+                alt={school.name}
+              />
+            }
+          />
+        ) : (
+          <MyAvatar
+            className=" rounded-none"
+            classname=" rounded-none"
+            type="square"
+            size="2xl"
+            src={school?.logo}
+            alt={school.name}
+          />
+        )}
         <div className=" flex flex-col">
           <h4 className="h4">{school.name}</h4>
           <MyLink href={`/${lang}/a/collections/schools/${school.username}`}>
@@ -101,7 +116,7 @@ const AdminSchoolHero = ({ school, lang, auth }: AdminSchoolHeroProps) => {
                 role: "page",
               }}
             >
-              About
+              View school
             </MyLink>
           </div>
         </div>
@@ -110,7 +125,7 @@ const AdminSchoolHero = ({ school, lang, auth }: AdminSchoolHeroProps) => {
         <p className="">{school.description}</p>
         <div className=" flex flex-row gap-4 w-full">
           <div className=" flex flex-col w-1/2 gap-2 ">
-            <Card>
+            {/*<Card>
               <CardHeader>
                 <CardTitle>Other information</CardTitle>
               </CardHeader>
@@ -122,7 +137,7 @@ const AdminSchoolHero = ({ school, lang, auth }: AdminSchoolHeroProps) => {
             </Card>
           </div>
           <div className=" w-1/2">
-            {school.address && <AddressCard address={school.address} />}
+            {school.address && <AddressCard address={school.address} />}*/}
           </div>
         </div>
       </div>

@@ -43,6 +43,7 @@ export const userRoles = [
   "ADMIN",
   "TEACHER",
   "SCHOOLSTAFF",
+  "PARENT",
 ] as const;
 
 export const UserRoleDetails: Record<userRole, CommonDetails> = {
@@ -68,6 +69,11 @@ export const UserRoleDetails: Record<userRole, CommonDetails> = {
     image: "/icons/roles/staff.png",
     description:
       "Handles daily school operations such as administration and logistics.",
+  },
+  PARENT: {
+    name: "Parent",
+    image: "/icons/roles/parent.png",
+    description: "Monitors children's academic progress and school activities.",
   },
 };
 
@@ -1195,3 +1201,6 @@ export const DaySpecialTypes = [
   "Holiday",
   "ExamDay",
 ] as const;
+
+// Parents
+export const ParentStatuses = ["Active", "Inactive"] as const;

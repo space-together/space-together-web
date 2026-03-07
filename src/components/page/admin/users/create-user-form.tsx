@@ -118,7 +118,7 @@ const CreateUserForm = ({ auth }: props) => {
   const handleSubmit = (values: CreateUser) => {
     setError(null);
     setSuccess(null);
-
+console.log("User data 🙄🙄:", values);
     startTransition(async () => {
       const result = await apiRequest<CreateUser, UserModel>(
         "post",

@@ -1,18 +1,69 @@
 "use client";
 
-import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-function Tabs({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
+// DaisyUI tab variants
+const tabsListVariants = cva("tabs", {
+  variants: {
+    variant: {
+      default: "",
+      boxed: "tabs-boxed",
+      bordered: "tabs-bordered",
+      lifted: "tabs-lifted",
+    },
+    size: {
+      xs: "tabs-xs",
+      sm: "tabs-sm",
+      md: "tabs-md",
+      lg: "tabs-lg",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "md",
+  },
+});
+
+const tabsTriggerVariants = cva("tab", {
+  variants: {
+    variant: {
+      default: "",
+      boxed: "",
+      bordered: "",
+      lifted: "",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export interface TabsProps
+  extends React.ComponentProps<typeof TabsPrimitive.Root> {
+  library?: "daisy" | "radix";
+}
+
+export interface TabsListProps
+  extends React.ComponentProps<typeof TabsPrimitive.List>,
+    VariantProps<typeof tabsListVariants> {
+  library?: "daisy" | "radix";
+}
+
+export interface TabsTriggerProps
+  extends React.ComponentProps<typeof TabsPrimitive.Trigger>,
+    VariantProps<typeof tabsTriggerVariants> {
+  library?: "daisy" | "radix";
+}
+
+function Tabs({ className, library = "daisy", ...props }: TabsProps) {
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
-      className={cn("flex flex-col gap-2", className)}
+      className={cn(library === "daisy" ? "" : "flex flex-col gap-2", className)}
       {...props}
     />
   );
@@ -20,13 +71,27 @@ function Tabs({
 
 function TabsList({
   className,
+  variant,
+  size,
+  library = "daisy",
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.List>) {
+}: TabsListProps) {
+  if (library === "daisy") {
+    return (
+      <TabsPrimitive.List
+        role="tablist"
+        data-slot="tabs-list"
+        className={cn(tabsListVariants({ variant, size }), className)}
+        {...props}
+      />
+    );
+  }
+
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
+        "bg-base-100 text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
         className,
       )}
       {...props}
@@ -36,8 +101,28 @@ function TabsList({
 
 function TabsTrigger({
   className,
+  variant,
+  library = "daisy",
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+}: TabsTriggerProps) {
+  if (library === "daisy") {
+    return (
+      <TabsPrimitive.Trigger
+        role="tab"
+        data-slot="tabs-trigger"
+        className={cn(
+          tabsTriggerVariants({ variant }),
+          "transition-colors",
+          "data-[state=active]:border-b-2 data-[state=active]:border-b-primary",
+          "data-[state=inactive]:opacity-100",
+          "hover:opacity-100",
+          className,
+        )}
+        {...props}
+      />
+    );
+  }
+
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
@@ -63,4 +148,5 @@ function TabsContent({
   );
 }
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsContent, TabsList, TabsTrigger };
+

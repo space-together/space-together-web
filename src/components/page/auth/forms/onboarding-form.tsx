@@ -15,6 +15,7 @@ import type { AuthUserDto } from "@/lib/schema/user/auth-user-schema";
 import { UserOnboardingSchema } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { setAuthCookies } from "@/lib/utils/auth-context";
+import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { z } from "zod";
 
@@ -58,15 +59,7 @@ const OnboardingForm = ({ lang, auth, dictionary }: Props) => {
         await setAuthCookies(res.access_token, res.id, res.school_access_token);
       }
 
-      if (res.role === "STUDENT") {
-        router.push(`/${lang}/auth/onboarding/student`);
-      } else if (res.role === "TEACHER") {
-        router.push(`/${lang}/auth/onboarding/teacher`);
-      } else if (res.role === "SCHOOLSTAFF") {
-        router.push(`/${lang}/auth/onboarding/staff`);
-      } else if (res.role) {
-        router.push(redirectContents({ lang, role: res.role }));
-      }
+      router.push(redirectContents({ lang, role: res.role || "STUDENT"}));
     },
   });
 
@@ -142,7 +135,7 @@ const OnboardingForm = ({ lang, auth, dictionary }: Props) => {
           library="daisy"
           role={isPending ? "loading" : undefined}
         >
-          {dictionary.button}
+          {dictionary.button} <ChevronRight />
         </Button>
       </form>
     </Form>

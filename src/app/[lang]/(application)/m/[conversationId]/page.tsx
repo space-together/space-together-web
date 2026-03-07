@@ -1,3 +1,8 @@
+// Conversation page: displays the thread of messages and a footer input.
+// When this page loads the frontend should join a websocket room keyed by the
+// conversationId so that incoming messages and typing indicators from other
+// participants arrive immediately.
+
 import ConversationBody from "@/components/page/messages/conversation-body";
 import MessageFooter from "@/components/page/messages/message-footer";
 import type { Locale } from "@/i18n";

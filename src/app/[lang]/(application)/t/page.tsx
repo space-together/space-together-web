@@ -4,6 +4,7 @@ import PermissionPage from "@/components/page/permission-page";
 import JoinSchoolDialog from "@/components/page/school-staff/dialog/join-school-dialog";
 import type { Locale } from "@/i18n";
 import { RealtimeProvider } from "@/lib/providers/RealtimeProvider";
+import type { Paginated } from "@/lib/schema/common-schema";
 import type { JoinSchoolRequestWithRelations } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { Teacher } from "@/lib/schema/school/teacher-schema";
@@ -37,7 +38,7 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
   if (!auth.school) {
     const join_school_requestsRes = await apiRequest<
       void,
-      JoinSchoolRequestWithRelations[]
+      Paginated<JoinSchoolRequestWithRelations>
     >("get", `/join-school-requests/my/pending`, undefined, {
       token: auth.token,
       schoolToken: auth.schoolToken,
@@ -48,7 +49,7 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
         channels={[
           {
             name: "join_school_request",
-            initialData: join_school_requestsRes.data ?? [],
+            initialData: join_school_requestsRes.data?.data ?? [],
           },
         ]}
         authToken={auth.token}
@@ -61,7 +62,7 @@ const TeacherPage = async (props: PageProps<"/[lang]/t">) => {
             <JoinSchoolRequestBody
               lang={lang as Locale}
               auth={auth}
-              requests={join_school_requestsRes.data}
+              requests={join_school_requestsRes?.data?.data ?? []}
             />
           )}
         </div>

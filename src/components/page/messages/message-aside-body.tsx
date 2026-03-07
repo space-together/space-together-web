@@ -1,4 +1,7 @@
 "use client";
+// MessageAsideBody.tsx
+// Real conversation list with data from backend
+
 import MessageUserCard from "@/components/cards/message-user-card";
 import {
   Accordion,
@@ -7,12 +10,44 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Locale } from "@/i18n";
+import { useConversationsList } from "@/lib/hooks/useConversationsList";
+import { getOtherParticipant } from "@/lib/messaging/user-helpers";
+import { getCurrentUserId } from "@/lib/utils/client-auth";
 
 interface Props {
   lang: Locale;
 }
 
 const MessageAsideBody = ({ lang }: Props) => {
+  const { conversations, isLoading, error } = useConversationsList();
+  const currentUserId = getCurrentUserId() || "";
+
+  if (isLoading) {
+    return (
+      <div className="p-4 text-center">
+        <div className="loading loading-spinner loading-md"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 text-center text-error">
+        <p className="text-sm font-semibold">Failed to load conversations</p>
+        <p className="text-xs mt-2">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="btn btn-sm btn-primary mt-4"
+        >
+          Reload Page
+        </button>
+      </div>
+    );
+  }
+
+  const groupConversations = conversations.filter((c) => c.is_group);
+  const directConversations = conversations.filter((c) => !c.is_group);
+
   return (
     <div className="p-2">
       <Accordion
@@ -22,20 +57,55 @@ const MessageAsideBody = ({ lang }: Props) => {
       >
         <AccordionItem value="group">
           <AccordionTrigger className=" font-normal text-sm py-2">
-            Groups
+            Groups ({groupConversations.length})
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-0 text-balance pb-0 pt-0">
-            <MessageUserCard messageCardType="group" lang={lang} />
-            <MessageUserCard messageCardType="group" lang={lang} />
+            {groupConversations.length === 0 ? (
+              <p className="text-sm text-base-content/60 p-2">No groups</p>
+            ) : (
+              groupConversations.map((conv) => (
+                <MessageUserCard
+                  key={conv._id}
+                  messageCardType="group"
+                  lang={lang}
+                  conversationId={conv._id}
+                  name={conv.name || "Group Chat"}
+                  lastMessage={conv.last_message_preview}
+                  unreadCount={conv.unread_count || 0}
+                />
+              ))
+            )}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="direct">
           <AccordionTrigger className=" font-normal text-sm  py-2">
-            Direct messages
+            Direct messages ({directConversations.length})
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-0 text-balance pb-0">
-            <MessageUserCard lang={lang} />
-            <MessageUserCard lang={lang} />
+            {directConversations.length === 0 ? (
+              <p className="text-sm text-base-content/60 p-2">No direct messages</p>
+            ) : (
+              directConversations.map((conv) => {
+                // Get the other participant's data
+                const otherUser = getOtherParticipant(
+                  conv.participants,
+                  conv.participants_users,
+                  currentUserId
+                );
+
+                return (
+                  <MessageUserCard
+                    key={conv._id}
+                    lang={lang}
+                    conversationId={conv._id}
+                    name={otherUser?.fullName || "Unknown"}
+                    profilePicture={otherUser?.profilePicture}
+                    lastMessage={conv.last_message_preview}
+                    unreadCount={conv.unread_count || 0}
+                  />
+                );
+              })
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>

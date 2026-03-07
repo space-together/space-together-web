@@ -18,22 +18,30 @@ const RegisterPage = async (props: props) => {
   const { lang } = params;
   const diction = await getDictionary(lang);
   return (
-    <div className=" h-screen flex flex-col items-start pt-4  gap-2">
-      <div className=" space-y-2">
+    <div className=" min-h-screen flex flex-col items-start pt-4  gap-2">
+      <div className=" w-full space-y-8 ">
+        <MyLink href={`/${lang}/auth/login`} className="flex gap-2 justify-end">
+          <p>{diction.auth.register.page.paragraph}</p>
+          <span className=" link ">
+            {diction.auth.register.page.login}
+          </span>
+        </MyLink>
+
         <h1 className=" happy-title-head">
           {diction.auth.register.page.title}
         </h1>
-      </div>
-      <div className=" mt-4 w-full space-y-3">
-        <RegisterForm lang={lang} />
-        <div>
-          <p>{diction.auth.register.page.paragraph}</p>
-          <MyLink href={`/${lang}/auth/login`} className=" link link-info">
-            {diction.auth.register.page.login}
-          </MyLink>
-        </div>
         <AuthProviders />
       </div>
+      <main className=" mt-4 w-full space-y-3">
+        <RegisterForm lang={lang} />
+      </main>
+          <MyLink href={`/${lang}/auth/login`} className="flex gap-2 ">
+            <p>{diction.auth.register.page.paragraph}</p>
+            <span className=" link ">
+              {diction.auth.register.page.login}
+            </span>
+          </MyLink>
+
     </div>
   );
 };

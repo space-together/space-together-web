@@ -1,52 +1,32 @@
 "use client";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Locale } from "@/i18n";
 
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
-  type AuthUserDto,
-  type RegisterUser,
-  RegisterUserSchema,
+    type AuthUserDto,
+    type RegisterUser,
+    RegisterUserSchema,
 } from "@/lib/schema/user/auth-user-schema";
 import { setAuthCookies } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
+import { CheckIcon, ChevronRight, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useMemo, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useMemo, useState } from "react";
 
-interface props {
+interface Props {
   lang: Locale;
 }
 
-const RegisterForm = ({ lang }: props) => {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+const RegisterForm = ({ lang }: Props) => {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const form = useForm<RegisterUser>({
-    resolver: zodResolver(RegisterUserSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-  });
 
-  //   password
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
   const checkStrength = (pass: string) => {
@@ -64,7 +44,6 @@ const RegisterForm = ({ lang }: props) => {
   };
 
   const strength = checkStrength(password);
-
   const strengthScore = useMemo(() => {
     return strength.filter((req) => req.met).length;
   }, [strength]);
@@ -76,98 +55,64 @@ const RegisterForm = ({ lang }: props) => {
     return "Strong password";
   };
 
-  function onSubmit(values: RegisterUser) {
-    setError(null);
-    setSuccess(null);
-    startTransition(async () => {
-      const create = await apiRequest<RegisterUser, AuthUserDto>(
-        "post",
-        "/register",
-        values,
-      );
-      if (create.data) {
-        if (create.data.access_token) {
-          await setAuthCookies(create.data.access_token, create.data.id);
-          setSuccess("Account created successful! ☺️");
-          router.push(`/${lang}/auth/onboarding`);
-        } else {
-          setError("Something went wrong");
-        }
-      } else if (create.message) {
-        setError(create.message);
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    RegisterUser,
+    AuthUserDto
+  >({
+    schema: RegisterUserSchema,
+    formOptions: {
+      defaultValues: {
+        name: "",
+        email: "",
+        password: "",
+      },
+    },
+    request: {
+      method: "post",
+      url: "/register",
+    },
+    onSuccessMessage: "Account created successful! ☺️",
+    onSuccess: async (data) => {
+      if (data.access_token) {
+        await setAuthCookies(data.access_token, data.id);
+        router.push(`/${lang}/auth/onboarding`);
       }
-    });
-  }
+    },
+  });
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
-        <FormField
+        <CommonFormField
           control={form.control}
           name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="group relative">
-                  <label
-                    htmlFor={"name"}
-                    className="origin-start group-focus-within: has-[+input:not(:placeholder-shown)]: absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-base group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-base has-[+input:not(:placeholder-shown)]:font-medium"
-                  >
-                    <span className="bg-base-100 inline-flex px-2">
-                      Full name
-                    </span>
-                  </label>
-                  <Input
-                    disabled={isPending}
-                    autoFocus
-                    className="base h-12 text-lg"
-                    {...field}
-                    id="name"
-                    placeholder=" "
-                  />
-                </div>
-              </FormControl>
-              {/* <FormDescription>Your full name.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Full Name"
+          placeholder="Enter your full name"
+          disabled={isPending}
+          required
         />
-        <FormField
+
+        <CommonFormField
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="group relative">
-                  <label
-                    htmlFor={"email"}
-                    className="origin-start group-focus-within: has-[+input:not(:placeholder-shown)]: absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-base group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-base has-[+input:not(:placeholder-shown)]:font-medium"
-                  >
-                    <span className="bg-base-100 inline-flex px-2">
-                      Email Address*
-                    </span>
-                  </label>
-                  <Input
-                    disabled={isPending}
-                    className="base h-12 text-lg"
-                    {...field}
-                    id="email"
-                    placeholder=" "
-                  />
-                </div>
-              </FormControl>
-              {/* <FormDescription>Your email use and which we will send verification code.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Email Address"
+          placeholder="example@email.com"
+          type="email"
+          disabled={isPending}
+          required
         />
-        <FormField
-          name="password"
+
+        <CommonFormField
           control={form.control}
+          name="password"
+          label="Password"
+          fieldType="custom"
+          required
+          description="Your secret password which you will use to log in."
           render={({ field }) => {
             const [showFeedback, setShowFeedback] = useState(false);
 
             const handleBlur = () => {
-              // Only show feedback if password isn't strong enough
               if (strengthScore < 4) setShowFeedback(true);
               field.onBlur();
             };
@@ -176,80 +121,53 @@ const RegisterForm = ({ lang }: props) => {
               const value = e.target.value;
               setPassword(value);
               field.onChange(value);
-
-              // Hide feedback while typing again
               if (showFeedback) setShowFeedback(false);
             };
 
             return (
-              <FormItem>
-                <FormControl>
-                  <div className="group relative">
-                    <label
-                      htmlFor="password"
-                      className="group-focus-within:has-[+input:not(:placeholder-shown)]: absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm transition-all
-                         group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-base
-                         group-focus-within:font-medium has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0
-                         has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-base has-[+input:not(:placeholder-shown)]:font-medium"
-                    >
-                      <span className="bg-base-100 inline-flex px-2">
-                        Password*
-                      </span>
-                    </label>
+              <div className="space-y-2">
+                <div className="group relative">
+                  <Input
+                    id="password"
+                    className={`base text-lg transition-all duration-300 ${
+                      showFeedback && strengthScore < 4 && password.length > 0
+                        ? "border-red-500 focus-visible:ring-red-500"
+                        : "border-border"
+                    }`}
+                    type={isVisible ? "text" : "password"}
+                    placeholder="Enter password"
+                    disabled={isPending}
+                    {...field}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
 
-                    <Input
-                      id="password"
-                      className={`base h-12 text-lg transition-all duration-300 ${
-                        showFeedback && strengthScore < 4 && password.length > 0
-                          ? "border-red-500 focus-visible:ring-red-500"
-                          : "border-border"
-                      }`}
-                      type={isVisible ? "text" : "password"}
-                      placeholder=" "
-                      disabled={isPending}
-                      {...field}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-
-                    <button
-                      className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50
+                  <button
+                    className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50
                          absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow]
                          outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                      type="button"
-                      onClick={toggleVisibility}
-                      aria-label={isVisible ? "Hide password" : "Show password"}
-                      aria-pressed={isVisible}
-                      aria-controls="password"
-                    >
-                      {isVisible ? (
-                        <EyeOffIcon size={16} aria-hidden="true" />
-                      ) : (
-                        <EyeIcon size={16} aria-hidden="true" />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
+                    type="button"
+                    onClick={toggleVisibility}
+                    aria-label={isVisible ? "Hide password" : "Show password"}
+                    aria-pressed={isVisible}
+                    aria-controls="password"
+                  >
+                    {isVisible ? (
+                      <EyeOffIcon size={16} aria-hidden="true" />
+                    ) : (
+                      <EyeIcon size={16} aria-hidden="true" />
+                    )}
+                  </button>
+                </div>
 
-                <FormDescription>
-                  Your secret password which you will use to log in.
-                </FormDescription>
-                <FormMessage />
-
-                {/* Only show feedback when password is weak */}
                 {showFeedback && strengthScore < 4 && (
-                  <div className="animate-fadeIn">
-                    {/* Password feedback text */}
-                    <p
-                      id="password-description"
-                      className={`mb-2 text-sm font-medium text-error`}
-                    >
+                  <div className="animate-fadeIn mt-2">
+                    <p className="mb-2 text-sm font-medium text-error">
                       {getStrengthText(strengthScore)}. Must contain:
                     </p>
 
-                    {/* Requirements list */}
                     <ul
-                      className="grid grid-cols-2"
+                      className="grid grid-cols-2 gap-1"
                       aria-label="Password requirements"
                     >
                       {strength.map((req, index) => (
@@ -281,7 +199,7 @@ const RegisterForm = ({ lang }: props) => {
                     </ul>
                   </div>
                 )}
-              </FormItem>
+              </div>
             );
           }}
         />
@@ -290,16 +208,17 @@ const RegisterForm = ({ lang }: props) => {
           <FormError message={error} />
           <FormSuccess message={success} />
         </div>
+
         <Button
           type="submit"
           disabled={isPending}
           library="daisy"
-          variant={"info"}
-          size={"lg"}
+          variant="info"
+          size="lg"
           className="w-full"
           role={isPending ? "loading" : undefined}
         >
-          Create an account
+          Create an account <ChevronRight />
         </Button>
       </form>
     </Form>
