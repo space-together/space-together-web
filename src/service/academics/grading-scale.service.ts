@@ -1,9 +1,9 @@
 "use client";
 
 import type {
-    CreateGradingScale,
-    GradingScale,
-    UpdateGradingScale,
+  CreateGradingScale,
+  GradingScale,
+  UpdateGradingScale,
 } from "@/lib/schema/academics/grading-scale.schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import apiRequest from "@/service/api-client";
@@ -16,6 +16,20 @@ export interface GradingScaleFilters {
 }
 
 export const gradingScaleService = {
+  async getScaleById(
+    id: string,
+    token: string,
+    schoolToken?: string,
+  ): Promise<GradingScale | null> {
+    const result = await apiRequest<undefined, GradingScale>(
+      "get",
+      `/api/grading-scales/${id}`,
+      undefined,
+      { token, schoolToken },
+    );
+    return result.data || null;
+  },
+
   async getScales(
     filters: GradingScaleFilters,
     token: string,

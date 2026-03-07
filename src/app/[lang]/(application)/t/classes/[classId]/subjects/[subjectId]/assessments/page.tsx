@@ -13,7 +13,7 @@ export default async function AssessmentsPage({ params }: PageProps) {
   const auth = await authContext();
   const { classId, subjectId } = await params;
 
-  if (!auth || auth.role !== "Teacher") {
+  if (!auth || auth.user.role !== "TEACHER") {
     redirect("/auth/login");
   }
 

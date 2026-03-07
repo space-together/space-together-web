@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 export default async function StudentResultsPage() {
   const auth = await authContext();
 
-  if (!auth || auth.role !== "Student") {
+  if (!auth || auth.user.role !== "STUDENT") {
     redirect("/auth/login");
   }
 
   // In real app, get student ID from auth context
-  const studentId = auth.userId || "";
+  const studentId = auth.user.id || "";
 
   return (
     <div className="container mx-auto p-6">

@@ -63,10 +63,14 @@ export function useMessages({ conversationId, enabled = true }: UseMessagesOptio
             key
           );
 
+          const msgWithRelations = msg as any; // Cast to access sender_user
+          const senderFullName = msgWithRelations.sender_user?.full_name || "Unknown User";
+
           decrypted.push({
             ...msg,
             content,
-          });
+            sender_full_name: senderFullName,
+          } as DecryptedMessage);
         } catch (err) {
           console.error(`Failed to decrypt message ${msg._id}`);
         }

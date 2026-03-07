@@ -84,7 +84,7 @@ const AdminAssignmentsPage = async (
           initialData: assignments,
         },
       ]}
-      context="system"
+      context="global"
       authToken={auth.token}
     >
       <div className="space-y-6">

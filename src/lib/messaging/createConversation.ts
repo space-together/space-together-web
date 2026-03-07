@@ -9,7 +9,7 @@ import type { Conversation, CreateConversationPayload } from "./types";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4646";
 
 interface CreateConversationOptions {
-  participants: string[]; // User IDs
+  participants: Array<{ id: string; role: "STUDENT" | "ADMIN" | "TEACHER" | "SCHOOLSTAFF" | "PARENT" }>; // ActorRef objects
   isGroup: boolean;
   name?: string;
   participantPublicKeys: Record<string, string>; // userId -> publicKeyPem
@@ -27,10 +27,10 @@ export async function createConversation({
 
     // Encrypt key for each participant
     const encrypted_keys = await Promise.all(
-      participants.map(async (userId) => {
-        const publicKey = participantPublicKeys[userId];
+      participants.map(async (participant) => {
+        const publicKey = participantPublicKeys[participant.id];
         if (!publicKey) {
-          throw new Error(`Public key not found for user ${userId}`);
+          throw new Error(`Public key not found for user ${participant.id}`);
         }
 
         const encrypted_key = await encryptConversationKey(
@@ -39,7 +39,8 @@ export async function createConversation({
         );
 
         return {
-          user_id: userId,
+          user_id: participant.id,
+          user_role: participant.role,
           encrypted_key,
         };
       })

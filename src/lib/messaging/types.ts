@@ -46,6 +46,7 @@ export interface MessageWithRelations extends Message {
 }
 
 export interface DecryptedMessage extends Omit<MessageWithRelations, "encrypted_payload"> {
+  sender_full_name: React.ReactNode;
   content: string;
 }
 

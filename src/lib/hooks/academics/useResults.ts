@@ -17,7 +17,7 @@ export function useStudentTermResult(
 
   const { data, error, isLoading, mutate } = useSWR<StudentTermResult | null>(
     key,
-    () => resultService.getStudentTermResult(studentId!, termId!, token!, schoolToken),
+    () => resultService.getStudentTermResults(studentId!, termId!, token!, schoolToken),
     {
       revalidateOnFocus: false,
     },

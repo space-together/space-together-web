@@ -12,7 +12,7 @@ export default async function ChildPerformancePage({ params }: PageProps) {
   const auth = await authContext();
   const { studentId } = await params;
 
-  if (!auth || auth.role !== "Parent") {
+  if (!auth || auth.user.role !== "PARENT") {
     redirect("/auth/login");
   }
 

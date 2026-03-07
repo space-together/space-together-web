@@ -1,18 +1,25 @@
 "use client";
 
 import type {
-    PromotionResult,
-    PromotionRule,
+  PromotionResult,
+  PromotionRule,
 } from "@/lib/schema/academics/promotion.schema";
 import { promotionService } from "@/service/academics/promotion.service";
 import useSWR from "swr";
 
-export function usePromotionRules(token?: string, schoolToken?: string) {
-  const key = token ? ["/api/promotions/rules", token, schoolToken] : null;
+export function usePromotionRules(
+  educationYearId?: string,
+  token?: string,
+  schoolToken?: string,
+) {
+  const key =
+    educationYearId && token
+      ? ["/api/promotions/rules", educationYearId, token, schoolToken]
+      : null;
 
   const { data, error, isLoading, mutate } = useSWR<PromotionRule[] | null>(
     key,
-    () => promotionService.getRules(token!, schoolToken),
+    () => promotionService.getRules(educationYearId!, token!, schoolToken),
     {
       revalidateOnFocus: false,
     },

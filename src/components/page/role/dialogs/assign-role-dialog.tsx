@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 
@@ -16,9 +16,9 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 
 import {
-    RoleAssignmentSchema,
-    type Role,
-    type RoleAssignment,
+  RoleAssignmentSchema,
+  type Role,
+  type RoleAssignment,
 } from "@/lib/schema/role/role-schema";
 
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
@@ -26,7 +26,7 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 
 import type { Paginated } from "@/lib/schema/common-schema";
-import type { User } from "@/lib/schema/user/user-schema";
+import { UserModel } from "@/lib/schema/user/user-schema";
 import { UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -37,7 +37,7 @@ interface Props {
 }
 
 const AssignRoleDialog = ({ auth, roleId, onSuccess }: Props) => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserModel[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
 
@@ -45,7 +45,7 @@ const AssignRoleDialog = ({ auth, roleId, onSuccess }: Props) => {
     const fetchOptions = async () => {
       try {
         const [usersRes, rolesRes] = await Promise.all([
-          apiRequest<void, Paginated<User>>(
+          apiRequest<void, Paginated<UserModel>>(
             "get",
             "/school/users?limit=100",
             undefined,
