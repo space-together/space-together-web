@@ -8,41 +8,32 @@ export const metadata: Metadata = {
   title: "Sign in",
   description: "Login in an account on space together",
 };
+interface props {
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ oauthError?: string }>;
+}
 
-const LoginPage = async (props: PageProps<"/[lang]/auth/login">) => {
+const LoginPage = async (props: props) => {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const { oauthError, callbackUrl } = searchParams;
+  const oauthError = searchParams.oauthError;
   const { lang } = params;
-  const diction = await getDictionary(lang as Locale);
+  const diction = await getDictionary(lang);
   return (
     <div className=" h-screen flex flex-col items-start pt-4 happy-page gap-2 w-full">
       <div className=" space-y-2 w-full flex flex-col">
-        <MyLink href={`/${lang}/auth/register`}  className="flex justify-end">
+        <MyLink href={`/${lang}/auth/register`} className="flex justify-end">
           {diction.auth.register.page.paragraph}{" "}
-          <span className=" link">
-            {diction.auth.login.page.login}
-          </span>
+          <span className=" link">{diction.auth.login.page.login}</span>
         </MyLink>
         <h1 className=" happy-title-head">Login</h1>
         <AuthProviders />
       </div>
       <div className=" mt-4 w-full space-y-3">
-<<<<<<< HEAD
-        <LoginForm
-          oauthError={oauthError as string}
-          lang={lang as Locale}
-          callbackUrl={callbackUrl as string}
-        />
-        <p>
-=======
         <LoginForm oauthError={oauthError} lang={lang} />
-        <MyLink href={`/${lang}/auth/register`}  className="flex ">
->>>>>>> 62f29a63e347b5689602798713c1a7f15f41b2be
+        <MyLink href={`/${lang}/auth/register`} className="flex ">
           {diction.auth.register.page.paragraph}{" "}
-          <span className=" link">
-            {diction.auth.login.page.login}
-          </span>
+          <span className=" link">{diction.auth.login.page.login}</span>
         </MyLink>
       </div>
     </div>
