@@ -21,18 +21,9 @@ import { useEffect, useState } from "react";
 interface Props {
   lang: Locale;
   oauthError?: string;
-  callbackUrl?: string;
 }
 
-<<<<<<< HEAD
-const LoginForm = ({ lang, oauthError, callbackUrl }: props) => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<undefined | null | string>(oauthError);
-  const [success, setSuccess] = useState<undefined | null | string>("");
-=======
 const LoginForm = ({ lang, oauthError }: Props) => {
->>>>>>> 62f29a63e347b5689602798713c1a7f15f41b2be
   const router = useRouter();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -59,17 +50,9 @@ const LoginForm = ({ lang, oauthError }: Props) => {
             data.id,
             data.school_access_token,
           );
-<<<<<<< HEAD
-          setSuccess(`Welcome back ${login.data.name} `);
-          if (callbackUrl) {
-            router.push(callbackUrl);
-          } else if (login.data.role) {
-            router.push(redirectContents({ lang, role: login.data.role }));
-=======
 
           if (data.role) {
             router.push(redirectContents({ lang, role: data.role }));
->>>>>>> 62f29a63e347b5689602798713c1a7f15f41b2be
           }
         }
       },
