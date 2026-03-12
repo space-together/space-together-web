@@ -24,7 +24,7 @@ const HomeHero = ({ auth, lang }: HomeHeroProps) => {
         className="relative flex flex-col items-center justify-center  pt-32  text-center overflow-visible shadow-xl/60     shadow-info/50"
       >
         <div className="max-w-4xl">
-          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
+          <h1 className="mb-6 h1 tracking-tight md:text-5xl">
             A connected learning platform for every <br /> school — even offline
           </h1>
 

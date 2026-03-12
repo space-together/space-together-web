@@ -214,6 +214,14 @@
   @apply flex min-h-screen flex-col space-y-2 p-2;
 }
 
+.h1 {
+  @apply text-4xl font-bold;
+}
+
+.h2 {
+    @apply text-4xl font-semibold;
+}
+
 .h3 {
   @apply font-semibold text-3xl;
 }
@@ -228,6 +236,15 @@
 
 .h6 {
     @apply text-lg;
+}
+
+.p1{
+    @apply text-xl;
+}
+
+
+.p {
+    @apply text-base;
 }
 
 .sm {
@@ -259,3 +276,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-error) var(--color-warning);
 } */
+
+.site-g-p {
+    @apply px-8;
+}

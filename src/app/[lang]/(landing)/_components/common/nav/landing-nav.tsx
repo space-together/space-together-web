@@ -20,7 +20,7 @@ const LandingNav = ({ auth, lang }: LandingNavProps) => {
     <AppNavClient>
       <nav
         className={cn(
-          "w-full px-4 py-2 flex flex-row items-center justify-between",
+          "w-full px-8 py-2 flex flex-row items-center justify-between",
           scrollPast ? "bg-base-100 shadow-md py-1" : "bg-transparent",
         )}
       >

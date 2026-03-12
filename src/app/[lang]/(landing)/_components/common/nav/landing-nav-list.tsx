@@ -9,7 +9,9 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import type { Locale } from "@/i18n";
+import { cn } from "@/lib/utils";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { usePathname } from "next/navigation";
 
 interface LandingNavListProps {
   auth?: AuthContext | null;
@@ -110,6 +112,7 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
     },
   ];
 
+  const pathname = usePathname();
   return (
     <NavigationMenu>
       <NavigationMenuList className="gap-2">
@@ -127,7 +130,10 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
                       <MyLink
                         key={item.label}
                         href={item.href}
-                        className="text-sm hover:text-primary"
+                        className={cn(
+                          "text-sm hover:text-primary",
+                          pathname === item.href && "text-primary",
+                        )}
                       >
                         {item.label}
                       </MyLink>
@@ -149,13 +155,19 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
               </div>
               <MyLink
                 href={`/${lang}/resources/why-space-together`}
-                className=" text-sm  hover:text-primary"
+                className={cn(
+                  " text-sm  hover:text-primary",
+                  pathname === `/${lang}/resources/why-space-together`,
+                )}
               >
                 Why space-together?
               </MyLink>
               <MyLink
                 href={`/${lang}/accessibility`}
-                className=" text-sm  hover:text-primary"
+                className={cn(
+                  " text-sm  hover:text-primary",
+                  pathname === `/${lang}/accessibility` && "text-primary",
+                )}
               >
                 Accessibility
               </MyLink>
@@ -174,7 +186,12 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
                 className="group/item flex flex-col"
               >
                 <div className="flex flex-col items-start">
-                  <span className="font-medium group-hover/item:text-primary duration-150">
+                  <span
+                    className={cn(
+                      "font-medium group-hover/item:text-primary duration-150",
+                      pathname === item.href && "text-primary",
+                    )}
+                  >
                     {item.label}
                   </span>
                   <span className="text-sm opacity-80">{item.description}</span>
@@ -195,7 +212,12 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
                 className="group/item flex flex-col"
               >
                 <div className="flex flex-col items-start">
-                  <span className="font-medium group-hover/item:text-primary duration-150">
+                  <span
+                    className={cn(
+                      "font-medium group-hover/item:text-primary duration-150",
+                      pathname === item.href && "text-primary",
+                    )}
+                  >
                     {item.label}
                   </span>
                   <span className="text-sm opacity-80">{item.description}</span>
@@ -209,7 +231,10 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
         <NavigationMenuItem>
           <MyLink
             href={`/${lang}/enterprise`}
-            className="px-4 py-2 text-sm font-medium hover:text-primary"
+            className={cn(
+              "px-4 py-2 text-sm font-medium hover:text-primary",
+              pathname === `/${lang}/enterprise` && "text-primary",
+            )}
           >
             Enterprise
           </MyLink>
@@ -219,7 +244,10 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
         <NavigationMenuItem>
           <MyLink
             href={`/${lang}/pricing`}
-            className="px-4 py-2 text-sm font-medium hover:text-primary"
+            className={cn(
+              "px-4 py-2 text-sm font-medium hover:text-primary",
+              pathname === `/${lang}/pricing` && "text-primary",
+            )}
           >
             Pricing
           </MyLink>
