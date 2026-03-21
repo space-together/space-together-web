@@ -58,8 +58,8 @@ const EducationYearForm = ({ year, auth, sector }: EducationYearFormProps) => {
     fetchSectors();
   }, [auth.token, showToast, sectors]);
 
-  const form = useForm<EducationYear>({
-    resolver: zodResolver(EducationYearSchema),
+  const form = useForm<EducationYear, any, EducationYear>({
+    resolver: zodResolver(EducationYearSchema) as any,
     defaultValues: {
       label: year?.label || "",
       curriculum_id: year?.curriculum_id || "",

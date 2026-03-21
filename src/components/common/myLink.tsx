@@ -13,7 +13,8 @@ import {
 type LoadingIndicatorTextProps<T extends ElementType> = {
   element?: T;
   children: React.ReactNode;
-} & ComponentPropsWithoutRef<T>;
+  className?: string;
+} & Omit<ComponentPropsWithoutRef<T>, 'children' | 'className'>;
 
 export const LoadingIndicatorText = <T extends ElementType = "div">({
   children,
@@ -25,7 +26,7 @@ export const LoadingIndicatorText = <T extends ElementType = "div">({
   const Component = element || "div";
   return (
     <Component
-      {...props}
+      {...(props as any)}
       className={cn(className, pending && "skeleton skeleton-text")}
     >
       {children}

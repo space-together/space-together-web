@@ -6,10 +6,10 @@ import apiRequest, { type ApiRequestOptions } from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type FieldValues, type UseFormProps } from "react-hook-form";
-import type { ZodTypeAny } from "zod";
+import type { ZodType } from "zod";
 
 interface UseZodFormSubmitOptions<TForm extends FieldValues, TResult> {
-  schema: ZodTypeAny;
+  schema: ZodType<TForm, any, any>;
   formOptions: UseFormProps<TForm>;
   request: {
     method: "post" | "put" | "patch" | "delete";
@@ -34,8 +34,8 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<TForm>({
-    resolver: zodResolver(options.schema),
+  const form = useForm<TForm, any, TForm>({
+    resolver: zodResolver(options.schema) as any,
     mode: "onChange",
     reValidateMode: "onChange",
     ...options.formOptions,
@@ -61,7 +61,7 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
     setTimeout(() => setError(undefined), FORM.timeOut);
   };
 
-  const onSubmit = (values: TForm) => {
+  const onSubmit: (values: TForm) => void = (values: TForm) => {
     clearMessages();
 
     startTransition(async () => {

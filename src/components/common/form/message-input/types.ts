@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import type { PickUserProps } from "../sign-to-input";
 
 export type EditorTool = "emoji" | "toolbar" | "metion" | "files" | "send";
@@ -15,7 +16,7 @@ export interface MessageInputProps {
 }
 
 export interface ToolbarButtonProps {
-  icon: React.ElementType;
+  icon: LucideIcon;
   isActive?: boolean;
   onClick: () => void;
   label: string;
