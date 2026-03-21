@@ -5,7 +5,7 @@ import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { Weekday } from "@/lib/schema/common-details-schema";
 import {
   SchoolTimetableSchema,
@@ -14,11 +14,8 @@ import {
 } from "@/lib/schema/school/school-timetable-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { createOverrideFromDefault } from "@/lib/utils/school-timetable.override.utils";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 import type { z } from "zod";
 import type { SchoolTimetableEducationChoice } from "./school-timetable-choose-education";
 import { DailyScheduleCard } from "./school-timetable-form-components";
@@ -53,10 +50,6 @@ export default function SchoolTimetableForm({
   defaultAcademicYearId,
   choice,
 }: Props) {
-  const { showToast } = useToast();
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
   // TODO: make get education and add they timetable
   const generateDefaultWeek = (): DailySchoolSchedule[] => {
     const days: Weekday[] = ["Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -78,29 +71,46 @@ export default function SchoolTimetableForm({
     }));
   };
 
-  const form = useForm<SchoolTimetableFormType>({
-    resolver: zodResolver(SchoolTimetableFormSchema),
-    defaultValues: {
-      school_id: timetable?.school_id || auth.school?.id,
-      academic_year_id:
-        timetable?.academic_year_id || defaultAcademicYearId || null,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    SchoolTimetableFormType,
+    SchoolTimetable
+  >({
+    schema: SchoolTimetableFormSchema,
+    formOptions: {
+      defaultValues: {
+        school_id: timetable?.school_id || auth.school?.id,
+        academic_year_id:
+          timetable?.academic_year_id || defaultAcademicYearId || null,
 
-      default_weekly_schedule:
-        timetable?.default_weekly_schedule || generateDefaultWeek(),
+        default_weekly_schedule:
+          timetable?.default_weekly_schedule || generateDefaultWeek(),
 
-      overrides:
-        timetable?.overrides ??
-        (choice
-          ? [
-              createOverrideFromDefault(
-                timetable?.default_weekly_schedule ?? generateDefaultWeek(),
-                choice,
-              ),
-            ]
-          : []),
+        overrides:
+          timetable?.overrides ??
+          (choice
+            ? [
+                createOverrideFromDefault(
+                  timetable?.default_weekly_schedule ?? generateDefaultWeek(),
+                  choice,
+                ),
+              ]
+            : []),
 
-      events: timetable?.events || [],
+        events: timetable?.events || [],
+      },
     },
+    request: {
+      method: timetable ? "put" : "post",
+      url: timetable
+        ? `/school/timetables/${timetable._id}`
+        : "/school/timetables",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "Timetable saved successfully",
+    toastOnError: true,
   });
 
   const defaultDays = useFieldArray({
@@ -112,36 +122,6 @@ export default function SchoolTimetableForm({
     control: form.control,
     name: "overrides",
   });
-
-  const onSubmit = (values: SchoolTimetableFormType) => {
-    setError(undefined);
-    setSuccess(undefined);
-    console.log("🫡🫡🫡😡😡", values);
-    startTransition(async () => {
-      const res = await apiRequest<SchoolTimetableFormType, SchoolTimetable>(
-        timetable ? "put" : "post",
-        timetable
-          ? `/school/timetables/${timetable._id}`
-          : "/school/timetables",
-        values,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-
-      if (!res.data) {
-        setError(res.message);
-        showToast({
-          title: "Error",
-          description: res.message,
-          type: "error",
-        });
-      } else {
-        setSuccess("Timetable saved successfully");
-      }
-    });
-  };
 
   return (
     <Form {...form}>

@@ -20,16 +20,13 @@ import {
   TeachingStyleDetails,
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   teacherBackgroundSchema,
   type teacherBackground,
 } from "@/lib/schema/teacher/teacher-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 interface props {
   user: UserModel;
@@ -44,61 +41,48 @@ const TeacherBackgroundForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<teacherBackground>({
-    resolver: zodResolver(teacherBackgroundSchema),
-    defaultValues: {
-      years_of_experience: user.years_of_experience
-        ? user.years_of_experience
-        : undefined,
-      address: user.address ? user.address : undefined,
-      education_level: user.education_level ? user.education_level : undefined,
-      certifications_trainings: user.certifications_trainings
-        ? user.certifications_trainings
-        : undefined,
-      languages_spoken: user.languages_spoken
-        ? user.languages_spoken
-        : undefined,
-      teaching_style: user.teaching_style ? user.teaching_style : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    teacherBackground,
+    UserModel
+  >({
+    schema: teacherBackgroundSchema,
+    formOptions: {
+      defaultValues: {
+        years_of_experience: user.years_of_experience
+          ? user.years_of_experience
+          : undefined,
+        address: user.address ? user.address : undefined,
+        education_level: user.education_level ? user.education_level : undefined,
+        certifications_trainings: user.certifications_trainings
+          ? user.certifications_trainings
+          : undefined,
+        languages_spoken: user.languages_spoken
+          ? user.languages_spoken
+          : undefined,
+        teaching_style: user.teaching_style ? user.teaching_style : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added background info.",
+        type: "success",
+      });
+      if (setStep) setStep(3, data.id);
+      if (markStepCompleted)
+        markStepCompleted(2, true, data.id || data._id);
+    },
   });
-
-  const onSubmit = (value: teacherBackground) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<teacherBackground, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add Background info",
-          type: "success",
-        });
-        if (setStep) setStep(3, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(2, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>

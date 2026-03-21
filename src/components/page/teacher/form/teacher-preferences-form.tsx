@@ -16,17 +16,14 @@ import type { Locale } from "@/i18n";
 import { ProfessionalGoalDetails } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { redirectContents } from "@/lib/hooks/redirect";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   type TeacherPreferences,
   TeacherPreferencesSchema,
 } from "@/lib/schema/teacher/teacher-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 interface props {
   user: UserModel;
@@ -45,60 +42,47 @@ const TeacherPreferencesForm = ({
   reset,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const router = useRouter();
 
-  const form = useForm<TeacherPreferences>({
-    resolver: zodResolver(TeacherPreferencesSchema),
-    defaultValues: {
-      professional_goals: user.professional_goals
-        ? user.professional_goals
-        : [],
-      availability_schedule: user.availability_schedule
-        ? user.availability_schedule
-        : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    TeacherPreferences,
+    UserModel
+  >({
+    schema: TeacherPreferencesSchema,
+    formOptions: {
+      defaultValues: {
+        professional_goals: user.professional_goals
+          ? user.professional_goals
+          : [],
+        availability_schedule: user.availability_schedule
+          ? user.availability_schedule
+          : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
-  });
-
-  const onSubmit = (value: TeacherPreferences) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<TeacherPreferences, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: () => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added teacher preferences.",
+        type: "success",
+      });
+      reset?.();
+      router.push(
+        redirectContents({
+          role: auth.user.role || "TEACHER",
+          lang: lang || "en",
+        }),
       );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add student academic intereset info",
-          type: "success",
-        });
-        if (reset) reset;
-        router.push(
-          redirectContents({
-            role: auth.user.role || "TEACHER",
-            lang: lang || "en",
-          }),
-        );
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
+    },
+  });
 
   return (
     <Form {...form}>
@@ -172,7 +156,7 @@ const TeacherPreferencesForm = ({
                 className=" w-fit"
                 library="daisy"
                 onClick={() => {
-                  if (reset) reset();
+                  reset?.();
                   router.push(
                     redirectContents({
                       role: auth.user.role || "TEACHER",

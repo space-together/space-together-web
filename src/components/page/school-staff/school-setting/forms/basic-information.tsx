@@ -1,11 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-
-import { FormError } from "@/components/common/form-message";
+import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -29,9 +24,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { schoolMembers, schoolTypes } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
+import { useTheme } from "next-themes";
 import {
   type BasicInformationDto,
   BasicInformationSchema,
@@ -46,57 +42,48 @@ export const BasicInformationForm = ({
   initialData,
   auth,
 }: BasicInformationFormProps) => {
-  const [error, setError] = useState<string | null>("");
-  const [isPending, startTransition] = useTransition();
   const { theme } = useTheme();
   const { showToast } = useToast();
 
-  const form = useForm<BasicInformationDto>({
-    resolver: zodResolver(BasicInformationSchema),
-    defaultValues: {
-      logo: initialData?.logo || undefined,
-      name: initialData?.name || undefined,
-      username: initialData?.username || undefined,
-      description: initialData?.description || undefined,
-      school_type: initialData?.school_type || undefined,
-      school_members: initialData?.school_members || undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    BasicInformationDto,
+    School
+  >({
+    schema: BasicInformationSchema,
+    formOptions: {
+      defaultValues: {
+        logo: initialData?.logo || undefined,
+        name: initialData?.name || undefined,
+        username: initialData?.username || undefined,
+        description: initialData?.description || undefined,
+        school_type: initialData?.school_type || undefined,
+        school_members: initialData?.school_members || undefined,
+      },
+    },
+    request: {
+      method: "put",
+      url: `/schools/${initialData._id}`,
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "School basic information updated successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      showToast({
+        type: "success",
+        title: "To update school basic information success!",
+        description: "You have been update school basic information",
+        duration: 3000,
+      });
     },
   });
-
-  const handleSubmit = (values: BasicInformationDto) => {
-    setError(null);
-    startTransition(async () => {
-      const res = await apiRequest<BasicInformationDto, School>(
-        "put",
-        `/schools/${initialData._id}`,
-        values,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-      if (res.data) {
-        showToast({
-          type: "success",
-          title: "To update school basic information success!",
-          description: "You have been update school basic information",
-          duration: 3000,
-        });
-      } else {
-        showToast({
-          type: "error",
-          title: "Some thing went wrong to update school information",
-          description: res.message,
-          duration: 4000,
-        });
-      }
-    });
-  };
 
   return (
     <Card className="p-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <h3 className="mb-4 pb-2 text-xl font-semibold">Basic Information</h3>
           <div className="flex w-full space-x-6">
             <div className="flex flex-col space-y-4">
@@ -242,6 +229,7 @@ export const BasicInformationForm = ({
             />
           </div>
           <FormError message={error} />
+          <FormSuccess message={success} />
           <Button
             type="submit"
             className="w-full md:w-auto"

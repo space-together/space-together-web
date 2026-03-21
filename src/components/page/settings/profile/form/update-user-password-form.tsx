@@ -12,39 +12,44 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   updateUserPasswordDto,
   updateUserPasswordSchema,
 } from "@/lib/schema/user/user-password.dto";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { getAccessToken } from "@/lib/utils/client-auth";
 import { LockKeyholeIcon, LockKeyholeOpen } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 const UpdateUserPasswordForm = () => {
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
-  const [
-    isPending,
-    //  startTransition
-  ] = useTransition();
-  const form = useForm<updateUserPasswordDto>({
-    resolver: zodResolver(updateUserPasswordSchema),
-    defaultValues: {
-      password: "",
-      currentPassword: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    updateUserPasswordDto,
+    unknown
+  >({
+    schema: updateUserPasswordSchema,
+    formOptions: {
+      defaultValues: {
+        password: "",
+        currentPassword: "",
+      },
+    },
+    request: {
+      method: "post",
+      url: "/auth/change-password",
+      apiRequest: {
+        token: getAccessToken() ?? "",
+      },
+    },
+    onSuccessMessage: "Password updated successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
     },
   });
-  const handleSubmit = (values: updateUserPasswordDto) => {
-    setError("");
-    setSuccess("");
 
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col"
       >
         <div className="flex flex-col space-y-4">
@@ -119,7 +124,15 @@ const UpdateUserPasswordForm = () => {
             <FormSuccess message={success} />
           </div>
         </div>
-        <Button library={"daisy"} variant="info" size="sm" className="w-40">
+        <Button
+          disabled={isPending}
+          role={isPending ? "loading" : undefined}
+          library={"daisy"}
+          variant="info"
+          size="sm"
+          className="w-40"
+          type="submit"
+        >
           Change Password
         </Button>
       </form>

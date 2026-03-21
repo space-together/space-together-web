@@ -5,7 +5,12 @@ import { FORM } from "@/lib/env";
 import apiRequest, { type ApiRequestOptions } from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
-import { useForm, type FieldValues, type UseFormProps } from "react-hook-form";
+import {
+  useForm,
+  type FieldValues,
+  type UseFormProps,
+  type UseFormReturn,
+} from "react-hook-form";
 import type { ZodTypeAny } from "zod";
 
 interface UseZodFormSubmitOptions<TForm extends FieldValues, TResult> {
@@ -13,8 +18,10 @@ interface UseZodFormSubmitOptions<TForm extends FieldValues, TResult> {
   formOptions: UseFormProps<TForm>;
   request: {
     method: "post" | "put" | "patch" | "delete";
-    url: string;
+    url: string | ((values: TForm) => string);
     apiRequest?: ApiRequestOptions;
+    /** When true, the request body is omitted (e.g. POST with path-only URL). */
+    omitBody?: boolean;
   };
 
   transform?: (values: TForm) => unknown;
@@ -66,10 +73,21 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
 
     startTransition(async () => {
       try {
-        const res = await apiRequest<TForm, TResult>(
+        const url =
+          typeof options.request.url === "function"
+            ? options.request.url(values)
+            : options.request.url;
+
+        const payload = options.request.omitBody
+          ? undefined
+          : options.transform
+            ? options.transform(values)
+            : values;
+
+        const res = await apiRequest(
           options.request.method,
-          options.request.url,
-          options.transform ? (options.transform(values) as TForm) : values,
+          url,
+          payload as TForm | undefined,
           options.request.apiRequest,
         );
 
@@ -90,7 +108,7 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
   };
 
   return {
-    form,
+    form: form as UseFormReturn<TForm>,
     onSubmit,
     error,
     success,

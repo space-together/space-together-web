@@ -1,4 +1,5 @@
 "use client";
+
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,39 +12,43 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   updateUserEmailDto,
   updateUserEmailSchema,
 } from "@/lib/schema/user/user-email.dto";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { getAccessToken } from "@/lib/utils/client-auth";
 import { AtSign } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 const UpdateUserEmailForm = () => {
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
-  const [
-    isPending,
-    // startTransition
-  ] = useTransition();
-  const form = useForm<updateUserEmailDto>({
-    resolver: zodResolver(updateUserEmailSchema),
-    defaultValues: {
-      email: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    updateUserEmailDto,
+    unknown
+  >({
+    schema: updateUserEmailSchema,
+    formOptions: {
+      defaultValues: {
+        email: "",
+      },
+    },
+    request: {
+      method: "post",
+      url: "/auth/change-email",
+      apiRequest: {
+        token: getAccessToken() ?? "",
+      },
+    },
+    onSuccessMessage: "Email update requested",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
     },
   });
 
-  const handleSubmit = (values: updateUserEmailDto) => {
-    setError("");
-    setSuccess("");
-
-    console.log(values);
-  };
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="flex items-center space-x-4"
       >
         <div className="flex flex-col space-y-2">
@@ -67,7 +72,13 @@ const UpdateUserEmailForm = () => {
                         <AtSign size={16} strokeWidth={2} aria-hidden="true" />
                       </div>
                     </div>
-                    <Button library={"daisy"} variant="info" size="sm">
+                    <Button
+                      disabled={isPending}
+                      library={"daisy"}
+                      variant="info"
+                      size="sm"
+                      type="submit"
+                    >
                       Update email
                     </Button>
                   </div>

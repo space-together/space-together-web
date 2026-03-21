@@ -19,17 +19,14 @@ import {
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { redirectContents } from "@/lib/hooks/redirect";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   type studentSupport,
   studentSupportSchema,
 } from "@/lib/schema/student/student-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 interface Props {
   user: UserModel;
@@ -48,64 +45,48 @@ const StudentSupportForm = ({
   reset,
   lang,
 }: Props) => {
-  const [error, setError] = useState<string | null | undefined>("");
-  const [success, setSuccess] = useState<string | null | undefined>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const router = useRouter();
 
-  const form = useForm<studentSupport>({
-    resolver: zodResolver(studentSupportSchema),
-    defaultValues: {
-      learning_challenges: user.learning_challenges
-        ? user.learning_challenges
-        : undefined,
-      special_support_needed: user.special_support_needed
-        ? user.special_support_needed
-        : undefined,
-      guardian_info: user.guardian_info ? user.guardian_info : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    studentSupport,
+    UserModel
+  >({
+    schema: studentSupportSchema,
+    formOptions: {
+      defaultValues: {
+        learning_challenges: user.learning_challenges
+          ? user.learning_challenges
+          : undefined,
+        special_support_needed: user.special_support_needed
+          ? user.special_support_needed
+          : undefined,
+        guardian_info: user.guardian_info ? user.guardian_info : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: () => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added student support information.",
+        type: "success",
+      });
+      reset();
+      router.push(redirectContents({ lang, role: user.role || "STUDENT" }));
+    },
   });
-
-  const onSubmit = (value: studentSupport) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<studentSupport, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: "You have added student academic interest info.",
-          type: "success",
-        });
-
-        reset;
-        router.push(redirectContents({ lang, role: user.role || "STUDENT" }));
-      } else if (update.message) {
-        showToast({
-          title: "Something went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <div className="flex flex-col gap-4">
-          {/* ✅ Guardian Info */}
           <FormField
             control={form.control}
             name="guardian_info"
@@ -121,7 +102,7 @@ const StudentSupportForm = ({
                       name: user?.name,
                       phone: user?.phone,
                       email: user?.email,
-                      relationship: "Parent", // or whichever fits
+                      relationship: "Parent",
                     }}
                     autoIncludeCurrentUser={true}
                   />
@@ -131,7 +112,6 @@ const StudentSupportForm = ({
             )}
           />
 
-          {/* ✅ Learning Challenges */}
           <FormField
             control={form.control}
             name="learning_challenges"
@@ -153,7 +133,6 @@ const StudentSupportForm = ({
             )}
           />
 
-          {/* ✅ Special Support Needed */}
           <FormField
             control={form.control}
             name="special_support_needed"
@@ -176,13 +155,11 @@ const StudentSupportForm = ({
           />
         </div>
 
-        {/* ✅ Form Feedback */}
         <div className="mt-2">
           <FormError message={error} />
           <FormSuccess message={success} />
         </div>
 
-        {/* ✅ Submit Button */}
         {setStep && markStepCompleted ? (
           <div className=" flex justify-between">
             <Button
@@ -205,7 +182,7 @@ const StudentSupportForm = ({
                 className=" w-fit"
                 library="daisy"
                 onClick={() => {
-                  if (reset) reset();
+                  reset();
                   router.push(
                     redirectContents({ role: user.role || "STUDENT", lang }),
                   );

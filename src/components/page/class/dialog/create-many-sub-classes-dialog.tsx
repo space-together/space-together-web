@@ -26,11 +26,10 @@ import {
   type CreateManSubClasses,
 } from "@/lib/schema/class/class-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 interface Props {
   auth: AuthContext;
@@ -40,9 +39,6 @@ interface Props {
 }
 
 const CreateManySubClasses = ({ auth, cls, name, title }: Props) => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
   const [classes, setClasses] = useState<Class[]>([]);
   const [loadingclass, setLoadingclass] = useState(true);
 
@@ -77,54 +73,37 @@ const CreateManySubClasses = ({ auth, cls, name, title }: Props) => {
     loadTrades();
   }, [auth.token, cls]);
 
-  const form = useForm<CreateManSubClasses>({
-    resolver: zodResolver(CreateManSubClassesSchema),
-    defaultValues: {
-      class_id: cls ? cls._id || cls.id || "" : "",
-      count: "2",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    CreateManSubClasses,
+    Class[]
+  >({
+    schema: CreateManSubClassesSchema,
+    formOptions: {
+      defaultValues: {
+        class_id: cls ? cls._id || cls.id || "" : "",
+        count: "2",
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: (values) =>
+        `/school/classes/${values.class_id}/subclasses/count/${values.count}`,
+      apiRequest: { token: auth.token, schoolToken: auth.schoolToken },
+      omitBody: true,
+    },
+    onSuccessMessage: "",
+    toastOnError: true,
+    onSuccess: (data) => {
+      const message = `${data.length} sub classes created`;
+      showToast({
+        title: "Sub classes created",
+        description: message,
+        type: "success",
+      });
+      if (!cls) form.reset();
+    },
   });
-
-  const handleSubmit = (values: CreateManSubClasses) => {
-    setError(undefined);
-    setSuccess(undefined);
-    startTransition(async () => {
-      try {
-        const response = await apiRequest<typeof values, Class[]>(
-          "post",
-          `/school/classes/${values.class_id}/subclasses/count/${values.count}`,
-          undefined,
-          { token: auth.token, schoolToken: auth.schoolToken },
-        );
-
-        if (!response.data) {
-          setError(response.message);
-          showToast({
-            title: "Error",
-            description: response.message,
-            type: "error",
-          });
-          return;
-        }
-
-        const message = `${response.data.length} sub classes created`;
-        setSuccess(message);
-
-        showToast({
-          title: "Sub classes created",
-          description: message,
-          type: "success",
-        });
-
-        if (!cls) form.reset();
-      } catch (err) {
-        setError(
-          `Unexpected error occurred [${String(err)}]. Please try again.`,
-        );
-      }
-    });
-  };
 
   return (
     <Dialog>
@@ -146,7 +125,7 @@ const CreateManySubClasses = ({ auth, cls, name, title }: Props) => {
         <main>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(handleSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-6"
             >
               {!cls && (

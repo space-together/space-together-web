@@ -1,9 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { UsersIcon } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
@@ -30,7 +28,7 @@ import {
   StudentStatuses,
   TeacherTypes,
 } from "@/lib/const/common-details-const";
-import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import {
@@ -50,11 +48,6 @@ interface Props {
 }
 
 export default function SendJoinSchoolRequestForm({ auth }: Props) {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
-
   const [classes, setClasses] = useState<Class[]>([]);
 
   useEffect(() => {
@@ -81,19 +74,36 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
     fetchClasses();
   }, []);
 
-  /* ----------------------------- Form Setup ----------------------------- */
-  const form = useForm<CreateJoinSchoolRequest>({
-    resolver: zodResolver(CreateJoinSchoolRequestSchema),
-    defaultValues: {
-      sent_by: auth.user.id,
-      email: "",
-      school_id: auth.school?.id,
-      role: undefined,
-      message: undefined,
-      class_id: undefined,
-      type: undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    CreateJoinSchoolRequest,
+    unknown
+  >({
+    schema: CreateJoinSchoolRequestSchema,
+    formOptions: {
+      defaultValues: {
+        sent_by: auth.user.id,
+        email: "",
+        school_id: auth.school?.id,
+        role: undefined,
+        message: undefined,
+        class_id: undefined,
+        type: undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: "/join-school-requests",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "Request sent successfully ☺️",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
+    },
   });
 
   const selectedRole = form.watch("role");
@@ -109,43 +119,6 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
 
     form.trigger(["type", "class_id"]);
   }, [selectedRole, form]);
-
-  /* ----------------------------- Submit Logic ----------------------------- */
-  function onSubmit(data: CreateJoinSchoolRequest) {
-    setError(null);
-    setSuccess(null);
-
-    startTransition(async () => {
-      const sendRequest = await apiRequest<CreateJoinSchoolRequest>(
-        "post",
-        "/join-school-requests",
-        data,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-
-      if (sendRequest?.data) {
-        showToast({
-          title: "Request sent successfully",
-          type: "success",
-        });
-        setSuccess("Request sent successfully ☺️");
-        form.reset();
-      } else {
-        showToast({
-          title: "Some thing went wrong",
-          description: sendRequest.message,
-          type: "error",
-        });
-        setError(
-          sendRequest?.message ||
-            "An error occurred while sending the join request.",
-        );
-      }
-    });
-  }
 
   /* ----------------------------- Class Combobox ---------------------------- */
   const classItems: ComboboxItem[] = classes.map((classItem) => ({

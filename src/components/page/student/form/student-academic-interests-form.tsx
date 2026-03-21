@@ -1,3 +1,5 @@
+"use client";
+
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import CheckboxInput from "@/components/common/form/checkbox-input";
 import { Button } from "@/components/ui/button";
@@ -15,16 +17,13 @@ import {
   SubjectCategoryDetails,
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   type StudentAcademicInterest,
   StudentAcademicInterestSchema,
 } from "@/lib/schema/student/student-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 interface props {
   user: UserModel;
@@ -39,56 +38,43 @@ const StudentAcademicInterestForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<StudentAcademicInterest>({
-    resolver: zodResolver(StudentAcademicInterestSchema),
-    defaultValues: {
-      favorite_subjects_category: user.favorite_subjects_category
-        ? user.favorite_subjects_category
-        : [],
-      preferred_study_styles: user.preferred_study_styles
-        ? user.preferred_study_styles
-        : [],
-      languages_spoken: user.languages_spoken ? user.languages_spoken : [],
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    StudentAcademicInterest,
+    UserModel
+  >({
+    schema: StudentAcademicInterestSchema,
+    formOptions: {
+      defaultValues: {
+        favorite_subjects_category: user.favorite_subjects_category
+          ? user.favorite_subjects_category
+          : [],
+        preferred_study_styles: user.preferred_study_styles
+          ? user.preferred_study_styles
+          : [],
+        languages_spoken: user.languages_spoken ? user.languages_spoken : [],
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added student academic interest info.",
+        type: "success",
+      });
+      if (setStep) setStep(2, data.id);
+      if (markStepCompleted)
+        markStepCompleted(1, true, data.id || data._id);
+    },
   });
-
-  const onSubmit = (value: StudentAcademicInterest) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<StudentAcademicInterest, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add student academic intereset info",
-          type: "success",
-        });
-        if (setStep) setStep(2, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(1, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>

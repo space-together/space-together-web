@@ -2,33 +2,31 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    CreateAssessmentCategorySchema,
-    type CreateAssessmentCategory,
+  CreateAssessmentCategorySchema,
+  type AssessmentCategory,
+  type CreateAssessmentCategory,
 } from "@/lib/schema/academics/assessment-category.schema";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { assessmentCategoryService } from "@/service/academics/assessment-category.service";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 interface AssessmentCategoryDialogProps {
@@ -43,36 +41,37 @@ export default function AssessmentCategoryDialog({
   onClose,
   auth,
 }: AssessmentCategoryDialogProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const form = useForm<CreateAssessmentCategory>({
-    resolver: zodResolver(CreateAssessmentCategorySchema),
-    defaultValues: {
-      class_subject_id: "",
-      education_year_id: "",
-      name: "",
-      code: "",
-      weight_percentage: 0,
-      description: "",
+  const { form, onSubmit, isPending } = useZodFormSubmit<
+    CreateAssessmentCategory,
+    AssessmentCategory
+  >({
+    schema: CreateAssessmentCategorySchema,
+    formOptions: {
+      defaultValues: {
+        class_subject_id: "",
+        education_year_id: "",
+        name: "",
+        code: "",
+        weight_percentage: 0,
+        description: "",
+      },
     },
-  });
-
-  const onSubmit = async (data: CreateAssessmentCategory) => {
-    setIsSubmitting(true);
-    try {
-      await assessmentCategoryService.createCategory(
-        data,
-        auth.token!,
-        auth.schoolToken || undefined,
-      );
+    request: {
+      method: "post",
+      url: "/api/assessment-categories",
+      apiRequest: {
+        token: auth.token!,
+        schoolToken: auth.schoolToken ?? undefined,
+        revalidatePath: "/a/academics",
+      },
+    },
+    onSuccessMessage: "Category created successfully",
+    toastOnError: true,
+    onSuccess: () => {
       toast.success("Category created successfully");
       onClose();
-    } catch (error) {
-      toast.error("Failed to create category");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -123,11 +122,11 @@ export default function AssessmentCategoryDialog({
                   <FormControl>
                     <Input
                       type="number"
-                      min="0"
-                      max="100"
+                      min={0}
+                      max={100}
                       {...field}
                       onChange={(e) =>
-                        field.onChange(parseFloat(e.target.value))
+                        field.onChange(Number.parseFloat(e.target.value) || 0)
                       }
                     />
                   </FormControl>
@@ -141,9 +140,9 @@ export default function AssessmentCategoryDialog({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description (Optional)</FormLabel>
+                  <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Description..." {...field} />
+                    <Textarea placeholder="Optional description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -155,15 +154,19 @@ export default function AssessmentCategoryDialog({
                 type="button"
                 variant="outline"
                 onClick={onClose}
-                disabled={isSubmitting}
+                disabled={isPending}
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Button type="submit" disabled={isPending} library="daisy">
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  "Create"
                 )}
-                Create
               </Button>
             </DialogFooter>
           </form>

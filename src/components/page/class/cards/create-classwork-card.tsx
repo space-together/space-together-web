@@ -4,16 +4,26 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 
 interface CreateClassWorkCardProps {
   auth: AuthContext;
+  classUsername?: string;
+  subjectCode?: string;
 }
 
-function CreateClassWorkCard({ auth }: CreateClassWorkCardProps) {
+function CreateClassWorkCard({
+  auth,
+  classUsername,
+  subjectCode,
+}: CreateClassWorkCardProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Subject name</CardTitle>
       </CardHeader>
       <CardContent>
-        <ClassWorkForm />
+        <ClassWorkForm
+          auth={auth}
+          classUsername={classUsername}
+          subjectCode={subjectCode}
+        />
       </CardContent>
     </Card>
   );

@@ -1,4 +1,5 @@
 "use client";
+
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import SignToInput from "@/components/common/form/sign-to-input";
@@ -13,42 +14,62 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { ClassworkTypes } from "@/lib/const/common-details-const";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   ClassWorkSchema,
   type ClassWork,
 } from "@/lib/schema/class/classwork-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import type { AuthContext } from "@/lib/utils/auth-context";
 import { IoIosLink } from "react-icons/io";
 import { LuUpload } from "react-icons/lu";
 
-function ClassWorkForm() {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+interface ClassWorkFormProps {
+  auth: AuthContext;
+  classUsername?: string;
+  subjectCode?: string;
+}
 
-  const form = useForm<ClassWork>({
-    resolver: zodResolver(ClassWorkSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      type: "Exercise",
-      points: 50,
-      mention: [],
-      allow_close_submissions: true,
+function ClassWorkForm({
+  auth,
+  classUsername,
+  subjectCode,
+}: ClassWorkFormProps) {
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    ClassWork,
+    unknown
+  >({
+    schema: ClassWorkSchema,
+    formOptions: {
+      defaultValues: {
+        title: "",
+        description: "",
+        type: "Exercise",
+        points: 50,
+        mention: [],
+        allow_close_submissions: true,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    transform: (values) => ({
+      ...values,
+      class_username: classUsername,
+      subject_code: subjectCode,
+    }),
+    request: {
+      method: "post",
+      url: "/classwork",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "Class work created successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
+    },
   });
 
-  const onSubmit = (data: ClassWork) => {
-    setError("");
-    setSuccess("");
-    startTransition(() => {
-      // submit logic here
-      console.log(data);
-    });
-  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -62,6 +83,7 @@ function ClassWorkForm() {
               placeholder="Title..."
               required
               control={form.control}
+              disabled={isPending}
             />
             <CommonFormField
               label="Description"
@@ -70,6 +92,7 @@ function ClassWorkForm() {
               fieldType="textarea"
               placeholder="Description..."
               control={form.control}
+              disabled={isPending}
             />
             <CommonFormField
               label="Class work Type"
@@ -79,6 +102,7 @@ function ClassWorkForm() {
               required
               placeholder="Select type"
               control={form.control}
+              disabled={isPending}
               selectOptions={ClassworkTypes.map((t) => ({
                 label: t,
                 value: t,
@@ -92,6 +116,7 @@ function ClassWorkForm() {
                   library="daisy"
                   variant={"outline"}
                   type="button"
+                  disabled={isPending}
                 >
                   <LuUpload />
                 </Button>
@@ -100,6 +125,7 @@ function ClassWorkForm() {
                   library="daisy"
                   variant={"outline"}
                   type="button"
+                  disabled={isPending}
                 >
                   <IoIosLink />
                 </Button>
@@ -137,6 +163,7 @@ function ClassWorkForm() {
               }}
               required
               control={form.control}
+              disabled={isPending}
             />
             <CommonFormField
               label="Due"
@@ -149,6 +176,7 @@ function ClassWorkForm() {
               }}
               required
               control={form.control}
+              disabled={isPending}
               dateProps={{ inputType: "date-time" }}
             />
             <CommonFormField
@@ -157,6 +185,7 @@ function ClassWorkForm() {
               fieldType="checkbox"
               placeholder="Description..."
               control={form.control}
+              disabled={isPending}
             />
             <CommonFormField
               label="Topic"
@@ -165,6 +194,7 @@ function ClassWorkForm() {
               required
               placeholder="Select topic"
               control={form.control}
+              disabled={isPending}
               selectOptions={ClassworkTypes.map((t) => ({
                 label: t,
                 value: t,
@@ -174,6 +204,15 @@ function ClassWorkForm() {
         </div>
         <FormError message={error} />
         <FormSuccess message={success} />
+        <Button
+          type="submit"
+          variant="info"
+          library="daisy"
+          disabled={isPending}
+          role={isPending ? "loading" : undefined}
+        >
+          Create class work
+        </Button>
       </form>
     </Form>
   );

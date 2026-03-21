@@ -23,23 +23,18 @@ import {
   CreateUserSchema,
 } from "@/lib/schema/user/create-user-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
-import { type ChangeEvent, useMemo, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { type ChangeEvent, useMemo, useState } from "react";
 
 interface props {
   auth: AuthContext;
 }
 
 const CreateUserForm = ({ auth }: props) => {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   const toggleSeePassword = () => setSeePassword((prev) => !prev);
@@ -79,31 +74,52 @@ const CreateUserForm = ({ auth }: props) => {
     return "Strong password";
   };
 
-  const form = useForm<CreateUser>({
-    resolver: zodResolver(CreateUserSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      username: "",
-      password_hash: "",
-      phone: "",
-      bio: "",
-      role: undefined,
-      gender: undefined,
-      address: {
-        country: "",
-        province: "",
-        district: "",
-        sector: "",
-        cell: "",
-        village: "",
-        state: "",
-        postal_code: "",
-        google_map_url: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    CreateUser,
+    UserModel
+  >({
+    schema: CreateUserSchema,
+    formOptions: {
+      defaultValues: {
+        name: "",
+        email: "",
+        username: "",
+        password_hash: "",
+        phone: "",
+        bio: "",
+        role: undefined,
+        gender: undefined,
+        address: {
+          country: "",
+          province: "",
+          district: "",
+          sector: "",
+          cell: "",
+          village: "",
+          state: "",
+          postal_code: "",
+          google_map_url: "",
+        },
+        age: { year: undefined, month: undefined, day: undefined },
       },
-      age: { year: undefined, month: undefined, day: undefined },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: "/users",
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "User created successfully",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "User created successfully 😁",
+        description: <div>user: {data.name}</div>,
+        type: "success",
+      });
+      form.reset();
+      setPassword("");
+    },
   });
 
   const handlePasswordChange = (
@@ -115,40 +131,9 @@ const CreateUserForm = ({ auth }: props) => {
     fieldChange(newPassword);
   };
 
-  const handleSubmit = (values: CreateUser) => {
-    setError(null);
-    setSuccess(null);
-console.log("User data 🙄🙄:", values);
-    startTransition(async () => {
-      const result = await apiRequest<CreateUser, UserModel>(
-        "post",
-        "/users",
-        values,
-        { token: auth.token },
-      );
-
-      if (!result.data) {
-        showToast({
-          title: "Uh oh! Something went wrong.",
-          description: result.message,
-          type: "error",
-        });
-        setError(result.message || "Failed to create user");
-      } else {
-        setSuccess("User created successfully!");
-        showToast({
-          title: "User created successfully 😁",
-          description: <div>user: {result.data.name}</div>,
-          type: "success",
-        });
-        form.reset();
-      }
-    });
-  };
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex w-full justify-between space-x-4">
           {/* Left Column */}
           <div className="flex w-full flex-col justify-start space-y-4">

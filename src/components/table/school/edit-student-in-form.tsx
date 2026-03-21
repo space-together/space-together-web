@@ -1,4 +1,5 @@
 "use client";
+
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,37 +18,53 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormError, FormSuccess } from "@/components/common/form-message";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   type EditStudentDto,
   editStudentSchema,
 } from "@/lib/schema/table-forms/forms";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { getAccessToken } from "@/lib/utils/client-auth";
 
 interface props {
   onClose: () => void;
 }
 
 const EditStudentInSchoolForm = ({ onClose }: props) => {
-  const form = useForm<EditStudentDto>({
-    resolver: zodResolver(editStudentSchema),
-    defaultValues: {
-      id: "",
-      name: "",
-      email: "",
-      gender: "Male",
-      age: "",
-      class: "L1",
-      phone: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    EditStudentDto,
+    unknown
+  >({
+    schema: editStudentSchema,
+    formOptions: {
+      defaultValues: {
+        id: "",
+        name: "",
+        email: "",
+        gender: "Male",
+        age: "",
+        class: "L1",
+        phone: "",
+      },
+    },
+    request: {
+      method: "put",
+      url: (values) => `/students/${values.id}`,
+      apiRequest: {
+        token: getAccessToken() ?? "",
+      },
+    },
+    onSuccessMessage: "Student updated",
+    toastOnError: true,
+    onSuccess: () => {
+      onClose();
     },
   });
-  const handleEditStudent = (data: EditStudentDto) => {
-    console.log("Edited student data:", data);
-  };
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleEditStudent)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4"
       >
         <div className="grid grid-cols-2 gap-4">
@@ -58,7 +75,11 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter student name" />
+                  <Input
+                    {...field}
+                    placeholder="Enter student name"
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,6 +96,7 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
                     {...field}
                     type="email"
                     placeholder="Enter email address"
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage />
@@ -93,6 +115,7 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isPending}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -115,7 +138,11 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter phone number" />
+                  <Input
+                    {...field}
+                    placeholder="Enter phone number"
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -133,6 +160,7 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isPending}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -151,12 +179,17 @@ const EditStudentInSchoolForm = ({ onClose }: props) => {
           />
         </div>
 
+        <FormError message={error} />
+        <FormSuccess message={success} />
+
         <AlertDialogCancel asChild onClick={() => onClose()}>
-          <Button variant="outline" type="button">
+          <Button variant="outline" type="button" disabled={isPending}>
             Cancel
           </Button>
         </AlertDialogCancel>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit" disabled={isPending}>
+          Save Changes
+        </Button>
       </form>
     </Form>
   );

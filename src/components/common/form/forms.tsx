@@ -1,3 +1,5 @@
+"use client";
+
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import AddSocialMedia, {
   detectSocialMediaPlatform,
@@ -23,12 +25,10 @@ import {
   SocialAndCommunicationSchema,
 } from "@/lib/schema/common-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 
 // ----------------------commutation---------------------------
 
@@ -51,72 +51,58 @@ export const SocialAndCommunicationForm = ({
   redirect,
   lang,
 }: propsSocialAndCommunication) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const router = useRouter();
 
-  const form = useForm<SocialAndCommunication>({
-    resolver: zodResolver(SocialAndCommunicationSchema),
-    defaultValues: {
-      preferred_communication_method: initialData.preferred_communication_method
-        ? initialData.preferred_communication_method
-        : undefined,
-      social_media:
-        initialData?.social_media?.map((sm) => ({
-          platform: sm.platform || detectSocialMediaPlatform(sm.url || ""),
-          url: sm.url || "",
-        })) ?? [],
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    SocialAndCommunication,
+    UserModel
+  >({
+    schema: SocialAndCommunicationSchema,
+    formOptions: {
+      defaultValues: {
+        preferred_communication_method: initialData.preferred_communication_method
+          ? initialData.preferred_communication_method
+          : undefined,
+        social_media:
+          initialData?.social_media?.map((sm) => ({
+            platform: sm.platform || detectSocialMediaPlatform(sm.url || ""),
+            url: sm.url || "",
+          })) ?? [],
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added social and communication info.",
+        type: "success",
+      });
+      reset?.();
+      if (redirect)
+        router.push(
+          redirectContents({
+            lang: lang || "en",
+            role: auth.user.role || "STUDENT",
+          }),
+        );
+      if (setStep) setStep(4, data.id);
+      if (markStepCompleted)
+        markStepCompleted(3, true, data.id || data._id);
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
     name: "social_media",
     control: form.control,
   });
-
-  const onSubmit = (value: SocialAndCommunication) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<SocialAndCommunication, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description:
-            " You have been add Upgrade social and communication info",
-          type: "success",
-        });
-        if (reset) reset;
-        if (redirect)
-          return router.push(
-            redirectContents({
-              lang: lang || "en",
-              role: auth.user.role || "STUDENT",
-            }),
-          );
-        if (setStep) setStep(4, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(3, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>

@@ -8,46 +8,39 @@ import {
   type JoinSchoolDto,
   JoinSchoolSchema,
 } from "@/lib/schema/school/join-school-schema";
-import { authContext, setAuthCookies } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { setAuthCookies } from "@/lib/utils/auth-context";
+import {
+  getAccessToken,
+  getCurrentUserId,
+} from "@/lib/utils/client-auth";
 
 export default function InputJoinSchoolFormForm() {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
-  const form = useForm<JoinSchoolDto>({
-    resolver: zodResolver(JoinSchoolSchema),
-    defaultValues: {
-      code: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    JoinSchoolDto,
+    { school_token: string }
+  >({
+    schema: JoinSchoolSchema,
+    formOptions: {
+      defaultValues: {
+        code: "",
+      },
+    },
+    request: {
+      method: "post",
+      url: "/join-school-requests/join-by-code",
+      apiRequest: {
+        token: getAccessToken() ?? "",
+      },
+    },
+    onSuccessMessage: "Joined school successfully",
+    toastOnError: true,
+    onSuccess: (data) => {
+      const t = getAccessToken();
+      const uid = getCurrentUserId();
+      if (t && uid) setAuthCookies(t, uid, data.school_token);
     },
   });
-
-  function onSubmit(data: JoinSchoolDto) {
-    setError(null);
-    setSuccess(null);
-    startTransition(async () => {
-      const auth = await authContext();
-      if (!auth) return;
-
-      const req = await apiRequest<JoinSchoolDto, { school_token: string }>(
-        "post",
-        "/join-school-requests/join-by-code",
-        data,
-        {
-          token: auth.token,
-        },
-      );
-      if (req.data) {
-        setAuthCookies(auth.token, auth.user.id, req.data.school_token);
-        setSuccess(`To join school successfully! ☺️`);
-      } else {
-        setError(req.message);
-      }
-    });
-  }
 
   return (
     <Form {...form}>
@@ -58,6 +51,7 @@ export default function InputJoinSchoolFormForm() {
           name="code"
           label="School code"
           otpInputProps={{ maxLength: 5 }}
+          disabled={isPending}
         />
 
         <div className="mt-2">

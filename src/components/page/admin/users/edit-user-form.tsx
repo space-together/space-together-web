@@ -23,12 +23,10 @@ import {
   UpdateUserSchema,
 } from "@/lib/schema/user/update-user-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
-import { type ChangeEvent, useMemo, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { type ChangeEvent, useMemo, useState } from "react";
 
 interface props {
   auth: AuthContext;
@@ -37,11 +35,8 @@ interface props {
 }
 
 const EditUserForm = ({ auth, user, isDialog = false }: props) => {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   const toggleSeePassword = () => setSeePassword((prev) => !prev);
@@ -81,35 +76,61 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
     return "Strong password";
   };
 
-  const form = useForm<UpdateUser>({
-    resolver: zodResolver(UpdateUserSchema),
-    defaultValues: {
-      name: user.name ? user.name : "",
-      email: user.email ? user.email : "",
-      username: user.username ? user.username : "",
-      password_hash: "",
-      phone: user.phone ? user.phone : "",
-      bio: user.bio ? user.bio : "",
-      role: user.role ? user.role : "STUDENT",
-      gender: user.gender ? user.gender : "MALE",
-      image: user.image ? user.image : "",
-      address: user.address
-        ? user.address
-        : {
-            country: "",
-            province: "",
-            district: "",
-            sector: "",
-            cell: "",
-            village: "",
-            state: "",
-            postal_code: "",
-            google_map_url: "",
-          },
-      age: user.age
-        ? user.age
-        : { year: undefined, month: undefined, day: undefined },
-      disable: user.disable ? user.disable : false,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    UpdateUser,
+    UserModel
+  >({
+    schema: UpdateUserSchema,
+    formOptions: {
+      defaultValues: {
+        name: user.name ? user.name : "",
+        email: user.email ? user.email : "",
+        username: user.username ? user.username : "",
+        password_hash: "",
+        phone: user.phone ? user.phone : "",
+        bio: user.bio ? user.bio : "",
+        role: user.role ? user.role : "STUDENT",
+        gender: user.gender ? user.gender : "MALE",
+        image: user.image ? user.image : "",
+        address: user.address
+          ? user.address
+          : {
+              country: "",
+              province: "",
+              district: "",
+              sector: "",
+              cell: "",
+              village: "",
+              state: "",
+              postal_code: "",
+              google_map_url: "",
+            },
+        age: user.age
+          ? user.age
+          : { year: undefined, month: undefined, day: undefined },
+        disable: user.disable ? user.disable : false,
+      },
+    },
+    transform: (values) => {
+      const next = { ...values };
+      if (!next.password_hash) {
+        delete next.password_hash;
+      }
+      return next;
+    },
+    request: {
+      method: "put",
+      url: `/users/${user.id || user._id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "User updated successfully",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "User updated successfully 😁",
+        description: <div>user: {data.name}</div>,
+        type: "success",
+      });
     },
   });
 
@@ -122,44 +143,9 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
     fieldChange(newPassword);
   };
 
-  const handleSubmit = (values: UpdateUser) => {
-    setError(null);
-    setSuccess(null);
-
-    // Don't send empty password if unchanged
-    if (!values.password_hash) {
-      delete values.password_hash;
-    }
-
-    startTransition(async () => {
-      const result = await apiRequest<UpdateUser, UserModel>(
-        "put", // Changed from POST to PUT for update
-        `/users/${user.id || user._id}`, // Updated endpoint to include user ID
-        values,
-        { token: auth.token },
-      );
-
-      if (!result.data) {
-        showToast({
-          title: "Uh oh! Something went wrong.",
-          description: result.message,
-          type: "error",
-        });
-        setError(result.message || "Failed to update user");
-      } else {
-        setSuccess("User updated successfully!");
-        showToast({
-          title: "User updated successfully 😁",
-          description: <div>user: {result.data.name}</div>,
-          type: "success",
-        });
-      }
-    });
-  };
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex w-full justify-between space-x-4">
           {/* Left Column */}
           <div className="flex w-full flex-col justify-start space-y-4">

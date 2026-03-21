@@ -22,10 +22,7 @@ import {
 } from "@/lib/schema/school-staff/school-staff-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 
 interface props {
   user: UserModel;
@@ -40,52 +37,39 @@ const StaffDepartmentForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<StaffDepartment>({
-    resolver: zodResolver(StaffDepartmentSchema),
-    defaultValues: {
-      department: user.department ? user.department : undefined,
-      employment_type: user.employment_type ? user.employment_type : undefined,
-      job_title: user.job_title ? user.job_title : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    StaffDepartment,
+    UserModel
+  >({
+    schema: StaffDepartmentSchema,
+    formOptions: {
+      defaultValues: {
+        department: user.department ? user.department : undefined,
+        employment_type: user.employment_type ? user.employment_type : undefined,
+        job_title: user.job_title ? user.job_title : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added department information.",
+        type: "success",
+      });
+      if (setStep) setStep(2, data.id);
+      if (markStepCompleted)
+        markStepCompleted(1, true, data.id || data._id);
+    },
   });
-
-  const onSubmit = (value: StaffDepartment) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<StaffDepartment, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add student academic intereset info",
-          type: "success",
-        });
-        if (setStep) setStep(2, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(1, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>
