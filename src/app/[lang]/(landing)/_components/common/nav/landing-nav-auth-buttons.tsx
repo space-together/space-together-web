@@ -7,7 +7,7 @@ interface LandingNavAuthButtonsProps {
   lang: Locale;
 }
 
-const LandingNavAuthButtons = ({ auth, lang }: LandingNavAuthButtonsProps) => {
+const LandingNavAuthButtons = ({ auth: _auth, lang }: LandingNavAuthButtonsProps) => {
   return (
     <div className="flex items-center gap-2">
       <Button
@@ -19,12 +19,12 @@ const LandingNavAuthButtons = ({ auth, lang }: LandingNavAuthButtonsProps) => {
         Sign in
       </Button>
       <Button
-        variant={"outline"}
+        variant={"primary"}
         library="daisy"
         size="sm"
         href={`/${lang}/auth/register`}
       >
-        Sign up
+        Get started
       </Button>
     </div>
   );

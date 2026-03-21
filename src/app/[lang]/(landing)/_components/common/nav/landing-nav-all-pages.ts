@@ -8,6 +8,11 @@ interface PageItem {
 export const allPages: PageItem[] = [
   // Features - School
   {
+    label: "Features overview",
+    href: `/features`,
+    category: "Features",
+  },
+  {
     label: "School Members",
     href: `/features/school-members`,
     category: "Features",

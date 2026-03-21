@@ -23,6 +23,7 @@ const LandingNavList = ({ lang }: LandingNavListProps) => {
     {
       title: "School",
       items: [
+        { label: "Overview", href: `/${lang}/features` },
         { label: "School Members", href: `/${lang}/features/school-members` },
         { label: "Classes & Subjects", href: `/${lang}/features/classes` },
         { label: "Collaboration", href: `/${lang}/features/collaboration` },
