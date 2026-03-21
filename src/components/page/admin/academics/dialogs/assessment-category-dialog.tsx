@@ -9,16 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   CreateAssessmentCategorySchema,
   type AssessmentCategory,
@@ -85,68 +78,49 @@ export default function AssessmentCategoryDialog({
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
+            <CommonFormField
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="CAT, Quiz, Final..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Category Name"
+              placeholder="CAT, Quiz, Final..."
+              disabled={isPending}
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Code</FormLabel>
-                  <FormControl>
-                    <Input placeholder="CAT1, QUIZ1..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Code"
+              placeholder="CAT1, QUIZ1..."
+              disabled={isPending}
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="weight_percentage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Weight (%)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min={0}
-                      max={100}
-                      {...field}
-                      onChange={(e) =>
-                        field.onChange(Number.parseFloat(e.target.value) || 0)
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+              label="Weight (%)"
+              fieldType="custom"
+              disabled={isPending}
+              render={({ field, disabled }) => (
+                <Input
+                  type="number"
+                  min={0}
+                  max={100}
+                  disabled={disabled}
+                  value={field.value ?? ""}
+                  onChange={(e) =>
+                    field.onChange(Number.parseFloat(e.target.value) || 0)
+                  }
+                />
               )}
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Optional description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Description"
+              fieldType="textarea"
+              placeholder="Optional description"
+              disabled={isPending}
             />
 
             <DialogFooter>

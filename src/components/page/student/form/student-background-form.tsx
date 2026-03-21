@@ -1,16 +1,8 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import AddressInput from "@/components/common/form/address-input";
-import AgeInput from "@/components/common/form/age-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
@@ -73,39 +65,21 @@ const StudentBackgroundForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-4 "
       >
-        <FormField
+        <CommonFormField
           control={form.control}
           name="age"
-          render={({ field }) => (
-            <FormItem className=" w-full space-y-2">
-              <FormLabel>Date of Birth / Age</FormLabel>
-              <FormControl>
-                <AgeInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Date of Birth / Age"
+          fieldType="age"
+          disabled={isPending}
+          classname="w-full space-y-2"
         />
-        <FormField
+        <CommonFormField
           control={form.control}
           name="address"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Your Address</FormLabel>
-              <FormControl>
-                <AddressInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Your Address"
+          fieldType="address"
+          disabled={isPending}
+          classname="w-full"
         />
 
         <div className=" mt-2">

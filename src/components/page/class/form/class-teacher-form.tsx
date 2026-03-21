@@ -4,16 +4,10 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import SelectWithSearch from "@/components/common/select-with-search";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 
@@ -140,53 +134,36 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Class Selector */}
         {!cls && (
-          <FormField
+          <CommonFormField
             name="class_id"
             control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Choose Class</FormLabel>
-                <SelectWithSearch
-                  options={classes.map((c) => ({
-                    value: String(c.id ?? c._id),
-                    label: c.name,
-                  }))}
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                  placeholder={
-                    loadingOptions ? "Loading classes..." : "Select a class"
-                  }
-                  disabled={isPending || loadingOptions}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Choose Class"
+            fieldType="searchSelect"
+            placeholder={
+              loadingOptions ? "Loading classes..." : "Select a class"
+            }
+            disabled={isPending || loadingOptions}
+            selectOptions={classes.map((c) => ({
+              value: String(c.id ?? c._id),
+              label: c.name,
+            }))}
           />
         )}
 
-        {/* Teacher Selector */}
         {!teacher && (
-          <FormField
+          <CommonFormField
             name="teacher_id"
             control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Choose Teacher</FormLabel>
-                <SelectWithSearch
-                  options={teachers.map((t) => ({
-                    value: String(t.id ?? t._id),
-                    label: t.name,
-                  }))}
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                  placeholder={
-                    loadingOptions ? "Loading teachers..." : "Select a teacher"
-                  }
-                  disabled={isPending || loadingOptions}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Choose Teacher"
+            fieldType="searchSelect"
+            placeholder={
+              loadingOptions ? "Loading teachers..." : "Select a teacher"
+            }
+            disabled={isPending || loadingOptions}
+            selectOptions={teachers.map((t) => ({
+              value: String(t.id ?? t._id),
+              label: t.name,
+            }))}
           />
         )}
 

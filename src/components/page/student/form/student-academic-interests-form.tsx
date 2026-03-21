@@ -1,16 +1,9 @@
 "use client";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import CheckboxInput from "@/components/common/form/checkbox-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   LanguageDetails,
   StudyStyleDetails,
@@ -83,65 +76,32 @@ const StudentAcademicInterestForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="favorite_subjects_category"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Favorite subjects category</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={SubjectCategoryDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Favorite subjects category"
+            fieldType="checkbox-input"
+            items={SubjectCategoryDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="preferred_study_styles"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Preferred study style</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={StudyStyleDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Preferred study style"
+            fieldType="checkbox-input"
+            items={StudyStyleDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="languages_spoken"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Languages you speak</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={LanguageDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Languages you speak"
+            fieldType="checkbox-input"
+            items={LanguageDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
         </div>
         <div className=" mt-2">

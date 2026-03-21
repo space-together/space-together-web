@@ -1,18 +1,9 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import AddressInput from "@/components/common/form/address-input";
-import CheckboxInput from "@/components/common/form/checkbox-input";
 import DateInput from "@/components/common/form/date-input";
-import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   CertificationDetails,
   EducationLevelDetails,
@@ -91,119 +82,64 @@ const TeacherBackgroundForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col space-y-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="years_of_experience"
-            render={({ field }) => (
-              <FormItem className="lg:w-1/2 w-full space-y-2">
-                <FormLabel>Years of experience</FormLabel>
-                <FormControl>
-                  <DateInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            label="Years of experience"
+            fieldType="custom"
+            classname="lg:w-1/2 w-full space-y-2"
+            disabled={isPending}
+            render={({ field, disabled }) => (
+              <DateInput
+                value={field.value as string | null | undefined}
+                onChange={field.onChange}
+                disabled={disabled}
+              />
             )}
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="address"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Your Address</FormLabel>
-                <FormControl>
-                  <AddressInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Your Address"
+            fieldType="address"
+            disabled={isPending}
+            classname="w-full"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="languages_spoken"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Languages you speak</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={LanguageDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Languages you speak"
+            fieldType="checkbox-input"
+            items={LanguageDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="education_level"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Education level</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={EducationLevelDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Education level"
+            fieldType="radio-input"
+            items={EducationLevelDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="certifications_trainings"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Certifications trainings</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={CertificationDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Certifications trainings"
+            fieldType="checkbox-input"
+            items={CertificationDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="teaching_style"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Teaching style</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={TeachingStyleDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Teaching style"
+            fieldType="checkbox-input"
+            items={TeachingStyleDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
         </div>
 

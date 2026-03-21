@@ -1,22 +1,14 @@
 "use client";
-import UploadImage from "@/components/common/cards/form/upload-image";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import AddressInput from "@/components/common/form/address-input";
-import AgeInput from "@/components/common/form/age-input";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-import { genders, userRoles } from "@/lib/const/common-details-const";
+import {
+  GenderDetails,
+  UserRoleDetails,
+} from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
   type UpdateUser,
@@ -41,7 +33,6 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
 
   const toggleSeePassword = () => setSeePassword((prev) => !prev);
 
-  // password strength checker
   const checkStrength = (pass: string) => {
     const requirements = [
       { regex: /.{8,}/, text: "At least 8 characters" },
@@ -147,127 +138,81 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="flex w-full justify-between space-x-4">
-          {/* Left Column */}
           <div className="flex w-full flex-col justify-start space-y-4">
-            {/* Full name */}
-            <FormField
+            <CommonFormField
               name="name"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Full Name*</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      className="h-12 text-base"
-                      {...field}
-                      placeholder="Enter full name"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Full Name"
+              required
+              placeholder="Enter full name"
+              disabled={isPending}
+              className="h-12 text-base"
             />
 
-            {/* Username */}
-            <FormField
+            <CommonFormField
               name="username"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      className="h-12 text-base"
-                      {...field}
-                      placeholder="Enter username (optional)"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Username"
+              placeholder="Enter username (optional)"
+              disabled={isPending}
+              className="h-12 text-base"
             />
 
-            {/* Email */}
-            <FormField
+            <CommonFormField
               name="email"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Email Address*</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      type="email"
-                      className="h-12 text-base"
-                      {...field}
-                      placeholder="email@example.com"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Email Address"
+              required
+              type="email"
+              placeholder="email@example.com"
+              disabled={isPending}
+              className="h-12 text-base"
             />
 
-            {/* Phone */}
-            <FormField
+            <CommonFormField
               name="phone"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Phone</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isPending}
-                      className="h-12 text-base"
-                      {...field}
-                      placeholder="+250 7..."
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Phone"
+              placeholder="+250 7..."
+              disabled={isPending}
+              className="h-12 text-base"
             />
 
-            {/* Password - Optional for editing */}
-            <FormField
+            <CommonFormField
               name="password_hash"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Change Password</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        className="h-12 pr-10 text-base"
-                        type={seePassword ? "text" : "password"}
-                        placeholder="Leave blank to keep current password"
-                        disabled={isPending}
-                        {...field}
-                        onChange={(e) =>
-                          handlePasswordChange(e, field.onChange)
-                        }
-                      />
-                      <button
-                        className="absolute inset-y-0 right-0 flex h-full w-10 items-center justify-center rounded-r-md"
-                        type="button"
-                        onClick={toggleSeePassword}
-                        aria-label={
-                          seePassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {seePassword ? (
-                          <EyeOffIcon size={18} />
-                        ) : (
-                          <EyeIcon size={18} />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-
-                  {/* Password strength indicator (only show if password is entered) */}
+              label="Change Password"
+              fieldType="custom"
+              disabled={isPending}
+              render={({ field, disabled }) => (
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Input
+                      className="h-12 pr-10 text-base"
+                      type={seePassword ? "text" : "password"}
+                      placeholder="Leave blank to keep current password"
+                      disabled={disabled}
+                      name={field.name}
+                      ref={field.ref}
+                      value={typeof field.value === "string" ? field.value : ""}
+                      onBlur={field.onBlur}
+                      onChange={(e) => handlePasswordChange(e, field.onChange)}
+                    />
+                    <button
+                      className="absolute inset-y-0 right-0 flex h-full w-10 items-center justify-center rounded-r-md"
+                      type="button"
+                      onClick={toggleSeePassword}
+                      aria-label={
+                        seePassword ? "Hide password" : "Show password"
+                      }
+                    >
+                      {seePassword ? (
+                        <EyeOffIcon size={18} />
+                      ) : (
+                        <EyeIcon size={18} />
+                      )}
+                    </button>
+                  </div>
                   {password && (
                     <>
                       <div
@@ -281,15 +226,11 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
                         <div
                           className={`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}
                           style={{ width: `${(strengthScore / 4) * 100}%` }}
-                        ></div>
+                        />
                       </div>
-
-                      {/* Password strength description */}
                       <p className="mb-2 text-sm font-medium">
                         {getStrengthText(strengthScore)}. Must contain:
                       </p>
-
-                      {/* Password requirements list */}
                       <ul className="grid grid-cols-2 gap-1 text-sm">
                         {strength.map((req, index) => (
                           <li key={index} className="flex items-center gap-2">
@@ -318,156 +259,70 @@ const EditUserForm = ({ auth, user, isDialog = false }: props) => {
                       </ul>
                     </>
                   )}
-                </FormItem>
+                </div>
               )}
             />
-            {/* Role */}
-            <FormField
+
+            <CommonFormField
               name="role"
               control={form.control}
-              render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel className="text-base">User Role*</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-row space-x-2"
-                    >
-                      {userRoles.map((role) => (
-                        <FormItem
-                          key={role}
-                          className="flex items-center space-x-2"
-                        >
-                          <FormControl>
-                            <RadioGroupItem value={role} className="size-5" />
-                          </FormControl>
-                          <FormLabel className="cursor-pointer text-base font-normal">
-                            {role}
-                          </FormLabel>
-                        </FormItem>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="User Role"
+              required
+              fieldType="radio-input"
+              items={UserRoleDetails}
+              disabled={isPending}
+              className="flex flex-row flex-wrap gap-2"
             />
           </div>
 
-          {/* Right Column */}
           <div className="flex w-full flex-col justify-start space-y-4">
-            {/* image */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="image"
-              render={({ field }) => (
-                <FormItem className="row-span-3 flex flex-col space-y-2">
-                  <FormLabel>Profile Image</FormLabel>
-                  <FormControl>
-                    <UploadImage
-                      onChange={field.onChange}
-                      disabled={isPending}
-                      className="w-full md:mb-4"
-                      Classname=""
-                      value={field.value?.toString() ?? null}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Profile Image"
+              fieldType="image"
+              disabled={isPending}
+              className="w-full md:mb-4"
             />
-            {/* Gender */}
-            <FormField
+
+            <CommonFormField
               name="gender"
               control={form.control}
-              render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel className="text-base">Gender</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-row space-x-2"
-                    >
-                      {genders.map((g) => (
-                        <FormItem
-                          key={g}
-                          className="flex items-center space-x-2"
-                        >
-                          <FormControl>
-                            <RadioGroupItem value={g} className="size-5" />
-                          </FormControl>
-                          <FormLabel className="cursor-pointer text-base font-normal">
-                            {g}
-                          </FormLabel>
-                        </FormItem>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Gender"
+              fieldType="radio-input"
+              items={GenderDetails}
+              disabled={isPending}
+              className="flex flex-row flex-wrap gap-2"
             />
 
-            {/* Age */}
-            <FormField
+            <CommonFormField
               control={form.control}
               name="age"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel className=" ">Age</FormLabel>
-                  <FormControl>
-                    <AgeInput
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Age"
+              fieldType="age"
+              disabled={isPending}
+              classname="w-full"
             />
 
-            {/* Bio */}
-            <FormField
+            <CommonFormField
               name="bio"
               control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Bio</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      disabled={isPending}
-                      className="min-h-24 resize-none"
-                      {...field}
-                      placeholder="Enter a short bio (optional)"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Bio"
+              fieldType="textarea"
+              placeholder="Enter a short bio (optional)"
+              disabled={isPending}
+              className="min-h-24 resize-none"
             />
           </div>
         </div>
 
-        {/* Address Section */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="address"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Address information</FormLabel>
-              <FormControl>
-                <AddressInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Address information"
+          fieldType="address"
+          disabled={isPending}
+          classname="w-full"
         />
 
         <div>

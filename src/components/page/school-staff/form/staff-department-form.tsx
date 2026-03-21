@@ -1,15 +1,8 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   DepartmentDetails,
   EmploymentTypeDetails,
@@ -78,66 +71,33 @@ const StaffDepartmentForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="department"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Department / Office</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={DepartmentDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Department / Office"
+            fieldType="radio-input"
+            items={DepartmentDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="employment_type"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Employment type</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={EmploymentTypeDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Employment type"
+            fieldType="radio-input"
+            items={EmploymentTypeDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
 
-          <FormField
+          <CommonFormField
             control={form.control}
             name="job_title"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Job title</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={JobTitleDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Job title"
+            fieldType="radio-input"
+            items={JobTitleDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
         </div>
         <div className=" mt-2">

@@ -28,14 +28,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -391,90 +385,81 @@ export default function StaffList() {
           onChange={filterForm.handleSubmit(applyFilters)}
           className="grid grid-cols-4 gap-4 p-4"
         >
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="searchTerm"
+            label={<span className="text-white">Search</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Search</FormLabel>
-                <div className="relative">
-                  <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Search by name or email"
-                      className="w-full pl-8"
-                      onChange={(e) => {
-                        field.onChange(e);
-                        setSearchTerm(e.target.value);
-                        setCurrentPage(1); // Reset to first page on search
-                      }}
-                    />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
+              <div className="relative">
+                <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
+                <Input
+                  {...field}
+                  placeholder="Search by name or email"
+                  className="w-full pl-8"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
+              </div>
             )}
           />
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="genderFilter"
+            label={<span className="text-white">Gender</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Gender</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setGenderFilter(value);
-                    setCurrentPage(1);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger id="gender-filter" className="w-full">
-                      <SelectValue placeholder="Select gender" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                    <SelectItem value="All gender">All gender</SelectItem>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setGenderFilter(value);
+                  setCurrentPage(1);
+                }}
+                value={field.value}
+              >
+                <SelectTrigger id="gender-filter" className="w-full">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent className="border-slate-700 bg-slate-800 text-white">
+                  <SelectItem value="All gender">All gender</SelectItem>
+                  <SelectItem value="Male">Male</SelectItem>
+                  <SelectItem value="Female">Female</SelectItem>
+                </SelectContent>
+              </Select>
             )}
           />
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="roleFilter"
+            label={<span className="text-white">Role</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Role</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setRoleFilter(value);
-                    setCurrentPage(1);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger id="role-filter" className="w-full">
-                      <SelectValue placeholder="Select role" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                    <SelectItem value="All roles">All roles</SelectItem>
-                    <SelectItem value="Teacher">Teacher</SelectItem>
-                    <SelectItem value="Administrator">Administrator</SelectItem>
-                    <SelectItem value="Principal">Principal</SelectItem>
-                    <SelectItem value="Counselor">Counselor</SelectItem>
-                    <SelectItem value="Librarian">Librarian</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setRoleFilter(value);
+                  setCurrentPage(1);
+                }}
+                value={field.value}
+              >
+                <SelectTrigger id="role-filter" className="w-full">
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+                <SelectContent className="border-slate-700 bg-slate-800 text-white">
+                  <SelectItem value="All roles">All roles</SelectItem>
+                  <SelectItem value="Teacher">Teacher</SelectItem>
+                  <SelectItem value="Administrator">Administrator</SelectItem>
+                  <SelectItem value="Principal">Principal</SelectItem>
+                  <SelectItem value="Counselor">Counselor</SelectItem>
+                  <SelectItem value="Librarian">Librarian</SelectItem>
+                </SelectContent>
+              </Select>
             )}
           />
           <div className="space-y-2">
@@ -482,48 +467,44 @@ export default function StaffList() {
               Age Range
             </Label>
             <div className="flex gap-2">
-              <FormField
+              <CommonFormField
                 control={filterForm.control}
                 name="minAge"
+                label={<span className="sr-only">Minimum age</span>}
+                fieldType="custom"
+                classname="w-full"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        id="min-age"
-                        placeholder="Min"
-                        type="number"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          setMinAge(e.target.value);
-                          setCurrentPage(1);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <Input
+                    {...field}
+                    id="min-age"
+                    placeholder="Min"
+                    type="number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setMinAge(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
                 )}
               />
-              <FormField
+              <CommonFormField
                 control={filterForm.control}
                 name="maxAge"
+                label={<span className="sr-only">Maximum age</span>}
+                fieldType="custom"
+                classname="w-full"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        id="max-age"
-                        placeholder="Max"
-                        type="number"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          setMaxAge(e.target.value);
-                          setCurrentPage(1);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <Input
+                    {...field}
+                    id="max-age"
+                    placeholder="Max"
+                    type="number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setMaxAge(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
                 )}
               />
             </div>
@@ -685,124 +666,62 @@ export default function StaffList() {
               className="space-y-4"
             >
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter staff name" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Full Name"
+                  placeholder="Enter staff name"
                 />
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="email"
-                          placeholder="Enter email address"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Email"
+                  type="email"
+                  placeholder="Enter email address"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="gender"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Gender</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select gender" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                          <SelectItem value="Male">Male</SelectItem>
-                          <SelectItem value="Female">Female</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Gender"
+                  fieldType="select"
+                  placeholder="Select gender"
+                  selectOptions={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                  ]}
                 />
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter phone number" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Phone Number"
+                  placeholder="Enter phone number"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="role"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Role</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select role" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                          <SelectItem value="Teacher">Teacher</SelectItem>
-                          <SelectItem value="Administrator">
-                            Administrator
-                          </SelectItem>
-                          <SelectItem value="Principal">Principal</SelectItem>
-                          <SelectItem value="Counselor">Counselor</SelectItem>
-                          <SelectItem value="Librarian">Librarian</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Role"
+                  fieldType="select"
+                  placeholder="Select role"
+                  selectOptions={[
+                    { value: "Teacher", label: "Teacher" },
+                    { value: "Administrator", label: "Administrator" },
+                    { value: "Principal", label: "Principal" },
+                    { value: "Counselor", label: "Counselor" },
+                    { value: "Librarian", label: "Librarian" },
+                  ]}
                 />
-                <FormField
+                <CommonFormField
                   control={editStaffForm.control}
                   name="age"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Age</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="number"
-                          placeholder="Enter age"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Age"
+                  type="number"
+                  placeholder="Enter age"
                 />
               </div>
 

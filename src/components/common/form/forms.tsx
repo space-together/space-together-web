@@ -4,17 +4,9 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import AddSocialMedia, {
   detectSocialMediaPlatform,
 } from "@/components/common/form/add-social-media";
-import CheckboxInput from "@/components/common/form/checkbox-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormDescription } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import { CommunicationMethodDetails } from "@/lib/const/common-details-const";
 import { DefaultPlatform } from "@/lib/const/social-media-const";
@@ -110,25 +102,14 @@ export const SocialAndCommunicationForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-4 "
       >
-        <FormField
+        <CommonFormField<SocialAndCommunication>
           control={form.control}
           name="preferred_communication_method"
-          render={({ field }) => (
-            <FormItem className=" w-full space-y-2">
-              <FormLabel>Favorite subjects category</FormLabel>
-              <FormControl>
-                <CheckboxInput
-                  showTooltip
-                  items={CommunicationMethodDetails}
-                  values={field.value}
-                  onChange={field.onChange}
-                  classname=" grid-cols-3 gap-2"
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Preferred communication method"
+          fieldType="checkbox-input"
+          items={CommunicationMethodDetails}
+          disabled={isPending}
+          classname="w-full space-y-2"
         />
 
         <fieldset className="space-y-4 rounded-lg p-4">

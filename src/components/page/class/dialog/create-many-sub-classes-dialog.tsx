@@ -1,6 +1,6 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import SelectWithSearch from "@/components/common/select-with-search";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,15 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
   CreateManSubClassesSchema,
@@ -129,50 +121,30 @@ const CreateManySubClasses = ({ auth, cls, name, title }: Props) => {
               className="space-y-6"
             >
               {!cls && (
-                <FormField
+                <CommonFormField
                   control={form.control}
                   name="class_id"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Classes </FormLabel>
-                      <FormControl>
-                        <SelectWithSearch
-                          options={classes.map((t) => ({
-                            value: String(t.id ?? t._id),
-                            label: t.name,
-                            disable: t.is_active,
-                          }))}
-                          value={field.value ?? ""}
-                          onChange={field.onChange}
-                          placeholder={
-                            loadingclass ? "Loading trades..." : "Select class"
-                          }
-                          disabled={isPending || loadingclass}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Classes"
+                  fieldType="searchSelect"
+                  placeholder={
+                    loadingclass ? "Loading trades..." : "Select class"
+                  }
+                  disabled={isPending || loadingclass}
+                  selectOptions={classes.map((t) => ({
+                    value: String(t.id ?? t._id),
+                    label: t.name,
+                    disable: t.is_active,
+                  }))}
                 />
               )}
 
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="count"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>number of sub classes </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="number of sub classes"
-                        type="number"
-                        {...field}
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="number of sub classes"
+                type="number"
+                placeholder="number of sub classes"
+                disabled={isPending}
               />
 
               {/* ---------- Messages ---------- */}

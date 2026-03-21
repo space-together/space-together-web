@@ -1,16 +1,9 @@
 "use client";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
@@ -53,70 +46,62 @@ const UpdateUserPasswordForm = () => {
         className="flex flex-col"
       >
         <div className="flex flex-col space-y-4">
-          <FormField
+          <CommonFormField
             name="currentPassword"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="w-80">
-                <FormLabel>Current password</FormLabel>
-                <FormControl>
-                  <div className="flex items-center space-x-2">
-                    <div className="relative">
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        className="peer w-80 ps-9"
-                        placeholder="Old password"
-                        type="password"
-                      />
-                      <div className="/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-                        <LockKeyholeOpen
-                          size={16}
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
+            label="Current password"
+            fieldType="custom"
+            classname="w-80"
+            description="Your old password you was using to login"
+            disabled={isPending}
+            render={({ field, disabled }) => (
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <Input
+                    {...field}
+                    disabled={disabled}
+                    className="peer w-80 ps-9"
+                    placeholder="Old password"
+                    type="password"
+                  />
+                  <div className="/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+                    <LockKeyholeOpen
+                      size={16}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
                   </div>
-                </FormControl>
-                <FormDescription>
-                  Your old password you was using to login
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+                </div>
+              </div>
             )}
           />
-          <FormField
+          <CommonFormField
             name="password"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="w-80">
-                <FormLabel>New password</FormLabel>
-                <FormControl>
-                  <div className="flex items-center space-x-2">
-                    <div className="relative">
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        className="peer w-80 ps-9"
-                        placeholder="new password"
-                        type="password"
-                      />
-                      <div className="/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-                        <LockKeyholeIcon
-                          size={16}
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
+            label="New password"
+            fieldType="custom"
+            classname="w-80"
+            description="Your new password you will be used to login"
+            disabled={isPending}
+            render={({ field, disabled }) => (
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <Input
+                    {...field}
+                    disabled={disabled}
+                    className="peer w-80 ps-9"
+                    placeholder="new password"
+                    type="password"
+                  />
+                  <div className="/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+                    <LockKeyholeIcon
+                      size={16}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
                   </div>
-                </FormControl>
-                <FormDescription>
-                  Your new password you will be used to login
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+                </div>
+              </div>
             )}
           />
           <div>

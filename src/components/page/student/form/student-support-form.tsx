@@ -1,17 +1,10 @@
 "use client";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import CheckboxInput from "@/components/common/form/checkbox-input";
 import GuardiansInput from "@/components/common/form/guardian-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import type { Locale } from "@/i18n";
 import {
   LearningChallengeDetails,
@@ -87,71 +80,47 @@ const StudentSupportForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <div className="flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="guardian_info"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Guardians</FormLabel>
-                <FormControl>
-                  <GuardiansInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isPending}
-                    currentUser={{
-                      name: user?.name,
-                      phone: user?.phone,
-                      email: user?.email,
-                      relationship: "Parent",
-                    }}
-                    autoIncludeCurrentUser={true}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            label="Guardians"
+            fieldType="custom"
+            disabled={isPending}
+            classname="w-full"
+            render={({ field, disabled }) => (
+              <GuardiansInput
+                value={field.value}
+                onChange={field.onChange}
+                disabled={disabled}
+                currentUser={{
+                  name: user?.name,
+                  phone: user?.phone,
+                  email: user?.email,
+                  relationship: "Parent",
+                }}
+                autoIncludeCurrentUser={true}
+              />
             )}
           />
 
-          <FormField
+          <CommonFormField
             control={form.control}
             name="learning_challenges"
-            render={({ field }) => (
-              <FormItem className="w-full space-y-2">
-                <FormLabel>Learning Challenges</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={LearningChallengeDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname="grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Learning Challenges"
+            fieldType="checkbox-input"
+            items={LearningChallengeDetails}
+            disabled={isPending}
+            classname="grid-cols-3 gap-2"
           />
 
-          <FormField
+          <CommonFormField
             control={form.control}
             name="special_support_needed"
-            render={({ field }) => (
-              <FormItem className="w-full space-y-2">
-                <FormLabel>Special Support Needed</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={SpecialSupportDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname="grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Special Support Needed"
+            fieldType="checkbox-input"
+            items={SpecialSupportDetails}
+            disabled={isPending}
+            classname="grid-cols-3 gap-2"
           />
         </div>
 

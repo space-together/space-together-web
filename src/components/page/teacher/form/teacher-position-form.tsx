@@ -1,16 +1,9 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import CheckboxInput from "@/components/common/form/checkbox-input";
-import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   EmploymentTypeDetails,
   SubjectCategoryDetails,
@@ -99,6 +92,20 @@ const TeacherPositionForm = ({
     fetchOptions();
   }, [auth.token]);
 
+  const tradeItems =
+    trades.length > 0
+      ? Object.fromEntries(
+          trades.map((t) => [
+            t.id || t._id,
+            {
+              name: t.name,
+              description: t.description ?? undefined,
+              image: undefined,
+            },
+          ]),
+        )
+      : undefined;
+
   return (
     <Form {...form}>
       <form
@@ -106,78 +113,49 @@ const TeacherPositionForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="favorite_subjects_category"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Favorite subjects category</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={SubjectCategoryDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Favorite subjects category"
+            fieldType="checkbox-input"
+            items={SubjectCategoryDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="employment_type"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Employment type</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={EmploymentTypeDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Employment type"
+            fieldType="radio-input"
+            items={EmploymentTypeDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="teaching_level"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Teaching Level</FormLabel>
-                {loadingOptions ? (
-                  <div className=" skeleton h-12 w-full" />
-                ) : (
-                  <FormControl>
-                    <CheckboxInput
-                      showTooltip
-                      items={Object.fromEntries(
-                        trades.map((t) => [
-                          t.id || t._id,
-                          {
-                            name: t.name,
-                            description: t.description ?? undefined,
-                            image: undefined,
-                          },
-                        ]),
-                      )}
-                      values={field.value}
-                      onChange={field.onChange}
-                      classname=" grid-cols-3 gap-2"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                )}
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Teaching Level"
+            fieldType="custom"
+            disabled={isPending || loadingOptions}
+            classname="w-full space-y-2"
+            render={({ field, disabled }) =>
+              loadingOptions ? (
+                <div className=" skeleton h-12 w-full" />
+              ) : tradeItems ? (
+                <CheckboxInput
+                  showTooltip
+                  items={tradeItems}
+                  values={field.value}
+                  onChange={field.onChange}
+                  classname=" grid-cols-3 gap-2"
+                  disabled={disabled}
+                />
+              ) : (
+                <div className="text-muted-foreground text-sm">
+                  No trades available
+                </div>
+              )
+            }
           />
         </div>
         <div className=" mt-2">

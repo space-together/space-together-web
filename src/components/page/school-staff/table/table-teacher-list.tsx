@@ -28,14 +28,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -441,114 +435,64 @@ export default function TeacherList() {
                   className="space-y-4"
                 >
                   <div className="grid grid-cols-2 gap-4">
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Full Name</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Enter teacher name"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label="Full Name"
+                      placeholder="Enter teacher name"
                     />
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="email"
-                              placeholder="Enter email address"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label="Email"
+                      type="email"
+                      placeholder="Enter email address"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="gender"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Gender</FormLabel>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select gender" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="Male">Male</SelectItem>
-                              <SelectItem value="Female">Female</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label="Gender"
+                      fieldType="select"
+                      placeholder="Select gender"
+                      selectOptions={[
+                        { value: "Male", label: "Male" },
+                        { value: "Female", label: "Female" },
+                      ]}
                     />
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Phone Number</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Enter phone number"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label="Phone Number"
+                      placeholder="Enter phone number"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="experience"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Experience (Years)</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="number"
-                              placeholder="Enter years of experience"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label="Experience (Years)"
+                      type="number"
+                      placeholder="Enter years of experience"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 gap-4">
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="classes"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Classes</FormLabel>
+                      label="Classes"
+                      fieldType="custom"
+                      render={({ field }) => {
+                        const selected = (field.value ?? []) as string[];
+                        return (
+                        <div className="space-y-2">
                           <Select
                             onValueChange={(value) => {
-                              const currentValues = field.value || [];
+                              const currentValues = selected;
                               if (currentValues.includes(value)) {
                                 field.onChange(
                                   currentValues.filter((v) => v !== value),
@@ -558,23 +502,21 @@ export default function TeacherList() {
                               }
                             }}
                           >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select classes">
-                                  {field.value?.length > 0
-                                    ? `${field.value.length} class${
-                                        field.value.length > 1 ? "es" : ""
-                                      } selected`
-                                    : "Select classes"}
-                                </SelectValue>
-                              </SelectTrigger>
-                            </FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select classes">
+                                {selected.length > 0
+                                  ? `${selected.length} class${
+                                      selected.length > 1 ? "es" : ""
+                                    } selected`
+                                  : "Select classes"}
+                              </SelectValue>
+                            </SelectTrigger>
                             <SelectContent>
                               {availableClasses.map((cls) => (
                                 <SelectItem key={cls} value={cls}>
                                   <div className="flex items-center gap-2">
                                     <Checkbox
-                                      checked={field.value?.includes(cls)}
+                                      checked={selected.includes(cls)}
                                     />
                                     <span>{cls}</span>
                                   </div>
@@ -583,7 +525,7 @@ export default function TeacherList() {
                             </SelectContent>
                           </Select>
                           <div className="mt-2 flex flex-wrap gap-1">
-                            {field.value?.map((cls) => (
+                            {selected.map((cls) => (
                               <Badge
                                 key={cls}
                                 variant="outline"
@@ -595,7 +537,7 @@ export default function TeacherList() {
                                   className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                                   onClick={() => {
                                     field.onChange(
-                                      field.value.filter(
+                                      selected.filter(
                                         (value) => value !== cls,
                                       ),
                                     );
@@ -606,22 +548,25 @@ export default function TeacherList() {
                               </Badge>
                             ))}
                           </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                        </div>
+                        );
+                      }}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 gap-4">
-                    <FormField
+                    <CommonFormField
                       control={addTeacherForm.control}
                       name="subjects"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Subjects</FormLabel>
+                      label="Subjects"
+                      fieldType="custom"
+                      render={({ field }) => {
+                        const selected = (field.value ?? []) as string[];
+                        return (
+                        <div className="space-y-2">
                           <Select
                             onValueChange={(value) => {
-                              const currentValues = field.value || [];
+                              const currentValues = selected;
                               if (currentValues.includes(value)) {
                                 field.onChange(
                                   currentValues.filter((v) => v !== value),
@@ -631,23 +576,21 @@ export default function TeacherList() {
                               }
                             }}
                           >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select subjects">
-                                  {field.value?.length > 0
-                                    ? `${field.value.length} subject${
-                                        field.value.length > 1 ? "s" : ""
-                                      } selected`
-                                    : "Select subjects"}
-                                </SelectValue>
-                              </SelectTrigger>
-                            </FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select subjects">
+                                {selected.length > 0
+                                  ? `${selected.length} subject${
+                                      selected.length > 1 ? "s" : ""
+                                    } selected`
+                                  : "Select subjects"}
+                              </SelectValue>
+                            </SelectTrigger>
                             <SelectContent>
                               {availableSubjects.map((subject) => (
                                 <SelectItem key={subject} value={subject}>
                                   <div className="flex items-center gap-2">
                                     <Checkbox
-                                      checked={field.value?.includes(subject)}
+                                      checked={selected.includes(subject)}
                                     />
                                     <span>{subject}</span>
                                   </div>
@@ -656,7 +599,7 @@ export default function TeacherList() {
                             </SelectContent>
                           </Select>
                           <div className="mt-2 flex flex-wrap gap-1">
-                            {field.value?.map((subject) => (
+                            {selected.map((subject) => (
                               <Badge
                                 key={subject}
                                 variant="outline"
@@ -668,7 +611,7 @@ export default function TeacherList() {
                                   className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                                   onClick={() => {
                                     field.onChange(
-                                      field.value.filter(
+                                      selected.filter(
                                         (value) => value !== subject,
                                       ),
                                     );
@@ -679,9 +622,9 @@ export default function TeacherList() {
                               </Badge>
                             ))}
                           </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                        </div>
+                        );
+                      }}
                     />
                   </div>
 
@@ -707,122 +650,110 @@ export default function TeacherList() {
           onChange={filterForm.handleSubmit(applyFilters)}
           className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-4"
         >
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="searchTerm"
+            label={<span className="text-white">Search</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Search</FormLabel>
-                <div className="relative">
-                  <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Search by name or email"
-                      className="w-full pl-8"
-                      onChange={(e) => {
-                        field.onChange(e);
-                        setSearchTerm(e.target.value);
-                        setCurrentPage(1); // Reset to first page on search
-                      }}
-                    />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
+              <div className="relative">
+                <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
+                <Input
+                  {...field}
+                  placeholder="Search by name or email"
+                  className="w-full pl-8"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
+              </div>
             )}
           />
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="genderFilter"
+            label={<span className="text-white">Gender</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Gender</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setGenderFilter(value);
-                    setCurrentPage(1);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger id="gender-filter" className="w-full">
-                      <SelectValue placeholder="Select gender" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                    <SelectItem value="All gender">All gender</SelectItem>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setGenderFilter(value);
+                  setCurrentPage(1);
+                }}
+                value={field.value}
+              >
+                <SelectTrigger id="gender-filter" className="w-full">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent className="border-slate-700 bg-slate-800 text-white">
+                  <SelectItem value="All gender">All gender</SelectItem>
+                  <SelectItem value="Male">Male</SelectItem>
+                  <SelectItem value="Female">Female</SelectItem>
+                </SelectContent>
+              </Select>
             )}
           />
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="classFilter"
+            label={<span className="text-white">Class</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Class</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setClassFilter(value);
-                    setCurrentPage(1);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger id="class-filter" className="w-full">
-                      <SelectValue placeholder="Select class" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                    <SelectItem value="All classes">All classes</SelectItem>
-                    {availableClasses.map((cls) => (
-                      <SelectItem key={cls} value={cls}>
-                        {cls}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setClassFilter(value);
+                  setCurrentPage(1);
+                }}
+                value={field.value}
+              >
+                <SelectTrigger id="class-filter" className="w-full">
+                  <SelectValue placeholder="Select class" />
+                </SelectTrigger>
+                <SelectContent className="border-slate-700 bg-slate-800 text-white">
+                  <SelectItem value="All classes">All classes</SelectItem>
+                  {availableClasses.map((cls) => (
+                    <SelectItem key={cls} value={cls}>
+                      {cls}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             )}
           />
-          <FormField
+          <CommonFormField
             control={filterForm.control}
             name="subjectFilter"
+            label={<span className="text-white">Subject</span>}
+            fieldType="custom"
+            classname="space-y-2"
             render={({ field }) => (
-              <FormItem className="space-y-2">
-                <FormLabel className="text-white">Subject</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    setSubjectFilter(value);
-                    setCurrentPage(1);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger id="subject-filter" className="w-full">
-                      <SelectValue placeholder="Select subject" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                    <SelectItem value="All subjects">All subjects</SelectItem>
-                    {availableSubjects.map((subject) => (
-                      <SelectItem key={subject} value={subject}>
-                        {subject}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setSubjectFilter(value);
+                  setCurrentPage(1);
+                }}
+                value={field.value}
+              >
+                <SelectTrigger id="subject-filter" className="w-full">
+                  <SelectValue placeholder="Select subject" />
+                </SelectTrigger>
+                <SelectContent className="border-slate-700 bg-slate-800 text-white">
+                  <SelectItem value="All subjects">All subjects</SelectItem>
+                  {availableSubjects.map((subject) => (
+                    <SelectItem key={subject} value={subject}>
+                      {subject}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             )}
           />
           <div className="space-y-2">
@@ -830,48 +761,44 @@ export default function TeacherList() {
               Experience Range (Years)
             </Label>
             <div className="flex gap-2">
-              <FormField
+              <CommonFormField
                 control={filterForm.control}
                 name="minExperience"
+                label={<span className="sr-only">Minimum years</span>}
+                fieldType="custom"
+                classname="w-full"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        id="min-experience"
-                        placeholder="Min"
-                        type="number"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          setMinExperience(e.target.value);
-                          setCurrentPage(1);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <Input
+                    {...field}
+                    id="min-experience"
+                    placeholder="Min"
+                    type="number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setMinExperience(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
                 )}
               />
-              <FormField
+              <CommonFormField
                 control={filterForm.control}
                 name="maxExperience"
+                label={<span className="sr-only">Maximum years</span>}
+                fieldType="custom"
+                classname="w-full"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        id="max-experience"
-                        placeholder="Max"
-                        type="number"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          setMaxExperience(e.target.value);
-                          setCurrentPage(1);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <Input
+                    {...field}
+                    id="max-experience"
+                    placeholder="Max"
+                    type="number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setMaxExperience(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
                 )}
               />
             </div>
@@ -1059,108 +986,64 @@ export default function TeacherList() {
               className="space-y-4"
             >
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter teacher name" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Full Name"
+                  placeholder="Enter teacher name"
                 />
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="email"
-                          placeholder="Enter email address"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Email"
+                  type="email"
+                  placeholder="Enter email address"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="gender"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Gender</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select gender" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="border-slate-700 bg-slate-800 text-white">
-                          <SelectItem value="Male">Male</SelectItem>
-                          <SelectItem value="Female">Female</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Gender"
+                  fieldType="select"
+                  placeholder="Select gender"
+                  selectOptions={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                  ]}
                 />
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="Enter phone number" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Phone Number"
+                  placeholder="Enter phone number"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="experience"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Experience (Years)</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="number"
-                          placeholder="Enter years of experience"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Experience (Years)"
+                  type="number"
+                  placeholder="Enter years of experience"
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-4">
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="classes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Classes</FormLabel>
+                  label="Classes"
+                  fieldType="custom"
+                  render={({ field }) => {
+                    const selected = (field.value ?? []) as string[];
+                    return (
+                    <div className="space-y-2">
                       <Select
                         onValueChange={(value) => {
-                          const currentValues = field.value || [];
+                          const currentValues = selected;
                           if (currentValues.includes(value)) {
                             field.onChange(
                               currentValues.filter((v) => v !== value),
@@ -1170,23 +1053,21 @@ export default function TeacherList() {
                           }
                         }}
                       >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select classes">
-                              {field.value?.length > 0
-                                ? `${field.value.length} class${
-                                    field.value.length > 1 ? "es" : ""
-                                  } selected`
-                                : "Select classes"}
-                            </SelectValue>
-                          </SelectTrigger>
-                        </FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select classes">
+                            {selected.length > 0
+                              ? `${selected.length} class${
+                                  selected.length > 1 ? "es" : ""
+                                } selected`
+                              : "Select classes"}
+                          </SelectValue>
+                        </SelectTrigger>
                         <SelectContent className="border-slate-700 bg-slate-800 text-white">
                           {availableClasses.map((cls) => (
                             <SelectItem key={cls} value={cls}>
                               <div className="flex items-center gap-2">
                                 <Checkbox
-                                  checked={field.value?.includes(cls)}
+                                  checked={selected.includes(cls)}
                                 />
                                 <span>{cls}</span>
                               </div>
@@ -1195,7 +1076,7 @@ export default function TeacherList() {
                         </SelectContent>
                       </Select>
                       <div className="mt-2 flex flex-wrap gap-1">
-                        {field.value?.map((cls) => (
+                        {selected.map((cls) => (
                           <Badge
                             key={cls}
                             variant="outline"
@@ -1207,7 +1088,7 @@ export default function TeacherList() {
                               className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                               onClick={() => {
                                 field.onChange(
-                                  field.value.filter((value) => value !== cls),
+                                  selected.filter((value) => value !== cls),
                                 );
                               }}
                             >
@@ -1216,22 +1097,25 @@ export default function TeacherList() {
                           </Badge>
                         ))}
                       </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                    </div>
+                    );
+                  }}
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-4">
-                <FormField
+                <CommonFormField
                   control={editTeacherForm.control}
                   name="subjects"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Subjects</FormLabel>
+                  label="Subjects"
+                  fieldType="custom"
+                  render={({ field }) => {
+                    const selected = (field.value ?? []) as string[];
+                    return (
+                    <div className="space-y-2">
                       <Select
                         onValueChange={(value) => {
-                          const currentValues = field.value || [];
+                          const currentValues = selected;
                           if (currentValues.includes(value)) {
                             field.onChange(
                               currentValues.filter((v) => v !== value),
@@ -1241,23 +1125,21 @@ export default function TeacherList() {
                           }
                         }}
                       >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select subjects">
-                              {field.value?.length > 0
-                                ? `${field.value.length} subject${
-                                    field.value.length > 1 ? "s" : ""
-                                  } selected`
-                                : "Select subjects"}
-                            </SelectValue>
-                          </SelectTrigger>
-                        </FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select subjects">
+                            {selected.length > 0
+                              ? `${selected.length} subject${
+                                  selected.length > 1 ? "s" : ""
+                                } selected`
+                              : "Select subjects"}
+                          </SelectValue>
+                        </SelectTrigger>
                         <SelectContent className="border-slate-700 bg-slate-800 text-white">
                           {availableSubjects.map((subject) => (
                             <SelectItem key={subject} value={subject}>
                               <div className="flex items-center gap-2">
                                 <Checkbox
-                                  checked={field.value?.includes(subject)}
+                                  checked={selected.includes(subject)}
                                 />
                                 <span>{subject}</span>
                               </div>
@@ -1266,7 +1148,7 @@ export default function TeacherList() {
                         </SelectContent>
                       </Select>
                       <div className="mt-2 flex flex-wrap gap-1">
-                        {field.value?.map((subject) => (
+                        {selected.map((subject) => (
                           <Badge
                             key={subject}
                             variant="outline"
@@ -1278,7 +1160,7 @@ export default function TeacherList() {
                               className="ring-offset-background focus:ring-ring ml-1 rounded-full outline-none focus:ring-2 focus:ring-offset-2"
                               onClick={() => {
                                 field.onChange(
-                                  field.value.filter(
+                                  selected.filter(
                                     (value) => value !== subject,
                                   ),
                                 );
@@ -1289,9 +1171,9 @@ export default function TeacherList() {
                           </Badge>
                         ))}
                       </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                    </div>
+                    );
+                  }}
                 />
               </div>
 

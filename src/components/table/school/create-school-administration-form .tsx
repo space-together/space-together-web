@@ -1,16 +1,9 @@
 "use client";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -18,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { SchoolStaffTypes } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
@@ -200,76 +192,50 @@ export default function JoinSchoolRequestsForm({ auth, school }: Props) {
                 )}
               </div>
 
-              {/* email */}
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name={`requests.${index}.email`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        type="email"
-                        placeholder="Email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Email"
+                type="email"
+                placeholder="Email"
+                disabled={isPending}
               />
 
-              {/* staff sub-type (only if Staff) */}
               {role === "Staff" && (
-                <FormField
+                <CommonFormField
                   control={form.control}
                   name={`requests.${index}.type`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Staff Type</FormLabel>
-                      <Select
-                        disabled={isPending}
-                        onValueChange={(val) => handleTypeChange(index, val)}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Choose staff type" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {SchoolStaffTypes.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
+                  label="Staff Type"
+                  fieldType="custom"
+                  disabled={isPending}
+                  render={({ field, disabled }) => (
+                    <Select
+                      disabled={disabled}
+                      onValueChange={(val) => handleTypeChange(index, val)}
+                      value={field.value ?? ""}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choose staff type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SchoolStaffTypes.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   )}
                 />
               )}
 
-              {/* optional message */}
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name={`requests.${index}.message`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Message</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        disabled={isPending}
-                        placeholder="Optional message"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Message"
+                fieldType="textarea"
+                placeholder="Optional message"
+                disabled={isPending}
               />
             </div>
           );

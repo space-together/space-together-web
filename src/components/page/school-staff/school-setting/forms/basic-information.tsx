@@ -4,30 +4,12 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { schoolMembers, schoolTypes } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { School } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import { useTheme } from "next-themes";
 import {
   type BasicInformationDto,
   BasicInformationSchema,
@@ -42,7 +24,6 @@ export const BasicInformationForm = ({
   initialData,
   auth,
 }: BasicInformationFormProps) => {
-  const { theme } = useTheme();
   const { showToast } = useToast();
 
   const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
@@ -87,131 +68,58 @@ export const BasicInformationForm = ({
           <h3 className="mb-4 pb-2 text-xl font-semibold">Basic Information</h3>
           <div className="flex w-full space-x-6">
             <div className="flex flex-col space-y-4">
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="w-120"
-                        placeholder="e.g., Green Hills Academy"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Full legal or commonly used name of your school.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="School Name"
+                placeholder="e.g., Green Hills Academy"
+                className="w-120"
+                description="Full legal or commonly used name of your school."
               />
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="w-120"
-                        placeholder="e.g., greenhills"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Unique identifier for the school. Used in URLs or login;
-                      usually cannot be changed later.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="School Username"
+                placeholder="e.g., greenhills"
+                className="w-120"
+                description="Unique identifier for the school. Used in URLs or login; usually cannot be changed later."
               />
 
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="school_type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School Type</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value ?? ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-40">
-                          <SelectValue placeholder="Select school type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent data-theme={theme}>
-                        {schoolTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      Defines the educational level or specialization of your
-                      institution (e.g., Primary, Secondary, Vocational).
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="School Type"
+                fieldType="select"
+                placeholder="Select school type"
+                className="w-40"
+                selectOptions={schoolTypes.map((type) => ({
+                  value: type,
+                  label: type,
+                }))}
+                description="Defines the educational level or specialization of your institution (e.g., Primary, Secondary, Vocational)."
               />
 
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="school_members"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Student Body</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value ?? ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-40">
-                          <SelectValue placeholder="Select student body type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent data-theme={theme}>
-                        {schoolMembers.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      Gender composition of students your school enrolls (e.g.,
-                      Co-educational, Boys only, Girls only).
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Student Body"
+                fieldType="select"
+                placeholder="Select student body type"
+                className="w-40"
+                selectOptions={schoolMembers.map((type) => ({
+                  value: type,
+                  label: type,
+                }))}
+                description="Gender composition of students your school enrolls (e.g., Co-educational, Boys only, Girls only)."
               />
-              <FormField
+              <CommonFormField
                 control={form.control}
                 name="description"
-                render={({ field }) => (
-                  <FormItem className="mt-4">
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us a little bit about the school"
-                        className="min-h-[100px] w-120 resize-y"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Provide an overview including history, values, mission, or
-                      key achievements.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Description"
+                fieldType="textarea"
+                placeholder="Tell us a little bit about the school"
+                className="min-h-[100px] w-120 resize-y"
+                description="Provide an overview including history, values, mission, or key achievements."
               />
             </div>
             <CommonFormField

@@ -2,16 +2,8 @@
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
-import SignToInput from "@/components/common/form/sign-to-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { ClassworkTypes } from "@/lib/const/common-details-const";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
@@ -133,24 +125,17 @@ function ClassWorkForm({
             </div>
           </div>
           <div className=" w-1/2 flex flex-col gap-4">
-            <FormField
+            <CommonFormField
               control={form.control}
               name="mention"
-              render={({ field }) => (
-                <FormItem className="">
-                  <FormLabel>Assign to</FormLabel>
-                  <FormControl>
-                    <SignToInput
-                      title="Assign to"
-                      disabled={isPending}
-                      name="All students"
-                      onChange={field.onChange}
-                      users={[]}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Assign to"
+              fieldType="sign-to"
+              disabled={isPending}
+              signToInput={{
+                title: "Assign to",
+                name: "All students",
+                users: [],
+              }}
             />
             <CommonFormField
               label="Points"
