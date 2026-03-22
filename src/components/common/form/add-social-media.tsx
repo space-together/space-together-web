@@ -1,7 +1,7 @@
 "use client";
 
-import MyImage from "@/components/common/myImage";
 import { CommonFormField } from "@/components/common/form/common-form-field";
+import MyImage from "@/components/common/myImage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,15 +20,14 @@ import { motion } from "framer-motion";
 import { Trash2 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import {
+  useWatch,
   type Control,
   type FieldPath,
   type FieldValues,
   type Path,
-  type PathValue,
   type UseFormGetValues,
   type UseFormSetValue,
-  type UseFormWatch,
-  useWatch,
+  type UseFormWatch
 } from "react-hook-form";
 
 export const detectSocialMediaPlatform = (url: string): string => {
@@ -104,7 +103,7 @@ const AddSocialMedia = <
       if (username.trim() === "") {
         setValue(
           `social_media.${index}.url` as Path<T>,
-          "" as PathValue<T, Path<T>>,
+          "" as any,
           {
             shouldValidate: true,
           },
@@ -115,13 +114,13 @@ const AddSocialMedia = <
         const constructedUrl = urlTemplate.replace("{username}", username);
         setValue(
           `social_media.${index}.url` as Path<T>,
-          constructedUrl as PathValue<T, Path<T>>,
+          constructedUrl as any,
           { shouldValidate: true },
         );
       } else {
         setValue(
           `social_media.${index}.url` as Path<T>,
-          username as PathValue<T, Path<T>>,
+          username as any,
           { shouldValidate: true },
         );
       }
@@ -176,7 +175,7 @@ const AddSocialMedia = <
     (newUrl: string) => {
       setValue(
         `social_media.${index}.url` as Path<T>,
-        newUrl as PathValue<T, Path<T>>,
+        newUrl as any,
         { shouldValidate: true, shouldDirty: true },
       );
       const detectedPlatform = detectSocialMediaPlatform(newUrl);
@@ -186,7 +185,7 @@ const AddSocialMedia = <
       if (currentPlatform !== detectedPlatform) {
         setValue(
           `social_media.${index}.platform` as Path<T>,
-          detectedPlatform as PathValue<T, Path<T>>,
+          detectedPlatform as any,
           { shouldValidate: true, shouldDirty: true },
         );
       }
@@ -304,13 +303,13 @@ const AddSocialMedia = <
                     );
                     setValue(
                       `social_media.${index}.url` as Path<T>,
-                      newUrl as PathValue<T, Path<T>>,
+                      newUrl as any,
                       { shouldValidate: true },
                     );
                   } else if (newPlatformConfig) {
                     setValue(
                       `social_media.${index}.url` as Path<T>,
-                      username as PathValue<T, Path<T>>,
+                      username as any,
                       { shouldValidate: true },
                     );
                   }

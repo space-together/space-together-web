@@ -1,7 +1,7 @@
 "use client";
 
-import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import {
@@ -14,8 +14,8 @@ import {
 import { SchoolStaffTypes } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
 import {
-  type BulkCreateJoinSchoolRequest,
   BulkCreateJoinSchoolRequestSchema,
+  type BulkCreateJoinSchoolRequest,
 } from "@/lib/schema/school/school-join-school/create-join-school-request-schema";
 import type { JoinSchoolRequest } from "@/lib/schema/school/school-join-school/join-school-request-schema";
 import type { School } from "@/lib/schema/school/school-schema";
@@ -212,7 +212,7 @@ export default function JoinSchoolRequestsForm({ auth, school }: Props) {
                     <Select
                       disabled={disabled}
                       onValueChange={(val) => handleTypeChange(index, val)}
-                      value={field.value ?? ""}
+                      value={typeof field.value === 'string' ? field.value : ""}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Choose staff type" />

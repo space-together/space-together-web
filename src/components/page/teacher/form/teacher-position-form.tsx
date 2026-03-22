@@ -1,7 +1,7 @@
 "use client";
-import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import CheckboxInput from "@/components/common/form/checkbox-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import {
@@ -12,8 +12,8 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import {
-  type TeacherPosition,
   TeacherPositionSchema,
+  type TeacherPosition,
 } from "@/lib/schema/teacher/teacher-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -145,7 +145,7 @@ const TeacherPositionForm = ({
                 <CheckboxInput
                   showTooltip
                   items={tradeItems}
-                  values={field.value}
+                  values={Array.isArray(field.value) ? field.value : undefined}
                   onChange={field.onChange}
                   classname=" grid-cols-3 gap-2"
                   disabled={disabled}

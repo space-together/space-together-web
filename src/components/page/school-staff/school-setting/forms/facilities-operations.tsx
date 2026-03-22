@@ -7,16 +7,14 @@ import { useForm } from "react-hook-form";
 
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form, FormControl,
+  FormItem
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import MultipleSelector from "@/components/ui/multiselect";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  FormControl,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
 import { AttendanceSystems } from "@/lib/const/common-details-const";
 import {
   SchoolSportsExtracurricular,
@@ -24,8 +22,8 @@ import {
 } from "@/lib/context/school.context";
 import type { Option } from "@/lib/schema/common-details-schema";
 import {
-  type FacilitiesOperationsDto,
   FacilitiesOperationsSchema,
+  type FacilitiesOperationsDto,
 } from "./schema/facilities-operations";
 
 interface FacilitiesOperationsFormProps {
@@ -88,7 +86,7 @@ export const FacilitiesOperationsForm = ({
                   type="number"
                   min={0}
                   placeholder="Total student capacity"
-                  value={field.value ?? ""}
+                  value={typeof field.value === 'number' ? field.value : ""}
                   onChange={(e) =>
                     field.onChange(
                       e.target.value === ""
@@ -110,7 +108,7 @@ export const FacilitiesOperationsForm = ({
                   type="number"
                   min={0}
                   placeholder="Number of classrooms"
-                  value={field.value ?? ""}
+                  value={typeof field.value === 'number' ? field.value : ""}
                   onChange={(e) =>
                     field.onChange(
                       e.target.value === ""
@@ -289,7 +287,7 @@ export const FacilitiesOperationsForm = ({
               description="Select or add available lab types."
               render={({ field, disabled }) => (
                 <MultipleSelector
-                  value={stringsToOptions(field.value)}
+                  value={stringsToOptions(Array.isArray(field.value) ? field.value : [])}
                   onChange={(options) =>
                     field.onChange(optionsToStrings(options))
                   }
@@ -310,8 +308,10 @@ export const FacilitiesOperationsForm = ({
               description="Select or add sports/activities offered."
               render={({ field, disabled }) => (
                 <MultipleSelector
-                  value={stringsToOptions(field.value)}
-                  onChange={field.onChange}
+                  value={stringsToOptions(Array.isArray(field.value) ? field.value : [])}
+                  onChange={(options) =>
+                    field.onChange(optionsToStrings(options))
+                  }
                   defaultOptions={SchoolSportsExtracurricular}
                   placeholder="Select activities..."
                   creatable

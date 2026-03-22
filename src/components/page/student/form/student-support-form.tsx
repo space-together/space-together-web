@@ -1,7 +1,7 @@
 "use client";
 
-import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import GuardiansInput from "@/components/common/form/guardian-input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -14,8 +14,8 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import { redirectContents } from "@/lib/hooks/redirect";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
-  type studentSupport,
   studentSupportSchema,
+  type studentSupport,
 } from "@/lib/schema/student/student-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
@@ -89,7 +89,12 @@ const StudentSupportForm = ({
             classname="w-full"
             render={({ field, disabled }) => (
               <GuardiansInput
-                value={field.value}
+                value={
+                  Array.isArray(field.value) && 
+                  (field.value.length === 0 || (typeof field.value[0] === 'object' && field.value[0] !== null && 'name' in field.value[0]))
+                    ? (field.value as any)
+                    : undefined
+                }
                 onChange={field.onChange}
                 disabled={disabled}
                 currentUser={{

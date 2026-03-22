@@ -1,6 +1,6 @@
 "use client";
-import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import DailyAvailabilityInput from "@/components/common/form/daily-availability-input";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
@@ -11,10 +11,9 @@ import { useToast } from "@/lib/context/toast/ToastContext";
 import { redirectContents } from "@/lib/hooks/redirect";
 import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
-  type TeacherPreferences,
   TeacherPreferencesSchema,
+  type TeacherPreferences,
 } from "@/lib/schema/teacher/teacher-schema";
-import type { DailyAvailability } from "@/lib/schema/teacher/teacher-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import { useRouter } from "next/navigation";
