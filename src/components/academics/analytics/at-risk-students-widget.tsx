@@ -1,7 +1,7 @@
 "use client";
 
+import MyAvatar from "@/components/common/image/my-avatar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAtRiskStudents } from "@/lib/hooks/academics/useAnalytics";
@@ -68,11 +68,8 @@ export default function AtRiskStudentsWidget({
               className="flex items-center justify-between p-3 border rounded-lg"
             >
               <div className="flex items-center gap-3">
-                <Avatar>
-                  <AvatarFallback>
-                    {student.student_name.substring(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <MyAvatar alt={student.student_name} src=""/>
+            
                 <div>
                   <div className="font-medium">{student.student_name}</div>
                   <div className="text-sm text-muted-foreground">
