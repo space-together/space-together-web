@@ -1,20 +1,12 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   updateUserEmailDto,
   updateUserEmailSchema,
@@ -23,10 +15,7 @@ import {
 const UpdateAccountPrivacyForm = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
-  const [
-    isPending,
-    // startTransition
-  ] = useTransition();
+  const [isPending] = useTransition();
   const form = useForm<updateUserEmailDto>({
     resolver: zodResolver(updateUserEmailSchema),
     defaultValues: {
@@ -46,29 +35,13 @@ const UpdateAccountPrivacyForm = () => {
         className="flex items-center space-x-4"
       >
         <div className="flex flex-col space-y-2">
-          <FormField
+          <CommonFormField
             name="email"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="">
-                <FormControl>
-                  <Checkbox
-                    disabled={isPending}
-                    className="mr-2"
-                    id="privacy"
-                    {...field}
-                  />
-                </FormControl>
-                <FormLabel htmlFor="privacy" className="cursor-pointer">
-                  Change account in private
-                </FormLabel>
-                <FormDescription>
-                  make account private on you and school staff can access you
-                  information.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Change account in private"
+            fieldType="checkbox"
+            disabled={isPending}
+            description="make account private on you and school staff can access you information."
           />
           <div>
             <FormError message={error} />

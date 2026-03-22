@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   EducationYearSchema,
   type EducationYear,
@@ -12,9 +13,7 @@ import {
 import type { SectorModel } from "@/lib/schema/admin/sectorSchema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { TermInput } from "./term-input";
 
 interface EducationYearFormProps {
@@ -24,9 +23,6 @@ interface EducationYearFormProps {
 }
 
 const EducationYearForm = ({ year, auth, sector }: EducationYearFormProps) => {
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   const [sectors, setSectors] = useState<SectorModel[]>([]);
@@ -58,59 +54,46 @@ const EducationYearForm = ({ year, auth, sector }: EducationYearFormProps) => {
     fetchSectors();
   }, [auth.token, showToast, sectors]);
 
-  const form = useForm<EducationYear, any, EducationYear>({
-    resolver: zodResolver(EducationYearSchema) as any,
-    defaultValues: {
-      label: year?.label || "",
-      curriculum_id: year?.curriculum_id || "",
-      start_date: year?.start_date || "",
-      end_date: year?.end_date || "",
-      terms: year?.terms || [],
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    EducationYear,
+    EducationYear
+  >({
+    schema: EducationYearSchema,
+    formOptions: {
+      defaultValues: {
+        label: year?.label || "",
+        curriculum_id: year?.curriculum_id || "",
+        start_date: year?.start_date || "",
+        end_date: year?.end_date || "",
+        terms: year?.terms || [],
+      },
+    },
+    transform: (values) => ({
+      ...values,
+      curriculum_id: sector?._id ? sector._id : values?.curriculum_id || "",
+      terms: values.terms.map((term) => ({
+        ...term,
+        order:
+          typeof term.order === "string" ? parseInt(term.order) : term.order,
+      })),
+    }),
+    request: {
+      method: year ? "put" : "post",
+      url: year
+        ? `/education-years/${year._id || year.id}`
+        : "/education-years",
+      apiRequest: {
+        token: auth.token,
+      },
+    },
+    onSuccessMessage: year
+      ? "Education year updated successfully"
+      : "Education year created successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
     },
   });
-
-  const onSubmit = (values: EducationYear) => {
-    setError("");
-    setSuccess("");
-
-    startTransition(async () => {
-      const apiData = {
-        ...values,
-        curriculum_id: sector?._id ? sector._id : values?.curriculum_id || "",
-        terms: values.terms.map((term) => ({
-          ...term,
-          order:
-            typeof term.order === "string" ? parseInt(term.order) : term.order,
-        })),
-      };
-
-      console.log("😥😥", apiData);
-      const res = await apiRequest<typeof apiData, EducationYear>(
-        year ? "put" : "post",
-        year ? `/education-years/${year._id || year.id}` : "/education-years",
-        apiData,
-        {
-          token: auth.token,
-        },
-      );
-
-      if (!res.data) {
-        setError(res.message);
-        showToast({
-          title: "Error",
-          description: res.message,
-          type: "error",
-        });
-      } else {
-        form.reset();
-        setSuccess(
-          year
-            ? "Education year updated successfully"
-            : "Education year created successfully",
-        );
-      }
-    });
-  };
 
   return (
     <Form {...form}>

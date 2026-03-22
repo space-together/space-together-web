@@ -26,7 +26,7 @@ export const sectorSchema = z.object({
   country: z.string().min(1, { message: "Country is required" }),
 
   type: z.enum(["global", "international", "local"], {
-    required_error: "Sector type is required",
+    message: "Sector type is required",
   }),
   disable: z.boolean().optional(),
   created_at: z.date().optional(),

@@ -5,16 +5,23 @@ import { FORM } from "@/lib/env";
 import apiRequest, { type ApiRequestOptions } from "@/service/api-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
-import { useForm, type FieldValues, type UseFormProps } from "react-hook-form";
-import type { ZodType } from "zod";
+import {
+  useForm,
+  type FieldValues,
+  type UseFormProps,
+  type UseFormReturn,
+} from "react-hook-form";
+import type { ZodTypeAny } from "zod";
 
 interface UseZodFormSubmitOptions<TForm extends FieldValues, TResult> {
-  schema: ZodType<TForm, any, any>;
+  schema: ZodTypeAny;
   formOptions: UseFormProps<TForm>;
   request: {
     method: "post" | "put" | "patch" | "delete";
-    url: string;
+    url: string | ((values: TForm) => string);
     apiRequest?: ApiRequestOptions;
+    /** When true, the request body is omitted (e.g. POST with path-only URL). */
+    omitBody?: boolean;
   };
 
   transform?: (values: TForm) => unknown;
@@ -34,8 +41,8 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<TForm, any, TForm>({
-    resolver: zodResolver(options.schema) as any,
+  const form = useForm<TForm>({
+    resolver: zodResolver(options.schema as any) as any,
     mode: "onChange",
     reValidateMode: "onChange",
     ...options.formOptions,
@@ -61,21 +68,32 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
     setTimeout(() => setError(undefined), FORM.timeOut);
   };
 
-  const onSubmit: (values: TForm) => void = (values: TForm) => {
+  const onSubmit = (values: TForm) => {
     clearMessages();
 
     startTransition(async () => {
       try {
-        const res = await apiRequest<TForm, TResult>(
+        const url =
+          typeof options.request.url === "function"
+            ? options.request.url(values)
+            : options.request.url;
+
+        const payload = options.request.omitBody
+          ? undefined
+          : options.transform
+            ? options.transform(values)
+            : values;
+
+        const res = await apiRequest(
           options.request.method,
-          options.request.url,
-          options.transform ? (options.transform(values) as TForm) : values,
+          url,
+          payload as TForm | undefined,
           options.request.apiRequest,
         );
 
         if (res.data) {
           setSuccess(options.onSuccessMessage);
-          options.onSuccess?.(res.data, values);
+          options.onSuccess?.(res.data as TResult, values);
 
           setTimeout(() => setSuccess(undefined), FORM.timeOut);
         } else {
@@ -90,7 +108,7 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
   };
 
   return {
-    form,
+    form: form as UseFormReturn<TForm>,
     onSubmit,
     error,
     success,

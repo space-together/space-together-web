@@ -1,22 +1,15 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import SelectWithSearch from "@/components/common/select-with-search";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 
 import {
   addOrUpdateClassTeacherSchema,
@@ -39,9 +32,6 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
   const [classes, setClasses] = useState<Class[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
 
-  const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   // -------------------------------------
@@ -103,123 +93,77 @@ const ClassTeacherForm = ({ auth, teacher, cls }: Props) => {
     fetchOptions();
   }, [auth, teacher]);
 
-  // -------------------------------------
-  // Form setup
-  // -------------------------------------
-  const form = useForm<addOrUpdateClassTeacher>({
-    resolver: zodResolver(addOrUpdateClassTeacherSchema),
-    defaultValues: {
-      class_id: cls ? cls?._id || cls.id : undefined,
-      teacher_id: teacher ? teacher?._id || teacher?.id : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    addOrUpdateClassTeacher,
+    TeacherBase
+  >({
+    schema: addOrUpdateClassTeacherSchema,
+    formOptions: {
+      defaultValues: {
+        class_id: cls ? cls?._id || cls.id : undefined,
+        teacher_id: teacher ? teacher?._id || teacher?.id : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: (values) => {
+        const class_id = cls?._id || values.class_id;
+        const teacher_id = teacher?._id || values.teacher_id;
+        return `/school/classes/${class_id}/teachers/${teacher_id}/assign`;
+      },
+      apiRequest: { token: auth.token, schoolToken: auth.schoolToken },
+      omitBody: true,
+    },
+    onSuccessMessage: teacher
+      ? "Teacher updated successfully!"
+      : "Teacher assigned successfully!",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: teacher ? "Teacher Updated" : "Teacher Assigned",
+        description: data.name,
+        type: "success",
+      });
+      if (!teacher) form.reset();
+    },
   });
 
-  // -------------------------------------
-  // Submit handler
-  // -------------------------------------
-  const handleSubmit = (values: addOrUpdateClassTeacher) => {
-    setError(undefined);
-    setSuccess(undefined);
-
-    startTransition(async () => {
-      try {
-        const api_data: addOrUpdateClassTeacher = {
-          class_id: cls?._id || values.class_id,
-          teacher_id: teacher?._id || values.teacher_id,
-        };
-        const response = await apiRequest<void, TeacherBase>(
-          "post",
-          `/school/classes/${api_data.class_id}/teachers/${api_data.teacher_id}/assign`,
-          undefined,
-          { token: auth.token, schoolToken: auth.schoolToken },
-        );
-
-        if (!response.data) {
-          setError(response.message);
-          showToast({
-            title: "Error",
-            description: response.message,
-            type: "error",
-          });
-          return;
-        }
-
-        const message = teacher
-          ? "Teacher updated successfully!"
-          : "Teacher assigned successfully!";
-        setSuccess(message);
-
-        showToast({
-          title: teacher ? "Teacher Updated" : "Teacher Assigned",
-          description: response.data.name,
-          type: "success",
-        });
-
-        if (!teacher) form.reset();
-      } catch (err) {
-        setError(
-          `Unexpected error occurred: ${String(err)}. Please try again.`,
-        );
-      }
-    });
-  };
-
-  // -------------------------------------
-  // Render
-  // -------------------------------------
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Class Selector */}
         {!cls && (
-          <FormField
+          <CommonFormField
             name="class_id"
             control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Choose Class</FormLabel>
-                <SelectWithSearch
-                  options={classes.map((c) => ({
-                    value: String(c.id ?? c._id),
-                    label: c.name,
-                  }))}
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                  placeholder={
-                    loadingOptions ? "Loading classes..." : "Select a class"
-                  }
-                  disabled={isPending || loadingOptions}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Choose Class"
+            fieldType="searchSelect"
+            placeholder={
+              loadingOptions ? "Loading classes..." : "Select a class"
+            }
+            disabled={isPending || loadingOptions}
+            selectOptions={classes.map((c) => ({
+              value: String(c.id ?? c._id),
+              label: c.name,
+            }))}
           />
         )}
 
-        {/* Teacher Selector */}
         {!teacher && (
-          <FormField
+          <CommonFormField
             name="teacher_id"
             control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Choose Teacher</FormLabel>
-                <SelectWithSearch
-                  options={teachers.map((t) => ({
-                    value: String(t.id ?? t._id),
-                    label: t.name,
-                  }))}
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                  placeholder={
-                    loadingOptions ? "Loading teachers..." : "Select a teacher"
-                  }
-                  disabled={isPending || loadingOptions}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Choose Teacher"
+            fieldType="searchSelect"
+            placeholder={
+              loadingOptions ? "Loading teachers..." : "Select a teacher"
+            }
+            disabled={isPending || loadingOptions}
+            selectOptions={teachers.map((t) => ({
+              value: String(t.id ?? t._id),
+              label: t.name,
+            }))}
           />
         )}
 

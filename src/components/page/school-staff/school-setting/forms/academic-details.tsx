@@ -1,29 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import MultipleSelector from "@/components/ui/multiselect";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { AffiliationTypes } from "@/lib/const/common-details-const";
 import { schoolEducationLevel } from "@/lib/context/school.context";
 import type { Option } from "@/lib/schema/common-details-schema";
@@ -51,7 +35,6 @@ export const AcademicDetailsForm = ({
 }: AcademicDetailsFormProps) => {
   const [error, setError] = useState<string | null>("");
   const [isPending, startTransition] = useState(false);
-  const { theme } = useTheme();
 
   const form = useForm<AcademicDetailsDto>({
     resolver: zodResolver(AcademicDetailsSchema),
@@ -79,79 +62,48 @@ export const AcademicDetailsForm = ({
           </h3>
           {error && <div className="alert alert-error">{error}</div>}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <FormField
+            <CommonFormField
               control={form.control}
               name="educationLevel"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Education Levels Offered</FormLabel>
-                  <FormControl>
-                    <MultipleSelector
-                      value={stringsToOptions(field.value)}
-                      onChange={(options) =>
-                        field.onChange(optionsToStrings(options))
-                      }
-                      defaultOptions={schoolEducationLevel}
-                      placeholder="Select levels..."
-                      creatable
-                      hidePlaceholderWhenSelected
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Select or add education levels provided.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
+              label="Education Levels Offered"
+              fieldType="custom"
+              description="Select or add education levels provided."
+              render={({ field, disabled }) => (
+                <MultipleSelector
+                  value={stringsToOptions(
+                    Array.isArray(field.value) ? field.value : [],
+                  )}
+                  onChange={(options) =>
+                    field.onChange(optionsToStrings(options))
+                  }
+                  defaultOptions={schoolEducationLevel}
+                  placeholder="Select levels..."
+                  creatable
+                  hidePlaceholderWhenSelected
+                  disabled={disabled}
+                />
               )}
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="accreditationNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Accreditation Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Optional accreditation number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Accreditation Number"
+              placeholder="Optional accreditation number"
             />
 
-            <FormField
+            <CommonFormField
               control={form.control}
               name="affiliation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Affiliation</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value ?? ""}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select school affiliation" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent data-theme={theme}>
-                      {AffiliationTypes?.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      )) ?? (
-                        <SelectItem value="none" disabled>
-                          No affiliations defined
-                        </SelectItem>
-                      )}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Affiliation"
+              fieldType="select"
+              placeholder="Select school affiliation"
+              selectOptions={
+                AffiliationTypes?.map((type) => ({
+                  value: type,
+                  label: type,
+                })) ?? []
+              }
             />
           </div>
         </div>

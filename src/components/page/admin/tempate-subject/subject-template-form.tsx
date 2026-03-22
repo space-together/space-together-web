@@ -14,11 +14,10 @@ import {
   TemplateSubjectSchema,
   type TemplateSubject,
 } from "@/lib/schema/subject/template-schema";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import type { z } from "zod";
 
@@ -43,9 +42,6 @@ interface props {
 }
 
 const SubjectTemplateForm = ({ mainClass, auth, sub }: props) => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   const [mainClasses, setMainClasses] = useState<MainClassModel[]>([]);
@@ -81,68 +77,56 @@ const SubjectTemplateForm = ({ mainClass, auth, sub }: props) => {
     fetchMainClasses();
   }, [auth.token, showToast, mainClass]);
 
-  const form = useForm<createTemplateSubject>({
-    resolver: zodResolver(createTemplateSubjectSchema),
-    defaultValues: {
-      name: sub?.name ? sub.name : "",
-      description: sub?.description ? sub.description : "",
-      code: sub?.code ? sub.code : "",
-      estimated_hours: sub?.estimated_hours ? sub.estimated_hours : "",
-      category: sub?.category ? sub.category : undefined,
-      topics: sub?.topics ? sub.topics : [],
-      created_by: auth.user.id,
-      credits: sub?.credits ? sub.credits : "60",
-      prerequisites: sub?.prerequisites ? sub.prerequisites : [],
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    createTemplateSubject,
+    TemplateSubject
+  >({
+    schema: createTemplateSubjectSchema,
+    formOptions: {
+      defaultValues: {
+        name: sub?.name ? sub.name : "",
+        description: sub?.description ? sub.description : "",
+        code: sub?.code ? sub.code : "",
+        estimated_hours: sub?.estimated_hours ? sub.estimated_hours : "",
+        category: sub?.category ? sub.category : undefined,
+        topics: sub?.topics ? sub.topics : [],
+        created_by: auth.user.id,
+        credits: sub?.credits ? sub.credits : "60",
+        prerequisites: sub?.prerequisites ? sub.prerequisites : [],
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    transform: (values) => ({
+      ...values,
+      prerequisites: mainClass?._id
+        ? [mainClass._id]
+        : values.prerequisites?.map((p) => p.value),
+      estimated_hours: Number(values.estimated_hours),
+      credits: values.credits ? Number(values.credits) : undefined,
+      topics: values.topics?.map(transformTopic),
+    }),
+    request: {
+      method: sub ? "put" : "post",
+      url: sub
+        ? `/template-subjects/${sub._id || sub.id}`
+        : "/template-subjects",
+      apiRequest: {
+        token: auth.token,
+      },
+    },
+    onSuccessMessage: sub
+      ? "Subject updated successfully"
+      : "Subject created successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
+    },
   });
-
-  const onSubject = (values: createTemplateSubject) => {
-    setError("");
-    setSuccess("");
-    startTransition(async () => {
-      const apiData = {
-        ...values,
-
-        prerequisites: mainClass?._id
-          ? [mainClass._id]
-          : values.prerequisites?.map((p) => p.value),
-
-        estimated_hours: Number(values.estimated_hours),
-        credits: values.credits ? Number(values.credits) : undefined,
-
-        topics: values.topics?.map(transformTopic),
-      };
-
-      const res = await apiRequest<typeof apiData, TemplateSubject>(
-        sub ? "put" : "post",
-        sub ? `/template-subjects/${sub._id || sub.id}` : "/template-subjects",
-        apiData,
-        {
-          token: auth.token,
-        },
-      );
-
-      if (!res.data) {
-        setError(res.message);
-        showToast({
-          title: "Error",
-          description: res.message,
-          type: "error",
-        });
-      } else {
-        form.reset();
-        setSuccess(
-          sub ? "Subject updated successfully" : "Subject created successfully",
-        );
-      }
-    });
-  };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubject)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full flex flex-col gap-4"
       >
         <div className="flex flex-col lg:flex-row gap-4 w-full">

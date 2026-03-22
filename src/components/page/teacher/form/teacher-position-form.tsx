@@ -1,32 +1,24 @@
 "use client";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import CheckboxInput from "@/components/common/form/checkbox-input";
-import RadioInput from "@/components/common/form/radio-input";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   EmploymentTypeDetails,
   SubjectCategoryDetails,
 } from "@/lib/const/common-details-const";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { TradeModule } from "@/lib/schema/admin/tradeSchema";
 import {
-  type TeacherPosition,
   TeacherPositionSchema,
+  type TeacherPosition,
 } from "@/lib/schema/teacher/teacher-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 interface props {
   user: UserModel;
@@ -41,18 +33,49 @@ const TeacherPositionForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const [trades, setTrades] = useState<TradeModule[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(true);
+
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    TeacherPosition,
+    UserModel
+  >({
+    schema: TeacherPositionSchema,
+    formOptions: {
+      defaultValues: {
+        favorite_subjects_category: user.favorite_subjects_category
+          ? user.favorite_subjects_category
+          : [],
+        employment_type: user.employment_type ? user.employment_type : undefined,
+        teaching_level: user.teaching_level ? user.teaching_level : [],
+      },
+      mode: "onChange",
+    },
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added position information.",
+        type: "success",
+      });
+      if (setStep) setStep(2, data.id);
+      if (markStepCompleted)
+        markStepCompleted(1, true, data.id || data._id);
+    },
+  });
 
   useEffect(() => {
     const fetchOptions = async () => {
       try {
         const [tradesRes] = await Promise.all([
-          apiRequest<any, TradeModule[]>("get", "/trades", undefined, {
+          apiRequest<unknown, TradeModule[]>("get", "/trades", undefined, {
             token: auth.token,
           }),
         ]);
@@ -69,49 +92,19 @@ const TeacherPositionForm = ({
     fetchOptions();
   }, [auth.token]);
 
-  const form = useForm<TeacherPosition>({
-    resolver: zodResolver(TeacherPositionSchema),
-    defaultValues: {
-      favorite_subjects_category: user.favorite_subjects_category
-        ? user.favorite_subjects_category
-        : [],
-      employment_type: user.employment_type ? user.employment_type : undefined,
-      teaching_level: user.teaching_level ? user.teaching_level : [],
-    },
-    mode: "onChange",
-  });
-
-  const onSubmit = (value: TeacherPosition) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<TeacherPosition, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add student academic intereset info",
-          type: "success",
-        });
-        if (setStep) setStep(2, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(1, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
+  const tradeItems =
+    trades.length > 0
+      ? Object.fromEntries(
+          trades.map((t) => [
+            t.id || t._id,
+            {
+              name: t.name,
+              description: t.description ?? undefined,
+              image: undefined,
+            },
+          ]),
+        )
+      : undefined;
 
   return (
     <Form {...form}>
@@ -120,78 +113,49 @@ const TeacherPositionForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="favorite_subjects_category"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Favorite subjects category</FormLabel>
-                <FormControl>
-                  <CheckboxInput
-                    showTooltip
-                    items={SubjectCategoryDetails}
-                    values={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Favorite subjects category"
+            fieldType="checkbox-input"
+            items={SubjectCategoryDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="employment_type"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Employment type</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={EmploymentTypeDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Employment type"
+            fieldType="radio-input"
+            items={EmploymentTypeDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="teaching_level"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Teaching Level</FormLabel>
-                {loadingOptions ? (
-                  <div className=" skeleton h-12 w-full" />
-                ) : (
-                  <FormControl>
-                    <CheckboxInput
-                      showTooltip
-                      items={Object.fromEntries(
-                        trades.map((t) => [
-                          t.id || t._id,
-                          {
-                            name: t.name,
-                            description: t.description ?? undefined,
-                            image: undefined,
-                          },
-                        ]),
-                      )}
-                      values={field.value}
-                      onChange={field.onChange}
-                      classname=" grid-cols-3 gap-2"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                )}
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Teaching Level"
+            fieldType="custom"
+            disabled={isPending || loadingOptions}
+            classname="w-full space-y-2"
+            render={({ field, disabled }) =>
+              loadingOptions ? (
+                <div className=" skeleton h-12 w-full" />
+              ) : tradeItems ? (
+                <CheckboxInput
+                  showTooltip
+                  items={tradeItems}
+                  values={Array.isArray(field.value) ? field.value : undefined}
+                  onChange={field.onChange}
+                  classname=" grid-cols-3 gap-2"
+                  disabled={disabled}
+                />
+              ) : (
+                <div className="text-muted-foreground text-sm">
+                  No trades available
+                </div>
+              )
+            }
           />
         </div>
         <div className=" mt-2">

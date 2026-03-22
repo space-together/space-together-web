@@ -42,6 +42,9 @@ const nextConfig: NextConfig = {
     ],
     qualities: [75, 80, 85],
   },
+  logging: {
+    browserToTerminal: true,
+  },
 };
 
 export default nextConfig;

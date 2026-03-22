@@ -20,11 +20,10 @@ import type {
   schoolAcademicResponse,
 } from "@/lib/schema/school/school-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo, useState } from "react";
 
 interface Props {
   auth: AuthContext;
@@ -33,9 +32,6 @@ interface Props {
 }
 
 const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   const [sectors, setSectors] = useState<SectorModel[]>([]);
@@ -69,14 +65,49 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
     loadOptions();
   }, [auth.token]);
 
-  // 2. Form Setup
-  const form = useForm<createSchoolAcademic>({
-    resolver: zodResolver(createSchoolAcademicSchema),
-    defaultValues: {
-      sector_ids: [],
-      trade_ids: [],
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    createSchoolAcademic,
+    schoolAcademicResponse
+  >({
+    schema: createSchoolAcademicSchema,
+    formOptions: {
+      defaultValues: {
+        sector_ids: [],
+        trade_ids: [],
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: `/schools/${school._id || school.id}/academics`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "",
+    toastOnError: true,
+    onSuccess: (response) => {
+      showToast({
+        title: "School academic has been created.",
+        description: (
+          <main className="flex gap-2">
+            <div>
+              <span>Classes: </span>
+              <span className="font-medium">
+                {response.created_classes}
+              </span>
+            </div>
+            <div>
+              <span>Subjects: </span>
+              <span className="font-medium">
+                {response.created_subjects}
+              </span>
+            </div>
+          </main>
+        ),
+        type: "success",
+      });
+      form.reset();
+      router.push(`/s-t/new/${school.username}/administration`);
+    },
   });
 
   // 3. Fetch trades per selected sector (GROUPED)
@@ -134,64 +165,9 @@ const CreateSchoolAcademicForm = ({ auth, school, isDialog }: Props) => {
     );
   }, [sectors]);
 
-  // 5. Submit handler
-  const handleSubmit = (values: createSchoolAcademic) => {
-    setError("");
-    setSuccess("");
-
-    startTransition(async () => {
-      try {
-        const response = await apiRequest<
-          createSchoolAcademic,
-          schoolAcademicResponse
-        >("post", `/schools/${school._id || school.id}/academics`, values, {
-          token: auth.token,
-        });
-
-        if (!response.data) {
-          setError(response.message);
-          showToast({
-            title: "Error",
-            description: response.message,
-            type: "error",
-          });
-        } else {
-          setSuccess("School academic created successfully!");
-
-          showToast({
-            title: "School academic has been created.",
-            description: (
-              <main className="flex gap-2">
-                <div>
-                  <span>Classes: </span>
-                  <span className="font-medium">
-                    {response.data.created_classes}
-                  </span>
-                </div>
-                <div>
-                  <span>Subjects: </span>
-                  <span className="font-medium">
-                    {response.data.created_subjects}
-                  </span>
-                </div>
-              </main>
-            ),
-            type: "success",
-          });
-
-          form.reset();
-          router.push(`/s-t/new/${school.username}/administration`);
-        }
-      } catch (err) {
-        setError(`Unexpected error occurred [${err}]. Please try again.`);
-      }
-    });
-  };
-
-  // 6. COMPONENT UI
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* SELECT SECTORS */}
         {loadingOptions ? (
           <div className=" flex flex-col gap-2">

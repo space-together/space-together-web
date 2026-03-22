@@ -16,7 +16,11 @@ const NewClassworkPage = async (
   return (
     <div className=" flex flex-col gap-4">
       <h3 className="h3">New Class work</h3>
-      <CreateClassWorkCard auth={auth} />
+      <CreateClassWorkCard
+        auth={auth}
+        classUsername={classUsername}
+        subjectCode={subjectCode}
+      />
     </div>
   );
 };

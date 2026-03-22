@@ -4,36 +4,35 @@ import { FormError, FormSuccess } from "@/components/common/form-message";
 import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import type { JoinSchoolDto } from "@/lib/schema/school/join-school-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
+import { getAccessToken } from "@/lib/utils/client-auth";
 import { type JoinClassDto, JoinClassSchema } from "./schema/join-class-schema";
 
 export default function JoinClassCodeForm() {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
-  const form = useForm<JoinClassDto>({
-    resolver: zodResolver(JoinClassSchema),
-    defaultValues: {
-      username: "",
-      code: "",
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    JoinClassDto,
+    unknown
+  >({
+    schema: JoinClassSchema,
+    formOptions: {
+      defaultValues: {
+        username: "",
+        code: "",
+      },
+    },
+    request: {
+      method: "post",
+      url: "/classes/join-by-code",
+      apiRequest: {
+        token: getAccessToken() ?? "",
+      },
+    },
+    onSuccessMessage: "Joined class successfully",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
     },
   });
-
-  function onSubmit(data: JoinSchoolDto) {
-    setError(null);
-    setSuccess(null);
-    // startTransition(async () => {
-    //   const join = await JoinSchoolByUsernameAndCode(data);
-    //   if (join.data) {
-    //     setSuccess(`To join school successfully! ☺️`);
-    //   } else {
-    //     setError(join.message);
-    //   }
-    // });
-  }
 
   return (
     <Form {...form}>
@@ -44,6 +43,7 @@ export default function JoinClassCodeForm() {
           name="username"
           label="Class username"
           placeholder="class_username"
+          disabled={isPending}
         />
 
         <CommonFormField
@@ -52,6 +52,7 @@ export default function JoinClassCodeForm() {
           name="code"
           label="Class code"
           otpInputProps={{ maxLength: 6 }}
+          disabled={isPending}
         />
         <div className="mt-2">
           <FormError message={error} />
@@ -63,6 +64,7 @@ export default function JoinClassCodeForm() {
           variant={"info"}
           library="daisy"
           type="submit"
+          role={isPending ? "loading" : undefined}
         >
           Join Class
         </Button>

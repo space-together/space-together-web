@@ -79,6 +79,7 @@ export const ClassTimetableSettingsSchema = z.object({
   period_length_minutes: z.number(),
   periods_per_day: z.number(),
   weekly_timetable: z.record(
+    z.string(),
     z.array(
       z.object({
         period: z.number(),

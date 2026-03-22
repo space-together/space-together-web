@@ -1,36 +1,19 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { UsersIcon } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 
 import {
   SchoolStaffTypes,
   StudentStatuses,
   TeacherTypes,
 } from "@/lib/const/common-details-const";
-import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import type { Class } from "@/lib/schema/class/class-schema";
 import type { Paginated } from "@/lib/schema/common-schema";
 import {
@@ -41,20 +24,17 @@ import type { AuthContext } from "@/lib/utils/auth-context";
 import apiRequest from "@/service/api-client";
 import { ClassCombobox, type ComboboxItem } from "./class-combobox";
 
-/* -------------------------------------------------------------------------- */
-/*                                COMPONENT                                   */
-/* -------------------------------------------------------------------------- */
-
 interface Props {
   auth: AuthContext;
 }
 
-export default function SendJoinSchoolRequestForm({ auth }: Props) {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
-  const { showToast } = useToast();
+const roleOptions = [
+  { value: "Student", label: "Student" },
+  { value: "Teacher", label: "Teacher" },
+  { value: "Staff", label: "School Staff" },
+];
 
+export default function SendJoinSchoolRequestForm({ auth }: Props) {
   const [classes, setClasses] = useState<Class[]>([]);
 
   useEffect(() => {
@@ -81,24 +61,40 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
     fetchClasses();
   }, []);
 
-  /* ----------------------------- Form Setup ----------------------------- */
-  const form = useForm<CreateJoinSchoolRequest>({
-    resolver: zodResolver(CreateJoinSchoolRequestSchema),
-    defaultValues: {
-      sent_by: auth.user.id,
-      email: "",
-      school_id: auth.school?.id,
-      role: undefined,
-      message: undefined,
-      class_id: undefined,
-      type: undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    CreateJoinSchoolRequest,
+    unknown
+  >({
+    schema: CreateJoinSchoolRequestSchema,
+    formOptions: {
+      defaultValues: {
+        sent_by: auth.user.id,
+        email: "",
+        school_id: auth.school?.id,
+        role: undefined,
+        message: undefined,
+        class_id: undefined,
+        type: undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "post",
+      url: "/join-school-requests",
+      apiRequest: {
+        token: auth.token,
+        schoolToken: auth.schoolToken,
+      },
+    },
+    onSuccessMessage: "Request sent successfully ☺️",
+    toastOnError: true,
+    onSuccess: () => {
+      form.reset();
+    },
   });
 
   const selectedRole = form.watch("role");
 
-  /* ----------------------- Reset conditional fields ---------------------- */
   useEffect(() => {
     if (selectedRole !== "Staff") {
       form.resetField("type", { defaultValue: undefined });
@@ -110,51 +106,12 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
     form.trigger(["type", "class_id"]);
   }, [selectedRole, form]);
 
-  /* ----------------------------- Submit Logic ----------------------------- */
-  function onSubmit(data: CreateJoinSchoolRequest) {
-    setError(null);
-    setSuccess(null);
-
-    startTransition(async () => {
-      const sendRequest = await apiRequest<CreateJoinSchoolRequest>(
-        "post",
-        "/join-school-requests",
-        data,
-        {
-          token: auth.token,
-          schoolToken: auth.schoolToken,
-        },
-      );
-
-      if (sendRequest?.data) {
-        showToast({
-          title: "Request sent successfully",
-          type: "success",
-        });
-        setSuccess("Request sent successfully ☺️");
-        form.reset();
-      } else {
-        showToast({
-          title: "Some thing went wrong",
-          description: sendRequest.message,
-          type: "error",
-        });
-        setError(
-          sendRequest?.message ||
-            "An error occurred while sending the join request.",
-        );
-      }
-    });
-  }
-
-  /* ----------------------------- Class Combobox ---------------------------- */
   const classItems: ComboboxItem[] = classes.map((classItem) => ({
     value: classItem.id || classItem._id || "",
     label: classItem.name,
     icon: UsersIcon,
   }));
 
-  /* --------------------------- Role-based options -------------------------- */
   const joinSchoolTypes =
     selectedRole === "Staff"
       ? SchoolStaffTypes
@@ -162,152 +119,91 @@ export default function SendJoinSchoolRequestForm({ auth }: Props) {
         ? StudentStatuses
         : TeacherTypes;
 
-  /* ------------------------------- JSX Form ------------------------------- */
+  const typeLabel =
+    selectedRole === "Staff"
+      ? "Staff Type"
+      : selectedRole === "Student"
+        ? "Student Status"
+        : "Teacher Type";
+
   return (
     <Form {...form}>
       <form
         className="flex w-full flex-col space-y-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        {/* Email Field */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem className="flex flex-col space-y-2">
-              <FormLabel>Email Address *</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="example@email.com"
-                  disabled={isPending}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Email Address"
+          required
+          type="email"
+          placeholder="example@email.com"
+          disabled={isPending}
         />
 
-        {/* Role Field */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="role"
-          render={({ field }) => (
-            <FormItem className="flex flex-col space-y-2">
-              <FormLabel>Select Role *</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                value={field.value || ""}
-                disabled={isPending}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select joiner role" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Student">Student</SelectItem>
-                  <SelectItem value="Teacher">Teacher</SelectItem>
-                  <SelectItem value="Staff">School Staff</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Select Role"
+          required
+          fieldType="select"
+          placeholder="Select joiner role"
+          selectOptions={roleOptions}
+          disabled={isPending}
         />
 
-        {/* Conditional Type Field (based on role) */}
         {selectedRole && (
-          <FormField
+          <CommonFormField
             control={form.control}
             name="type"
-            render={({ field }) => (
-              <FormItem className="flex flex-col space-y-2">
-                <FormLabel>
-                  {selectedRole === "Staff"
-                    ? "Staff Type"
-                    : selectedRole === "Student"
-                      ? "Student Status"
-                      : "Teacher Type"}{" "}
-                  *
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value || ""}
-                  disabled={isPending}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={`Select ${selectedRole.toLowerCase()} type`}
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {joinSchoolTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={`${typeLabel} *`}
+            required
+            fieldType="select"
+            placeholder={`Select ${selectedRole.toLowerCase()} type`}
+            selectOptions={joinSchoolTypes.map((type) => ({
+              value: type,
+              label: type,
+            }))}
+            disabled={isPending}
           />
         )}
 
-        {/* Class Field (only for Students) */}
         {selectedRole === "Student" && (
-          <FormField
+          <CommonFormField
             control={form.control}
             name="class_id"
-            render={({ field }) => (
-              <FormItem className="flex flex-col space-y-2">
-                <FormLabel>Select Class *</FormLabel>
-                <FormControl>
-                  <ClassCombobox
-                    items={classItems}
-                    value={field.value}
-                    onChange={field.onChange}
-                    placeholder="Select student's class"
-                    searchPlaceholder="Search classes..."
-                    emptyMessage={
-                      classes.length === 0
-                        ? "No classes available."
-                        : "No class found."
-                    }
-                    disabled={isPending || classes.length === 0}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            label="Select Class"
+            required
+            fieldType="custom"
+            disabled={isPending}
+            render={({ field, disabled }) => (
+              <ClassCombobox
+                items={classItems}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Select student's class"
+                searchPlaceholder="Search classes..."
+                emptyMessage={
+                  classes.length === 0
+                    ? "No classes available."
+                    : "No class found."
+                }
+                disabled={disabled || classes.length === 0}
+              />
             )}
           />
         )}
 
-        {/* Message Field */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="message"
-          render={({ field }) => (
-            <FormItem className="flex flex-col space-y-2">
-              <FormLabel>Message (optional)</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Write a short message for your request..."
-                  disabled={isPending}
-                  rows={3}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Message (optional)"
+          fieldType="textarea"
+          placeholder="Write a short message for your request..."
+          disabled={isPending}
         />
 
-        {/* Error / Success messages */}
         <div>
           <FormError message={error} />
           <FormSuccess message={success} />

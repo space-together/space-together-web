@@ -1,3 +1,4 @@
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { Button } from "@/components/ui/button";
 import {
   DialogContent,
@@ -5,22 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Form } from "@/components/ui/form";
 import {
   type NewStaffForm,
   newStaffFormSchema,
@@ -82,12 +68,16 @@ const initialStaff = [
   },
 ];
 
+const roleOptions = [
+  { value: "Teacher", label: "Teacher" },
+  { value: "Administrator", label: "Administrator" },
+  { value: "Principal", label: "Principal" },
+  { value: "Counselor", label: "Counselor" },
+  { value: "Librarian", label: "Librarian" },
+];
+
 const StaffForm = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  // const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-  // const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-  // const [staffToDelete, setStaffToDelete] = useState<string | null>(null)
-  // const [isBulkDeleteDialogOpen, setIsBulkDeleteDialogOpen] = useState(false)
   const [staff, setStaff] = useState(initialStaff);
 
   const addStaffForm = useForm<NewStaffForm>({
@@ -126,54 +116,23 @@ const StaffForm = () => {
           className="space-y-4"
         >
           <div className="grid grid-cols-2 gap-4">
-            <FormField
+            <CommonFormField
               control={addStaffForm.control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="email"
-                      placeholder="Enter email address"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Email"
+              type="email"
+              placeholder="Enter email address"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <FormField
+            <CommonFormField
               control={addStaffForm.control}
               name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Teacher">Teacher</SelectItem>
-                      <SelectItem value="Administrator">
-                        Administrator
-                      </SelectItem>
-                      <SelectItem value="Principal">Principal</SelectItem>
-                      <SelectItem value="Counselor">Counselor</SelectItem>
-                      <SelectItem value="Librarian">Librarian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Role"
+              fieldType="select"
+              placeholder="Select role"
+              selectOptions={roleOptions}
             />
           </div>
 

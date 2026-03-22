@@ -1,27 +1,16 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import AddressInput from "@/components/common/form/address-input";
-import AgeInput from "@/components/common/form/age-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/lib/context/toast/ToastContext";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 import {
   type StudentBackground,
   StudentBackgroundSchema,
 } from "@/lib/schema/student/student-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 
 interface props {
   user: UserModel;
@@ -36,52 +25,39 @@ const StudentBackgroundForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<StudentBackground>({
-    resolver: zodResolver(StudentBackgroundSchema),
-    defaultValues: {
-      address: user.address ? user.address : undefined,
-      age: user.age ? user.age : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    StudentBackground,
+    UserModel
+  >({
+    schema: StudentBackgroundSchema,
+    formOptions: {
+      defaultValues: {
+        address: user.address ? user.address : undefined,
+        age: user.age ? user.age : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description:
+          "You have added student personal details and background info.",
+        type: "success",
+      });
+      if (setStep) setStep(3, data.id);
+      if (markStepCompleted)
+        markStepCompleted(2, true, data.id || data._id);
+    },
   });
-
-  const onSubmit = (value: StudentBackground) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<StudentBackground, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description:
-            " You have been add student Personal Details & Background info",
-          type: "success",
-        });
-        if (setStep) setStep(3, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(2, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>
@@ -89,39 +65,21 @@ const StudentBackgroundForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-4 "
       >
-        <FormField
+        <CommonFormField
           control={form.control}
           name="age"
-          render={({ field }) => (
-            <FormItem className=" w-full space-y-2">
-              <FormLabel>Date of Birth / Age</FormLabel>
-              <FormControl>
-                <AgeInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Date of Birth / Age"
+          fieldType="age"
+          disabled={isPending}
+          classname="w-full space-y-2"
         />
-        <FormField
+        <CommonFormField
           control={form.control}
           name="address"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Your Address</FormLabel>
-              <FormControl>
-                <AddressInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Your Address"
+          fieldType="address"
+          disabled={isPending}
+          classname="w-full"
         />
 
         <div className=" mt-2">

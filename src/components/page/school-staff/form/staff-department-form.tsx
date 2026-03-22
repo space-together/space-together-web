@@ -1,15 +1,8 @@
 "use client";
+import { CommonFormField } from "@/components/common/form/common-form-field";
 import { FormError, FormSuccess } from "@/components/common/form-message";
-import RadioInput from "@/components/common/form/radio-input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import {
   DepartmentDetails,
   EmploymentTypeDetails,
@@ -22,10 +15,7 @@ import {
 } from "@/lib/schema/school-staff/school-staff-schema";
 import type { UserModel } from "@/lib/schema/user/user-schema";
 import type { AuthContext } from "@/lib/utils/auth-context";
-import apiRequest from "@/service/api-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useZodFormSubmit } from "@/lib/hooks/use-zod-form-submit";
 
 interface props {
   user: UserModel;
@@ -40,52 +30,39 @@ const StaffDepartmentForm = ({
   setStep,
   markStepCompleted,
 }: props) => {
-  const [error, setError] = useState<undefined | null | string>("");
-  const [success, setSuccess] = useState<undefined | null | string>("");
-  const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
 
-  const form = useForm<StaffDepartment>({
-    resolver: zodResolver(StaffDepartmentSchema),
-    defaultValues: {
-      department: user.department ? user.department : undefined,
-      employment_type: user.employment_type ? user.employment_type : undefined,
-      job_title: user.job_title ? user.job_title : undefined,
+  const { form, onSubmit, error, success, isPending } = useZodFormSubmit<
+    StaffDepartment,
+    UserModel
+  >({
+    schema: StaffDepartmentSchema,
+    formOptions: {
+      defaultValues: {
+        department: user.department ? user.department : undefined,
+        employment_type: user.employment_type ? user.employment_type : undefined,
+        job_title: user.job_title ? user.job_title : undefined,
+      },
+      mode: "onChange",
     },
-    mode: "onChange",
+    request: {
+      method: "put",
+      url: `/users/${auth.user.id}`,
+      apiRequest: { token: auth.token },
+    },
+    onSuccessMessage: "Profile updated",
+    toastOnError: true,
+    onSuccess: (data) => {
+      showToast({
+        title: "Thanks for upgrading your profile 🌻",
+        description: "You have added department information.",
+        type: "success",
+      });
+      if (setStep) setStep(2, data.id);
+      if (markStepCompleted)
+        markStepCompleted(1, true, data.id || data._id);
+    },
   });
-
-  const onSubmit = (value: StaffDepartment) => {
-    setSuccess(null);
-    setError(null);
-    startTransition(async () => {
-      const update = await apiRequest<StaffDepartment, UserModel>(
-        "put",
-        `/users/${auth.user.id}`,
-        value,
-        { token: auth.token },
-      );
-      if (update.data) {
-        showToast({
-          title: "Thanks for upgrading your profile 🌻",
-          description: " You have been add student academic intereset info",
-          type: "success",
-        });
-        if (setStep) setStep(2, update.data.id);
-        if (markStepCompleted)
-          markStepCompleted(1, true, update.data.id || update.data._id);
-      } else if (update.message) {
-        showToast({
-          title: "Some thing went wrong 😥",
-          description: update.message,
-          type: "error",
-        });
-        setError(update.message);
-      } else {
-        setError(update.error);
-      }
-    });
-  };
 
   return (
     <Form {...form}>
@@ -94,66 +71,33 @@ const StaffDepartmentForm = ({
         className=" w-full space-y-4 "
       >
         <div className=" flex flex-col gap-4">
-          <FormField
+          <CommonFormField
             control={form.control}
             name="department"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Department / Office</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={DepartmentDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    classname=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Department / Office"
+            fieldType="radio-input"
+            items={DepartmentDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
-          <FormField
+          <CommonFormField
             control={form.control}
             name="employment_type"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Employment type</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={EmploymentTypeDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Employment type"
+            fieldType="radio-input"
+            items={EmploymentTypeDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
 
-          <FormField
+          <CommonFormField
             control={form.control}
             name="job_title"
-            render={({ field }) => (
-              <FormItem className=" w-full space-y-2">
-                <FormLabel>Job title</FormLabel>
-                <FormControl>
-                  <RadioInput
-                    showTooltip
-                    items={JobTitleDetails}
-                    value={field.value}
-                    onChange={field.onChange}
-                    className=" grid-cols-3 gap-2"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Job title"
+            fieldType="radio-input"
+            items={JobTitleDetails}
+            disabled={isPending}
+            classname="w-full space-y-2"
           />
         </div>
         <div className=" mt-2">

@@ -4,36 +4,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type ChangeEvent, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
-// Import your sub-schema and its type
-
-// Import Shadcn UI Components
-import { FormError } from "@/components/common/form-message"; // Assuming this exists
-import MyImage from "@/components/common/myImage"; // Assuming this exists
+import { CommonFormField } from "@/components/common/form/common-form-field";
+import { FormError } from "@/components/common/form-message";
+import MyImage from "@/components/common/myImage";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { schoolLogoImage } from "@/lib/context/images"; // Default/placeholder logo
+import { schoolLogoImage } from "@/lib/context/images";
 import {
   type SchoolIdentityDto,
   SchoolIdentitySchema,
 } from "./schema/update-school-data-schema";
 
 interface SchoolIdentityFormProps {
-  // Pass initial data for this specific section if editing
   initialData?: Partial<SchoolIdentityDto>;
-  // Function to call when this step's data is valid
   onNext: (data: SchoolIdentityDto) => void;
-  // Optional: To disable form while parent is processing
   isParentPending?: boolean;
 }
 
@@ -43,8 +29,6 @@ export function SchoolIdentityForm({
   isParentPending = false,
 }: SchoolIdentityFormProps) {
   const [error, setError] = useState<string | null | undefined>("");
-  // Success message might be handled by the parent in a multi-step form
-  // const [success, setSuccess] = useState<string | null | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<SchoolIdentityDto>({
@@ -70,13 +54,13 @@ export function SchoolIdentityForm({
       if (!file.type.includes("image")) {
         return setError("Please select an image file for the logo.");
       }
-      const maxSizeInBytes = 2 * 1024 * 1024; // 2MB limit
+      const maxSizeInBytes = 2 * 1024 * 1024;
       if (file.size > maxSizeInBytes) {
         return setError("Logo image size should be less than 2MB.");
       }
       fileReader.onload = async (event) => {
         const imageDataUrl = event.target?.result?.toString() || "";
-        fieldChange(imageDataUrl); // Update form state
+        fieldChange(imageDataUrl);
       };
       fileReader.readAsDataURL(file);
     }
@@ -86,10 +70,7 @@ export function SchoolIdentityForm({
     setError("");
     console.log("School Identity Data:", values);
     startTransition(() => {
-      // In a multi-step scenario, pass data to parent and maybe navigate
       onNext(values);
-      // Example: If successful, parent navigates to next step
-      // setSuccess("Basic info saved."); // Or handled by parent
     });
   };
 
@@ -105,56 +86,32 @@ export function SchoolIdentityForm({
           Basic Information
         </h3>
 
-        {/* School Name */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>School Name</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="e.g., Green Hills Academy"
-                  {...field}
-                  value={field.value ?? ""}
-                  disabled={combinedPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="School Name"
+          placeholder="e.g., Green Hills Academy"
+          disabled={combinedPending}
         />
 
-        {/* School Username */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>School Username</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="e.g., greenhills"
-                  {...field}
-                  value={field.value ?? ""}
-                  disabled={combinedPending}
-                />
-              </FormControl>
-              <FormDescription>
-                Unique identifier (usually cannot be changed).
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="School Username"
+          placeholder="e.g., greenhills"
+          disabled={combinedPending}
+          description="Unique identifier (usually cannot be changed)."
         />
 
-        {/* Logo Upload */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="logo"
-          render={({ field }) => (
-            <FormItem className="mt-4 flex flex-col gap-2">
-              <FormLabel>School Logo</FormLabel>
+          label="School Logo"
+          fieldType="custom"
+          disabled={combinedPending}
+          description="Max 2MB. Recommended: square aspect ratio."
+          render={({ field, disabled }) => (
+            <div className="mt-4 flex flex-col gap-2">
               <div className="flex items-center gap-4">
                 <Label
                   htmlFor="logo-identity-upload"
@@ -167,17 +124,15 @@ export function SchoolIdentityForm({
                     alt="School Logo Preview"
                   />
                 </Label>
-                <FormControl>
-                  <Input
-                    id="logo-identity-upload" // Unique ID for this form instance
-                    disabled={combinedPending}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onClick={(e) => (e.currentTarget.value = "")} // Allow re-uploading same file
-                    onChange={(e) => handleLogoChange(e, field.onChange)}
-                  />
-                </FormControl>
+                <Input
+                  id="logo-identity-upload"
+                  disabled={disabled}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onClick={(e) => (e.currentTarget.value = "")}
+                  onChange={(e) => handleLogoChange(e, field.onChange)}
+                />
                 <Button
                   type="button"
                   variant="outline"
@@ -185,7 +140,7 @@ export function SchoolIdentityForm({
                   onClick={() =>
                     document.getElementById("logo-identity-upload")?.click()
                   }
-                  disabled={combinedPending}
+                  disabled={disabled}
                 >
                   {field.value ? "Change Logo" : "Upload Logo"}
                 </Button>
@@ -195,52 +150,33 @@ export function SchoolIdentityForm({
                     variant="ghost"
                     size="sm"
                     onClick={() => field.onChange(undefined)}
-                    disabled={combinedPending}
+                    disabled={disabled}
                     className="text-destructive hover:text-destructive"
                   >
                     Remove
                   </Button>
                 )}
               </div>
-              <FormDescription>
-                Max 2MB. Recommended: square aspect ratio.
-              </FormDescription>
-              <FormMessage />
-              {/* Display logo specific error */}
               {error && <FormError message={error} />}
-            </FormItem>
+            </div>
           )}
         />
 
-        {/* Description */}
-        <FormField
+        <CommonFormField
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <FormItem className="mt-4">
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Tell us a little bit about the school"
-                  className="min-h-[100px] resize-y"
-                  {...field}
-                  value={field.value ?? ""}
-                  disabled={combinedPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Description"
+          fieldType="textarea"
+          placeholder="Tell us a little bit about the school"
+          className="min-h-[100px] resize-y"
+          disabled={combinedPending}
         />
 
-        {/* Display general form error */}
         {error && <FormError message={error} />}
-        {/* <FormSuccess message={success} /> */}
 
         <div className="flex justify-end">
           <Button type="submit" disabled={combinedPending}>
-            {isPending ? "Saving..." : "Next: Classification"}{" "}
-            {/* Example text */}
+            {isPending ? "Saving..." : "Next: Classification"}
           </Button>
         </div>
       </form>
