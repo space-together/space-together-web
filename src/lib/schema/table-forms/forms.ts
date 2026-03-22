@@ -11,11 +11,11 @@ export const editStudentSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
   gender: z.enum(["Male", "Female"], {
-    required_error: "Gender is required",
+    message: "Gender is required",
   }),
   age: z.string().min(1, { message: "Age is required" }),
   class: z.enum(["L1", "L2", "L3"], {
-    required_error: "Class is required",
+    message: "Class is required",
   }),
   phone: z.string().min(1, { message: "Phone number is required" }),
 });

@@ -42,7 +42,7 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
   const { showToast } = useToast();
 
   const form = useForm<TForm>({
-    resolver: zodResolver(options.schema),
+    resolver: zodResolver(options.schema as any) as any,
     mode: "onChange",
     reValidateMode: "onChange",
     ...options.formOptions,
@@ -93,7 +93,7 @@ export function useZodFormSubmit<TForm extends FieldValues, TResult>(
 
         if (res.data) {
           setSuccess(options.onSuccessMessage);
-          options.onSuccess?.(res.data, values);
+          options.onSuccess?.(res.data as TResult, values);
 
           setTimeout(() => setSuccess(undefined), FORM.timeOut);
         } else {

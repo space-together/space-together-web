@@ -5,7 +5,7 @@ export const newTeacherFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
   gender: z.enum(["Male", "Female"], {
-    required_error: "Please select a gender",
+    message: "Please select a gender",
   }),
   experience: z.string().min(1, { message: "Experience is required" }),
   classes: z
@@ -23,7 +23,7 @@ export const editTeacherFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
   gender: z.enum(["Male", "Female"], {
-    required_error: "Please select a gender",
+    message: "Please select a gender",
   }),
   experience: z.string().min(1, { message: "Experience is required" }),
   classes: z
