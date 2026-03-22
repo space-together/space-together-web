@@ -1,12 +1,12 @@
 "use client"
 
-import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -102,16 +102,21 @@ function InputGroupButton({
   type = "button",
   variant = "ghost",
   size = "xs",
+  library = "shadcn",
   ...props
-}: Omit<React.ComponentProps<typeof Button>, "size"> &
-  VariantProps<typeof inputGroupButtonVariants>) {
+}: Omit<React.ComponentProps<typeof Button>, "size" | "library" | "variant"> &
+  VariantProps<typeof inputGroupButtonVariants> & {
+    library?: "shadcn" | "daisy"
+    variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost"
+  }) {
   return (
     <Button
       type={type}
       data-size={size}
+      library={library}
       variant={variant}
       className={cn(inputGroupButtonVariants({ size }), className)}
-      {...props}
+      {...(props as any)}
     />
   )
 }
@@ -163,8 +168,6 @@ function InputGroupTextarea({
 export {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
-  InputGroupText,
-  InputGroupInput,
-  InputGroupTextarea,
+  InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea
 }
+
